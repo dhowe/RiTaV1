@@ -1,0 +1,3 @@
+core.jar: 2.08b
+junit.jar: 4.10
+json.jar: ???
