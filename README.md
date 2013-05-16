@@ -23,6 +23,6 @@ Can I contribute?
 --------
 Please! We are looking for more coders to help out... Just press *Fork* at the top of this github page and get started. 
 
-If you don't feel like coding but still want to contribute, please join the discussion on the issuetracker and ritajs-dev group.
+If you don't feel like coding but still want to contribute, please join the discussion on the issuetracker and rita-dev group.
 
 
