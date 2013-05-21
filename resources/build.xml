@@ -1,27 +1,16 @@
 <project name="Build-RiTa" default="clean" basedir="../">
-    
-<!--	
-		Properties for your project should be set and modified in the  
-		build.properties file (located in the same folder as this build.xml file).
-		
-		
-		This file should not be edited, only if you know what you are doing.
-		if you have recommendations for improvements, please let andreas know 
-		at andi@sojamo.de
--->
 
+	<!-- ant -logger org.apache.tools.ant.listener.ProfileLogger -->
+	
 	<property file="./resources/build.properties" />
 	
-	<description>
-        ${ant.description}
-    </description>
+	<description>${ant.description}</description>
 
 	<property name="line" value="------------------------------------------------------------------------------------------------" />
 	
 	<condition property="is.normal">
 		<equals arg1="${project.compile}" arg2="normal" />
 	</condition>
-	
 	
 	<property name="project.jar.name" value="${project.name}.jar"/>
 	<property name="project.src" location="src"/>
@@ -44,14 +33,11 @@
 		</classpath>
 	</taskdef>
 
-
 	<path id="classpath">
 		<fileset dir="${classpath.local.location}" includes="${classpath.local.include}" />
 		<!--fileset dir="${classpath.libraries.location}" includes="**/*.jar" /-->
 		<fileset dir="${project.lib}" includes="**/*.jar" />
 	</path>		
-
-	
 
 	<!-- Create the time stamp -->
 	<tstamp> 
@@ -60,7 +46,7 @@
 	
 	<target name="init"> 
 		<echo>${line}
-	building a processing library, ${project.name} ${project.version}
+	building processing library, ${project.name} ${project.version}
 ${line}
 	src path	${project.src}
 	bin path 	${project.bin}
@@ -70,17 +56,12 @@ ${line}
 ${line}
 	</echo>
 	
-	
-	<mkdir dir="${project.bin}"/>
+			<mkdir dir="${project.bin}"/>
 	</target>
-	
-	
 	
 	<target name="library.init" depends="init"> 
 		<echo message="init library ..." />	
 	</target>
-	
-	
 	
 	<target name="library.run" depends="library.init"> 
 		<echo message="building library ..." />
@@ -88,6 +69,7 @@ ${line}
 		<antcall target="parse.source" />
 		<antcall target="compile" />
 	  	<antcall target="generate.jar"><param name="folder" value="library"/></antcall>
+		<antcall target="addJavaScript" />
 	  	<antcall target="generate.javadoc" />
 		<antcall target="copyToSketchbook"><param name="folder" value="libraries"/></antcall>
 		<antcall target="generate.distribution" />
@@ -97,6 +79,12 @@ ${line}
 	  	<delete dir="${project.tmp}"/>
 	</target>
 		
+	<target name="addJavaScript">
+		<echo message="Fetching latest ${project.name} javascript file." />
+		<get src="http://rednoise.org/rita/js/download/rita-latest.min.js"
+  			 dest="${project.tmp}/${project.name}/library/rita.js"/>
+	</target>
+	
 	
 	<target name="copyToSketchbook">
 		<echo message="Copying files to the ${folder} folder in your sketchbook." />
@@ -147,7 +135,6 @@ ${line}
 	  	</copy>
 	</target>
 	
-	
 	<target name="parse.source" if="is.normal">
 		<path id="src.contents"><fileset dir="${project.tmp}/${project.name}/src" includes="**/*.java" /></path>
 		<property name="src.list" refid="src.contents" />
@@ -162,14 +149,10 @@ ${line}
 		<mkdir dir="${project.dist.version}/${project.name}" />
 		<move file="${project.tmp}/${project.name}" toDir="${project.dist.version}" />
 	</target>
-
-	
 	
 	<target name="generate.javadoc" if="is.normal">
-	  	
-	  	<!-- create the java reference of the library -->
-	  	
-	  	<!-- MODIFIED BY DCH TO USE WITH SPECIFIC FILES AND EXCLUDE DOCLET -->
+
+	  	<!-- MODIFIED BY DCH TO USE WITH SPECIFIC FILES AND EXCLUDE-DOCLET -->
 	  	
 		<javadoc bottom="processing library ${project.name} by ${author.name}. ${project.copyright}"
 		 
@@ -178,25 +161,22 @@ ${line}
 				stylesheetfile="resources/stylesheet.css" 
 				doctitle="Javadocs: ${project.name}" 
 				windowtitle="Javadocs: ${project.name}"
-				public="true" version="false" verbose="false"
-				>
+				public="true" version="false" verbose="false">
 							
  			<link href="${javadoc.java.href}" />
 			<link href="${javadoc.processing.href}" />
 			<taglet name="ExampleTaglet" path="resources/code" />
-			<!--taglet name="ExcludeTaglet" path="resources/code" /-->
-			<doclet name="ExcludeDoclet" path="resources/code" >
+			<!--doclet name="ExcludeDoclet" path="resources/code" >
                <param name="-output" value="${project.tmp}/${project.name}/reference"/>
-           </doclet>
- 			<fileset dir="${project.tmp}/${project.name}/src/rita" defaultexcludes="yes">
-				<!-- add packages to be added to reference. -->
-				<include name="**/*.class"/>
-				<include name="**/*.java"/>
-				<include name="**/*.pde"/>
+            </doclet-->
+ 			<fileset dir="${project.tmp}/${project.name}/src/" defaultexcludes="yes">
+				<!-- add packages to be added to reference. src or src/rita? -->
+				<include name="test/*.java"/>
+				<include name="rita/**/*.java"/>
+				<include name="rita/**/*.pde"/>
 			</fileset>
 	 	</javadoc>
 	</target>
-	
 	
 	<target name="generate.web" if="is.normal">
 		
@@ -351,11 +331,9 @@ ${line}
 	  	  			replace="&lt;li&gt;&lt;a href=&quot;examples/${exampleDir}/${exampleDir}.pde&quot;&gt;${exampleDir}&lt;/a&gt;&lt;/li&gt; \1"
 	  	  			flags="g" />
 	</target>
-	
-	
-	
+
 	<target name="clean" depends="library.run">
-		<!-- <delete dir="${project.bin}"/> -->
+		<delete dir="${project.bin}"/>
 		<delete dir="${project.tmp}"/>
 		<echo>
 		
