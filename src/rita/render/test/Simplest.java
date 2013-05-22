@@ -13,7 +13,7 @@ public class Simplest extends PApplet {
 
 		// create a RiText, set its color, and draw it
 		RiText rt = new RiText(this, "SIMPLE");
-		rt.color(200,100,0).draw();
+		rt.fill(200,100,0).draw();
 
 		line(rt.x, 0, rt.x, height);
 		line(0, rt.y, width, rt.y);

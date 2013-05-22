@@ -1,17 +1,13 @@
 package rita.support;
 
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.*;
-import java.util.regex.Pattern;
 
 import org.json.*;
 
 import rita.RiTa;
 import rita.RiTaException;
 
-public class GoogleApi extends GoogleDirect implements Constants
+public class GoogleApi extends GoogleDirect
 {
   protected String apiKey, cxKey;
 

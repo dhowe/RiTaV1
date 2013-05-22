@@ -34,7 +34,7 @@ public class CreateLines extends PApplet {
 		RiText.disposeAll();
 		RiText[] rts = RiText.createLines(this, txt, x, y, w, h);
 		for (int i = 0; i < rts.length; i++)
-			rts[i].color(RiText.randomColor());
+			rts[i].fill(RiText.randomColor());
 	}
 
 	 public void mousePressed() {

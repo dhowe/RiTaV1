@@ -3,8 +3,6 @@ package rita;
 import java.util.List;
 import java.util.Map;
 
-import processing.core.PFont;
-
 import rita.support.Constants;
 
 public interface RiTextIF extends Constants
@@ -57,9 +55,12 @@ public interface RiTextIF extends Constants
   public RiTextIF scale(float x, float y, float z);
   public float[] scale(); 
   
-  public RiTextIF color(float r, float g, float b, float a);
-  public RiTextIF color(float[] color);
-  public float[] color(); 
+  public RiTextIF fill(float r, float g, float b, float a);
+  public RiTextIF fill(float r, float g, float b);
+  public RiTextIF fill(float g, float a);
+  public RiTextIF fill(float g);
+  public RiTextIF fill(float[] color);
+  public float[] fill(); 
   
   public RiTextIF text(String s); 
   public String text(); 
@@ -136,7 +137,6 @@ public interface RiTextIF extends Constants
   public float[] boundingBoxStroke();
   public RiTextIF boundingBoxFill(float[] bbf);
   public RiTextIF boundingBoxStroke(float[] bbs);
-  public RiTextIF fill(float[] values);
   public RiTextIF scale(float[] values);
   public RiTextIF rotateZ(float f);
   public float x();

@@ -1,12 +1,10 @@
 package rita.render.test;
 
 import processing.core.PApplet;
-import processing.core.PFont;
 import rita.*;
 
 public class GrammarHaiku extends PApplet
 {
-
   String haikuGrammar = 
     "{\"<start>\": \"<5-line> % <7-line> % <5-line>\","
     + "\"<5-line>\": \"<1> <4> |<1> <3> <1> |<1> <1> <3> | <1> <2> <2> | <1> <2> <1> <1> | <1> <1> <2> <1> | <1> <1> <1> <2> | <1> <1> <1> <1> <1> | <2> <3> | <2> <2> <1> | <2> <1> <2> | <2> <1> <1> <1> | <3> <2> | <3> <1> <1> | <4> <1> | <5>\","
@@ -25,7 +23,7 @@ public class GrammarHaiku extends PApplet
     RiTa.p5Compatible(true);
     size(650, 200);
 
-    RiText.defaultFont("Times", 30);
+    RiText.defaultFont("Georgia", 30);
     RiText.defaults.alignment = CENTER;
 
     rts[0] = new RiText(this, "click to", width / 2, 75);

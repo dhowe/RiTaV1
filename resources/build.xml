@@ -14,6 +14,7 @@
 	
 	<property name="project.jar.name" value="${project.name}.jar"/>
 	<property name="project.src" location="src"/>
+	<property name="project.js" location="../../javascript-workspace/RiTaLibraryJS/"/>
 	<property name="project.tmp" location="tmp"/>
 	<property name="project.web" location="web"/>
 	<property name="project.data" location="data"/>
@@ -69,8 +70,8 @@ ${line}
 		<antcall target="parse.source" />
 		<antcall target="compile" />
 	  	<antcall target="generate.jar"><param name="folder" value="library"/></antcall>
-		<antcall target="addJavaScript" />
-	  	<antcall target="generate.javadoc" />
+		<!--antcall target="getJavaScript" /-->
+	  	<!--antcall target="generate.javadoc" /-->
 		<antcall target="copyToSketchbook"><param name="folder" value="libraries"/></antcall>
 		<antcall target="generate.distribution" />
 		<antcall target="generate.install.library" />
@@ -79,10 +80,13 @@ ${line}
 	  	<delete dir="${project.tmp}"/>
 	</target>
 		
-	<target name="addJavaScript">
+	<!--get src="http://rednoise.org/rita/js/download/rita-latest.min.js"-->
+
+	<target name="getJavaScript">
 		<echo message="Fetching latest ${project.name} javascript file." />
-		<get src="http://rednoise.org/rita/js/download/rita-latest.min.js"
-  			 dest="${project.tmp}/${project.name}/library/rita.js"/>
+		<get src="http://rednoise.org/rita/js/download/rita-latest.js"
+  			 dest="${project.tmp}/${project.name}/library/rita.js"
+			  verbose="true"/>
 	</target>
 	
 	
@@ -92,20 +96,24 @@ ${line}
 		<delete dir="${sketchbook.location}/${folder}/${project.name}" />
   	  	<mkdir dir="${sketchbook.location}/${folder}/${project.name}" />
   		<copy todir="${sketchbook.location}/${folder}/${project.name}">
-  			<fileset dir="${project.tmp}/${project.name}"/>
+  			<fileset dir="${project.tmp}/${project.name}" />
   		</copy> 
 	</target>
 	
+	<!--excludes="${project.tmp}/${project.name}/src/misc" for javac task-->
 	
 	<target name="compile">
-		<javac srcdir="${project.tmp}/${project.name}/src" destdir="${project.bin}" source="${java.target.version}" target="${java.target.version}">
+		<javac srcdir="${project.tmp}/${project.name}/src" 
+			destdir="${project.bin}" 
+			source="${java.target.version}" 
+			target="${java.target.version}">
 			<classpath>
 				<path refid="classpath"/>
 			</classpath>
 		</javac>
-		<copy todir="${project.bin.data}">
+		<!--copy todir="${project.bin.data}">
 			<fileset dir="${project.data}" excludes="README" />
-		</copy>
+		</copy-->
 	</target>
 	
 	

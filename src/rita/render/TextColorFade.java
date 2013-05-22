@@ -13,7 +13,7 @@ public class TextColorFade extends InterpolatingBehavior
     
     super(rt, startTime, duration);
     this.interpolater = new RiInterpolater4D
-      (rt.color(), fillColorArray(colors), toOffsetMs(startTime), toMs(duration));
+      (rt.fill(), fillColorArray(colors), toOffsetMs(startTime), toMs(duration));
   }
 
   float[] fillColorArray(float[] colors)
@@ -45,14 +45,14 @@ public class TextColorFade extends InterpolatingBehavior
     return full;
   }
 
-  public void getStartValueFromParent(RiTextIF parent, Interpolater interpolater) {
+  public void getStartValueFromParent(RiTextIF parent, Interpolater interp) {
     
-    interpolater.setStart(parent.color());
+    interp.setStart(parent.fill());
   }  
   
-  public void updateParentValues(RiTextIF rt, float[] values) {
+  public void updateParentValues(RiTextIF r, float[] values) {
     
-     rt.fill(values);
+     r.fill(values);
   }
 
 }// end

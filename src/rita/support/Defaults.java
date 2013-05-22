@@ -26,27 +26,4 @@ public class Defaults
 
   public static PFont font;
   
-  public void color(float r, float g, float b, float alpha)
-  {
-    rgba[0] = r;
-    rgba[1] = g;
-    rgba[2] = b;
-    rgba[3] = alpha;
-  }
-
-  public void color(float gray)
-  {
-    color(gray, gray, gray, 255);
-  }
-
-  public void color(float gray, float alpha)
-  {
-    color(gray, gray, gray, alpha);
-  }
-
-  public void color(float r, float g, float b)
-  {
-    color(r, g, b, 255);
-  }
-  
 }

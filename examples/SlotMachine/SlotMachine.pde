@@ -1,16 +1,11 @@
-package rita.render.test;
 
-import processing.core.PApplet;
-import processing.core.PFont;
 import rita.*;
-
-public class SlotMachine extends PApplet {
 
 	int clicks = 0;
 	RiText[] slots = new RiText[3];
 	String[] items = { "cherry", "$$$$", "lemon", "seven", "rings" };
 
-	public void setup() {
+	void setup() {
 
 		size(400, 100);
 
@@ -28,15 +23,15 @@ public class SlotMachine extends PApplet {
 		RiText.timer(this, .3f);
 	}
 
-	public void mouseClicked() {
+	void mouseClicked() {
 		if (++clicks > 3) clicks = 0; // count clicks
 	}
 
-	public void onRiTaEvent(RiTaEvent re) {
+	void onRiTaEvent(RiTaEvent re) {
 
 		// set them all to red
 		for (int i = 0; i < slots.length; i++)
-			slots[i].fill(255, 0, 0);
+			slots[i].color(255, 0, 0);
 
 		// lets some keep spinning
 		if (clicks < 1)
@@ -47,18 +42,17 @@ public class SlotMachine extends PApplet {
 			randomItem(slots[2]);
 	}
 
-	public void randomItem(RiText rt) {
+	void randomItem(RiText rt) {
 	  
 		// pick a random string & set it to black
 		int randIdx = (int) Math.floor(random(slots.length));
 		rt.text(items[randIdx]);
-		rt.fill(0);
+		rt.color(0);
 	}
 
-	public void draw() {
+	void draw() {
 	  
 		background(221, 221, 204);
 		RiText.drawAll();
 	}
 
-}
