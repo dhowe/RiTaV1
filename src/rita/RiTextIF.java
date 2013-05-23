@@ -67,8 +67,8 @@ public interface RiTextIF extends Constants
    
   public boolean isVisible();
   
-  public RiTextIF showBoundingBox(boolean b); 
-  public boolean showBoundingBox(); 
+  public RiTextIF showBounds(boolean b); 
+  public boolean showBounds(); 
   
   public RiTextIF motionType(int type); 
   public int motionType();

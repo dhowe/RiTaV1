@@ -26,7 +26,7 @@ public class GetPicked extends PApplet
     for (int i = 0; picks.length>0 && i < RiText.instances.size(); i++)
     {
       RiText rt = RiText.instances.get(i);
-      rt.showBoundingBox(rt == picks[0]);
+      rt.showBounds(rt == picks[0]);
     }
   }
 }

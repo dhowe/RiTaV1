@@ -12,7 +12,7 @@ public class Alignments extends PApplet {
 	  
 		size(400, 400);
 
-    RiText.defaults.boundingBoxVisible = true;
+    RiText.defaults.showBounds = true;
 		RiText.defaultFont(createFont("Times", 64));
 
 		rt = new RiText(this,  "Left", 200,  70);

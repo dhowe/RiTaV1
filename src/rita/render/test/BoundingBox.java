@@ -12,7 +12,7 @@ public class BoundingBox extends PApplet {
 
 		size(600, 700);
 
-		RiText.defaults.boundingBoxVisible = true;
+		RiText.defaults.showBounds = true;
 
 		PFont pf = createFont("Arial", 36);
 
@@ -30,7 +30,7 @@ public class BoundingBox extends PApplet {
 		rt5 = new RiText(this, "Boundage", 180, 300);
 		rt5.font(createFont("Times", 64));
 
-		RiText.defaults.boundingBoxVisible = false;
+		RiText.defaults.showBounds = false;
 		
 		RiText.defaultFont("Georgia", 50);
 		

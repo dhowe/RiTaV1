@@ -195,6 +195,24 @@ public class PageLayout implements Constants
       words.push(tmp[i]);
   }
   
+  public String remainingText()
+  {
+    return stackToString(words);
+  }
+
+  private String stackToString(Stack wrds)
+  {
+    if (wrds == null) return "";
+    StringBuilder sb = new StringBuilder();
+    while (!wrds.isEmpty())
+    {
+      if (sb.length() > 0)
+        sb.append(SP);
+      sb.append(wrds.pop());
+    }
+    return sb.toString();
+  }
+  
   RiTextIF newRiTextLine(StringBuilder sb, PFont pf, float xPos, float nextY)
   {
     String s = sb.toString();

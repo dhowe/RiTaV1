@@ -20,7 +20,7 @@ public class PickAndDrag extends PApplet
 	    background(255);
 	    for ( int i = 0; i < RiText.instances.size(); i++) {
 	        RiText rt = RiText.instances.get(i);
-	        rt.showBoundingBox(current == rt);
+	        rt.showBounds(current == rt);
 	        rt.draw();
 	    }
   }

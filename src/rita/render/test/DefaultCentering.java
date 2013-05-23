@@ -11,7 +11,7 @@ public class DefaultCentering extends PApplet {
 	public void setup() {
 
 		size(600, 400);
-    RiText.defaults.boundingBoxVisible = true;
+    RiText.defaults.showBounds = true;
 
 		rt1 = new RiText(this, "This text should be auto-centered");
 		tw = rt1.textWidth();

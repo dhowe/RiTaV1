@@ -15,7 +15,7 @@ public class CreateLetters extends PApplet {
     RiText.defaults.paragraphIndent = 40;
     RiText.defaults.paragraphLeading = 5;
     RiText.defaults.indentFirstParagraph = true;
-    RiText.defaults.boundingBoxVisible = true;
+    RiText.defaults.showBounds = true;
 		RiText.defaultFont("Batang", 16);
 		txt += "<p/>" + txt; // add a paragraph
 		mouseReleased();

@@ -19,10 +19,10 @@ public class Defaults
   public static float paragraphIndent = 20;
   public static float paragraphLeading =  0;
   public static boolean indentFirstParagraph = false;
-  
-  public static float[] boundingBoxStroke = { 0,0,0,255 };
-  public static boolean boundingBoxVisible = false;
-  public static float boundingBoxStrokeWeight = 1;
+
+  public static boolean showBounds = false;
+  public static float[] boundingStroke = { 0,0,0,255 };
+  public static float boundingStrokeWeight = 1;
 
   public static PFont font;
   

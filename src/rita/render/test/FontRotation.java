@@ -15,7 +15,7 @@ public class FontRotation extends PApplet {
     size(400, 200);
     RiText.defaultFont(createFont("Times", 80));
     rt = new RiText(this, "ingSpin");
-    rt.showBoundingBox(true);
+    rt.showBounds(true);
     doRotate();
   }
 

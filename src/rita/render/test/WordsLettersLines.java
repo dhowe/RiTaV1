@@ -15,7 +15,7 @@ public class WordsLettersLines extends PApplet {
 		size(400, 200);
 
 		RiText.defaultFont("Georgia", 32);
-    RiText.defaults.boundingBoxVisible = true;
+    RiText.defaults.showBounds = true;
 
 		line1 = new RiText(this, txt, 64, 100); // lines
 

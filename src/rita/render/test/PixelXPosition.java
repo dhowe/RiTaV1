@@ -14,7 +14,7 @@ public class PixelXPosition extends PApplet {
 	  
 	  size(400, 100);
 	  
-    RiText.defaults.boundingBoxVisible = true;
+    RiText.defaults.showBounds = true;
 		RiText.defaultFont("arial", 30);
 
 		line1 = new RiText(this, txt, 64, 50);

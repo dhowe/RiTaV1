@@ -247,4 +247,15 @@ public class RiGrammar implements Constants
     }
     return E;
   }
+  
+  public static void main(String[] args)
+  {
+    RiGrammar rg = new RiGrammar();
+    rg.setGrammarFromFile("grammar.g");
+    for (int i = 0; i < 5; i++)
+    {
+      System.out.println(i+") "+rg.expand());      
+    }
+    
+  }
 }
