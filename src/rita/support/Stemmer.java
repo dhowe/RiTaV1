@@ -3,6 +3,7 @@ package rita.support;
 import java.text.DecimalFormat;
 
 import rita.RiTa;
+import static rita.support.Constants.StemmerType.*;
 import rita.RiTaException;
 
 // TODO: test with word-list (+stems) from here:
@@ -34,48 +35,63 @@ public class Stemmer implements StemmerIF, Constants
 {
   private StemmerIF delegate;
   
-  private static Stemmer lancaster,porter,lovins,pling;
+  private static Stemmer lancaster, porter, pling;
 
   public static Stemmer getInstance()
   {
-    return getInstance(PORTER_STEMMER); // default
+    return getInstance(PORTER); // default
+  }
+  
+  public static Stemmer getInstance(String theType)
+  {
+    StemmerType result = Porter;
+    for (StemmerType st : StemmerType.values())
+    {
+      if (st.name().equals(theType))
+        result = st;
+    }
+    return getInstance(result);
+  }
+  
+  public static Stemmer getInstance(StemmerType type)
+  {
+    return getInstance(type.ordinal());
   }
   
   public static Stemmer getInstance(int stemmerType)
   {
-    switch (stemmerType) {
-      case PLING_STEMMER:
+    if (stemmerType == Pling.ordinal()) {
         if (pling == null) 
           pling = new Stemmer(stemmerType);
         return pling;
-      case PORTER_STEMMER:
+    }
+    else if (stemmerType == Porter.ordinal()) {
         if (porter == null) 
           porter = new Stemmer(stemmerType);
         return porter;
-      case LANCASTER_STEMMER:
+    }
+    else if (stemmerType == Lancaster.ordinal()) {
         if (lancaster == null) 
           lancaster = new Stemmer(stemmerType);
         return lancaster;
-      default: 
-        throw new RiTaException("Unexpected stemmer type: "+stemmerType);
     }
+    else 
+        throw new RiTaException("Unexpected stemmer type: "+stemmerType);
   }
   
   public Stemmer(int stemmerType)
   {
-    switch (stemmerType) {
-      case PLING_STEMMER:
-        delegate = new PlingStemmer();
-        break;
-      case PORTER_STEMMER:
-        delegate = new PorterStemmer();
-        break;
-      case LANCASTER_STEMMER:
-        delegate = new LancasterStemmer();
-        break;
-      default: 
-        throw new RiTaException("Unexpected stemmer type: "+stemmerType);
+    if (stemmerType == Pling.ordinal()) {
+      delegate = new PlingStemmer();
     }
+    else if (stemmerType == Porter.ordinal()) {
+      delegate = new PorterStemmer();
+    }
+    else if (stemmerType == Lancaster.ordinal()) {
+      delegate = new LancasterStemmer();
+    }
+    else 
+      throw new RiTaException("Unexpected stemmer type: "+stemmerType);
   }
     
   /** 
@@ -204,19 +220,19 @@ public class Stemmer implements StemmerIF, Constants
     
     Stemmer stemmer = null;
     
-    String[] data = RiTa.loadStrings("diffs.txt");
+    String[] data = RiTa.loadStrings("diffs.txt"); // missing!
     System.out.println("Loaded: "+data.length);
     
      // ------------------------------------------------
-    stemmer = new Stemmer(PORTER_STEMMER);
+    stemmer = new Stemmer(Porter.ordinal());
     System.err.println("\nTesting stemmer-class="+stemmer.getStemmerImpl());
     System.err.println(stemmer.getStemmerImpl()+" result="+DF.format(runTests(stemmer, data)*100)+"%");
     // ------------------------------------------------
-    stemmer = new Stemmer(PLING_STEMMER);
+    stemmer = new Stemmer(Pling.ordinal());
     System.err.println("\nTesting stemmer-class="+stemmer.getStemmerImpl());
     System.err.println(stemmer.getStemmerImpl()+" result="+DF.format(runTests(stemmer, data)*100)+"%");
     // ------------------------------------------------
-    stemmer = new Stemmer(LANCASTER_STEMMER);
+    stemmer = new Stemmer(Lancaster.ordinal());
     System.err.println("\nTesting stemmer-class="+stemmer.getStemmerImpl());
     System.err.println(stemmer.getStemmerImpl()+" result="+DF.format(runTests(stemmer, data)*100)+"%");
     // ------------------------------------------------

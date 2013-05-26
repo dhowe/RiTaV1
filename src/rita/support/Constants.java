@@ -95,14 +95,11 @@ public interface Constants extends EnglishConstants
   
   // ======== STEMMING CONSTANTS ===================
   
-  /**  Type constant for Pling stemmer     */
-  int PLING_STEMMER = 1;
-  
-  /**  Type constant for Porter stemmer    */
-  int PORTER_STEMMER = 2;
-  
-  /** Type constant for Lancaster stemmer  */
-  int LANCASTER_STEMMER = 3;
+  enum StemmerType {  Pling, Porter, Lancaster };
+  String PLING = StemmerType.Pling.name();
+  String PORTER = StemmerType.Porter.name();
+  String LANCASTER = StemmerType.Lancaster.name();
+
   
  // ======== ANIMATION CONSTANTS ===================
   
