@@ -146,7 +146,7 @@ public class PosTagger implements Constants
    *  <pre>    "The/dt doctor/nn treated/vbd dogs/nns"</pre>
    */
   public static String inlineTags(String[] tokenArray, String[] tagArray) {
-    return inlineTags(tokenArray, tagArray, "/");   // default delim
+    return inlineTags(tokenArray, tagArray, SLASH);   // default delim
   }    
   
   /**
@@ -157,10 +157,10 @@ public class PosTagger implements Constants
    */
   public static String[] parseTagString(String wordsAndTags) {
     List tags = new ArrayList();
-    String[] data = wordsAndTags.split(" ");
+    String[] data = wordsAndTags.split(SP);
     for (int i = 0; i < data.length; i++)
     {
-      String[] tmp = data[i].split("/");
+      String[] tmp = data[i].split(SLASH);
       if (tmp == null || tmp.length != 2)
         throw new RiTaException("Bad tag format: "+data[i]);
       tags.add(tmp[1]);

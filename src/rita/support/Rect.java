@@ -10,6 +10,11 @@ public class Rect { // TODO: move inside RiText ??
   {
     this.set(x,y,w,h);
   }
+  
+  public Rect(double x, double y, double w, double h)
+  {
+    this((float)x,(float)y,(float)w,(float)h);
+  }
 
   public boolean contains(float mx, float my)
   {

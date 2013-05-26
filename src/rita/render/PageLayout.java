@@ -44,18 +44,38 @@ public class PageLayout implements Constants
     indentFirstParagraph = RiText.defaults.indentFirstParagraph;
   }
 
+  public RiTextIF[] layoutFromFile(String fileName)
+  {
+    PFont font = RiText.defaultFont(_pApplet);
+    return layoutFromFile(font, fileName, font.getSize() * RiText.defaults.leadingFactor);
+  }
+  
+  
+  
+  
+  public RiTextIF[] layoutFromFile(String fileName, float leading)
+  {
+    return layoutFromFile(RiText.defaultFont(_pApplet), fileName, leading);
+  }
+  
   /**
    * Creates an array of RiTextIF, one per line from the text loaded from the
    * specified 'fileName', and lays it out on the page according to the specified
    * font.
    */
-  public void layoutFromFile(PFont pf, String fileName, float leading)
+  public RiTextIF[] layoutFromFile(PFont pf, String fileName, float leading)
   {
     String txt = RiTa.loadString(_pApplet, fileName);
-    layout(pf, txt.replaceAll("[\\r\\n]", " "), leading);
+    return layout(pf, txt.replaceAll("[\\r\\n]", " "), leading);
+  }
+  
+  public RiTextIF[] layout(String text)
+  {
+    PFont font = RiText.defaultFont(_pApplet);
+    return layout(font, text, font.getSize() * RiText.defaults.leadingFactor);
   }
 
-    /**
+  /**
    * Creates an array of RiTextIF, one per line from the input text
    * and lays it out on the page.
    */
@@ -72,36 +92,47 @@ public class PageLayout implements Constants
   {
     // System.out.println("RiPageLayout.layout("+text.length()+")");
 
-    if (showPageNumbers)
+    if (showPageNumbers) {
       footer(Integer.toString(pageNo));
+    }
 
-    if (text == null || text.length() == 0)
-      return RiText.EMPTY_ARRAY;
+    if (text != null && text.length() > 0) {
 
-    // remove any line breaks from the original
-    text = text.replaceAll("\n", SP);
-
-    // adds spaces around html tokens
-    text = text.replaceAll(" ?(<[^>]+>) ?", " $1 ");
-
-    this.words = new Stack();
-
-    addToStack(text.split(SP));
-    
-    this.lines = renderPage(pf, leading);
+      // remove any line breaks from the original
+      text = text.replaceAll("\n", SP);
+  
+      // adds spaces around html tokens
+      text = text.replaceAll(" ?(<[^>]+>) ?", " $1 ");
+  
+      this.words = new Stack();
+  
+      addToStack(text.split(SP));
+      
+      this.lines = renderPage(pf, leading);
+    }
+    else {
+      this.lines = RiText.EMPTY_ARRAY;
+    }
     
     return lines;
   }
 
   RiTextIF[] renderPage(PFont pf, float leading)
   {
-    //System.out.println("renderPage: font="+pf.getSize()+"/" + leading
-      //  + " pIndent="+paragraphIndent+" indent1st="+indentFirstParagraph);
-      // + " ascent="+ascent+" descent="+descent+" leading="+leading);
-    
+
     if (words.isEmpty()) return RiText.EMPTY_ARRAY;
     
+    if (pf == null && _pApplet != null)
+      pf = RiText.defaultFont(_pApplet);
+      
+    if (pf == null)
+      throw new RiTaException("Null font passed to PageLayout.renderPage()");
+    
+    if (leading <= 0)
+      leading = pf.getSize() * RiText.defaults.leadingFactor;
+    
     leading = (int) leading; // same as JS
+    
     float ascent = pf.ascent() * pf.getSize();
     float descent = pf.descent() * pf.getSize();
     float startX = textRectangle.x + 1;
@@ -110,11 +141,17 @@ public class PageLayout implements Constants
     float maxY = (textRectangle.y + textRectangle.h);
     boolean newParagraph = false, forceBreak = false, firstLine = true;
     
+    //System.out.println("renderPage: font="+pf.getSize()+"/" + leading
+      //+ " pIndent="+paragraphIndent+" indent1st="+indentFirstParagraph
+      //+ " ascent="+ascent+" descent="+descent+" leading="+leading);
+    
     List rlines = new ArrayList();
     StringBuilder sb = new StringBuilder();
 
     if (indentFirstParagraph) 
       startX += RiText.defaults.paragraphIndent;
+    
+    this._pApplet.textFont(pf);
         
     while (!words.isEmpty())
     {

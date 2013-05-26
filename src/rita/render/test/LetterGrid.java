@@ -10,7 +10,7 @@ public class LetterGrid extends PApplet
   {
     size(200, 200);
 
-    RiText.defaultColor(255);
+    RiText.defaultFill(255);
     RiText.defaults.alignment = CENTER;
     RiText.defaultFont("Arial", 36);
     

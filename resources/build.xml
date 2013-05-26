@@ -1,5 +1,7 @@
 <project name="Build-RiTa" default="clean" basedir="../">
 
+	<!-- remove debug lines from production compiled code -->
+	
 	<!-- ant -logger org.apache.tools.ant.listener.ProfileLogger -->
 	
 	<property file="./resources/build.properties" />
@@ -11,9 +13,10 @@
 	<condition property="is.normal">
 		<equals arg1="${project.compile}" arg2="normal" />
 	</condition>
-	
+
 	<property name="project.jar.name" value="${project.name}.jar"/>
 	<property name="project.src" location="src"/>
+	<property name="project.latest.jardir" location="latest-jar"/>
 	<property name="project.js" location="../../javascript-workspace/RiTaLibraryJS/"/>
 	<property name="project.tmp" location="tmp"/>
 	<property name="project.web" location="web"/>
@@ -68,7 +71,7 @@ ${line}
 		<echo message="building library ..." />
 		<antcall target="generate.structure"><param name="folder" value="library"/></antcall>
 		<antcall target="parse.source" />
-		<antcall target="compile" />
+		<antcall target="compile-debug" />
 	  	<antcall target="generate.jar"><param name="folder" value="library"/></antcall>
 		<!--antcall target="getJavaScript" /-->
 	  	<!--antcall target="generate.javadoc" /-->
@@ -77,7 +80,7 @@ ${line}
 		<antcall target="generate.install.library" />
 		<antcall target="generate.web" />
 	  	<antcall target="generate.zip" />	
-	  	<delete dir="${project.tmp}"/>
+	  	<!--delete dir="${project.tmp}"/-->
 	</target>
 		
 	<!--get src="http://rednoise.org/rita/js/download/rita-latest.min.js"-->
@@ -86,7 +89,7 @@ ${line}
 		<echo message="Fetching latest ${project.name} javascript file." />
 		<get src="http://rednoise.org/rita/js/download/rita-latest.js"
   			 dest="${project.tmp}/${project.name}/library/rita.js"
-			  verbose="true"/>
+			 verbose="true"/>
 	</target>
 	
 	
@@ -102,11 +105,12 @@ ${line}
 	
 	<!--excludes="${project.tmp}/${project.name}/src/misc" for javac task-->
 	
-	<target name="compile">
+	<target name="compile-debug">
 		<javac srcdir="${project.tmp}/${project.name}/src" 
 			destdir="${project.bin}" 
 			source="${java.target.version}" 
-			target="${java.target.version}">
+			target="${java.target.version}"
+			debug="true" debuglevel="lines, vars, and source">
 			<classpath>
 				<path refid="classpath"/>
 			</classpath>
@@ -115,12 +119,22 @@ ${line}
 			<fileset dir="${project.data}" excludes="README" />
 		</copy-->
 	</target>
-	
+		
+	<target name="compile-prod">
+		<javac srcdir="${project.tmp}/${project.name}/src" 
+			destdir="${project.bin}" 
+			source="${java.target.version}" 
+			target="${java.target.version}">
+			<classpath>
+				<path refid="classpath" />
+			</classpath>
+		</javac>
+	</target>
 	
 	<target name="generate.jar">
 		<jar jarfile="${project.tmp}/${project.name}/${folder}/${project.jar.name}" basedir="${project.bin}"/>
+  		<copy tofile="${project.latest.jardir}/${project.name}-${project.version}.jar" file="${project.tmp}/${project.name}/${folder}/${project.jar.name}"/>
 	</target>
-	
 	
 	<target name="generate.structure">
 		<delete dir="${project.tmp}" />
@@ -136,8 +150,14 @@ ${line}
   			</fileset>
 	  	</copy>
   		<copy todir="${project.tmp}/${project.name}/src">
-  			<fileset dir="${project.src}"/>
+  			<fileset dir="${project.src}">
+  				 <exclude name="**/data/**" />
+  			</fileset>
 	  	</copy>
+	  	<zip destfile="${project.latest.jardir}/${project.name}-${project.version}-src.zip"
+  	       basedir="${project.tmp}/${project.name}/src"
+  	       excludes="**/.DS_Store"
+		/>
 	  	<copy todir="${project.tmp}/${project.name}/${folder}">
   			<fileset dir="${project.lib}" excludes="README" />
 	  	</copy>
@@ -309,9 +329,6 @@ ${line}
 		<delete dir="${project.dist.version}/tmp" />
 	</target>
 	
-	
-	
-	
 	<target name="versionSourcefile">
 		<echo message="${file}" />
 		<replaceregexp file="${file}" match="##author##" replace="${author.name} ${author.url}" flags="g" />
@@ -321,7 +338,6 @@ ${line}
 		<replaceregexp file="${file}" match="##name##" replace="${project.name}" flags="g" />
 		<replaceregexp file="${file}" match="##version##" replace="${project.version}" flags="g" />
 	</target>
-	
 	
 	<!-- parsing the examples folder -->
 	<target name="processExamples">
