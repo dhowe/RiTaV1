@@ -10,7 +10,7 @@ fi
 
 USR="dhowe"
 ZIP_DIR="/Library/WebServer/Documents/rita/"
-ZIP_PATH="../library-template/distribution/RiTa-$1/download/"
+ZIP_PATH="../distribution/RiTa-$1/download"
 ZIP_FILE="RiTa-$1.zip"
 ZIP_TTS_FILE="RiTaTTS$1.zip"
 

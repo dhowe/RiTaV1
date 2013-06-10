@@ -3,6 +3,7 @@ package rita.render;
 import rita.RiTextIF;
 import rita.support.Interpolater;
 import rita.support.RiInterpolater3D;
+import static rita.support.Constants.EventType.*;
 
 public class TextMotion3D extends InterpolatingBehavior
 {
@@ -21,7 +22,7 @@ public class TextMotion3D extends InterpolatingBehavior
     this.interpolater = new RiInterpolater3D
       (rt.position(), targetXYZ, toOffsetMs(startOffset), (int)(duration*1000));  
     setMotionType(rt.motionType()); 
-    setType(MOVE_TO);
+    setType(MoveTo);
   }
 
   public void getStartValueFromParent(RiTextIF parent, Interpolater interpolater) {

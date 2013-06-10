@@ -147,9 +147,12 @@ public class MinEditDist
 
     // Step 1 ----------------------------------------------
     
-    if (src.length == 0) return target.length;
+    if ((src == null || src.length == 0) && (target == null || target.length == 0)) 
+      return -1; // no inputs
     
-    if (target.length == 0) return src.length;
+    if (src == null || src.length == 0) return target.length;
+    
+    if (target == null || target.length == 0) return src.length;
     
     matrix = new int[src.length + 1][target.length + 1];
 

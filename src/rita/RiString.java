@@ -52,9 +52,16 @@ public class RiString implements FeaturedIF, Constants
   public RiString analyze()
   {
     LetterToSound lts = LetterToSound.getInstance();
-    JSONLexiconImpl lex = JSONLexiconImpl.getInstance();
+    JSONLexicon lex = JSONLexicon.getInstance();
 
     String[] words = RiTa.tokenize(delegate.toLowerCase());
+    
+    boolean isA = false;
+    for (int i = 0; i < words.length; i++)
+    {
+      if (words[i].equals("a"))
+        isA = true;
+    }
     
     //System.out.println(RiTa.asList(words));
 
@@ -124,7 +131,7 @@ public class RiString implements FeaturedIF, Constants
     this.features.put(PHONEMES, phonemes.trim().replaceAll("\\s+", SP));
     this.features.put(SYLLABLES, syllables.trim().replaceAll("\\s+", SP));
     this.features.put(POS, RiTa.join(RiTa.getPosTags(this.delegate)));
-    
+        
     return this;
   }
 
@@ -139,10 +146,10 @@ public class RiString implements FeaturedIF, Constants
     this.features.put(TEXT, delegate);
   }
 
-  public char charAt(int charIdx)
+  public String charAt(int charIdx)
   {
     charIdx = Math.min(charIdx < 0  ? delegate.length() + charIdx : charIdx, length()-1);
-    return this.delegate.charAt(charIdx);
+    return Character.toString(this.delegate.charAt(charIdx));
   }
 
   public RiString concat(String cs)
@@ -241,11 +248,15 @@ public class RiString implements FeaturedIF, Constants
    * WordTokenizer & PosParser... 
    */
   public String[] pos(boolean useWordNetTags) {
-    // or just create a Phrase?
-    if (hasFeature(POS)) 
+    
+    if (hasFeature(POS)) {
+      System.out.println("Using cached feature: "+getFeature(POS)+" for "+text());
       return getFeature(POS).split(WORD_BOUNDARY);
+    }
+    
     String[] words = RiTa.tokenize(delegate.toString());
     String[] tag =  RiTa.getPosTags(words);
+    
     for (int i = 0; i < tag.length; i++) {
       if (tag[i] == null)// || tag[i].equals(Pos.UNKNOWN.getTag()));
         throw new RiTaException("Unable to parse pos for word: " + words[i]);
@@ -856,15 +867,14 @@ public class RiString implements FeaturedIF, Constants
     RiString ri = new RiString("The laggin dragon");
     ri.analyze();
     System.out.println(ri.features());
+    System.out.println(ri.pos());
     
   }
   
   public static void dispose(RiString rs)
   {
-    if (rs != null) {
-      if (rs.features!=null)
+    if (rs != null && rs.features != null)
         rs.features.clear();
-    }
   }
 
 }// end

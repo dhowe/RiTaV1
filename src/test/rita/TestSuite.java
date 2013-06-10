@@ -11,10 +11,10 @@ import rita.render.test.RiTextTest;
 @RunWith(Suite.class)
 
 @Suite.SuiteClasses( {
-  RiTaTest.class,
-  RiLexiconTest.class, 
+  RiLexiconTest.class,
   RiStringTest.class,
   RiTextTest.class,
+  RiTaTest.class,
   RiMarkovTest.class,
   RiGrammarTest.class,
   RiTaEventTest.class, 

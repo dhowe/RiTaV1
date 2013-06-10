@@ -3,6 +3,7 @@ package rita.render;
 import rita.*;
 import rita.support.Interpolater;
 import rita.support.RiInterpolater2D;
+import static rita.support.Constants.EventType.*;
 
 public class TextMotion2D extends InterpolatingBehavior 
 {      
@@ -14,17 +15,7 @@ public class TextMotion2D extends InterpolatingBehavior
   { 
     if (duration <= 0 || completed || isPaused())  
       return;
-    
-    /*// wiggle crap (tmp)
-    if (wwyw > 0 && isWaiting()) {
-      if (Math.random() < .333) {
-        rt.x += Math.random() > .5 ? -.5 : .5;
-        rt.y += .5;
-        interpolater.setStart(rt.position());
-      }
-      return;
-    }
-    */
+
     if (interpolater.update()) // true if running 
     {
       if (!initd) {
@@ -52,7 +43,7 @@ public class TextMotion2D extends InterpolatingBehavior
     this.interpolater = new RiInterpolater2D
       (rt.position(), targetXY, toOffsetMs(startOffset), (int)(duration*1000));  
     setMotionType(rt.motionType()); 
-    setType(MOVE_TO);
+    setType(MoveTo);
   }
       
   public void updateParentValues(RiTextIF rxt, float[] values) {

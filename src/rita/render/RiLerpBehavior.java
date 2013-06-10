@@ -2,6 +2,7 @@ package rita.render;
 
 import rita.*;
 import rita.support.*;
+import static rita.support.Constants.EventType.*;
 
 public class RiLerpBehavior extends InterpolatingBehavior
 {
@@ -13,7 +14,7 @@ public class RiLerpBehavior extends InterpolatingBehavior
   
   public RiLerpBehavior(RiTextIF rt, float start, float target, float delay, float duration) {
     super(rt, delay, duration);
-    setType(Constants.LERP);
+    setType(Lerp);
     interpolater = new RiInterpolater(start, target, toOffsetMs(delay), toMs(duration));
     repeating = false;
   }

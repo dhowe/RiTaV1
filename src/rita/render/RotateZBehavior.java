@@ -3,6 +3,7 @@ package rita.render;
 import rita.RiTa;
 import rita.RiTextIF;
 import rita.support.*;
+import static rita.support.Constants.EventType.*;
 
 public class RotateZBehavior extends InterpolatingBehavior
 {
@@ -13,7 +14,7 @@ public class RotateZBehavior extends InterpolatingBehavior
   public RotateZBehavior(RiTextIF rt, float rotateZ, float startTimeOffset, float duration) {
 
     super(rt, startTimeOffset, duration); 
-    this.setType(Constants.ROTATE_TO);
+    this.setType(RotateTo);
     this.interpolater = new RiInterpolater
       (rt.rotateZ(), rotateZ, toOffsetMs(startOffset), (int)(duration*1000));  
   }

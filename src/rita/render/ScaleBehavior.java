@@ -2,6 +2,7 @@ package rita.render;
 
 import rita.RiTextIF;
 import rita.support.*;
+import static rita.support.Constants.EventType.*;
 
 public class ScaleBehavior extends InterpolatingBehavior
 {
@@ -21,7 +22,7 @@ public class ScaleBehavior extends InterpolatingBehavior
   public ScaleBehavior(RiTextIF rt, float[] scaleXYZ, float startTimeOffset, float duration) 
   {
     super(rt, startTimeOffset, duration); 
-    this.setType(Constants.SCALE_TO);
+    this.setType(ScaleTo);
     this.interpolater = new RiInterpolater3D
       (rt.scale(), scaleXYZ, toOffsetMs(startOffset), (int)(duration*1000));  
   }

@@ -73,7 +73,7 @@ ${line}
 		<antcall target="parse.source" />
 		<antcall target="compile-debug" />
 	  	<antcall target="generate.jar"><param name="folder" value="library"/></antcall>
-		<!--antcall target="getJavaScript" /-->
+		<antcall target="getJavaScript" />
 	  	<!--antcall target="generate.javadoc" /-->
 		<antcall target="copyToSketchbook"><param name="folder" value="libraries"/></antcall>
 		<antcall target="generate.distribution" />

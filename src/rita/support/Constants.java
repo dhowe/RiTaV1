@@ -8,19 +8,37 @@ public interface Constants extends EnglishConstants
 
   // ==== RiTaEvent ============ 
   
-  // TODO: more granular??: MOVE_TO_STARTED, MOVE_TO_COMPLETE, TIMER_START, TIMER_COMPLETE, TIMER_TICK
 
-  int UNKNOWN = -1;
-  int MOVE_TO = 1;
-  int COLOR_TO = 2;
-  int FADE_IN = 3;
-  int FADE_OUT = 4;
-  int TEXT_TO = 5; 
-  int TIMER = 6;
-  int SCALE_TO = 7;
-  int ROTATE_TO = 8;
-  int TEXT_ENTERED = 9;
-  int LERP = 10;
+  enum EventType {  
+    MoveTo,
+    ColorTo,
+    FadeIn,
+    FadeOut,
+    TextTo, 
+    Timer,
+    ScaleTo,
+    RotateTo,
+    TextEntered,
+    Lerp,
+    BoundingAlpha,
+    TextToCopy,
+    Unknown
+  };
+
+  String MOVE_TO = EventType.MoveTo.name();
+  String COLOR_TO = EventType.ColorTo.name();
+  String FADE_IN = EventType.FadeIn.name();
+  String FADE_OUT = EventType.FadeOut.name();
+  String TEXT_TO = EventType.TextTo.name();
+  String TIMER = EventType.Timer.name();
+  String SCALE_TO = EventType.ScaleTo.name();
+  String ROTATE_TO = EventType.RotateTo.name();
+  String TEXT_ENTERED = EventType.TextEntered.name();
+  String LERP = EventType.Lerp.name();
+  String BOUNDING_ALPHA = EventType.BoundingAlpha.name();
+  String TEXT_TO_COPY = EventType.TextToCopy.name();
+  String UNKNOWN = EventType.Unknown.name();
+
   
   
   // ==== Features ============ 
@@ -158,7 +176,7 @@ public interface Constants extends EnglishConstants
   String PUNCT_CHARS = ALL_QUOTES+"~\",;:!?)([].#\"\\!@$%&}<>|+=-_\\/*{^"; // add quotes?
   String ALL_PUNCT =  "[\\p{Punct}"+ALL_QUOTES+"]+";
   String PUNCT_PATT = "^(?:[\\p{Punct}"+ALL_QUOTES+"]*)((?:.)|(?:[\\w ].*?[\\w ]))(?:[\\p{Punct}"+ALL_QUOTES+"]*)$";
-  String DATA_DELIM = "\\|", DEFAULT_LEXICON = "rita_dict.json";
+  String DATA_DELIM = "\\|", DEFAULT_LEXICON = "rita_dict.js";
   String CMUDICT_LTS_TXT = "cmudict04_lts.txt";
   String DEFAULT_USER_ADDENDA_FILE = "rita_addenda.txt";
   String CMUDICT_COMMENT = "#";
@@ -172,7 +190,6 @@ public interface Constants extends EnglishConstants
   
   char STRESSED   = '1',  UNSTRESSED = '0';
   boolean LOAD_USER_ADDENDA = false;
-  int BOUNDING_BOX_ALPHA = 133, TEXT_TO_COPY = 134;
 
   String[] EMPTY = new String[0];
   String FS = "/", SP = " ", E = "", DQ = "\"", SQ = "'"; 

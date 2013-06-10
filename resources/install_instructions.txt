@@ -20,10 +20,11 @@ Processing
       examples
       library
         ##name##.jar
+        rita.js
       reference
       src
                       
                       
-After library ##name## has been successfully installed, restart processing.
+After ##name## has been successfully installed, restart processing.
                       
                       

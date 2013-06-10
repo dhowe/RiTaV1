@@ -4,8 +4,9 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 import rita.*;
-import rita.support.BehaviorListener;
-import rita.support.Constants;
+import rita.support.*;
+import static rita.support.Constants.EventType.*;
+
 
 /**
  * An abstract superclass for an extensible set of text-behaviors (found in rita.support.behaviors) 
@@ -51,7 +52,7 @@ public class RiTextBehavior implements Constants
   protected RiTextIF rt;  
   protected float pauseFor;
   protected boolean initd, running, /*paused,*/ repeating;
-  protected int type;
+  protected EventType type;
   protected String name;
   
   private boolean reusable;
@@ -159,7 +160,7 @@ public class RiTextBehavior implements Constants
     for (Iterator it = behaviors.iterator(); it.hasNext();)
     {
       RiTextBehavior rtb = (RiTextBehavior) it.next();
-      if (rtb.getType()==type) l.add(rtb);
+      if (rtb.getType().ordinal()==type) l.add(rtb);
     }
     return l;
   }
@@ -174,8 +175,8 @@ public class RiTextBehavior implements Constants
     if (bh == null) return;
     for (int i = 0; i < bh.size(); i++) {
       RiTextBehavior rtb = ((RiTextBehavior)bh.get(i));
-      if (rtb != null && (rtb.type == FADE_IN || rtb.type == FADE_OUT
-          || rtb.type == COLOR_TO || rtb.type == TEXT_TO))
+      if (rtb != null && (rtb.type == FadeIn || rtb.type == FadeOut
+          || rtb.type == ColorTo || rtb.type == TextTo))
       {
         rtb.delete();
       }
@@ -321,7 +322,7 @@ public class RiTextBehavior implements Constants
   }
 
   /** Returns the type for the behavior  */
-  public int getType()
+  public EventType getType()
   {
     return this.type;
   }
@@ -375,10 +376,10 @@ public class RiTextBehavior implements Constants
 
       if (rt != null && !RiTa.callbacksDisabled) {
         
-        int type = getType();
+        EventType type = getType();
         
         // no callbacks for these (hack)
-        if (type != BOUNDING_BOX_ALPHA && type != TEXT_TO_COPY) {
+        if (type != BoundingAlpha && type != TextToCopy) {
           
           boolean ok = false, isPublic = false;
           
@@ -396,7 +397,7 @@ public class RiTextBehavior implements Constants
           }
           
           if (!ok) {
-            if (type == TIMER) {
+            if (type == Timer) {
               System.err.println("\n[WARN] Possible coding error? You appear to have " +
                 "created a callback timer,\n       but not implemented the method: "  +
                 "'void onRiTaEvent(RiTaEvent rt)'");
@@ -406,7 +407,7 @@ public class RiTextBehavior implements Constants
         }
       }  
       
-      if (type != BOUNDING_BOX_ALPHA && type != TEXT_TO_COPY)   // ugh, hack (tmp)
+      if (type != BoundingAlpha && type != TextToCopy)   // ugh, hack (tmp)
       {
         notifyListeners();  // now tell any listeners
       }
@@ -438,7 +439,7 @@ public class RiTextBehavior implements Constants
   /**
    * @exclude
    */
-  public void setType(int type)
+  public void setType(EventType type)
   {
     this.type = type;
   }
@@ -504,7 +505,7 @@ public class RiTextBehavior implements Constants
   }
   
   /** @exclude */
-  public static List findByType(int type) {
+  public static List findByType(EventType type) {
     List l = new ArrayList();
     if (instances == null) return l;
     for (int i = 0; i < instances.size(); i++) {     

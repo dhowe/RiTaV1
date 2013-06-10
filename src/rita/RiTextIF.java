@@ -30,7 +30,7 @@ public interface RiTextIF extends Constants
   public int fadeIn(float seconds, float delay); 
   public int fadeOut(float seconds, float delay,  boolean destroyOnComplete); 
   public int moveTo(float newX, float newY, float seconds, float delay); 
-  public int colorTo(float[] colors, float seconds, float delay, int type); 
+  public int colorTo(float[] colors, float seconds, float delay, EventType _type); 
   public int rotateTo(float angleInRadians, float seconds, float delay); 
   public int scaleTo(float theScale, float seconds, float delay); 
   public int textTo(String newText, float seconds);
@@ -110,10 +110,10 @@ public interface RiTextIF extends Constants
   
   int indexOf(String s);  
   RiTextIF analyze();
-  char charAt(int idx);
+  String charAt(int idx);
   String get(String s);
   Map features();
-  char[] toCharArray();
+  //char[] toCharArray();
   int lastIndexOf(String s);
   int length();
   int wordCount();

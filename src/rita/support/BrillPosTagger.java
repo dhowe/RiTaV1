@@ -81,7 +81,7 @@ public class BrillPosTagger implements Constants
   
   static final Pattern number = Pattern.compile("[0-9\\.][0-9\\.]*");
   
-  private static JSONLexiconImpl lexicon;
+  private static JSONLexicon lexicon;
   private static BrillPosTagger instance;
   
   public static BrillPosTagger getInstance() {
@@ -92,7 +92,7 @@ public class BrillPosTagger implements Constants
   
   private BrillPosTagger() {
     
-      lexicon = JSONLexiconImpl.getInstance();
+      lexicon = JSONLexicon.getInstance();
   }
   
   /** 

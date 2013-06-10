@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import rita.RiTa;
 import rita.RiTaEvent;
+import static rita.support.Constants.EventType.*;
 
 public class RiTaEventTest
 {
@@ -14,7 +15,7 @@ public class RiTaEventTest
   public void testRiTaEvent()
   {
     ok(new RiTaEvent(this));
-    ok(new RiTaEvent(this, RiTa.TIMER));
+    ok(new RiTaEvent(this,Timer));
   }
 
   @Test
@@ -22,19 +23,20 @@ public class RiTaEventTest
   {
     ok(new RiTaEvent(this).source());
     ok(new RiTaEvent(this).source());
-    equal(new RiTaEvent(this, RiTa.TIMER).source(),this);
-    equal(new RiTaEvent(this, RiTa.TEXT_ENTERED).source(),this);
+    equal(new RiTaEvent(this,Timer).source(),this);
+    equal(new RiTaEvent(this,TextEntered).source(),this);
     Object o = new Object();
-    equal(new RiTaEvent(o, RiTa.FADE_IN).source(),o);
+    equal(new RiTaEvent(o,FadeIn).source(),o);
   }
   
   @Test
   public void testToString()
   {
-    //System.out.println(new RiTaEvent(this, RiTa.TEXT_ENTERED).toString());
-    ok(new RiTaEvent(this, RiTa.TIMER).toString().contains("timer".toUpperCase()));
-    ok(new RiTaEvent(this, RiTa.TEXT_ENTERED).toString().contains("text_entered".toUpperCase()));
-    ok(new RiTaEvent(this, RiTa.FADE_OUT).toString().contains("fade_out".toUpperCase()));
+    //System.out.println(new RiTaEvent(this,TEXT_ENTERED).toString());
+    ok(new RiTaEvent(this,Timer).toString().contains("Timer"));
+    
+    ok(new RiTaEvent(this,TextEntered).toString().contains("TextEntered"));
+    ok(new RiTaEvent(this,FadeOut).toString().contains("FadeOut"));
   }
 
   @Test
@@ -42,11 +44,12 @@ public class RiTaEventTest
   {
     ok(new RiTaEvent(this).type());
     ok(new RiTaEvent(this).type());
-    ok(new RiTaEvent(this, RiTa.FADE_OUT).type());
-    ok(new RiTaEvent(this, RiTa.TIMER).type());
-    equal(new RiTaEvent(this, RiTa.TIMER).type(),RiTa.TIMER);
-    equal(new RiTaEvent(this, RiTa.TEXT_ENTERED).type(),RiTa.TEXT_ENTERED);
-    equal(new RiTaEvent(this, RiTa.FADE_IN).type(),RiTa.FADE_IN);
+    ok(new RiTaEvent(this,FadeOut).type());
+    ok(new RiTaEvent(this,Timer).type());
+    
+    equal((new RiTaEvent(this,TextEntered)).type(),"TextEntered");
+    equal(new RiTaEvent(this,FadeIn).type(),"FadeIn");
+    equal(new RiTaEvent(this,Timer).type(), "Timer");
   }
 
 }

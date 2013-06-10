@@ -20,25 +20,25 @@ import rita.*;
  * to be added to the system addenda, overriding any
  * existing elements in the system addenda.
  */
-public class JSONLexiconImpl implements Constants
+public class JSONLexicon implements Constants
 {
-  static boolean USE_NIO = true;
-  static final int MAP_SIZE = 40000; 
-    
+  static boolean USE_NIO = true, DBUG_CACHE = false;
+  static int MAP_SIZE = 40000; 
+
   // statics ====================================
 
-  protected static JSONLexiconImpl instance;
-  protected static boolean cacheEnabled = true;
+  protected static JSONLexicon instance;
+  public static boolean cacheEnabled = false;
   protected static Map featureCache;
 
   // members ====================================
 
-  protected Map<String,String> lexicalData;
   protected String dictionaryFile;
+  protected Map<String,String> lexicalData;
   protected boolean loaded, lazyLoadLTS;
   protected LetterToSound letterToSound;
 
-  public static JSONLexiconImpl reload()
+  public static JSONLexicon reload()
   {
     instance = null;
     return getInstance();
@@ -47,7 +47,7 @@ public class JSONLexiconImpl implements Constants
   /**
    * Creates, loads and returns the singleton lexicon instance.
    */
-  public static JSONLexiconImpl getInstance()
+  public static JSONLexicon getInstance()
   {    
     return getInstance(DEFAULT_LEXICON);
   }
@@ -55,16 +55,18 @@ public class JSONLexiconImpl implements Constants
   /**
    * Creates, loads and returns the singleton lexicon instance for a specific path.
    */
-  protected static JSONLexiconImpl getInstance(String pathToLexicon)
+  protected static JSONLexicon getInstance(String pathToLexicon)
   {
     if (instance == null)
     {
       try
       {
         long start = System.currentTimeMillis();
-        instance = new JSONLexiconImpl(pathToLexicon);
+        instance = new JSONLexicon(pathToLexicon);
         instance.load();
+        
         int addenda = instance.getAddendaCount();
+        
         if (!RiTa.SILENT)
           System.out.println("[INFO] Loaded " + instance.size() + 
             "(" + addenda + ") lexicon in " + (System.currentTimeMillis()-start)+" ms");
@@ -81,7 +83,7 @@ public class JSONLexiconImpl implements Constants
   /**
    * Constructs an unloaded instance of the lexicon.
    */
-  protected JSONLexiconImpl(String basename)
+  protected JSONLexicon(String basename)
   {
     this.dictionaryFile = basename;
   }
@@ -403,7 +405,6 @@ public class JSONLexiconImpl implements Constants
     return lexicalData.keySet();
   }
 
-
   /**
    * Returns the raw lexicon entry or null if not found
    */
@@ -484,17 +485,23 @@ public class JSONLexiconImpl implements Constants
   {
     if (featureCache == null)
       featureCache = new HashMap<String,String>();
+    
+    if (DBUG_CACHE)
+      System.out.println("Caching " + word+": "+m);
+
     featureCache.put(word, m);
   }
 
   protected Map checkFeatureCache(String word)
   {
-    boolean debugCache = false;
     if (featureCache == null)
       return null;
+    
     Map<String,String> m = (Map<String,String>) featureCache.get(word);
-    if (debugCache && m != null)
+    
+    if (DBUG_CACHE && m != null)
       System.out.println("Using cache for: " + word);
+    
     return m;
   }
 
@@ -655,17 +662,15 @@ public class JSONLexiconImpl implements Constants
     
     String data = lookupRaw(word);
     
-    if (data == null)
+    if (data == null && useLTS)
     {
-      if (useLTS)
-      {
-        if (!RiTa.SILENT) System.out.println("[RiTa] Using letter-to-sound rules for: " + word);
-        
-        String[] phones = LetterToSound.getInstance().getPhones(word);
-        //System.out.println("phones="+RiTa.asList(phones));
-        if (phones != null && phones.length>0)
-          return RiString.syllabify(phones);
-      }
+      if (!RiTa.SILENT) 
+        System.out.println("[RiTa] Using letter-to-sound rules for: " + word);
+      
+      String[] phones = LetterToSound.getInstance().getPhones(word);
+      //System.out.println("phones="+RiTa.asList(phones));
+      if (phones != null && phones.length>0)
+        return RiString.syllabify(phones);
     }
 
     return data == null ? E : data.split(DATA_DELIM)[0].trim();
@@ -674,6 +679,15 @@ public class JSONLexiconImpl implements Constants
   public String getPosStr(String word)
   { 
     String data = lookupRaw(word);
+    if (word.equals("a")) {
+
+      if (data == null) {
+        System.out.println("JSONLexicon.getPosStr(a="+data+")");
+        System.out.println("JSONLexicon.getPosStr(bird="+lookupRaw("bird")+")");
+        System.out.println("JSONLexicon.getPosStr(zooms="+lookupRaw("zooms")+")");
+        throw new RuntimeException("null data: "+size());
+      }
+    }
     if (data == null) return E;
     return data.split(DATA_DELIM)[1];
   }
@@ -681,6 +695,8 @@ public class JSONLexiconImpl implements Constants
   public String getBestPos(String word)
   {
     String[] posArr = getPosArr(word);
+if (word.equals("a"))
+  System.out.println("JSONLexicon.getPosArr.getBestPos(a="+RiTa.asList(posArr)+")");
     return posArr.length > 0 ? posArr[0] : E;
   }
   
@@ -689,12 +705,17 @@ public class JSONLexiconImpl implements Constants
     if (word.contains(SP))
       throw new RiTaException("Only single words allowed");
     String pl = getPosStr(word);
+if (word.equals("a")) {
+  System.out.println("JSONLexicon.getPosArr(a="+pl+")");
+  if (pl == null)
+    throw new RuntimeException("null pl");
+}
     return (pl == null || pl.length() < 1) ? EMPTY : pl.split(SP);
   }
 
   public int addWord(String s, String t, String u) 
   {  
-    lexicalData.put(s, t+" | "+u);
+    lexicalData.put(s, t+"|"+u);
     return lexicalData.size();
   }
   
@@ -705,14 +726,14 @@ public class JSONLexiconImpl implements Constants
     USE_NIO = false;
     for (int i = 0; i < numTests; i++) {
       System.out.print(".");
-      new JSONLexiconImpl(DEFAULT_LEXICON).load();
+      new JSONLexicon(DEFAULT_LEXICON).load();
     } 
     System.out.println("\nAVG TIME(NIO="+USE_NIO+")="+(System.currentTimeMillis()-ts)/(float)numTests);
     ts = System.currentTimeMillis();
     USE_NIO = true;
     for (int i = 0; i < numTests; i++) {
       System.out.print(".");
-      new JSONLexiconImpl(DEFAULT_LEXICON).load();
+      new JSONLexicon(DEFAULT_LEXICON).load();
     }
     System.out.println("\nAVG TIME(NIO="+USE_NIO+")="+(System.currentTimeMillis()-ts)/(float)numTests);
   }
@@ -720,7 +741,7 @@ public class JSONLexiconImpl implements Constants
   public static void main(String[] args)
   {
     //testTiming(50); if (1==1) return;
-    JSONLexiconImpl lex = JSONLexiconImpl.getInstance();
+    JSONLexicon lex = JSONLexicon.getInstance();
     String test = "swimming";
     System.out.println(lex.lookupRaw(test ));
     System.out.println(lex.getPosStr(test));

@@ -2,6 +2,7 @@ package rita.render;
 
 import rita.RiTextIF;
 import rita.support.*;
+import static rita.support.Constants.EventType.*;
 
 // fades fill and stroke of bounding box
 public class BoundingBoxAlphaFade extends InterpolatingBehavior
@@ -17,7 +18,7 @@ public class BoundingBoxAlphaFade extends InterpolatingBehavior
     this.interpolater = new RiInterpolater2D(new float[] { fill[3], stroke[3] }, 
       new float[] { newAlpha, newAlpha }, toOffsetMs(startTime), toMs(duration));
     //System.out.println("BoundingBoxAlphaFade("+rt+", ["+fill[3]+","+stroke[3] +"], ["+newAlpha+","+newAlpha+"], "+startTime+", "+duration+")");
-    this.type = Constants.BOUNDING_BOX_ALPHA;
+    this.type = BoundingAlpha;
   }
   
   public void getStartValueFromParent(RiTextIF parent, Interpolater interpolater) {

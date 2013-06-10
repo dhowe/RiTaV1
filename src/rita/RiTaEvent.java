@@ -4,10 +4,11 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 import rita.support.Constants;
+import static rita.support.Constants.EventType.*;
 
 public class RiTaEvent implements Constants
 {
-  // USE enum instead?
+/*  // USE enum instead?
   private static final Map<Integer, String> TypeStrings = new HashMap<Integer, String>();
   
   static {
@@ -25,20 +26,20 @@ public class RiTaEvent implements Constants
     TypeStrings.put(RiTa.TEXT_ENTERED, "TEXT_ENTERED");
     TypeStrings.put(RiTa.LERP,      "LERP");
   }
+  */
   
-  
-  public int type;
+  public EventType type;
   protected Object source;
 
   public RiTaEvent(Object source)
   {
-    this(source, RiTa.UNKNOWN);
+    this(source, Unknown);
   }
   
-  public RiTaEvent(Object source, int type)
+  public RiTaEvent(Object source, EventType type)
   {
     this.source = source;
-    this.type = checkType(type);
+    this.type = type;//checkType(type);
   }
   
   public boolean fire(Object parent) {
@@ -73,10 +74,11 @@ public class RiTaEvent implements Constants
   @Override
   public String toString()
   {
-    return "RiTaEvent[#"+this.hashCode()+" type="+typeToString(type)+"("+type+") src="+this.source.toString()+"]";
+    return "RiTaEvent[#"+this.hashCode()+" type="+
+      type.name()+" src="+this.source.toString()+"]";
   }
 
-  private static String typeToString(int type)
+/*  private static String typeToString(int type)
   {
     String s = TypeStrings.get(type);
     return s != null ? s : TypeStrings.get(RiTa.UNKNOWN);
@@ -96,15 +98,15 @@ public class RiTaEvent implements Constants
       throw new RiTaException("Invalid Event Type: "+type); 
     return type;
   }
-  
+  */
   public Object source()
   {
     return source;
   }
 
-  public int type()
+  public String type()
   {
-    return type;
+    return type.name();
   }
   
 }

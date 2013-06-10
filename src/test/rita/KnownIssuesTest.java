@@ -50,7 +50,7 @@ public class KnownIssuesTest implements Constants
   @Test
   public void testRandomIterator() {
 
-    JSONLexiconImpl lexicon = JSONLexiconImpl.getInstance();
+    JSONLexicon lexicon = JSONLexicon.getInstance();
     long ts = System.currentTimeMillis();
     lexicon.randomPosIterator("nns"); 
     System.out.println("randomPosIterator in "+(System.currentTimeMillis()-ts)+"ms");

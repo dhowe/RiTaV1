@@ -28,7 +28,7 @@ public class RiLexicon implements Constants
   
   static MinEditDist minEditDist;
   
-  public JSONLexiconImpl lexImpl;
+  public JSONLexicon lexImpl;
   
   /**
    * Constructs a (singleton) instance of the RiLexicon class.
@@ -38,7 +38,7 @@ public class RiLexicon implements Constants
    */
   public RiLexicon()
   {
-    this.lexImpl = JSONLexiconImpl.getInstance();      
+    this.lexImpl = JSONLexicon.getInstance();      
   }
   
   public RiLexicon removeWord(String s)
@@ -55,7 +55,7 @@ public class RiLexicon implements Constants
 
   public RiLexicon reload()
   {
-    lexImpl = JSONLexiconImpl.reload();
+    lexImpl = JSONLexicon.reload();
     return this;
   }
   
@@ -140,17 +140,28 @@ public class RiLexicon implements Constants
   public String randomWord(String pos, int syllableCount)
   {
     Map<String,String> lookup = lexImpl.getLexicalData();
-    Iterator<String> it = (pos == null) ? lexImpl.randomIterator() 
-        : lexImpl.randomPosIterator(pos);
+    Iterator<String> it = getIterator(pos);
+    if (it == null) return E;
     
     while (it.hasNext()) {
       String s = it.next();
       String data = lookup.get(s);
+      if (data == null) {
+        System.err.println("[WARN] null data after lookup: "+s);
+        return E;
+      }
       String sylStr = data.split("\\|")[0].trim();
       if (sylStr.split(SP).length == syllableCount || syllableCount<0) 
         return s;
     }
     return E;
+  }
+
+  private Iterator<String> getIterator(String pos)
+  {
+    Iterator<String> it = (pos == null) ? lexImpl.randomIterator() 
+        : lexImpl.randomPosIterator(pos);
+    return it;
   }
   
   /** 
@@ -160,8 +171,7 @@ public class RiLexicon implements Constants
    */
   public String randomWordByLength(String pos, int targetLength) { // NIAPI
     
-    Iterator<String> it = (pos == null) ? 
-        lexImpl.randomIterator() : lexImpl.randomPosIterator(pos);
+    Iterator<String> it = getIterator(pos);
         
     if (targetLength < 0) return it.next();
     
@@ -323,8 +333,8 @@ public class RiLexicon implements Constants
 
   /**
    * Returns true if the two words rhyme (that is, if their final stressed phoneme
-   * and all following phonemes are identical), else false. Note: returns false 
-   * if wordA.equals(wordB) or if either are null; 
+   * and all following phonemes are identical). Note: returns false 
+   * if wordA.equals(wordB) or if either are null. 
    */
   public boolean isRhyme(String wordA, String wordB) 
   {
@@ -333,7 +343,7 @@ public class RiLexicon implements Constants
   
   /**
    * Returns true if the two words rhyme (that is, if their final stressed phoneme
-   * and all following phonemes are identical), else false. Note: returns false 
+   * and all following phonemes are identical). Note: returns false 
    * if wordA.equals(wordB) or if either are null; 
    * <p>
    * Note: will only use letter-to-sound engine for wrods not found in lexicon if useLTS=true 
@@ -578,16 +588,16 @@ public class RiLexicon implements Constants
     }
   }
   
-  public String[] similarByLetter(String s, int minEditDist)
+  public String[] similarByLetter(String s, int minEditDistance)
   {
-      return similarByLetter(s, minEditDist, false);
+      return similarByLetter(s, minEditDistance, false);
   }
 
-  public String[] similarByLetter(String input, int minEditDist, boolean preserveLength)
+  public String[] similarByLetter(String input, int minEditDistance, boolean preserveLength)
   {
     Set result = new HashSet();   
     this.similarByLetter
-      (lexImpl.getWords(), input, result, minEditDist, preserveLength);
+      (lexImpl.getWords(), input, result, minEditDistance, preserveLength);
     return SetOp.toStringArray(result);
   }
 
@@ -716,7 +726,8 @@ public class RiLexicon implements Constants
   public static void main(String[] args)
   {
     RiLexicon rl = new RiLexicon();
-    System.out.println(rl.lexicalData().get("dry"));
+    System.out.println(rl.lexicalData().get("a"));
+    //System.out.println(rl.lexicalData().get("dry"));
   }
 
 }

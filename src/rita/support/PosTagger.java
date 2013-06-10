@@ -198,10 +198,19 @@ public class PosTagger implements Constants
   }
 
   /** Returns a String array of the most probable tags */
-  public String[] tag(String[] tokenArray)
+  public String[] tag(String[] wordArray)
   {
-    checkArrayForSpaces(tokenArray);
-    return tagger.tag(tokenArray);
+    checkArrayForSpaces(wordArray);
+    String[] tags = tagger.tag(wordArray);
+    boolean isA = false;
+    for (int i = 0; i < wordArray.length; i++)
+    {
+      if (wordArray[i].equals("a"))
+        isA = true;
+    }
+    if (isA)
+      System.out.println("PosTagger.tag("+RiTa.asList(wordArray)+" -> "+RiTa.asList(tags)+")");
+    return tags;
   }
 
   /** 

@@ -2,11 +2,11 @@ package rita.support;
 
 import processing.core.PFont;
 
-public class Defaults
+public class Defaults // TODO: add to docs
 {
   public static boolean mouseDraggable = false;
 
-  public static float[] rgba = { 0, 0, 0, 255 };
+  public static float[] fill = { 0, 0, 0, 255 };
   public static int alignment = Constants.LEFT;
   public static int motionType = Constants.LINEAR;
   public static float scaleX = 1, scaleY = 1, scaleZ = 1;

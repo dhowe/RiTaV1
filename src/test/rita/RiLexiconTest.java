@@ -37,10 +37,13 @@ public class RiLexiconTest
 
     lex = new RiLexicon();
     lex.addWord("", "", "");
+    
 
-    // TODO 3 parameters in Ritajs  [DCH ??]
+    lex.reload(); // reset
+
+    // TODO 3 parameters in RitaJS  [DCH ??]
   }
-
+  
   @Test
   public void testClear()
   {
@@ -72,8 +75,11 @@ public class RiLexiconTest
     Map result = new HashMap();
     lex = new RiLexicon();
     result = lex.lexicalData();
+    ok(lex.containsWord("a"));
+    ok(lex.containsWord("zooms"));
     ok(result.size() > 1000);
   }
+
 
   @Test
   public void testContainsWord()
@@ -90,11 +96,15 @@ public class RiLexiconTest
     ok(lex.containsWord("hello"));
     ok(lex.containsWord("HeLLo"));
     ok(lex.containsWord("HELLO"));
+    ok(lex.containsWord("a"));
+    ok(lex.containsWord("A"));
+    ok(lex.containsWord("zooms"));
 
     lex.lexicalData().put("hello",null);
     ok(!lex.containsWord("hello"));
     ok(!lex.containsWord(""));
   }
+  
 
   @Test
   public void testAlliterations()
@@ -175,8 +185,6 @@ public class RiLexiconTest
   @Test
   public void testRandomWordInt()
   {
-    System.out.println("");
-    
     RiLexicon lex = new RiLexicon();
     
     for (int i = 0; i < 10; i++)
@@ -193,6 +201,8 @@ public class RiLexiconTest
       String result = lex.randomWord(5);
       String syllables = RiTa.getSyllables(result);
       int num = syllables.split(RiTa.SYLLABLE_BOUNDARY).length;
+      if (num != 5)
+        System.err.println("[WARN] '"+result+"' has wrong syllable count 5 != "+num);
       ok(num==5); // "5 syllableCount: "
     }
 
@@ -332,6 +342,8 @@ public class RiLexiconTest
     ok(diff);
     
   }
+
+
 
   @Test
   public void testIsAdverb()
@@ -666,21 +678,35 @@ public class RiLexiconTest
   public void testRemoveWord()
   {
     RiLexicon lex = new RiLexicon();
-
+    int size1 = lex.size();
     ok(lex.containsWord("banana"));
     lex.removeWord("banana");
     ok(!lex.containsWord("banana"));
 
-    lex.removeWord("a");
-    ok(!lex.containsWord("a"));
+/*    lex.removeWord("a");
+    ok(!lex.containsWord("a"));*/
     ok(lex.containsWord("are")); // check that others r still there
     lex.removeWord("aaa");
     ok(!lex.containsWord("aaa"));
 
     lex.removeWord("");
 
+    int size2 = lex.size();
+    
     lex.reload();
+    
+    ok(size2<lex.size());
+    
+    ok(lex.containsWord("a"));
+    ok(lex.containsWord("zooms"));
+    
+    equal(size1, lex.size());
+    
+    lex = new RiLexicon();
+    ok(lex.containsWord("a"));
+    ok(lex.containsWord("zooms"));
   }
+   
 
   @Test
   public void testSimilarByLetter()
@@ -718,28 +744,27 @@ public class RiLexiconTest
     answer = new String[] {};
     deepEqual(answer, result);
 
-    /*
-     * in RitaJS result = new String[]{}; result = lex.similarByLetter("banana",
-     * 1, true); answer = new String[]{ "cabana" }; deepEqual(result, answer);
-     * 
-     * result = new String[]{}; result = lex.similarByLetter("banana", 1,
-     * false); answer = new String[]{ "banal", "bonanza", "cabana", "lantana",
-     * "manna", "wanna" }; deepEqual(result, answer);
-     */
-
-    /*
-     * result = new String[]{}; result = lex.similarByLetter("ice", 1); answer =
-     * new String[]{ "ace", "dice", "iced", "icy", "ire", "lice", "mice",
-     * "nice", "rice", "vice" }; deepEqual(result, answer);
-     * 
-     * result = new String[]{}; result = lex.similarByLetter("ice", 2, true);
-     * ok(result.length > 10);
-     * 
-     * result = new String[]{}; result = lex.similarByLetter("ice", 0, true);
-     * answer = new String[]{ "ace", "icy", "ire" }; deepEqual(result, answer);
-     */
-
   }
+  /* FOR ABOVE
+   * in RitaJS result = new String[]{}; result = lex.similarByLetter("banana",
+   * 1, true); answer = new String[]{ "cabana" }; deepEqual(result, answer);
+   * 
+   * result = new String[]{}; result = lex.similarByLetter("banana", 1,
+   * false); answer = new String[]{ "banal", "bonanza", "cabana", "lantana",
+   * "manna", "wanna" }; deepEqual(result, answer);
+   */
+
+  /*
+   * result = new String[]{}; result = lex.similarByLetter("ice", 1); answer =
+   * new String[]{ "ace", "dice", "iced", "icy", "ire", "lice", "mice",
+   * "nice", "rice", "vice" }; deepEqual(result, answer);
+   * 
+   * result = new String[]{}; result = lex.similarByLetter("ice", 2, true);
+   * ok(result.length > 10);
+   * 
+   * result = new String[]{}; result = lex.similarByLetter("ice", 0, true);
+   * answer = new String[]{ "ace", "icy", "ire" }; deepEqual(result, answer);
+   */
 
   @Test
   public void testSimilarBySound()
@@ -851,14 +876,11 @@ public class RiLexiconTest
     deepEqual(result, new String[] {});
 
     result = lex.superstrings("puni");
-    /* for(int i=0 ; i< result.length;i++){
-    	System.out.println("Superstrings: "+result[i]);
-    }*/
+
     answer = new String[] { "punitive","punishment","punishable","unpunished", "punishing", "impunity", "punishments","punishes", "punished","punish" };
     deepEqual(result, answer);
 
     result = lex.superstrings("");
     ok(result.length > 1000);
-  }
-  
+  }  
 }

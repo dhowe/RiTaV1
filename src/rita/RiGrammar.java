@@ -129,6 +129,7 @@ public class RiGrammar implements Constants
     return rule;  
   }
 
+  // TODO: 
   public String expandWith(String literalString, String ruleName)
   {
     // make sure the rule exists in the grammar
