@@ -272,6 +272,7 @@ public class RiLexicon implements Constants
   * that match the supplied regular expression in random order. 
   * For example, getWords("ee"); returns 661 words with 2 or more consecutive e's,
   * while getWords("ee.*ee"); returns exactly 2: 'freewheeling' and 'squeegee'.
+  * 
   * @param sorted Sorted alphabetically when true
   */
   public String[] words(String regex, boolean sorted)

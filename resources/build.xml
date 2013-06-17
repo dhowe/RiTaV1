@@ -14,9 +14,10 @@
 		<equals arg1="${project.compile}" arg2="normal" />
 	</condition>
 
-	<property name="project.jar.name" value="${project.name}.jar"/>
+	<property name="project.jar.name" value="rita.jar"/>
+	<property name="project.js.name" value="rita.js"/>
 	<property name="project.src" location="src"/>
-	<property name="project.latest.jardir" location="latest-jar"/>
+	<property name="project.latest" location="latest"/>
 	<property name="project.js" location="../../javascript-workspace/RiTaLibraryJS/"/>
 	<property name="project.tmp" location="tmp"/>
 	<property name="project.web" location="web"/>
@@ -73,7 +74,7 @@ ${line}
 		<antcall target="parse.source" />
 		<antcall target="compile-debug" />
 	  	<antcall target="generate.jar"><param name="folder" value="library"/></antcall>
-		<antcall target="getJavaScript" />
+		<!--antcall target="getJavaScript" /-->
 	  	<!--antcall target="generate.javadoc" /-->
 		<antcall target="copyToSketchbook"><param name="folder" value="libraries"/></antcall>
 		<antcall target="generate.distribution" />
@@ -83,12 +84,12 @@ ${line}
 	  	<!--delete dir="${project.tmp}"/-->
 	</target>
 		
-	<!--get src="http://rednoise.org/rita/js/download/rita-latest.min.js"-->
-
-	<target name="getJavaScript">
+	
+	<!-- not used -->
+	<target name="getJavaScript">  
 		<echo message="Fetching latest ${project.name} javascript file." />
 		<get src="http://rednoise.org/rita/js/download/rita-latest.js"
-  			 dest="${project.tmp}/${project.name}/library/rita.js"
+  			 dest="${project.tmp}/${project.name}/library/${project.js.name}"
 			 verbose="true"/>
 	</target>
 	
@@ -100,13 +101,15 @@ ${line}
   	  	<mkdir dir="${sketchbook.location}/${folder}/${project.name}" />
   		<copy todir="${sketchbook.location}/${folder}/${project.name}">
   			<fileset dir="${project.tmp}/${project.name}" />
-  		</copy> 
+  		</copy>
+		<!--copy file="${project.latest}/${project.js.name}" todir="${sketchbook.location}/${folder}/${project.name}/library" /-->
 	</target>
 	
 	<!--excludes="${project.tmp}/${project.name}/src/misc" for javac task-->
 	
 	<target name="compile-debug">
-		<javac srcdir="${project.tmp}/${project.name}/src" 
+		<javac srcdir="${project.tmp}/${project.name}/src"
+			excludes="**/test/**"
 			destdir="${project.bin}" 
 			source="${java.target.version}" 
 			target="${java.target.version}"
@@ -122,6 +125,7 @@ ${line}
 		
 	<target name="compile-prod">
 		<javac srcdir="${project.tmp}/${project.name}/src" 
+			excludes="**/test/**"
 			destdir="${project.bin}" 
 			source="${java.target.version}" 
 			target="${java.target.version}">
@@ -133,7 +137,7 @@ ${line}
 	
 	<target name="generate.jar">
 		<jar jarfile="${project.tmp}/${project.name}/${folder}/${project.jar.name}" basedir="${project.bin}"/>
-  		<copy tofile="${project.latest.jardir}/${project.name}-${project.version}.jar" file="${project.tmp}/${project.name}/${folder}/${project.jar.name}"/>
+  		<copy tofile="${project.latest}/${project.name}-${project.version}.jar" file="${project.tmp}/${project.name}/${folder}/${project.jar.name}"/>
 	</target>
 	
 	<target name="generate.structure">
@@ -143,24 +147,44 @@ ${line}
 	  	<mkdir dir="${project.tmp}/${project.name}/${folder}" />
   		<mkdir dir="${project.tmp}/${project.name}/examples" />
 	  	<mkdir dir="${project.tmp}/${project.name}/reference" />
+		<mkdir dir="${project.tmp}/${project.name}/css" />
   		<mkdir dir="${project.tmp}/${project.name}/src" />
-  		<copy todir="${project.tmp}/${project.name}/examples">
+  		
+		<copy todir="${project.tmp}/${project.name}/examples">
   			<fileset dir="${project.examples}">
 	  			<exclude name="**/*README*"/>
   			</fileset>
 	  	</copy>
+		
   		<copy todir="${project.tmp}/${project.name}/src">
   			<fileset dir="${project.src}">
-  				 <exclude name="**/data/**" />
+  				 <exclude name="**/test/**"/>
+  				 <exclude name="**/data/**"/>
   			</fileset>
 	  	</copy>
-	  	<zip destfile="${project.latest.jardir}/${project.name}-${project.version}-src.zip"
+  		
+		<copy todir="${project.tmp}/${project.name}/reference">
+  			<fileset dir="${project.js}/www/reference"/>
+	  	</copy>
+		
+ 		<copy todir="${project.tmp}/${project.name}/css">
+  			<!--fileset dir="${project.js}/www/css/*.css"/-->
+  		   <fileset dir="${project.js}/www/css/">
+ 		         <include name="*.css"/>
+ 		     </fileset>
+	  	</copy>
+		
+	  	<zip destfile="${project.latest}/${project.name}-${project.version}-src.zip"
   	       basedir="${project.tmp}/${project.name}/src"
   	       excludes="**/.DS_Store"
 		/>
+		
+		<copy file="${project.latest}/${project.js.name}" todir="${project.tmp}/${project.name}/${folder}" />
+		
 	  	<copy todir="${project.tmp}/${project.name}/${folder}">
   			<fileset dir="${project.lib}" excludes="README" />
 	  	</copy>
+		
 	</target>
 	
 	<target name="parse.source" if="is.normal">

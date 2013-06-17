@@ -18,4 +18,8 @@ public class RiTaException extends RuntimeException
     super(s, e);
   }
 
+  public RiTaException()
+  {
+    super();
+  }
 }

@@ -1,4 +1,4 @@
-How to install library ##name## 
+How to install ##name## 
 
 Contributed libraries must be downloaded separately and placed within 
 the "libraries" folder of your Processing sketchbook. To find the Processing 
@@ -12,7 +12,7 @@ By default the following locations are used for your sketchbook folder.
 For mac users the sketchbook folder is located inside ~/Documents/Processing. 
 for windows users the sketchbook folder is located inside folder 'My Documents'/Processing
 
-The folder structure for library ##name## should be as follows
+The folder structure for ##name## should be as follows
 
 Processing
   libraries
@@ -25,6 +25,6 @@ Processing
       src
                       
                       
-After ##name## has been successfully installed, restart processing.
+After installed ##name##, restart processing.
                       
                       

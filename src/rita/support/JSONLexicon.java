@@ -1,6 +1,7 @@
 package rita.support;
 
 import java.io.*;
+import java.net.*;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.*;
@@ -22,7 +23,8 @@ import rita.*;
  */
 public class JSONLexicon implements Constants
 {
-  static boolean USE_NIO = true, DBUG_CACHE = false;
+  public static boolean USE_NIO = false;
+  static boolean DBUG_CACHE = false;
   static int MAP_SIZE = 40000; 
 
   // statics ====================================
@@ -133,12 +135,12 @@ public class JSONLexicon implements Constants
     if (dictionaryFile == null)
       throw new RiTaException("No dictionary path specified!");
 
-    InputStream is = dictionaryFile.equals(DEFAULT_LEXICON)  ?
+/*    InputStream is = dictionaryFile.equals(DEFAULT_LEXICON)  ?
       RiTa._openStream(RiLexicon.class, dictionaryFile) :
-      RiTa._openStream(null, dictionaryFile);
-      
+      RiTa._openStream(null, dictionaryFile);      
     if (is == null)
       throw new RiTaException("Unable to load lexicon from: " + dictionaryFile);
+    */
     
     String data = USE_NIO ? readFileNIO(dictionaryFile) : readFile(dictionaryFile);
     
@@ -172,12 +174,12 @@ public class JSONLexicon implements Constants
   
   public static String readFile(String filename)
   {
-    FileInputStream stream = null;
     try
     {
       StringBuilder builder = new StringBuilder();
-      stream = new FileInputStream(new File(RiLexicon.class.getResource(filename).toURI()));
-      Reader reader = new BufferedReader(new InputStreamReader(stream, UTF8));
+      InputStream is = RiLexicon.class.getResourceAsStream(filename);
+      InputStreamReader isr = new InputStreamReader(is);
+      Reader reader = new BufferedReader(isr);
       char[] buffer = new char[8192];
       int read;
       while ((read = reader.read(buffer, 0, buffer.length)) > 0)
@@ -190,24 +192,15 @@ public class JSONLexicon implements Constants
     {
       throw new RiTaException(e);
     }
-    finally
-    {
-      try
-      {
 
-      }
-      catch (Exception e)
-      {
-        throw new RiTaException(e);
-      }
-    }
   }
   
   public static String readFileNIO(String filename)
   {
       try
       {
-        FileChannel channel = new FileInputStream(new File(RiLexicon.class.getResource(filename).toURI())).getChannel();
+        File f = loadFileResourceOld(filename);
+        FileChannel channel = new FileInputStream(f).getChannel();
         ByteBuffer buffer = ByteBuffer.allocate((int) channel.size());
         channel.read(buffer);
         channel.close();
@@ -217,6 +210,23 @@ public class JSONLexicon implements Constants
       {
         throw new RiTaException(e);
       }
+  }
+
+  private static InputStream loadFileResource(String filename)
+  {
+    return RiLexicon.class.getResourceAsStream(filename);
+  }
+  
+  private static File loadFileResourceOld(String filename) throws URISyntaxException
+  {
+    URL url = RiLexicon.class.getResource(filename);
+    String urlStr = url.toString();
+    //System.out.println("URLStr:"+urlStr);
+    URI uri = new URI(urlStr);
+    //System.out.println("URI:"+uri);
+    File f = new File(uri);
+    //System.out.println("FILE:"+f);
+    return f;
   }
 
   protected LetterToSound getLTSEngine()

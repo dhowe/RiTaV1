@@ -3,9 +3,7 @@ package rita;
 import java.util.List;
 import java.util.Map;
 
-import rita.support.Constants;
-
-public interface RiTextIF extends Constants
+public interface RiTextIF extends rita.support.Constants
 {
   public RiTextIF draw();
   public RiTextIF copy();   

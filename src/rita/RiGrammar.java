@@ -5,9 +5,9 @@ import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 
+import rita.org.json.JSONException;
+import rita.org.json.JSONObject;
 import rita.support.*;
 
 /*

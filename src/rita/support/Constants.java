@@ -38,7 +38,6 @@ public interface Constants extends EnglishConstants
   String BOUNDING_ALPHA = EventType.BoundingAlpha.name();
   String TEXT_TO_COPY = EventType.TextToCopy.name();
   String UNKNOWN = EventType.Unknown.name();
-
   
   
   // ==== Features ============ 
@@ -206,4 +205,6 @@ public interface Constants extends EnglishConstants
   String STRING = "<string>";
   String DOMAIN = "Domain";
   
+  /** offset to use for page numbers in the PageLayout footer*/
+  int PAGE_NO_OFFSET = 35;
 }

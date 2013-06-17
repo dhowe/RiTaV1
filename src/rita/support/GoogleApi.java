@@ -2,10 +2,10 @@ package rita.support;
 
 import java.util.*;
 
-import org.json.*;
 
 import rita.RiTa;
 import rita.RiTaException;
+import rita.org.json.*;
 
 public class GoogleApi extends GoogleDirect
 {

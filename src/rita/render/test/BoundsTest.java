@@ -4,7 +4,7 @@ import processing.core.PApplet;
 import processing.core.PFont;
 import rita.*;
 
-public class BoundingBox extends PApplet {
+public class BoundsTest extends PApplet {
   
 	RiText rt1, rt2, rt3, rt4, rt5, rt6, rt7;
 

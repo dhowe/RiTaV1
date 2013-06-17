@@ -3,10 +3,10 @@ package rita;
 import java.io.*;
 import java.util.*;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 
 import rita.*;
+import rita.org.json.JSONArray;
+import rita.org.json.JSONException;
 import rita.support.PosTagger;
 import rita.support.TextNode;
 

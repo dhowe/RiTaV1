@@ -130,9 +130,7 @@ public final class PennWordTokenizer implements TokenizerIF, Constants
 		words = words.replaceAll("^\\s+", "");           
 
 		String[] result = words.split(SP);
-    /*for (int i = 0; i < result.length; i++)
-      result[i] = convertToken(result[i]);*/
-    return result;     // is this ^ necessary ?? 
+    return result; 
 	}
   
   public boolean isSplittingContractions()

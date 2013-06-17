@@ -52,10 +52,6 @@ public class RiTokenizer implements TokenizerIF, Constants
         if (penn == null) 
           penn = new RiTokenizer(new PennWordTokenizer());
         return penn;
-/*      case FREE_TTS_TOKENIZER:
-        if (tts == null) 
-          tts = new RiTokenizer(new TTSWordTokenizer());
-        return tts;*/
       case REGEX_TOKENIZER:     
         if (regex == null) 
           regex = new RiTokenizer(new RegexTokenizer());

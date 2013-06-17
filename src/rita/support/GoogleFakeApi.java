@@ -6,9 +6,9 @@ import java.net.URL;
 import java.util.*;
 import java.util.regex.Pattern;
 
-import org.json.*;
 
 import rita.RiTa;
+import rita.org.json.*;
 
 /**
  * To use this class, you will need an apiKey (from Google developers site) and a cxKey 

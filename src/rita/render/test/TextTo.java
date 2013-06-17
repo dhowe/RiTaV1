@@ -4,7 +4,7 @@ import processing.core.PApplet;
 import rita.*;
 
 // MOUSE-CLICKED PROBLEM??
-public class FadeToText extends PApplet {
+public class TextTo extends PApplet {
   
 	RiText rt;
 	int clicks = 0;

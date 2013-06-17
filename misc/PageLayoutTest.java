@@ -1,8 +1,7 @@
 package rita.render.test;
 
 import processing.core.PApplet;
-import rita.*;
-import rita.render.PageLayout;
+import rita.RiText;
 import rita.support.Rect;
 
 public class PageLayoutTest extends PApplet {

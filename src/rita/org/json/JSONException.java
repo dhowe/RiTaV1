@@ -1,4 +1,4 @@
-package org.json;
+package rita.org.json;
 
 /**
  * The JSONException is thrown by the JSON.org classes when things are amiss.

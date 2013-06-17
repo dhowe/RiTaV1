@@ -1,17 +1,18 @@
 package rita.render;
 
 import rita.*;
-import rita.support.*;
+import rita.support.Constants;
+import rita.support.Interpolater;
 
 public class RiInterpolater extends Interpolater implements Constants
 {  
   private int startTime, duration;
-  private int motionType = RiText.defaults.motionType;  
+  private int motionType = LINEAR;  
   private float startValue, currentValue, targetValue, change;
   public boolean completed;
   
   // true only after the startOffset has passed and values are being updated
-  public boolean running/* = true*/;
+  public boolean running;
 
   public RiInterpolater(float startValue, float targetValue, int startOffset, int duration) {
     this.reset(startValue, targetValue, startOffset, duration);
@@ -19,23 +20,23 @@ public class RiInterpolater extends Interpolater implements Constants
   
   // Methods ===================================
    
-  public void reset(float startVal, float targetVal, int startOffset, int duration) {
+  public void reset(float startVal, float targetVal, int startOffset, int durationMs) {
 
     this.completed = false;//(startVal == targetVal);
    //System.out.println("RiInterpolater.reset -> completed==true");
     this.startValue = this.currentValue = startVal;    
     this.targetValue = targetVal;    
     this.change = targetVal - startVal;
-    this.duration = duration;
+    this.duration = durationMs;
     this.startTime = RiTa.millis() + startOffset;
     //System.out.println("RiInterpolater(start="+startValue+" target="+targetValue+" change="+change+") +startTime="+startTime+" dur="+duration);
   }  
   
   public void reset
-    (float[] startValues, float[] targetValues, int startOffset, int duration) {  
+    (float[] startValues, float[] targetValues, int startOffset, int durationMs) {  
     //System.out.println("RiInterpolater("+RiTa.asList(targetValues)+","+startOffset+","+duration+")");    
     checkMinLen(1, startValues, targetValues); 
-    this.reset(startValues[0], targetValues[0], startOffset, duration);
+    this.reset(startValues[0], targetValues[0], startOffset, durationMs);
   }
   
   public void setStart(float[] startValue)
@@ -78,83 +79,83 @@ public class RiInterpolater extends Interpolater implements Constants
 
     switch (motionType) 
     {        
-      case RiText.LINEAR:          
+      case RiTa.LINEAR:          
         this.currentValue = linear
           (millisElapsed-startTime, startValue, change, duration);
         //System.out.println("  UPDATE("+(millisElapsed-startTime)+","+startValue+","+change+","+duration+")");
         break;
         
-      case RiText.EASE_IN_OUT:
+      case RiTa.EASE_IN_OUT:
         this.currentValue = easeInOutQuad  // default to quad
           (millisElapsed-startTime, startValue, change, duration);
         break;
         
-      case RiText.EASE_IN:
+      case RiTa.EASE_IN:
         this.currentValue = easeInQuad     // default to quad
           (millisElapsed-startTime, startValue, change, duration);
         break;
         
-      case RiText.EASE_OUT:
+      case RiTa.EASE_OUT:
         this.currentValue = easeOutQuad   // default to quad
           (millisElapsed-startTime, startValue, change, duration);
         break;     
         
-      case RiText.EASE_IN_OUT_CUBIC:
+      case RiTa.EASE_IN_OUT_CUBIC:
         this.currentValue = easeInOutCubic
           (millisElapsed-startTime, startValue, change, duration);
         break;
         
-      case RiText.EASE_IN_CUBIC:
+      case RiTa.EASE_IN_CUBIC:
         this.currentValue = easeInCubic 
           (millisElapsed-startTime, startValue, change, duration);
         break;
         
-      case RiText.EASE_OUT_CUBIC:
+      case RiTa.EASE_OUT_CUBIC:
         this.currentValue = easeOutCubic 
           (millisElapsed-startTime, startValue, change, duration);
         break;
         
-      case RiText.EASE_IN_OUT_QUARTIC:
+      case RiTa.EASE_IN_OUT_QUARTIC:
         this.currentValue = easeInOutQuart
           (millisElapsed-startTime, startValue, change, duration);
         break;
         
-      case RiText.EASE_IN_QUARTIC:
+      case RiTa.EASE_IN_QUARTIC:
         this.currentValue = easeInQuart
           (millisElapsed-startTime, startValue, change, duration);
         break;
         
-      case RiText.EASE_OUT_QUARTIC:
+      case RiTa.EASE_OUT_QUARTIC:
         this.currentValue = easeOutQuart
           (millisElapsed-startTime, startValue, change, duration);
         break;
         
-      case RiText.EASE_IN_OUT_EXPO:
+      case RiTa.EASE_IN_OUT_EXPO:
         this.currentValue = easeInOutExpo
           (millisElapsed-startTime, startValue, change, duration);
         break;
         
-      case RiText.EASE_IN_EXPO:
+      case RiTa.EASE_IN_EXPO:
         this.currentValue = easeInExpo
           (millisElapsed-startTime, startValue, change, duration);
         break;
         
-      case RiText.EASE_OUT_EXPO:
+      case RiTa.EASE_OUT_EXPO:
         this.currentValue = easeOutExpo
           (millisElapsed-startTime, startValue, change, duration);
         break;          
         
-      case RiText.EASE_IN_OUT_SINE:
+      case RiTa.EASE_IN_OUT_SINE:
         this.currentValue = easeInOutSine
           (millisElapsed-startTime, startValue, change, duration);
         break;
         
-      case RiText.EASE_IN_SINE:
+      case RiTa.EASE_IN_SINE:
         this.currentValue = easeInSine
           (millisElapsed-startTime, startValue, change, duration);
         break;
         
-      case RiText.EASE_OUT_SINE:
+      case RiTa.EASE_OUT_SINE:
         this.currentValue = easeOutSine
           (millisElapsed-startTime, startValue, change, duration);
         break;
