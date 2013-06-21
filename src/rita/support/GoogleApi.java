@@ -5,7 +5,7 @@ import java.util.*;
 
 import rita.RiTa;
 import rita.RiTaException;
-import rita.org.json.*;
+import rita.json.*;
 
 public class GoogleApi extends GoogleDirect
 {

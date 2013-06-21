@@ -5,8 +5,8 @@ import java.util.*;
 
 
 import rita.*;
-import rita.org.json.JSONArray;
-import rita.org.json.JSONException;
+import rita.json.JSONArray;
+import rita.json.JSONException;
 import rita.support.PosTagger;
 import rita.support.TextNode;
 

@@ -1,4 +1,4 @@
-How to install ##name## 
+How to install RiTa 
 
 Contributed libraries must be downloaded separately and placed within 
 the "libraries" folder of your Processing sketchbook. To find the Processing 
@@ -12,19 +12,19 @@ By default the following locations are used for your sketchbook folder.
 For mac users the sketchbook folder is located inside ~/Documents/Processing. 
 for windows users the sketchbook folder is located inside folder 'My Documents'/Processing
 
-The folder structure for ##name## should be as follows
+The folder structure for RiTa should be as follows
 
 Processing
   libraries
-    ##name##
+    RiTa
       examples
       library
-        ##name##.jar
+        rita.jar
         rita.js
       reference
       src
                       
                       
-After installed ##name##, restart processing.
+After installing RiTa, restart processing.
                       
                       

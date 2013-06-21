@@ -6,8 +6,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-import rita.org.json.JSONException;
-import rita.org.json.JSONObject;
+import rita.json.JSONException;
+import rita.json.JSONObject;
 import rita.support.*;
 
 /*

@@ -1,4 +1,4 @@
-<project name="Build-RiTa" default="clean" basedir="../">
+<project name="RiTa-Java" default="clean" basedir="../">
 
 	<!-- remove debug lines from production compiled code -->
 	
@@ -14,23 +14,74 @@
 		<equals arg1="${project.compile}" arg2="normal" />
 	</condition>
 
-	<property name="project.jar.name" value="rita.jar"/>
-	<property name="project.js.name" value="rita.js"/>
+	
+	<property name="main.package" value="rita"/>
+	<property name="project.js.name" value="${main.package}.js"/>
+	<property name="project.jar.name" value="${main.package}.jar"/>
 	<property name="project.src" location="src"/>
 	<property name="project.latest" location="latest"/>
 	<property name="project.js" location="../../javascript-workspace/RiTaLibraryJS/"/>
+	<property name="js.scripts.dir" location="${project.js}/scripts/"/>
 	<property name="project.tmp" location="tmp"/>
 	<property name="project.web" location="web"/>
 	<property name="project.data" location="data"/>
 	<property name="project.lib" location="lib"/>
 	<property name="project.bin" location="bin"/>
 	<property name="project.bin.data" location="${project.bin}/data"/>
-	<property name="project.examples" location="examples"/>
+	<property name="project.examples" location="${project.js}/www/examples"/>
 	<property name="project.reference" location="reference"/>
 	<property name="project.dist" location="distribution"/>
 	<property name="project.dist.version" location="distribution/${project.name}-${project.version}"/>
+	<property name="project.download" location="${project.dist.version}/download"/>
+	<property name="project.jsbuild" location="${project.js}/build"/>
+	<property name="project.jsbuild.www" location="${project.jsbuild}/www"/>
+	<property name="project.jsbuild.download" location="${project.jsbuild.www}/download"/>
 	<property name="install.source" location="resources/install_instructions.txt"/>
+	<property name="props.src" location="resources/library.properties"/>
+	<property name="props.dst" location="${project.dist.version}/${project.name}/library.properties"/>
 	<property name="install.destination" location="${project.dist.version}/INSTALL.txt"/>
+	
+	<target name="_make.all">
+		<antcall target="_script.make-lib.sh" />
+		<!--replaceregexp file="${project.jsbuild.download}/index.html" 
+								match="##version##" 
+								replace="${project.version}" 
+								flags="g" /-->
+		<antcall target="clean" />
+	</target>
+	
+	<target name="_make.and.pub.local">
+		<antcall target="_make.all" />
+		<antcall target="_publish.local" />
+	</target>
+	
+	<target name="_publish.local">
+		<antcall target="_script.pub.local" />
+	</target>
+
+	<target name="_publish.rednoise">
+		<antcall target="_script.pub.rednoise" />
+	</target>
+	
+	<!--target name="_pub.local" depends="init"> 
+		<echo message="copying RiTa-$VERSION.zip ./download/ ..." />	
+		<copy file="${project.download}/${project.name}-${project.version}.zip" 
+			todir="${project.jsbuild.download}" />
+		<delete file="${project.jsbuild.www}/ritajs-www.zip" /> 
+	  	<zip destfile="${project.jsbuild.www}/ritajs-www.zip"
+  	       basedir="${project.jsbuild.www}"
+  	       excludes="**/.DS_Store"
+		/>
+		<sshexec host="rednoise.org" username="dhowe">
+			<command>ls</command>
+		</sshexec>
+ 	</target>
+	
+	<target name="ssh.test" depends="init"> 	
+	<sshexec host="rednoise.org" trust="true" username="dhowe">
+		<command>ls</command>
+	</sshexec>
+	</target-->
 	
 	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
 		<classpath>
@@ -51,7 +102,7 @@
 	
 	<target name="init"> 
 		<echo>${line}
-	building processing library, ${project.name} ${project.version}
+	building ${project.name} ${project.version}
 ${line}
 	src path	${project.src}
 	bin path 	${project.bin}
@@ -59,40 +110,67 @@ ${line}
 	sketchbook	${sketchbook.location}
 	java version	${java.target.version}
 ${line}
-	</echo>
+		</echo>
 	
-			<mkdir dir="${project.bin}"/>
+		<mkdir dir="${project.bin}"/>
 	</target>
 	
 	<target name="library.init" depends="init"> 
 		<echo message="init library ..." />	
 	</target>
 	
+	<target name="_script.make-lib.sh">
+		<echo>${line}</echo>
+		<echo message="calling make-lib.sh ..." />	
+	    <exec dir="${js.scripts.dir}" resolveexecutable="true" executable="make-lib.sh" failonerror="true">
+	        <arg line="${project.version}"/>
+	    </exec>
+		<echo>${line}</echo>
+	</target>
+
+	
+	<target name="_script.pub.local">
+		<echo>${line}</echo>
+		<echo message="calling pub-lib.sh ${project.version} ..." />	
+	    <exec 
+	    	dir="${js.scripts.dir}" resolveexecutable="true" resultproperty="return.code"
+	    	executable="pub-lib.sh" failonerror="true">
+	        <arg line="${project.version}"/>
+	    </exec>
+		<echo>${line}</echo>
+	</target>
+	
+	
+	<target name="_script.pub.rednoise">
+		<echo>${line}</echo>
+		<echo>${line}</echo>
+		<echo message="calling pub-lib.sh ${project.version} -r ..." />	
+	    <exec 
+	    	dir="${js.scripts.dir}" resolveexecutable="true" resultproperty="return.code"
+	    	executable="pub-lib.sh" failonerror="true">
+	        <arg line="${project.version}"/>
+	    	<arg line="-r"/>
+	    </exec>
+		<echo>${line}</echo>
+	</target>
+	
+	<!--arg line="-r"/-->
+	
 	<target name="library.run" depends="library.init"> 
 		<echo message="building library ..." />
 		<antcall target="generate.structure"><param name="folder" value="library"/></antcall>
-		<antcall target="parse.source" />
+		<antcall target="parse.source" /> 
 		<antcall target="compile-debug" />
 	  	<antcall target="generate.jar"><param name="folder" value="library"/></antcall>
-		<!--antcall target="getJavaScript" /-->
 	  	<!--antcall target="generate.javadoc" /-->
 		<antcall target="copyToSketchbook"><param name="folder" value="libraries"/></antcall>
 		<antcall target="generate.distribution" />
 		<antcall target="generate.install.library" />
-		<antcall target="generate.web" />
+		<antcall target="generate.install.props" />
+		<!--antcall target="generate.web" /-->
 	  	<antcall target="generate.zip" />	
-	  	<!--delete dir="${project.tmp}"/-->
+	  	<delete dir="${project.tmp}" />
 	</target>
-		
-	
-	<!-- not used -->
-	<target name="getJavaScript">  
-		<echo message="Fetching latest ${project.name} javascript file." />
-		<get src="http://rednoise.org/rita/js/download/rita-latest.js"
-  			 dest="${project.tmp}/${project.name}/library/${project.js.name}"
-			 verbose="true"/>
-	</target>
-	
 	
 	<target name="copyToSketchbook">
 		<echo message="Copying files to the ${folder} folder in your sketchbook." />
@@ -137,7 +215,8 @@ ${line}
 	
 	<target name="generate.jar">
 		<jar jarfile="${project.tmp}/${project.name}/${folder}/${project.jar.name}" basedir="${project.bin}"/>
-  		<copy tofile="${project.latest}/${project.name}-${project.version}.jar" file="${project.tmp}/${project.name}/${folder}/${project.jar.name}"/>
+		<!--copy tofile="${project.jsbuild.download}/${main.package}-${project.version}.jar" file="${project.tmp}/${project.name}/${folder}/${project.jar.name}"/-->
+  		<copy tofile="${project.latest}/${main.package}-${project.version}.jar" file="${project.tmp}/${project.name}/${folder}/${project.jar.name}"/>
 	</target>
 	
 	<target name="generate.structure">
@@ -188,7 +267,8 @@ ${line}
 	</target>
 	
 	<target name="parse.source" if="is.normal">
-		<path id="src.contents"><fileset dir="${project.tmp}/${project.name}/src" includes="**/*.java" /></path>
+		<path id="src.contents"><fileset dir="${project.tmp}/${project.name}/src/rita" includes="RiTa.java" /></path>
+		<!--path id="src.contents"><fileset dir="${project.tmp}/${project.name}/src" includes="**/*.java" /></path-->
 		<property name="src.list" refid="src.contents" />
 		<foreach list="${src.list}" param="file" target="versionSourcefile" delimiter=":" />
 	</target>
@@ -251,7 +331,7 @@ ${line}
 			  	key words starting and ending with ## are replaced by values 
 			  	defined earlier in the beginning of this build file.
 	  	-->
-  	
+		
   		<replaceregexp file="${project.dist.version}/web/index.html"
   	                         match="##project.name##"
   	                         replace="${project.name}"
@@ -329,12 +409,22 @@ ${line}
 	
 	
 	<target name="generate.install.library" if="is.normal">	
+		<echo message="Copying ${install.source} ... " />
+		<echo message="  to ${project.dist.version}/INSTALL.txt ... " />
+
 		<copy file="${install.source}" tofile="${project.dist.version}/INSTALL.txt" />
-		<replaceregexp file="${install.destination}" match="##name##" replace="${project.name}" flags="g" />
-		<replaceregexp file="${install.destination}" match="##folder##" replace="libraries" flags="g" />
+		<!--replaceregexp file="${install.destination}" match="##name##" replace="${project.name}" flags="g" />
+		<replaceregexp file="${install.destination}" match="##folder##" replace="libraries" flags="g" /-->
 	</target>	
 	
-	
+	<target name="generate.install.props" if="is.normal">
+		<echo message="Copying ${props.src} ..." />
+		<echo message="  to ${props.dst} ..." />
+		<copy file="${props.src}" tofile="${props.dst}" />
+		<replaceregexp file="${props.dst}" match="##version##" replace="${project.version}" flags="g" />
+		<replaceregexp file="${props.dst}" match="##versionnum##" replace="${project.version.num}" flags="g" />
+	</target>	
+			
 	<target name="generate.zip" if="is.normal">
 		<!-- zip the distribution of the library -->
   		<move todir="${project.dist.version}/tmp/${project.name}-${project.version}/${project.name}">
@@ -342,6 +432,7 @@ ${line}
   		</move> 
   		
   		<move file="${install.destination}" tofile="${project.dist.version}/tmp/${project.name}-${project.version}/INSTALL.txt" />
+		
 	  	<zip destfile="${project.dist.version}/${project.name}-${project.version}.zip"
   	       basedir="${project.dist.version}/tmp/${project.name}-${project.version}"
   	       excludes="**/.DS_Store"
@@ -381,7 +472,7 @@ ${line}
 	</target>
 
 	<target name="clean" depends="library.run">
-		<delete dir="${project.bin}"/>
+		<!--delete dir="${project.bin}"-->
 		<delete dir="${project.tmp}"/>
 		<echo>
 		
@@ -392,8 +483,11 @@ Compiled	${project.compile}
 Sketchbook	${sketchbook.location}
 ${line}
 done, finished.
-${line}
+${line}	
 		</echo>
+	    <exec resolveexecutable="true" executable="ls" failonerror="true">
+	        <arg line="${project.jsbuild.download}"/>
+	    </exec>
 	</target>
 	
 </project>
