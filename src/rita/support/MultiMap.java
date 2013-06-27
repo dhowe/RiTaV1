@@ -9,14 +9,14 @@ import rita.RiTaException;
 /**
  * Properties type Map (String->String[]) holding multiple values for each Key
  * When loaded from a file, follows Properties-style formatting conventions,
- * allowing '=', ':', '=>' and '->' for delimiters.  
+ * allowing '=', ':', '=>' and '->' as delimiters.  
  * @author dhowe
  */
 public class MultiMap
 {  
   private static final String UTF_8 = "UTF-8";
 
-  private static final String E = "", EQ = "=";
+  private static final String EQ = "=";
   
   public Map<String, String[]> data = new HashMap<String, String[]>();
   
@@ -34,17 +34,17 @@ public class MultiMap
     }
   }
 
-  public void loadFromString(String s)
+  public MultiMap loadFromString(String s)
   {
     data.clear();
-    s = s.trim().replaceAll("\\\\[\\t ]+", "\\\\");
-    s = s.replaceAll("=>", EQ);
-    s = s.replaceAll("->", EQ);
+    s = s.trim().replaceAll("\\\\[\\t ]+", "\\\\"); // TODO: WHY: DO WE WANT/NEED THIS? ??
+    s = s.replaceAll("=>", EQ);               // TODO: Add tests for this class 
+    s = s.replaceAll("->", EQ); 
     s = s.replaceAll(":",  EQ);
     try
     {
       InputStream is = new ByteArrayInputStream(s.getBytes(UTF_8));
-      load(new InputStreamReader(is, UTF_8));
+      return load(new InputStreamReader(is, UTF_8));
     }
     catch (IOException e)
     {
@@ -52,7 +52,7 @@ public class MultiMap
     }
   }
   
-  private synchronized void load(Reader reader) 
+  private synchronized MultiMap load(Reader reader) 
   {
     int NONE = 0, SLASH = 1, UNICODE = 2, CONTINUE = 3, KEY_DONE = 4, IGNORE = 5;
     int mode = NONE, unicode = 0, count = 0;
@@ -247,13 +247,14 @@ public class MultiMap
     {
      throw new RiTaException(e);
     }
+    return this;
   }
   
   /** 
    * Adds val to the array for key, or creates a new 1-element 
    * array for val if no such key exists 
    */
-  public void add(String key, String val)
+  public MultiMap add(String key, String val)
   {
     String[] finalVal = null;
     String[] s = data.get(key);
@@ -266,11 +267,14 @@ public class MultiMap
       finalVal = new String[] { val };
     }
     data.put(key, finalVal);
+    
+    return this;
   }
 
-  public void clear()
+  public MultiMap clear()
   {
     data.clear();
+    return this;
   }
 
   public boolean containsKey(String key)
@@ -331,8 +335,33 @@ public class MultiMap
     for (Iterator it = keySet().iterator(); it.hasNext();)
     {
       String key= (String) it.next();
-      s += (key+"="+RiTa.asList(get(key))+"\n");
+      s += (key+"="+RiTa.asList(get(key)));
+      if (it.hasNext()) s += ", ";
     }
     return s;
   }
+  
+  public String[] remove(String key)
+  {
+    return data.remove(key);
+  }
+  
+  public static void main(String[] args)
+  {
+    String s = "greetings: hello | goodbye";
+    MultiMap mm = new MultiMap();
+    mm.load(new StringReader(s));
+    System.out.println("MAP: "+mm);
+    mm.clear();
+    System.out.println("MAP: "+mm);
+    mm.add("rule1", "val1");
+    mm.add("rule1", "val1");
+    mm.add("rule1", "val2");
+    mm.add("rule2", "val3");
+    System.out.println("MAP: "+mm);
+    System.out.println("ARR: "+Arrays.asList(mm.get("rule1")));
+    System.out.println("RM:  "+Arrays.asList(mm.remove("rule1")));
+    System.out.println("MAP: "+mm);
+  }
+
 }

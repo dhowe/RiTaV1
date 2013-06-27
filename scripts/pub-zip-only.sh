@@ -3,8 +3,8 @@
 if [ $# != 1 ]
 then
   echo
-	echo "tag or version required" 
-  echo "usage: pub-lib.sh [tag]"
+  echo "publish RiTa-XXX.zip to server//rita/download/" 
+  echo "usage: pub-zip-only.sh [tag]"
   exit
 fi
 
@@ -22,5 +22,3 @@ echo         to $RED:$ZIP_DIR...
 cat $ZIP_PATH/$ZIP_FILE | /usr/bin/ssh ${USR}@${RED} "(cd ${ZIP_DIR} && /bin/rm -f $ZIP_FILE && cat - > $ZIP_FILE && ln -fs $ZIP_FILE RiTa.zip && ls -l)" 
 
 # mv $ZIP_FILE zips
-
-#mv $ZIP_TTS_FILE zips

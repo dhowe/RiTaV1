@@ -8,6 +8,8 @@ import rita.support.*;
 
 public class RiString implements FeaturedIF, Constants
 {
+  static { RiTa.init(); }
+  
   private String delegate;
   private Map<String,String> features;
 
@@ -55,13 +57,13 @@ public class RiString implements FeaturedIF, Constants
     JSONLexicon lex = JSONLexicon.getInstance();
 
     String[] words = RiTa.tokenize(delegate.toLowerCase());
-    
+/*    
     boolean isA = false;
     for (int i = 0; i < words.length; i++)
     {
       if (words[i].equals("a"))
         isA = true;
-    }
+    }*/
     
     //System.out.println(RiTa.asList(words));
 
@@ -170,22 +172,19 @@ public class RiString implements FeaturedIF, Constants
 
   public String get(String featureName)
   {
-    return (String) features().get(featureName);
+    Map feats = features();
+    String s = (String) feats.get(featureName);
+    if (s == null && !feats.containsKey(SYLLABLES)) {
+      this.analyze();
+      s = (String) feats.get(featureName);
+    }
+    return s;
   }
 
   public Map features()
   {
-    if (features == null) {
-      try
-      {
-        this.analyze();
-      }
-      catch (Exception e)
-      { 
-        initFeatureMap();
-      }
-      
-    }
+    if (features == null) 
+      initFeatureMap(); // dont analyze by default
     return features;
   }
   
@@ -560,12 +559,14 @@ public class RiString implements FeaturedIF, Constants
   public RiString copy()
   {
     RiString rs = new RiString(delegate);
-    Map<String, String> feats = features();
-    rs.features = new HashMap<String, String>();
-    for (Iterator it = feats.keySet().iterator(); it.hasNext();)
-    {
-      String key = (String) it.next();
-      rs.features.put(key, feats.get(key));
+    if (features != null) {
+      Map<String, String> feats = features;
+      rs.features = new HashMap<String, String>();
+      for (Iterator it = feats.keySet().iterator(); it.hasNext();)
+      {
+        String key = (String) it.next();
+        rs.features.put(key, feats.get(key));
+      }
     }
     return rs;
   }

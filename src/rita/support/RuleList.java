@@ -7,7 +7,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-public class RuleList
+import rita.RiText;
+
+public class RuleList implements Constants
 {
   // name -> Map(rule, prob)
   
@@ -65,26 +67,21 @@ public class RuleList
         result = (String) entry.getKey();
         break;
       }
-      else
-      {
-        p -= (Float) entry.getValue() / total;
-      }
+      p -= (Float) entry.getValue() / total;
     }
     return result;
   }
 
-  public String getRule(String pre)
+  public String doRule(String pre)
   {
     Map<String, Float> temp = prules.get(pre);
+    if (temp == null) return null;
     if (temp.size() == 1)
     {
       Object[] result = temp.keySet().toArray();
       return (String) result[0];
     }
-    else
-    {
-      return getStochasticRule(temp);
-    }
+    return getStochasticRule(temp);
   }
 
   @Override
@@ -126,11 +123,36 @@ public class RuleList
 
   public boolean hasRule(String pre)
   {
-    return prules.keySet().contains(pre);
+    return prules.containsKey(pre);
+  }
+  
+  public String getRule(String name)
+  {
+    Map<String, Float> temp = prules.get(name);
+    
+    if (temp == null || temp.size()<1)
+      return null;
+    
+    String[] rules = temp.keySet().toArray(EMPTY);
+    
+    if (temp.size() == 1) return rules[0];
+    
+    String result = E;
+    for (int i = 0; i < rules.length; i++)
+    {
+       result += rules[i];
+       Float pr = temp.get(rules[i]);
+       if (pr != 1.0f)
+         result += " ["+pr+"]";
+       if (i < rules.length - 1) 
+         result += " | ";
+    }
+    return result;
   }
 
   public void removeRule(String s)
   {
     prules.remove(s); // DH: added 1/3/13
   }
+
 }

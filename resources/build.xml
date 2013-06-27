@@ -143,7 +143,6 @@ ${line}
 	
 	<target name="_script.pub.rednoise">
 		<echo>${line}</echo>
-		<echo>${line}</echo>
 		<echo message="calling pub-lib.sh ${project.version} -r ..." />	
 	    <exec 
 	    	dir="${js.scripts.dir}" resolveexecutable="true" resultproperty="return.code"

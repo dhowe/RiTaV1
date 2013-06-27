@@ -1,84 +1,63 @@
 package rita.test.sketches;
+
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import processing.core.PApplet;
-
+import processing.event.KeyEvent;
 import rita.RiGrammar;
 import rita.RiText;
 
 public class McGrammar extends PApplet
 {
-  int MAX_LINE_LENGTH = 80;
-
   RiText[] rts;
   RiGrammar grammar;
   ArrayList buf = new ArrayList();
-  boolean clicked, drawRectangle = true;
 
   public void setup()
-  {    
+  {
     size(600, 300);
-    RiText.defaultFont("Times",15); 
-    RiText.defaults.alignment=LEFT; 
 
-    // create a new grammar 
+    RiText.defaultFont("Times", 20);
+
     grammar = new RiGrammar();
-    grammar.setGrammarFromFile("mcgrammar.g");  
-    grammar.print();
+    grammar.setGrammarFromFile("mcgrammar.json");
+    keyReleased();
   }
 
-  public void drawX() {
-    background(0);    
+  public void draw()
+  {
+    background(0);
+    stroke(255);
+    rect(25, 20, 550, 260);
     RiText.drawAll();
-    if (drawRectangle) {
-      stroke(255);
-      rect(25,20,515,240);
-    }
   }
 
-  public void mouseClicked() {
-
-    clicked = true;
-
-    // grab 10 lines from the grammar
+  public void keyReleased(KeyEvent e)
+  {
+    if (e.getKey() != ' ') return;
     
-    buf.clear();
-    for (int i = 0; i < 10; i++) {
-      String line = grammar.expand();
-      while (line.length() > MAX_LINE_LENGTH) {
-        String toAdd = line.substring(0,MAX_LINE_LENGTH);
-        line = line.substring(MAX_LINE_LENGTH, line.length());
-        int idx = toAdd.lastIndexOf(" ");
-        String end = "";
-
-        if (idx >= 0) {
-          end = toAdd.substring(idx, toAdd.length());      
-          toAdd = toAdd.substring(0,idx); 
-        }
-        buf.add(toAdd);
-        line = end + line; 
-      }
-      buf.add(line);
+    int linesPerPage = 10;
+    
+    String line = "";
+    if (buf.size() > 0)
+    {
+      for (int i = 0; i < min(buf.size(), linesPerPage); i++)
+        line += buf.remove(0) + " ";
     }
-    setLinesForPage();
-  }
-
-  void setLinesForPage() {
-    RiText[] rts = new RiText[10];
-    for (int i = 0; i < buf.size(); i++) {
-      if (i == rts.length) break;
-      String line = buf.get(i)+"";
-      rts[i] = new RiText(this,line,40,50+20*i);
+    else
+    {
+      for (int i = 0; i < 10; i++)
+        line += grammar.expand();
     }
-    for (int i = 0; i < rts.length; i++) {
-      if (buf.size()>0)
-        buf.remove(0);
-    } 
-    if (rts[0] != null)
-      rts[0].x += 2;
-  }
 
-  public void keyPressed() {
-    setLinesForPage();
+    RiText.dispose(rts);
+    rts = RiText.createLines(this, line, 35, 30, 530);
+    
+    for (int i = linesPerPage; i < rts.length; i++)
+    {
+      buf.add(rts[i].text()); // save for next time
+      RiText.dispose(rts[i]);
+    }
   }
 }

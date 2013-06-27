@@ -8,6 +8,8 @@ import static rita.support.Constants.EventType.*;
 
 public class RiTaEvent implements Constants
 {
+  static { RiTa.init(); }
+  
 /*  // USE enum instead?
   private static final Map<Integer, String> TypeStrings = new HashMap<Integer, String>();
   

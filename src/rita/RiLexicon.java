@@ -22,6 +22,8 @@ import rita.support.*;
  */
 public class RiLexicon implements Constants
 { 
+  static { RiTa.init(); }
+  
   private static final String DOT_STAR = ".*";
 
   static final int MATCH_MIN_LENGTH = 4;

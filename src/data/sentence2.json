@@ -1,0 +1,17 @@
+{
+    "<start>": "<noun_phrase> <verb_phrase>.",
+    "<noun_phrase>": "<determiner> <noun>",
+    "<determiner>": [
+        "a [0.1]",
+        "the"
+    ],
+    "<verb_phrase>": [
+        "<verb> <noun_phrase> [0.1]",
+        "<verb>"
+    ],
+    "<noun>": [
+        "woman",
+        "man"
+    ],
+    "<verb>": "shoots"
+}

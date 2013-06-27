@@ -2,27 +2,38 @@ package rita;
 
 import java.io.PrintStream;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-import rita.json.JSONException;
-import rita.json.JSONObject;
+import rita.json.*;
 import rita.support.*;
 
 /*
+ * TODO: Next:
+ *  1) Update documentation for two ways
+ *  2) Add variables for all the character in RiGrammar
+ *  3) Change weighting punctuation ??
+ *  
+ *  Better debug feedback when not valid json
+ *   
  * TODO: Re-add RiGrammarEditor
  */
 public class RiGrammar implements Constants
 {
-  public static final String ENCODING = "UTF-8", START = "<start>";
+  static { RiTa.init(); }
+  
   public static final String PROB_PATTERN = "(.*[^ ]) *\\[([^]]+)\\](.*)";
-  public static final String EXEC_CHAR  = "`", EXEC_POST = ");" + EXEC_CHAR;
+  
+  public static final String ENCODING = "UTF-8", START = "<start>";
+  public static final String EXEC_CHAR  = "`", EXEC_POST = ")" + EXEC_CHAR;
   
   public RuleList rules;
   public int maxIterations = 100;
   public String fileName, startRule = START;
   public Pattern probabilityPattern;
+  public RiGrammarEditor editor;
 
   public RiGrammar()
   {
@@ -32,19 +43,49 @@ public class RiGrammar implements Constants
   public RiGrammar(String grammarAsString) 
   { 
     this.rules = new RuleList();
-    setGrammar(grammarAsString);
+    if (grammarAsString != null)
+      setGrammar(grammarAsString);
   }
   
+
+  public RiGrammarEditor openEditor() {
+      return openEditor(800, 600);
+  }
+  
+  /**
+   * Provides a live, editable view of a RiGrammar text file
+   * that can be dynamically loaded into a sketch without
+   * stopping and restarting it. 
+   */
+  public RiGrammarEditor openEditor(int width, int height) {
+    if (editor == null) {
+      editor = new RiGrammarEditor(this);
+    }
+    editor.setSize(width, height);
+    editor.setVisible(true);
+    return editor;
+  }
 
   public RiGrammar setGrammarFromFile(String grammarFileName)
   {
     if (grammarFileName != null)
     {
       this.fileName = grammarFileName;
-      String gram = RiTa.loadString(null, grammarFileName);
-      setGrammar(gram, fileName.endsWith(".json"));
+      setGrammar(RiTa.loadString(null, grammarFileName));
+      //setGrammar(gram, fileName.endsWith(".json"));
     }
     return this;
+  }
+  
+  /**
+   * Takes a file containing an old-style grammar file and rewrites it to a new file as JSON.
+   * Note: pass null for the 2nd argument if you only want the returned String. 
+   * 
+   * @return the JSON grammar as a String
+   */
+  public static String convertToJSON(String infile, String outfile)
+  {
+    return LegacyGrammar.asJSON(infile, outfile);
   }
   
   protected void setGrammarFromProps(MultiMap grammarRules) 
@@ -55,10 +96,10 @@ public class RiGrammar implements Constants
     {
       String key = (String) iterator.next();
       key.replaceAll(DQ, E).replaceAll(SQ, E);
-      String[] rules = grammarRules.get(key);
-      for (int j = 0; j < rules.length; j++)
+      String[] theRules = grammarRules.get(key);
+      for (int j = 0; j < theRules.length; j++)
       {
-        addRule(key, rules[j]);
+        addRule(key, theRules[j]);
       }
     }
   }
@@ -78,9 +119,8 @@ public class RiGrammar implements Constants
       if (part != null && part.trim().length() > 0)
       {
         if (probabilityPattern == null)
-        {
           probabilityPattern = Pattern.compile(PROB_PATTERN);
-        }
+        
         Matcher m = probabilityPattern.matcher(part);
         if (m.matches())
         {
@@ -89,7 +129,7 @@ public class RiGrammar implements Constants
             String probStr = m.group(2);
             // nothing after the weight is allowed
             part = m.group(1) + m.group(3);
-            String ignored = m.group(3);
+            //String ignored = m.group(3);
             weight = Float.parseFloat(probStr);
           }
           else
@@ -112,7 +152,7 @@ public class RiGrammar implements Constants
   public String expandFrom(String rule)
   {
     if (!rules.hasRule(rule))
-      throw new RiTaException("Definition not found: "+rule+"\nRules:\n"+rules);
+      throw new RiTaException("Rule not found: "+rule+"\nRules:\n"+rules);
     
     int iterations = 0;
     while (++iterations < maxIterations)
@@ -139,9 +179,20 @@ public class RiGrammar implements Constants
     return "Not yet implemented...";
   }
 
+  String doRule(String name)
+  {
+    return rules.doRule(name);
+  }
+  
+  public String getGrammar()
+  {
+    return rules.toString();
+  }
+  
   public String getRule(String name)
   {
-    return rules.getRule(name);
+    String rule = rules.getRule(name);
+    return rule == null ? E : rule;
   }
 
   public boolean hasRule(String name)
@@ -151,9 +202,22 @@ public class RiGrammar implements Constants
   
   public RiGrammar setGrammar(String grammarRulesAsString)
   {
-    return setGrammar(grammarRulesAsString, false);
+    //return setGrammar(grammarRulesAsString, false);
+    String s = parseAsJSON(grammarRulesAsString);
+
+    if (s != null)
+    {
+      MultiMap mm = new MultiMap();
+      mm.loadFromString(s);
+      setGrammarFromProps(mm);
+    }
+
+    if (this.rules == null || this.rules.keySet().size() < 1)
+      throw new RiTaException("Unable to parse valid grammar rules!");
+    
+    return this;
   }
-  
+  /*
   private RiGrammar setGrammar(String grammarRulesAsString, boolean forceJSON)
   {
     if (grammarRulesAsString != null)
@@ -177,7 +241,7 @@ public class RiGrammar implements Constants
     }
 
     return this;
-  }
+  }*/
 
   protected String parseAsJSON(String grammarRulesAsString)
   {
@@ -188,22 +252,38 @@ public class RiGrammar implements Constants
     }
     catch (JSONException e)
     {
-      System.out.println("[WARN] Grammar is not valid JSON");
-      return null;  
+      throw new RiTaException
+        ("Unable to parse grammar as JSON, please make sure it is valid");
     }
   }
 
   protected String toProperties(JSONObject json) throws JSONException
   {
     StringBuilder sb = new StringBuilder();
+    
     Iterator keys = json.keys();
+    
     while (keys.hasNext())
     {
       String key = (String) keys.next();
-      String rule = json.getString(key);
-      sb.append(key+'='+rule+'\n');
+      Object o = json.get(key);
+      String ruleStr = null;
+      if (o instanceof JSONArray) {
+        JSONArray jarr = json.getJSONArray(key);
+        ruleStr = jarr.join("|");
+      }
+      else if (o instanceof String){
+        ruleStr = (String) o;
+      }
+      else {
+        throw new RiTaException("Unexpected type: "+o.getClass());
+      }
+      
+      sb.append(key+'='+ruleStr.replaceAll("\"", "")+'\n');
     }
+    
     //System.out.println("props:\n"+sb+"\n\n");
+    
     return sb.toString();
   }
 
@@ -241,14 +321,14 @@ public class RiGrammar implements Constants
       if (idx >= 0)  
       {
         String pre = production.substring(0, idx);
-        String expanded = getRule(name);
+        String expanded = doRule(name);
         String post = production.substring(idx+name.length());
         return pre + expanded + post;
       }
     }
     return E;
   }
-  
+
   public static void main(String[] args)
   {
     RiGrammar rg = new RiGrammar();
@@ -256,7 +336,7 @@ public class RiGrammar implements Constants
     for (int i = 0; i < 5; i++)
     {
       System.out.println(i+") "+rg.expand());      
-    }
-    
+    }  
   }
+
 }

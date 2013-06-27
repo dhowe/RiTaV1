@@ -190,9 +190,11 @@ public class RiLexiconTest
     for (int i = 0; i < 10; i++)
     {
       String result = lex.randomWord(3);
-      String syllables = RiTa.getSyllables(result);
-      int num = syllables.split(RiTa.SYLLABLE_BOUNDARY).length;
+
       ok(result.length() > 0);
+      String syllables = RiTa.getSyllables(result);
+      
+      int num = syllables.split(RiTa.SYLLABLE_BOUNDARY).length;
       ok(num==3);// "3 syllableCount: "
     }
 

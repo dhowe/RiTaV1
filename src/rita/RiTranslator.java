@@ -16,6 +16,8 @@ import rita.support.TextNode;
  */
 public class RiTranslator
 {
+  static { RiTa.init(); }
+  
   public static final String COOKIE_PATH = System.getProperty("user.home")
       + "/Library/Cookies/Cookies.plist";
 
