@@ -44,7 +44,7 @@ public class RiGrammar implements Constants
   { 
     this.rules = new RuleList();
     if (grammarAsString != null)
-      setGrammar(grammarAsString);
+      load(grammarAsString);
   }
   
 
@@ -66,12 +66,12 @@ public class RiGrammar implements Constants
     return editor;
   }
 
-  public RiGrammar setGrammarFromFile(String grammarFileName)
+  public RiGrammar loadFromFile(String grammarFileName)
   {
     if (grammarFileName != null)
     {
       this.fileName = grammarFileName;
-      setGrammar(RiTa.loadString(null, grammarFileName));
+      load(RiTa.loadString(null, grammarFileName));
       //setGrammar(gram, fileName.endsWith(".json"));
     }
     return this;
@@ -200,7 +200,7 @@ public class RiGrammar implements Constants
     return rules.hasRule(name);
   }
   
-  public RiGrammar setGrammar(String grammarRulesAsString)
+  public RiGrammar load(String grammarRulesAsString)
   {
     //return setGrammar(grammarRulesAsString, false);
     String s = parseAsJSON(grammarRulesAsString);
@@ -332,11 +332,12 @@ public class RiGrammar implements Constants
   public static void main(String[] args)
   {
     RiGrammar rg = new RiGrammar();
-    rg.setGrammarFromFile("grammar.g");
-    for (int i = 0; i < 5; i++)
+    rg.loadFromFile("sentence1.json");
+    rg.print();
+    /*for (int i = 0; i < 5; i++)
     {
       System.out.println(i+") "+rg.expand());      
-    }  
+    }*/  
   }
 
 }

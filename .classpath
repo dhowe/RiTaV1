@@ -4,5 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.launching.macosx.MacOSXType/Java1.6"/>
 	<classpathentry kind="lib" path="/Users/dhowe/Documents/eclipse-workspace/libs/core.jar"/>
 	<classpathentry kind="lib" path="/Users/dhowe/Documents/eclipse-workspace/libs/junit.jar"/>
+	<classpathentry kind="lib" path="lib/snakeyaml-1.12.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

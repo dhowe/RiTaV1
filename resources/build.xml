@@ -422,6 +422,7 @@ ${line}
 		<copy file="${props.src}" tofile="${props.dst}" />
 		<replaceregexp file="${props.dst}" match="##version##" replace="${project.version}" flags="g" />
 		<replaceregexp file="${props.dst}" match="##versionnum##" replace="${project.version.num}" flags="g" />
+		<copy file="${props.dst}" tofile="${project.latest}/${project.name}.txt" />
 	</target>	
 			
 	<target name="generate.zip" if="is.normal">

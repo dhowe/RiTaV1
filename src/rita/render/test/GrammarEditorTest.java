@@ -22,7 +22,7 @@ public class GrammarEditorTest extends PApplet {
     rts[2] = new RiText(this, "a haiku", width / 2, 135);
     
     grammar = new RiGrammar();
-    grammar.setGrammarFromFile("haikuGrammar2.json");
+    grammar.loadFromFile("haikuGrammar2.json");
     grammar.openEditor(width, 600);    
   }
   

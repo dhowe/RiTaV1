@@ -35,7 +35,7 @@ public class RiGrammarEditor extends RiEditorWindow {
     this.rg = grammar;   
     if (grammar.fileName != null) {
       String contents = loadFileByName(null, grammar.fileName);
-      rg.setGrammar(contents);
+      rg.load(contents);
       System.out.println(rg.getGrammar());
     }
   }
@@ -49,7 +49,7 @@ public class RiGrammarEditor extends RiEditorWindow {
     jbnToolbarButtons.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         displayInTextArea("refresh");
-        rg.setGrammar(textArea.getText());
+        rg.load(textArea.getText());
       }
     });
     jtbToolBar.add(jbnToolbarButtons);

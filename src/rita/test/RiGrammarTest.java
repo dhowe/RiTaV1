@@ -12,8 +12,10 @@ import rita.RiTaException;
 
 public class RiGrammarTest
 { 
-  String[] functions = { "addRule", "clone", "expand", "expandFrom", "expandWith",
-      "getRule", "getRules", "hasRule", "print", "removeRule", "reset", "setGrammar" };
+  // TODO: add tests that these exists(actually should be taken from JSON actually)
+  String[] functions = { "addRule", "clone", "expand", "expandFrom", "expandWith", "getGrammar",
+      "getRule", "getRules", "hasRule", "print", "removeRule", "reset", "load", "loadFromFile" 
+  };
 
   String sentenceGrammar = "{ \"<start>\" : \"<noun_phrase> <verb_phrase>\", \"<noun_phrase>\" : \"<determiner> <noun>\", \"<verb_phrase>\" : \"<verb> | <verb> <noun_phrase> [.1]\", \"<determiner>\" : \"a [.1] | the\", \"<noun>\" : \"woman | man\", \"<verb>\" : \"shoots\" }";
 
@@ -28,7 +30,7 @@ public class RiGrammarTest
   public void testSimpleExpand()
   {
     RiGrammar rg = new RiGrammar();
-    rg.setGrammarFromFile("sentence1.json");
+    rg.loadFromFile("sentence1.json");
     for (int i = 0; i <100; i++)
       ok(rg.expand());
     
@@ -36,7 +38,7 @@ public class RiGrammarTest
     equal(rule, "a [0.1] | the");
     
     rg = new RiGrammar();
-    rg.setGrammarFromFile("sentence2.json");
+    rg.loadFromFile("sentence2.json");
     for (int i = 0; i <100; i++)
       ok(rg.expand());
     
@@ -44,7 +46,7 @@ public class RiGrammarTest
     equal(rule, "a [0.1] | the");
     
     rg = new RiGrammar();
-    rg.setGrammar(sentenceGrammar);
+    rg.load(sentenceGrammar);
     //rg.print();
     for (int i = 0; i <100; i++)
       ok(rg.expand());
@@ -77,17 +79,17 @@ public class RiGrammarTest
   public void testSetGrammarFromFile()
   {
     RiGrammar g = new RiGrammar();
-    g.setGrammarFromFile("sentence1.json");
+    g.loadFromFile("sentence1.json");
     ok(!g.hasRule("{")); // empty
     ok(g.hasRule("<start>"));
     
     g = new RiGrammar();
-    g.setGrammarFromFile("sentence2.json");
+    g.loadFromFile("sentence2.json");
     ok(!g.hasRule("{")); // empty
     ok(g.hasRule("<start>"));
 
     RiGrammar rg = new RiGrammar(); 
-    rg.setGrammarFromFile("haikuGrammar.json");
+    rg.loadFromFile("haikuGrammar.json");
     //rg.print();
     ok(!rg.hasRule("")); // empty
     ok(!rg.hasRule("{")); // empty
@@ -103,7 +105,7 @@ public class RiGrammarTest
   public void testExpandFromFile()
   {
     RiGrammar g = new RiGrammar();
-    g.setGrammarFromFile("sentence1.json");
+    g.loadFromFile("sentence1.json");
     ok(g.hasRule("<start>"));
     for (int i = 0; i < 10; i++)
     {
@@ -112,7 +114,7 @@ public class RiGrammarTest
     }
     
     g = new RiGrammar();
-    g.setGrammarFromFile("sentence2.json");
+    g.loadFromFile("sentence2.json");
     ok(g.hasRule("<start>"));
     for (int i = 0; i < 10; i++)
     {
@@ -274,8 +276,14 @@ public class RiGrammarTest
 
   @Test
   public void testGetGrammar()
-  {
-    ok(false);
+  {  
+    RiGrammar rg = new RiGrammar(sentenceGrammar);
+    String s = rg.getGrammar();
+    String e = "<start>\n  '<noun_phrase> <verb_phrase>' [1.0]\n<determiner>\n  'a' [0.1]\n  'the' [1.0]\n<noun_phrase>\n  '<determiner> <noun>' [1.0]\n<verb_phrase>\n  '<verb> <noun_phrase>' [0.1]\n  '<verb>' [1.0]\n<noun>\n  'woman' [1.0]\n  'man' [1.0]\n<verb>\n  'shoots' [1.0]\n";
+    System.out.println(s);
+    System.out.println(e);
+    equal(s, e);
+
   }
   
   @Test
@@ -286,12 +294,12 @@ public class RiGrammarTest
     equal(r,"<determiner> <noun>");
   
     rg = new RiGrammar(sentenceGrammar);
-    rg.setGrammarFromFile("sentence2.json");
+    rg.loadFromFile("sentence2.json");
     r = rg.getRule("<noun_phrase>");    
     equal(r,"<determiner> <noun>");
     
     rg = new RiGrammar(sentenceGrammar);
-    rg.setGrammarFromFile("sentence1.json");
+    rg.loadFromFile("sentence1.json");
     r = rg.getRule("<noun_phrase>");    
     //System.out.println("'"+r+"'");
     equal(r,"<determiner> <noun>");
@@ -318,9 +326,9 @@ public class RiGrammarTest
     equal("", rg.getRule("start"));
 
     RiGrammar[] g = {
-        (new RiGrammar()).setGrammar(sentenceGrammar) , 
-        (new RiGrammar()).setGrammarFromFile("sentence1.json"),
-        (new RiGrammar()).setGrammarFromFile("sentence2.json")
+        (new RiGrammar()).load(sentenceGrammar) , 
+        (new RiGrammar()).loadFromFile("sentence1.json"),
+        (new RiGrammar()).loadFromFile("sentence2.json")
     };
     for (int i = 0; i < g.length; i++)
     {
@@ -339,7 +347,7 @@ public class RiGrammarTest
     ok(rg.hasRule("<rule1>"));
 
     rg = new RiGrammar(); 
-    rg.setGrammarFromFile("haikuGrammar.json");
+    rg.loadFromFile("haikuGrammar.json");
     //rg.print();
     ok(!rg.hasRule("")); // empty
     ok(rg.hasRule("<start>"));
@@ -372,8 +380,8 @@ public class RiGrammarTest
 
     RiGrammar[] g = {
         new RiGrammar(sentenceGrammar), 
-        new RiGrammar().setGrammarFromFile("sentence1.json"),
-        new RiGrammar().setGrammarFromFile("sentence2.json")
+        new RiGrammar().loadFromFile("sentence1.json"),
+        new RiGrammar().loadFromFile("sentence2.json")
     };
     for (int i = 0; i < g.length; i++)
     {
@@ -387,7 +395,7 @@ public class RiGrammarTest
   {
     RiGrammar rg = new RiGrammar();
     ok(!rg.hasRule("<verb"));
-    rg.setGrammar(sentenceGrammar);
+    rg.load(sentenceGrammar);
     rg.hasRule("<verb");
     for (int i = 0; i < 100; i++)
     {
@@ -399,15 +407,15 @@ public class RiGrammarTest
   public void testRemoveRule()
   {
     RiGrammar rg = new RiGrammar();
-    rg.setGrammar(sentenceGrammar);
+    rg.load(sentenceGrammar);
     ok(rg.hasRule("<noun>"));
     rg.removeRule("<noun>");
     ok(!rg.hasRule("<noun>"));
     
     RiGrammar[] g = {
         new RiGrammar(sentenceGrammar) , 
-        new RiGrammar().setGrammarFromFile("sentence1.json"),
-        new RiGrammar().setGrammarFromFile("sentence2.json")
+        new RiGrammar().loadFromFile("sentence1.json"),
+        new RiGrammar().loadFromFile("sentence2.json")
     };
     for (int i = 0; i < g.length; i++)
     {
@@ -449,15 +457,15 @@ public class RiGrammarTest
   public void testReset()
   {
     RiGrammar rg = new RiGrammar();
-    rg.setGrammar(sentenceGrammar);
+    rg.load(sentenceGrammar);
     ok(rg.hasRule("<noun>"));
     rg.reset();
     ok(!rg.hasRule("<noun>"));
     
     RiGrammar[] g = {
         (new RiGrammar(sentenceGrammar)), 
-        new RiGrammar().setGrammarFromFile("sentence1.json"),
-        new RiGrammar().setGrammarFromFile("sentence2.json")
+        new RiGrammar().loadFromFile("sentence1.json"),
+        new RiGrammar().loadFromFile("sentence2.json")
     };
     for (int i = 0; i < g.length; i++)
     {

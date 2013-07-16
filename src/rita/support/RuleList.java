@@ -88,29 +88,27 @@ public class RuleList implements Constants
   public String toString()
   {
     StringBuilder sb = new StringBuilder();//"Rules:\n");
-    sb.append("Grammar----------------\n");
     String ch = " ";
     for (Iterator it = prules.entrySet().iterator(); it.hasNext();)
     {
       Map.Entry entrySet = (Map.Entry) it.next();
       ch = (String) entrySet.getKey();
       sb.append(ch);
-      sb.append(" ->\n");
+      sb.append("\n");
       Map rules = (Map) entrySet.getValue();
       for (Iterator iterator = rules.entrySet().iterator(); iterator.hasNext();)
       {
         Map.Entry entry = (Map.Entry) iterator.next();
         String rule = (String) entry.getKey();
-        sb.append("    ");
+        sb.append("  ");
         sb.append("'"+rule+"'");
         Float weight = (Float) entry.getValue();
         sb.append(" [");
         sb.append(weight);
-        sb.append(']');
-        sb.append('\n');
+        sb.append("]\n");
       }
     }
-    return sb.toString()+"\n-----------------------";
+    return sb.toString();
   }
 
   /**
