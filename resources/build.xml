@@ -20,7 +20,8 @@
 	<property name="project.jar.name" value="${main.package}.jar"/>
 	<property name="project.src" location="src"/>
 	<property name="project.latest" location="latest"/>
-	<property name="project.js" location="../../javascript-workspace/RiTaLibraryJS/"/>
+	<!--property name="project.js" location="../../javascript-workspace/RiTaLibraryJS/"/-->
+	<property name="project.js" location="RiTaLibraryJS/"/>
 	<property name="js.scripts.dir" location="${project.js}/scripts/"/>
 	<property name="project.tmp" location="tmp"/>
 	<property name="project.web" location="web"/>
