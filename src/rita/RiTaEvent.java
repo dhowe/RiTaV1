@@ -10,26 +10,6 @@ public class RiTaEvent implements Constants
 {
   static { RiTa.init(); }
   
-/*  // USE enum instead?
-  private static final Map<Integer, String> TypeStrings = new HashMap<Integer, String>();
-  
-  static {
-    // TODO: move to Constants?
-    TypeStrings.put(RiTa.UNKNOWN,   "UNKNOWN");
-    TypeStrings.put(RiTa.MOVE_TO,   "MOVE_TO");
-    TypeStrings.put(RiTa.COLOR_TO,  "COLOR_TO");
-    TypeStrings.put(RiTa.FADE_IN,   "FADE_IN");
-    TypeStrings.put(RiTa.FADE_OUT,  "FADE_OUT");
-    TypeStrings.put(RiTa.TEXT_TO,   "TEXT_TO");
-    TypeStrings.put(RiTa.TIMER,     "TIMER");
-    TypeStrings.put(RiTa.SCALE_TO,  "SCALE_TO");
-    TypeStrings.put(RiTa.ROTATE_TO, "ROTATE_TO");
-    TypeStrings.put(RiTa.COLOR_TO,  "COLOR_TO");
-    TypeStrings.put(RiTa.TEXT_ENTERED, "TEXT_ENTERED");
-    TypeStrings.put(RiTa.LERP,      "LERP");
-  }
-  */
-  
   public EventType type;
   protected Object source;
 

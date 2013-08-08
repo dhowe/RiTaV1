@@ -29,8 +29,8 @@ public class GoogleFakeApi extends GoogleApi
     System.out.println("fetch("+queryURL+")");
     
     return  (type == SearchType.IMAGE) ?
-      RiTa.loadString(null, "/Users/dhowe/Documents/eclipse-workspace/RiTaLibraryCompat/library-template/src/data/google-imgs.json")
-      : RiTa.loadString(null, "/Users/dhowe/Documents/eclipse-workspace/RiTaLibraryCompat/library-template/src/data/google.json");
+      RiTa.loadString("/Users/dhowe/Documents/eclipse-workspace/RiTaLibraryCompat/library-template/src/data/google-imgs.json")
+      : RiTa.loadString("/Users/dhowe/Documents/eclipse-workspace/RiTaLibraryCompat/library-template/src/data/google.json");
   }
 
   public static void main(String[] args)

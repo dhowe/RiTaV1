@@ -1,4 +1,4 @@
-<project name="RiTa-Java" default="clean" basedir="../">
+<project name="RiTa" default="clean" basedir="../">
 
 	<!-- remove debug lines from production compiled code -->
 	
@@ -163,7 +163,7 @@ ${line}
 		<antcall target="compile-debug" />
 	  	<antcall target="generate.jar"><param name="folder" value="library"/></antcall>
 	  	<!--antcall target="generate.javadoc" /-->
-		<antcall target="copyToSketchbook"><param name="folder" value="libraries"/></antcall>
+		<!--antcall target="copyToSketchbook"><param name="folder" value="libraries"/></antcall-->
 		<antcall target="generate.distribution" />
 		<antcall target="generate.install.library" />
 		<antcall target="generate.install.props" />
@@ -180,7 +180,6 @@ ${line}
   		<copy todir="${sketchbook.location}/${folder}/${project.name}">
   			<fileset dir="${project.tmp}/${project.name}" />
   		</copy>
-		<!--copy file="${project.latest}/${project.js.name}" todir="${sketchbook.location}/${folder}/${project.name}/library" /-->
 	</target>
 	
 	<!--excludes="${project.tmp}/${project.name}/src/misc" for javac task-->
@@ -214,7 +213,10 @@ ${line}
 	</target>
 	
 	<target name="generate.jar">
-		<jar jarfile="${project.tmp}/${project.name}/${folder}/${project.jar.name}" basedir="${project.bin}"/>
+		<jar jarfile="${project.tmp}/${project.name}/${folder}/${project.jar.name}" basedir="${project.bin}"> 
+			<exclude name="**/data/**" /> 
+			<exclude name="**/test/**" /> 
+		</jar>
 		<!--copy tofile="${project.jsbuild.download}/${main.package}-${project.version}.jar" file="${project.tmp}/${project.name}/${folder}/${project.jar.name}"/-->
   		<copy tofile="${project.latest}/${main.package}-${project.version}.jar" file="${project.tmp}/${project.name}/${folder}/${project.jar.name}"/>
 	</target>
@@ -418,8 +420,7 @@ ${line}
 	</target>	
 	
 	<target name="generate.install.props" if="is.normal">
-		<echo message="Copying ${props.src} ..." />
-		<echo message="  to ${props.dst} ..." />
+		<echo message="Copying ${props.src} to ${props.dst} ..." />
 		<copy file="${props.src}" tofile="${props.dst}" />
 		<replaceregexp file="${props.dst}" match="##version##" replace="${project.version}" flags="g" />
 		<replaceregexp file="${props.dst}" match="##versionnum##" replace="${project.version.num}" flags="g" />

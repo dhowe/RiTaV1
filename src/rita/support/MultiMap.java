@@ -29,7 +29,7 @@ public class MultiMap
   {
 
     if (fileName != null) {
-      String contents = RiTa.loadString(null, fileName);
+      String contents = RiTa.loadString(fileName);
       loadFromString(contents);
     }
   }

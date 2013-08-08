@@ -8,7 +8,6 @@ import static rita.support.QUnitStubs.*;
 
 public class RiTextStaticTests
 {
-
   @Test
   public void testDefaultFontPApplet()
   {

@@ -513,7 +513,7 @@ public class GoogleDirect implements RiGooglerIF
         return this;
       }
 
-      String contents = RiTa.loadString(null, path);
+      String contents = RiTa.loadString(path);
 
       //System.out.println(contents);
   

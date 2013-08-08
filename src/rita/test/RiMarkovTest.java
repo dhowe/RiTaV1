@@ -46,7 +46,7 @@ public class RiMarkovTest
     ok(new RiMarkov(3));
 
     
-    try { new RiMarkov(-1); ok(false); }catch (Exception e) { ok(e); }
+    try { new RiMarkov(-1); ok(false);} catch (Exception e) { ok(e); }
   }
 
   @Test
@@ -59,6 +59,37 @@ public class RiMarkovTest
       equal(rm.getN(), i);
     }
   }      
+  
+  @Test
+  public void testLoadFileLocal()
+  {
+    RiMarkov rm1 = new RiMarkov(4);
+    rm1.loadFile("kafka.txt");
+    String[] sents = rm1.generateSentences(1000);
+    ok(sents.length==1000);
+    
+    for (int j = 0; j < sents.length; j++) {
+      System.out.println(j+") "+sents[j]);
+      String[] words = sents[j].split(" ");
+      ok(!RiTa.isAbbreviation(words[words.length-1]));
+      ok(sents[j]);
+    }
+  }
+  
+  public void testLoadFileRemote()
+  {
+    RiMarkov rm1 = new RiMarkov(4);
+    rm1.loadFile("http://rednoise.org/testfiles/kafka.txt");
+    String[] sents = rm1.generateSentences(1000);
+    ok(sents.length==1000);
+    
+    for (int j = 0; j < sents.length; j++) {
+      System.out.println(j+") "+sents[j]);
+      String[] words = sents[j].split(" ");
+      ok(!RiTa.isAbbreviation(words[words.length-1]));
+      ok(sents[j]);
+    }
+  }
   
   @Test
   public void testGenerateSentencesInt()
@@ -110,11 +141,11 @@ public class RiMarkovTest
   public void testRecognizeSentences()
   {
     RiMarkov rm = new RiMarkov(4, false);
-    ok(!rm.recognizeSentences());
+    ok(!rm.sentenceAware());
     rm = new RiMarkov(4);
-    ok(rm.recognizeSentences());
+    ok(rm.sentenceAware());
     rm = new RiMarkov(4, true);
-    ok(rm.recognizeSentences());
+    ok(rm.sentenceAware());
   }
   
   @Test
@@ -537,7 +568,7 @@ public class RiMarkovTest
       String words = "The dog ate the cat";
 
       RiMarkov rm = new RiMarkov(3,false);
-      rm.recognizeSentences();
+      rm.sentenceAware();
       rm.loadText(words);
       rm.loadText("leopard",5);
       //rm.print();
@@ -559,7 +590,7 @@ public class RiMarkovTest
       String words = "The dog ate the cat.";
 
       RiMarkov rm = new RiMarkov(3,true);
-      rm.recognizeSentences();
+      rm.sentenceAware();
       rm.loadText(words);
       rm.loadText("Bobby ate.",2);
       equal(rm.getProbability(new String[] { "The" }), 1/12f);
@@ -568,7 +599,7 @@ public class RiMarkovTest
     {
       String words = "The dog ate The cat.";
       RiMarkov rm = new RiMarkov(3,true);
-      rm.recognizeSentences();
+      rm.sentenceAware();
       rm.loadText(words);
       rm.loadText("Bobby ate.",2);
       //rm.print();
@@ -585,7 +616,7 @@ public class RiMarkovTest
       String words = "The dog ate the cat";
 
       RiMarkov rm = new RiMarkov(3,false);
-      rm.recognizeSentences();
+      rm.sentenceAware();
       rm.loadText(words, "\\s+");
       rm.loadText("A leopard got so fat", 2, "\\s+");
       //rm.print();
@@ -607,7 +638,7 @@ public class RiMarkovTest
       String words = "The dog ate the white cat.";
 
       RiMarkov rm = new RiMarkov(3,true);
-      rm.recognizeSentences();
+      rm.sentenceAware();
       rm.loadText(words, "\\s+");
       rm.loadText("Bobby ate it.",2, "\\s+");
       equal(rm.getProbability(new String[] { "The" }), 1/12f);
@@ -616,7 +647,7 @@ public class RiMarkovTest
     {
       String words = "The dog ate The white cat.";
       RiMarkov rm = new RiMarkov(3,true);
-      rm.recognizeSentences();
+      rm.sentenceAware();
       rm.loadText(words,"\\s+");
       rm.loadText("Bobby ate it.", 2, "\\s+");
       //rm.print();

@@ -101,7 +101,7 @@ public class BrillPosTagger implements Constants
    */
   public String[] tagFile(String fileName) {
     List result = new ArrayList();
-    String text = RiTa.loadString(null, fileName);
+    String text = RiTa.loadString(fileName);
     
     String[] sents = RiTa.splitSentences(text);
     for (int i = 0; i < sents.length; i++) {

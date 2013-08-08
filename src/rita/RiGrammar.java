@@ -71,7 +71,7 @@ public class RiGrammar implements Constants
     if (grammarFileName != null)
     {
       this.fileName = grammarFileName;
-      load(RiTa.loadString(null, grammarFileName));
+      load(RiTa.loadString(grammarFileName));
       //setGrammar(gram, fileName.endsWith(".json"));
     }
     return this;
