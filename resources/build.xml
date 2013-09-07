@@ -286,7 +286,7 @@ ${line}
 	
 	<target name="generate.javadoc" if="is.normal">
 
-	  	<!-- MODIFIED BY DCH TO USE WITH SPECIFIC FILES AND EXCLUDE-DOCLET -->
+	  	<!-- MODIFIED BY DCH TO USE WITH SPECIFIC FILES AND EXCLUDE-DOCLET (NOT-USED NOW) -->
 	  	
 		<javadoc bottom="processing library ${project.name} by ${author.name}. ${project.copyright}"
 		 
