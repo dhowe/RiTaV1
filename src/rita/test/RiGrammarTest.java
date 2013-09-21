@@ -76,7 +76,7 @@ public class RiGrammarTest
   }
 
   @Test
-  public void testSetGrammarFromFile()
+  public void testLoadFromFile()
   {
     RiGrammar g = new RiGrammar();
     g.loadFromFile("sentence1.json");
@@ -100,6 +100,17 @@ public class RiGrammarTest
     ok(rg.hasRule("<start>"));
     ok(rg.hasRule("<5-line>"));
   }
+  
+  /*
+  @Test
+  public void testLoadFromFileStringObject(){
+    RiGrammar g = new RiGrammar();
+    g.loadFromFile("sentence1.json", "expandShim", this);
+    ok(!g.hasRule("{")); // empty
+    ok(g.hasRule("<start>"));
+  }
+  public String expandShim(){ }
+  */
 
   @Test
   public void testExpandFromFile()
@@ -391,7 +402,7 @@ public class RiGrammarTest
   }
 
   @Test
-  public void testSetGrammar()
+  public void testLoad()
   {
     RiGrammar rg = new RiGrammar();
     ok(!rg.hasRule("<verb"));

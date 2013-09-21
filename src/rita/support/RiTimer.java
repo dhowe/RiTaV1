@@ -69,27 +69,9 @@ public class RiTimer implements Constants
     this.parent = parent;
     this.period = period;
     this.id = ++idGen;
-    this.callback = findCallback(callbackName);
+    this.callback = RiTa._findCallback(parent, callbackName);
     init(0, period);
     timers.add(this);
-  }
-
-  public Method findCallback(String callbackName)
-  {
-    try
-    {
-      return (callbackName == null) ? 
-         RiTa._findMethod(parent, DEFAULT_CALLBACK, new Class[] { RiTaEvent.class }, false)
-         : RiTa._findMethod(parent, callbackName, new Class[] {}, false);
-    }
-    catch (RiTaException e)
-    {
-      String msg = (callbackName == null) ? 
-          DEFAULT_CALLBACK+"(RiTaEvent re);" : callbackName+"();";
-      System.err.println("[WARN] Expected callback not found: "
-          + RiTa.shortName(parent)+"."+msg);
-      return null;
-    }
   }
   
   public String toString()
@@ -100,8 +82,7 @@ public class RiTimer implements Constants
   private void init(float startOffset, float thePeriod)
   {
     final RiTimer rt = this;
-    (internalTimer = new Timer(isDaemon)).schedule(new TimerTask()
-    {
+    (internalTimer = new Timer(isDaemon)).schedule(new TimerTask() {
       public void run()
       {
         new RiTaEvent(rt, EventType.Timer).fire(parent, callback);

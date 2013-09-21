@@ -72,9 +72,24 @@ public class RiGrammar implements Constants
     {
       this.fileName = grammarFileName;
       load(RiTa.loadString(grammarFileName));
-      //setGrammar(gram, fileName.endsWith(".json"));
     }
+    
     return this;
+  }
+  
+  // TODO: test and release?
+  public RiGrammar loadFromFile(String grammarFileName, String callbackName/*, Object parent*/)
+  {
+    System.out.println("RiGrammar.loadFromFile(): ignoring callback in Java-mode.");
+
+    return loadFromFile(grammarFileName);
+    /*
+    if (callbackName != null) {
+      if (parent != null)
+        RiTa._invoke(parent, RiTa._findCallback(parent, callbackName), new Object[0]);
+      else
+        throw new RuntimeException("Parent object must not be null! Did you mean to use 'this'?");
+    }*/
   }
   
   /**
