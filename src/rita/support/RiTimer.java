@@ -84,8 +84,10 @@ public class RiTimer implements Constants
     }
     catch (RiTaException e)
     {
+      String msg = (callbackName == null) ? 
+          DEFAULT_CALLBACK+"(RiTaEvent re);" : callbackName+"();";
       System.err.println("[WARN] Expected callback not found: "
-          + RiTa.shortName(parent)+"."+DEFAULT_CALLBACK+"();");
+          + RiTa.shortName(parent)+"."+msg);
       return null;
     }
   }
