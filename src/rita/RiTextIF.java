@@ -92,13 +92,13 @@ public interface RiTextIF extends rita.support.Constants
   RiTextIF toLowerCase();
   RiTextIF toUpperCase();
   
-  RiTextIF removeCharAt(int idx);
-  RiTextIF insertCharAt(int idx, char c);
-  RiTextIF replaceCharAt(int idx, String s);
+  RiTextIF removeChar(int idx);
+  RiTextIF insertChar(int idx, char c);
+  RiTextIF replaceChar(int idx, String s);
   
-  RiTextIF removeWordAt(int wordIdx);
-  RiTextIF insertWordAt(int wordIdx, String s);
-  RiTextIF replaceWordAt(int wordIdx, String s);
+  RiTextIF removeWord(int wordIdx);
+  RiTextIF insertWord(int wordIdx, String s);
+  RiTextIF replaceWord(int wordIdx, String s);
   
   // java-style overrides
   RiTextIF concat(String cs);

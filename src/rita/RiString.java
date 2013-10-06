@@ -208,7 +208,7 @@ public class RiString implements FeaturedIF, Constants
    * and shifts each subsequent word accordingly. Returns true
    * if the replace was successful, or false if the index does not exist. 
    */
-  public RiString insertWordAt(int wordIdx, String newWord)
+  public RiString insertWord(int wordIdx, String newWord)
   {
     if (newWord == null || newWord.length()<1 || newWord.matches(WS))
       return this;
@@ -292,9 +292,9 @@ public class RiString implements FeaturedIF, Constants
     return (pos == null) ? E : pos[wordIdx];
   }
 
-  public RiString replaceCharAt(int idx, char replaceWith)
+  public RiString replaceChar(int idx, char replaceWith)
   { 
-    return this.replaceCharAt(idx, Character.toString(replaceWith));
+    return this.replaceChar(idx, Character.toString(replaceWith));
   }
   
   /**
@@ -303,7 +303,7 @@ public class RiString implements FeaturedIF, Constants
    * the length of the current text, there will be no effect.
    * Returns true if the replacement was made  
    */
-  public RiString replaceCharAt(int idx, String replaceWith)
+  public RiString replaceChar(int idx, String replaceWith)
   {   
     idx = Math.min(idx < 0  ? delegate.length() + idx : idx, length()-1);
 
@@ -334,9 +334,9 @@ public class RiString implements FeaturedIF, Constants
     return text(RiTa.untokenize(words));
   }  
   
-  public RiString removeCharAt(int idx)
+  public RiString removeChar(int idx)
   {
-    return replaceCharAt(idx, E);
+    return replaceChar(idx, E);
   }
 
   public RiString replaceFirst(String regex, String replacement)
@@ -583,7 +583,7 @@ public class RiString implements FeaturedIF, Constants
     features().put(name, value);
   }
 
-  public RiString insertCharAt(int idx, char c)
+  public RiString insertChar(int idx, char c)
   {
     return insertAt(idx, Character.toString(c));
   }
@@ -594,7 +594,7 @@ public class RiString implements FeaturedIF, Constants
     return text(delegate.substring(0,charIdx) + s + delegate.substring(charIdx+1));
   }
 
-  public RiString removeWordAt(int idx)
+  public RiString removeWord(int idx)
   {
     return replaceWordAt(idx, E);
   }
