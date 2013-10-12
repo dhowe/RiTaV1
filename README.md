@@ -1,7 +1,7 @@
 
 ### RiTa: the generative language toolkit 
 
-<a href="http://rednoise.org/rita/"><img height=120 src="http://rednoise.org/rita/img/RiTa-logo2.png"/></a>
+<a href="http://rednoise.org/rita/"><img height=120 src="http://rednoise.org/rita/img/RiTa-logo3.png"/></a>
 
 #### <a href="http://rednoise.org/rita">The RiTa website</a>
 

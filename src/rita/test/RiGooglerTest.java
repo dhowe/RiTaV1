@@ -46,7 +46,7 @@ public class RiGooglerTest
   public void testGetWeightedBigram()
   {
     float count = google.getWeightedBigram(new String[]{"The", "big","dog"});
-    out(count);
+    println(count);
     ok(count>0);
   }
 
@@ -57,14 +57,14 @@ public class RiGooglerTest
 
     String[] completions = google.getCompletions(query);
     ok(completions.length>9);
-    out(completions);
+    println(completions);
   }
 
   @Test
   public void testGetCompletionsStringString()
   {
     String[] completions = google.getCompletions("the girl","the dog");
-    out(completions); 
+    println(completions); 
     ok(completions.length>1);
   }
 
@@ -82,11 +82,11 @@ public class RiGooglerTest
       equal(completions[i].matches("\\w"), false, completions[i]);
       equal(completions[i].contains(" "),  false, completions[i]);
     }
-    out(completions);
+    println(completions);
 
     
     completions = google.getCompletions(query,2);
-    out(completions);
+    println(completions);
     ok(completions.length>9);
     for (int i = 0; i < completions.length; i++)
     {
@@ -110,7 +110,7 @@ public class RiGooglerTest
 
     String query = "\"lasted a good\"";
     String[] links = google.getResultLinks(query);
-    out(links);
+    println(links);
     ok(links.length>9);
   }
 
@@ -119,7 +119,7 @@ public class RiGooglerTest
   {
     String query = "\"a good man\"";
     String[] links = google.getResultText(query);
-    out(links);
+    println(links);
     ok(links.length>9);  
   }
 
@@ -128,7 +128,7 @@ public class RiGooglerTest
   {
     String query = "\"that must have lasted a good\"";
     String[] links = google.getImageURLs(query);
-    out(links);
+    println(links);
     ok(links.length>9);
   }
 
@@ -137,7 +137,7 @@ public class RiGooglerTest
   {
     String query = "\"that must have lasted a good\"";
     String[] links = google.getImageURLs(query, true);
-    out(links);
+    println(links);
     ok(links.length>9);
   }
   

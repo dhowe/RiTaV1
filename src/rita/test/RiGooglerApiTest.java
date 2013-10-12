@@ -3,7 +3,7 @@ package rita.test;
 import static org.junit.Assert.fail;
 import static rita.support.QUnitStubs.equal;
 import static rita.support.QUnitStubs.ok;
-import static rita.support.QUnitStubs.out;
+import static rita.support.QUnitStubs.println;
 
 import org.junit.Test;
 
@@ -47,7 +47,7 @@ public class RiGooglerApiTest
   {
 
     float count = google.getWeightedBigram(new String[]{"The", "big","dog"});
-    out(count);
+    println(count);
     ok(count>0);
   }
 
@@ -57,14 +57,14 @@ public class RiGooglerApiTest
     String query = "bieber is a";
     String[] completions = google.getCompletions(query);
     ok(completions.length>1);
-    out(completions);
+    println(completions);
   }
 
   @Test
   public void testGetCompletionsStringString()
   {
     String[] completions = google.getCompletions("the girl","the dog");
-    out(completions); 
+    println(completions); 
     ok(completions.length>1);
   }
 
@@ -75,7 +75,7 @@ public class RiGooglerApiTest
     String[] completions;
     
     completions = google.getCompletions(query,1);
-    out(completions);
+    println(completions);
     ok(completions.length>1);
     for (int i = 0; i < completions.length; i++)
     {
@@ -85,7 +85,7 @@ public class RiGooglerApiTest
     }
     
     completions = google.getCompletions(query,2);
-    out(completions);
+    println(completions);
     ok(completions.length>1);
     for (int i = 0; i < completions.length; i++)
     {
@@ -109,7 +109,7 @@ public class RiGooglerApiTest
 
     String query = "\"lasted a good\"";
     String[] links = google.getResultLinks(query);
-    out(links);
+    println(links);
     ok(links.length>9);
   }
 
@@ -118,7 +118,7 @@ public class RiGooglerApiTest
   {
     String query = "\"a good man\"";
     String[] links = google.getResultText(query);
-    out(links);
+    println(links);
     ok(links.length>9);  
   }
 
@@ -127,7 +127,7 @@ public class RiGooglerApiTest
   {
     String query = "\"that must have lasted a good\"";
     String[] links = google.getImageURLs(query);
-    out(links);
+    println(links);
     ok(links.length>9);
   }
 
@@ -136,7 +136,7 @@ public class RiGooglerApiTest
   {
     String query = "\"that must have lasted a good\"";
     String[] links = google.getImageURLs(query, true);
-    out(links,1);
+    println(links,1);
 
     ok(links.length>9);
   }

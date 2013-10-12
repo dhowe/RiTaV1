@@ -69,6 +69,50 @@ public class QUnitStubs
 
   /////////////////////////////////////////////////////////
 
+  public static void deepEqual(double[] o, double[] p)
+  {
+    if (o !=null && p != null && o.length==p.length) {
+      for (int i = 0; i < p.length; i++)
+          assertTrue(o[i]==p[i]);
+    }
+    else {
+      assertTrue(o==null && p==null);
+    }
+  }
+  
+  public static void deepEqual(boolean[] o, boolean[] p)
+  {
+    if (o !=null && p != null && o.length==p.length) {
+      for (int i = 0; i < p.length; i++)
+          assertTrue(o[i]==p[i]);
+    }
+    else {
+      assertTrue(o==null && p==null);
+    }
+  }
+  
+  public static void deepEqual(float[] o, float[] p)
+  {
+    if (o !=null && p != null && o.length==p.length) {
+      for (int i = 0; i < p.length; i++)
+          assertTrue(o[i]==p[i]);
+    }
+    else {
+      assertTrue(o==null && p==null);
+    }
+  }
+
+  public static void deepEqual(int[] o, int[] p)
+  {
+    if (o !=null && p != null && o.length==p.length) {
+      for (int i = 0; i < p.length; i++)
+          assertTrue(o[i]==p[i]);
+    }
+    else {
+      assertTrue(o==null && p==null);
+    }
+  }
+  
   public static void deepEqual(Object o, Object p)
   {
     
@@ -107,11 +151,15 @@ public class QUnitStubs
 
   public static boolean SILENT = true;
 
-  public static void out(List l) { out(l,0); }
-  public static void out(Object[]  l) { out(l,0); }
-  public static void out(Object l) { out(l,0); }
+  public static void println(List l) { println(l,0); }
+  public static void println(Object[]  l) { println(l,0); }
+  public static void println(Object l) { println(l,0); }
+  public static void print(int l) { print(l,0); }
+  public static void print(float l) { print(l,0); }
+  public static void print(boolean l) { print(l,0); }
+  public static void print(double l) { print(l,0); }
   
-  public static void out(List l, int k)
+  public static void println(List l, int k)
   {
     if (SILENT && k != 1) return;
     if (l == null || l.size() <1) System.out.println("[]");
@@ -120,7 +168,39 @@ public class QUnitStubs
       System.out.println(i + ") '" + it.next()+"'");
   }
 
-  public static void out(Object[] l, int k)
+  public static void println(Object[] l, int k)
+  {
+    if (SILENT && k != 1) return;
+    if (l == null || l.length <1) System.out.println("[]");
+    for (int j = 0; j < l.length; j++)
+      System.out.println(j + ") '" + l[j]+"'");
+  }
+  
+  public static void println(int[] l, int k)
+  {
+    if (SILENT && k != 1) return;
+    if (l == null || l.length <1) System.out.println("[]");
+    for (int j = 0; j < l.length; j++)
+      System.out.println(j + ") '" + l[j]+"'");
+  }
+  
+  public static void println(float[] l, int k)
+  {
+    if (SILENT && k != 1) return;
+    if (l == null || l.length <1) System.out.println("[]");
+    for (int j = 0; j < l.length; j++)
+      System.out.println(j + ") '" + l[j]+"'");
+  }
+  
+  public static void println(boolean[] l, int k)
+  {
+    if (SILENT && k != 1) return;
+    if (l == null || l.length <1) System.out.println("[]");
+    for (int j = 0; j < l.length; j++)
+      System.out.println(j + ") '" + l[j]+"'");
+  }
+  
+  public static void println(double[] l, int k)
   {
     if (SILENT && k != 1) return;
     if (l == null || l.length <1) System.out.println("[]");
@@ -128,9 +208,21 @@ public class QUnitStubs
       System.out.println(j + ") '" + l[j]+"'");
   }
 
-  public static void out(Object l, int k)
+  public static void println(Object l, int k)
   {
     if (SILENT && k != 1) return;
-    System.out.println(l);
+    if (l instanceof boolean[]) println((boolean[])l,0);
+    else if (l instanceof int[]) println((int[])l,0);
+    else if (l instanceof float[]) println((float[])l,0);
+    else if (l instanceof double[]) println((double[])l,0);
+    else {
+      System.out.println(l);
+    }
+  }
+  
+  public static void print(Object l, int k)
+  {
+    if (SILENT && k != 1) return;
+    System.out.print(l);
   }
 }
