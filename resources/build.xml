@@ -41,7 +41,7 @@
 	<property name="props.src" location="resources/library.properties"/>
 	<property name="props.dst" location="${project.dist.version}/${project.name}/library.properties"/>
 	<property name="install.destination" location="${project.dist.version}/INSTALL.txt"/>
-	<property name="processing.library" location="Users/dhowe/Documents/Processing/libraries/RiTa/library"/>
+	<property name="processing.library" location="/Users/dhowe/Documents/Processing/libraries/RiTa/library"/>
 	
 	<target name="_make.all">
 		
