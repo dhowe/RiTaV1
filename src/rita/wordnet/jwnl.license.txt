@@ -1,0 +1,6 @@
+License Information
+
+This software is covered under the GPL. Basically, you can do what you want with it. Just make sure to note your changes and include this document with any distribution of the code. JWNL was architected by John Didion, and the majority of the code written by him. He can be contacted at jdidion@didion.net.
+
+
+Portions of the code were taken from the JWordNet package developed by Oliver Steele, and the PerformanceTester class was contributed by Leonard Wolters, and I thank both of them for their effort. 

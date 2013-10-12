@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jwnl_properties language="en">
+	<version publisher="Princeton" number="3.1" language="en"/>
+	<dictionary class="rita.wordnet.jwnl.dictionary.FileBackedDictionary">
+		<param name="morphological_processor" value="rita.wordnet.jwnl.dictionary.morph.DefaultMorphologicalProcessor">
+			<param name="operations">
+				<param value="rita.wordnet.jwnl.dictionary.morph.LookupExceptionsOperation"/>
+				<param value="rita.wordnet.jwnl.dictionary.morph.DetachSuffixesOperation">
+					<param name="noun" value="|s=|ses=s|xes=x|zes=z|ches=ch|shes=sh|men=man|ies=y|"/>
+					<param name="verb" value="|s=|ies=y|es=e|es=|ed=e|ed=|ing=e|ing=|"/>
+					<param name="adjective" value="|er=|est=|er=e|est=e|"/>
+                    <param name="operations">
+                        <param value="rita.wordnet.jwnl.dictionary.morph.LookupIndexWordOperation"/>
+                        <param value="rita.wordnet.jwnl.dictionary.morph.LookupExceptionsOperation"/>
+                    </param>
+				</param>
+				<param value="rita.wordnet.jwnl.dictionary.morph.TokenizerOperation">
+					<param name="delimiters">
+						<param value=" "/>
+						<param value="-"/>
+					</param>
+					<param name="token_operations">
+                        <param value="rita.wordnet.jwnl.dictionary.morph.LookupIndexWordOperation"/>
+						<param value="rita.wordnet.jwnl.dictionary.morph.LookupExceptionsOperation"/>
+						<param value="rita.wordnet.jwnl.dictionary.morph.DetachSuffixesOperation">
+							<param name="noun" value="|s=|ses=s|xes=x|zes=z|ches=ch|shes=sh|men=man|ies=y|"/>
+							<param name="verb" value="|s=|ies=y|es=e|es=|ed=e|ed=|ing=e|ing=|"/>
+							<param name="adjective" value="|er=|est=|er=e|est=e|"/>
+                <param name="operations">
+                    <param value="rita.wordnet.jwnl.dictionary.morph.LookupIndexWordOperation"/>
+                    <param value="rita.wordnet.jwnl.dictionary.morph.LookupExceptionsOperation"/>
+                </param>
+						</param>
+					</param>
+				</param>
+			</param>
+		</param>
+		<param name="dictionary_element_factory" value="rita.wordnet.jwnl.princeton.data.PrincetonWN17FileDictionaryElementFactory"/>
+  		<param name="file_manager" value="rita.wordnet.jwnl.dictionary.file_manager.FileManagerImpl">
+		<!--param name="file_type" value="rita.wordnet.jwnl.princeton.file.PrincetonRandomAccessDictionaryFile"/-->
+		<param name="file_type" value="rita.wordnet.WordnetDictionaryFile"/>
+		<param name="dictionary_path" value=""/>
+		</param>
+	</dictionary>
+	<resource class="PrincetonResource"/>
+</jwnl_properties>
