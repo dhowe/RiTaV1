@@ -1,3 +1,3 @@
 #!/bin/sh
 
-cp ../../../javascript-workspace/RiTaLibraryJS/src/rita_dict.js ../src/rita/
+cp ../RiTaLibraryJS/src/rita_dict.js ../src/rita/

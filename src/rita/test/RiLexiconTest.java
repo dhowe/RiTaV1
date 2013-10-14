@@ -140,6 +140,16 @@ public class RiLexiconTest
   }
 
   @Test
+  public void testAlliterationsInt()
+  {
+    RiLexicon lex = new RiLexicon();
+    String[] result = lex.alliterations("dog", 15);
+    ok(result.length == 3);
+    result = lex.alliterations("cat", 16);
+    ok(result.length == 7);
+  }
+
+  @Test
   public void testLexicalData()
   {
     RiLexicon lex = new RiLexicon();
