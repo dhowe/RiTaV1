@@ -143,9 +143,11 @@ public class RiLexiconTest
   public void testAlliterationsInt()
   {
     RiLexicon lex = new RiLexicon();
-    String[] result = lex.alliterations("dog", 15);
+    String[] result = lex.alliterations("dog", 16);
     ok(result.length == 3);
-    result = lex.alliterations("cat", 16);
+    result = lex.alliterations("cat", 17);
+    System.out.println("RiLexiconTest.testAlliterationsInt() :: "+result.length);
+
     ok(result.length == 7);
   }
 
