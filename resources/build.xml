@@ -14,7 +14,9 @@
 		<equals arg1="${project.compile}" arg2="normal" />
 	</condition>
 	
+	<property environment="env"/>
 	<property name="main.package" value="rita"/>
+	<property name="path.to.node" value="/usr/local/bin"/>
 	<property name="project.js.name" value="${main.package}.js"/>
 	<property name="project.jar.name" value="${main.package}.jar"/>
 	<property name="project.jar.support.name" value="${main.package}.support.jar"/>
@@ -88,7 +90,8 @@ ${line}
 	bin path 	${project.bin}
 	classpath.local	${classpath.local.location}
 	sketchbook	${sketchbook.location}
-	java version	${java.target.version}
+	java version	${java.version}
+	java target	${java.target.version}
 ${line}
 		</echo>
 	
@@ -112,6 +115,7 @@ ${line}
 		<echo>${line}</echo>
 		<echo message="calling make-node.sh ..." />	
 	    <exec dir="${js.scripts.dir}" resolveexecutable="true" executable="make-node.sh" failonerror="true">
+	    	<env key="PATH" value="${env.PATH}:${path.to.node}" />
 	        <arg line="${project.version}"/>
 	    </exec>
 		<echo>${line}</echo>
@@ -162,8 +166,6 @@ ${line}
 		<echo>${line}</echo>
 	</target>
 	
-	<!--arg line="-r"/-->
-	
 	<target name="library.run" depends="library.init"> 
 		<echo message="building library ..." />
 		<antcall target="generate.structure"><param name="folder" value="library"/></antcall>
@@ -179,7 +181,7 @@ ${line}
 	  	<antcall target="generate.zip" />	
 	  	<delete dir="${project.tmp}" />
 	</target>
-	
+			
 	<target name="copyToSketchbook">
 		<echo message="Copying files to the ${folder} folder in your sketchbook." />
 		<!-- copy the jar file to processing's sketchbook libraries folder -->
@@ -195,6 +197,7 @@ ${line}
 	<target name="compile-debug">
 		<javac srcdir="${project.tmp}/${project.name}/src"
 			excludes="**/test/**"
+			includeantruntime="false"
 			destdir="${project.bin}" 
 			source="${java.target.version}" 
 			target="${java.target.version}"
@@ -221,14 +224,14 @@ ${line}
 	</target>
 	
 	<target name="generate.jar">
-		<jar jarfile="${project.tmp}/${project.name}/${project.jar.name}" basedir="${project.bin}"> 
+		<jar jarfile="${project.tmp}/${project.name}/library/${project.jar.name}" basedir="${project.bin}"> 
 			<exclude name="**/data/**" /> 
 			<exclude name="**/test/**" /> 
 			<exclude name="**/RiWordnet*.class" />
 			<exclude name="**/wordnet/**" />
 		</jar>
 		<!--copy tofile="${project.jsbuild.download}/${main.package}-${project.version}.jar" file="${project.tmp}/${project.name}/${folder}/${project.jar.name}"/-->
-  		<copy tofile="${project.latest}/${main.package}-${project.version}.jar" file="${project.tmp}/${project.name}/${project.jar.name}"/>
+  		<copy tofile="${project.latest}/${main.package}-${project.version}.jar" file="${project.tmp}/${project.name}/library/${project.jar.name}"/>
 	</target>
 	
 	<target name="generate.two.jars">
@@ -258,10 +261,11 @@ ${line}
 	</target>
 	
 	<target name="generate.structure">
+		
 		<delete dir="${project.tmp}" />
 		<mkdir dir="${project.tmp}" />
 		<mkdir dir="${project.tmp}/${project.name}" />
-	  	<mkdir dir="${project.tmp}/${project.name}/${folder}" />
+	  	<mkdir dir="${project.tmp}/${project.name}/library" />
   		<mkdir dir="${project.tmp}/${project.name}/examples" />
 	  	<mkdir dir="${project.tmp}/${project.name}/reference" />
 		<mkdir dir="${project.tmp}/${project.name}/css" />
@@ -290,15 +294,15 @@ ${line}
  		         <include name="*.css"/>
  		     </fileset>
 	  	</copy>
-		
+
 	  	<zip destfile="${project.latest}/${project.name}-${project.version}-src.zip"
   	       basedir="${project.tmp}/${project.name}/src"
   	       excludes="**/.DS_Store"
 		/>
 		
-		<copy file="${project.latest}/${project.js.name}" todir="${project.tmp}/${project.name}/${folder}" />
+		<copy file="${project.latest}/${project.js.name}" todir="${project.tmp}/${project.name}/library" />
 		
-	  	<copy todir="${project.tmp}/${project.name}/${folder}">
+	  	<copy todir="${project.tmp}/${project.name}/library">
   			<fileset dir="${project.lib}" excludes="README" />
 	  	</copy>
 		
@@ -322,7 +326,7 @@ ${line}
 	
 	<target name="generate.javadoc" if="is.normal">
 
-	  	<!-- MODIFIED BY DCH TO USE WITH SPECIFIC FILES AND EXCLUDE-DOCLET (NOT-USED NOW) -->
+	  	<!-- MODIFIED BY DCH -->
 	  	
 		<javadoc bottom="processing library ${project.name} by ${author.name}. ${project.copyright}"
 		 
@@ -464,6 +468,7 @@ ${line}
 	</target>	
 			
 	<target name="generate.zip" if="is.normal">
+		
 		<!-- zip the distribution of the library -->
   		<move todir="${project.dist.version}/tmp/${project.name}-${project.version}/${project.name}">
   			<fileset dir="${project.dist.version}/${project.name}" />
@@ -480,10 +485,11 @@ ${line}
 			<fileset dir="${project.dist.version}/web" />
 		</move>
 		<delete dir="${project.dist.version}/tmp" />
+		
 	</target>
 	
 	<target name="versionSourcefile">
-		<echo message="${file}" />
+		<echo message="Updating version info in: ${file}" />
 		<replaceregexp file="${file}" match="##author##" replace="${author.name} ${author.url}" flags="g" />
 		<replaceregexp file="${file}" match="##version##" replace="${project.version}" flags="g" />
 		<replaceregexp file="${file}" match="##date##" replace="${date}" flags="g" />
@@ -499,7 +505,6 @@ ${line}
 		<foreach list="${examples.list}" target="addExamples" param="exampleDir" delimiter=";">
 		</foreach>
 	</target>
-		
 		
 	<target name="addExamples">
 		<echo message="adding example ${exampleDir}" />
@@ -520,12 +525,12 @@ Version	${project.version}
 Compiled	${project.compile}
 Sketchbook	${sketchbook.location}
 ${line}
-done, finished.
+Done.
 ${line}	
 		</echo>
-	    <exec resolveexecutable="true" executable="ls" failonerror="true">
+	    <!--exec resolveexecutable="true" executable="ls" failonerror="true">
 	        <arg line="${project.jsbuild.download}"/>
-	    </exec>
+	    </exec-->
 	</target>
 	
 </project>
