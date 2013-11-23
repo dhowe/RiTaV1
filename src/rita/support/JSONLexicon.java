@@ -674,7 +674,7 @@ public class JSONLexicon implements Constants
     
     if (data == null && useLTS)
     {
-      if (!RiTa.SILENT) 
+      if (!RiTa.SILENT && !RiLexicon.SILENCE_LTS) 
         System.out.println("[RiTa] Using letter-to-sound rules for: " + word);
       
       String[] phones = LetterToSound.getInstance().getPhones(word);
@@ -689,7 +689,7 @@ public class JSONLexicon implements Constants
   public String getPosStr(String word)
   { 
     String data = lookupRaw(word);
-    if (word.equals("a")) {
+    /*if (word.equals("a")) {
 
       if (data == null) {
         System.out.println("JSONLexicon.getPosStr(a="+data+")");
@@ -697,7 +697,7 @@ public class JSONLexicon implements Constants
         System.out.println("JSONLexicon.getPosStr(zooms="+lookupRaw("zooms")+")");
         throw new RuntimeException("null data: "+size());
       }
-    }
+    }*/
     if (data == null) return E;
     return data.split(DATA_DELIM)[1];
   }
@@ -705,8 +705,6 @@ public class JSONLexicon implements Constants
   public String getBestPos(String word)
   {
     String[] posArr = getPosArr(word);
-if (word.equals("a"))
-  System.out.println("JSONLexicon.getPosArr.getBestPos(a="+RiTa.asList(posArr)+")");
     return posArr.length > 0 ? posArr[0] : E;
   }
   
@@ -715,11 +713,8 @@ if (word.equals("a"))
     if (word.contains(SP))
       throw new RiTaException("Only single words allowed");
     String pl = getPosStr(word);
-if (word.equals("a")) {
-  System.out.println("JSONLexicon.getPosArr(a="+pl+")");
-  if (pl == null)
-    throw new RuntimeException("null pl");
-}
+    if (pl == null)
+      throw new RuntimeException("null pl");
     return (pl == null || pl.length() < 1) ? EMPTY : pl.split(SP);
   }
 

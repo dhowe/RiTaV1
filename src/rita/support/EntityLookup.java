@@ -298,6 +298,10 @@ public class EntityLookup
     return map.value(name);
   }
 
+  public String escape(String str)
+  {
+    return escape(str, true);
+  }
   /**
    * <p>
    * Escapes the characters in a <code>String</code>.
@@ -311,21 +315,22 @@ public class EntityLookup
    * @param str - The <code>String</code> to escape.
    * @return A new escaped <code>String</code>.
    */
-  public String escape(String str)
+  public String escape(String str, boolean useEntityNamesWhenAvailable)
   {
     // todo: rewrite to use a Writer
     StringBuilder buf = new StringBuilder(str.length() * 2);
     int i;
     for (i = 0; i < str.length(); ++i) {
       char ch = str.charAt(i);
-      String entityName = this.entityName(ch);
+      String entityName = useEntityNamesWhenAvailable ? this.entityName(ch) : null;
       if (entityName == null) {
         if (ch > 0x7F) {
           int intValue = ch;
           buf.append("&#");
           buf.append(intValue);
           buf.append(';');
-        } else {
+        } 
+        else {
           buf.append(ch);
         }
       } else {
@@ -334,6 +339,7 @@ public class EntityLookup
         buf.append(';');
       }
     }
+    
     return buf.toString();
   }
 
@@ -387,25 +393,9 @@ public class EntityLookup
     }
     return buf.toString();
   }
-  
 
-  
-  /*  private static final String[][] CHAR_ENTITIES = { 
-      { "quot",  "34"  },  // " - double-quote
-      { "amp",   "38"  },  // & - ampersand
-      { "lt",    "60"  },  // < - less-than
-      { "gt",    "62"  },  // > - greater-than
-      { "apos",  "39"  },  // ' - apostrophe
-      { "copy",  "169" },  // ?- copyright sign
-      { "nbsp",  "160" },  // non-breaking space
-    };*/  
-/*
-    private static final String[][] APOS_ARRAY = { 
-        { "apos", "39" }, // XML apostrophe
-    };*/
-
-    // package scoped for testing
-    static final String[][] ISO8859_1_ARRAY = { 
+  // package scoped for testing
+  static final String[][] ISO8859_1_ARRAY = { 
         { "nbsp", "160" }, // non-breaking space
         { "iexcl", "161" }, // inverted exclamation mark
         { "cent", "162" }, // cent sign
@@ -710,13 +700,13 @@ public class EntityLookup
     
     public static void main(String[] args)
     {
-      String in = "Iraq&#39;s in the &quot;news&quot; &amp; on tv again.";
+      String in = "&#124;&#124; Iraq&#39;s in the &quot;news&quot; &amp; on tv again. ";
       String out = EntityLookup.getInstance().unescape(in);
       System.out.println(out);
       
-      in = "Alumni of King%27s College%2C Cambridge";
-      out = EntityLookup.getInstance().escape(in);
-      System.out.println(out);
+    /*  in = "Alumni of King's College: a,b,c, and d.";
+      out = EntityLookup.getInstance().escape(in, false);
+      System.out.println(out);*/
     }  
     
 } // end EntityLookup

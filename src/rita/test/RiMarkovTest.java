@@ -65,11 +65,11 @@ public class RiMarkovTest
   {
     RiMarkov rm1 = new RiMarkov(4);
     rm1.loadFile("kafka.txt");
-    String[] sents = rm1.generateSentences(1000);
-    ok(sents.length==1000);
+    String[] sents = rm1.generateSentences(100);
+    ok(sents.length==100);
     
     for (int j = 0; j < sents.length; j++) {
-      System.out.println(j+") "+sents[j]);
+      //System.out.println(j+") "+sents[j]);
       String[] words = sents[j].split(" ");
       ok(!RiTa.isAbbreviation(words[words.length-1]));
       ok(sents[j]);
@@ -80,8 +80,8 @@ public class RiMarkovTest
   {
     RiMarkov rm1 = new RiMarkov(4);
     rm1.loadFile("http://rednoise.org/testfiles/kafka.txt");
-    String[] sents = rm1.generateSentences(1000);
-    ok(sents.length==1000);
+    String[] sents = rm1.generateSentences(100);
+    ok(sents.length==100);
     
     for (int j = 0; j < sents.length; j++) {
       System.out.println(j+") "+sents[j]);

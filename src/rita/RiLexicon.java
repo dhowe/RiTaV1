@@ -27,6 +27,8 @@ public class RiLexicon implements Constants
   private static final String DOT_STAR = ".*";
 
   static final int MATCH_MIN_LENGTH = 4;
+
+  public static boolean SILENCE_LTS = false;
   
   static MinEditDist minEditDist;
   
@@ -270,7 +272,7 @@ public class RiLexicon implements Constants
   }
 
  /**
-  * Returns the set of words in the lexicon (including those from user-addenda) 
+  * Returns the set of words in the lexicon
   * that match the supplied regular expression in random order. 
   * For example, getWords("ee"); returns 661 words with 2 or more consecutive e's,
   * while getWords("ee.*ee"); returns exactly 2: 'freewheeling' and 'squeegee'.

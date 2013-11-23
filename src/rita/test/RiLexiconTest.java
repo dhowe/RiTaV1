@@ -13,6 +13,10 @@ import rita.RiTa;
 
 public class RiLexiconTest
 { 
+  static {
+    RiLexicon.SILENCE_LTS = true;
+  }
+  
   @Test
   public void testRiLexicon()
   {
@@ -146,7 +150,7 @@ public class RiLexiconTest
     String[] result = lex.alliterations("dog", 16);
     ok(result.length == 3);
     result = lex.alliterations("cat", 17);
-    System.out.println("RiLexiconTest.testAlliterationsInt() :: "+result.length);
+    //System.out.println("RiLexiconTest.testAlliterationsInt() :: "+result.length);
 
     ok(result.length == 7);
   }

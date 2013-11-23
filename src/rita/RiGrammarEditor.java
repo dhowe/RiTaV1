@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 
+import rita.support.GrammarIF;
 import rita.support.RiEditorWindow;
 
 /**
@@ -23,7 +24,7 @@ import rita.support.RiEditorWindow;
 public class RiGrammarEditor extends RiEditorWindow {
  
   /** @invisible */
-  public RiGrammar rg;
+  public GrammarIF rg;
 
   public RiGrammarEditor(final RiGrammar grammar) {
     this(grammar, 100, 100, 600, 600);

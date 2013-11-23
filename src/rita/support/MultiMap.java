@@ -16,7 +16,7 @@ public class MultiMap
 {  
   private static final String UTF_8 = "UTF-8";
 
-  private static final String EQ = "=";
+  private static final String EQ = "=", E = "";
   
   public Map<String, String[]> data = new HashMap<String, String[]>();
   
@@ -37,10 +37,12 @@ public class MultiMap
   public MultiMap loadFromString(String s)
   {
     data.clear();
+    
     s = s.trim().replaceAll("\\\\[\\t ]+", "\\\\"); // TODO: WHY: DO WE WANT/NEED THIS? ??
-    s = s.replaceAll("=>", EQ);               // TODO: Add tests for this class 
+    s = s.replaceAll("=>", EQ);                     // TODO: Add tests for this class 
     s = s.replaceAll("->", EQ); 
     s = s.replaceAll(":",  EQ);
+    
     try
     {
       InputStream is = new ByteArrayInputStream(s.getBytes(UTF_8));
@@ -331,7 +333,7 @@ public class MultiMap
 
   public String toString()
   {
-    String s = "";
+    String s = E;
     for (Iterator it = keySet().iterator(); it.hasNext();)
     {
       String key= (String) it.next();
@@ -351,8 +353,6 @@ public class MultiMap
     String s = "greetings: hello | goodbye";
     MultiMap mm = new MultiMap();
     mm.load(new StringReader(s));
-    System.out.println("MAP: "+mm);
-    mm.clear();
     System.out.println("MAP: "+mm);
     mm.add("rule1", "val1");
     mm.add("rule1", "val1");

@@ -208,8 +208,7 @@ public class PosTagger implements Constants
       if (wordArray[i].equals("a"))
         isA = true;
     }
-    if (isA)
-      System.out.println("PosTagger.tag("+RiTa.asList(wordArray)+" -> "+RiTa.asList(tags)+")");
+    //if (isA)System.out.println("PosTagger.tag("+RiTa.asList(wordArray)+" -> "+RiTa.asList(tags)+")");
     return tags;
   }
 

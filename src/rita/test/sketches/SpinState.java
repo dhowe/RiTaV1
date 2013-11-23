@@ -1,10 +1,8 @@
 package rita.test.sketches;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import processing.core.PApplet;
-import processing.event.KeyEvent;
 import rita.RiGrammar;
 import rita.RiText;
 
@@ -18,10 +16,13 @@ public class SpinState extends PApplet
   {
     size(600, 300);
 
-    RiText.defaultFont("Times", 16);
+    RiText.defaultFill(255);
+    RiText.defaultFont("Times", 15);
 
     grammar = new RiGrammar();
     grammar.loadFromFile("mcgrammar.json");
+    //grammar.print();
+    
     keyReleased();
   }
 
@@ -29,13 +30,15 @@ public class SpinState extends PApplet
   {
     background(0);
     stroke(255);
-    rect(25, 20, 550, 260);
+    fill(0);
+    rect(25, 20, 515, 240);
     RiText.drawAll();
   }
 
-  public void keyReleased(KeyEvent e)
+  public void keyReleased()
   {
-    if (e.getKey() != ' ') return;
+    //if (e.getKey() != ' ') return;
+    if (key != ' ') return;
     
     int linesPerPage = 10;
     
@@ -47,13 +50,18 @@ public class SpinState extends PApplet
     }
     else
     {
-      //for (int i = 0; i < 10; i++)
       line = grammar.expand();
-      System.out.println(line);
+      line = line.replaceAll("\\)", "]").replaceAll("\\(", "[");
     }
 
     RiText.dispose(rts);
-    rts = RiText.createLines(this, line, 35, 30, 530);
+    rts = RiText.createLines(this, line, 45, 40, 480);
+    
+    System.out.println();
+    for (int i = 0; i < linesPerPage; i++)
+    {
+      System.out.println(rts[i].text());
+    }
     
     for (int i = linesPerPage; i < rts.length; i++)
     {

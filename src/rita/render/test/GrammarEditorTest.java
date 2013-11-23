@@ -1,7 +1,6 @@
 package rita.render.test;
 
 import processing.core.PApplet;
-
 import rita.RiGrammar;
 import rita.RiText;
 
