@@ -19,12 +19,11 @@ public class RiGrammar implements GrammarIF
   public static final Pattern EXEC_PATT = Pattern.compile("(.*?)(`[^`]+?\\(.*?\\);?`)(.*)");
 
   public Map<String, Map<String, Float>> _rules;
-  public int maxIterations = 100;
   public String fileName, startRule = START_RULE;
   public Pattern probabilityPattern;
   public RiGrammarEditor editor;
   public boolean execDisabled;
-  public Object parent;
+  public int maxIterations = 100;
 
   public RiGrammar()
   {
@@ -112,44 +111,23 @@ public class RiGrammar implements GrammarIF
       }
       else if (o instanceof String)
       {
-        ruleStr = /*escapeEntities*/((String) o);
+        ruleStr = ((String) o);
       }
       else
       {
         throw new RiTaException("Unexpected type: " + o.getClass());
       }
 
-      //sb.append(key + ": " + ruleStr.replaceAll("\"", "") + '\n');
       addRule(key, ruleStr);
     }
-
-    //String result = unescapeEntities(sb.toString());
-    //System.out.println("props:\n" + result + "\n\n");
-
     return this;
   }
-/*
-  private String escapeEntities(String s) // yuk
-  {
-    return s.replaceAll(":", "&58;").replaceAll("\\|", "&#124;").replaceAll("\\[", "&#91;").replaceAll("\\]", "&#93;");
-  }
 
-  private String unescapeEntities(String s) // yuk
-  {
-    return s.replaceAll("&58;", ":").replaceAll("&#124;", "|").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
-  }
-*/
   public RiGrammar addRule(String name, String rule)
   {
     return addRule(name, rule, 1);
   }
 
-  /*
-   * public RiGrammarPort addRule(String name, String[] rules, float[] weights)
-   * {
-   * 
-   * }
-   */
   public RiGrammar addRule(String name, String ruleStr, float weight)
   {
     boolean dbug = false;
@@ -278,7 +256,7 @@ public class RiGrammar implements GrammarIF
     if (!match)
       log("Error: Rule '" + symbol + "' not found in grammar");
 
-    // TODO: tmp, awful hack, write this correctly
+    // TODO: tmp, awful hack,-write this correctly
     int tries, maxTries = 1000;
     for (tries = 0; tries < maxTries; tries++)
     {
@@ -307,10 +285,7 @@ public class RiGrammar implements GrammarIF
   }
   
   public String expandFrom(String rule, Object callbackListener)
-  {
-    if (callbackListener != null)
-      this.parent = callbackListener;
-    
+  {    
     if (!this.hasRule(rule))
       throw new RiTaException("Rule not found: "+rule+"\nRules:\n"+_rules);
     
@@ -371,25 +346,79 @@ public class RiGrammar implements GrammarIF
 
   private String handleExec(String thePart, Object callee)
   {
-    String function = thePart.trim().replaceAll("^`", E)
-        .replaceAll("`$", E).replaceAll(";$", E).replaceAll("\\(\\)$", E);
-    
-    //System.out.println("Trying func="+function);
-
     try
     {
-      if (parent == null) throw new RiTaException("Found a callback("
-          +thePart+"), but no callee! Consider using: riGrammar.expand(callee);");
-
-      return RiTa.invoke(callee, function).toString();
+      String function = thePart.trim().replaceAll("^`", E)
+          .replaceAll("`$", E).replaceAll(";$", E);
+          
+      String[] args = exec(Pattern.compile("\\((.*?)\\)"), thePart);
+     
+      if (args.length != 2)
+        throw new RiTaException("Unable to parse args in back-ticked call: "+thePart);
+      
+      if (callee == null) throw new RiTaException("Found a callback: "
+            +thePart+", but no callee! Consider using: rg.expand(callee);");
+  
+      function = function.replaceAll("\\(.*?\\)", E);
+      
+      Object[] argsArr = null;
+      
+      if (!args[1].equals(E))  // found args
+        argsArr = formatArgs(args[1]);
+      
+      //System.out.println("RiGrammar.invoke: "+function+"("+
+          //(RiTa.asList(argsArr).toString()).replaceAll("[\\[\\]]", E)+");");
+      
+      return RiTa.invoke(callee, function, argsArr).toString();
     }
     catch (Exception e)
     {
       if (!RiTa.SILENT) System.err.println(e);
-      
       return null;
     }
+  }
+  
+  private Object[] formatArgs(String argsStr) {
 
+    String[] strs = argsStr.split(",");
+    Object[] args = new Object[strs.length];
+
+    //System.out.println("RiGrammar.formatArgs: "+strs.length);
+
+    for (int i = 0; i < strs.length; i++)
+    {
+      strs[i] = strs[i].trim();
+
+      String arg = strs[i].replaceAll("\"'", E);
+      args[i] = arg;
+      
+      if (strs[i].equals(arg)) { // no change
+        
+        try
+        {
+          args[i] = Integer.parseInt(arg);
+          continue;
+        }
+        catch (Exception e) {}
+        
+        try
+        {
+          args[i] = Float.parseFloat(arg);
+          continue;
+        }
+        catch (Exception e) {}
+     
+        try
+        {
+          args[i] = Boolean.parseBoolean(arg);
+          continue;
+        }
+        catch (Exception e) {}
+      
+      }
+    }
+    
+    return args;
   }
   
   String expandRule(String prod)
@@ -451,19 +480,6 @@ public class RiGrammar implements GrammarIF
     return null;
   }
 
-  /*String _normalizeRuleName(String pre)
-  {
-    if (pre != null && pre.length() > 0) {
-
-      if (!pre.startsWith(RiGrammar.OPEN_RULE_CHAR))
-        pre = RiGrammar.OPEN_RULE_CHAR + pre;
-  
-      if (!pre.endsWith(RiGrammar.CLOSE_RULE_CHAR))
-        pre += RiGrammar.CLOSE_RULE_CHAR;
-    }
-    
-    return pre;
-  }*/
 
   private String _getStochasticRule(Map<String, Float> weightedRules)
   {
@@ -536,7 +552,7 @@ public class RiGrammar implements GrammarIF
     rg.load(sentenceGrammar);
     //rg.loadFromFile("sentence1.json");
     //rg.print();
-    if (1==1) return;
+//    if (1==1) return;
     for (int i = 0; i < 5; i++)
     {
       System.out.println(i + ") " + rg.expand());

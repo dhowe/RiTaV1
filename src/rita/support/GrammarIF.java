@@ -2,16 +2,12 @@ package rita.support;
 
 import java.io.PrintStream;
 
-import rita.RiGrammarOld;
 import rita.RiGrammarEditor;
 
 public interface GrammarIF
 {
   public static final String PROB_PATTERN = "(.*[^ ]) *\\[([^]]+)\\](.*)", START = "<start>";
-  //public static final String ENCODING = "UTF-8";
-  // public static final String S
-  public static final String EXEC_CHAR = "`";
-  public static final String EXEC_POST = ")" + EXEC_CHAR;
+  public static final String EXEC_CHAR = "`", EXEC_POST = ")" + EXEC_CHAR;
 
   public RiGrammarEditor openEditor();
 
@@ -30,8 +26,6 @@ public interface GrammarIF
   public String expandWith(String literalString, String ruleName);
 
   public String getGrammar();
-
-  //public String getRule(String name);
 
   public boolean hasRule(String name);
 

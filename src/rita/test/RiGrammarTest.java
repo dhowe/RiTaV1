@@ -616,7 +616,7 @@ System.out.println("RiGrammarTest.testSimpleExpand()::"+rule);
   } String adj() { return Math.random() < .5 ? "hot" : "cold"; }
   
   @Test
-  public void testExec2() { // throw Exception for now
+  public void testExec2() { 
     RiGrammar rg = new RiGrammar();
     rg.execDisabled = false;
 
@@ -635,12 +635,57 @@ System.out.println("RiGrammarTest.testSimpleExpand()::"+rule);
     
     expanded = rg.expand(this);
     ok(expanded != null);
-    String[] s = expanded.split(" + ");
+    String[] s = expanded.split(" \\+ ");
     for (int i = 0; i < s.length; i++)
     {
       ok(Float.parseFloat(s[i]));
     }
+  } 
+  
+  @Test
+  public void testExecArgs() { 
     
-  } float getFloat() { return (float) Math.random(); }
+    RiGrammar rg = new RiGrammar();
+    rg.execDisabled = false;
+    rg.addRule("<start>", "`getFloat()`");
+    for (int i = 0; i < 10; i++) {
 
+      String res = rg.expandFrom("<start>", this);
+      ok(res!=null && res.length()>0);
+      ok(Float.parseFloat(res));
+    }
+    
+    rg.reset();
+    rg.addRule("<start>", "`adj(2)`");
+    for (int i = 0; i < 10; i++) {
+
+      String res = rg.expandFrom("<start>", this);
+      ok(res!=null && res.length()>0 && res.indexOf("adj(")<0);
+    }
+    
+    rg.reset();
+    rg.addRule("<start>", "`adj(2.0)`");
+    for (int i = 0; i < 10; i++) {
+
+      String res = rg.expandFrom("<start>", this);
+      ok(res!=null && res.length()>0);
+      ok(Float.parseFloat(res)); 
+    }
+    
+    rg.reset();
+    rg.addRule("<start>", "`adj(true)`");
+    for (int i = 0; i < 10; i++) {
+
+      String res = rg.expandFrom("<start>", this);
+      //System.out.println(i+")"+res);
+      ok(res!=null && res.length()>0 && Boolean.parseBoolean(res));
+    }
+  } 
+  
+  // callbacks
+  String adj(int num) { return new RiLexicon().randomWord("jj", num); }
+  float adj(float num) { return getFloat(); }
+  boolean adj(boolean num) { return true; }
+  float getFloat() { return (float) Math.random(); }
+  
 }

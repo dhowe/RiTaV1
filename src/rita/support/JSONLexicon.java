@@ -472,12 +472,12 @@ public class JSONLexicon implements Constants
     return s;
   }
 
-  // what does this do exactly?
+  // TODO: what does this do exactly?
   // all words with the given pos, or all words where it is the first?????
   public Set<String> getWordsWithPos(String pos)
   {
     if (!RiPos.isPennTag(pos))
-      throw new RiTaException("Pos '" + pos + "' is not a recognized part-of-speech tag." 
+      throw new RiTaException("Pos '" + pos + "' is not a known part-of-speech tag." 
           + " Check the list in the documentation for the RiTa PosTagger");
     
     Set s = new TreeSet();
