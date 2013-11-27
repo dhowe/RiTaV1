@@ -6,15 +6,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import rita.json.*;
-import rita.support.EntityLookup;
-import rita.support.GrammarIF;
+import rita.support.*;
 
 public class RiGrammar implements GrammarIF
 {
+  public static final String START_RULE = "<start>";
   public static final String OR_PATT = "\\s*\\|\\s*", E = "";
   public static final String STRIP_TICKS = "`([^`]*)`"; // global
-  public static final String START_RULE = "<start>", OPEN_RULE_CHAR = "<", CLOSE_RULE_CHAR = ">";
-
+  
   public static final Pattern PROB_PATT = Pattern.compile("(.*[^\\s])\\s*\\[([0-9.]+)\\](.*)");
   public static final Pattern EXEC_PATT = Pattern.compile("(.*?)(`[^`]+?\\(.*?\\);?`)(.*)");
 
@@ -289,75 +288,72 @@ public class RiGrammar implements GrammarIF
     if (!this.hasRule(rule))
       throw new RiTaException("Rule not found: "+rule+"\nRules:\n"+_rules);
     
-    int iterations = 0;
-    while (++iterations < maxIterations)
+    int tries = 0;
+    while (++tries < maxIterations)
     {
       String next = expandRule(rule);
-
-      if (next == null || next.length() < 1)
-      {
-        // we're done, check for back-ticked strings to eval
-        if (!this.execDisabled)
-        {
-
-          Matcher matcher = EXEC_PATT.matcher(rule);
-          String[] parts = exec(matcher);
-
-          if (parts != null)
-          {
-
-            if (parts.length < 2)
-              return rule;
-
-            rule = parts[1];
-
-            boolean modified = false;
-            if (parts.length > 2)
-            {
-
-              String callResult = handleExec(parts[2], callbackListener);
-              
-              modified = callResult != null; // dirty?
-
-              rule += modified ? callResult : parts[2];
-            }
-
-            if (parts.length > 3)
-              rule += parts[3];
-
-            if (rule != null && modified)
-              continue; // bc the call might have returned a new rule
-
-            break;
-          }
-        }
-
-        break;
+      
+      if (next != null && next.length()>0) { // matched a rule
+        rule = next;
+        continue;
       }
       
-      rule = next;
+      // we're done with rules
+      
+      if (this.execDisabled) break; // return
+      
+      // now check for back-ticked strings to eval
+      String[] parts = exec(EXEC_PATT, rule);
+      if (parts == null || parts.length < 2) {
+        
+        break; // return - nothing to eval
+      }
+      
+      if (parts.length > 2) {
+        
+        String callResult = handleExec(parts[2], callbackListener);
+        
+        if (callResult == null) {
+          
+          if (false) System.err.println("[WARN] (RiGrammar.expandFrom) Unexpected"
+              +" state: eval("+parts[2]+") :: returning '"+rule+"'");
+          
+          break; // return
+        }
+        
+        rule = parts[1] + callResult;
+            
+        if (parts.length > 3)
+          rule += parts[3];
+      }
     }
     
-    if (iterations >= maxIterations) 
+    if (tries >= maxIterations && !RiTa.SILENT) 
       System.out.println("[WARN] max number of iterations reached: "+maxIterations);
 
-    return EntityLookup.getInstance().unescape(rule);  // after any execs
+    return RiTa.unescapeHTML(rule);  // after any execs
   }
 
   private String handleExec(String thePart, Object callee)
   {
+    if (thePart == null) return null; // should never happen
+    
     try
     {
       String function = thePart.trim().replaceAll("^`", E)
           .replaceAll("`$", E).replaceAll(";$", E);
+      
+      if (function == null || function.length() < 1) return null;
           
-      String[] args = exec(Pattern.compile("\\((.*?)\\)"), thePart);
+      String[] args = exec(Pattern.compile("\\((.*?)\\)"), thePart); // TODO: make constant
      
       if (args.length != 2)
         throw new RiTaException("Unable to parse args in back-ticked call: "+thePart);
       
-      if (callee == null) throw new RiTaException("Found a callback: "
-            +thePart+", but no callee! Consider using: rg.expand(callee);");
+      if (callee == null) 
+        throw new RiTaException("Found what appears to be a callback: "
+           + thePart + ", but no callee object\n  was supplied. Perhaps you "
+           + "meant RiGrammar.expand(calleeObj) OR RiGrammar.expandFrom(calleeObj)?");
   
       function = function.replaceAll("\\(.*?\\)", E);
       
@@ -423,61 +419,53 @@ public class RiGrammar implements GrammarIF
   
   String expandRule(String prod)
   {
-    boolean dbug = false, trimSpace = false;
+    boolean dbug = false;// trimSpace = false;
 
-    ArrayList<String> result = new ArrayList<String>();
+    //ArrayList<String> result = new ArrayList<String>();
 
-    if (trimSpace)
-      prod = prod.trim();
+    //if (trimSpace) prod = prod.trim();
 
     if (dbug)log("_expandRule(" + prod + ")");
 
     for (String name : this._rules.keySet())
     {
-
-      Map<String, Float> entry = this._rules.get(/*this._normalizeRuleName*/(name));
-
       int idx = prod.indexOf(name);
-      if (dbug) log("  name="+name+"  entry="+entry+"  prod="+prod+"  idx="+idx);
+      
+      if (dbug) log("  name="+name+"  entry="+_rules.get(name)+"  prod="+prod+"  idx="+idx);
 
       if (idx >= 0)
       {
-
         String pre = prod.substring(0, idx);
         String expanded = this.doRule(name);
         String post = prod.substring(idx + name.length());
 
-        if (trimSpace)
+       /* if (trimSpace)
         {
           pre = pre.trim();
           post = post.trim();
           expanded = expanded.trim();
-        }
+        }*/
 
         if (dbug) log("  pre="+pre+" exp="+expanded+" post="+post+" res="+(pre+expanded+post));
-
+/*
         result.add(pre);
         result.add(expanded);
         result.add(post);
-
         String ok = E;
         for (Iterator it = result.iterator(); it.hasNext();) {
           ok += (String) it.next();
         }
-
+*/
+       /* String ok = pre + expanded + post;
         if (dbug) log("Returns: " + ok);
+*/
+        //if (trimSpace) ok = ok.trim();
 
-        if (trimSpace) ok = ok.trim();
-
-        return ok;
+        return pre + expanded + post;
       }
-
-      // do the exec check here, in while loop()
     }
 
-    // what happens if we get here? no expansions left, return?
-
-    return null;
+    return null; // no rules matched
   }
 
 
@@ -511,14 +499,13 @@ public class RiGrammar implements GrammarIF
     return openEditor(-1, -1);
   }
 
-  static String[] exec(Matcher matcher)
+  public static String[] exec(Matcher matcher)
   {
     List<String> result = null;
     boolean matchFound = matcher.find();
 
     if (matchFound)
     {
-
       // Get all groups for this match
       for (int i = 0; i <= matcher.groupCount(); i++)
       {
@@ -531,7 +518,7 @@ public class RiGrammar implements GrammarIF
     return result == null ? null : result.toArray(new String[0]);
   }
   
-  static String[] exec(Pattern p, String input)
+  public static String[] exec(Pattern p, String input)
   {
     return exec(p.matcher(input));
   }

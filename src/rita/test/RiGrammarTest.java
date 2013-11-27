@@ -13,6 +13,8 @@ import rita.*;
 
 public class RiGrammarTest
 { 
+  private static final boolean SILENT = true;
+
   // TODO: add tests that these exists(actually should be taken from JSON actually)
   String[] functions = { "addRule", "clone", "expand", "expandFrom", "expandWith", "getGrammar",
       "getRule", "getRules", "hasRule", "print", "removeRule", "reset", "load", "loadFromFile" 
@@ -28,50 +30,6 @@ public class RiGrammarTest
   }
   
   @Test
-  public void testSimpleExpand()
-  {
-    RiGrammar rg = new RiGrammar();
-    rg.loadFromFile("sentence1.json");
-    for (int i = 0; i <100; i++)
-      ok(rg.expand());
-    
-    /*String rule = rg.getRule("<determiner>");
-    equal(rule, "a [0.1] | the");
-    
-*/
-    rg = new RiGrammar();
-    rg.loadFromFile("sentence2.json");
-    for (int i = 0; i <100; i++)
-      ok(rg.expand());
-  /*  
-    rule = rg.getRule("<determiner>");
-System.out.println("RiGrammarTest.testSimpleExpand()::"+rule);
-    equal(rule, "a [0.1] | the");*/
-   
-/*if (1==1) return;*/
-    
-    rg = new RiGrammar();
-    rg.load(sentenceGrammar);
-    //rg.print();
-    for (int i = 0; i <100; i++)
-      ok(rg.expand());
-
-/*    rule = rg.getRule("<determiner>");
-    equal(rule, "a [0.1] | the");
-    */
-    rg.reset();
-    rg.addRule("<start>", "<rule1>", 1);
-    try
-    {
-      ok(rg.expand());
-    }
-    catch (RiTaException e)
-    {
-      ok(e);
-    }
-  }
-
-  @Test
   public void testRiGrammarString()
   {
     RiGrammar rg = new RiGrammar(sentenceGrammar);
@@ -79,6 +37,304 @@ System.out.println("RiGrammarTest.testSimpleExpand()::"+rule);
     ok(rg.hasRule("<noun>"));
     ok(!rg.hasRule("adadf"));
   }
+  
+  @Test
+  public void testExpand()
+  {
+    RiGrammar rg = new RiGrammar();
+    rg.loadFromFile("sentence1.json");
+    for (int i = 0; i <100; i++)
+      ok(rg.expand());
+    
+    rg = new RiGrammar();
+    rg.loadFromFile("sentence2.json");
+    for (int i = 0; i <100; i++)
+      ok(rg.expand());
+    
+    rg = new RiGrammar();
+    rg.load(sentenceGrammar);
+    for (int i = 0; i <100; i++)
+      ok(rg.expand());
+    
+    rg.reset();
+  
+    rg.addRule("<start>", "pet");
+    //rg.print();
+    //println("Expand: '" + rg.expand() + "'");
+    equal(rg.expand(), "pet");
+  
+    rg.addRule("<start>", "pet", 1);
+    equal(rg.expand(), "pet");
+    rg.addRule("<start>", "pet", 2);
+    equal(rg.expand(), "pet");
+  
+    rg.reset();
+    rg.addRule("<start>", "<pet>", 1);
+    rg.addRule("<pet>", "dog", 1);
+    //println("Expand: " + rg.expand());
+    equal(rg.expand(), "dog");
+  
+    rg.reset();
+    rg.addRule("<start>", "<rule1>", 1);
+    rg.addRule("<rule1>", "cat", .4f);
+    rg.addRule("<rule1>", "dog", .6f);
+    rg.addRule("<rule1>", "boy", .2f);
+    ok(rg.hasRule("<rule1>"));
+  
+    boolean found1 = false, found2 = false, found3 = false;
+    for (int i = 0; i < 100; i++)
+    {
+      String res = rg.expand();
+      
+      ok(res.equals("cat") || res.equals("dog") || res.equals("boy"));
+      
+      if (res.equals("cat"))
+        found1 = true;
+      else if (res.equals("dog"))
+        found2 = true;
+      else if (res.equals("boy"))
+        found3 = true;
+    }
+    ok(found1 && found2 && found3); // found all
+  
+    rg.reset();
+    rg.addRule("<start>", "pet", 1);
+    equal(rg.expand(), "pet");
+  
+    rg.reset();
+    rg.addRule("<start>", "the <pet> ran.", 1);
+    rg.addRule("<pet>", "dog", .7f);
+    for (int i = 0; i < 10; i++)
+      equal(rg.expand(), "the dog ran.");
+    
+    rg.reset();
+    rg.addRule("<start>", "the <pet>.", 1);
+    rg.addRule("<pet>", "dog", .7f);
+    rg.addRule("<pet>", "cat", .3f);
+  
+    int d = 0, c = 0;
+    for (int i = 0; i < 100; i++)
+    {
+      String r = rg.expand();
+      if (r.equals("the dog."))
+        d++;
+      if (r.equals("the cat."))
+        c++;
+    }
+    ok(d > 50); // d + ""
+    ok(d < 90); // d + ""
+    ok(c > 10); // g + ""
+    ok(c < 50); // g + ""
+  }
+  
+  @Test
+  public void testSpecialChars() {
+
+    String s = "{ \"<start>\": \"hello &#124; name\" }";
+    RiGrammar rg = new RiGrammar(s);
+    String res = rg.expand();
+    //println(res); 
+    ok(res.equals("hello | name"));
+
+    s = "{ \"<start>\": \"hello: name\" }";
+    rg = new RiGrammar(s);
+    res = rg.expand();
+    ok(res.equals("hello: name"));
+
+    s = "{ \"<start>\": \"&#8220;hello!&#8221;\" }";
+    rg = new RiGrammar(s);
+    //ok("fails b/c of editor?");
+    res = rg.expand();
+    //println(res+'=“hello!”');
+    ok(res.equals("“hello!”")); // fails bc of editor
+
+    s = "{ \"<start>\": \"&lt;start&gt;\" }";
+    rg = new RiGrammar(s);
+    res = rg.expand();
+    //println(res);
+    ok(res.equals("<start>"));
+    
+    s = "{ \"<start>\": \"I don&#96;t want it.\" }";
+    rg = new RiGrammar(s);
+    res = rg.expand();
+  //println(res);
+    ok(res.equals("I don`t want it."));
+    
+    s = "{ \"<start>\": \"&#39;I really don&#39;t&#39;\" }";
+    rg = new RiGrammar(s);
+    res = rg.expand();
+    ok(res.equals("'I really don't'"));
+
+    s = "{ \"<start>\": \"hello | name\" }";
+    rg = new RiGrammar(s);
+    for (int i = 0; i < 10; i++)
+    {
+      res = rg.expand();
+      ok(res.equals("hello") || res.equals("name"));
+    }
+  }
+    
+  @Test
+  public void testRiGrammarExec()
+  {
+    Pattern re = Pattern.compile("(.*?)(`[^`]+?\\(.*?\\);?`)(.*)");
+
+    String str = "`hello()`";
+    String[] res = RiGrammar.exec(re, str);
+    res = splice01(res);
+
+    for (int i = 0; i < res.length; i++)
+      println("'" + res[i] + "'");
+
+    // /for ( int i = 0; i < res.length; i++) {
+    equal(res, new String[] { "", "`hello()`", "" });
+
+    println("===========================");
+
+    str = "`hello(and)`";
+    res = RiGrammar.exec(re, str);
+
+    for (int i = 0; i < res.length; i++)
+      println("'" + res[i] + "'");
+    res = splice01(res);
+    equal(res, new String[] { "", "`hello(and)`", "" });
+
+    println("===========================");
+
+    str = "`hello('and')`";
+    res = RiGrammar.exec(re, str);
+
+    for (int i = 0; i < res.length; i++)
+      println("'" + res[i] + "'");
+    res = splice01(res);
+    equal(res, new String[] { "", "`hello('and')`", "" });
+
+    println("===========================");
+
+    str = "`hello(\"and\")`";
+    res = RiGrammar.exec(re, str);
+
+    for (int i = 0; i < res.length; i++)
+      println("'" + res[i] + "'");
+    res = splice01(res);
+    equal(res, new String[] { "", "`hello(\"and\")`", "" });
+
+    println("===========================");
+
+    str = "and `hello()` there";
+    res = RiGrammar.exec(re, str);
+
+    for (int i = 0; i < res.length; i++)
+      println("'" + res[i] + "'");
+    res = splice01(res);
+    equal(res, new String[] { "and ", "`hello()`", " there" });
+
+    println("===========================");
+
+    str = "and `hello()` there `you()`";
+    res = RiGrammar.exec(re, str);
+    for (int i = 0; i < res.length; i++)
+      println("'" + res[i] + "'");
+    res = splice01(res);
+    equal(res, new String[] { "and ", "`hello()`", " there `you()`" });
+
+    println("===========================");
+
+    str = "and `hello()`";
+    res = RiGrammar.exec(re, str);
+    for (int i = 0; i < res.length; i++)
+      println("'" + res[i] + "'");
+    res = splice01(res);
+    equal(res, new String[] { "and ", "`hello()`", "" });
+
+    println("===========================");
+
+    str = "`hello()` there `you()`";
+    res = RiGrammar.exec(re, str);
+    for (int i = 0; i < res.length; i++)
+      println("'" + res[i] + "'");
+    res = splice01(res);
+    equal(res, new String[] { "", "`hello()`", " there `you()`" });
+
+    println("===========================");
+
+    str = "`hello();`";
+    res = RiGrammar.exec(re, str);
+
+    for (int i = 0; i < res.length; i++)
+      println("'" + res[i] + "'");
+    res = splice01(res);
+    equal(res, new String[] { "", "`hello();`", "" });
+
+    println("===========================");
+
+    str = "`hello(and);`";
+    res = RiGrammar.exec(re, str);
+
+    for (int i = 0; i < res.length; i++)
+      println("'" + res[i] + "'");
+    res = splice01(res);
+    equal(res, new String[] { "", "`hello(and);`", "" });
+
+    println("===========================");
+
+    str = "`hello('and');`";
+    res = RiGrammar.exec(re, str);
+
+    for (int i = 0; i < res.length; i++)
+      println("'" + res[i] + "'");
+    res = splice01(res);
+    equal(res, new String[] { "", "`hello('and');`", "" });
+
+    println("===========================");
+
+    str = "`hello(\"and\");`";
+    res = RiGrammar.exec(re, str);
+
+    for (int i = 0; i < res.length; i++)
+      println("'" + res[i] + "'");
+    res = splice01(res);
+    equal(res, new String[] { "", "`hello(\"and\");`", "" });
+
+    println("===========================");
+
+    str = "and `hello();` there";
+    res = RiGrammar.exec(re, str);
+
+    for (int i = 0; i < res.length; i++)
+      println("'" + res[i] + "'");
+    res = splice01(res);
+    equal(res, new String[] { "and ", "`hello();`", " there" });
+
+    println("===========================");
+
+    str = "and `hello();` there `you();`";
+    res = RiGrammar.exec(re, str);
+    for (int i = 0; i < res.length; i++)
+      println("'" + res[i] + "'");
+    res = splice01(res);
+    equal(res, new String[] { "and ", "`hello();`", " there `you();`" });
+
+    println("===========================");
+
+    str = "and `hello();`";
+    res = RiGrammar.exec(re, str);
+    for (int i = 0; i < res.length; i++)
+      println("'" + res[i] + "'");
+    res = splice01(res);
+    equal(res, new String[] { "and ", "`hello();`", "" });
+
+    println("===========================");
+
+    str = "`hello();` there `you();`";
+    res = RiGrammar.exec(re, str);
+    for (int i = 0; i < res.length; i++)
+      println("'" + res[i] + "'");
+    res = splice01(res);
+    equal(res, new String[] { "", "`hello();`", " there `you();`" });
+
+  }
+
 
   @Test
   public void testLoadFromFile()
@@ -135,84 +391,9 @@ System.out.println("RiGrammarTest.testSimpleExpand()::"+rule);
     for (int i = 0; i < 10; i++)
     {
       String res = g.expand();
-      //System.out.println("'"+res+"'");
+      //println("'"+res+"'");
       ok(res);
     }
-  }
-   
-      
-  @Test
-  public void testExpand()
-  {
-      RiGrammar rg = new RiGrammar();
-      
-      rg.reset();
-  
-      rg.addRule("<start>", "pet");
-      //rg.print();
-      //System.out.println("Expand: '" + rg.expand() + "'");
-      equal(rg.expand(), "pet");
-  
-      rg.addRule("<start>", "pet", 1);
-      equal(rg.expand(), "pet");
-      rg.addRule("<start>", "pet", 2);
-      equal(rg.expand(), "pet");
-  
-      rg.reset();
-      rg.addRule("<start>", "<pet>", 1);
-      rg.addRule("<pet>", "dog", 1);
-      //System.out.println("Expand: " + rg.expand());
-      equal(rg.expand(), "dog");
-  
-      rg.reset();
-      rg.addRule("<start>", "<rule1>", 1);
-      rg.addRule("<rule1>", "cat", .4f);
-      rg.addRule("<rule1>", "dog", .6f);
-      rg.addRule("<rule1>", "boy", .2f);
-      ok(rg.hasRule("<rule1>"));
-  
-      boolean found1 = false;
-      boolean found2 = false;
-      boolean found3 = false;
-      for (int i = 0; i < 100; i++)
-      {
-        String res = rg.expand();
-        // System.out.println("GOT: "+res);
-        if (res.equals("cat"))
-          found1 = true;
-        else if (res.equals("dog"))
-          found2 = true;
-        else if (res.equals("boy"))
-          found3 = true;
-        
-        ok(found1 || found2 || found3);
-      }
-      ok(found1);
-      ok(found2);
-      ok(found3);
-  
-      rg.reset();
-      rg.addRule("<start>", "pet", 1);
-      equal(rg.expand(), "pet");
-  
-      rg.reset();
-      rg.addRule("<start>", "<pet>", 1);
-      rg.addRule("<pet>", "dog", .7f);
-      rg.addRule("<pet>", "cat", .3f);
-  
-      int d = 0, c = 0;
-      for (int i = 0; i < 100; i++)
-      {
-        String r = rg.expand();
-        if (r.equals("dog"))
-          d++;
-        if (r.equals("cat"))
-          c++;
-      }
-      ok(d > 50); // d + ""
-      ok(d < 90); // d + ""
-      ok(c > 10); // g + ""
-      ok(c < 50); // g + ""
   }
 
   @Test
@@ -268,7 +449,7 @@ System.out.println("RiGrammarTest.testSimpleExpand()::"+rule);
       if (r.indexOf("screams") < 1)
       {
         str = r;
-        System.out.println("error: " + r);
+        println("error: " + r);
         missed = true;
       }
     }
@@ -282,7 +463,7 @@ System.out.println("RiGrammarTest.testSimpleExpand()::"+rule);
       if (r.indexOf("dog") < 1)
       {
         str = r;
-        System.out.println("error: " + r);
+        println("error: " + r);
         missed = true;
       }
     }
@@ -296,7 +477,7 @@ System.out.println("RiGrammarTest.testSimpleExpand()::"+rule);
     RiGrammar rg = new RiGrammar(sentenceGrammar);
     String s = rg.getGrammar();
     String e = "<start>\n  '<noun_phrase> <verb_phrase>' [1.0]\n<determiner>\n  'a' [0.1]\n  'the' [1.0]\n<noun_phrase>\n  '<determiner> <noun>' [1.0]\n<verb_phrase>\n  '<verb> <noun_phrase>' [0.1]\n  '<verb>' [1.0]\n<noun>\n  'woman' [1.0]\n  'man' [1.0]\n<verb>\n  'shoots' [1.0]";
-    //System.out.println(s);System.out.println();System.out.println(e);
+    //println(s);println();println(e);
     equal(s, e);
 
   }
@@ -317,7 +498,7 @@ System.out.println("RiGrammarTest.testSimpleExpand()::"+rule);
     rg = new RiGrammar(sentenceGrammar);
     rg.loadFromFile("sentence1.json");
     r = rg.getRule("<noun_phrase>");    
-    //System.out.println("'"+r+"'");
+    //println("'"+r+"'");
     equal(r,"<determiner> <noun>");
 
     rg.reset();
@@ -349,7 +530,7 @@ System.out.println("RiGrammarTest.testSimpleExpand()::"+rule);
     for (int i = 0; i < g.length; i++)
     {
       String rule = g[i].getRule("<noun_phrase>");
-      //System.out.println(i+"R='"+rule+"'");
+      //println(i+"R='"+rule+"'");
       equal(rule,"<determiner> <noun>");
     }
     }
@@ -499,7 +680,7 @@ System.out.println("RiGrammarTest.testSimpleExpand()::"+rule);
         "\"<rule>\": \"<another> | `doit('dog')` | dog\"",
         "\"<rule>\": \"<another> | `doit('<noun>')` | dog\"",
     };
-    //System.out.println(s);
+    //println(s);
     //Pattern p = Pattern.compile("(.*?)`[^`]+`(.*$)");
     Pattern p = Pattern.compile("(.*?)`([^`]+?\\([^\\)]*\\))`(.*)");
     for (int j = 0; j < s.length; j++)
@@ -508,14 +689,15 @@ System.out.println("RiGrammarTest.testSimpleExpand()::"+rule);
       boolean matchFound = matcher.find();
       for (int i = 0; i <= matcher.groupCount(); i++)
       {
-        System.out.println(i+") "+matcher.group(i));
+        println(i+") "+matcher.group(i));
       }
-      System.out.println();
+      println();
       ok(matchFound);
     }
 
   }
-  
+
+
   @Test
   public void testExecIgnores() {
     
@@ -532,7 +714,7 @@ System.out.println("RiGrammarTest.testSimpleExpand()::"+rule);
 
     for ( int i = 0; i < 10; i++) {
         String res = rg.expand();
-        //System.out.println(i+") "+res);
+        //println(i+") "+res);
         ok(res!=null && res.length()>0);
         ok(res.indexOf("'adj()'")>-1);
     }
@@ -549,7 +731,7 @@ System.out.println("RiGrammarTest.testSimpleExpand()::"+rule);
 
     for ( int i = 0; i < 10; i++) {
         String res = rg.expand();
-        //System.out.println(i+") "+res);
+        //println(i+") "+res);
         ok(res!=null && res.length()>0);
         ok(res.indexOf("`adj()'")>-1);
     }
@@ -567,27 +749,18 @@ System.out.println("RiGrammarTest.testSimpleExpand()::"+rule);
 
     boolean tmp = RiTa.SILENT;
     RiTa.SILENT = true;
-    for ( int i = 0; i < 10; i++) {
+    for ( int i = 0; i < 5; i++) {
         String res = rg.expand();
-        //System.out.println(i+") "+res);
-        ok(res!=null && res.length()>0 && res.indexOf("`nofun()`")>-1);
+        //println(i+") "+res);
+        ok(res!=null && res.length()>0 && res.indexOf(" `nofun()`")>-1);
     }
 
-    rg.reset();
-
-    rg.addRule("<start>", "<first> | <second>");
-    rg.addRule("<first>", "the <pet> <action> were `nofun()`");
-    rg.addRule("<second>", "the <action> of the `nofun()` <pet>");
-    rg.addRule("<pet>", "<bird> | <mammal>");
-    rg.addRule("<bird>", "hawk | crow");
-    rg.addRule("<mammal>", "dog");
-    rg.addRule("<action>", "cries | screams | falls");
-
-    for ( int i = 0; i < 10; i++) {
-        String res = rg.expand();
-        //System.out.println(i+") "+res);
-        ok(res!=null && res.length()>0 && res.indexOf("`nofun()`")>-1);
+    for ( int i = 0; i < 5; i++) {
+        String res = rg.expand(this);
+        //println(i+") "+res);
+        ok(res!=null && res.length()>0 && res.indexOf(" `nofun()`")>-1);
     }
+
     RiTa.SILENT = tmp;
   }
   
@@ -599,8 +772,8 @@ System.out.println("RiGrammarTest.testSimpleExpand()::"+rule);
 
     rg.reset();
     rg.addRule("<start>", "<first> | <second>");
-    rg.addRule("<first>", "the <pet> <action> were `adj()`");
-    rg.addRule("<second>", "the <action> of the `adj();` <pet>");
+    rg.addRule("<first>", "the <pet> <action> were `temp()`");
+    rg.addRule("<second>", "the <action> of the `temp();` <pet>");
     rg.addRule("<pet>", "<bird> | <mammal>");
     rg.addRule("<bird>", "hawk | crow");
     rg.addRule("<mammal>", "dog");
@@ -609,11 +782,11 @@ System.out.println("RiGrammarTest.testSimpleExpand()::"+rule);
     for (int i = 0; i < 10; i++) {
 
       String res = rg.expand(this);
-      //System.out.println(i+") "+res);
+      //println(i+") "+res);
       ok(res!=null && res.length()>0 && res.indexOf("adj()")<0);
     }
     
-  } String adj() { return Math.random() < .5 ? "hot" : "cold"; }
+  } String temp() { return Math.random() < .5 ? "hot" : "cold"; }
   
   @Test
   public void testExec2() { 
@@ -622,7 +795,7 @@ System.out.println("RiGrammarTest.testSimpleExpand()::"+rule);
 
     rg.addRule("<start>", "`getFloat();`");
     String expanded = rg.expand(this);
-    //System.out.println(expanded);
+    //println(expanded);
     ok(expanded!=null);
     ok(Float.parseFloat(expanded));
     
@@ -677,7 +850,7 @@ System.out.println("RiGrammarTest.testSimpleExpand()::"+rule);
     for (int i = 0; i < 10; i++) {
 
       String res = rg.expandFrom("<start>", this);
-      //System.out.println(i+")"+res);
+      //println(i+")"+res);
       ok(res!=null && res.length()>0 && Boolean.parseBoolean(res));
     }
   } 
@@ -688,4 +861,22 @@ System.out.println("RiGrammarTest.testSimpleExpand()::"+rule);
   boolean adj(boolean num) { return true; }
   float getFloat() { return (float) Math.random(); }
   
+  void println(String string)
+  {
+    if (!SILENT) System.out.println(string);
+  }
+  
+  // helpers
+  void println() { this.println("\n"); }
+
+  static String[] splice01(String[] o)
+  {
+    if (o == null || o.length < 1) return o;
+    String[] res = new String[o.length-1];
+    for (int i = 0; i < res.length; i++)
+    {
+      res[i] = o[i+1];
+    }
+    return res;
+  }
 }
