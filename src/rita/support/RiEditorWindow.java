@@ -76,8 +76,12 @@ public class RiEditorWindow extends JFrame {
   protected String loadFileByName(PApplet p, String fname) {
     
     System.out.println(fname + ": " + p);
-    String[] contents = RiTa.loadStrings(fname);
-    String gramStr = join(contents, "\n");
+    
+    //String[] contents = RiTa.loadStrings(fname);
+    //String gramStr = join(contents, "\n");
+    String gramStr = RiTa.loadString(fname);
+    
+    System.out.println(fname + ": " + gramStr.length());
 
     textArea.setText(gramStr);
     textArea.setCaretPosition(0);

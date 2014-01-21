@@ -41,10 +41,6 @@ package rita.wordnet.jawbone.filter;
  */
 public final class SimilarFilter extends rita.wordnet.RiFilter
 {
-  /**
-   * The source term.
-   */
-  private String term = null;
 
   /**
    * The maximum distance to allow matches.
@@ -52,14 +48,6 @@ public final class SimilarFilter extends rita.wordnet.RiFilter
   private int maxScore = 0;
   
   private static int DEFAULT_MAX_SCORE = 5; // ????? base on length?
-  
-  /**
-   * Default constructor.
-   */
-  private SimilarFilter()
-  {
-    super();
-  }
   
   public SimilarFilter(final String word, final boolean bIgnoreCase) {
     this(word, bIgnoreCase, DEFAULT_MAX_SCORE);
@@ -91,17 +79,7 @@ public final class SimilarFilter extends rita.wordnet.RiFilter
    */
   public boolean accept(final String word)
   {
-    // Check the two terms for nullness
-    if ((word == null) && (term == null))
-    {
-      // They're both null
-      return true;
-    }
-    else if ((word == null) || (term == null))
-    {
-      // One is null, the other is not
-      return false;
-    }
+    if (!super.accept(word)) return false;
     
     // Neither is null, so check how to compare the strings
     int score = 0;
@@ -135,6 +113,7 @@ public final class SimilarFilter extends rita.wordnet.RiFilter
   }
   
   
+  // SHOULD USE MinEditDist class ?
   /**
    * Computes and returns the Levenshtein score to indicate
    * how similar the two strings are.

@@ -146,7 +146,6 @@ public class RiTextBehavior implements Constants
   
   private static int nextId()
   {
-    // TODO Auto-generated method stub
     return ++ID_GEN;
   }
 
@@ -253,9 +252,13 @@ public class RiTextBehavior implements Constants
   
   /** Checks for completion, and if so, fires the callback */
   public void checkForCompletion() {
+    
     if (running && /*!paused && */completed) {
+      
        fireCallback();
+       
        if (!repeating && !reusable) {
+         
         //System.out.println("RiTextBehavior.checkForCompletion(deleteOnComplete="+isReusable()+")");
          delete();
        }
@@ -370,18 +373,18 @@ public class RiTextBehavior implements Constants
   }
   
   protected void fireCallback()
-  {    
+  {   
+      boolean showNoCallbackWarning = false;
+      
       //System.out.println("completed: "+this+" / '"+getParent().getText()+"' type="+getType());
-      running = false;      
-
+      running = false; 
+      
       if (rt != null && !RiTa.callbacksDisabled) {
-        
-        EventType type = getType();
-        
+               
         // no callbacks for these (hack)
-        if (type != BoundingAlpha && type != TextToCopy) {
+        if (this.type != BoundingAlpha && this.type != TextToCopy) {
           
-          boolean ok = false, isPublic = false;
+          boolean ok = false;
           
           try
           {
@@ -389,7 +392,14 @@ public class RiTextBehavior implements Constants
                 new Class[] { RiTaEvent.class });
             
             // Source should always be a RiTextIF (or a RiTimer?)
-            ok = (new RiTaEvent(this.getParent(), type)).fire(rt.getPApplet());
+            ok = (new RiTaEvent(this.getParent(), this.type)).fire(rt.getPApplet(), method);
+          }
+          catch (RiTaException e)
+          {
+            Throwable cause = e.getCause();
+            if (showNoCallbackWarning || cause == null || !(cause instanceof NoSuchMethodException)) {
+              System.out.println("[WARN] "+e.getMessage());
+            }
           }
           catch (Exception e)
           {
@@ -397,11 +407,14 @@ public class RiTextBehavior implements Constants
           }
           
           if (!ok) {
-            if (type == Timer) {
+            
+            if (this.type == Timer) {
+              
               System.err.println("\n[WARN] Possible coding error? You appear to have " +
                 "created a callback timer,\n       but not implemented the method: "  +
                 "'void onRiTaEvent(RiTaEvent rt)'");
             }
+            
             RiTa.callbacksDisabled = true;
           }
         }
@@ -433,6 +446,7 @@ public class RiTextBehavior implements Constants
   {
     if (listeners == null) 
       this.listeners = new LinkedList();
+    
     listeners.add(bl);    
   }
   
@@ -498,7 +512,7 @@ public class RiTextBehavior implements Constants
 
   public float getValue()
   {
-    System.out.println("[WARN] the getValue() method in RiTextBehavior " +
+    System.err.println("[WARN] the getValue() method in RiTextBehavior " +
     		"should not be accessed directly, but instead overridden in subclasses");
     
     return Float.MIN_VALUE;

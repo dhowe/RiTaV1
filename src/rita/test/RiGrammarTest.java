@@ -180,7 +180,7 @@ public class RiGrammarTest
     Pattern re = Pattern.compile("(.*?)(`[^`]+?\\(.*?\\);?`)(.*)");
 
     String str = "`hello()`";
-    String[] res = RiGrammar.exec(re, str);
+    String[] res = RiGrammar.testExec(re, str);
     res = splice01(res);
 
     for (int i = 0; i < res.length; i++)
@@ -192,7 +192,7 @@ public class RiGrammarTest
     println("===========================");
 
     str = "`hello(and)`";
-    res = RiGrammar.exec(re, str);
+    res = RiGrammar.testExec(re, str);
 
     for (int i = 0; i < res.length; i++)
       println("'" + res[i] + "'");
@@ -202,7 +202,7 @@ public class RiGrammarTest
     println("===========================");
 
     str = "`hello('and')`";
-    res = RiGrammar.exec(re, str);
+    res = RiGrammar.testExec(re, str);
 
     for (int i = 0; i < res.length; i++)
       println("'" + res[i] + "'");
@@ -212,7 +212,7 @@ public class RiGrammarTest
     println("===========================");
 
     str = "`hello(\"and\")`";
-    res = RiGrammar.exec(re, str);
+    res = RiGrammar.testExec(re, str);
 
     for (int i = 0; i < res.length; i++)
       println("'" + res[i] + "'");
@@ -222,7 +222,7 @@ public class RiGrammarTest
     println("===========================");
 
     str = "and `hello()` there";
-    res = RiGrammar.exec(re, str);
+    res = RiGrammar.testExec(re, str);
 
     for (int i = 0; i < res.length; i++)
       println("'" + res[i] + "'");
@@ -232,7 +232,7 @@ public class RiGrammarTest
     println("===========================");
 
     str = "and `hello()` there `you()`";
-    res = RiGrammar.exec(re, str);
+    res = RiGrammar.testExec(re, str);
     for (int i = 0; i < res.length; i++)
       println("'" + res[i] + "'");
     res = splice01(res);
@@ -241,7 +241,7 @@ public class RiGrammarTest
     println("===========================");
 
     str = "and `hello()`";
-    res = RiGrammar.exec(re, str);
+    res = RiGrammar.testExec(re, str);
     for (int i = 0; i < res.length; i++)
       println("'" + res[i] + "'");
     res = splice01(res);
@@ -250,7 +250,7 @@ public class RiGrammarTest
     println("===========================");
 
     str = "`hello()` there `you()`";
-    res = RiGrammar.exec(re, str);
+    res = RiGrammar.testExec(re, str);
     for (int i = 0; i < res.length; i++)
       println("'" + res[i] + "'");
     res = splice01(res);
@@ -259,7 +259,7 @@ public class RiGrammarTest
     println("===========================");
 
     str = "`hello();`";
-    res = RiGrammar.exec(re, str);
+    res = RiGrammar.testExec(re, str);
 
     for (int i = 0; i < res.length; i++)
       println("'" + res[i] + "'");
@@ -269,7 +269,7 @@ public class RiGrammarTest
     println("===========================");
 
     str = "`hello(and);`";
-    res = RiGrammar.exec(re, str);
+    res = RiGrammar.testExec(re, str);
 
     for (int i = 0; i < res.length; i++)
       println("'" + res[i] + "'");
@@ -279,7 +279,7 @@ public class RiGrammarTest
     println("===========================");
 
     str = "`hello('and');`";
-    res = RiGrammar.exec(re, str);
+    res = RiGrammar.testExec(re, str);
 
     for (int i = 0; i < res.length; i++)
       println("'" + res[i] + "'");
@@ -289,7 +289,7 @@ public class RiGrammarTest
     println("===========================");
 
     str = "`hello(\"and\");`";
-    res = RiGrammar.exec(re, str);
+    res = RiGrammar.testExec(re, str);
 
     for (int i = 0; i < res.length; i++)
       println("'" + res[i] + "'");
@@ -299,7 +299,7 @@ public class RiGrammarTest
     println("===========================");
 
     str = "and `hello();` there";
-    res = RiGrammar.exec(re, str);
+    res = RiGrammar.testExec(re, str);
 
     for (int i = 0; i < res.length; i++)
       println("'" + res[i] + "'");
@@ -309,7 +309,7 @@ public class RiGrammarTest
     println("===========================");
 
     str = "and `hello();` there `you();`";
-    res = RiGrammar.exec(re, str);
+    res = RiGrammar.testExec(re, str);
     for (int i = 0; i < res.length; i++)
       println("'" + res[i] + "'");
     res = splice01(res);
@@ -318,7 +318,7 @@ public class RiGrammarTest
     println("===========================");
 
     str = "and `hello();`";
-    res = RiGrammar.exec(re, str);
+    res = RiGrammar.testExec(re, str);
     for (int i = 0; i < res.length; i++)
       println("'" + res[i] + "'");
     res = splice01(res);
@@ -327,7 +327,7 @@ public class RiGrammarTest
     println("===========================");
 
     str = "`hello();` there `you();`";
-    res = RiGrammar.exec(re, str);
+    res = RiGrammar.testExec(re, str);
     for (int i = 0; i < res.length; i++)
       println("'" + res[i] + "'");
     res = splice01(res);

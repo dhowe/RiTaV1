@@ -15,7 +15,7 @@ import rita.RiWordnet;
  * 
  * Later: subclasses for each installation-mode (local, installed, remote)
  */
-public class RiWordnetTest
+public class RiWordnetTestOld
 {
   protected static RiWordnet wordnet;
 

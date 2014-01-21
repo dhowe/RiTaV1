@@ -2,8 +2,7 @@ package rita.support;
 
 import static org.junit.Assert.*;
 
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class QUnitStubs
 {
@@ -224,5 +223,44 @@ public class QUnitStubs
   {
     if (SILENT && k != 1) return;
     System.out.print(l);
+  }
+  
+  // added 12/11/13
+  
+  /** Returns true if all items in subset are in superset */
+  public static void setContains(Object[] superset, Object[] subset)
+  {
+    if (superset == subset || superset == null && subset == null)
+      return;
+    
+    assertTrue(Arrays.asList(superset).containsAll(Arrays.asList(subset)));
+  }
+  
+  /** Returns true if the item is in the superset (basically just arrayContains()) */
+  public static void setContains(Object[] superset, Object item)
+  {
+    assertTrue(Arrays.asList(superset).contains(item));
+  }
+  
+  public static void setEqual(Object[] a1, Object[] a2)
+  {
+    if (a1 == a2 || a1 == null && a2 == null)
+      return;
+    Set s1 = new HashSet(),  s2 = new HashSet();
+    s1.addAll(Arrays.asList(a1));
+    s2.addAll(Arrays.asList(a2));
+    assertTrue(s1==s2 || s1.equals(s2));
+  }
+  
+  public static void printArr(Object[] l)
+  {
+    if (SILENT) return;
+    System.out.print("{ ");
+    for (int j = 0; l != null && j < l.length; j++) {
+      System.out.print("\"" + l[j]+"\"");
+      if (j<l.length-1)
+        System.out.print(", ");
+    }
+    System.out.println(" }");
   }
 }

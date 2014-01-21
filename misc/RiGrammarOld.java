@@ -191,7 +191,7 @@ public class RiGrammarOld implements Constants, GrammarIF
     }
     
     if (iterations >= maxIterations) 
-      System.out.println("[WARN] max number of iterations reached: "+maxIterations);
+      System.err.println("[WARN] max number of iterations reached: "+maxIterations);
 
     return rule;  
   }

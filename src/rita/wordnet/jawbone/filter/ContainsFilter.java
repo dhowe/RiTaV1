@@ -38,21 +38,7 @@ package rita.wordnet.jawbone.filter;
  * @version 1.0
  */
 public final class ContainsFilter extends rita.wordnet.RiFilter
-{
-  /**
-   * The source term.
-   */
-  private String term = null;
-  
-  /**
-   * Default constructor.
-   */
-  private ContainsFilter()
-  {
-    super();
-  }
-  
-  
+{ 
   /**
    * Initializes the filter with the source term and
    * whether to ignore case on searches.
@@ -75,15 +61,7 @@ public final class ContainsFilter extends rita.wordnet.RiFilter
    */
   public boolean accept(final String word)
   {
-    // Check the two terms for nullness
-    if ((word == null) && (term == null))
-    {
-      return true;
-    }
-    else if ((word == null) || (term == null))
-    {
-      return false;
-    }
+    if (!super.accept(word)) return false;
     
     // Neither is null, so check how to compare the strings
     if (ignoreCase)
@@ -91,10 +69,8 @@ public final class ContainsFilter extends rita.wordnet.RiFilter
       // Ignore the case
       return (word.toUpperCase().indexOf(term.toUpperCase()) >= 0);
     }
-    else
-    {
-      // Consider the case
-      return (word.indexOf(term) >= 0);
-    }
+
+    // Consider the case
+    return (word.indexOf(term) >= 0);
   }
 }

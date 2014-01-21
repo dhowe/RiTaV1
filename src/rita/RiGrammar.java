@@ -18,7 +18,7 @@ public class RiGrammar implements GrammarIF
   public static final Pattern EXEC_PATT = Pattern.compile("(.*?)(`[^`]+?\\(.*?\\);?`)(.*)");
 
   public Map<String, Map<String, Float>> _rules;
-  public String fileName, startRule = START_RULE;
+  public String grammarUrl, startRule = START_RULE;
   public Pattern probabilityPattern;
   public RiGrammarEditor editor;
   public boolean execDisabled;
@@ -38,6 +38,7 @@ public class RiGrammar implements GrammarIF
 
   public RiGrammar loadFromFile(String url)
   {
+    this.grammarUrl = url;
     return load(RiTa.loadString(url));
   }
 
@@ -50,9 +51,8 @@ public class RiGrammar implements GrammarIF
 
     if (editor == null)
     {
-      // editor = new RiGrammarEditor(this);
-      throw new RuntimeException("Editor not included in this version...");
-
+      editor = new RiGrammarEditor(this);
+      //throw new RuntimeException("Editor not included in this version...");
     }
     editor.setSize(width, height);
     editor.setVisible(true);
@@ -62,12 +62,15 @@ public class RiGrammar implements GrammarIF
 
   public RiGrammar load(String grammarRulesAsString)
   {
-    // System.out.println("RiGrammarPort.JSONparse(grammarRulesAsString)\n");
+    //System.out.println("RiGrammar.load("+grammarRulesAsString+")\n");
+    
     this.reset();
     
     try
     {
-      return load(new JSONObject(grammarRulesAsString));
+      JSONObject json = new JSONObject(grammarRulesAsString);
+      //System.out.println(json);
+      return load(json);
     }
     catch (JSONException e)
     {
@@ -77,21 +80,18 @@ public class RiGrammar implements GrammarIF
 
   public GrammarIF removeRule(String name)
   {
-    //name = this._normalizeRuleName(name);
     this._rules.remove(name);
     return this;
-
   }
 
   protected RiGrammar _copy() // NIAPI
-  { 
+  {
     RiGrammar tmp = new RiGrammar();
     for (String name : _rules.keySet())
     {
       tmp._rules.put(name, this._rules.get(name));
     }
     return tmp;
-
   }
 
   public RiGrammar load(JSONObject json)
@@ -102,11 +102,18 @@ public class RiGrammar implements GrammarIF
     {
       String key = (String) keys.next();
       Object o = json.get(key);
-      String ruleStr = null;
+
+      String ruleStr = "";
+      
       if (o instanceof JSONArray)
       {
         JSONArray jarr = json.getJSONArray(key);
-        ruleStr = jarr.join("|");
+        for (int i = 0; i < jarr.length(); i++) {
+        
+          ruleStr += jarr.getString(i) + "|";
+        }
+        
+        //ruleStr = jarr.join("|"); // has bug
       }
       else if (o instanceof String)
       {
@@ -119,6 +126,7 @@ public class RiGrammar implements GrammarIF
 
       addRule(key, ruleStr);
     }
+    
     return this;
   }
 
@@ -131,8 +139,6 @@ public class RiGrammar implements GrammarIF
   {
     boolean dbug = false;
 
-    //name = this._normalizeRuleName(name);
-
     if (dbug) log("addRule: " + name + " -> '" + ruleStr + "'       [" + weight + "]");
 
     String[] ruleset = ruleStr.split(RiGrammar.OR_PATT);
@@ -141,7 +147,7 @@ public class RiGrammar implements GrammarIF
     {
       String rule = ruleset[i];
       float prob = weight;
-      String[] m = exec(PROB_PATT, rule);
+      String[] m = testExec(PROB_PATT, rule);
 
       if (m != null/* && m.length >= 4*/) // found weighting
       {
@@ -285,6 +291,8 @@ public class RiGrammar implements GrammarIF
   
   public String expandFrom(String rule, Object callbackListener)
   {    
+    //System.out.println("RiGrammar.expandFrom("+rule+")");
+    
     if (!this.hasRule(rule))
       throw new RiTaException("Rule not found: "+rule+"\nRules:\n"+_rules);
     
@@ -294,6 +302,7 @@ public class RiGrammar implements GrammarIF
       String next = expandRule(rule);
       
       if (next != null && next.length()>0) { // matched a rule
+        
         rule = next;
         continue;
       }
@@ -303,20 +312,20 @@ public class RiGrammar implements GrammarIF
       if (this.execDisabled) break; // return
       
       // now check for back-ticked strings to eval
-      String[] parts = exec(EXEC_PATT, rule);
+      String[] parts = testExec(EXEC_PATT, rule);
       if (parts == null || parts.length < 2) {
         
         break; // return - nothing to eval
       }
-      
+            
       if (parts.length > 2) {
         
         String callResult = handleExec(parts[2], callbackListener);
         
         if (callResult == null) {
           
-          if (false) System.err.println("[WARN] (RiGrammar.expandFrom) Unexpected"
-              +" state: eval("+parts[2]+") :: returning '"+rule+"'");
+          if (1==0) System.err.println("[WARN] (RiGrammar.expandFrom) Unexpected"
+              + " state: eval(" + parts[2] + ") :: returning '"+rule+"'");
           
           break; // return
         }
@@ -345,7 +354,7 @@ public class RiGrammar implements GrammarIF
       
       if (function == null || function.length() < 1) return null;
           
-      String[] args = exec(Pattern.compile("\\((.*?)\\)"), thePart); // TODO: make constant
+      String[] args = testExec(Pattern.compile("\\((.*?)\\)"), thePart); // TODO: make constant
      
       if (args.length != 2)
         throw new RiTaException("Unable to parse args in back-ticked call: "+thePart);
@@ -363,7 +372,7 @@ public class RiGrammar implements GrammarIF
         argsArr = formatArgs(args[1]);
       
       //System.out.println("RiGrammar.invoke: "+function+"("+
-          //(RiTa.asList(argsArr).toString()).replaceAll("[\\[\\]]", E)+");");
+        //  (RiTa.asList(argsArr).toString()).replaceAll("[\\[\\]]", E)+");");
       
       return RiTa.invoke(callee, function, argsArr).toString();
     }
@@ -402,15 +411,14 @@ public class RiGrammar implements GrammarIF
           args[i] = Float.parseFloat(arg);
           continue;
         }
-        catch (Exception e) {}
+        catch (Exception e) { }
      
         try
         {
           args[i] = Boolean.parseBoolean(arg);
           continue;
         }
-        catch (Exception e) {}
-      
+        catch (Exception e) { }
       }
     }
     
@@ -419,11 +427,7 @@ public class RiGrammar implements GrammarIF
   
   String expandRule(String prod)
   {
-    boolean dbug = false;// trimSpace = false;
-
-    //ArrayList<String> result = new ArrayList<String>();
-
-    //if (trimSpace) prod = prod.trim();
+    boolean dbug = false;
 
     if (dbug)log("_expandRule(" + prod + ")");
 
@@ -439,27 +443,7 @@ public class RiGrammar implements GrammarIF
         String expanded = this.doRule(name);
         String post = prod.substring(idx + name.length());
 
-       /* if (trimSpace)
-        {
-          pre = pre.trim();
-          post = post.trim();
-          expanded = expanded.trim();
-        }*/
-
         if (dbug) log("  pre="+pre+" exp="+expanded+" post="+post+" res="+(pre+expanded+post));
-/*
-        result.add(pre);
-        result.add(expanded);
-        result.add(post);
-        String ok = E;
-        for (Iterator it = result.iterator(); it.hasNext();) {
-          ok += (String) it.next();
-        }
-*/
-       /* String ok = pre + expanded + post;
-        if (dbug) log("Returns: " + ok);
-*/
-        //if (trimSpace) ok = ok.trim();
 
         return pre + expanded + post;
       }
@@ -499,7 +483,7 @@ public class RiGrammar implements GrammarIF
     return openEditor(-1, -1);
   }
 
-  public static String[] exec(Matcher matcher)
+  public static String[] testExec(Matcher matcher)
   {
     List<String> result = null;
     boolean matchFound = matcher.find();
@@ -518,9 +502,9 @@ public class RiGrammar implements GrammarIF
     return result == null ? null : result.toArray(new String[0]);
   }
   
-  public static String[] exec(Pattern p, String input)
+  public static String[] testExec(Pattern p, String input)
   {
-    return exec(p.matcher(input));
+    return testExec(p.matcher(input));
   }
 
   public GrammarIF print(PrintStream ps)
@@ -531,19 +515,26 @@ public class RiGrammar implements GrammarIF
     return this;
   }
 
-  public static void main(String[] a)
+  public static void mainX(String[] a)
   {
     String sentenceGrammar = "{ \"<start>\" : \"<noun_phrase> <verb_phrase>\", \"<noun_phrase>\" : \"<determiner> <noun>\", \"<verb_phrase>\" : \"<verb> | <verb> <noun_phrase> [.1]\", \"<determiner>\" : \"a [.1] | the\", \"<noun>\" : \"woman | man\", \"<verb>\" : \"shoots\" }";
 
     RiGrammar rg = new RiGrammar();
-    rg.load(sentenceGrammar);
-    //rg.loadFromFile("sentence1.json");
-    //rg.print();
-//    if (1==1) return;
+    //rg.load(sentenceGrammar);
+    rg.loadFromFile("haikuGrammar2.json");
     for (int i = 0; i < 5; i++)
     {
-      System.out.println(i + ") " + rg.expand());
+      System.out.println(i + ") " + rg.expandFrom("<1>"));
     }
+  }
+  
+  public static void main(String[] args)
+  {
+    RiGrammar rg = new RiGrammar();
+    rg.loadFromFile("haikuGrammar.json");
+    System.out.println("'"+rg.expandFrom("<1>")+"'");
+    rg.loadFromFile("haikuGrammar2.json");
+    System.out.println("'"+rg.expandFrom("<1>")+"'");
   }
   
 }

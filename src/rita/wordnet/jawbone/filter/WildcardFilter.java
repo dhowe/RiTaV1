@@ -49,15 +49,6 @@ public final class WildcardFilter extends rita.wordnet.RiFilter
   private List fields = new ArrayList(8);
   
   /**
-   * Default constructor.
-   */
-  private WildcardFilter()
-  {
-    super();
-  }
-  
-  
-  /**
    * Initializes the filter with the source term and
    * whether to ignore case on searches.
    * 
@@ -66,7 +57,9 @@ public final class WildcardFilter extends rita.wordnet.RiFilter
    */
   public WildcardFilter(final String word, final boolean bIgnoreCase)
   {
-    ignoreCase = bIgnoreCase;
+    
+    this.ignoreCase = bIgnoreCase;
+    this.term = word;
     parsePattern(word);
   }
   
@@ -79,17 +72,7 @@ public final class WildcardFilter extends rita.wordnet.RiFilter
    */
   public boolean accept(final String word)
   {
-    // Check the two terms for nullness
-    if ((word == null) && (fields == null))
-    {
-      // They're both null
-      return true;
-    }
-    else if ((word == null) || (fields == null))
-    {
-      // One is null, the other is not
-      return false;
-    }
+    if (!super.accept(word)) return false;
     
     // Neither is null, so compare the strings
     return (matchPattern(word));
@@ -111,24 +94,20 @@ public final class WildcardFilter extends rita.wordnet.RiFilter
       {
         return true;
       }
+
+      // If we reach here, pattern is non-null and non-empty.  If target
+      // is null or empty, consider it a non-match.
+      if ((target == null) || (target.length() == 0))
+      {
+        return false;
+      }
       else
       {
-        // If we reach here, pattern is non-null and non-empty.  If target
-        // is null or empty, consider it a non-match.
-        if ((target == null) || (target.length() == 0))
-        {
-          return false;
-        }
-        else
-        {
-          return matchString(target.toUpperCase());
-        }
+        return matchString(target.toUpperCase());
       }
     }
-    else
-    {
-      return matchString(target);
-    }
+
+    return matchString(target);
   }
   
   

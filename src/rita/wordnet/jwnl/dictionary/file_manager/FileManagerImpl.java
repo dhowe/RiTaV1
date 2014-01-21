@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
-import rita.RiWordnet;
+import rita.RiWordNet;
 import rita.wordnet.*;
 import rita.wordnet.jwnl.JWNLException;
 import rita.wordnet.jwnl.JWNLRuntimeException;
@@ -58,9 +58,9 @@ public class FileManagerImpl implements FileManager {
       
       RandomAccessIF rab = null;   
       List posList = POS.getAllPOS();
-      String archive = RiWordnet.WORDNET_ARCHIVE;
+      String archive = RiWordNet.WORDNET_ARCHIVE;
       
-      InputStream is = WordnetUtil.getResourceStream(RiWordnet.class, archive); 
+      InputStream is = WordnetUtil.getResourceStream(RiWordNet.class, archive); 
 
 //System.err.println("FileManagerImpl.FileManagerImpl("+is+")");
       
@@ -109,13 +109,13 @@ public class FileManagerImpl implements FileManager {
 		//String path = ((Param)params.get(PATH)).getValue();    
 
     // add dict path =====================================
-    String path = RiWordnet.wordnetHome;    
+    String path = RiWordNet.wordnetHome;    
     if (path != null) {
       if (path.indexOf("dict")<0) {
-        path += "dict"+RiWordnet.SLASH;
+        path += "dict"+RiWordNet.SLASH;
       }
       else if (path.endsWith("dict")) { 
-        path += RiWordnet.SLASH;
+        path += RiWordNet.SLASH;
       }
     }
     

@@ -2,7 +2,7 @@ package rita.wordnet;
 
 import java.util.List;
 
-import rita.RiWordnet;
+import rita.RiWordNet;
 import rita.wordnet.jwnl.data.POS;
 
 
@@ -45,7 +45,7 @@ public class WordnetExampleFilter extends RiGlossFilter
   /** @invisible */
   public static void generateExampleFile(POS pos) throws Exception
   {      
-    RiWordnet wl = new RiWordnet(null);
+    RiWordNet wl = new RiWordNet(null);
     WordnetGlossFilter wf = new WordnetGlossFilter(wl);
     List l = wf.filter(HAS_EXAMPLE, pos);
     System.out.println(System.getProperty("user.dir"));

@@ -121,9 +121,10 @@ public final class JWNL {
 				_bundle.addResource(resource);
 			}
 		}   
+		
     //System.err.println("JWNL.initialize("+_bundle+")");
 
-		// initialize bundle-dependant resources
+		// initialize bundle-dependent resources
 		PointerType.initialize();
 		Adjective.initialize();
 		VerbFrame.initialize();   

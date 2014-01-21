@@ -20,9 +20,9 @@ public interface Wordnet
   public static final int WILDCARD_MATCH = 1024;
   public static final int HAS_EXAMPLE    = 2048;
   
-  static final int CONTAINS_ALL =   2;  // later
-  static final int CONTAINS_SOME =  4;  // later
-  static final int EXACT_MATCH =    32; // not used
+  //static final int CONTAINS_ALL =   2;  // later
+  //static final int CONTAINS_SOME =  4;  // later
+  //static final int EXACT_MATCH =    32; // not used
   
   public static final String WORDNET_ARCHIVE = "wdict.dat";
   
@@ -30,9 +30,10 @@ public interface Wordnet
   public static final String DEFAULT_CONF = "file_properties.xml";      
    
   public static final int[] ALL_FILTERS = {    
-    ENDS_WITH,STARTS_WITH, ANAGRAMS, CONTAINS_ALL,
-    CONTAINS_SOME,CONTAINS,SIMILAR_TO, SOUNDS_LIKE,
+    ENDS_WITH,STARTS_WITH, ANAGRAMS,
+    CONTAINS,SIMILAR_TO, SOUNDS_LIKE,
     WILDCARD_MATCH,REGEX_MATCH// HAS_EXAMPLE
+    //CONTAINS_ALL,CONTAINS_SOME
   };
   
 }// end

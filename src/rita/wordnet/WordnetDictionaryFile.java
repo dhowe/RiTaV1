@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import rita.RiTa;
-import rita.RiWordnet;
+import rita.RiWordNet;
 import rita.wordnet.jwnl.JWNL;
 import rita.wordnet.jwnl.data.POS;
 import rita.wordnet.jwnl.dictionary.file.DictionaryFile;
@@ -151,7 +151,7 @@ public class WordnetDictionaryFile extends PrincetonRandomAccessDictionaryFile
     
     InputStream is = null;
     String fileName = fileLoc.getPath();
-    if (RiWordnet.wordnetHome != null) {
+    if (RiWordNet.wordnetHome != null) {
       is = new FileInputStream(fileName);
     }
     else {

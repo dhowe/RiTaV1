@@ -67,6 +67,7 @@ public abstract class InterpolatingBehavior extends RiTextBehavior
   {
     // System.out.println("InterpolatingBehavior.checkForCompletion()");
     this.completed = interpolater.isCompleted();
+    
     // if (completed) System.out.println("checkForCompletion.completed()");
     if (running && completed && !isPaused())
       fireCallback();

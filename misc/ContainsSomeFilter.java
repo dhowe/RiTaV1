@@ -31,9 +31,9 @@
 
 package rita.wordnet.jawbone.filter;
 
-import java.util.ArrayList;
 import java.util.List;
 
+// NOT USED IN RiTa
 /**
  * Provide a filter for search terms that only
  * accepts matches where the parameter to accept()
@@ -47,23 +47,8 @@ import java.util.List;
  */
 public final class ContainsSomeFilter extends rita.wordnet.RiFilter
 {
-  /**
-   * The list of terms.
-   */
-  private final List terms;
-  
-  
-  /**
-   * Default constructor.
-   */
-  private ContainsSomeFilter()
-  {
-    super();
-    ignoreCase = false;
-    terms = new ArrayList(0);
-  }
-  
-  
+  private List terms;
+
   /**
    * Initializes the filter with the source term and
    * whether to ignore case on searches.

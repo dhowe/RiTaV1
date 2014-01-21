@@ -28,7 +28,10 @@
 
 package rita.wordnet.jawbone.filter;
 
-/**
+// NOT USED in RiTa
+
+/** 
+ * 
  * Provide a filter for search terms that only
  * accepts exact matches.
  * 

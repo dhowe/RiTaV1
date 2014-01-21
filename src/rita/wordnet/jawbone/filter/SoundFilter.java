@@ -29,9 +29,8 @@
 package rita.wordnet.jawbone.filter;
 
 /**
- * Provide a filter for search terms that only
- * accepts matches where the term passed to accept()
- * sounds like the term passed in the constructor.
+ * Provide a filter for search terms that only accepts matches where the term
+ * passed to accept() sounds like the term passed in the constructor.
  * 
  * @author mwallace
  * @version 1.0
@@ -42,65 +41,61 @@ public final class SoundFilter extends rita.wordnet.RiFilter
    * The soundex code for source term.
    */
   private String termCode = null;
-  
+
   /**
-   * Default constructor.
-   */
-  private SoundFilter()
-  {
-    super();
-  }
-  
-  
-  /**
-   * Initializes the filter with the source term and
-   * whether to ignore case on searches.
+   * Initializes the filter with the source term and whether to ignore case on
+   * searches.
    * 
-   * @param word the source term
-   * @param bIgnoreCase whether to ignore the case of string comparisons
+   * @param word
+   *          the source term
+   * @param bIgnoreCase
+   *          whether to ignore the case of string comparisons
    */
   public SoundFilter(final String word, final boolean bIgnoreCase)
   {
+    term = word;
     termCode = getSoundexCode(word);
     ignoreCase = bIgnoreCase;
   }
-  
-  
+
   /**
    * Determines if the term matches the source term.
    * 
-   * @param word the term to compare to the source term
+   * @param word
+   *          the term to compare to the source term
    * @return whether the terms match
    */
   public boolean accept(final String word)
   {
+    if (!super.accept(word))
+      return false;
+
     // Compute the soundex code
     final String wordCode = getSoundexCode(word);
-    
+
     // Neither is null, so check how to compare the strings
     if (ignoreCase)
     {
       // Ignore the case
       return (wordCode.equalsIgnoreCase(termCode));
     }
-    else
-    {
-      // Consider the case
-      return (wordCode.equals(termCode));
-    }
+
+    // Consider the case
+    return (wordCode.equals(termCode));
+
   }
-  
-  
+
   /**
    * Returns the integer value for a character.
    * 
-   * @param ch the character to get the value for
+   * @param ch
+   *          the character to get the value for
    * @return the value for the specified character
    */
   private static int getIntValue(final char ch)
   {
     int n = 0;
-    
+
     switch (ch)
     {
       case 'b':
@@ -111,7 +106,7 @@ public final class SoundFilter extends rita.wordnet.RiFilter
         n = 1;
         break;
       }
-    
+
       case 'c':
       case 'g':
       case 'j':
@@ -124,45 +119,45 @@ public final class SoundFilter extends rita.wordnet.RiFilter
         n = 2;
         break;
       }
-    
+
       case 'd':
       case 't':
       {
         n = 3;
         break;
       }
-    
+
       case 'l':
       {
         n = 4;
         break;
       }
-    
+
       case 'm':
       case 'n':
       {
         n = 5;
         break;
       }
-    
+
       case 'r':
       {
         n = 6;
         break;
       }
-    
+
       default:
         n = 0;
     }
-    
+
     return n;
   }
-  
-  
+
   /**
    * Calculates the Soundex code for a string.
    * 
-   * @param sInput the input string
+   * @param sInput
+   *          the input string
    * @return the Soundex code for the string
    */
   private static String getSoundexCode(final String sInput)
@@ -172,27 +167,27 @@ public final class SoundFilter extends rita.wordnet.RiFilter
     {
       return "";
     }
-    
+
     // Declare our string variable to hold the soundex code
     StringBuilder buf = new StringBuilder(10);
-    
+
     // The first character of the string is the start
     // of the soundex code
     buf.append(sInput.charAt(0));
-    
+
     // Convert the string to lower case
     final String sWord = sInput.toLowerCase();
-    
+
     // Save the value of the first character, to check
     // for duplicates later
     int nPrevValue = getIntValue(sWord.charAt(0));
-    
+
     // Initialize this variable
     int nCurrValue = -1;
-    
+
     // Save the length of the string
     final int nLen = sWord.length();
-    
+
     // Iterate over each character in the word, until
     // we have enough to fill the soundex code (the
     // form is A999 - a character followed by 3 digits).
@@ -200,18 +195,18 @@ public final class SoundFilter extends rita.wordnet.RiFilter
     {
       // Get the integer value for the current character
       nCurrValue = getIntValue(sWord.charAt(i));
-      
+
       // Make sure the current value is not a duplicate of
       // the previous value, and the current value is non-zero
       if ((nCurrValue != nPrevValue) && (nCurrValue != 0))
       {
         buf.append(Integer.toString(nCurrValue));
       }
-      
+
       // Save the current value as the previous value
       nPrevValue = nCurrValue;
     }
-    
+
     // Check the length of the string
     int nSize = buf.length() - 4;
     if (nSize < 0)
@@ -223,7 +218,7 @@ public final class SoundFilter extends rita.wordnet.RiFilter
         ++nSize;
       }
     }
-    
+
     // Return the generated soundex code for the input string
     return buf.toString();
   }

@@ -14,7 +14,7 @@ import rita.support.RiEditorWindow;
  * that can be dynamically loaded into a sketch without
  * stopping and restarting it. Only one additional line
  * is needed:<pre> 
-    RiGrammar rg = new RiGrammar(this, "mygrammar.g");
+    RiGrammar rg = new RiGrammar(this, "mygrammar.json");
     rg.openGrammarEditor();  // add this line
     println(rg.expand());</pre>
  *   
@@ -33,11 +33,18 @@ public class RiGrammarEditor extends RiEditorWindow {
   private RiGrammarEditor(final RiGrammar grammar, int x, int y, int width, int height)
   {
     super("RiGrammarEditor", x, y, width, height);
+    
     this.rg = grammar;   
-    if (grammar.fileName != null) {
-      String contents = loadFileByName(null, grammar.fileName);
+    
+    if (grammar.grammarUrl != null) {
+      
+      String contents = loadFileByName(null, grammar.grammarUrl);
       rg.load(contents);
-      System.out.println(rg.getGrammar());
+      //System.out.println(rg.getGrammar());
+    }
+    else {
+      
+      System.out.println("[WARN] To use the editor, you need to load your grammar from a file or url!");
     }
   }
 
@@ -47,14 +54,15 @@ public class RiGrammarEditor extends RiEditorWindow {
     
     // add refresh button
     JButton jbnToolbarButtons = new JButton("refresh");
+    
     jbnToolbarButtons.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         displayInTextArea("refresh");
         rg.load(textArea.getText());
       }
     });
+    
     jtbToolBar.add(jbnToolbarButtons);
-
     jtbToolBar.addSeparator();
   }
 

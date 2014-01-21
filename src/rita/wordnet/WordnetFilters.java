@@ -2,7 +2,7 @@ package rita.wordnet;
 
 import java.util.*;
 
-import rita.RiWordnet;
+import rita.RiWordNet;
 import rita.wordnet.jwnl.JWNLException;
 import rita.wordnet.jwnl.data.IndexWord;
 import rita.wordnet.jwnl.data.POS;
@@ -22,7 +22,7 @@ public class WordnetFilters implements Wordnet
   protected boolean ignoreUpperCaseWords;
   protected Map filterCache;
 
-  public WordnetFilters(RiWordnet wl) {
+  public WordnetFilters(RiWordNet wl) {
     this.dictionary = wl.getDictionary();
     this.filterCache = new HashMap();
     this.ignoreCompoundWords = wl.isIgnoringCompoundWords();
@@ -33,14 +33,15 @@ public class WordnetFilters implements Wordnet
   {
     //System.out.println("WordnetFilters.filter("+pos+","+filter+")");
     if (pos == null) return null;
+    
     List result = new LinkedList();
     Iterator it = iterator(pos);
-    WHILE: while (it.hasNext())
+    
+    while (it.hasNext() && result.size() < maxResults)
     {
       String lemma = nextWord( it);
-      if (lemma == null) continue WHILE;
-      if (filter.accept(lemma))
-        result.add(lemma);
+      if (lemma != null && filter.accept(lemma))
+          result.add(lemma);
     }
     return result;
   }
@@ -213,7 +214,7 @@ public class WordnetFilters implements Wordnet
     IndexWord iw = (IndexWord) it.next();   
     String lemma = iw.getLemma();
     if (lemma == null) return null;
-    if (ignoreCompoundWords && RiWordnet.isCompound(lemma))
+    if (ignoreCompoundWords && RiWordNet.isCompound(lemma))
       return null;
     if (ignoreUpperCaseWords && WordnetUtil.startsWithUppercase(lemma))
       return null;

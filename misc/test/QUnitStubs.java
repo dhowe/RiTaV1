@@ -4,8 +4,7 @@ package rita.wordnet.test;
 
 import static org.junit.Assert.*;
 
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class QUnitStubs
 {
@@ -115,9 +114,33 @@ public class QUnitStubs
     }
   }
   
+  /** Returns true if all items in subset are in superset */
+  public static void setContains(Object[] superset, Object[] subset)
+  {
+    if (superset == subset || superset == null && subset == null)
+      return;
+    
+    assertTrue(Arrays.asList(superset).containsAll(Arrays.asList(subset)));
+  }
+  
+  /** Returns true if all items in subset are in superset */
+  public static void setContains(Object[] superset, Object item)
+  {
+    assertTrue(Arrays.asList(superset).contains(item));
+  }
+  
+  public static void setEqual(Object[] a1, Object[] a2)
+  {
+    if (a1 == a2 || a1 == null && a2 == null)
+      return;
+    Set s1 = new HashSet(),  s2 = new HashSet();
+    s1.addAll(Arrays.asList(a1));
+    s2.addAll(Arrays.asList(a2));
+    assertTrue(s1==s2 || s1.equals(s2));
+  }
+  
   public static void deepEqual(Object o, Object p)
   {
-    
     if (o instanceof Object[] && p instanceof Object[])
       assertArrayEquals((Object[])o, (Object[])p);
     else {
@@ -164,7 +187,10 @@ public class QUnitStubs
   public static void println(List l, int k)
   {
     if (SILENT && k != 1) return;
-    if (l == null || l.size() <1) System.out.println("[]");
+    if (l == null || l.size() <1) {
+      System.out.println("[]");
+      return;
+    }
     int i = 0;
     for (Iterator it = l.iterator(); it.hasNext(); i++)
       System.out.println(i + ") '" + it.next()+"'");
@@ -173,7 +199,10 @@ public class QUnitStubs
   public static void println(Object[] l, int k)
   {
     if (SILENT && k != 1) return;
-    if (l == null || l.length <1) System.out.println("[]");
+    if (l == null || l.length <1)     {
+      System.out.println("[]");
+      return;
+    }
     for (int j = 0; j < l.length; j++)
       System.out.println(j + ") '" + l[j]+"'");
   }
@@ -182,7 +211,7 @@ public class QUnitStubs
   {
     if (SILENT && k != 1) return;
     if (l == null || l.length <1) System.out.println("[]");
-    for (int j = 0; j < l.length; j++)
+    else for (int j = 0; j < l.length; j++)
       System.out.println(j + ") '" + l[j]+"'");
   }
   
@@ -190,7 +219,7 @@ public class QUnitStubs
   {
     if (SILENT && k != 1) return;
     if (l == null || l.length <1) System.out.println("[]");
-    for (int j = 0; j < l.length; j++)
+    else for (int j = 0; j < l.length; j++)
       System.out.println(j + ") '" + l[j]+"'");
   }
   
@@ -198,7 +227,7 @@ public class QUnitStubs
   {
     if (SILENT && k != 1) return;
     if (l == null || l.length <1) System.out.println("[]");
-    for (int j = 0; j < l.length; j++)
+    else for (int j = 0; j < l.length; j++)
       System.out.println(j + ") '" + l[j]+"'");
   }
   
@@ -206,7 +235,7 @@ public class QUnitStubs
   {
     if (SILENT && k != 1) return;
     if (l == null || l.length <1) System.out.println("[]");
-    for (int j = 0; j < l.length; j++)
+    else for (int j = 0; j < l.length; j++)
       System.out.println(j + ") '" + l[j]+"'");
   }
 
@@ -226,5 +255,17 @@ public class QUnitStubs
   {
     if (SILENT && k != 1) return;
     System.out.print(l);
+  }
+  
+  public static void printArr(Object[] l)
+  {
+    if (SILENT) return;
+    System.out.print("{ ");
+    for (int j = 0; l != null && j < l.length; j++) {
+      System.out.print("\"" + l[j]+"\"");
+      if (j<l.length-1)
+        System.out.print(", ");
+    }
+    System.out.println(" }");
   }
 }

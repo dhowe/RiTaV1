@@ -1,5 +1,6 @@
 package rita.test;
 
+import static rita.support.QUnitStubs.deepEqual;
 import static rita.support.QUnitStubs.equal;
 import static rita.support.QUnitStubs.ok;
 
@@ -13,6 +14,15 @@ import rita.support.*;
 
 public class KnownIssuesTest implements Constants
 {
+  @Test
+  public void testRhyming()
+  {
+    RiLexicon lex = new RiLexicon();
+    String[] result = lex.rhymes("savage");
+    String[] answer = new String[] { "ravage", "disparage", "cabbage", "etc" };
+    deepEqual(answer, result);
+  }
+  
   @Test
   public void testAnalyzeNums() // Cardinal numbers
   {

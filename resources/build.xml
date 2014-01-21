@@ -232,6 +232,7 @@ ${line}
 		</jar>
 		<!--copy tofile="${project.jsbuild.download}/${main.package}-${project.version}.jar" file="${project.tmp}/${project.name}/${folder}/${project.jar.name}"/-->
   		<copy tofile="${project.latest}/${main.package}-${project.version}.jar" file="${project.tmp}/${project.name}/library/${project.jar.name}"/>
+		<copy tofile="${processing.library}/rita.jar" file="${project.tmp}/${project.name}/library/${project.jar.name}"/>
 	</target>
 	
 	<target name="generate.two.jars">
@@ -242,20 +243,18 @@ ${line}
 			<exclude name="**/test/**" /> 
 		</jar>
 		
-  		<copy tofile="${project.latest}/${main.package}-${project.version}.core.jar" file="${project.tmp}/${project.name}/${main.package}-${project.version}.core.jar"/>
-		
-		<!-- temp, for p5 testing with multiple jars -->
-		<copy tofile="${processing.library}/rita.jar" file="${project.tmp}/${project.name}/${main.package}-${project.version}.core.jar"/>
-
 		<jar jarfile="${project.tmp}/${project.name}/${main.package}-${project.version}.support.jar" basedir="${project.bin}">
 			<exclude name="data/**" /> 
 			<exclude name="rita/*.*/" />
 			<exclude name="*.properties/" />
 			<exclude name="**/test/**" /> 
 		</jar>
-  		<copy tofile="${project.latest}/${main.package}-${project.version}.support.jar" file="${project.tmp}/${project.name}/${main.package}-${project.version}.support.jar"/>
 		
 		<!-- temp, for p5 testing with multiple jars -->
+  		<copy tofile="${project.latest}/${main.package}-${project.version}.core.jar" file="${project.tmp}/${project.name}/${main.package}-${project.version}.core.jar"/>
+  		<copy tofile="${project.latest}/${main.package}-${project.version}.support.jar" file="${project.tmp}/${project.name}/${main.package}-${project.version}.support.jar"/>
+
+		<copy tofile="${processing.library}/rita.jar" file="${project.tmp}/${project.name}/${main.package}-${project.version}.core.jar"/>
 		<copy tofile="${processing.library}/rita.support.jar" file="${project.tmp}/${project.name}/${main.package}-${project.version}.support.jar"/>
 
 	</target>

@@ -2,7 +2,7 @@ package rita.wordnet;
 
 import java.util.*;
 
-import rita.RiWordnet;
+import rita.RiWordNet;
 import rita.wordnet.jwnl.JWNLException;
 import rita.wordnet.jwnl.data.*;
 
@@ -15,7 +15,7 @@ import rita.wordnet.jwnl.data.*;
  */
 public class WordnetGlossFilter extends WordnetFilters
 {     
-  public WordnetGlossFilter(RiWordnet wl) {
+  public WordnetGlossFilter(RiWordNet wl) {
     super(wl);
   }
 
@@ -69,7 +69,7 @@ public class WordnetGlossFilter extends WordnetFilters
     this.iw = (IndexWord) it.next();   
     String lemma = iw.getLemma();
     if (lemma == null) return null;
-    if (ignoreCompoundWords && RiWordnet.isCompound(lemma))
+    if (ignoreCompoundWords && RiWordNet.isCompound(lemma))
       return null;
     if (ignoreUpperCaseWords && WordnetUtil.startsWithUppercase(lemma))
       return null;
@@ -106,7 +106,7 @@ public class WordnetGlossFilter extends WordnetFilters
   
   public static void main(String[] args) throws Exception
   {     
-    RiWordnet wl = new RiWordnet(null);
+    RiWordNet wl = new RiWordNet(null);
     WordnetGlossFilter wf = new WordnetGlossFilter(wl);
     Iterator i = wf.iterator(POS.NOUN);
     String lemma = wf.nextWord(i);

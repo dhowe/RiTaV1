@@ -1,4 +1,4 @@
-// $Id: WordnetUtil.java,v 1.1 2013/10/12 12:04:34 dev Exp $
+// $Id: WordnetUtil.java,v 1.2 2013/12/11 12:46:56 dev Exp $
 
 package rita.wordnet;
 
@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.ZipInputStream;
 
-import rita.RiWordnet;
+import rita.RiWordNet;
 
 /** 
  * @invisible
@@ -526,7 +526,7 @@ public abstract class WordnetUtil
   {  
 /*    String[] s = {"the boy", "girl", "the ho"};
     System.out.println(WordnetUtil.asList(s));*/
-    System.out.println(getResourceStream(WordnetUtil.class, RiWordnet.WORDNET_ARCHIVE));
+    System.out.println(getResourceStream(WordnetUtil.class, RiWordNet.WORDNET_ARCHIVE));
   }
 
 

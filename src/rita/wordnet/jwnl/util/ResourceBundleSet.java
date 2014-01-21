@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import rita.RiWordnet;
+import rita.RiWordNet;
 
 /** A ResourceBundle that is a proxy to multiple ResourceBundles. */
 public class ResourceBundleSet extends ResourceBundle {

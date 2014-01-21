@@ -39,20 +39,7 @@ package rita.wordnet.jawbone.filter;
  */
 public final class EndsWithFilter extends rita.wordnet.RiFilter
 {
-  /**
-   * The source term.
-   */
-  private String term = null;
-  
-  /**
-   * Default constructor.
-   */
-  private EndsWithFilter()
-  {
-    super();
-  }
-  
-  
+   
   /**
    * Initializes the filter with the source term and
    * whether to ignore case on searches.
@@ -66,7 +53,6 @@ public final class EndsWithFilter extends rita.wordnet.RiFilter
     ignoreCase = bIgnoreCase;
   }
   
-  
   /**
    * Determines if the term matches the source term.
    * 
@@ -75,17 +61,7 @@ public final class EndsWithFilter extends rita.wordnet.RiFilter
    */
   public boolean accept(final String word)
   {
-    // Check the two terms for nullness
-    if ((word == null) && (term == null))
-    {
-      // They're both null
-      return true;
-    }
-    else if ((word == null) || (term == null))
-    {
-      // One is null, the other is not
-      return false;
-    }
+    if (!super.accept(word)) return false;
     
     // Neither is null, so check how to compare the strings
     if (ignoreCase)
@@ -93,10 +69,8 @@ public final class EndsWithFilter extends rita.wordnet.RiFilter
       // Ignore the case
       return (word.toUpperCase().endsWith(term.toUpperCase()));
     }
-    else
-    {
-      // Consider the case
-      return (word.endsWith(term));
-    }
+
+    // Consider the upper/lower case
+    return (word.endsWith(term));
   }
 }

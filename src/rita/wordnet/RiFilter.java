@@ -14,14 +14,22 @@ import rita.wordnet.jawbone.filter.*;
  */
 public abstract class RiFilter implements Wordnet, TermFilter
 {
-  protected static boolean ignoreCase = false;
+  protected static boolean ignoreCase = false; // this smells...
+  
+  /**
+   * The source term.
+   */
+  protected String term = null;
   
   /**
    * Determines if the term matches the source term. 
    * @param word the term to compare to the source term
    * @return true if the terms match
    */
-  public abstract boolean accept(String word);
+  public boolean accept(String word) {
+    
+    return !(word == null || term == null || word.equals(term));
+  }
   
   protected RiFilter() 
   {
@@ -34,48 +42,39 @@ public abstract class RiFilter implements Wordnet, TermFilter
     //System.err.println("RiFilter.create("+flag+", "+word+")");
     
     RiFilter filter = null;  
-    if ((flag & EXACT_MATCH) != 0)  {     
-        filter = new ExactMatchFilter(word, ignoreCase);
-    }
-    else if ((flag & ENDS_WITH) != 0) {
-      if (filter == null) 
+    
+    //if ((flag & EXACT_MATCH) != 0)  {     
+      //  filter = new ExactMatchFilter(word, ignoreCase);
+    //}
+    if ((flag & ENDS_WITH) != 0) {
         // ensures only 1 filter at a time for now
         filter = new EndsWithFilter(word, ignoreCase);
     }
     else if ((flag & STARTS_WITH) != 0) {
-      if (filter == null)
         filter = new StartsWithFilter(word, ignoreCase);
     }
     else if ((flag & ANAGRAMS) != 0) {
-      if (filter == null)
         filter = new AnagramFilter(word, ignoreCase);
     }
-    else if ((flag & CONTAINS_ALL) != 0) {
-      if (filter == null)
+/*    else if ((flag & CONTAINS_ALL) != 0) {
         filter = new ContainsAllFilter(word, ignoreCase);
     }
     else if ((flag & CONTAINS_SOME) != 0) {
-      if (filter == null)
         filter = new ContainsSomeFilter(word, ignoreCase);
-    }
+    }*/
     else if ((flag & CONTAINS) != 0) {
-      if (filter == null)
         filter = new ContainsFilter(word, ignoreCase);
     }
     else if ((flag & SIMILAR_TO) != 0) {
-      if (filter == null)
         filter = new SimilarFilter(word, ignoreCase);
     }
     else if ((flag & SOUNDS_LIKE) != 0) {
-      if (filter == null)
         filter = new SoundFilter(word, ignoreCase);
     }
     else if ((flag & WILDCARD_MATCH) != 0) {
-      if (filter == null)
         filter = new WildcardFilter(word, ignoreCase);
     }
     else if ((flag & REGEX_MATCH) != 0) {
-      if (filter == null)
         filter = new RegexFilter(word, ignoreCase);
     }    
 

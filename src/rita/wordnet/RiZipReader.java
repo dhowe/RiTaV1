@@ -7,7 +7,7 @@ import java.util.jar.JarInputStream;
 import java.util.zip.*;
 
 import rita.RiTa;
-import rita.RiWordnet;
+import rita.RiWordNet;
 
 /**
  * Maps resources included in a Zip or Jar into a hash<p>
@@ -33,7 +33,7 @@ public class RiZipReader
     //System.err.println("RiZipReader.RiZipReader("+is+")");
     this.zipfileName = archiveName; 
     if (is != null) this.init(is);
-    RiWordnet.zipReader = this; //ugh!
+    RiWordNet.zipReader = this; //ugh!
   }
 
   public void dispose() 
@@ -257,7 +257,7 @@ public class RiZipReader
   public static void main(String[] args) throws IOException
   {
     System.err.println(System.getProperty("java.vm.version"));
-    RiWordnet wordnet = new RiWordnet(null);
+    RiWordNet wordnet = new RiWordNet(null);
     String[] result = wordnet.getAllHyponyms("cat","n");    
     System.err.println(result==null?"null":Arrays.asList(result)+"");
   }
