@@ -13,9 +13,14 @@ public class RiString implements FeaturedIF, Constants
   private String delegate;
   private Map<String,String> features;
 
-  public RiString(String string)
+  public RiString(String string, Object parent)
   {
     this.delegate = string;
+  }
+  
+  public RiString(String string)
+  {
+    this(string, null);
   }
   
   // =======================================================

@@ -251,11 +251,10 @@ public class PageLayout implements Constants
   RiTextIF newRiTextLine(StringBuilder sb, PFont pf, float xPos, float nextY)
   {
     String s = EntityLookup.getInstance().unescape(sb.toString());
+    
     if (!s.equals(sb.toString()))
       System.out.println("EntityLookup changed: '"+s+"'");
-    else
-      if (s.contains("t;"))
-        System.out.println("EntityLookup failed on: '"+s+"'");
+
     //System.out.println("PageLayout.newRiTextLine: '"+sb+"'");
     
     // strip trailing spaces
@@ -270,10 +269,11 @@ public class PageLayout implements Constants
     return rt;
   }
 
-  public PageLayout copy()
+  public PageLayout copy() // not used
   {
     if (_pApplet == null)
-      throw new RuntimeException("Null pApplet!");
+      throw new RiTaException("Null pApplet!");
+    
     PageLayout rpl = new PageLayout(_pApplet, textRectangle, pageWidth, pageHeight);
     rpl.pageNo = pageNo;
     rpl.paragraphIndent = paragraphIndent;

@@ -40,9 +40,20 @@ public class RiLexicon implements Constants
    * Note: For performance, the data for all RiLexicon instances
    * is shared (there is only 1 copy)
    */
+  public RiLexicon(Object parent)
+  {
+    this.lexImpl = JSONLexicon.getInstance(); 
+  }
+  
+  /**
+   * Constructs a (singleton) instance of the RiLexicon class.
+   * <p> 
+   * Note: For performance, the data for all RiLexicon instances
+   * is shared (there is only 1 copy)
+   */
   public RiLexicon()
   {
-    this.lexImpl = JSONLexicon.getInstance();      
+    this(null);
   }
   
   public RiLexicon removeWord(String s)
