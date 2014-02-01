@@ -700,7 +700,7 @@ public class EntityLookup
     
     public static void main(String[] args)
     {
-      String in = "&#124;&#124; Iraq&#39;s in the &quot;news&quot; &amp; on tv again. ";
+      String in = "&#124;&#124; Iraq&#39;s in the &quot;news&quot; &amp; on tv again. &lt;p&gt;";
       String out = EntityLookup.getInstance().unescape(in);
       System.out.println(out);
       

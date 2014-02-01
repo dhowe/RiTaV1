@@ -31,7 +31,7 @@ public interface RiGooglerIF extends Constants
   public RiGooglerIF cookie(String googleCookie);
   public String cookie();
   
-  public RiGooglerIF cookiePath(String path);
+  public RiGooglerIF cookiePath(Object pApplet, String path);
   public String cookiePath();
   
   public RiGooglerIF startIndex(int startIndex);

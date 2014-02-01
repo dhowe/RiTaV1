@@ -101,9 +101,9 @@ public class RiGoogler implements RiGooglerIF
     return delegate.cookie();
   }
 
-  public RiGooglerIF cookiePath(String path)
+  public RiGooglerIF cookiePath(Object pApplet, String path)
   {
-    return delegate.cookiePath(path);
+    return delegate.cookiePath(pApplet, path);
   }
 
   public String cookiePath()

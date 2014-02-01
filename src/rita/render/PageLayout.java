@@ -4,8 +4,7 @@ import java.util.*;
 
 import processing.core.*;
 import rita.*;
-import rita.support.Constants;
-import rita.support.Rect;
+import rita.support.*;
 
 public class PageLayout implements Constants
 { 
@@ -59,7 +58,7 @@ public class PageLayout implements Constants
    */
   public RiTextIF[] layoutFromFile(PFont pf, String fileName, float leading)
   {
-    String txt = RiTa.loadString(_pApplet, fileName);
+    String txt = RiTa.loadString(fileName, _pApplet);
     return layout(pf, txt.replaceAll("[\\r\\n]", " "), leading);
   }
   
@@ -84,7 +83,7 @@ public class PageLayout implements Constants
    */
   public RiTextIF[] layout(PFont pf, String text, float leading)
   {
-    // System.out.println("RiPageLayout.layout("+text.length()+")");
+    //System.out.println("RiPageLayout.layout("+text/*.length()*/+")");
 
     if (showPageNumbers) {
       footer(Integer.toString(pageNo));
@@ -102,9 +101,10 @@ public class PageLayout implements Constants
   
       addToStack(text.split(SP));
       
-      this.lines = renderPage(pf, leading);
+      this.lines = renderPage(pf, leading);     
     }
     else {
+      
       this.lines = RiText.EMPTY_ARRAY;
     }
     
@@ -113,7 +113,6 @@ public class PageLayout implements Constants
 
   RiTextIF[] renderPage(PFont pf, float leading)
   {
-
     if (words.isEmpty()) return RiText.EMPTY_ARRAY;
     
     if (pf == null && _pApplet != null)
@@ -168,6 +167,11 @@ public class PageLayout implements Constants
         }
         else if (next.endsWith(LINE_BREAK)) {
           forceBreak = true;
+        }
+        else {
+          
+          System.err.println("[WARN] Ignoring unknown tag in layout: '"+next+"'");
+          words.push(next.replaceFirst("<", "&lt;").replace(">", "&gt;"));
         }
         continue;
       }
@@ -246,8 +250,12 @@ public class PageLayout implements Constants
   
   RiTextIF newRiTextLine(StringBuilder sb, PFont pf, float xPos, float nextY)
   {
-    String s = sb.toString();
-    
+    String s = EntityLookup.getInstance().unescape(sb.toString());
+    if (!s.equals(sb.toString()))
+      System.out.println("EntityLookup changed: '"+s+"'");
+    else
+      if (s.contains("t;"))
+        System.out.println("EntityLookup failed on: '"+s+"'");
     //System.out.println("PageLayout.newRiTextLine: '"+sb+"'");
     
     // strip trailing spaces

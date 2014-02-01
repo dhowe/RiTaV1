@@ -6,6 +6,8 @@ import static rita.support.QUnitStubs.equal;
 import static rita.support.QUnitStubs.ok;
 
 import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,11 +19,10 @@ import rita.RiTa;
 
 /*
  * TODO:
- *  loadTokens() with generateSents=true ??
+ *    loadTokens() with generateSents=true ??
  */
 public class RiMarkovTest
 {
-
   String sample = "One reason people lie is to achieve personal power. Achieving personal power is helpful for one who pretends to be more confident than he really is. For example, one of my friends threw a party at his house last month. He asked me to come to his party and bring a date. However, I did not have a girlfriend. One of my other friends, who had a date to go to the party with, asked me about my date. I did not want to be embarrassed, so I claimed that I had a lot of work to do. I said I could easily find a date even better than his if I wanted to. I also told him that his date was ugly. I achieved power to help me feel confident; however, I embarrassed my friend and his date. Although this lie helped me at the time, since then it has made me look down on myself.",
       SP = " ", E = " ";
 
@@ -61,10 +62,10 @@ public class RiMarkovTest
   }      
   
   @Test
-  public void testLoadFileLocal()
+  public void testLoadFromFile()
   {
     RiMarkov rm1 = new RiMarkov(4);
-    rm1.loadFile("kafka.txt");
+    rm1.loadFrom("kafka.txt");
     String[] sents = rm1.generateSentences(100);
     ok(sents.length==100);
     
@@ -76,15 +77,57 @@ public class RiMarkovTest
     }
   }
   
-  public void testLoadFileRemote()
+  @Test
+  public void testLoadFromFileMulti()
   {
-    RiMarkov rm1 = new RiMarkov(4);
-    rm1.loadFile("http://rednoise.org/testfiles/kafka.txt");
+    RiMarkov rm1 = new RiMarkov(3);
+    rm1.loadFrom(new String[]{"kafka.txt","wittgenstein.txt"});
+    //System.out.println("size:"+rm1.size());
+    ok(rm1.size() > 21000);
     String[] sents = rm1.generateSentences(100);
     ok(sents.length==100);
     
     for (int j = 0; j < sents.length; j++) {
-      System.out.println(j+") "+sents[j]);
+      //System.out.println(j+") "+sents[j]);
+      String[] words = sents[j].split(" ");
+      ok(!RiTa.isAbbreviation(words[words.length-1]));
+      ok(sents[j]);
+    }
+  }
+
+  @Test
+  public void testLoadFromUrl()
+  {
+    RiMarkov rm1 = new RiMarkov(4);
+    rm1.loadFrom("http://rednoise.org/testfiles/kafka.txt");
+    String[] sents = rm1.generateSentences(100);
+    ok(sents.length==100);
+    
+    for (int j = 0; j < sents.length; j++) {
+      //System.out.println(j+") "+sents[j]);
+      String[] words = sents[j].split(" ");
+      ok(!RiTa.isAbbreviation(words[words.length-1]));
+      ok(sents[j]);
+    }
+  }
+
+  @Test
+  public void testLoadFromURL()
+  {
+    RiMarkov rm1 = new RiMarkov(4);
+    try
+    {
+      rm1.loadFrom(new URL("http://rednoise.org/testfiles/kafka.txt"));
+    }
+    catch (MalformedURLException e)
+    {
+      e.printStackTrace();
+    }
+    String[] sents = rm1.generateSentences(100);
+    ok(sents.length==100);
+    
+    for (int j = 0; j < sents.length; j++) {
+      //System.out.println(j+") "+sents[j]);
       String[] words = sents[j].split(" ");
       ok(!RiTa.isAbbreviation(words[words.length-1]));
       ok(sents[j]);
@@ -448,7 +491,7 @@ public class RiMarkovTest
     {
       String words = "The dog ate the cat";
 
-      RiMarkov rm = new RiMarkov(3,false);
+      RiMarkov rm = new RiMarkov(3, false);
       rm.loadText(words, "\\s+");
       equal(rm.getProbability(new String[] { "The" }), 0.2f);
     }
@@ -554,10 +597,18 @@ public class RiMarkovTest
   @Test
   public void testSize()
   {
-
     String[] tokens = RiTa.tokenize(sample);
-    RiMarkov rm = new RiMarkov(3);
+    RiMarkov rm = new RiMarkov(3, false);
     rm.loadTokens(tokens);
+    ok(rm.size() == tokens.length);
+    
+    rm = new RiMarkov(3, true);
+    rm.loadTokens(tokens);
+    ok(rm.size() == tokens.length);
+    
+    String[] sents = RiTa.splitSentences(sample);
+    rm = new RiMarkov(3);
+    rm.loadSentences(sents);
     ok(rm.size() == tokens.length);
   }
 

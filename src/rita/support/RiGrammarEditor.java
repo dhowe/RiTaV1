@@ -1,13 +1,14 @@
-package rita;
+package rita.support;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 
-import rita.support.GrammarIF;
-import rita.support.RiEditorWindow;
+import rita.RiGrammar;
+import rita.RiTa;
 
 /**
  * Provides a live edit-able view of a RiGrammar text file
@@ -23,29 +24,40 @@ import rita.support.RiEditorWindow;
  */
 public class RiGrammarEditor extends RiEditorWindow {
  
+  public static String DEFAULT_GRAMMAR = "{\n  \"<start>\" : \"hello world!\"\n}";
+
   /** @invisible */
-  public GrammarIF rg;
+  public RiGrammar rg;  
 
   public RiGrammarEditor(final RiGrammar grammar) {
     this(grammar, 100, 100, 600, 600);
   }
 
-  private RiGrammarEditor(final RiGrammar grammar, int x, int y, int width, int height)
+  public RiGrammarEditor(final RiGrammar grammar, int x, int y, int width, int height)
   {
     super("RiGrammarEditor", x, y, width, height);
     
     this.rg = grammar;   
     
+    String gramStr = DEFAULT_GRAMMAR;
+    
     if (grammar.grammarUrl != null) {
       
-      String contents = loadFileByName(null, grammar.grammarUrl);
-      rg.load(contents);
-      //System.out.println(rg.getGrammar());
-    }
-    else {
+      if (grammar.grammarUrl instanceof URL)
+        gramStr = RiTa.loadString((URL) grammar.grammarUrl);
       
-      System.out.println("[WARN] To use the editor, you need to load your grammar from a file or url!");
+      else if (grammar.grammarUrl instanceof String)
+        gramStr = RiTa.loadString((String) grammar.grammarUrl, grammar.parent);
     }
+
+    String title = getTitle();
+    if (grammar.grammarUrl != null)
+      title += ": " + grammar.grammarUrl;
+    setTitle(title);
+    
+    setText(gramStr);
+    if (rg._rules.size() < 1) // use the editor's default 
+      rg.load(gramStr);
   }
 
   public void addButtons(JToolBar jtbToolBar) {

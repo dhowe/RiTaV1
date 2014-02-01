@@ -8,7 +8,6 @@ public interface Constants extends EnglishConstants
 
   // ==== RiTaEvent ============ 
   
-
   enum EventType {  
     MoveTo,
     ColorTo,
@@ -21,7 +20,8 @@ public interface Constants extends EnglishConstants
     TextEntered,
     Lerp,
     BoundingAlpha,
-    TextToCopy,
+    Internal,
+    DataLoaded,
     Unknown
   };
 
@@ -36,7 +36,8 @@ public interface Constants extends EnglishConstants
   String TEXT_ENTERED = EventType.TextEntered.name();
   String LERP = EventType.Lerp.name();
   String BOUNDING_ALPHA = EventType.BoundingAlpha.name();
-  String TEXT_TO_COPY = EventType.TextToCopy.name();
+  String INTERNAL = EventType.Internal.name();
+  String DATA_LOADED = EventType.DataLoaded.name();
   String UNKNOWN = EventType.Unknown.name();
   
   

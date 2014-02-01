@@ -27,10 +27,8 @@ public class GoogleFakeApi extends GoogleApi
   public String fetch(String queryURL)
   {
     System.out.println("fetch("+queryURL+")");
-    
-    return  (type == SearchType.IMAGE) ?
-      RiTa.loadString("/Users/dhowe/Documents/eclipse-workspace/RiTaLibraryCompat/library-template/src/data/google-imgs.json")
-      : RiTa.loadString("/Users/dhowe/Documents/eclipse-workspace/RiTaLibraryCompat/library-template/src/data/google.json");
+    String data = "/Users/dhowe/Documents/eclipse-workspace/RiTaLibraryCompat/library-template/src/data/";
+    return  (type == SearchType.IMAGE) ? RiTa.loadString(data+"google-imgs.json") : RiTa.loadString(data+"google.json");
   }
 
   public static void main(String[] args)

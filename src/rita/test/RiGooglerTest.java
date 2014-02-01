@@ -17,7 +17,7 @@ public class RiGooglerTest
   
   static {
      google = new GoogleDirect();
-     google.cookiePath(COOKIE_PATH);
+     google.cookiePath(null, COOKIE_PATH);
   }
   
   @Test

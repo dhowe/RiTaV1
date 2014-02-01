@@ -95,13 +95,19 @@ public class BrillPosTagger implements Constants
       lexicon = JSONLexicon.getInstance();
   }
   
+  public String[] tagFile(String fileName) {
+    
+    return this.tagFile(fileName, null);
+  }
+  
   /** 
    * Loads a file, splits the input into sentences 
    * and returns a String[] of the most probably tags. 
    */
-  public String[] tagFile(String fileName) {
+  public String[] tagFile(String fileName, Object pApplet) {
+    
     List result = new ArrayList();
-    String text = RiTa.loadString(fileName);
+    String text = RiTa.loadString(fileName, pApplet);
     
     String[] sents = RiTa.splitSentences(text);
     for (int i = 0; i < sents.length; i++) {

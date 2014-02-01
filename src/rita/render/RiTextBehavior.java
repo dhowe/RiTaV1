@@ -382,7 +382,7 @@ public class RiTextBehavior implements Constants
       if (rt != null && !RiTa.callbacksDisabled) {
                
         // no callbacks for these (hack)
-        if (this.type != BoundingAlpha && this.type != TextToCopy) {
+        if (this.type != BoundingAlpha && this.type != Internal) {
           
           boolean ok = false;
           
@@ -420,7 +420,7 @@ public class RiTextBehavior implements Constants
         }
       }  
       
-      if (type != BoundingAlpha && type != TextToCopy)   // ugh, hack (tmp)
+      if (type != BoundingAlpha && type != Internal)   // ugh, hack (tmp)
       {
         notifyListeners();  // now tell any listeners
       }

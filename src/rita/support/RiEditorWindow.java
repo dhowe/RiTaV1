@@ -25,7 +25,7 @@ public class RiEditorWindow extends JFrame {
   }
 
   public RiEditorWindow
-    (String title, /*PApplet p,*/ int xPos, int yPos, int width, int height)
+    (String title, int xPos, int yPos, int width, int height)
   {
     //this.parent = p;
     this.textArea = new JTextArea(6, 20);
@@ -60,7 +60,7 @@ public class RiEditorWindow extends JFrame {
     int rv = fc.showOpenDialog(this);
     if (rv == JFileChooser.APPROVE_OPTION) {
       String fileName = fc.getSelectedFile().toString();
-      loadFileByName(null, fileName);
+      loadFileByName(fileName, null);
     }
   }
 
@@ -73,60 +73,41 @@ public class RiEditorWindow extends JFrame {
     return (cd.getAbsolutePath().equals(dir.getAbsolutePath()));
   }
 
-  protected String loadFileByName(PApplet p, String fname) {
+  protected String loadFileByName(String fname, PApplet p) {
     
-    System.out.println(fname + ": " + p);
+    //System.out.println(fname + ": " + p);
+    String grm, name = fname;
+    setText(grm = RiTa.loadString(fname, p));
     
-    //String[] contents = RiTa.loadStrings(fname);
-    //String gramStr = join(contents, "\n");
-    String gramStr = RiTa.loadString(fname);
-    
-    System.out.println(fname + ": " + gramStr.length());
-
-    textArea.setText(gramStr);
-    textArea.setCaretPosition(0);
-
-    String name = fname;
     int idx = fname.lastIndexOf(OS_SLASH);
     if (idx > -1 && fname.length() > idx)
       name = fname.substring(idx + 1);
+    
     //System.out.println("[INFO] Opened: " + fname + " as " + name);
+    
     setTitle(getTitle() + ": " + name);
+    
+    return grm;
+  }
+  
+  protected void setText(String gramStr) {
+      
+    //System.out.println(fname + ": " + gramStr.length());
 
-    return gramStr;
+    textArea.setText(gramStr);
+    textArea.setCaretPosition(0);
   }
-  
+    
   /** @invisible */
-  public static String OS_SLASH="/";
-  static {
-    try {
-      OS_SLASH = System.getProperty("file.separator");
-    } 
-    catch (Throwable e) {
-      OS_SLASH = "/";
-    }    
-  }
-  
-  private static String join(String[] full, String delim)
-  {
-    StringBuilder result = new StringBuilder();
-    if (full != null) {
-      for (int index = 0; index < full.length; index++) {
-        if (index == full.length - 1)
-          result.append(full[index]);
-        else
-          result.append(full[index] + delim);
-      }
-    }
-    return result.toString();
-  }
+  public static String OS_SLASH= RiTa.SLASH;
 
   public void addButtons(JToolBar jtbToolBar) 
   {
     JButton jbnToolbarButtons = null;
 
     if (open == null)
-      open = new ImageIcon(getClass().getResource("open.gif"));
+      open = new ImageIcon(RiTa.class.getResource("open.gif"));
+    
     jbnToolbarButtons = new JButton(open);
     jbnToolbarButtons.setToolTipText("open");
     jbnToolbarButtons.addActionListener(new ActionListener() {
@@ -137,7 +118,7 @@ public class RiEditorWindow extends JFrame {
     jtbToolBar.add(jbnToolbarButtons);
 
     if (save == null)
-      save = new ImageIcon(getClass().getResource("save.gif"));
+      save = new ImageIcon(RiTa.class.getResource("save.gif"));
     jbnToolbarButtons = new JButton(save);
     jbnToolbarButtons.setToolTipText("save");
     jbnToolbarButtons.addActionListener(new ActionListener() {

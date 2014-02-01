@@ -221,6 +221,7 @@ public class Stemmer implements StemmerIF, Constants
     Stemmer stemmer = null;
     
     String[] data = RiTa.loadStrings("diffs.txt"); // missing!
+    
     System.out.println("Loaded: "+data.length);
     
      // ------------------------------------------------

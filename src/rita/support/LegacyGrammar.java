@@ -11,7 +11,7 @@ import rita.RiTaException;
 
 /**
  * Original context-free grammar based loosely on Mike Cleron's 'rsg-grammar'
- * Inlcluded only for LegacyGrammar.toJSON(in,out);
+ * Included only for LegacyGrammar.toJSON(in,out);
  */
 public class LegacyGrammar implements Constants
 {
@@ -48,7 +48,7 @@ public class LegacyGrammar implements Constants
     this.callbackHandler = callbackParent;
   }
 
-  public LegacyGrammar(Object callbackParent, URL url)
+  /*  public LegacyGrammar(Object callbackParent, URL url)
   {
     this(callbackParent);
     try
@@ -61,25 +61,37 @@ public class LegacyGrammar implements Constants
     }
   }
 
-  public LegacyGrammar(Object callbackParent, CharSequence input)
+ public LegacyGrammar(Object callbackParent, CharSequence input)
   {
     this(callbackParent, getBAIS(input), null);
+  }*/
+/*
+  public LegacyGrammar(String grammarFileName)
+  {
+    this.grammarFile = grammarFileName;
+    parseDefinitions(new RuleParser(getBAIS(grammarFileName)));
+  }*/
+  
+  public LegacyGrammar(InputStream is)
+  {
+    parseDefinitions(new RuleParser(is));
   }
-
-  public LegacyGrammar(Object callbackParent, InputStream is, String grammarFileName)
+  
+/*  private LegacyGrammar(Object callbackParent, InputStream is, String grammarFileName)
   {
     this(callbackParent);
+    
     // System.out.println("Grammar.Grammar("+callbackParent.getClass()+","+is+","+grammarFileName+")");
     if (is == null)
       throw new RiTaException("Grammar: null input stream!");
+    
     this.grammarFile = grammarFileName;
     parseDefinitions(new RuleParser(is));
     // System.out.println("DEFS: "+definitions);
   }
-
-  private static ByteArrayInputStream getBAIS(CharSequence input)
+*/
+ /* private static ByteArrayInputStream getBAIS(String input)
   {
-
     try
     {
       // System.out.println("Grammar.getBAIS()");
@@ -89,7 +101,7 @@ public class LegacyGrammar implements Constants
     {
       throw new RiTaException(e);
     }
-  }
+  }*/
 
   // Methods ------------------------------------------
 
@@ -224,6 +236,11 @@ public class LegacyGrammar implements Constants
     }
   }
 
+  public String expand()
+  {
+    return expand(START_SYM, false);
+  }
+  
   public String expand(boolean preserveBuffer)
   {
     return expand(START_SYM, preserveBuffer);
@@ -788,7 +805,7 @@ public class LegacyGrammar implements Constants
     {
       String s = "{\n<start>\n  ü all good | all bad\n}";
       ByteArrayInputStream bais = new ByteArrayInputStream(s.getBytes());
-      LegacyGrammar g = new LegacyGrammar(null, bais, null);
+      LegacyGrammar g = new LegacyGrammar(bais);
       for (int i = 0; i < 10; i++)
         System.out.println(g.expand(false));
     }
@@ -924,8 +941,8 @@ public class LegacyGrammar implements Constants
   
   public static String asJSON(String infile, String outfile)
   {
-    LegacyGrammar g = new LegacyGrammar
-      (null, RiTa.openStream(infile), null);
+    LegacyGrammar g = new LegacyGrammar(RiTa.openStream(infile));
+
     Map defs = g.getDefinitions();
     g.dumpDefinitions();
     StringBuilder sb = new StringBuilder();
@@ -950,20 +967,24 @@ public class LegacyGrammar implements Constants
       sb.append(LB);
     }
     sb.append("}"+LB);    
+    
     String result = sb.toString();
     if (outfile != null)
       writeToFile(outfile, result);
+
     return result;
   }
   
   public static void main(String[] args)
   {
     //String infile = "/Users/dhowe/Documents/eclipse-workspace/RiTa_Java/haiku.g";
-    String infile = "mcgrammar.json";
+    String infile = "mcgrammar.json"; // problem??
+    infile = "/Users/dhowe/Documents/eclipse-workspace/CornellsYoke/src/data/newgrammar.txt";
     //String infile = "haikuGrammar.g";
     String outfile = "/Users/dhowe/Desktop/test.json";
-    String json = asJSON(infile, outfile);
-    //System.out.println(json);
+    //outfile = "/Users/dhowe/Documents/eclipse-workspace/CornellsYoke/src/data/newgrammar.json";
+    String json = asJSON(infile, null);
+    System.out.println(json);
   }
 
 }// end

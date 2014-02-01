@@ -12,29 +12,41 @@ public class RiTaEvent implements Constants
   
   public EventType type;
   protected Object source;
+  public Object data;
 
   public RiTaEvent(Object source)
   {
     this(source, Unknown);
   }
   
-  public RiTaEvent(Object source, EventType type)
+  public RiTaEvent(Object source, EventType type) {
+    this(source, type, null);
+  } 
+  
+  public RiTaEvent(Object source, EventType type, Object data)
   {
+    this.data = data;
     this.source = source;
     this.type = type;//checkType(type);
   }
+  
   
   public boolean fire(Object parent) {
     
     return this.fire(parent, false);
   }
   
-  public boolean fire(Object parent, boolean isPublic) {
+  protected boolean fire(Object parent, boolean isPublic) {
     
     // appears isPublic can always be false...
     
-    Method callback = RiTa._findMethod
-      (parent, DEFAULT_CALLBACK, new Class[] { RiTaEvent.class }, isPublic);
+    Method callback = null;
+    try
+    {
+      callback = RiTa._findMethod
+        (parent, DEFAULT_CALLBACK, new Class[] { RiTaEvent.class }, isPublic);
+    }
+    catch (Exception e) {  }
     
     return (callback != null) ? fire(parent, callback) : false;
   }
@@ -43,21 +55,26 @@ public class RiTaEvent implements Constants
     
     if (parent != null && callback != null) {
       
+      Object[] args = new Object[0];
+      
       if (callback.getParameterTypes().length > 0)
-        RiTa._invoke(parent, callback, new Object[]{ this });
-      else 
-        RiTa._invoke(parent, callback, new Object[0]);
+        args = new Object[] { this };
+      
+      RiTa._invoke(parent, callback, args);
       
       return true;
     }
+    
     return false;
   }
   
   @Override
   public String toString()
   {
-    return "RiTaEvent[#"+this.hashCode()+" type="+
-      type.name()+" src="+this.source.toString()+"]";
+    String s = "RiTaEvent[#"+this.hashCode()+" type="+
+      type.name()+" src="+this.source.toString();
+    if (data != null) s += " data-length="+data.toString().length();
+    return s + "]";
   }
 
 /*  private static String typeToString(int type)
@@ -81,6 +98,7 @@ public class RiTaEvent implements Constants
     return type;
   }
   */
+  
   public Object source()
   {
     return source;

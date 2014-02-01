@@ -1,8 +1,7 @@
 package rita.render.test;
 
 import processing.core.PApplet;
-import rita.RiGrammar;
-import rita.RiText;
+import rita.*;
 
 public class GrammarEditorTest extends PApplet {
 
@@ -22,7 +21,7 @@ public class GrammarEditorTest extends PApplet {
     rts[2] = new RiText(this, "a haiku",  width / 2, 135);
     
     grammar = new RiGrammar();
-    grammar.loadFromFile("haikuGrammar2.json");
+    grammar.loadFrom("haikuGrammar2.json", this);
     grammar.openEditor(width, 800);    
   }
   
@@ -45,4 +44,9 @@ public class GrammarEditorTest extends PApplet {
     background(255);
     RiText.drawAll();
   }
+  
+  public void onRiTaEvent(RiTaEvent re) {
+    //System.out.println("GrammarEditorTest.onRiTaEvent("+re+")");
+  }
+    
 }

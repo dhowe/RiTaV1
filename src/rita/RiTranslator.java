@@ -28,10 +28,10 @@ public class RiTranslator
   
   String ignores = "athletics,football,archery,badminton,baseball,basketball,bowling,boxing,cricket,cycling,canoe,curling,climbing,diving,dancing,equestrian,football,fencing,gymnastics,golf,hockey,handball,hockey,skating,judo,karate,lacrosse,olympics,polo,rugby,running,skating,soccer,squash,swimming,sailing,skiing,surfing,softball,tennis,volleyball,wrestling,weightlifting,yoga,NBA,NFL,MLB";
 
-  public RiTranslator()
+  public RiTranslator(Object pApplet)
   {
     this.google = new RiGoogler();
-    google.cookiePath(COOKIE_PATH);
+    google.cookiePath(pApplet, COOKIE_PATH);
   }
 
   class Gloss
@@ -308,7 +308,7 @@ public class RiTranslator
   // TODO: append them to sentence file
   public static void main(String[] args)
   {
-    RiTranslator tr = new RiTranslator();
+    RiTranslator tr = new RiTranslator(null);
     String[] tns = tr.generate("violence", 2);
     for (int i = 0; i < tns.length; i++)
     {

@@ -176,7 +176,7 @@ public class GoogleDirect implements RiGooglerIF
   // END New methods ------------------------------------
 
   
-  public String fetch(String queryURL)
+  public String fetch(String queryURL) // TODO: replace with loadString(URL);
   {
     String line = E;
     BufferedReader in = null;
@@ -480,14 +480,14 @@ public class GoogleDirect implements RiGooglerIF
     return cookie;
   }
 
-  public GoogleDirect cookiePath(String path)
+  public GoogleDirect cookiePath(Object p, String path)
   {
     if (path != null && path.equals(cookiePath)) 
       return this;
     
     this.cookiePath = path;
 
-    return (path != null) ? loadCookies(path) : this;
+    return (path != null) ? loadCookies(p, path) : this;
   }
 
   public String cookiePath()
@@ -497,7 +497,7 @@ public class GoogleDirect implements RiGooglerIF
   
   // HELPERS ----------------------------------------------------------
   
-  protected GoogleDirect loadCookies(String path)
+  protected GoogleDirect loadCookies(Object p, String path)
   {   
     String cStr = E;
     
@@ -513,7 +513,7 @@ public class GoogleDirect implements RiGooglerIF
         return this;
       }
 
-      String contents = RiTa.loadString(path);
+      String contents = RiTa.loadString(path, p);
 
       //System.out.println(contents);
   
@@ -814,7 +814,7 @@ public class GoogleDirect implements RiGooglerIF
   {
     String query = "The dog";
     GoogleDirect rg = new GoogleDirect();
-    rg.cookiePath("/Users/dhowe/Library/Cookies/Cookies.plist");
+    rg.cookiePath(null, "/Users/dhowe/Library/Cookies/Cookies.plist");
     String[] completions = rg.getCompletions(query,1);
     for (int i = 0; i < completions.length; i++)
     {

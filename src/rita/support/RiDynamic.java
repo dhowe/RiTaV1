@@ -9,6 +9,15 @@ import rita.RiTaException;
  * Implements dynamic typing (eg 'duck-typing') for RiTa objects -- allowing programs to treat
  * objects from separate hierarchies and packages as the same, assuming they
  * implement the specified interfaces (checked only at runtime)
+ * 
+ * Example:
+ * <pre>Class pclass = Class.forName("processing.core.PApplet");
+        if (pclass.isInstance(parent)) {
+          
+          PAppletIF p = (PAppletIF)RiDynamic.cast(parent, PAppletIF.class);
+          p.loadStrings(fileName);
+        }
+ *</pre>
  */
 public class RiDynamic
 {  
@@ -35,7 +44,7 @@ public class RiDynamic
     }    
     delegate = RiInvocation.implement(ifaces, dynamicProxy);  
   } 
-  
+
   /**
    * Indicates if an object is a Dynamic (DuckTyped) instance of an interface. 
    * 

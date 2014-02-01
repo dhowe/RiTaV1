@@ -3,8 +3,7 @@ package rita.test.sketches;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
-import rita.RiGrammar;
-import rita.RiText;
+import rita.*;
 
 public class SpinState extends PApplet
 {
@@ -19,8 +18,7 @@ public class SpinState extends PApplet
     RiText.defaultFill(255);
     RiText.defaultFont("Times", 15);
 
-    grammar = new RiGrammar();
-    grammar.loadFromFile("mcgrammar.json");
+    grammar = new RiGrammar(RiTa.loadString("mcgrammar.json", this));
     //grammar.print();
     
     keyReleased();

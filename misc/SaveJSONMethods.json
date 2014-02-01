@@ -1,0 +1,48 @@
+// RiGrammar.load
+   {
+      "methodName":"load()",
+      "example":"",
+      "description":"Re-initializes the grammar from a file containing the grammar rules",
+      "syntax":"load(grammarFileURL)<br/>load(grammarFileURL, callback)</br>load(grammarFileName, pApplet)",
+      "parameters":
+      [
+			{ 
+				"type": "String or Object (URL)", 
+				"desc": "Url or name of file containing the grammar rules" 
+			},
+			{
+            	"type":"Function (optional: for JavaScript only)" or Object (optional: the PApplet, for Java only)
+            	"desc":"If a Function (in JavaScript), it will be called after the file is loaded (with one string, the data, as its argument);<br>if a PApplet(in Java), onRiTaEvent(RiTaEvent) will be called instead, with the eventType of RiTa.LOADED"
+         	}
+	  ],
+	  "returns":
+      [
+			{ 
+				"type": "RiGrammar", 
+				"desc": "this RiGrammar" 
+			}
+			
+	  ],
+      "related":"",
+      "platform":"In Javascript, uses JQuery's ajax() method if available, otherwise attempts an invisible iframe-hack, then calls the specified callback function. Alternatively, one can use the &lt;script src=...&gt; tag to include the JSON grammar file in an html page.",
+	  "note":""
+   }      
+// RiGrammar.grammar (set/get)  
+   {
+      "methodName":"grammar()",
+      "example":"",
+      "description":"Sets or gets the current grammar as a String",
+      "syntax":"grammar();<br>grammar(theGrammarAsString)",
+      "parameters":[],
+      "returns":
+      [
+			{ 
+			"type": "String or Object", 
+			"desc": "a string representation of the grammar (for gets) or this RiGrammar object (for sets) " 
+			}
+			
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },

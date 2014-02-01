@@ -1,0 +1,21 @@
+{
+	"<start>"   : "<s>",
+	
+	"<s>"   	: "<np> <vp>",
+	"<np>"   	: [ "<pn>", "<pn> <rel>", "<det> <nbar>" ],
+	"<vp>"   	: ["<iv>","<tv> <np>","<dv> <np> <pp>","<sv> <s>" ],
+	"<nbar>" 	: ["<n>", "<n> <rel>" ],
+	"<rel>"  	: "<wh> <vp>",
+	"<pp>"   	: "to <np>",
+	
+	"<pn>"  	: "Vincent | Mia | Marsellus | Jules",
+	"<det>" 	: "a | the | her | his",
+	"<n>"   	: "gun | robber | man | woman",
+	"<wh>"  	: "who | that",
+	"<iv>"  	: "died | fell",
+	"<tv>"  	: "loved | shot | knew",
+	"<dv>"  	: "gave | handed",
+	"<sv>"  	: "knew | believed"
+}
+
+
