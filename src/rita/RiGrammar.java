@@ -59,6 +59,9 @@ public class RiGrammar //implements RiGrammar
     return loadFrom(file, pApplet);
   }
 
+  // TODO: should not take a pApplet (breaks the JS API)
+  
+  @Deprecated
   public RiGrammar loadFrom(String file, Object pApplet)
   {
     this.grammarUrl = file;
@@ -71,12 +74,12 @@ public class RiGrammar //implements RiGrammar
     this.grammarUrl = file;
     
     if (parent == null)
-      return load(loadString(file));
+      return load(_loadString(file));
     
     return load(RiTa.loadString(file, parent));
   }
   
-  static String loadString(String fileName)
+  static String _loadString(String fileName)
   {
     return RiTa.loadString(fileName, "RiGrammar.loadFrom");
   }
@@ -92,12 +95,33 @@ public class RiGrammar //implements RiGrammar
     return openEditor(-1, -1);
   }
   
+  public RiGrammarEditor openEditor(int width, int height) {
+    
+    return openEditor((Object)null, width, height);
+  }
+  
+  public RiGrammarEditor openEditor(String fileName, int width, int height) {
+    return openEditor(fileName, width, height);
+
+  }
+  public RiGrammarEditor openEditor(URL url, int width, int height) {
+    return openEditor(url, width, height);
+  }
+  
   /**
    * Provides a live, editable view of a RiGrammarPort text file that can be
    * dynamically loaded into a sketch without stopping and restarting it.
    */
-  public RiGrammarEditor openEditor(int width, int height)
+  protected RiGrammarEditor openEditor(Object fileOrUrl, int width, int height)
   {
+    if (fileOrUrl != null) {
+      
+      if (fileOrUrl instanceof String)
+        loadFrom((String) fileOrUrl, parent);
+      else if (fileOrUrl instanceof URL)
+        loadFrom((URL) fileOrUrl);
+    }
+    
     boolean invalid = grammarUrl == null && _rules.size() > 0;
     
     if (editor == null)
@@ -112,7 +136,8 @@ public class RiGrammar //implements RiGrammar
     
     if (invalid) {
       
-      System.err.println("[WARN] To use the editor, you need to load your grammar from a file or URL!");
+      System.err.println("[WARN] To use the editor, you need"
+          + " to load your grammar from a file or URL!");
       editor.setVisible(false);
     }
         
@@ -398,9 +423,9 @@ public class RiGrammar //implements RiGrammar
     return expandFrom(rule, null);
   }
   
-  public String expandFrom(String rule, Object callbackListener)
-  {    
-    //System.out.println("RiGrammar.expandFrom("+rule+")");
+  public String expandFrom(String rule, Object callbackListener) {
+    
+    // System.out.println("RiGrammar.expandFrom("+rule+")");
     
     if (!this.hasRule(rule))
       throw new RiTaException("Rule not found: "+rule+"\nRules:\n"+_rules);
@@ -413,7 +438,7 @@ public class RiGrammar //implements RiGrammar
     {
       String next = expandRule(rule);
       
-      if (next != null && next.length()>0) { // matched a rule
+      if (next != null && next.length()> 0) { // matched a rule
         
         rule = next;
         continue;
@@ -422,24 +447,16 @@ public class RiGrammar //implements RiGrammar
       // we're done with rules
       
       if (this.execDisabled) break; // return
-      
-      // now check for back-ticked strings to eval
-      String[] parts = testExec(EXEC_PATT, rule);
-      if (parts == null || parts.length < 2) {
-        
-        break; // return - nothing to eval
-      }
             
-      if (parts.length > 2 && parts[2].length() > 0) {
+      // now check for back-ticked strings to eval      
+      String result = this.checkExec(rule, callbackListener);
+      if (result == null) {
         
-        String callResult = handleExec(parts[2], callbackListener);
-                
-        rule = parts[1] + callResult;
-            
-        if (parts.length > 3)
-          rule += parts[3];
+        break;
       }
-    }
+        
+      rule = result;
+    } 
     
     if (tries >= maxIterations && !RiTa.SILENT) 
       System.out.println("[WARN] max number of iterations reached: "+maxIterations);
@@ -447,13 +464,67 @@ public class RiGrammar //implements RiGrammar
     return RiTa.unescapeHTML(rule);  // after any execs
   }
 
+  // TODO: doesn't handle recursive rules: see GH issue #3
+  protected String checkExec(String rule, Object callbackListener)
+  {
+    String[] parts = testExec(EXEC_PATT, rule);
+    
+    if (parts == null || parts.length < 2) {
+      
+      return null; // return - nothing to eval
+    }
+    
+    if (parts.length > 2 && parts[2].length() > 0) {
+      
+      String theCall = parts[2];
+      if (countTicks(theCall) != 2) {
+        
+        System.err.println("[WARN] Unable to parse recursive exec: "+theCall+"...");
+        return null;
+      }
+          
+//System.err.println("RiGrammar.EXEC: "+parts.length+" / "+theCall);
+
+      String callResult = E;
+      try
+      {
+        callResult = handleExec(theCall, callbackListener);
+      }
+      catch (Exception e)
+      {
+        if (!RiTa.SILENT) { 
+          System.err.println("[WARN] "+e.getMessage());
+        }
+        return null;
+      }
+              
+      rule = parts[1] + callResult;
+          
+      if (parts.length > 3)
+        rule += parts[3];
+    }
+    
+    return rule;
+  }
+
+  private int countTicks(String theCall)
+  {
+    int count = 0;
+    for (int i = 0; i < theCall.length(); i++)
+    {
+      if (theCall.charAt(i) == '`')
+        count ++;
+    }
+    return count;
+  }
+ 
   private String handleExec(String thePart, Object callee)
   {
-    boolean dbug = true;
+    boolean dbug = false;
     
     if (thePart == null) return null; // should never happen
     
-    if (dbug)System.out.println("RiGrammar.handleExec("+thePart+","+(callee!=null)+")");
+    if (dbug) System.out.println("RiGrammar.handleExec("+thePart+")");
     
     String toReturn = E, function = null;
     try
@@ -469,9 +540,9 @@ public class RiGrammar //implements RiGrammar
         throw new RiTaException("Unable to parse args in back-ticked call: "+thePart);
       
       if (callee == null) 
-        throw new RiTaException("Found what appears to be a callback: "
-           + thePart + ", but no callee object was supplied. Perhaps you "
-           + "meant RiGrammar.expand(calleeObj) OR RiGrammar.expandFrom(calleeObj)?");
+        throw new RiTaException("\nFound what appears to be a callback:\n  "
+           + thePart + "\nbut no callee object was supplied.\n\nPerhaps you "
+           + "meant RiGrammar.expand(this)?\n");
   
       function = function.replaceAll("\\(.*?\\)", E);
       
@@ -481,7 +552,7 @@ public class RiGrammar //implements RiGrammar
       
       if (!args[1].equals(E))  { // found args
         
-        //if (dbug) System.out.println("RiGrammar.args[1]="+args[1]);
+        if (dbug) System.out.println("RiGrammar.args[1]="+args[1]);
         
         argsArr = formatArgs(args[1]);
         
@@ -501,7 +572,6 @@ public class RiGrammar //implements RiGrammar
     }
     catch (Exception e)
     {
-      
       if (!RiTa.SILENT) System.err.println("[WARN] Error invoking "
           + thePart+":\n"+RiTa.stackToString(e));
       
@@ -568,7 +638,7 @@ public class RiGrammar //implements RiGrammar
   {
     boolean dbug = false;
 
-    if (dbug)log("_expandRule(" + prod + ")");
+    if (dbug) log("_expandRule(" + prod + ")");
 
     for (String name : this._rules.keySet())
     {
