@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import rita.json.*;
+import rita.render.RiGrammarEditor;
 import rita.support.*;
 
 public class RiGrammar //implements RiGrammar
@@ -14,6 +15,7 @@ public class RiGrammar //implements RiGrammar
   public static String START_RULE = "<start>";
   
   //public static final String STRIP_TICKS = "`([^`]*)`"; // global
+  
   static final String E = "";
   static final Pattern PROB_PATT = Pattern.compile("(.*[^\\s])\\s*\\[([0-9.]+)\\](.*)");
   static final Pattern EXEC_PATT = Pattern.compile("(.*?)(`[^`]+?\\(.*?\\);?`)(.*)");
@@ -39,6 +41,13 @@ public class RiGrammar //implements RiGrammar
   
   public RiGrammar(String grammarAsString)
   {
+    this(grammarAsString, null);
+  }
+  
+  public RiGrammar(String grammarAsString, Object pApplet)
+  {
+    if (pApplet != null)
+      this.parent = pApplet;
     this._rules = new HashMap<String, Map<String, Float>>();
     if (grammarAsString != null)
       this.load(grammarAsString);
@@ -123,11 +132,14 @@ public class RiGrammar //implements RiGrammar
     //System.out.println("RiGrammar.load("+grammarRulesAsString+")\n");
     this.reset();
     
+    if (grammarRulesAsString == null || grammarRulesAsString.length()<1)
+      throw new RiTaException("RiGrammar: no grammar rules found!");
+    
     try
     {
       JSONObject json = new JSONObject(grammarRulesAsString);
       //System.out.println(json);
-      return setGrammar(json);
+      return load(json);
     }
     catch (JSONException e)
     {
@@ -137,7 +149,7 @@ public class RiGrammar //implements RiGrammar
   }
   
   // TODO: keep this, and get rid of the other?
-  public RiGrammar setGrammar(processing.data.JSONObject json) {
+  public RiGrammar load(processing.data.JSONObject json) {
 
       Iterator keys = json.keyIterator();
 
@@ -173,7 +185,7 @@ public class RiGrammar //implements RiGrammar
       return this;
   }
   
-  public RiGrammar setGrammar(JSONObject json) 
+  public RiGrammar load(JSONObject json) 
   {
     Iterator keys = json.keys();
 
@@ -393,6 +405,9 @@ public class RiGrammar //implements RiGrammar
     if (!this.hasRule(rule))
       throw new RiTaException("Rule not found: "+rule+"\nRules:\n"+_rules);
     
+    if (callbackListener == null)
+      callbackListener = parent;
+    
     int tries = 0;
     while (++tries < maxIterations)
     {
@@ -415,18 +430,10 @@ public class RiGrammar //implements RiGrammar
         break; // return - nothing to eval
       }
             
-      if (parts.length > 2) {
+      if (parts.length > 2 && parts[2].length() > 0) {
         
         String callResult = handleExec(parts[2], callbackListener);
-        
-        if (callResult == null) {
-          
-          if (1==0) System.err.println("[WARN] (RiGrammar.expandFrom) Unexpected"
-              + " state: eval(" + parts[2] + ") :: returning '"+rule+"'");
-          
-          break; // return
-        }
-        
+                
         rule = parts[1] + callResult;
             
         if (parts.length > 3)
@@ -442,11 +449,16 @@ public class RiGrammar //implements RiGrammar
 
   private String handleExec(String thePart, Object callee)
   {
+    boolean dbug = true;
+    
     if (thePart == null) return null; // should never happen
     
+    if (dbug)System.out.println("RiGrammar.handleExec("+thePart+","+(callee!=null)+")");
+    
+    String toReturn = E, function = null;
     try
     {
-      String function = thePart.trim().replaceAll("^`", E)
+      function = thePart.trim().replaceAll("^`", E)
           .replaceAll("`$", E).replaceAll(";$", E);
       
       if (function == null || function.length() < 1) return null;
@@ -463,29 +475,50 @@ public class RiGrammar //implements RiGrammar
   
       function = function.replaceAll("\\(.*?\\)", E);
       
+      if (dbug) System.out.println("RiGrammar.function="+function);
+      
       Object[] argsArr = null;
       
-      if (!args[1].equals(E))  // found args
+      if (!args[1].equals(E))  { // found args
+        
+        //if (dbug) System.out.println("RiGrammar.args[1]="+args[1]);
+        
         argsArr = formatArgs(args[1]);
+        
+        //if (dbug) System.out.println("RiGrammar.argsArr"+RiTa.asList(argsArr));
+      }
       
-      //System.out.println("RiGrammar.invoke: "+function+"("+
-        //  (RiTa.asList(argsArr).toString()).replaceAll("[\\[\\]]", E)+");");
+      if (dbug)System.out.println("RiGrammar.invoke: "+function+"("+
+          (RiTa.asList(argsArr).toString()).replaceAll("[\\[\\]]", E)+");");
       
-      return RiTa.invoke(callee, function, argsArr).toString();
+      Object callResult = RiTa.invoke(callee, function, argsArr);
+
+      if (callResult != null) toReturn = callResult.toString();
+      
+      if (dbug) System.out.println("RiGrammar.result: "+toReturn);
+      
+      return toReturn;
     }
     catch (Exception e)
     {
-      if (!RiTa.SILENT) System.err.println(e);
+      
+      if (!RiTa.SILENT) System.err.println("[WARN] Error invoking "
+          + thePart+":\n"+RiTa.stackToString(e));
+      
       return null;
     }
   }
   
   private Object[] formatArgs(String argsStr) {
+    
+    boolean dbug = false;
+    if (dbug) System.out.println("RiGrammar.formatArgs("+argsStr+")");
 
     String[] strs = argsStr.split(",");
+
     Object[] args = new Object[strs.length];
 
-    //System.out.println("RiGrammar.formatArgs: "+strs.length);
+    if (dbug)System.out.println("RiGrammar.formatArgs.strs.length="+strs.length);
 
     for (int i = 0; i < strs.length; i++)
     {
@@ -494,11 +527,11 @@ public class RiGrammar //implements RiGrammar
       String arg = strs[i].replaceAll("\"'", E);
       args[i] = arg;
       
-      if (strs[i].equals(arg)) { // no change
-        
+      if (strs[i].equals(arg)) { // no change        
         try
         {
           args[i] = Integer.parseInt(arg);
+          if (dbug)System.out.println("Integer: "+args[i]);
           continue;
         }
         catch (Exception e) {}
@@ -506,16 +539,25 @@ public class RiGrammar //implements RiGrammar
         try
         {
           args[i] = Float.parseFloat(arg);
+          if (dbug)System.out.println("Float: "+args[i]);
           continue;
         }
         catch (Exception e) { }
      
-        try
-        {
-          args[i] = Boolean.parseBoolean(arg);
-          continue;
+        if (arg.equals("true") || arg.equals("false")) {
+          try
+          {
+              args[i] = Boolean.parseBoolean(arg);
+              if (dbug) System.out.println("Boolean: "+args[i]);
+              continue;
+          }
+          catch (Exception e) { }
         }
-        catch (Exception e) { }
+      }
+      else {
+        
+        if (dbug)System.out.println("Changed: "+strs[i] + "!=" + arg);
+
       }
     }
     

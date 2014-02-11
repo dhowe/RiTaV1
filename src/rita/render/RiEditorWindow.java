@@ -1,4 +1,4 @@
-package rita.support;
+package rita.render;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import java.io.*;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import processing.core.PApplet;
 import rita.RiTa;
@@ -14,7 +16,8 @@ public class RiEditorWindow extends JFrame {
 
   protected static ImageIcon save, open;
   public JTextArea textArea;
-  //protected PApplet parent;
+  protected PApplet parent;
+  protected boolean dirty;
   
   static {
     try {
@@ -29,6 +32,21 @@ public class RiEditorWindow extends JFrame {
   {
     //this.parent = p;
     this.textArea = new JTextArea(6, 20);
+    
+    this.textArea.getDocument().addDocumentListener(new DocumentListener() {
+
+      public void insertUpdate(DocumentEvent e) {
+        dirty = true;
+      }
+
+      public void removeUpdate(DocumentEvent e) {
+        dirty = true;
+      }
+
+      public void changedUpdate(DocumentEvent e) {
+        dirty = true;
+      }
+    });
 
     JToolBar jtbMainToolbar = new JToolBar();
     jtbMainToolbar.setFloatable(false);
@@ -41,7 +59,7 @@ public class RiEditorWindow extends JFrame {
     content.add(jtbMainToolbar, BorderLayout.NORTH);
     content.add(scroller, BorderLayout.CENTER);
     setContentPane(content);
-    setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     setTitle(title);
     pack();
     setBounds(xPos, yPos, width, height);
@@ -50,13 +68,8 @@ public class RiEditorWindow extends JFrame {
   }
 
   public void openFile() {
-    final JFileChooser fc = new JFileChooser();
-    String dataDir = ".";//(parent == null) ? "." : parent.dataPath("");
-    //System.out.println("RiEditorWindow.openFile.data="+dataDir);
-    if (!setDirectory(fc, dataDir)) {
-      if (!setDirectory(fc, "data"))
-        setDirectory(fc, ".");    
-    }
+    
+    JFileChooser fc = getFileChooser();
     int rv = fc.showOpenDialog(this);
     if (rv == JFileChooser.APPROVE_OPTION) {
       String fileName = fc.getSelectedFile().toString();
@@ -64,13 +77,30 @@ public class RiEditorWindow extends JFrame {
     }
   }
 
+  private JFileChooser getFileChooser()
+  {
+    boolean dbug = false;
+    final JFileChooser fc = new JFileChooser();
+    String dataDir = parent == null ? "./data" : parent.dataPath("");
+    if (dbug) System.out.println("RiEditorWindow trying "+dataDir);
+    if (!setDirectory(fc, dataDir)) {
+      dataDir = "~/Documents/Processing";
+      if (dbug) System.out.println("RiEditorWindow trying "+dataDir);
+      if (!setDirectory(fc, dataDir)) {
+        dataDir = ".";
+        if (dbug) System.out.println("RiEditorWindow trying "+dataDir);
+        setDirectory(fc, dataDir);    
+      }
+    }
+    return fc;
+  }
+
   private boolean setDirectory(final JFileChooser fc, String dirName) {
     File dir = new File(dirName);
-    if (dir == null) return false;
-    fc.setCurrentDirectory(dir);//parent.dataPath("")));
+    fc.setCurrentDirectory(dir);
     File cd = fc.getCurrentDirectory();
-    if (cd == null) return false;
-    return (cd.getAbsolutePath().equals(dir.getAbsolutePath()));
+    return (cd == null) ? false : 
+       cd.getAbsolutePath().equals(dir.getAbsolutePath());
   }
 
   protected String loadFileByName(String fname, PApplet p) {
@@ -129,40 +159,36 @@ public class RiEditorWindow extends JFrame {
     });
     jtbToolBar.add(jbnToolbarButtons);
 
-    // We can add separators to group similar components
+    // add separators to group similar components
     jtbToolBar.addSeparator();
   }
 
-  protected void writeFile() {
-    final JFileChooser chooser = new JFileChooser();
+  protected int writeFile() {
     
-    String dataDir = ".";//(parent == null) ? "." : parent.dataPath("");
-    //System.out.println("RiEditorWindow.writeFile.data="+dataDir);
-    try {
-      chooser.setCurrentDirectory(new File(dataDir));
-    }
-    catch (Exception e1)
-    {
-      try {
-        chooser.setCurrentDirectory(new File("../src/data"));
-      } catch (Exception e) {
-        chooser.setCurrentDirectory(new File("."));
-      }
-    }
+    final JFileChooser chooser = getFileChooser();
     int retVal = chooser.showSaveDialog(this);
-
+    
     if (retVal == JFileChooser.APPROVE_OPTION) {
+      
       try {
+        
         FileWriter fWriter = new FileWriter(chooser.getSelectedFile());
         BufferedWriter writer = new BufferedWriter(fWriter);
         String writeString = textArea.getText();
 
         writer.write(writeString, 0, writeString.length());
         writer.close();
-      } catch (Exception e) {
-        System.err.println("[WARN] " + e.getMessage());
+    
+        dirty = false;
+      } 
+      catch (Exception e) {
+        
+        retVal = JFileChooser.CANCEL_OPTION;
+        System.err.println("[WARN] RiGrammarEditor.save: " + e.getMessage());
       }
     }
+    
+    return retVal;
   }
 
   // for testing...

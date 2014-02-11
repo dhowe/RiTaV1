@@ -1,12 +1,11 @@
-package rita.support;
+package rita.render;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.net.URL;
 
-import javax.swing.JButton;
-import javax.swing.JToolBar;
+import javax.swing.*;
 
+import processing.core.PApplet;
 import rita.RiGrammar;
 import rita.RiTa;
 
@@ -38,6 +37,8 @@ public class RiGrammarEditor extends RiEditorWindow {
     super("RiGrammarEditor", x, y, width, height);
     
     this.rg = grammar;   
+    if (grammar.parent != null)
+      this.parent = (PApplet) grammar.parent;
     
     String gramStr = DEFAULT_GRAMMAR;
     
@@ -58,6 +59,34 @@ public class RiGrammarEditor extends RiEditorWindow {
     setText(gramStr);
     if (rg._rules.size() < 1) // use the editor's default 
       rg.load(gramStr);
+    
+    addWindowListener(new WindowAdapter() {
+      public void windowClosing(WindowEvent ev) {
+        
+        checkForUnsavedEdits();
+      }
+    });
+    
+    this.dirty = false;
+  }
+
+  protected void checkForUnsavedEdits()
+  {
+    //System.out.println("RiGrammarEditor.checkForUnsavedEdits()");
+    
+    if (this.dirty) {
+      
+      int option = JOptionPane.showConfirmDialog(null, "Do you want to save your changes?");
+      if (option == JOptionPane.YES_OPTION)
+      {
+        if (writeFile() == JFileChooser.APPROVE_OPTION)
+            this.setVisible(false);
+      }
+      else if (option == JOptionPane.NO_OPTION)
+        this.setVisible(false);
+    }
+    else 
+      this.setVisible(false);
   }
 
   public void addButtons(JToolBar jtbToolBar) {
