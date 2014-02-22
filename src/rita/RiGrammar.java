@@ -118,6 +118,7 @@ public class RiGrammar //implements RiGrammar
       
       if (fileOrUrl instanceof String)
         loadFrom((String) fileOrUrl, parent);
+      
       else if (fileOrUrl instanceof URL)
         loadFrom((URL) fileOrUrl);
     }
@@ -169,7 +170,8 @@ public class RiGrammar //implements RiGrammar
     catch (JSONException e)
     {
       throw new RiTaException
-        ("Grammar appears to be invalid JSON, please check it! (http://jsonlint.com/)", e);
+        ("Grammar appears to be invalid JSON, please check it! (http://jsonlint.com/)\n\n"
+            + grammarRulesAsString +"\n", e);
     }
   }
   
@@ -582,26 +584,30 @@ public class RiGrammar //implements RiGrammar
   private Object[] formatArgs(String argsStr) {
     
     boolean dbug = false;
+    
     if (dbug) System.out.println("RiGrammar.formatArgs("+argsStr+")");
 
     String[] strs = argsStr.split(",");
 
     Object[] args = new Object[strs.length];
 
-    if (dbug)System.out.println("RiGrammar.formatArgs.strs.length="+strs.length);
+    if (dbug)System.out.println("RiGrammar.numArgs="+strs.length);
 
     for (int i = 0; i < strs.length; i++)
     {
       strs[i] = strs[i].trim();
 
-      String arg = strs[i].replaceAll("\"'", E);
-      args[i] = arg;
+      String arg = strs[i].replaceAll("[\"']", E);
       
-      if (strs[i].equals(arg)) { // no change        
+      args[i] = arg;
+      if (dbug)System.out.println("arg: "+i+": "+args[i]);
+
+      if (strs[i].equals(arg)) { // no change  
+        
         try
         {
           args[i] = Integer.parseInt(arg);
-          if (dbug)System.out.println("Integer: "+args[i]);
+          if (dbug)System.out.println("  Integer: "+args[i]);
           continue;
         }
         catch (Exception e) {}
@@ -609,7 +615,7 @@ public class RiGrammar //implements RiGrammar
         try
         {
           args[i] = Float.parseFloat(arg);
-          if (dbug)System.out.println("Float: "+args[i]);
+          if (dbug)System.out.println("  Float: "+args[i]);
           continue;
         }
         catch (Exception e) { }
@@ -618,7 +624,7 @@ public class RiGrammar //implements RiGrammar
           try
           {
               args[i] = Boolean.parseBoolean(arg);
-              if (dbug) System.out.println("Boolean: "+args[i]);
+              if (dbug) System.out.println("  Boolean: "+args[i]);
               continue;
           }
           catch (Exception e) { }
@@ -626,7 +632,7 @@ public class RiGrammar //implements RiGrammar
       }
       else {
         
-        if (dbug)System.out.println("Changed: "+strs[i] + "!=" + arg);
+        if (dbug)System.out.println("  changed to: "+arg+"  ("+strs[i] + " != " + arg+")");
 
       }
     }

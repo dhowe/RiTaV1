@@ -159,6 +159,7 @@ public class RiLexicon implements Constants
     if (it == null) return E;
     
     while (it.hasNext()) {
+      
       String s = it.next();
       String data = lookup.get(s);
       if (data == null) {
@@ -169,6 +170,7 @@ public class RiLexicon implements Constants
       if (sylStr.split(SP).length == syllableCount || syllableCount<0) 
         return s;
     }
+    
     return E;
   }
 

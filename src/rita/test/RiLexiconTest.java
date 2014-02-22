@@ -250,6 +250,7 @@ public class RiLexiconTest
     RiLexicon lex = new RiLexicon();
     
     String[] pos = {"nn","nns","jj","jjr"};
+    
     for (int j = 0; j < pos.length; j++)
     {
       for (int k = 2; k < 5; k++)

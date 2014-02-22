@@ -864,7 +864,6 @@ public class RiGrammarTest
     rg.reset();
     rg.addRule("<start>", "`adj(true)`");
     for (int i = 0; i < 10; i++) {
-
       String res = rg.expandFrom("<start>", this);
       //println(i+")"+res);
       ok(res!=null && res.length()>0 && Boolean.parseBoolean(res));
@@ -877,6 +876,36 @@ public class RiGrammarTest
   boolean adj(boolean num) { return true; }
   float getFloat() { return (float) Math.random(); }
   
+  @Test
+  public void testExecArgs2() { 
+    
+    String[] tests = {
+        "{ \"<start>\": \"`rw(2)`\" }",
+        "{ \"<start>\": \"`rw(2.0)`\" }",
+        "{ \"<start>\": \"`rw('vbz',2.0)`\" }",
+        "{ \"<start>\": \"`rw('vbz',2)`\" }",
+        "{ \"<start>\": \"`rw(\\\"vbz\\\",2.0)`\" }",
+        "{ \"<start>\": \"`rw(\\\"vbz\\\",2)`\" }"
+    };
+    
+    RiGrammar rg = new RiGrammar(this);
+    rg.execDisabled = false;
+    
+    for (int i = 0; i < tests.length; i++)
+    {
+      rg.load(tests[i]);
+      String s = rg.expand();
+      ok(s != null && s.length()>0);
+      //println("s="+s);
+    }
+  }
+  
+  // callbacks
+  String rw(String pos, int n) { return new RiLexicon().randomWord(pos, n); }
+  String rw(int n)  { return new RiLexicon().randomWord(n); }
+  String rw(String pos, float n)  { return new RiLexicon().randomWord(pos, (int) n);  }
+  String rw(float n) { return new RiLexicon().randomWord((int) n); }
+
   void println(String string)
   {
     if (!SILENT) System.out.println(string);
