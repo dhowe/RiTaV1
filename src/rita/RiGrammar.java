@@ -8,13 +8,10 @@ import java.util.regex.Pattern;
 
 import rita.json.*;
 import rita.render.RiGrammarEditor;
-import rita.support.*;
 
-public class RiGrammar //implements RiGrammar
+public class RiGrammar
 {
   public static String START_RULE = "<start>";
-  
-  //public static final String STRIP_TICKS = "`([^`]*)`"; // global
   
   static final String E = "";
   static final Pattern PROB_PATT = Pattern.compile("(.*[^\\s])\\s*\\[([0-9.]+)\\](.*)");
@@ -190,12 +187,8 @@ public class RiGrammar //implements RiGrammar
         if (o instanceof JSONArray)
         {
           processing.data.JSONArray jarr = json.getJSONArray(key);
-          for (int i = 0; i < jarr.size(); i++) {
-          
+          for (int i = 0; i < jarr.size(); i++) 
             ruleStr += jarr.getString(i) + "|";
-          }
-          
-          //ruleStr = jarr.join("|"); // has bug
         }
         else if (o instanceof String)
         {
@@ -577,7 +570,7 @@ public class RiGrammar //implements RiGrammar
       if (!RiTa.SILENT) System.err.println("[WARN] Error invoking "
           + thePart+":\n"+RiTa.stackToString(e));
       
-      return null;
+      return thePart;
     }
   }
   

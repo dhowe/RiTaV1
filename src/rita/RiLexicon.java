@@ -40,7 +40,7 @@ public class RiLexicon implements Constants
    * Note: For performance, the data for all RiLexicon instances
    * is shared (there is only 1 copy)
    */
-  public RiLexicon(Object parent)
+  public RiLexicon(Object parent) // ignore parent
   {
     this.lexImpl = JSONLexicon.getInstance(); 
   }
@@ -154,9 +154,10 @@ public class RiLexicon implements Constants
    */
   public String randomWord(String pos, int syllableCount)
   {
-    Map<String,String> lookup = lexImpl.getLexicalData();
     Iterator<String> it = getIterator(pos);
     if (it == null) return E;
+    
+    Map<String,String> lookup = lexImpl.getLexicalData();
     
     while (it.hasNext()) {
       
@@ -186,7 +187,7 @@ public class RiLexicon implements Constants
    * or null if no such word exists. 
    * @see PosTagger
    */
-  public String randomWordByLength(String pos, int targetLength) { // NIAPI
+  String randomWordByLength(String pos, int targetLength) { // NIAPI
     
     Iterator<String> it = getIterator(pos);
         
@@ -197,6 +198,7 @@ public class RiLexicon implements Constants
       if (s.length() == targetLength) 
         return s;
     }
+    
     return E;
   }
   
@@ -204,7 +206,7 @@ public class RiLexicon implements Constants
    * Returns a random word from the lexicon with the specified target-length (where length>0),
    * or null if no such word exists.
    */
-  public String randomWordByLength(int targetLength) { // NIAPI
+  String randomWordByLength(int targetLength) { // NIAPI
     
     return randomWordByLength(null, targetLength);
   }
@@ -744,7 +746,7 @@ public class RiLexicon implements Constants
   public static void main(String[] args)
   {
     RiLexicon rl = new RiLexicon();
-    System.out.println(rl.lexicalData().get("a"));
+    System.out.println(rl.randomWord("VBZ"));
     //System.out.println(rl.lexicalData().get("dry"));
   }
 

@@ -727,7 +727,7 @@ public class RiGrammarTest
 
     for ( int i = 0; i < 10; i++) {
         String res = rg.expand();
-        //println(i+") "+res);
+        println(i+") "+res);
         ok(res!=null && res.length()>0);
         ok(res.indexOf("'adj()'")>-1);
     }
@@ -744,11 +744,10 @@ public class RiGrammarTest
 
     for ( int i = 0; i < 10; i++) {
         String res = rg.expand();
-        //println(i+") "+res);
+        println(i+") "+res);
         ok(res!=null && res.length()>0);
         ok(res.indexOf("`adj()'")>-1);
     }
-    
   
     rg.reset();
     
@@ -762,19 +761,18 @@ public class RiGrammarTest
 
     boolean tmp = RiTa.SILENT;
     RiTa.SILENT = true;
-
-    // TODO: FAILING, this should return the function intact, e.g: the dog falls were `nofun()` 
+ 
     for ( int i = 0; i < 5; i++) {
         String res = rg.expand();
-        System.err.println(i+") "+res);
+        //println(i+") "+res);
         println(i+") "+res);
         ok(res!=null && res.length()>0 && res.indexOf(" `nofun()`")>-1);
     }
 
     for ( int i = 0; i < 5; i++) {
         String res = rg.expand(this);
-        //println(i+") "+res);
-        //ok(res!=null && res.length()>0 && res.indexOf(" `nofun()`")>-1);
+        println(i+") "+res);
+        ok(res!=null && res.length()>0 && res.indexOf(" `nofun()`")>-1);
     }
 
     RiTa.SILENT = tmp;
@@ -880,12 +878,26 @@ public class RiGrammarTest
   public void testExecArgs2() { 
     
     String[] tests = {
-        "{ \"<start>\": \"`rw(2)`\" }",
-        "{ \"<start>\": \"`rw(2.0)`\" }",
-        "{ \"<start>\": \"`rw('vbz',2.0)`\" }",
-        "{ \"<start>\": \"`rw('vbz',2)`\" }",
-        "{ \"<start>\": \"`rw(\\\"vbz\\\",2.0)`\" }",
-        "{ \"<start>\": \"`rw(\\\"vbz\\\",2)`\" }"
+        "{ \"<start>\": \"`rw(2)`\" }", 
+        "{ \"<start>\": \"`rw(2.0)`\" }", 
+
+        "{ \"<start>\": \"`rw(vbz,2.0)`\" }", 
+        "{ \"<start>\": \"`rw(vbz,2)`\" }",
+        
+        "{ \"<start>\": \"`rw('vbz',2.0)`\" }", 
+        "{ \"<start>\": \"`rw('vbz',2)`\" }", 
+
+        "{ \"<start>\": \"`rw(\\\"vbz\\\",2.0)`\" }", 
+        "{ \"<start>\": \"`rw(\\\"vbz\\\",2)`\" }",
+        
+        "{ \"<start>\": \"`rw(vbz, 2.0)`\" }", 
+        "{ \"<start>\": \"`rw(vbz, 2)`\" }",
+        
+        "{ \"<start>\": \"`rw('vbz', 2.0)`\" }", 
+        "{ \"<start>\": \"`rw('vbz', 2)`\" }", 
+
+        "{ \"<start>\": \"`rw(\\\"vbz\\\", 2.0)`\" }", 
+        "{ \"<start>\": \"`rw(\\\"vbz\\\", 2)`\" }"
     };
     
     RiGrammar rg = new RiGrammar(this);

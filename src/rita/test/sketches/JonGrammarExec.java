@@ -10,7 +10,6 @@ public class JonGrammarExec extends PApplet
   RiText rt;
   
   String[] tests = {
-      
       "{ \"<start>\": \"`syllableCount(2)`\" }",
       "{ \"<start>\": \"`syllableCount(2.0)`\" }",
       
@@ -27,7 +26,7 @@ public class JonGrammarExec extends PApplet
 
     RiText.defaults.alignment = CENTER;
     
-    rt = new RiText(this, "callback tests");    
+    rt = new RiText(this, "callback-tests");    
     lex = new RiLexicon();
     grammar = new RiGrammar(this);
     

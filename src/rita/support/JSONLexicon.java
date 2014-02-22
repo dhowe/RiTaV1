@@ -472,13 +472,14 @@ public class JSONLexicon implements Constants
     return s;
   }
 
-  // TODO: what does this do exactly?
-  // all words with the given pos, or all words where it is the first?????
+  /** Returns all words where 'pos' is the first (or only) tag listed */
   public Set<String> getWordsWithPos(String pos)
   {
+    //System.out.println("JSONLexicon.getWordsWithPos("+pos+")");
+    
     if (!RiPos.isPennTag(pos))
       throw new RiTaException("Pos '" + pos + "' is not a known part-of-speech tag." 
-          + " Check the list in the documentation for the RiTa PosTagger");
+          + " Check the list at http://rednoise.org/rita/reference/PennTags.html");
     
     Set s = new TreeSet();
     String posSpc = pos + " ";
@@ -747,6 +748,8 @@ public class JSONLexicon implements Constants
   {
     //testTiming(50); if (1==1) return;
     JSONLexicon lex = JSONLexicon.getInstance();
+    System.out.println(lex.getWordsWithPos("VBZ"));
+    if (1==1) return;
     String test = "swimming";
     System.out.println(lex.lookupRaw(test ));
     System.out.println(lex.getPosStr(test));

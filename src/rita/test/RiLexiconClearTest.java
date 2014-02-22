@@ -1,12 +1,11 @@
 package rita.test;
 
-import static rita.support.QUnitStubs.deepEqual;
 import static rita.support.QUnitStubs.equal;
 import static rita.support.QUnitStubs.ok;
 
 import org.junit.Test;
 
-import rita.*;
+import rita.RiLexicon;
 
 public class RiLexiconClearTest
 {
@@ -64,51 +63,5 @@ public class RiLexiconClearTest
     
     equal(size, lex.size());
   }
-/*
-  @Test
-  public void testPos()
-  {
-    RiString rs = new RiString("asdfaasd");
-    String[] result = rs.pos();
-    String[] answer = new String[] { "nn" };
-    //System.out.println(RiTa.asList(result));
-    deepEqual(result, answer);
-    
-    rs = new RiString("cat");
-    result = rs.pos();
-    //System.out.println(RiTa.asList(result));
-    answer = new String[] { "nn" };
-    deepEqual(result, answer);
 
-    rs = new RiString("clothes");
-    result = rs.pos();
-    answer = new String[] { "nns" };
-    //System.out.println(RiTa.asList(result));
-
-    deepEqual(result, answer);
-
-    rs = new RiString("There is a cat.");
-    //System.out.println(rs.features()); 
-    result = rs.pos();
-    answer = new String[] { "ex", "vbz", "dt", "nn", "." };
-    //System.out.println(RiTa.asList(result));
-    if (!result[2].equals("dt")) {
-      System.out.println("==========================");
-      System.out.println(RiTa.asList(result));
-      System.out.println(rs.features());
-      System.out.println(rs.pos());
-      System.out.println("==========================");
-    }
-    deepEqual(result, answer);
-
-    rs = new RiString("The boy, dressed in red, ate an apple.");
-    result = rs.pos();
-
-    answer = new String[] {
-        "dt", "nn", ",", "vbn", "in", "jj", ",", "vbd", "dt", "nn", "." 
-     };
-    //System.out.println(RiTa.asList(result));
-
-    deepEqual(result, answer);
-  }*/
 }
