@@ -161,14 +161,13 @@ public class RiGrammar
     try
     {
       JSONObject json = new JSONObject(grammarRulesAsString);
-      //System.out.println(json);
       return load(json);
     }
     catch (JSONException e)
     {
       throw new RiTaException
-        ("Grammar appears to be invalid JSON, please check it! (http://jsonlint.com/)\n\n"
-            + grammarRulesAsString +"\n", e);
+        ("Grammar appears to be invalid JSON, please check it!"
+            + "(http://jsonlint.com/)\n\n"+ grammarRulesAsString +"\n", e);
     }
   }
   
