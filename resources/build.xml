@@ -31,7 +31,7 @@
 	<property name="project.lib" location="lib"/>
 	<property name="project.bin" location="bin"/>
 	<property name="project.bin.data" location="${project.bin}/data"/>
-	<property name="project.examples" location="${project.js}/www/examples"/>
+	<property name="project.examples" location="${project.js}/examplesP5"/>
 	<property name="project.reference" location="reference"/>
 	<property name="project.dist" location="distribution"/>
 	<property name="project.dist.version" location="distribution/${project.name}-${project.version}"/>

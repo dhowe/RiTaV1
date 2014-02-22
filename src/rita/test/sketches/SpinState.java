@@ -18,10 +18,11 @@ public class SpinState extends PApplet
     RiText.defaultFill(255);
     RiText.defaultFont("Times", 15);
 
-    grammar = new RiGrammar(RiTa.loadString("mcgrammar.json", this));
+    grammar = new RiGrammar(this);
+    grammar.loadFrom("mcgrammar.json");
     //grammar.print();
     
-    keyReleased();
+    generate();
   }
 
   public void draw()
@@ -34,6 +35,47 @@ public class SpinState extends PApplet
   }
 
   public void keyReleased()
+  {
+    if (key == ' ') generate();
+  }
+  
+  public void generate()
+  {
+    int linesPerPage = 10;
+
+    String line = "";
+    if (buf.size() > 0)
+    {
+      String[] lines = new String[min(buf.size(), linesPerPage)];
+      for (int i = 0; i < lines.length; i++) {
+        lines[i] = (String) buf.remove(0);
+      }
+      System.out.println("Using: "+lines.length+ " lines, saving "+buf.size());
+
+      RiText.dispose(rts);
+      rts = RiText.createLines(this, lines, 45, 40, 480);
+      
+      if (buf.size()==0) { // add ending
+        append(rts, (new RiText(this,"* * *", width/2, 
+            rts[rts.length-1].y+50)).align(CENTER));
+      }
+    }
+    else
+    {
+      buf.clear();
+      RiText.dispose(rts);
+      line = grammar.expand();
+      line = line.replaceAll("\\)", "]").replaceAll("\\(", "[");
+      rts = RiText.createLines(this, line, 45, 40, 480);
+      for (int i = linesPerPage; i < rts.length; i++) {
+        buf.add(rts[i].text());
+        rts[i].visible(false);
+      }
+      System.out.println("Found: "+rts.length+ " lines, saved "+buf.size());
+    }
+  }
+  
+  public void keyReleasedOrig()
   {
     //if (e.getKey() != ' ') return;
     if (key != ' ') return;

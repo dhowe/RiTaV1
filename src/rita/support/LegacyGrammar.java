@@ -978,10 +978,10 @@ public class LegacyGrammar implements Constants
   public static void main(String[] args)
   {
     //String infile = "/Users/dhowe/Documents/eclipse-workspace/RiTa_Java/haiku.g";
-    String infile = "mcgrammar.json"; // problem??
-    infile = "/Users/dhowe/Documents/eclipse-workspace/CornellsYoke/src/data/newgrammar.txt";
+    String infile = "/Users/dhowe/Documents/Processing/Linnea_sGrammar1/data/linneagrammar.g"; // problem??
+    //infile = "/Users/dhowe/Documents/eclipse-workspace/CornellsYoke/src/data/newgrammar.txt";
     //String infile = "haikuGrammar.g";
-    String outfile = "/Users/dhowe/Desktop/test.json";
+    String outfile = "/Users/dhowe/Desktop/linneagrammar.json";
     //outfile = "/Users/dhowe/Documents/eclipse-workspace/CornellsYoke/src/data/newgrammar.json";
     String json = asJSON(infile, null);
     System.out.println(json);
