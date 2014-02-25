@@ -296,6 +296,7 @@ public abstract class WordnetUtil
   static boolean printedNullParentWarning = false;
  
   public static URL getResourceURL(Class loc, String file) {
+    
     try {     
       return loc.getResource(file);      
     } catch (Exception e) {     
@@ -304,7 +305,9 @@ public abstract class WordnetUtil
   }
   
   public static InputStream getResourceStream(Class loc, String file) {
-  //System.err.println("WNUtil.getResourceStream("+loc+", "+file+")");
+    
+    //System.err.println("WNUtil.getResourceStream("+loc+", "+file+")");
+    
     try {
       URL url = getResourceURL(loc, file);
       if (url != null) {
@@ -312,16 +315,14 @@ public abstract class WordnetUtil
         //System.err.println("  IS: "+is);
         return is;
       }
-      else 
-        throw new RuntimeException("Unable to load file: "+file);
-    } catch (Exception e) {     
+      
+      throw new RuntimeException("Unable to load file: "+file);  
+    } 
+    catch (Exception e) {     
       throw new WordnetError(e);
     }
   }
 
-
-
-  
   private static String[] loadStrings(InputStream input) {
     return loadStrings(input, DEFAULT_NUM_STRINGS);
   }
