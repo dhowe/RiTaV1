@@ -64,7 +64,7 @@ public class WordnetGlossFilter extends WordnetFilters
   }
  
   private IndexWord iw = null; // yuk
-  private String nextWord(Iterator it)
+/*  private String nextWord(Iterator it)
   {
     this.iw = (IndexWord) it.next();   
     String lemma = iw.getLemma();
@@ -75,7 +75,7 @@ public class WordnetGlossFilter extends WordnetFilters
       return null;
 
     return lemma;
-  }
+  }*/
   
   /**
    * returns the 1st gloss it finds from any sense of the word/pos,
@@ -97,7 +97,7 @@ public class WordnetGlossFilter extends WordnetFilters
         }
       } 
       catch (JWNLException e) {
-        throw new WordnetError(e);
+        throw new RiWordNetError(e);
       }
     }
     this.iw = null;

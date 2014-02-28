@@ -7,7 +7,7 @@ package rita.wordnet.jwnl.data;
 
 import java.util.Iterator;
 
-import rita.wordnet.WordnetError;
+import rita.wordnet.RiWordNetError;
 import rita.wordnet.jwnl.JWNLException;
 import rita.wordnet.jwnl.data.list.*;
 

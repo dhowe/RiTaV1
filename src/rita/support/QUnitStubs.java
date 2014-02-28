@@ -161,7 +161,14 @@ public class QUnitStubs
   public static void println(List l, int k)
   {
     if (SILENT && k != 1) return;
-    if (l == null || l.size() <1) System.out.println("[]");
+    if (l == null) {
+      System.out.println("NULL");
+      return;
+    }
+    if (l.size() <1) {
+      System.out.println("[]");
+      return;
+    }
     int i = 0;
     for (Iterator it = l.iterator(); it.hasNext(); i++)
       System.out.println(i + ") '" + it.next()+"'");
@@ -170,7 +177,14 @@ public class QUnitStubs
   public static void println(Object[] l, int k)
   {
     if (SILENT && k != 1) return;
-    if (l == null || l.length <1) System.out.println("[]");
+    if (l == null) {
+      System.out.println("NULL");
+      return;
+    }
+    if (l.length <1) {
+      System.out.println("[]");
+      return;
+    }
     for (int j = 0; j < l.length; j++)
       System.out.println(j + ") '" + l[j]+"'");
   }
@@ -178,15 +192,28 @@ public class QUnitStubs
   public static void println(int[] l, int k)
   {
     if (SILENT && k != 1) return;
-    if (l == null || l.length <1) System.out.println("[]");
-    for (int j = 0; j < l.length; j++)
+    if (l == null) {
+      System.out.println("NULL");
+      return;
+    }
+    if (l.length <1) {
+      System.out.println("[]");
+      return;
+    }   for (int j = 0; j < l.length; j++)
       System.out.println(j + ") '" + l[j]+"'");
   }
   
   public static void println(float[] l, int k)
   {
     if (SILENT && k != 1) return;
-    if (l == null || l.length <1) System.out.println("[]");
+    if (l == null) {
+      System.out.println("NULL");
+      return;
+    }
+    if (l.length <1) {
+      System.out.println("[]");
+      return;
+    }   
     for (int j = 0; j < l.length; j++)
       System.out.println(j + ") '" + l[j]+"'");
   }
@@ -194,7 +221,14 @@ public class QUnitStubs
   public static void println(boolean[] l, int k)
   {
     if (SILENT && k != 1) return;
-    if (l == null || l.length <1) System.out.println("[]");
+    if (l == null) {
+      System.out.println("NULL");
+      return;
+    }
+    if (l.length <1) {
+      System.out.println("[]");
+      return;
+    } 
     for (int j = 0; j < l.length; j++)
       System.out.println(j + ") '" + l[j]+"'");
   }
@@ -202,8 +236,14 @@ public class QUnitStubs
   public static void println(double[] l, int k)
   {
     if (SILENT && k != 1) return;
-    if (l == null || l.length <1) System.out.println("[]");
-    for (int j = 0; j < l.length; j++)
+    if (l == null) {
+      System.out.println("NULL");
+      return;
+    }
+    if (l.length <1) {
+      System.out.println("[]");
+      return;
+    }   for (int j = 0; j < l.length; j++)
       System.out.println(j + ") '" + l[j]+"'");
   }
 

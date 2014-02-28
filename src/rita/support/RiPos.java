@@ -9,7 +9,6 @@ import java.util.*;
  */
 public class RiPos
 {  
-  
   /**  Part of Speech TYPE -> PENN FORMAT    */
   public static final int PENN    = 1;
   
@@ -194,6 +193,12 @@ public class RiPos
     return this.tag;
   }
   
+
+  public int hashCode()
+  {
+    return super.hashCode();
+  }
+  
   public boolean equals(Object obj)
   {
     RiPos p = (RiPos)obj;
@@ -209,18 +214,12 @@ public class RiPos
     return true;
   }
 
-  public static RiPos fromPenn(String buf)
-  {
-    throw new RuntimeException("RE-IMPLEMENT ME!!!!!!!");
-  }
-  
   private static final String QQ = "";
   
   public static void main(String[] args)
   {   
    // System.out.println(RiPos.getWordnetKey(net.didion.jwnl.data.POS.ADVERB));
   }
-
   
 }// end
 

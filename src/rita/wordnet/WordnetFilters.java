@@ -18,18 +18,17 @@ import rita.wordnet.jwnl.dictionary.Dictionary;
 public class WordnetFilters implements Wordnet
 {  
   protected Dictionary dictionary;
-  protected boolean ignoreCompoundWords;
-  protected boolean ignoreUpperCaseWords;
   protected Map filterCache;
+  protected RiWordNet wordnet;
 
   public WordnetFilters(RiWordNet wl) {
+    
+    this.wordnet = wl;
     this.dictionary = wl.getDictionary();
     this.filterCache = new HashMap();
-    this.ignoreCompoundWords = wl.isIgnoringCompoundWords();
-    this.ignoreUpperCaseWords = wl.isIgnoringUpperCaseWords();
   }
   
-  protected List filter(RiFilter filter, POS pos, int maxResults)
+  protected List filter(RiFilter filter, POS pos, int maxResults) // impl
   {
     //System.out.println("WordnetFilters.filter("+pos+","+filter+")");
     if (pos == null) return null;
@@ -41,7 +40,7 @@ public class WordnetFilters implements Wordnet
     {
       String lemma = nextWord( it);
       if (lemma != null && filter.accept(lemma))
-          result.add(lemma);
+        result.add(lemma);
     }
     return result;
   }
@@ -50,7 +49,10 @@ public class WordnetFilters implements Wordnet
    * Runs the specified <code>filter</code> over the <code>pos</code>
    * returning at most <code>maxResults</code> instances 
    */
-  public List filter(int filterFlag, String word, POS pos, int maxResults) {
+  public List filter(int filterFlag, String word, POS pos, int maxResults) { // impl
+    
+    //System.out.println("WordnetFilters.filter("+filterFlag+","+word+","+pos+","+maxResults+")");
+    
     RiFilter filter = RiFilter.create(filterFlag, word);      
     return filter(filter, pos, maxResults);
   }
@@ -59,6 +61,7 @@ public class WordnetFilters implements Wordnet
    * Runs the specified <code>filter</code> over the <code>pos</code> 
    */
   public List filter(int filterFlag, String word, POS pos) {
+    
     return this.filter(filterFlag, word, pos, Integer.MAX_VALUE);
   }
   
@@ -202,21 +205,21 @@ public class WordnetFilters implements Wordnet
     } 
     catch (JWNLException e)
     {
-      throw new WordnetError();
+      throw new RiWordNetError();
     }
     return it;
   }
 
   // privates ==============================================
   
-  private String nextWord(Iterator it)
+  protected String nextWord(Iterator it)
   {
     IndexWord iw = (IndexWord) it.next();   
     String lemma = iw.getLemma();
     if (lemma == null) return null;
-    if (ignoreCompoundWords && RiWordNet.isCompound(lemma))
+    if (wordnet.ignoreCompoundWords() && RiWordNet.isCompound(lemma))
       return null;
-    if (ignoreUpperCaseWords && WordnetUtil.startsWithUppercase(lemma))
+    if (wordnet.ignoreUpperCaseWords() && WordnetUtil.startsWithUppercase(lemma))
       return null;
     return lemma;
   } 

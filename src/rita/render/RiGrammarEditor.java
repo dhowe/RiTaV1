@@ -69,6 +69,20 @@ public class RiGrammarEditor extends RiEditorWindow {
     
     this.dirty = false;
   }
+  
+  public static String jsonToString(String filename) {
+    
+    return jsonToString(filename, null);
+  }
+  
+  public static String jsonToString(String filename, Object parent) {
+    
+    String s = RiTa.loadString("myfile.json", parent);
+    s = s.replaceAll("([\\r\\n]*\\s)*", ""); // remove line-break
+    s = s.replaceAll("\"", "\\\\\"");       // escape all quotes
+    s = "String grammar = \"" + s + "\";"; // add header & footer
+    return s;
+  }
 
   protected void checkForUnsavedEdits()
   {

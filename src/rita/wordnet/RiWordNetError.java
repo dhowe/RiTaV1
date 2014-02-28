@@ -8,7 +8,7 @@ package rita.wordnet;
  * @author dhowe
  * <p>See the accompanying documentation for license information
  */
-public class WordnetError extends RuntimeException
+public class RiWordNetError extends RuntimeException
 {
   private static final String STATIC = "(static)";
   private static final String CLASS = "[CLASS]";
@@ -16,34 +16,34 @@ public class WordnetError extends RuntimeException
   private static final String SPC = " ";
   public static final String QQ = "", CR = "\n"; // sys-prop?
 
-  public WordnetError() { super(); }
+  public RiWordNetError() { super(); }
 
-  public WordnetError(String message)
+  public RiWordNetError(String message)
   {
     super(tagMessage(null, message));
   }
 
-  public WordnetError(Throwable cause)
+  public RiWordNetError(Throwable cause)
   {
     super(cause);
   }
   
-  public WordnetError(String message, Throwable cause)
+  public RiWordNetError(String message, Throwable cause)
   {
     super(tagMessage(null, message), cause);
   }
   
-  public WordnetError(Object thrower, Throwable cause) 
+  public RiWordNetError(Object thrower, Throwable cause) 
   {
      super(tagMessage(thrower),cause); 
   }
   
-  public WordnetError(Object thrower, String message, Throwable cause)
+  public RiWordNetError(Object thrower, String message, Throwable cause)
   {
     super(tagMessage(thrower, message), cause);
   }
   
-  public WordnetError(Object thrower, String message)
+  public RiWordNetError(Object thrower, String message)
   {
     super(tagMessage(thrower, message));
   }
@@ -68,7 +68,7 @@ public class WordnetError extends RuntimeException
 
   public static void main(String[] args)
   {
-    throw new WordnetError("test error", new RuntimeException("root cause"));
+    throw new RiWordNetError("test error", new RuntimeException("root cause"));
   }
 
 }// end

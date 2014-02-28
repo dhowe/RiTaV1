@@ -147,11 +147,11 @@ public class WordnetDictionaryFile extends PrincetonRandomAccessDictionaryFile
   {
     //System.out.println("WordnetDictionaryFile.openFile("+fileLoc+")");
     if (!fileLoc.exists()) 
-      throw new WordnetError("Couldn't find file: "+fileLoc);
+      throw new RiWordNetError("Couldn't find file: "+fileLoc);
     
     InputStream is = null;
     String fileName = fileLoc.getPath();
-    if (RiWordNet.wordnetHome != null) {
+    if (RiWordNet.wordNetHome != null) {
       is = new FileInputStream(fileName);
     }
     else {

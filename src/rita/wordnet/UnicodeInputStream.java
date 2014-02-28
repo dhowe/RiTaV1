@@ -28,7 +28,7 @@ public class UnicodeInputStream extends InputStream
       init();
     }
     catch (IOException e) {
-      throw new WordnetError(e);
+      throw new RiWordNetError(e);
     }
   }
 

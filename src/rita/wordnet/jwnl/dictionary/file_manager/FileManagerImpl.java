@@ -4,11 +4,11 @@
  */
 package rita.wordnet.jwnl.dictionary.file_manager;
 
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
+import rita.RiTa;
 import rita.RiWordNet;
 import rita.wordnet.*;
 import rita.wordnet.jwnl.JWNLException;
@@ -16,7 +16,6 @@ import rita.wordnet.jwnl.JWNLRuntimeException;
 import rita.wordnet.jwnl.data.POS;
 import rita.wordnet.jwnl.dictionary.file.*;
 import rita.wordnet.jwnl.util.factory.Param;
-
 
 /**
  * An implementation of <code>FileManager</code> that reads files from the local file system.
@@ -109,13 +108,13 @@ public class FileManagerImpl implements FileManager {
 		//String path = ((Param)params.get(PATH)).getValue();    
 
     // add dict path =====================================
-    String path = RiWordNet.wordnetHome;    
+    String path = RiWordNet.wordNetHome;    
     if (path != null) {
       if (path.indexOf("dict")<0) {
-        path += "dict"+RiWordNet.SLASH;
+        path += "dict"+RiTa.SLASH;
       }
       else if (path.endsWith("dict")) { 
-        path += RiWordNet.SLASH;
+        path += RiTa.SLASH;
       }
     }
     

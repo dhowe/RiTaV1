@@ -1,5 +1,5 @@
 #!/bin/sh
-# same as pub-zip-only, but doesn't link the zip on rednoise
+# publishes and links the specified version as RiTa-latest-unstable.zip
 
 if [ $# != 1 ]
 then

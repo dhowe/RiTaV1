@@ -36,6 +36,11 @@ public class RiTaEvent implements Constants
     return this.fire(parent, false);
   }
   
+  public boolean isType(EventType theType) {
+    
+    return theType == this.type;
+  }
+  
   protected boolean fire(Object parent, boolean isPublic) {
     
     // appears isPublic can always be false...
@@ -102,6 +107,11 @@ public class RiTaEvent implements Constants
   public Object source()
   {
     return source;
+  }
+  
+  public Object data()
+  {
+    return data;
   }
 
   public String type()

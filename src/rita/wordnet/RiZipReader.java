@@ -175,7 +175,7 @@ public class RiZipReader
       //System.err.println(" InputStream: "+is);
       return new ZipInputStream(is);
     }    
-    throw new WordnetError("Unable to open zipStream for "+zipfileName);
+    throw new RiWordNetError("Unable to open zipStream for "+zipfileName);
   }
 
   private void cacheFileSizes()

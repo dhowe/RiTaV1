@@ -27,7 +27,7 @@ public abstract class RiGlossFilter implements Wordnet
     }
 
     if (filter == null)
-      throw new WordnetError("Invalid filter flag(s): "+flag);
+      throw new RiWordNetError("Invalid filter flag(s): "+flag);
     
     return filter;
   }

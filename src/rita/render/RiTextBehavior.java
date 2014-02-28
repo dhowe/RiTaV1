@@ -529,6 +529,7 @@ public class RiTextBehavior implements Constants
     }
     return l;
   }
+  
   /** @exclude */
   public static RiTextBehavior findById(int id) {
     if (instances == null) return null;

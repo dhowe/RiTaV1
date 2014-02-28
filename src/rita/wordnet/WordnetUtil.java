@@ -261,7 +261,7 @@ public abstract class WordnetUtil
       // Java 1.5 likes to throw this when URL not available. (fix for 0119)
       // http://dev.processing.org/bugs/show_bug.cgi?id=403
     } catch (Throwable e) {
-      throw new WordnetError(e);
+      throw new RiWordNetError(e);
     }
     
     if (is != null && streamName.endsWith(".gz")) {
@@ -269,7 +269,7 @@ public abstract class WordnetUtil
         is = new GZIPInputStream(is);
       } 
       catch (Throwable e1) {
-        throw new WordnetError("Unable to load archive: "+streamName, e1);
+        throw new RiWordNetError("Unable to load archive: "+streamName, e1);
       }
     }
     
@@ -289,7 +289,7 @@ public abstract class WordnetUtil
     }
     
     if (is == null)
-      throw new WordnetError("Unable to create stream for: "+streamName);
+      throw new RiWordNetError("Unable to create stream for: "+streamName);
     
     return is;
   }	
@@ -300,7 +300,7 @@ public abstract class WordnetUtil
     try {     
       return loc.getResource(file);      
     } catch (Exception e) {     
-      throw new WordnetError(e);
+      throw new RiWordNetError(e);
     }
   }
   
@@ -319,7 +319,7 @@ public abstract class WordnetUtil
       throw new RuntimeException("Unable to load file: "+file);  
     } 
     catch (Exception e) {     
-      throw new WordnetError(e);
+      throw new RiWordNetError(e);
     }
   }
 
@@ -329,7 +329,7 @@ public abstract class WordnetUtil
   
   // from PApplet?
   private static String[] loadStrings(InputStream input, int numLines) {
-    if (input == null) throw new WordnetError("Null input stream!");
+    if (input == null) throw new RiWordNetError("Null input stream!");
     try {
       BufferedReader reader =
         new BufferedReader(new InputStreamReader(input));
