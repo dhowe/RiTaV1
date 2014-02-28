@@ -12,7 +12,7 @@ Please see https://github.com/dhowe/RiTa/js for the pure JavaScript implementati
 #### About the project
 --------
 * Original Author:  Daniel C. Howe (http://rednoise.org/~dhowe)
-* Related:			RiTaJS -> https://github.com/dhowe/RiTa/js
+* Related:			RiTaJS -> https://github.com/dhowe/RiTaJS
 * License:			GPL (see included LICENSE file for full license)
 * Maintainers:      See included AUTHORS file for contributor list
 * Web Site:         http://rednoise.org/rita
