@@ -14,7 +14,9 @@ import rita.RiTa;
 
 public class DocGenerator extends PApplet
 {
-  static final String VERSION = "0.12";
+  static final String VERSION = "0.13";
+  static final boolean OUTPUT_HTML =  false;
+  
   static String DATA_DIR = "RiTaLibraryJS/docs/";
   static String OUTPUT_DIR = "/tmp/";
   
@@ -118,7 +120,7 @@ public class DocGenerator extends PApplet
           tmp_isVariable[j] = entry.getBoolean("variable");
         
         tmp_methodName[j] = entry.getString("methodName");
-        pln("    " + entry.getString("methodName"));
+        pln("    " + tmp_methodName[j]);
         
         tmp_example[j] = "";
         if (entry.has("example"))
@@ -157,7 +159,8 @@ public class DocGenerator extends PApplet
         tmp_note[j] = entry.getString("note");
 
         template(j, shortName);
-
+        
+        plnHTML(shortName, tmp_methodName[j], tmp_isVariable[j]);
       }
     } 
     catch (JSONException e)
@@ -324,23 +327,33 @@ public class DocGenerator extends PApplet
 
   private static void pln(String s)
   {
-    System.out.println(s);
+    if (!OUTPUT_HTML) System.out.println(s);
   }
   
-  // <a href="RiTa/RiTa.splitSentences_/index.html">RiTa.splitSentences()</a> 
+  // <a href="RiText/fill_/index.html">fill()</a> 
 
-  private static void plnHTML(String s)
+  private static void plnHTML(String classShortName, String field, boolean isVar)
   {
-    System.out.println(s);
+    if (OUTPUT_HTML) {
+      
+      field = field.replaceAll("\\(\\)", RiTa.E);
+      StringBuilder sb =  new StringBuilder();
+      sb.append("<a href=\""+classShortName+"/");
+      sb.append(field+"_/index.html\">"+field);
+      if (!isVar) sb.append("()");
+      sb.append("</a>");
+      System.out.println(sb.toString());
+    }
   }
 
   public static void main(String[] args)
   {
     // argument should be 'output/'
      
-    //go(new String[] {OUTPUT_DIR,DATA_DIR,"RiTaEvent"}); // ONE
+    //
     if (args.length==0)
-      go(new String[] {OUTPUT_DIR,DATA_DIR}); // ALL
+      //go(new String[] {OUTPUT_DIR,DATA_DIR}); // ALL
+      go(new String[] {OUTPUT_DIR,DATA_DIR,"RiWordNet"}); // ONE
     else
       go(args);
   }
