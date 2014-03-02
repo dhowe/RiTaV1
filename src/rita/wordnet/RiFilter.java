@@ -81,6 +81,8 @@ public abstract class RiFilter implements Wordnet, TermFilter
     if (filter == null)
       throw new RiWordNetError("Invalid filter flag(s): "+flag);
     
+    //filter.ignoreCase = ignoreCase;
+    
     return filter;
   }
   

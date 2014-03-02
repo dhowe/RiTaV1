@@ -1,20 +1,15 @@
-// $Id: WordnetError.java,v 1.1 2013/10/12 12:04:34 dev Exp $
-
 package rita.wordnet;
+
+import rita.RiTa;
 
 /**
  * Simple tagged RuntimeException for library errors
- * @invisible
- * @author dhowe
- * <p>See the accompanying documentation for license information
  */
 public class RiWordNetError extends RuntimeException
 {
   private static final String STATIC = "(static)";
   private static final String CLASS = "[CLASS]";
-  private static final String ERROR = "[ERROR]";
-  private static final String SPC = " ";
-  public static final String QQ = "", CR = "\n"; // sys-prop?
+  private static final String ERROR = "[ERROR]", QQ = "";
 
   public RiWordNetError() { super(); }
 
@@ -52,17 +47,17 @@ public class RiWordNetError extends RuntimeException
   {
     String msg = QQ;
     if (thrower != null) 
-      msg += CR+CLASS+SPC+((thrower instanceof Class) 
-      ? (thrower+SPC+STATIC) : (thrower.getClass()+QQ));
-    //else msg += CR+CLASS+SPC+"unknown";      
+      msg += RiTa.BN+CLASS+RiTa.SP+((thrower instanceof Class) 
+      ? (thrower+RiTa.SP+STATIC) : (thrower.getClass()+QQ));
+    //else msg += RiTa.BN+CLASS+RiTa.SP+"unknown";      
     return msg;
   }
   
   private static String tagMessage(Object thrower, String msg)
   {
-    if (msg.startsWith(ERROR+SPC))
+    if (msg.startsWith(ERROR+RiTa.SP))
       msg = msg.substring(ERROR.length()+1);// tmp   
-    msg = CR+SPC+ERROR+SPC+msg+tagMessage(thrower);   
+    msg = RiTa.BN+RiTa.SP+ERROR+RiTa.SP+msg+tagMessage(thrower);   
     return msg;
   }
 

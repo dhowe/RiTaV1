@@ -3,6 +3,7 @@ package rita.test;
 import static rita.support.QUnitStubs.deepEqual;
 import static rita.support.QUnitStubs.equal;
 import static rita.support.QUnitStubs.ok;
+import static rita.support.QUnitStubs.setEqual;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -14,6 +15,17 @@ import rita.support.*;
 
 public class KnownIssuesTest implements Constants
 {
+  @Test
+  public void testWordNetAntonyms()
+  {
+    // returns empty, but 'night' returns 'day'
+    
+    RiWordNet w = new RiWordNet("/WordNet-3.1");
+    String[] result = w.getAntonyms("day","n");
+    //System.out.println(RiTa.asList(result)); 
+    setEqual(result, new String[]{"night"});
+  }
+  
   @Test
   public void testRhyming()
   {

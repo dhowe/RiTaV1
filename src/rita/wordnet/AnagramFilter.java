@@ -14,7 +14,7 @@ public final class AnagramFilter extends rita.wordnet.RiFilter
   /**
    * The source term.
    */
-  private final String term, word;
+  private final String chars;
   
   /**
    * Initializes the filter with the source term and
@@ -27,12 +27,13 @@ public final class AnagramFilter extends rita.wordnet.RiFilter
   {
     super();
     
+    this.term = word;
+    
     // Save whether to ignore the case
     ignoreCase = bIgnoreCase;
     
     // Save the String parameter, after processing
-    this.word = word;
-    this.term = buildData(word, ignoreCase);
+    this.chars = buildData(word, ignoreCase);
   }
   
   
@@ -44,13 +45,15 @@ public final class AnagramFilter extends rita.wordnet.RiFilter
    */
   public boolean accept(final String theWord)
   {
-    if (this.word.equals(theWord)) return false;
+    if (!super.accept(theWord)) return false;
+
+    //if (this.word.equals(theWord)) return false;
     
     // Save the String parameter, after processing
     final String data = buildData(theWord, ignoreCase);
     
     // Return whether the strings are equal
-    return (term.equals(data));
+    return (chars.equals(data));
   }
   
   

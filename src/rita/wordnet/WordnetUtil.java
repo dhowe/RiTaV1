@@ -6,13 +6,12 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
-import java.util.jar.JarInputStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
-import java.util.zip.ZipInputStream;
 
 import rita.RiWordNet;
+import rita.support.Constants;
 
 /** 
  * @invisible
@@ -21,7 +20,6 @@ import rita.RiWordNet;
  */
 public abstract class WordnetUtil
 { 
-  static final String QQ="", BN="\n", SPC=" "; 
   static final int DEFAULT_NUM_STRINGS = 100;
   static String OS_SLASH = "/";
   
@@ -76,7 +74,7 @@ public abstract class WordnetUtil
     {
       String ste = stes[i].toString();
       if (ste.matches(".*[0-9]+\\)"))
-        s.append("    "+ste+WordnetUtil.BN);
+        s.append("    "+ste+Constants.BN);
     }
     return s.toString();
   }
@@ -165,7 +163,7 @@ public abstract class WordnetUtil
     StringBuffer buffer = new StringBuffer(src);
     for (int i = 0; i < buffer.length(); i++)
       if (buffer.charAt(i) == c)
-        buffer.replace(i, i + 1, (r + QQ));
+        buffer.replace(i, i + 1, (r + Constants.E));
     return buffer.toString();
   }
 
@@ -210,7 +208,7 @@ public abstract class WordnetUtil
    */
   static String join(Object[] full)
   {
-    return join(full, SPC);
+    return join(full, Constants.SP);
   }
 
   /**
@@ -221,7 +219,7 @@ public abstract class WordnetUtil
    */
   static String join(Object[] full, String delim)
   {
-    String result = QQ;
+    String result = Constants.E;
 
     if (full != null) {
       for (int index = 0; index < full.length; index++) {
@@ -233,7 +231,33 @@ public abstract class WordnetUtil
     }
     return result;
   }
-
+  
+  public static URL getResourceURL(Class loc, String file) {
+    
+    try {     
+      return loc.getResource(file);      
+    } catch (Exception e) {     
+      throw new RiWordNetError(e);
+    }
+  }
+  
+  public static InputStream getResourceStream(Class loc, String file) {
+ 
+    try {
+      URL url = getResourceURL(loc, file);
+      if (url != null) {
+        InputStream is = url.openStream();
+        return is;
+      }
+      
+      throw new RuntimeException("Unable to load file: "+file);  
+    } 
+    catch (Exception e) {     
+      throw new RiWordNetError(e);
+    }
+  }
+  
+  /* REMOVE ALL THIS CRAP: 
   static String[] loadStringsLocal(String name)
   {   
     if (!printedNullParentWarning) { // hack, just print this once
@@ -276,7 +300,7 @@ public abstract class WordnetUtil
     if (is != null) return is;
     
     for (int i = 0; i < guesses.length; i++) {
-    	String guess =  guesses[i] +  OS_SLASH + /*DATA_DIR_PREFIX + OS_SLASH +*/ streamName;
+    	String guess =  guesses[i] +  OS_SLASH + streamName;
     	System.err.print("[INFO] Trying "+guess);
     	try {
     		is = new FileInputStream(guess);
@@ -295,39 +319,13 @@ public abstract class WordnetUtil
   }	
   static boolean printedNullParentWarning = false;
  
-  public static URL getResourceURL(Class loc, String file) {
-    
-    try {     
-      return loc.getResource(file);      
-    } catch (Exception e) {     
-      throw new RiWordNetError(e);
-    }
-  }
-  
-  public static InputStream getResourceStream(Class loc, String file) {
-    
-    //System.err.println("WNUtil.getResourceStream("+loc+", "+file+")");
-    
-    try {
-      URL url = getResourceURL(loc, file);
-      if (url != null) {
-        InputStream is = url.openStream();
-        //System.err.println("  IS: "+is);
-        return is;
-      }
-      
-      throw new RuntimeException("Unable to load file: "+file);  
-    } 
-    catch (Exception e) {     
-      throw new RiWordNetError(e);
-    }
-  }
+
 
   private static String[] loadStrings(InputStream input) {
+    
     return loadStrings(input, DEFAULT_NUM_STRINGS);
   }
   
-  // from PApplet?
   private static String[] loadStrings(InputStream input, int numLines) {
     if (input == null) throw new RiWordNetError("Null input stream!");
     try {
@@ -362,6 +360,7 @@ public abstract class WordnetUtil
     }
     return null;
   }
+  */
 
   static String replace(String src, String r, String s)
   {
@@ -523,12 +522,5 @@ public abstract class WordnetUtil
     return gloss;
   }
   
-  public static void main(String[] args) throws FileNotFoundException
-  {  
-/*    String[] s = {"the boy", "girl", "the ho"};
-    System.out.println(WordnetUtil.asList(s));*/
-    System.out.println(getResourceStream(WordnetUtil.class, RiWordNet.WORDNET_ARCHIVE));
-  }
-
 
 }// end

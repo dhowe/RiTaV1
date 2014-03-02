@@ -52,16 +52,16 @@ public final class ContainsFilter extends rita.wordnet.RiFilter
     ignoreCase = bIgnoreCase;
   }
   
-  
   /**
    * Determines if the term matches the source term.
    * 
    * @param word the term to compare to the source term
    * @return whether the terms match
    */
-  public boolean accept(final String word)
+  public boolean accept(final String word) // this is very slow! TODO: optimize?
   {
-    if (!super.accept(word)) return false;
+    if (!super.accept(word) || term.length() >= word.length())
+      return false;
     
     // Neither is null, so check how to compare the strings
     if (ignoreCase)
@@ -73,4 +73,5 @@ public final class ContainsFilter extends rita.wordnet.RiFilter
     // Consider the case
     return (word.indexOf(term) >= 0);
   }
+
 }
