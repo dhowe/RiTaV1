@@ -4,7 +4,7 @@ package rita.wordnet.jwnl.dictionary.morph;
 import java.util.Map;
 
 import rita.wordnet.jwnl.JWNLException;
-import rita.wordnet.jwnl.data.POS;
+import rita.wordnet.jwnl.wndata.POS;
 
 /** yet to be implemented */
 public class RemovePrepPhrasesOperation implements Operation {

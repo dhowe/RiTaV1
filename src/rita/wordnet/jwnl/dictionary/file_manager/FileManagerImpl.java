@@ -13,9 +13,9 @@ import rita.RiWordNet;
 import rita.wordnet.*;
 import rita.wordnet.jwnl.JWNLException;
 import rita.wordnet.jwnl.JWNLRuntimeException;
-import rita.wordnet.jwnl.data.POS;
 import rita.wordnet.jwnl.dictionary.file.*;
 import rita.wordnet.jwnl.util.factory.Param;
+import rita.wordnet.jwnl.wndata.POS;
 
 /**
  * An implementation of <code>FileManager</code> that reads files from the local file system.

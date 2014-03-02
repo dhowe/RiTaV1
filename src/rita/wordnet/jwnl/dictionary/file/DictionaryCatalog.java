@@ -9,7 +9,7 @@ import java.lang.reflect.Constructor;
 import java.util.*;
 
 import rita.wordnet.jwnl.JWNLRuntimeException;
-import rita.wordnet.jwnl.data.POS;
+import rita.wordnet.jwnl.wndata.POS;
 
 
 /**

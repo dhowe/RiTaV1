@@ -15,9 +15,9 @@ import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 
 import rita.wordnet.jwnl.JWNLRuntimeException;
-import rita.wordnet.jwnl.data.POS;
 import rita.wordnet.jwnl.dictionary.file.DictionaryFile;
 import rita.wordnet.jwnl.dictionary.file.DictionaryFileType;
+import rita.wordnet.jwnl.wndata.POS;
 
 /**
  * A <code>RandomAccessDictionaryFile</code> that accesses files named with Princeton's dictionary file naming convention.

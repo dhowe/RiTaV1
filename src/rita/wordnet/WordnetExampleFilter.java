@@ -3,7 +3,7 @@ package rita.wordnet;
 import java.util.List;
 
 import rita.RiWordNet;
-import rita.wordnet.jwnl.data.POS;
+import rita.wordnet.jwnl.wndata.POS;
 
 
 

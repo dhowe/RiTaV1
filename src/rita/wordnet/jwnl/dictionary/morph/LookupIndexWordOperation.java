@@ -4,8 +4,8 @@ package rita.wordnet.jwnl.dictionary.morph;
 import java.util.Map;
 
 import rita.wordnet.jwnl.JWNLException;
-import rita.wordnet.jwnl.data.POS;
 import rita.wordnet.jwnl.dictionary.Dictionary;
+import rita.wordnet.jwnl.wndata.POS;
 
 public class LookupIndexWordOperation implements Operation {
 	public Object create(Map params) throws JWNLException {

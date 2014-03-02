@@ -5,10 +5,10 @@ import java.util.List;
 
 import rita.RiWordNet;
 import rita.wordnet.jwnl.JWNLException;
-import rita.wordnet.jwnl.data.*;
-import rita.wordnet.jwnl.data.list.PointerTargetNode;
-import rita.wordnet.jwnl.data.relationship.*;
 import rita.wordnet.jwnl.dictionary.Dictionary;
+import rita.wordnet.jwnl.wndata.*;
+import rita.wordnet.jwnl.wndata.list.PointerTargetNode;
+import rita.wordnet.jwnl.wndata.relationship.*;
 
 
 /**

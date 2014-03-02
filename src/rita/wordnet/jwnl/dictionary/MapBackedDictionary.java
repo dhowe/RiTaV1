@@ -8,9 +8,9 @@ import java.util.*;
 
 import rita.wordnet.jwnl.JWNLException;
 import rita.wordnet.jwnl.JWNLRuntimeException;
-import rita.wordnet.jwnl.data.*;
 import rita.wordnet.jwnl.dictionary.file.*;
 import rita.wordnet.jwnl.util.factory.Param;
+import rita.wordnet.jwnl.wndata.*;
 
 
 /**

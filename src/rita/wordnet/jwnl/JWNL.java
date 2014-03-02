@@ -9,13 +9,14 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import rita.wordnet.jwnl.data.*;
 import rita.wordnet.jwnl.dictionary.Dictionary;
 import rita.wordnet.jwnl.util.ResourceBundleSet;
 import rita.wordnet.jwnl.util.factory.*;
+import rita.wordnet.jwnl.wndata.*;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
@@ -74,6 +75,8 @@ public final class JWNL {
 	private static final String NUMBER_ATTRIBUTE = "number";
 
   public static void initialize(InputStream propertiesStream) throws JWNLException {
+    
+    ///if (propertiesStream == null) throw new JWNLException("Null stream in JWNL.initialize!");
     
 		checkInitialized(UNINITIALIZED);
 

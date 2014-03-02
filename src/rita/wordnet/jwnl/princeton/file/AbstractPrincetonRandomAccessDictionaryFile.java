@@ -1,8 +1,8 @@
 package rita.wordnet.jwnl.princeton.file;
 
-import rita.wordnet.jwnl.data.POS;
 import rita.wordnet.jwnl.dictionary.file.DictionaryFileType;
 import rita.wordnet.jwnl.dictionary.file.RandomAccessDictionaryFile;
+import rita.wordnet.jwnl.wndata.POS;
 
 public abstract class AbstractPrincetonRandomAccessDictionaryFile extends AbstractPrincetonDictionaryFile
 																                                  implements RandomAccessDictionaryFile {

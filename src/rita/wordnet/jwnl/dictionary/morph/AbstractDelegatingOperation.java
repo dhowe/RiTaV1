@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import rita.wordnet.jwnl.JWNLException;
-import rita.wordnet.jwnl.data.POS;
 import rita.wordnet.jwnl.util.factory.ParamList;
+import rita.wordnet.jwnl.wndata.POS;
 
 public abstract class AbstractDelegatingOperation implements Operation {
   private Map _operationSets;

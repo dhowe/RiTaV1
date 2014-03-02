@@ -11,7 +11,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import rita.wordnet.WordnetDictionaryFile;
-import rita.wordnet.jwnl.data.POS;
+import rita.wordnet.jwnl.wndata.POS;
 
 /**
  * Simple container for <code>DictionaryCatalog</code>s that allows

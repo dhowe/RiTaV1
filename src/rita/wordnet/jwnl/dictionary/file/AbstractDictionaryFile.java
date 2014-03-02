@@ -8,7 +8,7 @@ package rita.wordnet.jwnl.dictionary.file;
 import java.io.File;
 import java.io.IOException;
 
-import rita.wordnet.jwnl.data.POS;
+import rita.wordnet.jwnl.wndata.POS;
 
 
 

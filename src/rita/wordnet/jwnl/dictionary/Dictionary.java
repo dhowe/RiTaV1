@@ -7,8 +7,8 @@ package rita.wordnet.jwnl.dictionary;
 import java.util.Iterator;
 
 import rita.wordnet.jwnl.JWNLException;
-import rita.wordnet.jwnl.data.*;
 import rita.wordnet.jwnl.util.factory.Installable;
+import rita.wordnet.jwnl.wndata.*;
 
 
 /**

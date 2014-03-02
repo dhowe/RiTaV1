@@ -8,9 +8,9 @@ import java.util.Date;
 import java.util.HashMap;
 
 import rita.wordnet.jwnl.JWNLException;
-import rita.wordnet.jwnl.data.POS;
 import rita.wordnet.jwnl.util.factory.Createable;
 import rita.wordnet.jwnl.util.factory.Param;
+import rita.wordnet.jwnl.wndata.POS;
 
 public class DatabaseManagerImpl implements DatabaseManager, Createable {
     public static final String DRIVER = "driver";

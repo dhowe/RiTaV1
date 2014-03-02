@@ -8,9 +8,9 @@ package rita.wordnet.jwnl.dictionary;
 import java.util.List;
 
 import rita.wordnet.jwnl.JWNLException;
-import rita.wordnet.jwnl.data.IndexWord;
-import rita.wordnet.jwnl.data.POS;
 import rita.wordnet.jwnl.util.factory.Createable;
+import rita.wordnet.jwnl.wndata.IndexWord;
+import rita.wordnet.jwnl.wndata.POS;
 
 /**
  * A <code>MorphologicalProcessor</code> tries to turn the inflected form of a word or phrase into

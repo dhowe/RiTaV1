@@ -4,9 +4,9 @@ import java.util.*;
 
 import rita.RiWordNet;
 import rita.wordnet.jwnl.JWNLException;
-import rita.wordnet.jwnl.data.IndexWord;
-import rita.wordnet.jwnl.data.POS;
 import rita.wordnet.jwnl.dictionary.Dictionary;
+import rita.wordnet.jwnl.wndata.IndexWord;
+import rita.wordnet.jwnl.wndata.POS;
 
 
 /**

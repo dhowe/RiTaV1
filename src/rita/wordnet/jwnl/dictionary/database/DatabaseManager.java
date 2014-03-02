@@ -1,7 +1,7 @@
 package rita.wordnet.jwnl.dictionary.database;
 
 import rita.wordnet.jwnl.JWNLException;
-import rita.wordnet.jwnl.data.POS;
+import rita.wordnet.jwnl.wndata.POS;
 
 public interface DatabaseManager {
     Query getIndexWordSynsetsQuery(POS pos, String lemma) throws JWNLException;

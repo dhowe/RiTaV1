@@ -8,10 +8,10 @@ import java.io.IOException;
 import java.util.*;
 
 import rita.wordnet.jwnl.JWNLException;
-import rita.wordnet.jwnl.data.*;
 import rita.wordnet.jwnl.dictionary.file.DictionaryFileType;
 import rita.wordnet.jwnl.dictionary.file_manager.FileManager;
 import rita.wordnet.jwnl.util.factory.Param;
+import rita.wordnet.jwnl.wndata.*;
 
 
 /**

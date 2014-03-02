@@ -12,8 +12,8 @@ import java.util.Observable;
 import java.util.Observer;
 
 import rita.wordnet.jwnl.JWNLRuntimeException;
-import rita.wordnet.jwnl.data.*;
 import rita.wordnet.jwnl.util.cache.*;
+import rita.wordnet.jwnl.wndata.*;
 
 /** Extends <code>Dictionary</code> to provide caching of elements. */
 public abstract class AbstractCachingDictionary extends Dictionary {

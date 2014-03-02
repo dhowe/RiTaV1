@@ -7,10 +7,10 @@ import java.util.Map;
 import rita.RiTa;
 import rita.RiWordNet;
 import rita.wordnet.jwnl.JWNL;
-import rita.wordnet.jwnl.data.POS;
 import rita.wordnet.jwnl.dictionary.file.DictionaryFile;
 import rita.wordnet.jwnl.dictionary.file.DictionaryFileType;
 import rita.wordnet.jwnl.princeton.file.PrincetonRandomAccessDictionaryFile;
+import rita.wordnet.jwnl.wndata.POS;
 
 
 /**

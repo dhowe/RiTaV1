@@ -10,14 +10,14 @@ import java.util.Map;
 
 import rita.wordnet.jwnl.JWNLException;
 import rita.wordnet.jwnl.JWNLRuntimeException;
-import rita.wordnet.jwnl.data.IndexWord;
-import rita.wordnet.jwnl.data.POS;
 import rita.wordnet.jwnl.dictionary.*;
 import rita.wordnet.jwnl.dictionary.morph.Operation;
 import rita.wordnet.jwnl.util.cache.Cache;
 import rita.wordnet.jwnl.util.cache.LRUCache;
 import rita.wordnet.jwnl.util.factory.Param;
 import rita.wordnet.jwnl.util.factory.ParamList;
+import rita.wordnet.jwnl.wndata.IndexWord;
+import rita.wordnet.jwnl.wndata.POS;
 
 /**
  * Default implementation of <code>MorphologicalProcessor</code>. This isn't a true

@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rita.wordnet.jwnl.JWNLException;
-import rita.wordnet.jwnl.data.POS;
 import rita.wordnet.jwnl.util.factory.Param;
+import rita.wordnet.jwnl.wndata.POS;
 
 /**
  * Remove all aplicable suffixes from the word(s) and do a look-up.

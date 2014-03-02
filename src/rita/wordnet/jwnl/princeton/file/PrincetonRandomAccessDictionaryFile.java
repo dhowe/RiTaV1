@@ -9,9 +9,9 @@ import java.io.IOException;
 
 import rita.wordnet.RandomAccessIF;
 import rita.wordnet.jwnl.JWNLRuntimeException;
-import rita.wordnet.jwnl.data.POS;
 import rita.wordnet.jwnl.dictionary.file.DictionaryFile;
 import rita.wordnet.jwnl.dictionary.file.DictionaryFileType;
+import rita.wordnet.jwnl.wndata.POS;
 
 
 

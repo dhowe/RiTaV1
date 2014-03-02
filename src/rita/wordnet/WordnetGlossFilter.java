@@ -4,7 +4,7 @@ import java.util.*;
 
 import rita.RiWordNet;
 import rita.wordnet.jwnl.JWNLException;
-import rita.wordnet.jwnl.data.*;
+import rita.wordnet.jwnl.wndata.*;
 
 
 /**

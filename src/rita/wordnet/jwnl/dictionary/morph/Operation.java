@@ -1,8 +1,8 @@
 package rita.wordnet.jwnl.dictionary.morph;
 
 import rita.wordnet.jwnl.JWNLException;
-import rita.wordnet.jwnl.data.POS;
 import rita.wordnet.jwnl.util.factory.Createable;
+import rita.wordnet.jwnl.wndata.POS;
 
 public interface Operation extends Createable {
 	/**

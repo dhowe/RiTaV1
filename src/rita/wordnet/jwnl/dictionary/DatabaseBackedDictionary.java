@@ -8,10 +8,10 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 import rita.wordnet.jwnl.JWNLException;
-import rita.wordnet.jwnl.data.*;
 import rita.wordnet.jwnl.dictionary.database.DatabaseManager;
 import rita.wordnet.jwnl.dictionary.database.Query;
 import rita.wordnet.jwnl.util.factory.Param;
+import rita.wordnet.jwnl.wndata.*;
 
 public class DatabaseBackedDictionary extends AbstractCachingDictionary {
     /**

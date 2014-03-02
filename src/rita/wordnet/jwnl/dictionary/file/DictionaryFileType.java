@@ -10,8 +10,8 @@ import java.util.Collections;
 import java.util.List;
 
 import rita.wordnet.jwnl.JWNL;
-import rita.wordnet.jwnl.data.DictionaryElementType;
 import rita.wordnet.jwnl.util.Resolvable;
+import rita.wordnet.jwnl.wndata.DictionaryElementType;
 
 /** Instances of this class specify the different types of dictionary files (the different classes of dictionary files. */
 public class DictionaryFileType {

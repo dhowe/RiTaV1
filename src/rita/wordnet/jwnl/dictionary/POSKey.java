@@ -6,7 +6,7 @@ package rita.wordnet.jwnl.dictionary;
 
 import rita.wordnet.jwnl.JWNL;
 import rita.wordnet.jwnl.JWNLRuntimeException;
-import rita.wordnet.jwnl.data.POS;
+import rita.wordnet.jwnl.wndata.POS;
 
 /** A cache key consists of a <code>POS</code> and an object */
 public class POSKey {

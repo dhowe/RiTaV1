@@ -9,9 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import rita.wordnet.jwnl.JWNL;
-import rita.wordnet.jwnl.data.POS;
 import rita.wordnet.jwnl.dictionary.file.AbstractDictionaryFile;
 import rita.wordnet.jwnl.dictionary.file.DictionaryFileType;
+import rita.wordnet.jwnl.wndata.POS;
 
 /**
  * <code>AbstractDictionaryFile</code> that uses file names compatible with Princeton's distribution of WordNet.

@@ -6,9 +6,9 @@ import java.util.BitSet;
 import java.util.Map;
 
 import rita.wordnet.jwnl.JWNLException;
-import rita.wordnet.jwnl.data.POS;
 import rita.wordnet.jwnl.util.factory.Param;
 import rita.wordnet.jwnl.util.factory.ParamList;
+import rita.wordnet.jwnl.wndata.POS;
 
 public class TokenizerOperation extends AbstractDelegatingOperation {
     /**

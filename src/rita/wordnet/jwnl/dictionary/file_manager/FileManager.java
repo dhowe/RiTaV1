@@ -9,9 +9,9 @@ import java.io.IOException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-import rita.wordnet.jwnl.data.POS;
 import rita.wordnet.jwnl.dictionary.file.DictionaryFileType;
 import rita.wordnet.jwnl.util.factory.Createable;
+import rita.wordnet.jwnl.wndata.POS;
 
 /**
  * <code>FileManager</code> defines the interface between the <code>FileBackedDictionary</code> and the file system.

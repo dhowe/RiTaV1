@@ -35,7 +35,7 @@
 				</param>
 			</param>
 		</param>
-		<param name="dictionary_element_factory" value="rita.wordnet.jwnl.princeton.data.PrincetonWN17FileDictionaryElementFactory"/>
+		<param name="dictionary_element_factory" value="rita.wordnet.jwnl.princeton.wndata.PrincetonWN17FileDictionaryElementFactory"/>
   		<param name="file_manager" value="rita.wordnet.jwnl.dictionary.file_manager.FileManagerImpl">
 		<!--param name="file_type" value="rita.wordnet.jwnl.princeton.file.PrincetonRandomAccessDictionaryFile"/-->
 		<param name="file_type" value="rita.wordnet.WordnetDictionaryFile"/>
