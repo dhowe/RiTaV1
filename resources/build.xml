@@ -227,8 +227,8 @@ ${line}
 		<jar jarfile="${project.tmp}/${project.name}/library/${project.jar.name}" basedir="${project.bin}"> 
 			<exclude name="**/data/**" /> 
 			<exclude name="**/test/**" /> 
+			<exclude name="**/docgen/**" /> 
 			<exclude name="**/RiWordnet*.class" />
-			<exclude name="**/wordnet/**" />
 		</jar>
 		<!--copy tofile="${project.jsbuild.download}/${main.package}-${project.version}.jar" file="${project.tmp}/${project.name}/${folder}/${project.jar.name}"/-->
   		<copy tofile="${project.latest}/${main.package}-${project.version}.jar" file="${project.tmp}/${project.name}/library/${project.jar.name}"/>

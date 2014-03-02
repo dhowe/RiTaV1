@@ -42,7 +42,6 @@ public class Synset extends PointerTarget implements DictionaryElement {
 		this(pos, offset, words, pointers, gloss, verbFrames, false);
 	}
 
-	/** @deprecated */
 	public Synset(POS pos, long offset, Word[] words, Pointer[] pointers, String gloss,
 	              BitSet verbFrames, boolean isAdjectiveCluster) {
 		_pos = pos;

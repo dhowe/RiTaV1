@@ -1,5 +1,7 @@
 package rita.wordnet;
 
+import rita.RiTa;
+
 /**
  * Provide a filter for search terms that only
  * accepts matches where the parameter to accept()
@@ -12,18 +14,7 @@ public final class AnagramFilter extends rita.wordnet.RiFilter
   /**
    * The source term.
    */
-  private final String term;
-  
-  /**
-   * Default constructor.
-   */
-  private AnagramFilter()
-  {
-    super();
-    term = null;
-    ignoreCase = false;
-  }
-  
+  private final String term, word;
   
   /**
    * Initializes the filter with the source term and
@@ -40,20 +31,23 @@ public final class AnagramFilter extends rita.wordnet.RiFilter
     ignoreCase = bIgnoreCase;
     
     // Save the String parameter, after processing
-    term = buildData(word, ignoreCase);
+    this.word = word;
+    this.term = buildData(word, ignoreCase);
   }
   
   
   /**
    * Determines if the term matches the source term.
    * 
-   * @param word the term to compare to the source term
+   * @param theWord the term to compare to the source term
    * @return whether the terms match
    */
-  public boolean accept(final String word)
+  public boolean accept(final String theWord)
   {
+    if (this.word.equals(theWord)) return false;
+    
     // Save the String parameter, after processing
-    final String data = buildData(word, ignoreCase);
+    final String data = buildData(theWord, ignoreCase);
     
     // Return whether the strings are equal
     return (term.equals(data));
@@ -65,21 +59,20 @@ public final class AnagramFilter extends rita.wordnet.RiFilter
    * characters in the term, with the characters sorted.
    * 
    * @param term the string to sort
-   * @param ignoreCase whether to ignore the string's case
+   * @param ic whether to ignore the string's case
    * @return the normalized string
    */
-  private static String buildData(final String term,
-                                  final boolean ignoreCase)
+  private static String buildData(final String term, final boolean ic)
   {
     // Check the term
     if (term == null)
     {
-      return "";
+      return RiTa.E;
     }
     
     // Get the string as an array
     char[] chars;
-    if (ignoreCase)
+    if (ic)
     {
       // Get the string as lower-case (ignore case)
       chars = term.toLowerCase().toCharArray();

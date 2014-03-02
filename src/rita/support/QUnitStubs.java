@@ -273,7 +273,23 @@ public class QUnitStubs
     if (superset == subset || superset == null && subset == null)
       return;
     
-    assertTrue(Arrays.asList(superset).containsAll(Arrays.asList(subset)));
+    assertTrue(superset != null && subset != null);
+      
+    boolean ok = Arrays.asList(superset).containsAll(Arrays.asList(subset));
+    if (!ok) {
+      Arrays.sort(superset);
+      Arrays.sort(subset);
+      for (int i = 0; i < Math.max(superset.length, subset.length); i++)
+      {
+        System.out.print(i+")");
+        if (i < superset.length)
+          System.out.print("  "+superset[i]);
+        if (i < subset.length)
+          System.out.print("  "+subset[i]);
+        System.out.println();
+      }
+    }
+    assertTrue(ok);
   }
   
   /** Returns true if the item is in the superset (basically just arrayContains()) */
