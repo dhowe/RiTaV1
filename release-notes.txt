@@ -1,0 +1,13 @@
+
+1.0.50
+-------------------
+
+-- RiWordNet is now included as part of the RiTa core 
+
+---- The WordNet database no longer comes bundled with the library. Instead, download it first, then point to your installation in the RiWordNet constructor:
+
+	RiWordNet wordnet = new RiWordNet("/WordNet-3.1");
+
+---- Methods returning a String[] will return a zero-length array when the query term is not found, or there are no entries for the relation type being sought, rather than null (as they did in previous versions).
+---- In the default configuration, compound words are no longer ignored (as they were in previous versions) 
+---- Processing's core.jar and rita-support.jar are no longer required.
