@@ -12,7 +12,9 @@ import rita.wordnet.jwnl.wndata.*;
 
 /** <code>FileDictionaryElementFactory</code> that produces elements for Princeton's release of WordNet v 1.6 */
 public class PrincetonWN16FileDictionaryElementFactory extends AbstractPrincetonFileDictionaryElementFactory {
+  
 	public PrincetonWN16FileDictionaryElementFactory() {
+	  //System.out.println("PrincetonWN16FileDictionaryElementFactory.PrincetonWN16()");
 	}
 
 	public Object create(Map params) throws JWNLException {
@@ -20,17 +22,22 @@ public class PrincetonWN16FileDictionaryElementFactory extends AbstractPrinceton
 	}
 
 	protected Word createWord(Synset synset, int index, String lemma) {
-		if (synset.getPOS().equals(POS.ADJECTIVE)) {
-			Adjective.AdjectivePosition adjectivePosition = Adjective.NONE;
+		
+	  if (synset.getPOS().equals(POS.ADJECTIVE)) {
+			
+		  Adjective.AdjectivePosition adjectivePosition = Adjective.NONE;
+			
 			if (lemma.charAt(lemma.length() - 1) == ')' && lemma.indexOf('(') > 0) {
+			  
 				int lparen = lemma.indexOf('(');
 				String marker = lemma.substring(lparen + 1, lemma.length() - 1);
 				adjectivePosition = Adjective.getAdjectivePositionForKey(marker);
 				lemma = lemma.substring(0, lparen);
 			}
+			
 			return new Adjective(synset, index, lemma, adjectivePosition);
-		} else {
-			return super.createWord(synset, index, lemma);
-		}
+		} 
+
+		return super.createWord(synset, index, lemma);
 	}
 }

@@ -177,16 +177,17 @@ public class FileBackedDictionary extends AbstractCachingDictionary
     return new IndexFileLookaheadIterator(pos);
   }
 
-  public Iterator getIndexWordIterator(final POS pos, final String substring)
+/*  public Iterator getIndexWordIterator(final POS pos, final String substring)
       throws JWNLException
   {
     return new SubstringIndexFileLookaheadIterator(pos,
         prepareQueryString(substring));
-  }
+  }*/
 
   public IndexWord getIndexWord(POS pos, String lemma) throws JWNLException
   {
-    lemma = prepareQueryString(lemma);
+    //lemma = prepareQueryString(lemma);
+    
     // System.err.println("FileBackedDictionary.getIndexWord('"+lemma+"');");
 
     IndexWord word = null;

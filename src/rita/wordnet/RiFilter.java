@@ -5,11 +5,10 @@ import java.util.List;
 
 import rita.wordnet.jawbone.filter.*;
 
+// TODO: Need to document filters well in JSON (K)
 
 /**
  * Abstract class implementing the Jawbone TermFilter interface.
- * @invisible
- * @author dhowe
  * See the accompanying documentation for license information
  */
 public abstract class RiFilter implements Wordnet, TermFilter

@@ -103,7 +103,7 @@ public class MapBackedDictionary extends Dictionary {
 		return (IndexWord) getTable(pos, DictionaryFileType.INDEX).get(prepareQueryString(lemma));
 	}
 
-	public Iterator getIndexWordIterator(POS pos, String substring) {
+/*	public Iterator getIndexWordIterator(POS pos, String substring) {
 		substring = prepareQueryString(substring);
 
 		final Iterator itr = getIndexWordIterator(pos);
@@ -118,7 +118,7 @@ public class MapBackedDictionary extends Dictionary {
 		}
         return new IndexWordIterator(itr, substring, temp);
 	}
-
+*/
 	public Iterator getIndexWordIterator(POS pos) {
 		return getIterator(getTable(pos, DictionaryFileType.INDEX));
 	}

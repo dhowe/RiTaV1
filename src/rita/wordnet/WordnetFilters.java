@@ -220,8 +220,10 @@ public class WordnetFilters implements Wordnet
     if (lemma == null) return null;
     if (wordnet.ignoreCompoundWords() && RiWordNet.isCompound(lemma))
       return null;
-    if (wordnet.ignoreUpperCaseWords() && WordnetUtil.startsWithUppercase(lemma))
+    if (wordnet.ignoreUpperCaseWords() && WordnetUtil.startsWithUppercase(lemma)) {
+      //System.out.println("Filters: Ignoring: "+lemma);
       return null;
+    }
     return lemma;
   } 
   

@@ -53,7 +53,7 @@ public class DatabaseBackedDictionary extends AbstractCachingDictionary {
     }
 
     public IndexWord getIndexWord(POS pos, String lemma) throws JWNLException {
-        lemma = prepareQueryString(lemma);
+        //lemma = prepareQueryString(lemma);
         IndexWord word = null;
         if (lemma.length() > 0) {
             if (isCachingEnabled()) {
