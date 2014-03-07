@@ -417,6 +417,7 @@ public class RiLexiconTest
     try
     {
       ok(lex.isAdverb("banana split"));
+      ok(false);
     }
     catch (Exception e)
     {
