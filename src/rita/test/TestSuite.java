@@ -17,7 +17,8 @@ import rita.render.test.RiTextTest;
   RiTaTest.class,
   RiMarkovTest.class,
   RiGrammarTest.class,
-  RiTaEventTest.class, 
+  RiTaEventTest.class,
+  RiWordNetTest.class, 
   //KnownIssuesTest.class, 
 })
 
