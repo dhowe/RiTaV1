@@ -1,6 +1,9 @@
-package rita.wordnet;
+package rita.wordnet.jawbone.filter;
+
+import java.util.Arrays;
 
 import rita.RiTa;
+import rita.wordnet.RiFilter;
 
 /**
  * Provide a filter for search terms that only
@@ -87,12 +90,13 @@ public final class AnagramFilter extends rita.wordnet.RiFilter
     }
     
     // Sort the data
-    java.util.Arrays.sort(chars);
+    Arrays.sort(chars);
     
     // Put the non-space chars in an array
     final int size = chars.length;
     char[] data = new char[size];
     int j = 0;
+    
     for (int i = 0; i < size; ++i)
     {
       // Only add non-spaces

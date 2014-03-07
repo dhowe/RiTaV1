@@ -60,6 +60,10 @@ public final class WildcardFilter extends rita.wordnet.RiFilter
     
     this.ignoreCase = bIgnoreCase;
     this.term = word;
+    if (term.endsWith("*"))
+      term = term.substring(0, term.length()-1);
+    if (term.startsWith("*"))
+      term = term.substring(1);
     parsePattern(word);
   }
   
@@ -74,8 +78,9 @@ public final class WildcardFilter extends rita.wordnet.RiFilter
   {
     if (!super.accept(word)) return false;
     
+    
     // Neither is null, so compare the strings
-    return (matchPattern(word));
+    return matchPattern(word);
   }
   
   
@@ -101,10 +106,8 @@ public final class WildcardFilter extends rita.wordnet.RiFilter
       {
         return false;
       }
-      else
-      {
-        return matchString(target.toUpperCase());
-      }
+
+      return matchString(target.toUpperCase());
     }
 
     return matchString(target);
@@ -204,62 +207,55 @@ public final class WildcardFilter extends rita.wordnet.RiFilter
       // If 'part' is * (null), return true; else, no match.
       return (part == null);
     }
-    else
+
+    // Check if we're on a *
+    if (part == null)
     {
-      // Check if we're on a *
-      if (part == null)
+      // We hit a *, so we're either at the start of the string, or at the end
+      if (nCurrPart == 0)
       {
-        // We hit a *, so we're either at the start of the string, or at the end
-        if (nCurrPart == 0)
-        {
-          // It starts with *, so start looking with the next element of list
-          return (findMatch(1, target, 0)); 
-        }
-        else
-        {
-          // We're at the end of the list, so assume it matches
-          // (pattern ends with '*')
-          return true;
-        }
+        // It starts with *, so start looking with the next element of list
+        return (findMatch(1, target, 0)); 
       }
-      else
+      // We're at the end of the list, so assume it matches
+      // (pattern ends with '*')
+      return true;
+    }
+
+    // See if we're looking at the last field
+    if (nCurrPart == (fields.size() - 1))
+    {
+      // We are, so return whether the target string ends with this string
+      return (endsWithWild(target, part));
+    }
+    
+    // Save the length
+    final int nLen = part.length();
+    
+    // Find the next occurrence of s[nCurrPart], starting after
+    // the current index
+    int foundIndex = indexOfWild(target, part, nCurrIndex);
+    
+    // Keep looking until the subsequent s partitions are all found
+    while ((foundIndex >= 0) && (!found))
+    {
+      // If there was no wildcard before 'part' (nCurrPart = 0), and
+      // the string was found after the point we started looking, then
+      // return false.
+      if ((foundIndex > nCurrIndex) && (nCurrPart == 0))
       {
-        // See if we're looking at the last field
-        if (nCurrPart == (fields.size() - 1))
-        {
-          // We are, so return whether the target string ends with this string
-          return (endsWithWild(target, part));
-        }
-        
-        // Save the length
-        final int nLen = part.length();
-        
-        // Find the next occurrence of s[nCurrPart], starting after
-        // the current index
-        int foundIndex = indexOfWild(target, part, nCurrIndex);
-        
-        // Keep looking until the subsequent s partitions are all found
-        while ((foundIndex >= 0) && (!found))
-        {
-          // If there was no wildcard before 'part' (nCurrPart = 0), and
-          // the string was found after the point we started looking, then
-          // return false.
-          if ((foundIndex > nCurrIndex) && (nCurrPart == 0))
-          {
-            return false;
-          }
-          
-          // Find the next occurrence of the next s elements, starting after
-          // the end of the current match
-          found = findMatch((nCurrPart + 1), target, (foundIndex + nLen));
-          
-          // If no match found, find the next occurrence of part in target
-          if (!found)
-          {
-            // Store where it was found (if at all)
-            foundIndex = indexOfWild(target, part, ++foundIndex);
-          }
-        }
+        return false;
+      }
+      
+      // Find the next occurrence of the next s elements, starting after
+      // the end of the current match
+      found = findMatch((nCurrPart + 1), target, (foundIndex + nLen));
+      
+      // If no match found, find the next occurrence of part in target
+      if (!found)
+      {
+        // Store where it was found (if at all)
+        foundIndex = indexOfWild(target, part, ++foundIndex);
       }
     }
     
@@ -434,7 +430,7 @@ public final class WildcardFilter extends rita.wordnet.RiFilter
   
   /**
    * This method separates a String containing one or more
-   * wildcards ('*') into a List of substrings.  Each
+   * wildcards ('*' or '?') into a List of substrings.  Each
    * element of the List is the substring of 'pat' between
    * wildcards (e.g., "ab*cd" is two elements: "ab" and "cd").
    * Also, if pat starts with a wildcard, the first element

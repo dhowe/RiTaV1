@@ -6,6 +6,7 @@ package rita.wordnet.jwnl.princeton.wndata;
 
 import java.util.*;
 
+import rita.RiTa;
 import rita.wordnet.jwnl.JWNLRuntimeException;
 import rita.wordnet.jwnl.util.TokenizerParser;
 import rita.wordnet.jwnl.wndata.*;
@@ -19,28 +20,37 @@ import rita.wordnet.jwnl.wndata.*;
 public abstract class AbstractPrincetonFileDictionaryElementFactory implements FileDictionaryElementFactory {
 
 	protected AbstractPrincetonFileDictionaryElementFactory() {
+	  //System.out.println("AbstractPrincetonFileDictionaryElementFactory.AbstractPrincetonFileDictionaryElementFactory()");
 	}
 
 	public IndexWord createIndexWord(POS pos, String line) {
-        TokenizerParser tokenizer = new TokenizerParser(line, " ");
+        
+	  TokenizerParser tokenizer = new TokenizerParser(line, RiTa.SP);
+        
         if (!tokenizer.hasMoreTokens())
           throw new JWNLRuntimeException("Illegal tokenizer state for: "+line);
+        
         String lemma = tokenizer.nextToken().replace('_', ' ');
+        
         tokenizer.nextToken();  // pos
         tokenizer.nextToken();	// poly_cnt
         int pointerCount = tokenizer.nextInt();
+        
         // TODO: can we do anything interesting with these?
-        for (int i = 0; i < pointerCount; ++i) tokenizer.nextToken();	// ptr_symbol
+        for (int i = 0; i < pointerCount; ++i) 
+          tokenizer.nextToken();	// ptr_symbol
+        
         int senseCount = tokenizer.nextInt();
         tokenizer.nextInt(); // tagged sense count
         long[] synsetOffsets = new long[senseCount];
         for (int i = 0; i < senseCount; i++) 
           synsetOffsets[i] = tokenizer.nextLong();
+        
         return new IndexWord(lemma, pos, synsetOffsets);
 	}
 
 	public Synset createSynset(POS pos, String line) {
-        TokenizerParser tokenizer = new TokenizerParser(line, " ");
+        TokenizerParser tokenizer = new TokenizerParser(line, RiTa.SP);
 
         long offset = tokenizer.nextLong();
         tokenizer.nextToken();	// lex_filenum

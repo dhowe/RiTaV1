@@ -155,8 +155,7 @@ public final class JWNL {
 			throw new JWNLException("JWNL_EXCEPTION_005");
 
 		Node n = dictionaryNodeList.item(0);
-		Element e =createElementFromNode(n);
-		e.install();
+		createElementFromNode(n).install();
 
 		_initStage = INITIALIZED;
 	}
@@ -173,27 +172,47 @@ public final class JWNL {
 		return new Element(getAttribute(node, CLASS_ATTRIBUTE), getParams(node.getChildNodes()));
 	}
 
+	static int count= 0;
 	private static Param[] getParams(NodeList list) throws JWNLException {
 	  
 		List params = new ArrayList();
 		for (int i = 0; i < list.getLength(); i++) {
-			Node n = list.item(i);
+			
+		  Node n = list.item(i);
+			
 			if (n.getNodeType() == Node.ELEMENT_NODE && n.getNodeName().equals(PARAM_TAG)) {
+			  
 				String name = getAttribute(n, NAME_ATTRIBUTE);
 				String value = getAttribute(n, VALUE_ATTRIBUTE);
-				if (name == null && value == null) {
+				
+				if (name == null && value == null) 
 					throw new JWNLException("JWNL_EXCEPTION_008");
-				} else {
-					Param param = null;
-					if (value == null) {
-						param = new ParamList(name.toLowerCase(), getParams(n.getChildNodes()));
-					} else if (name == null) {
-						param = new ValueParam(value, getParams(n.getChildNodes()));
-					} else {
-						param = new NameValueParam(name.toLowerCase(), value, getParams(n.getChildNodes()));
-					}
-					params.add(param);
+				
+				Param param = null;
+				if (value == null) {
+				  
+					param = new ParamList(name.toLowerCase(), getParams(n.getChildNodes()));
+				} 
+				else if (name == null) {
+				  
+					param = new ValueParam(value, getParams(n.getChildNodes()));
 				}
+				else {
+				  
+/*if (++count < 100) {
+  System.out.println(name+" -> "+value);
+  
+  Param[] params2 = getParams(n.getChildNodes());
+  for (int j = 0; j < params2.length; j++)
+  {
+    System.out.println("  "+j+") "+params2[j]);
+  }
+}*/
+				  
+					param = new NameValueParam(name.toLowerCase(), value, getParams(n.getChildNodes()));
+				}
+				
+				params.add(param);
 			}
 		}
 		return (Param[]) params.toArray(new Param[params.size()]);

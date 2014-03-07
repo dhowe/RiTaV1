@@ -44,7 +44,7 @@ public abstract class Dictionary implements Installable {
 	 */
 	protected static String prepareQueryString(String lemma) {
 		return lemma.trim().toLowerCase();
-	}
+	}   
 
 	private MorphologicalProcessor _morph = null;
 
@@ -73,9 +73,10 @@ public abstract class Dictionary implements Installable {
 	 * whose lemmas contain <var>substring</var> as a substring.
 	 * @param pos The part-of-speech.
 	 * @return An iterator over <code>IndexWord</code>s.
-	 */
-	public abstract Iterator getIndexWordIterator(POS pos, String substring) throws JWNLException;
 
+	public abstract Iterator getIndexWordIterator(POS pos, String substring) throws JWNLException;
+   */
+	
 	/**
 	 * Look up a word in the database. The search is case-independent,
 	 * and phrases are separated by spaces ("look up", not "look_up").
@@ -139,7 +140,7 @@ public abstract class Dictionary implements Installable {
 	 */
 	public IndexWord lookupIndexWord(POS pos, String lemma) throws JWNLException {
 
-		lemma = prepareQueryString(lemma);
+		//lemma = prepareQueryString(lemma);
 		IndexWord word = getIndexWord(pos, lemma);
 		if (word == null && getMorphologicalProcessor() != null) {
 			word = getMorphologicalProcessor().lookupBaseForm(pos, lemma);
@@ -154,7 +155,7 @@ public abstract class Dictionary implements Installable {
 	 * @return An array of IndexWords, each of which is a sense of <var>word</var>
 	 */
 	public IndexWordSet lookupAllIndexWords(String lemma) throws JWNLException {
-		lemma = prepareQueryString(lemma);
+		//lemma = prepareQueryString(lemma);
 		IndexWordSet set = new IndexWordSet(lemma);
 		for (Iterator itr = POS.getAllPOS().iterator(); itr.hasNext();) {
 			IndexWord current = lookupIndexWord((POS)itr.next(), lemma);
