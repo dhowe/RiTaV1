@@ -178,9 +178,10 @@ public class WordnetFilters implements Wordnet
   }
   
   // returns an iterator over all Lemmas for for 'pos'
-  public Iterator lemmaIterator(Dictionary d, POS pos)
+  public Iterator lemmaIterator(Dictionary d, POS pos) // TODO: this may be very slow!
   {
     String tag = pos.getKey()+"Set";
+    
     // check the Set cache 
     Set result = (Set)filterCache.get(tag);
     if (result == null) { 
