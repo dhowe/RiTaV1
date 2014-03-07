@@ -23,6 +23,6 @@ Please see https://github.com/dhowe/RiTa/js for the pure JavaScript implementati
 --------
 Please! We are looking for more coders to help out... Just press *Fork* at the top of this page and get started. 
 
-If you don't feel like coding but still want to contribute, please join the discussion on the issuetracker and rita-dev group.
+If you don't feel like coding but still want to contribute, please send a twitter message to @RiTaSoftware.
 
 
