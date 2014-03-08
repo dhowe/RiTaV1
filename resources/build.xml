@@ -247,6 +247,7 @@ ${line}
 			<exclude name="rita/*.*/" />
 			<exclude name="*.properties/" />
 			<exclude name="**/test/**" /> 
+			<exclude name="**/docgen/**" /> 
 		</jar>
 		
 		<!-- temp, for p5 testing with multiple jars -->
