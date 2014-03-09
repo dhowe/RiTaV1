@@ -26,26 +26,19 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package rita.wordnet.jawbone.filter;
-
-import java.util.regex.Pattern;
+package rita.wordnet.jawbone;
 
 /**
  * Provide a filter for search terms that only
- * accepts matches where the term passed to accept()
- * matches the regular expression string passed in
- * the constructor.
+ * accepts matches where the parameter to accept()
+ * contains the source term (passed in the
+ * constructor).
  * 
  * @author mwallace
  * @version 1.0
  */
-public final class RegexFilter extends rita.wordnet.RiFilter
-{
-  /**
-   * The pattern for the source term.
-   */
-  private Pattern pattern = null;  
-  
+public final class ContainsFilter extends rita.wordnet.RiFilter
+{ 
   /**
    * Initializes the filter with the source term and
    * whether to ignore case on searches.
@@ -53,27 +46,11 @@ public final class RegexFilter extends rita.wordnet.RiFilter
    * @param word the source term
    * @param bIgnoreCase whether to ignore the case of string comparisons
    */
-  public RegexFilter(final String word, final boolean bIgnoreCase)
+  public ContainsFilter(final String word, final boolean bIgnoreCase)
   {
-    // Check the input
-    if (word == null)
-    {
-      pattern = null;
-    }
-    else
-    {
-      // Check if we're ignoring case
-      if (bIgnoreCase)
-      {
-        pattern = Pattern.compile(word, Pattern.CASE_INSENSITIVE);
-      }
-      else
-      {
-        pattern = Pattern.compile(word);
-      }
-    }
+    term = word;
+    ignoreCase = bIgnoreCase;
   }
-  
   
   /**
    * Determines if the term matches the source term.
@@ -81,21 +58,20 @@ public final class RegexFilter extends rita.wordnet.RiFilter
    * @param word the term to compare to the source term
    * @return whether the terms match
    */
-  public boolean accept(final String word)
+  public boolean accept(final String word) // this is very slow! TODO: optimize?
   {
-    // Check the two terms for nullness
-    if ((word == null) && (pattern == null))
-    {
-      // They're both null
-      return true;
-    }
-    else if ((word == null) || (pattern == null))
-    {
-      // One is null, the other is not
+    if (!super.accept(word) || term.length() >= word.length())
       return false;
-    }
     
-    // Use the regex package to compare words
-    return (pattern.matcher(word).matches());
+    // Neither is null, so check how to compare the strings
+    if (ignoreCase)
+    {
+      // Ignore the case
+      return (word.toUpperCase().indexOf(term.toUpperCase()) >= 0);
+    }
+
+    // Consider the case
+    return (word.indexOf(term) >= 0);
   }
+
 }

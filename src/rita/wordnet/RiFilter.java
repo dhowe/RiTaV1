@@ -3,7 +3,7 @@ package rita.wordnet;
 import java.util.ArrayList;
 import java.util.List;
 
-import rita.wordnet.jawbone.filter.*;
+import rita.wordnet.jawbone.*;
 
 // TODO: Need to document filters well in JSON (K)
 

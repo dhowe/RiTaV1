@@ -26,19 +26,20 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package rita.wordnet.jawbone.filter;
+package rita.wordnet.jawbone;
 
 /**
  * Provide a filter for search terms that only
  * accepts matches where the parameter to accept()
- * contains the source term (passed in the
+ * ends with the source term (passed in the
  * constructor).
  * 
  * @author mwallace
  * @version 1.0
  */
-public final class ContainsFilter extends rita.wordnet.RiFilter
-{ 
+public final class EndsWithFilter extends rita.wordnet.RiFilter
+{
+   
   /**
    * Initializes the filter with the source term and
    * whether to ignore case on searches.
@@ -46,7 +47,7 @@ public final class ContainsFilter extends rita.wordnet.RiFilter
    * @param word the source term
    * @param bIgnoreCase whether to ignore the case of string comparisons
    */
-  public ContainsFilter(final String word, final boolean bIgnoreCase)
+  public EndsWithFilter(final String word, final boolean bIgnoreCase)
   {
     term = word;
     ignoreCase = bIgnoreCase;
@@ -58,20 +59,18 @@ public final class ContainsFilter extends rita.wordnet.RiFilter
    * @param word the term to compare to the source term
    * @return whether the terms match
    */
-  public boolean accept(final String word) // this is very slow! TODO: optimize?
+  public boolean accept(final String word)
   {
-    if (!super.accept(word) || term.length() >= word.length())
-      return false;
+    if (!super.accept(word)) return false;
     
     // Neither is null, so check how to compare the strings
     if (ignoreCase)
     {
       // Ignore the case
-      return (word.toUpperCase().indexOf(term.toUpperCase()) >= 0);
+      return (word.toUpperCase().endsWith(term.toUpperCase()));
     }
 
-    // Consider the case
-    return (word.indexOf(term) >= 0);
+    // Consider the upper/lower case
+    return (word.endsWith(term));
   }
-
 }
