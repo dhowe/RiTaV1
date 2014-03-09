@@ -26,7 +26,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package rita.wordnet.jawbone.filter;
+package rita.wordnet.jawbone;
 
 import java.util.ArrayList;
 import java.util.List;

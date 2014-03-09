@@ -19,6 +19,7 @@
 	<property name="path.to.node" value="/usr/local/bin"/>
 	<property name="project.js.name" value="${main.package}.js"/>
 	<property name="project.jar.name" value="${main.package}.jar"/>
+	<property name="project.jar.full.name" value="${main.package}.full.jar"/>
 	<property name="project.jar.support.name" value="${main.package}.support.jar"/>
 	<property name="project.src" location="src"/>
 	<property name="project.latest" location="latest"/>
@@ -40,10 +41,12 @@
 	<property name="project.jsbuild.www" location="${project.jsbuild}/www"/>
 	<property name="project.jsbuild.download" location="${project.jsbuild.www}/download"/>
 	<property name="install.source" location="resources/install_instructions.txt"/>
+	<property name="license.source" location="resources/license.txt"/>
 	<property name="props.src" location="resources/library.properties"/>
 	<property name="props.dst" location="${project.dist.version}/${project.name}/library.properties"/>
 	<property name="install.destination" location="${project.dist.version}/INSTALL.txt"/>
-	<property name="processing.library" location="/Users/dhowe/Documents/Processing/libraries/RiTa/library"/>
+	<property name="license.destination" location="${project.dist.version}/RiTa/LICENSE.txt"/>
+	<property name="processing.library" location="${user.home}/Documents/Processing/libraries/RiTa/library"/>
 	
 	<target name="_make.all">
 		
@@ -171,7 +174,7 @@ ${line}
 		<antcall target="generate.structure"><param name="folder" value="library"/></antcall>
 		<antcall target="parse.source" /> 
 		<antcall target="compile-debug" />
-	  	<antcall target="generate.jar"><param name="folder" value="library"/></antcall>
+	  	<antcall target="generate.jars"><param name="folder" value="library"/></antcall>
 	  	<!--antcall target="generate.javadoc" /-->
 		<!--antcall target="copyToSketchbook"><param name="folder" value="libraries"/></antcall-->
 		<antcall target="generate.distribution" />
@@ -234,29 +237,37 @@ ${line}
 		<copy tofile="${processing.library}/rita.jar" file="${project.tmp}/${project.name}/library/${project.jar.name}"/>
 	</target>
 	
-	<target name="generate.two.jars">
+	<target name="generate.jars">
 		
-		<jar jarfile="${project.tmp}/${project.name}/${main.package}-${project.version}.core.jar" basedir="${project.bin}"> 
+		<!-- full lib -->
+		<jar jarfile="${project.latest}/${main.package}-${project.version}.jar" basedir="${project.bin}"> 
+			<exclude name="**/data/**" />
+			<exclude name="**/test/**" /> 
+			<exclude name="**/docgen/**" /> 
+		</jar>
+  		<!--copy tofile="${project.latest}/${main.package}-${project.version}.jar"    file="${project.tmp}/${project.name}/library/${project.jar.full.name}"/-->
+
+		<!-- rita pkg only -->
+		<jar jarfile="${project.tmp}/${project.name}/library/${project.jar.name}" basedir="${project.bin}"> 
 			<include name="rita/*.*/" />
 			<include name="*.properties/" />
 			<exclude name="**/test/**" /> 
 		</jar>
-		
-		<jar jarfile="${project.tmp}/${project.name}/${main.package}-${project.version}.support.jar" basedir="${project.bin}">
+		<copy tofile="${processing.library}/rita.jar" file="${project.tmp}/${project.name}/library/${project.jar.name}"/>
+
+		<!-- support pkg only -->
+		<jar jarfile="${project.tmp}/${project.name}/library/${project.jar.support.name}" basedir="${project.bin}">
 			<exclude name="data/**" /> 
 			<exclude name="rita/*.*/" />
 			<exclude name="*.properties/" />
 			<exclude name="**/test/**" /> 
 			<exclude name="**/docgen/**" /> 
 		</jar>
-		
+		<copy tofile="${processing.library}/rita.support.jar" file="${project.tmp}/${project.name}/library/${project.jar.support.name}"/>
+
 		<!-- temp, for p5 testing with multiple jars -->
-  		<copy tofile="${project.latest}/${main.package}-${project.version}.core.jar" file="${project.tmp}/${project.name}/${main.package}-${project.version}.core.jar"/>
-  		<copy tofile="${project.latest}/${main.package}-${project.version}.support.jar" file="${project.tmp}/${project.name}/${main.package}-${project.version}.support.jar"/>
-
-		<copy tofile="${processing.library}/rita.jar" file="${project.tmp}/${project.name}/${main.package}-${project.version}.core.jar"/>
-		<copy tofile="${processing.library}/rita.support.jar" file="${project.tmp}/${project.name}/${main.package}-${project.version}.support.jar"/>
-
+  		<!--copy tofile="${project.latest}/${main.package}-${project.version}.jar" 	    file="${project.tmp}/${project.name}/library/${project.jar.name}"/>
+  		<copy tofile="${project.latest}/${main.package}-${project.version}.support.jar" file="${project.tmp}/${project.name}/${project.tmp}/${project.name}/library/${project.jar.support.name}"/-->
 	</target>
 	
 	<target name="generate.structure">
@@ -303,7 +314,7 @@ ${line}
 		<copy file="${project.latest}/${project.js.name}" todir="${project.tmp}/${project.name}/library" />
 		
 	  	<copy todir="${project.tmp}/${project.name}/library">
-  			<fileset dir="${project.lib}" excludes="README" />
+  			<fileset dir="${project.lib}" excludes="*.txt" />
 	  	</copy>
 		
 	</target>
@@ -447,29 +458,33 @@ ${line}
   	  	  						replace=""
   	  	  						flags="g" />
 	</target>
-	
-	
-	
-	<target name="generate.install.library" if="is.normal">	
-		<echo message="Copying ${install.source} ... " />
-		<echo message="  to ${project.dist.version}/INSTALL.txt ... " />
 
-		<copy file="${install.source}" tofile="${project.dist.version}/INSTALL.txt" />
+	<target name="generate.install.library" if="is.normal">	
+		<echo message="Copying ${install.source}, ${license.source} ... " />
+		<echo message="  to ${project.dist.version} ... " />
+
+		<copy file="${install.source}" tofile="${install.destination}" />
+		<copy file="${license.source}" tofile="${license.destination}" />
 		<!--replaceregexp file="${install.destination}" match="##name##" replace="${project.name}" flags="g" />
 		<replaceregexp file="${install.destination}" match="##folder##" replace="libraries" flags="g" /-->
 	</target>	
 	
 	<target name="generate.install.props" if="is.normal">
+		
 		<echo message="Copying ${props.src} to ${props.dst} ..." />
 		<copy file="${props.src}" tofile="${props.dst}" />
 		<replaceregexp file="${props.dst}" match="##version##" replace="${project.version}" flags="g" />
 		<replaceregexp file="${props.dst}" match="##versionnum##" replace="${project.version.num}" flags="g" />
 		<copy file="${props.dst}" tofile="${project.latest}/${project.name}.txt" />
+		
+		<!-- add the license file as well -->
+		<echo message="Copying ${license.destination} to ${project.dist.version}/${project.name}/LICENSE.txt ..." />
+		<move file="${license.destination}" tofile="${project.dist.version}/${project.name}/LICENSE.txt" />
+
 	</target>	
 			
 	<target name="generate.zip" if="is.normal">
 		
-		<!-- zip the distribution of the library -->
   		<move todir="${project.dist.version}/tmp/${project.name}-${project.version}/${project.name}">
   			<fileset dir="${project.dist.version}/${project.name}" />
   		</move> 
@@ -480,10 +495,12 @@ ${line}
   	       basedir="${project.dist.version}/tmp/${project.name}-${project.version}"
   	       excludes="**/.DS_Store"
 		/>
+		
 		<move file="${project.dist.version}/${project.name}-${project.version}.zip" todir="${project.dist.version}/web/download" />
 		<move todir="${project.dist.version}">
 			<fileset dir="${project.dist.version}/web" />
 		</move>
+		
 		<delete dir="${project.dist.version}/tmp" />
 		
 	</target>

@@ -26,7 +26,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package rita.wordnet.jawbone.filter;
+package rita.wordnet.jawbone;
 
 /**
  * Provide a filter for search terms that only

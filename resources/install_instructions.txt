@@ -21,6 +21,7 @@ Processing
       examples
       library
         rita.jar
+        rita.support.jar
         rita.js
       reference
       src

@@ -11,8 +11,11 @@ import rita.support.PosTagger;
 import rita.support.TextNode;
 
 /*
- * DH: NOT READY YET
  * Next: implement chaining off nouns and/or verbs
+ */
+/**
+ * @exclude
+ * DCH: NOT READY YET
  */
 public class RiTranslator
 {

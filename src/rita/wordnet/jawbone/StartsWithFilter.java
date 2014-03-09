@@ -26,22 +26,54 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package rita.wordnet.jawbone.filter;
+package rita.wordnet.jawbone;
 
 /**
- * This defines the TermFilter interface, used to provide a
- * filter for terms returned by the search.
+ * Provide a filter for search terms that only accepts matches where the
+ * parameter to accept() starts with the source term (passed in the
+ * constructor).
  * 
  * @author mwallace
  * @version 1.0
  */
-public interface TermFilter
+public final class StartsWithFilter extends rita.wordnet.RiFilter
 {
+  /**
+   * Initializes the filter with the source term and whether to ignore case on
+   * searches.
+   * 
+   * @param word
+   *          the source term
+   * @param bIgnoreCase
+   *          whether to ignore the case of string comparisons
+   */
+  public StartsWithFilter(final String word, final boolean bIgnoreCase)
+  {
+    term = word;
+    ignoreCase = bIgnoreCase;
+  }
+
   /**
    * Determines if the term matches the source term.
    * 
-   * @param word the term to compare to the source term
+   * @param word
+   *          the term to compare to the source term
    * @return whether the terms match
    */
-  boolean accept(String word);
+  public boolean accept(final String word)
+  {
+    if (!super.accept(word))
+      return false;
+
+    // Neither is null, so check how to compare the strings
+    if (ignoreCase)
+    {
+      // Ignore the case
+      return (word.toUpperCase().startsWith(term.toUpperCase()));
+    }
+
+    // Consider the case
+    return (word.startsWith(term));
+
+  }
 }
