@@ -30,7 +30,7 @@ public abstract class AbstractPrincetonFileDictionaryElementFactory implements F
         if (!tokenizer.hasMoreTokens())
           throw new JWNLRuntimeException("Illegal tokenizer state for: "+line);
         
-        String lemma = tokenizer.nextToken().replace('_', ' ');
+        String lemma = tokenizer.nextToken();//.replace('_', ' ');
         
         tokenizer.nextToken();  // pos
         tokenizer.nextToken();	// poly_cnt
@@ -125,10 +125,10 @@ public abstract class AbstractPrincetonFileDictionaryElementFactory implements F
 
 	public Exc createExc(POS pos, String line) {
         StringTokenizer st = new StringTokenizer(line);
-        String lemma = st.nextToken().replace('_', ' ');
+        String lemma = st.nextToken();//.replace('_', ' ');
         List exceptions = new ArrayList();
         while (st.hasMoreTokens()) {
-            exceptions.add(st.nextToken().replace('_', ' '));
+            exceptions.add(st.nextToken());//.replace('_', ' '));
         }
         return new Exc(pos, lemma, exceptions);
 	}

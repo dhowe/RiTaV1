@@ -2,6 +2,7 @@ package rita.wordnet;
 
 import java.util.*;
 
+import rita.RiTa;
 import rita.RiWordNet;
 import rita.wordnet.jwnl.JWNLException;
 import rita.wordnet.jwnl.dictionary.Dictionary;
@@ -15,7 +16,7 @@ import rita.wordnet.jwnl.wndata.POS;
  * @invisible
  * @author dhowe
  */
-public class WordnetFilters implements Wordnet
+public class WordnetFilters
 {  
   protected Dictionary dictionary;
   protected Map filterCache;
@@ -38,9 +39,13 @@ public class WordnetFilters implements Wordnet
     
     while (it.hasNext() && result.size() < maxResults)
     {
-      String lemma = nextWord( it);
-      if (lemma != null && filter.accept(lemma))
-        result.add(lemma);
+      String lemma = nextWord(it);
+      if (lemma == null || wordnet._ignorable(lemma)) 
+        continue;
+      if (filter.accept(lemma)) {
+        
+        result.add(lemma.replaceAll(RiTa.USC, RiTa.SP));
+      }
     }
     return result;
   }
@@ -188,7 +193,8 @@ public class WordnetFilters implements Wordnet
       result = new HashSet();
       Iterator it = iterator(d, pos);
       while (it.hasNext()) {
-       String lemma = nextWord(it);
+        IndexWord iw = (IndexWord) it.next();   
+        String lemma = iw.getLemma();
         if (lemma != null) 
           result.add(lemma);
       }
@@ -217,13 +223,10 @@ public class WordnetFilters implements Wordnet
   {
     IndexWord iw = (IndexWord) it.next();   
     String lemma = iw.getLemma();
-    if (lemma == null) return null;
-    if (wordnet.ignoreCompoundWords() && RiWordNet.isCompound(lemma))
+
+    if (wordnet._ignorable(lemma))
       return null;
-    if (wordnet.ignoreUpperCaseWords() && WordnetUtil.startsWithUppercase(lemma)) {
-      //System.out.println("Filters: Ignoring: "+lemma);
-      return null;
-    }
+    
     return lemma;
   } 
   

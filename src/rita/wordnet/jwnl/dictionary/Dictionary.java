@@ -6,6 +6,7 @@ package rita.wordnet.jwnl.dictionary;
 
 import java.util.Iterator;
 
+import rita.RiWordNet;
 import rita.wordnet.jwnl.JWNLException;
 import rita.wordnet.jwnl.util.factory.Installable;
 import rita.wordnet.jwnl.wndata.*;
@@ -142,9 +143,12 @@ public abstract class Dictionary implements Installable {
 
 		//lemma = prepareQueryString(lemma);
 		IndexWord word = getIndexWord(pos, lemma);
-		if (word == null && getMorphologicalProcessor() != null) {
-			word = getMorphologicalProcessor().lookupBaseForm(pos, lemma);
+		if (word == null && RiWordNet.useMorphologicalProcessor) {
+		  MorphologicalProcessor mp = getMorphologicalProcessor();
+		  if (mp != null)     
+			  word = mp.lookupBaseForm(pos, lemma);
 		}
+		
 		return word;
 	}
 

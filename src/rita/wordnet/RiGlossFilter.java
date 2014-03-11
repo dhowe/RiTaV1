@@ -1,10 +1,12 @@
 package rita.wordnet;
 
+import rita.RiWordNet;
+
 /**
  * @invisible
  * @author dhowe
  */
-public abstract class RiGlossFilter implements Wordnet
+public abstract class RiGlossFilter
 {
   protected static boolean ignoreCase = false;
     
@@ -21,8 +23,7 @@ public abstract class RiGlossFilter implements Wordnet
     //System.err.println("RiFilter.create("+flag+", "+word+")");
     
     RiGlossFilter filter = null;  
-    if ((flag & HAS_EXAMPLE) != 0) {
-      if (filter == null)
+    if ((flag & RiWordNet.HAS_EXAMPLE) != 0) {
         filter = new WordnetExampleFilter(ignoreCase);
     }
 

@@ -7,6 +7,7 @@ package rita.wordnet.jwnl.dictionary;
 import java.io.IOException;
 import java.util.*;
 
+import rita.RiTa;
 import rita.wordnet.jwnl.JWNLException;
 import rita.wordnet.jwnl.dictionary.file.DictionaryFileType;
 import rita.wordnet.jwnl.dictionary.file_manager.FileManager;
@@ -198,15 +199,17 @@ public class FileBackedDictionary extends AbstractCachingDictionary
         // System.err.println("cached.getIndexWord('"+lemma+"');");
         word = getCachedIndexWord(new POSKey(pos, lemma));
       }
+      
       if (word == null)
       {
         try
         {
 
           FileManager fm = getFileManager();
-          lemma = lemma.replace(' ', '_');
-          long offset = fm.getIndexedLinePointer(pos, DictionaryFileType.INDEX,
-              lemma);
+          
+          lemma = lemma.replace(RiTa.SP, RiTa.USC);
+          
+          long offset = fm.getIndexedLinePointer(pos, DictionaryFileType.INDEX, lemma);
           // System.err.println("offset = "+offset);
           if (offset >= 0)
           {
@@ -338,7 +341,7 @@ public class FileBackedDictionary extends AbstractCachingDictionary
         try
         {
           offset = getFileManager().getIndexedLinePointer(pos,
-              DictionaryFileType.EXCEPTION, derivation.replace(' ', '_'));
+              DictionaryFileType.EXCEPTION, derivation);//.replace(' ', '_'));
           if (offset >= 0)
           {
             exc = parseAndCacheExceptionLine(pos, offset, getFileManager()
