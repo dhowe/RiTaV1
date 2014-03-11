@@ -193,13 +193,14 @@ public interface Constants extends EnglishConstants
   String LINE_BREAK = "<br/>";
   String WS = "\\s+";
   String UTF8 = "UTF-8";
+
   
   char STRESSED   = '1',  UNSTRESSED = '0';
   boolean LOAD_USER_ADDENDA = false;
 
   String[] EMPTY = new String[0];
   String FS = "/", SP = " ", E = "", DQ = "\"", SQ = "'"; 
-  String BN = "\n", DASH = "-", AMP = "&", EQ="=";
+  String BN = "\n", DASH = "-", AMP = "&", EQ="=", USC = "_";
   String LP = "(", RP = ")", LB = "[", RB = "]", BS = "\\";
   
   String END_STRING = "</?string>";

@@ -152,6 +152,8 @@ public class QUnitStubs
 
   public static void println(List l) { println(l,0); }
   public static void println(Object[]  l) { println(l,0); }
+  public static void println(List l, boolean forOutput) { println(l,0,forOutput); }
+  public static void println(Object[]  l, boolean forOutput) { println(l,0,forOutput); }
   public static void println(Object l) { println(l,0); }
   public static void print(int l) { print(l,0); }
   public static void print(float l) { print(l,0); }
@@ -173,6 +175,28 @@ public class QUnitStubs
     for (Iterator it = l.iterator(); it.hasNext(); i++)
       System.out.println(i + ") '" + it.next()+"'");
   }
+  
+  public static void println(List l, int k, boolean forOutput)
+  {
+    if (!forOutput) { 
+      println(l, k);
+      return;
+    }
+    if (SILENT && k != 1) return;
+    if (l == null) {
+      System.out.println("NULL");
+      return;
+    }
+    if (l.size() <1) {
+      System.out.println("[]");
+      return;
+    }
+    int i = 0;
+    System.out.print("{ ");
+    for (Iterator it = l.iterator(); it.hasNext(); i++)
+      System.out.print("\""+it.next()+"\",");
+    System.out.println(" }");
+  }
 
   public static void println(Object[] l, int k)
   {
@@ -187,6 +211,29 @@ public class QUnitStubs
     }
     for (int j = 0; j < l.length; j++)
       System.out.println(j + ") '" + l[j]+"'");
+  }
+  
+  public static void println(Object[] l, int k, boolean forOutput)
+  {
+    if (!forOutput) { 
+      println(l, k);
+      return;
+    }
+    
+    if (SILENT && k != 1) return;
+    if (l == null) {
+      System.out.println("NULL");
+      return;
+    }
+    if (l.length <1) {
+      System.out.println("{}");
+      return;
+    }
+    
+    System.out.print("{ ");
+    for (int j = 0; j < l.length; j++)
+      System.out.print("\""+l[j]+"\",");
+    System.out.println(" };");
   }
   
   public static void println(int[] l, int k)
@@ -305,7 +352,7 @@ public class QUnitStubs
     Set s1 = new HashSet(),  s2 = new HashSet();
     s1.addAll(Arrays.asList(a1));
     s2.addAll(Arrays.asList(a2));
-    assertTrue(s1==s2 || s1.equals(s2));
+    assertTrue(s1.equals(s2));
   }
   
   public static void printArr(Object[] l)

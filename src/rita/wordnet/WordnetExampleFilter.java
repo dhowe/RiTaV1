@@ -47,7 +47,7 @@ public class WordnetExampleFilter extends RiGlossFilter
   {      
     RiWordNet wl = new RiWordNet(null);
     WordnetGlossFilter wf = new WordnetGlossFilter(wl);
-    List l = wf.filter(HAS_EXAMPLE, pos);
+    List l = wf.filter(RiWordNet.HAS_EXAMPLE, pos);
     System.out.println(System.getProperty("user.dir"));
 /*    FileWriter fw = new FileWriter("../RiTa/src/data/examples/wordnet."+pos.getLabel()+".phrases.txt");
     for (Iterator it = l.iterator(); it.hasNext();) 

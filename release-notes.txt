@@ -1,4 +1,12 @@
 
+1.0.52
+-------------------
+
+-- New packaging of jars for Processing (eliminates multiple import statements)
+-- New tests, bug fixes, and better error messages for RiWordNet
+-- New example for RiWordNet (RandomSyns.pde)
+
+
 1.0.50
 -------------------
 
@@ -9,5 +17,5 @@
 	RiWordNet wordnet = new RiWordNet("/WordNet-3.1");
 
 ---- Methods returning a String[] will return a zero-length array when the query term is not found, or there are no entries for the relation type being sought, rather than null (as they did in previous versions).
----- In the default configuration, compound words are no longer ignored (as they were in previous versions) 
----- Processing's core.jar and rita-support.jar are no longer required.
+---- In the default configuration, compound-words and uppercase-words are no longer ignored (as they were in previous versions) 
+---- Processing's core.jar is no longer required.

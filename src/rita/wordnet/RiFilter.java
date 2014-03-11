@@ -3,6 +3,7 @@ package rita.wordnet;
 import java.util.ArrayList;
 import java.util.List;
 
+import rita.RiWordNet;
 import rita.wordnet.jawbone.*;
 
 // TODO: Need to document filters well in JSON (K)
@@ -11,7 +12,7 @@ import rita.wordnet.jawbone.*;
  * Abstract class implementing the Jawbone TermFilter interface.
  * See the accompanying documentation for license information
  */
-public abstract class RiFilter implements Wordnet, TermFilter
+public abstract class RiFilter implements TermFilter
 {
   protected static boolean ignoreCase = false; // this smells...
   
@@ -45,14 +46,14 @@ public abstract class RiFilter implements Wordnet, TermFilter
     //if ((flag & EXACT_MATCH) != 0)  {     
       //  filter = new ExactMatchFilter(word, ignoreCase);
     //}
-    if ((flag & ENDS_WITH) != 0) {
+    if ((flag & RiWordNet.ENDS_WITH) != 0) {
         // ensures only 1 filter at a time for now
         filter = new EndsWithFilter(word, ignoreCase);
     }
-    else if ((flag & STARTS_WITH) != 0) {
+    else if ((flag & RiWordNet.STARTS_WITH) != 0) {
         filter = new StartsWithFilter(word, ignoreCase);
     }
-    else if ((flag & ANAGRAMS) != 0) {
+    else if ((flag & RiWordNet.ANAGRAMS) != 0) {
         filter = new AnagramFilter(word, ignoreCase);
     }
 /*    else if ((flag & CONTAINS_ALL) != 0) {
@@ -61,19 +62,19 @@ public abstract class RiFilter implements Wordnet, TermFilter
     else if ((flag & CONTAINS_SOME) != 0) {
         filter = new ContainsSomeFilter(word, ignoreCase);
     }*/
-    else if ((flag & CONTAINS) != 0) {
+    else if ((flag & RiWordNet.CONTAINS) != 0) {
         filter = new ContainsFilter(word, ignoreCase);
     }
-    else if ((flag & SIMILAR_TO) != 0) {
+    else if ((flag & RiWordNet.SIMILAR_TO) != 0) {
         filter = new SimilarFilter(word, ignoreCase);
     }
-    else if ((flag & SOUNDS_LIKE) != 0) {
+    else if ((flag & RiWordNet.SOUNDS_LIKE) != 0) {
         filter = new SoundFilter(word, ignoreCase);
     }
-    else if ((flag & WILDCARD_MATCH) != 0) {
+    else if ((flag & RiWordNet.WILDCARD_MATCH) != 0) {
         filter = new WildcardFilter(word, ignoreCase);
     }
-    else if ((flag & REGEX_MATCH) != 0) {
+    else if ((flag & RiWordNet.REGEX_MATCH) != 0) {
         filter = new RegexFilter(word, ignoreCase);
     }    
 
