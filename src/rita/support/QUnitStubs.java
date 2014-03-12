@@ -144,7 +144,6 @@ public class QUnitStubs
   {
     assertTrue(o!=p); 
   }
-
   
   /////////////////////////////////////////////////////////
 
@@ -323,20 +322,32 @@ public class QUnitStubs
     assertTrue(superset != null && subset != null);
       
     boolean ok = Arrays.asList(superset).containsAll(Arrays.asList(subset));
-    if (!ok) {
-      Arrays.sort(superset);
-      Arrays.sort(subset);
-      for (int i = 0; i < Math.max(superset.length, subset.length); i++)
+    if (!ok) dumpFail("setContains", superset, subset);
+    assertTrue(ok);
+  }
+  
+  static void dumpFail(String type, Object[] o1, Object[] o2)
+  {
+    System.err.println("\n\n====================  TEST FAILED ("+type+") ====================");
+    if (o1 != null && o2 != null) {
+      Arrays.sort(o1);
+      Arrays.sort(o2);
+      for (int i = 0; i < Math.max(o1.length, o2.length); i++)
       {
-        System.out.print(i+")");
-        if (i < superset.length)
-          System.out.print("  "+superset[i]);
-        if (i < subset.length)
-          System.out.print("  "+subset[i]);
-        System.out.println();
+        System.err.print(i+") ");
+        if (i < o1.length)
+          System.err.print(o1[i]);
+        System.err.print(" =? ");
+        if (i < o2.length)
+          System.err.print(o2[i]);
+        System.err.println();
       }
     }
-    assertTrue(ok);
+    else {
+      System.err.println("Object[]#1="+o1+" Object[]#2="+o2);
+    }
+    
+    throw new RuntimeException("==========================================");
   }
   
   /** Returns true if the item is in the superset (basically just arrayContains()) */
@@ -347,12 +358,15 @@ public class QUnitStubs
   
   public static void setEqual(Object[] a1, Object[] a2)
   {
-    if (a1 == a2 || a1 == null && a2 == null)
-      return;
-    Set s1 = new HashSet(),  s2 = new HashSet();
-    s1.addAll(Arrays.asList(a1));
-    s2.addAll(Arrays.asList(a2));
-    assertTrue(s1.equals(s2));
+    boolean ok = false;
+    if (a1 != null && a2 != null) {
+      Set s1 = new HashSet(), s2 = new HashSet();
+      s1.addAll(Arrays.asList(a1));
+      s2.addAll(Arrays.asList(a2));
+      ok = s1.equals(s2);
+    }
+    if (!ok) dumpFail("setEqual", a1, a2);
+    assertTrue(ok);
   }
   
   public static void printArr(Object[] l)

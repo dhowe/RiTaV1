@@ -204,7 +204,9 @@ public class DocGenerator extends PApplet
     }
     catch (Exception e)
     {
-      throw new RuntimeException("Couldn't create writer for "+ file.getAbsolutePath());
+      e.printStackTrace();
+      throw new RuntimeException
+        ("Couldn't create writer for "+ file.getAbsolutePath());
     }
   }
 
