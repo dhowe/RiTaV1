@@ -230,8 +230,10 @@ public class QUnitStubs
     }
     
     System.out.print("{ ");
-    for (int j = 0; j < l.length; j++)
-      System.out.print("\""+l[j]+"\",");
+    for (int j = 0; j < l.length; j++) {
+      String item = l[j].toString().replaceAll("\"", "\\\\\"");
+      System.out.print("\""+item+"\",");
+    }
     System.out.println(" };");
   }
   
