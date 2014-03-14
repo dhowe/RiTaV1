@@ -340,9 +340,15 @@ public class QUnitStubs
         System.err.print(i+") ");
         if (i < o1.length)
           System.err.print(o1[i]);
+        
         System.err.print(" =? ");
+        
         if (i < o2.length)
           System.err.print(o2[i]);
+        
+        if (i < o1.length && i < o2.length && !o1[i].equals(o2[i]))
+          System.err.print(" FAIL ***");
+        
         System.err.println();
       }
     }
