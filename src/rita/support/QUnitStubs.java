@@ -375,12 +375,14 @@ public class QUnitStubs
   public static void printArr(Object[] l)
   {
     if (SILENT) return;
+    
     System.out.print("{ ");
     for (int j = 0; l != null && j < l.length; j++) {
-      System.out.print("\"" + l[j]+"\"");
+      String item = l[j].toString().replaceAll("\"", "\\\\\"");
+      System.out.print("\"" +item+"\"");
       if (j<l.length-1)
         System.out.print(", ");
     }
-    System.out.println(" }");
+    System.out.println(" };");
   }
 }
