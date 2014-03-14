@@ -190,10 +190,11 @@ public class QUnitStubs
       System.out.println("[]");
       return;
     }
-    int i = 0;
     System.out.print("{ ");
-    for (Iterator it = l.iterator(); it.hasNext(); i++)
-      System.out.print("\""+it.next()+"\",");
+    for (Iterator it = l.iterator(); it.hasNext();) {
+      String item = it.next().toString().replaceAll("\"", "\\\\\"");
+      System.out.print("\""+item+"\",");
+    }
     System.out.println(" }");
   }
 
