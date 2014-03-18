@@ -114,7 +114,6 @@ public class QUnitStubs
   
   public static void deepEqual(Object o, Object p)
   {
-    
     if (o instanceof Object[] && p instanceof Object[])
       assertArrayEquals((Object[])o, (Object[])p);
     else {
