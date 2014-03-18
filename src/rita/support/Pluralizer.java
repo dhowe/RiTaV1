@@ -18,14 +18,23 @@ import java.util.regex.Pattern;
  */
 public class Pluralizer implements Constants 
 {    
-  private static Pluralizer instance;
-  
-  // privates --------------------
-  private Matcher wordMatcher;
-  private RegexRule[] rules;
-  private RegexRule defaultRule;
+  private static List MODALS = Arrays.asList(new String[] 
+      { "shall", "would", "may", "might", "ought", "should" });
 
-  public static Pluralizer getInstance() {
+  private static final String ANY_STEM = "^((\\w+)(-\\w+)*)(\\s((\\w+)(-\\w+)*))*$";
+  private static final String C = "[bcdfghjklmnpqrstvwxyz]";
+  private static final String VL = "[lraeiou]";
+  
+  private static final RegexRule DEFAULT_PLURAL_RULE = new RegexRule(ANY_STEM, 0, "s", 2);
+
+  
+/*  private static Pluralizer instance;
+  */
+  // privates --------------------
+  private static Matcher wordMatcher = Pattern.compile(ANY_STEM).matcher(E);
+  private static RegexRule defaultRule = DEFAULT_PLURAL_RULE;
+
+/*  public static Pluralizer getInstance() {
     if (instance == null) 
       instance = new Pluralizer();
     return instance;
@@ -34,18 +43,9 @@ public class Pluralizer implements Constants
   private Pluralizer() {
     this.defaultRule = DEFAULT_PLURAL_RULE;
     this.wordMatcher = Pattern.compile(ANY_STEM).matcher("blablabla");
-    this.rules = PLURAL_RULES;
-  }
+  }*/
   
   // statics ----------------
-  private static List MODALS = Arrays.asList(new String[] 
-    { "shall", "would", "may", "might", "ought", "should" });
-
-  private static final String ANY_STEM = "^((\\w+)(-\\w+)*)(\\s((\\w+)(-\\w+)*))*$";
-  private static final String C = "[bcdfghjklmnpqrstvwxyz]";
-  private static final String VL = "[lraeiou]";
-  
-	private static final RegexRule DEFAULT_PLURAL_RULE = new RegexRule(ANY_STEM, 0, "s", 2);
 
 	private static final RegexRule[] PLURAL_RULES = new RegexRule[] {
 	 
@@ -97,33 +97,38 @@ public class Pluralizer implements Constants
 	/**
 	 * Returns the regular or irregular plural form of <code>noun</code>. 
    */
-  public String pluralize(String noun) 
+  public static String pluralize(String noun) 
   {
     boolean dbug = false;
     
+    String result = null;
+    
     wordMatcher.reset(noun);
 
-    if (!wordMatcher.matches())
+    if (!wordMatcher.matches() || MODALS.contains(noun))
       return noun;
-
-    if (MODALS.contains(noun))
-      return noun;
-
-    String result = null;
-    for (int i = 0; i < PLURAL_RULES.length; i++) {         
+    
+    for (int i = 0; i < PLURAL_RULES.length; i++) {        
+      
       RegexRule currentRule = PLURAL_RULES[i];
+      
       if (currentRule.applies(noun)) {
+        
         if (dbug)System.out.print("applying rule "+i+" -> ");
+        
         result = currentRule.fire(noun);
+        
         if (dbug)System.out.println(result);
+        
         break;
       }
     }
 
     if ((result == null) && (defaultRule != null)) {
+      
       result = defaultRule.fire(noun);
+      
       if (dbug)System.out.println("applying default: -> "+result);
-
     }
 
     return result;

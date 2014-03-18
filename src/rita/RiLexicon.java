@@ -95,6 +95,7 @@ public class RiLexicon implements Constants
   
   // TODO: make sure this method version is in RiTaJS
   public String[] alliterations(String input, int minLength) {
+    
     Set s = new HashSet();
     alliterations(input, s, minLength);
     return SetOp.toStringArray(s); 
@@ -105,10 +106,14 @@ public class RiLexicon implements Constants
    * Note: returns true if wordA.equals(wordB) and false if either (or both) are null;
    */
   public boolean isAlliteration(String wordA, String wordB) {
+    
     if (wordA != null && wordB != null)  {
+      
       if (wordB.equals(wordA)) return true;
+      
       String fcA = firstConsonant(firstStressedSyllable(wordA));      
-      String fcB = firstConsonant(firstStressedSyllable(wordB));  
+      String fcB = firstConsonant(firstStressedSyllable(wordB));
+      
       // System.out.println(fcA+" ?= "+fcB);
       if (fcA != null && fcB != null && fcA.equals(fcB)) 
         return true;
@@ -138,7 +143,6 @@ public class RiLexicon implements Constants
    */
   public String randomWord(String pos) {  return randomWordByLength(pos, -1);  }
 
-  
   /** 
    * Returns a random word from the lexicon with the specified syllable-count 
    * or null if no such word exists.
@@ -155,21 +159,25 @@ public class RiLexicon implements Constants
   public String randomWord(String pos, int syllableCount)
   {
     Iterator<String> it = getIterator(pos);
-    if (it == null) return E;
     
-    Map<String,String> lookup = lexImpl.getLexicalData();
+    if (it != null) {
     
-    while (it.hasNext()) {
+      if (syllableCount<0) return it.next(); // ignore syllable-count
       
-      String s = it.next();
-      String data = lookup.get(s);
-      if (data == null) {
-        System.err.println("[WARN] null data after lookup: "+s);
-        return E;
+      Map<String,String> lookup = lexImpl.getLexicalData();
+      
+      while (it.hasNext()) {
+        
+        String s = it.next(), data = lookup.get(s);
+        if (data == null) {
+          System.err.println("[WARN] null data after lookup: "+s);
+          return E;
+        }
+        
+        String sylStr = data.split("\\|")[0].trim();
+        if (sylStr.split(SP).length == syllableCount) 
+          return s;
       }
-      String sylStr = data.split("\\|")[0].trim();
-      if (sylStr.split(SP).length == syllableCount || syllableCount<0) 
-        return s;
     }
     
     return E;
