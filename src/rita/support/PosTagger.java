@@ -202,13 +202,14 @@ public class PosTagger implements Constants
   {
     checkArrayForSpaces(wordArray);
     String[] tags = tagger.tag(wordArray);
-    boolean isA = false;
+    /*boolean isA = false;
     for (int i = 0; i < wordArray.length; i++)
     {
       if (wordArray[i].equals("a"))
         isA = true;
     }
-    //if (isA)System.out.println("PosTagger.tag("+RiTa.asList(wordArray)+" -> "+RiTa.asList(tags)+")");
+    if (isA)System.out.println("PosTagger.tag("+RiTa.asList(wordArray)+" -> "+RiTa.asList(tags)+")");
+    */
     return tags;
   }
 
