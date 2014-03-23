@@ -5,7 +5,7 @@ import static rita.support.QUnitStubs.equal;
 import static rita.support.QUnitStubs.ok;
 import static rita.support.QUnitStubs.setEqual;
 
-import java.util.Iterator;
+import java.util.Arrays;
 import java.util.Map;
 
 import org.junit.Test;
@@ -33,6 +33,29 @@ public class KnownIssuesTest implements Constants
     String[] result = lex.rhymes("savage");
     String[] answer = new String[] { "ravage", "disparage", "cabbage", "etc" };
     deepEqual(answer, result);
+  }
+  
+  @Test
+  public void testPosTagging()
+  {
+    String[] result = RiTa.getPosTags("fucking", false);
+    System.out.println(Arrays.asList(result));
+    String[] answer = new String[] { "jj" };
+    deepEqual(result, answer);
+    
+    result = RiTa.getPosTags("shitting", false);
+    System.out.println(Arrays.asList(result));
+    answer = new String[] { "jj" };
+    deepEqual(result, answer);
+    
+    result = RiTa.getPosTags("shitty", false);
+  //System.out.println(Arrays.asList(result));
+    answer = new String[] { "jj" };
+    deepEqual(result, answer);
+    
+    result = RiTa.getPosTags("shitty", true);
+    answer = new String[] { "a" };
+    deepEqual(result, answer);
   }
   
   @Test

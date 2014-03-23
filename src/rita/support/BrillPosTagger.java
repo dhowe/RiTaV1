@@ -451,11 +451,13 @@ public class BrillPosTagger implements Constants
   public static void main(String[] args)
   {
     BrillPosTagger ft = new BrillPosTagger();
+    System.out.println(ft.tag("shitty"));
+    if (1==1) return;
     System.out.println(ft.tag("bronchitis"));
     System.out.println(ft.tag("cleanliness"));
     System.out.println(ft.tag("orderliness"));
     
-    if (1==1) return;
+    
 
     System.out.println(RiTa.asList(ft.tag("is it nourishing".split(" "))));
     System.out.println(ft.tag("gets"));
