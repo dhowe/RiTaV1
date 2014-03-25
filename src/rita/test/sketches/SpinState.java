@@ -69,44 +69,9 @@ public class SpinState extends PApplet
       rts = RiText.createLines(this, line, 45, 40, 480);
       for (int i = linesPerPage; i < rts.length; i++) {
         buf.add(rts[i].text());
-        rts[i].visible(false);
+        rts[i].alpha(0);
       }
       System.out.println("Found: "+rts.length+ " lines, saved "+buf.size());
-    }
-  }
-  
-  public void keyReleasedOrig()
-  {
-    //if (e.getKey() != ' ') return;
-    if (key != ' ') return;
-    
-    int linesPerPage = 10;
-    
-    String line = "";
-    if (buf.size() > 0)
-    {
-      for (int i = 0; i < min(buf.size(), linesPerPage); i++)
-        line += buf.remove(0) + " ";
-    }
-    else
-    {
-      line = grammar.expand();
-      line = line.replaceAll("\\)", "]").replaceAll("\\(", "[");
-    }
-
-    RiText.dispose(rts);
-    rts = RiText.createLines(this, line, 45, 40, 480);
-    
-    System.out.println();
-    for (int i = 0; i < linesPerPage; i++)
-    {
-      System.out.println(rts[i].text());
-    }
-    
-    for (int i = linesPerPage; i < rts.length; i++)
-    {
-      buf.add(rts[i].text()); // save for next time
-      RiText.dispose(rts[i]);
     }
   }
 }
