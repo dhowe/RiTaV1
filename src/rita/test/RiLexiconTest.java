@@ -314,6 +314,19 @@ public class RiLexiconTest
     RiLexicon lex = new RiLexicon();
     String[] result = lex.words();
     ok(result.length > 30000);
+//    System.out.println(result[0]);
+//    System.out.println(result[1]);
+//    System.out.println(result[2]);
+    
+    RiLexicon lex2 = new RiLexicon();
+    String[] result2 = lex.words();
+    ok(result2.length > 30000);
+//    System.out.println(result2[0]);
+//    System.out.println(result2[1]);
+//    System.out.println(result2[2]);
+    
+    
+    ok(result[0]!=result2[0] || result[1]!=result2[1] || result[2]!=result2[2]);// TODO: failed: not in random order
   }
 
   @Test
@@ -321,11 +334,25 @@ public class RiLexiconTest
   { 
     RiLexicon lex = new RiLexicon();
     String[] result = lex.words("ee");
+    String[] result2 = lex.words("ee");
     for (int i = 0; i < result.length; i++)
       result[i].matches("^.*ee.*$");
+    
+  System.out.println(result[0]);
+  System.out.println(result[1]);
+  System.out.println(result[2]);
+  System.out.println(result2[0]);
+  System.out.println(result2[1]);
+  System.out.println(result2[2]);
+  
+    ok(result[0]!=result2[0] || result[1]!=result2[1] || result[2]!=result2[2]);
+    
     result = lex.words("tt");
     for (int i = 0; i < result.length; i++)
       result[i].matches("^.*tt.*$");
+    
+    
+    		// TODO: failed: not in random order
   }
 
   @Test
