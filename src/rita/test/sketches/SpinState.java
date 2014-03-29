@@ -7,6 +7,9 @@ import rita.*;
 
 public class SpinState extends PApplet
 {
+
+  int linesPerPage = 10;
+
   RiText[] rts;
   RiGrammar grammar;
   ArrayList buf = new ArrayList();
@@ -20,9 +23,6 @@ public class SpinState extends PApplet
 
     grammar = new RiGrammar(this);
     grammar.loadFrom("mcgrammar.json");
-    //grammar.print();
-    
-    generate();
   }
 
   public void draw()
@@ -36,42 +36,43 @@ public class SpinState extends PApplet
 
   public void keyReleased()
   {
-    if (key == ' ') generate();
+    if (key == ' ')
+      generate();
   }
-  
+
   public void generate()
   {
-    int linesPerPage = 10;
-
     String line = "";
     if (buf.size() > 0)
     {
       String[] lines = new String[min(buf.size(), linesPerPage)];
-      for (int i = 0; i < lines.length; i++) {
+      for (int i = 0; i < lines.length; i++)
         lines[i] = (String) buf.remove(0);
-      }
-      System.out.println("Using: "+lines.length+ " lines, saving "+buf.size());
+      
+      System.out.println(lines.length + " lines, saving " + buf.size());
 
       RiText.dispose(rts);
       rts = RiText.createLines(this, lines, 45, 40, 480);
-      
-      if (buf.size()==0) { // add ending
-        append(rts, (new RiText(this,"* * *", width/2, 
-            rts[rts.length-1].y+50)).align(CENTER));
+
+      if (buf.size() == 0)
+      { // add ending
+
+        rts = (RiText[]) append(rts, (new RiText(this, "* * *", 
+            width / 2, rts[rts.length - 1].y + 50)).align(CENTER));
       }
     }
     else
     {
       buf.clear();
       RiText.dispose(rts);
-      line = grammar.expand();
-      line = line.replaceAll("\\)", "]").replaceAll("\\(", "[");
+      line = grammar.expand().replaceAll("\\)", "]").replaceAll("\\(", "[");
       rts = RiText.createLines(this, line, 45, 40, 480);
-      for (int i = linesPerPage; i < rts.length; i++) {
+      for (int i = linesPerPage; i < rts.length; i++)
+      {
         buf.add(rts[i].text());
+        //println("hide: " + rts[i].text());
         rts[i].alpha(0);
       }
-      System.out.println("Found: "+rts.length+ " lines, saved "+buf.size());
     }
   }
 }
