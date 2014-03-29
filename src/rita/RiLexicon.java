@@ -278,7 +278,6 @@ public class RiLexicon implements Constants
    */
   public String[] words()
   {
-    // TODO: test that these are in random order
     return SetOp.toStringArray(lexicalData().keySet());
   }
   
@@ -290,7 +289,6 @@ public class RiLexicon implements Constants
    */
   public String[] words(String regex)
   {
-    // TODO: test that these are in random order
     return words(regex, false);
   }
 
