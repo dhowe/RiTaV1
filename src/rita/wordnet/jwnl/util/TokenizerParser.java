@@ -31,7 +31,14 @@ public class TokenizerParser extends StringTokenizer {
 	 * @param radix the base into which to convert the next token
 	 */
 	public int nextInt(int radix) {
-		return Integer.parseInt(nextToken(), radix);
+		try
+    {
+      return Integer.parseInt(nextToken(), radix);
+    }
+    catch (NumberFormatException e)
+    {
+      return -1;
+    }
 	}
 	
 	/** Convert the next token into a base 16 int */
@@ -41,6 +48,14 @@ public class TokenizerParser extends StringTokenizer {
 	
 	/** Convert the next token into a long */
 	public long nextLong() {
-		return Long.parseLong(nextToken());
+	  
+    try
+    {
+      return Long.parseLong(nextToken());
+    }
+    catch (Exception e)
+    {
+      return -1;
+    }
 	}
 }

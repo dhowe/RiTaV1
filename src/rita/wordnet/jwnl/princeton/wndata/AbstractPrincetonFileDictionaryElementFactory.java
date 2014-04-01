@@ -62,6 +62,7 @@ public abstract class AbstractPrincetonFileDictionaryElementFactory implements F
         SynsetProxy proxy = new SynsetProxy(pos);
 
         int wordCount = tokenizer.nextHexInt();
+        if (wordCount < 0) return null;
         Word[] words = new Word[wordCount];
         for (int i = 0; i < wordCount; i++) {
             String lemma = tokenizer.nextToken();

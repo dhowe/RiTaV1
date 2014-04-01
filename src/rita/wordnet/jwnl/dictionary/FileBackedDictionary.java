@@ -86,8 +86,7 @@ public class FileBackedDictionary extends AbstractCachingDictionary
       MorphologicalProcessor morph, FileDictionaryElementFactory factory,
       boolean enableCaching)
   {
-    setDictionary(new FileBackedDictionary(fileManager, morph, factory,
-        enableCaching));
+    setDictionary(new FileBackedDictionary(fileManager, morph, factory, enableCaching));
   }
 
   private FileManager _db = null;
@@ -99,7 +98,8 @@ public class FileBackedDictionary extends AbstractCachingDictionary
 
   private FileBackedDictionary(FileManager manager,
       MorphologicalProcessor morph, FileDictionaryElementFactory factory,
-      boolean enableCaching) {
+      boolean enableCaching) 
+  {
     super(morph, enableCaching);
     _db = manager;
     _factory = factory;
@@ -121,9 +121,10 @@ public class FileBackedDictionary extends AbstractCachingDictionary
     // caching is enabled by default
     FileDictionaryElementFactory factory = (FileDictionaryElementFactory) ((Param) params
         .get(DICTIONARY_ELEMENT_FACTORY)).create();
+    
     boolean enableCaching = !params.containsKey(ENABLE_CACHING)
-        || !((Param) params.get(ENABLE_CACHING)).getValue().equalsIgnoreCase(
-            "false");
+        || !((Param) params.get(ENABLE_CACHING)).getValue().equalsIgnoreCase("false");
+    
     install(manager, morph, factory, enableCaching);
 
     FileBackedDictionary dictionary = (FileBackedDictionary) getInstance();
