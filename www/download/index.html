@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>the RiTa toolkit</title>
+    
+    <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="../css/syntax.css" type="text/css" />
+    <link rel="stylesheet" href="../css/style.css" type="text/css" />
+    <link rel="shortcut icon" type="image/x-icon" href="http://rednoise.org/rita/rita.ico"/>
+    
+    <!--script src="../js/processing-min.js" type="text/javascript"></script--	>
+	<!--script src="../js/rita.js" type="text/javascript"></script-->
+    <script type="text/javascript" src="../lib/jquery.min.js" ></script>  
+    <script type="text/javascript" src="../js/mailto.js"></script>
+    
+    <script type="text/javascript">
+
+        var V = '##version##';
+        
+        $(document).ready(function() {
+            
+            //var theHtml = '<h2>Download RiTa v'+V+'</h2><br/>'+
+            var theHtml = '<h2>Downloads</h2><br/>'+
+            	'<strong>RiTa library</strong>&nbsp; &nbsp;(java, js, reference, examples, tutorial, src)<p/> '+
+            	'<a href="./RiTa-'+V+'.zip">RiTa-'+V+'.zip</a><br/>&nbsp;<p/>';
+            //'<strong>RiTa</strong> version '+V+' [jar-only]<br/> <a href="./rita-full-'+V+'.zip">rita-full-'+V+'.zip</a><br/><br/>';
+            
+            theHtml += // '<p><h2>Download RiTa.js v'+V+'</h2><br/>'+
+           	 	//'<strong>RiTa.js</strong> version '+V+' [complete]<br/> <a href="./rita-full-'+V+'.zip">ritasj-full-'+V+'.zip</a><br/><br/>'+
+           	 	
+            	'<strong>RiTa.js</strong>&nbsp; &nbsp;(js-source only)<p/> <a href="./rita-'+V+'.min.js">rita-'+V+'.min.js</a><br/>'+
+            	'<a href="./rita-latest.js">rita-'+V+'.js</a><br/>&nbsp;<p/>'+	
+				'<strong>RiTa.jar</strong>&nbsp; &nbsp;(java-jar only)<p/> <a href="./rita-'+V+'.jar">rita-'+V+'.jar</a><br/><p>';
+            
+            theHtml += '&nbsp;</p><h3>Archived Versions</h3><br/>'+
+				//'<strong>RiTa-original</strong> [v1022 alpha]<br/>'+
+				'<a href="http://rednoise.org/rita-archive/RiTa-1022.zip">RiTa-alpha.1022.zip</a><br/>&nbsp;<br/>'+
+            	'<br/>&nbsp;<br/><br/>&nbsp;<br/><br/>&nbsp;<br/><br/>&nbsp;<br/><br/>&nbsp;<br/><br/>&nbsp;<br/><br/>&nbsp;<br/><br/>&nbsp;<br/>';
+
+            $("#version-div").html('<p>'+theHtml+'</p>');
+        });
+        
+    </script>
+    
+  </head>
+  
+  <body>
+      <div class="container">
+        
+        <div class="header">
+        	<a href="../index.html"><img src="../img/RiTa-logo3.png" width="60" height="60"></a>
+        	<a href="https://github.com/dhowe/RiTa/"><img style="position:absolute; width:149px;margin-top:-8px;margin-left:723px; border: 0; z-index:999999999" src="../img/forkme.png" alt="Fork me on GitHub"></a>
+        </div>
+        <span class="tagline">a software toolkit for generative literature</span>
+
+      <div class="navbar">
+        	<!--canvas width="940px" height="78px" data-processing-sources="./RiTaBanner.pde"></canvas
+	    	ALSO update style.css->navbar.height=78px
+	    	-->
+        <ul>
+          <li><a href="../index.html"><span>home</span></a></li>
+          <li><a href="./index.html" class="selected"><span>download</span></a></li>
+          <li><a href="../reference/index.html"><span>reference</span></a></li>
+	      <!-- <li><a href="../exhibition/index.html"><span>exhibition</span></a></li-->
+		  <li><a href="../examples/index.html"><span>examples</span></a></li>
+          <li><a href="../tutorial/index.html"><span>tutorial</span></a></li>
+		  <li><a href="../gallery/index.html"><span>gallery</span></a></li>
+          <li><script type="text/javascript">InsertMailToTag("daniel", "rednoise.org");</script></li>
+        </ul>
+       <!--a class="viewsource" href="../RiTaBanner.pde">view source</a-->
+      </div>
+
+      <div class="page row">
+      
+        <div id="version-div" class="span11" height=500>js-code</div>
+          
+        <div class="sidebar span4">
+          <!-- h3>Downloads</h3>
+          <p> <a href="./index.html">Download the latest version of RiTa.js!</a></p>
+          <<h3><a href="articles/index.html">Meta</a></h3>
+          <p> <strong>Keywords</strong>. ##library.keywords##<br />
+            <strong>Reference</strong>. Have a look at the javadoc reference <a href="./reference/index.html" target="_blank">here</a>. A 		copy of the reference is included in the .zip as well.<br />
+            <strong>Source</strong>. The source code of RiTaJS is available at <a href="https://github.com/dhowe/RiTaJS">GitHub</a>, 
+            and its repository can be browsed <a href="##source.repository##" target="_blank">here</a>.<br />
+            <br />
+            </p>-->
+            
+       
+            
+          <h3><span class="misc-title">Acknowledgments</span></h3>
+          <p> Kenny Wong | John Cayley<br/>
+            Braxon Soderman | Ian Hatcher<br/>
+            Matthew Stone | Ken Perlin<br/>
+            Mary Choueiter | Mini Ham </p>
+    
+        </div>
+        
+      </div>
+      <div class="footer">
+       <p> <br />
+ <!-- TODO: twitter or homepage link here -->
+      <!--a href="http://creativecommons.org/licenses/by-nc-sa/3.0/us/" rel="license"> <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/us/88x31.png" style="border-width:0" alt="Creative Commons License" /> </a> --> </p>      </div>
+      
+    </div>
+
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(["trackPageView"]);
+  _paq.push(["enableLinkTracking"]);
+  (function() {
+    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://rednoise.org/al/piwik/";
+    _paq.push(["setTrackerUrl", u+"piwik.php"]);
+    _paq.push(["setSiteId", "1"]);
+    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
+    g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Piwik Code -->
+
+  </body>
+</html>
+
+<!-- Localized -->

@@ -1,0 +1,551 @@
+{
+    "class": "rita.RiLexicon",
+    "fields": [
+	{
+      "methodName":"addWord()",
+      "example":"lexicon.addWord('abandon','ax-b ae1-n-d ax-n','vb nn vbp');",
+      "description":"Adds a word to the current lexicon. Note: will replace the word if it already exists",
+      "syntax":"addWord(word, pronunciationData, posData)",
+      "parameters":
+      [
+			{ 
+			"type": "String", 
+			"desc": "word" 
+			},
+			{ 
+			"type": "String", 
+			"desc": "pronunciationData" 
+			},
+			{ 
+			"type": "String", 
+			"desc": "posData" 
+			}
+			
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "RiLexicon", 
+			"desc": "this RiLexicon" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"clear()",
+      "example":"",
+      "description":"Clears the lexicon",
+      "syntax":"clear()",
+      "parameters":
+      [
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "RiLexicon", 
+			"desc": "this RiLexicon object" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"containsWord()",
+      "example":"",
+      "description":"Returns true if the word exists in the lexicon (case-insensitive)",
+      "syntax":"containsWord(word)",
+      "parameters":
+      [
+			{ 
+			"type": "String", 
+			"desc": "word" 
+			}
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "boolean", 
+			"desc": "" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"alliterations()",
+      "example":"",
+      "description":"Finds alliterations by comparing the phonemes of the input string to those of each word in the lexicon",
+      "syntax":"alliterations(word)",
+      "parameters":
+      [
+			{ 
+			"type": "String", 
+			"desc": "word input" 
+			},
+			{ 
+			"type": "int", 
+			"desc": "minimum length of word to return (optional, default=4)" 
+			}
+	  ],
+	  "returns": [
+			{ 
+			"type": "String[]", 
+			"desc": "array of alliterations" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"lexicalData()",
+      "example":"",
+      "description":"Allows one to set/get the raw dictionary data used to create the default lexicon. <br/><br/>See RiLexicon.addWord() for data format",
+      "syntax":"lexicalData()<br/>lexicalData(dictionaryDataObject)",
+      "parameters":
+      [
+			{ 
+			"type": "Map", 
+			"desc": "A map (HashMap in Java, Object in JavaScript) that maps words to their pronunciation and part-of-speech data (optional, for sets only)" 
+			}
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "RiLexicon or Map", 
+			"desc": "this RiLexicon or lexical data map (for gets)" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"randomWord()",
+      "example":"",
+      "description":"Returns a random word from the lexicon. When arguments are supplied part-of-speech and/or syllable-count will be matched as well",
+      "syntax":"randomWord()<br/>randomWord(pos)<br/>randomWord(syllableCount)<br/>randomWord(pos, syllableCount)",
+      "parameters":
+      [
+			{ 
+			"type": "String", 
+			"desc": "the part-of-speech to match (optional)" 
+			},
+			{ 
+			"type": "int", 
+			"desc": "the # of syllables to matcg (optional)" 
+			}
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "String", 
+			"desc": "random word" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"rhymes()",
+      "example":"",
+      "description":"Two words rhyme aer considered as rhyming if their final stressed vowel and all following phonemes are identical",
+      "syntax":"rhymes(word)",
+      "parameters":
+      [
+			{ 
+			"type": "String", 
+			"desc": "word" 
+			}
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "String[]", 
+			"desc": "rhymes for word, or an empty array if none are found" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"words()",
+      "example":"",
+      "description":"Returns the array of all words in the lexicon or those matching a specific regex. <br/>If specified, the order of the result array is randomized before return.",
+      "syntax":"words()<br/>words(regex)<br/>words(ordered)<br/>words(regex, ordered)",
+      "parameters":
+      [
+			{ 
+			"type": "String", 
+			"desc": "regex pattern to match (optional)" 
+			},
+			{ 
+			"type": "boolean", 
+			"desc": "In sorted order when true (default=false)" 
+			}
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "String[]", 
+			"desc": "all (or the matching) words in the lexicon" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"isAdverb()",
+      "example":"",
+      "description":"Returns true if the word haa an adverb form. That is, if any of its possible parts of speech are any variant of an adverb in the PENN part-of-speech tag set (e.g. rb, rbr, rbs)",
+      "syntax":"isAdverb(word)",
+      "parameters":
+      [
+			{ 
+			"type": "String", 
+			"desc": "the word to test" 
+			}
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "boolean", 
+			"desc": "true if the word can be used as an adverb " 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"isNoun()",
+      "example":"",
+      "description":"Returns true if the word has a noun form. That is, if any of its possible parts of speech are any variant of a noun in the PENN part-of-speech tag set(e.g. nn, nns, nnp, nnps)",
+      "syntax":"isNoun(word)",
+      "parameters":
+      [
+			{ 
+			"type": "String", 
+			"desc": "the word to test" 
+			}
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "boolean", 
+			"desc": "true if the word can be used as a noun" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"isVerb()",
+      "example":"",
+      "description":"Returns true for if word has a verb form. That is, if any of its possible parts of speech are any variant of a verb in the PENN part-of-speech tag set (e.g. vb, vbg, vbd, vbp, vbz)",
+      "syntax":"isVerb(word)",
+      "parameters":
+      [
+			{ 
+			"type": "String", 
+			"desc": "the word to test" 
+			}
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "boolean", 
+			"desc": "true if the word can be used as a verb" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"isAdjective()",
+      "example":"",
+      "description":"Returns true if word has an adjective form. That is, if any of its possible parts of speech are any variant of an adjective in the PENN part-of-speech tag set (e.g. jj, jjr, jjs)",
+      "syntax":"isAdjective(word)",
+      "parameters":
+      [
+			{ 
+			"type": "String", 
+			"desc": "the word to test" 
+			}
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "boolean", 
+			"desc": "true if the word can be used as an adjective" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"isAlliteration()",
+      "example":"",
+      "description":"Returns true if the two words are alliterations (iff the first stressed consonant of the two match)",
+      "syntax":"isAlliteration(word1, word2)",
+      "parameters":
+      [
+			{ 
+			"type": "String", 
+			"desc": "the first word" 
+			},
+			{ 
+			"type": "String", 
+			"desc": "the second word" 
+			}
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "boolean", 
+			"desc": "true if the first stressed consonant of the two words match" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"isRhyme()",
+      "example":"",
+      "description": "Returns true if the two words rhyme, that is, if their final stressed phoneme and all following phonemes are identical, else false.<br/><br/>Note: returns false if word1.equals(word2) or if either (or both) are null;<br/><br/>Note: at present doesn't use letter-to-sound engine if either word is not found in the lexicon, but instead just returns false.",
+      
+      "COMMENT.syntax":"isRhyme(String word1, String word2, boolean useLTS)",
+      
+      "syntax":"isRhyme(word1, word2)<br>isRhyme(word1, word2, useLTS)",
+      "parameters":
+      [
+			{ 
+			"type": "String", 
+			"desc": "word1" 
+			},
+			{ 
+			"type": "String", 
+			"desc": "word2" 
+			},
+			{  
+			 "type": "boolean", 
+			 "desc": "use letter-to-sound rules (optional, default=false)" 
+			}
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "boolean", 
+			"desc": "true if the two words rhyme, else false." 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"reload()",
+      "example":"",
+      "description":"Clears then reloads the lexicon",
+      "syntax":"reload()",
+      "parameters":
+      [
+			
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "RiLexicon", 
+			"desc": "this object" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"removeWord()",
+      "example": "removeWord(\"abandon\");",
+      "description":"Removes a word from the currently loaded lexicon",
+      "syntax":"removeWord(word)",
+      "parameters":
+      [
+			{ 
+			"type": "String", 
+			"desc": "word to remove" 
+			}
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "RiLexicon", 
+			"desc": "this RiLexicon" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"similarByLetter()",
+      "example":"",
+      "description":"Compares the characters of the input string  (using a version of the min-edit distance algorithm) to each word in the lexicon, returning the set of closest matches.",
+      "syntax":"similarByLetter(word)<br/>similarByLetter(word, minAllowedDist)<br/>similarByLetter(word, minAllowedDist, preserveLength)",
+      "parameters":
+      [
+			{ 
+			"type": "String", 
+			"desc": "the word to match" 
+			},
+			{ 
+			"type": "int", 
+			"desc": "minimum edit distance for matches (optional, default=1)" 
+			},
+			{ 
+			"type": "boolean", 
+			"desc": "whether to return only words that match the length of the input word (optional, default=true)" 
+			}
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "String[]", 
+			"desc": "the matching words" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"similarBySound()",
+      "example":"",
+      "description":"Compares the phonemes of the input word (using a version of the min-edit distance algorithm) to each word in the lexicon, returning the set of closest matches.",
+      "syntax":"similarBySound(input)<br/>similarByLetter(input, minAllowedDist)",
+      "parameters":
+      [
+			{ 
+			"type": "String", 
+			"desc": "the word to match" 
+			},
+			{ 
+			"type": "int", 
+			"desc": "minimum edit distance for matches (optional, default=1)" 
+			}
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "String[]", 
+			"desc": "the matching words" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"similarBySoundAndLetter()",
+      "example":"",
+      "description":"First calls similarBySound(), then filters the result set by the algorithm used in similarByLetter();<br/><br/>(useful when similarBySound() returns too large a result set)",
+      "syntax":"similarBySoundAndLetter(word)",
+      "parameters":
+      [
+			{ 
+			"type": "String", 
+			"desc": "the word to match" 
+			}
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "String[]", 
+			"desc": "the matching words" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"size()",
+      "example":"",
+      "description":"Returns the number of words currently in the lexicon ",
+      "syntax":"size()",
+      "parameters":
+      [
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "int", 
+			"desc": "the # of words" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"substrings()",
+      "example":"",
+      "description":"Returns all valid substrings of the input word in the lexicon ",
+      "syntax":"substrings(word)<br/>substrings(word, minLength)",
+      "parameters":
+      [
+			{ 
+			"type": "String", 
+			"desc": "the word to match" 
+			},
+			{ 
+			"type": "int", 
+			"desc": "minimum length of return word (optional, default=4)" 
+			}
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "String[]", 
+			"desc": "the matching words" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"superstrings()",
+      "example":"",
+      "description":"Returns all valid superstrings of the input word in the lexicon ",
+      "syntax":"superstrings(word)",
+      "parameters":
+      [
+			{ 
+			"type": "String", 
+			"desc": "the word to match" 
+			}
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "String[]", 
+			"desc": "the matching words" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   }
+]
+}

@@ -1,0 +1,755 @@
+{
+    "class": "rita.RiString",
+    "fields": [
+	{
+      "methodName":"analyze()",
+      "example":'myRiString.analyze();\n\nmyRiString.get(RiTa.PHONEMES);\n\nOR\n\nmyRiString.get("phonemes");',
+      "description":"Computes a set of features for the contained string, including phonemes, syllables, stresses, etc. To access any of these, use myRistring.get(name)",
+      "syntax":"analyze()",
+      "parameters":[],
+	  "returns":
+      [
+			{ 
+			"type": "RiString", 
+			"desc": "this RiString" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"charAt()",
+      "example":"",
+      "description":"Returns the character at the specified 'index'",
+      "syntax":"charAt(index)",
+      "parameters":
+      [
+			{ 
+			"type": "int", 
+			"desc": "index of the character (accepts negative offsets, which count backward from lhe end)" 
+			}
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "String", 
+			"desc": "the character as a String" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"concat()",
+      "example":"",
+      "description":"Concatenates the text from another RiString at the end of this one",
+      "syntax":"concat(riString)",
+      "parameters":
+      [
+			{ 
+			"type": "RiString", 
+			"desc": "RiString" 
+			}
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "RiString", 
+			"desc": "this RiString" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"endsWith()",
+      "example":"",
+      "description":"Tests if this string ends with the specified suffix",
+      "syntax":"endsWith(suffix)",
+      "parameters":
+      [
+			{ 
+			"type": "String", 
+			"desc": "string the suffix" 
+			}
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "boolean", 
+			"desc": "true if the character sequence represented by the argument is a suffix of the character sequence represented by this object; false otherwise" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"equals()",
+      "example":"",
+      "description":"Compares this RiString to the specified object. <br/>The result is true if and only if the argument is not null and is a String or RiString object that represents the same sequence of characters as this object.",
+      "syntax":"equals(string)<br/>equals(ristring)",
+      "parameters":
+      [
+			{ 
+			"type": "String OR RiString", 
+			"desc": "String or RiString object to compare this RiString against" 
+			}
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "boolean", 
+			"desc": "true if the RiString are equal; false otherwise." 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"equalsIgnoreCase()",
+      "example":"",
+      "description":"Compares this RiString to another RiString or a String, ignoring case considerations",
+      "syntax":"equalsIgnoreCase(string)<br/>equalsIgnoreCase(ristring)",
+      "parameters":
+      [
+			{ 
+			"type": "String OR RiString", 
+			"desc": "String or RiString object to compare this RiString against" 
+			}
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "boolean", 
+			"desc": "true if the argument is not null and the Strings are equal, ignoring case; false otherwise" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"indexOf()",
+      "example":"",
+      "description":"Returns the index within this string of the first occurrence of the 'searchstring'",
+      "syntax":"indexOf(searchstring)<br/>indexOf(searchstring, start)",
+      "parameters":
+      [
+			{ 
+			"type": "String", 
+			"desc": "searchstring to search for" 
+			},
+			{ 
+			"type": "int", 
+			"desc": "(Optional) The start position in the string to start the search. If omitted, the search starts from position 0" 
+			}
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "int", 
+			"desc": "the first index of the matching pattern or -1 if not found" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+    {
+      "methodName":"insertWordAt()",
+      "example":"",
+      "description":"Inserts 'newWord' at 'wordIdx' and shifts each subsequent word accordingly.",
+      "syntax":"insertWordAt(newWord, wordIdx)",
+      "parameters":
+      [
+			{ 
+			"type": "String", 
+			"desc": "the new word to insert" 
+			},
+			{ 
+			"type": "int", 
+			"desc": "the position at which it insert the word" 
+			}
+		
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "RiString", 
+			"desc": "this RiString" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"lastIndexOf()",
+      "example":"",
+      "description":"Returns the index within this string of the last occurrence of the specified character",
+      "syntax":"lastIndexOf(searchstring)<br/>lastIndexOf(searchstring, start)",
+      "parameters":
+      [
+			{ 
+			"type": "String", 
+			"desc": "what to search for" 
+			},
+			{ 
+			"type": "int", 
+			"desc": "(Optional) The start position in the string to start the search. If omitted, the search starts from position 0" 
+			}
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "int", 
+			"desc": "the last index of the matching pattern or -1 if none are found" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"length()",
+      "example":"",
+      "description":"Returns the length of this string",
+      "syntax":"length()",
+      "parameters":   [	  ],
+	  "returns":
+      [
+			{ 
+			"type": "int", 
+			"desc": "the length" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"match()",
+      "example":"",
+      "description":"Searches for a match between a substring (or regular expression) and the contained string, and _returns the matches",
+      "syntax":"match(regex)",
+      "parameters":
+      [
+			{ 
+			"type": "String", 
+			"desc": "regular expression" 
+			}
+		
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "String[]", 
+			"desc": "strings matches or empty array if none are found" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"pos()",
+      "example":"",
+      "description":"Returns an array of part-of-speech tags, one per word, using RiTa.tokenize() and RiTa.getPosTags()",
+      "syntax":"pos()",
+      "parameters":
+      [
+
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "String[]", 
+			"desc": "strings of pos, one per word" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"posAt()",
+      "example":"",
+      "description":"Returns the part-of-speech tag for the word at 'index', using RiTa.tokenize() and RiTa.getPosTags()",
+      "syntax":"posAt(index)",
+      "parameters":
+      [
+			{ 
+			"type": "int", 
+			"desc": "the word index" 
+			}
+		
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "String", 
+			"desc": "the pos" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"removeChar()",
+      "example":"",
+      "description":"Removes the character at the specified index",
+      "syntax":"removeChar(index)",
+      "parameters":
+      [
+			{ 
+			"type": "int", 
+			"desc": "the index" 
+			}
+		
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "RiString", 
+			"desc": "this RiString" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"replaceChar()",
+      "example":"",
+      "description":"Replaces the character at 'idx' with 'replaceWith'. <br/>If the specified 'idx' is less than zero, or beyond the length of the current text, there will be no effect",
+      "syntax":"replaceChar(idx, replaceWith)",
+      "parameters":
+      [
+			{ 
+			"type": "int", 
+			"desc": "the character index" 
+			},
+			{ 
+			"type": "String", 
+			"desc": "the replacement" 
+			}
+		
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "RiString", 
+			"desc": "this RiString" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"replaceFirst()",
+      "example":"",
+      "description":"Replaces the first instance of 'regex' with 'replaceWith'",
+      "syntax":"replaceFirst(regex, replaceWith)",
+      "parameters":
+      [
+			{ 
+			"type": "String", 
+			"desc": "regex the pattern" 
+			},
+			{ 
+			"type": "String", 
+			"desc": "the replacement" 
+			}
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "RiString", 
+			"desc": "this RiString" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"replaceLast()",
+      "example":"",
+      "description":"Replaces the last instance of 'regex' with 'replaceWith'",
+      "syntax":"replaceLast(regex, replaceWith)",
+      "parameters":
+      [
+			{ 
+			"type": "String", 
+			"desc": "regex the pattern" 
+			},
+			{ 
+			"type": "String", 
+			"desc": "the replacement" 
+			}
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "RiString", 
+			"desc": "this RiString" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"replaceAll()",
+      "example":"",
+      "description":"Replaces each substring of this string that matches the given regular expression with the given replacement.",
+      "syntax":"replaceAll(regex, replaceWith)",
+      "parameters":
+      [
+			{ 
+			"type": "String", 
+			"desc": "the pattern to be matched" 
+			},
+			{ 
+			"type": "String", 
+			"desc": "the replacement string" 
+			}
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "RiString", 
+			"desc": "this RiString" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"replaceWordAt()",
+      "example":"",
+      "description":"Replaces the word at 'wordIdx' with 'newWord'",
+      "syntax":"replaceWordAt(wordIdx, newWord)",
+      "parameters":
+      [
+			{ 
+			"type": "int", 
+			"desc": "the index" 
+			},
+			{ 
+			"type": "String", 
+			"desc": "the replacement" 
+			}
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "RiString", 
+			"desc": "this RiString" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"slice()",
+      "example":"",
+      "description":"Extracts a part of a string from this RiString",
+      "syntax":"slice(begin)<br/>slice(begin, end)",
+      "parameters":
+      [
+			{ 
+			"type": "int", 
+			"desc": "The index where to begin the extraction. First character is at index 0" 
+			},
+			{ 
+			"type": "int", 
+			"desc": "(Optional) Where to end the extraction. If omitted, slice() selects all characters from the begin position to the end of the string" 
+			}
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "String", 
+			"desc": "" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"split()",
+      "example":"",
+      "description":"Split a RiString into an array of RiStrings, one for each element after the split, and returns the new array.",
+      "syntax": "split()<br/>split(separator)<br/>",
+      "parameters": [
+			{ 
+			"type": "String", 
+			"desc": '(Optional) Specifies the character to use for splitting the string. If omitted, the string is split according to RiTa.tokenize(). If an empty string ("") is used as the separator, the string is split between each character.' 
+			}
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "RiStrings[]", 
+			"desc": "the RiString array" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"startsWith()",
+      "example":"",
+      "description":"Tests if this string starts with the specified prefix",
+      "syntax":"startsWith(substr)",
+      "parameters":
+      [
+			{ 
+			"type": "String", 
+			"desc": "string the prefix" 
+			}
+
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "boolean", 
+			"desc": "true if the character sequence represented by the argument is a prefix of the character sequence represented by this string; false otherwise. <br/>Note also that true will be returned if the argument is an empty string or is equal to this RiString object as determined by the equals() method." 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"substring()",
+      "example":"",
+      "description":"Extracts the characters from a string, between two specified indices, and sets the current text to be that string. ",
+      "syntax":"substring(from)<br/>substring(from, to)",
+      "parameters":
+      [
+			{ 
+			"type": "int", 
+			"desc": "The index where to start the extraction. First character is at index 0" 
+			},
+			{ 
+			"type": "int", 
+			"desc": "(optional) The index where to stop the extraction. If omitted, it extracts the rest of the string" 
+			}
+
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "String", 
+			"desc": "" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"substr()",
+      "example":"",
+      "description":"Extracts the characters from this objects contained string, beginning at 'start' and continuing through the specified number of characters, and sets the current text to be that string. (from Javascript String)",
+      "syntax":"substr(start)<br/>substr(start, length)",
+      "parameters":
+      [
+			{ 
+			"type": "int", 
+			"desc": "The index where to start the extraction. First character is at index 0" 
+			},
+			{ 
+			"type": "int", 
+			"desc": "(optional) The index where to stop the extraction. If omitted, it extracts the rest of the string" 
+			}
+
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "String", 
+			"desc": "" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"text()",
+      "example":"",
+      "description":"Gets/sets the text contained by this object",
+      "syntax":"text()<br/>text(theText)",
+      "parameters":
+      [
+			{ 
+			"type": "String", 
+			"desc": "text (optional)" 
+			}
+
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "String OR RiString", 
+			"desc": "the contained text (for sets) or this RiString (for gets)" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"toCharArray()",
+      "hidden":true,
+      "description":"Converts this object to an array of RiString objects, one per character",
+      "syntax":"toCharArray()",
+      "parameters":
+      [
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "RiString[]", 
+			"desc": "RiStrings with each letter as its own RiString element" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"toLowerCase()",
+      "example":"",
+      "description":"Converts all of the characters in this RiString to lower case",
+      "syntax":"toLowerCase()",
+      "parameters":
+      [
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "RiString", 
+			"desc": "this RiString" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"toUpperCase()",
+      "example":"",
+      "description":"Converts all of the characters in this RiString to upper case",
+      "syntax":"toUpperCase()",
+      "parameters":
+      [
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "RiString", 
+			"desc": "this RiString" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"trim()",
+      "example":"",
+      "description":"Removes leading and trailing whitespace from the RiString",
+      "syntax":"trim()",
+      "parameters":
+      [
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "RiString", 
+			"desc": "this RiString" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"wordAt()",
+      "example":"",
+      "description":"Returns the word at 'index', according to RiTa.tokenize()",
+      "syntax":"wordAt(index)",
+      "parameters":
+      [
+			{ 
+			"type": "int", 
+			"desc": "the word index" 
+			}
+
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "String", 
+			"desc": "the word" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"wordCount()",
+      "example":"",
+      "description":"Returns the number of words in the object, according to RiTa.tokenize().",
+      "syntax":"wordCount()",
+      "parameters":
+      [
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "int", 
+			"desc": "number of words" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"words()",
+      "example":"",
+      "description":"Returns the array of words in the object, via a call to RiTa.tokenize()",
+      "syntax":"words()",
+      "parameters":
+      [
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "String[]", 
+			"desc": "array of words" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   }  
+]
+}

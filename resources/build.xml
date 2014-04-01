@@ -23,7 +23,6 @@
 	<property name="project.jar.support.name" value="${main.package}.support.jar"/>
 	<property name="project.src" location="src"/>
 	<property name="project.latest" location="latest"/>
-	<!--property name="project.js" location="../../javascript-workspace/RiTaLibraryJS/"/-->
 	<property name="project.js" location="RiTaLibraryJS/"/>
 	<property name="js.scripts.dir" location="${project.js}/scripts/"/>
 	<property name="project.tmp" location="tmp"/>
@@ -296,12 +295,12 @@ ${line}
 	  	</copy>
   		
 		<copy todir="${project.tmp}/${project.name}/reference">
-  			<fileset dir="${project.js}/www/reference"/>
+  			<fileset dir="www/reference"/>
 	  	</copy>
 		
  		<copy todir="${project.tmp}/${project.name}/css">
-  			<!--fileset dir="${project.js}/www/css/*.css"/-->
-  		   <fileset dir="${project.js}/www/css/">
+  			<!--fileset dir="www/css/*.css"/-->
+  		   <fileset dir="www/css/">
  		         <include name="*.css"/>
  		     </fileset>
 	  	</copy>

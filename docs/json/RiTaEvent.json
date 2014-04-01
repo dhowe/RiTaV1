@@ -1,0 +1,74 @@
+{
+    "class": "rita.RiTaEvent",
+    "fields": [
+        {
+            "methodName": "source()",
+            "example": "",
+            "description": "Gets the source for this event (usually a RiText)",
+            "syntax": "source()",
+            "parameters": [],
+            "returns": [
+                {
+                    "type": "Object",
+                    "desc": "the source"
+                }
+            ],
+            "related": "",
+            "platform": "Java / Javascript",
+            "note": ""
+        },
+        {
+            "methodName": "type()",
+            "example": "",
+            "description": "Returns the type for this event, e.g., RiTa.MOVE_TO",
+            "syntax": "type()",
+            "parameters": [],
+            "returns": [
+                {
+                    "type": "int",
+                    "desc": "the type"
+                }
+            ],
+            "related": "",
+            "platform": "Java / Javascript",
+            "note": ""
+        },
+        {
+            "methodName": "data()",
+            "example": "",
+            "description": "Returns the data for this event, if it has any",
+            "syntax": "data()",
+            "parameters": [],
+            "returns": [
+                {
+                    "type": "Object",
+                    "desc": "the data, which varies from event to event"
+                }
+            ],
+            "related": "",
+            "platform": "Java / Javascript",
+            "note": ""
+        },
+        {
+            "methodName": "isType()",
+            "example": "if (event.isType(RiTa.MOVE_TO)) { ... } ",
+            "description": "Returns true if the types match, else false e.g., RiTa.MOVE_TO",
+            "syntax": "isType()",
+            "parameters": [
+                {
+                    "type": "int",
+                    "desc": "the type"
+                }
+            ],
+            "returns": [
+                {
+                    "type": "boolean",
+                    "desc": "true if the types match, else false"
+                }
+            ],
+            "related": "",
+            "platform": "Java / Javascript",
+            "note": ""
+        }
+    ]
+}

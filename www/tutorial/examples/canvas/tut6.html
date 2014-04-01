@@ -1,0 +1,61 @@
+<canvas id="canvas" width=600 height=400 style="border: 1px solid #000000;"></canvas>
+<script src="../../../../lib/jquery.js"></script>
+<script src="../../../rita.js"></script>
+<script>
+
+haikuGrammar = { 
+    
+    "<start>": "<5-line> % <7-line> % <5-line>",  
+    
+    "<5-line>": "<1> <4> |<1> <3> <1> |<1> <1> <3> | <1> <2> <2> | <1> <2> <1> <1> | <1> <1> <2> <1> | <1> <1> <1> <2> | <1> <1> <1> <1> <1> | <2> <3> | <2> <2> <1> | <2> <1> <2> | <2> <1> <1> <1> | <3> <2> | <3> <1> <1> | <4> <1> | <5>",
+    
+    "<7-line>": "<1> <1> <5-line> | <2> <5-line> | <5-line> <1> <1> | <5-line> <2>",  
+    
+    "<1>": "red | white | black | sky | dawns | breaks | falls | leaf | rain | pool | my | your | sun | clouds | blue | green | night | day | dawn | dusk | birds | fly | grass | tree | branch | through | hell | zen | smile | gray | wave | sea | through | sound | mind | smoke | cranes | fish", 
+    
+    "<2>": "drifting | purple | mountains | skyline | city | faces | toward | empty | buddhist | temple | japan | under | ocean | thinking | zooming | rushing | over | rice field | rising | falling | sparkling | snowflake",
+    
+    "<3>": "sunrises | pheasant farms | people farms | samurai | juniper | fishing boats | far away | kimonos | evenings | peasant rain | sad snow fall",
+    
+    "<4>": "aluminum | yakitori | the east village | west of the sun |  chrysanthemums | cherry blossoms",
+    
+    "<5>": "resolutional | non-elemental | rolling foothills rise | toward mountains higher | out over this country | in the springtime again"
+};
+
+var rts = [];
+
+window.onmouseup=mouseClicked;
+
+function setup()
+{
+    RiText.size(650, 200);
+
+    RiText.defaultFont("arial",30);  
+    RiText.defaults.alignment = CENTER;
+
+    rts[0] = new RiText("click to", RiText.width() / 2, 75);
+    rts[1] = new RiText("generate", RiText.width() / 2, 110);
+    rts[2] = new RiText("a haiku", RiText.width() / 2, 145); 
+
+    grammar = new RiGrammar(haikuGrammar);
+
+    RiText.loop();
+}
+
+function draw()
+{
+    RiText.background(230,240, 255);
+    RiText.drawAll();
+}
+
+function mouseClicked()
+{
+    var result = grammar.expand();
+    var lines =  result.split("%");
+    for ( var int = 0; int < rts.length; int++) {
+        rts[int].setText(lines[int]);
+    }
+}
+
+
+</script>

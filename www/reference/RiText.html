@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.o../xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<title>RiText</title>
+	 	<link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
+	    <link rel="stylesheet" href="../css/syntax.css" type="text/css" />
+	    <link rel="stylesheet" href="../css/style.css" type="text/css" />
+	    <link rel="shortcut icon" type="image/x-icon" href="http://rednoise.org/rita/rita.ico"/>
+	    
+		<!-- <script src="../js/processing-min.js" type="text/javascript"></script> -->
+		    
+		<script type="text/javascript" src="../mailto.js"></script>
+	</head>
+
+	<body>
+<!-- ============================== header ================================= -->	
+		<!-- begin static/header.html -->
+		<div id="header"></div>
+		<!-- end static/header.html -->
+		
+			<div class="container">
+		      <div class="header"> <a href="../index.html"><img src="../img/RiTa-logo3.png" width="60" height="60"></a> <a href="https://github.com/dhowe/RiTaJS/"> <img style="position:absolute; margin-left:723px; border: 0; z-index:999999999" src="../img/forkme.png" alt="Fork me on GitHub"> </a>
+</div>
+		      <span class="tagline">a software toolkit for generative literature</span>
+		          <div class="navbar">
+			        
+				  </div>
+		      <div class="page row">
+				<div class="refbar span3">
+					<div id="index">
+						<!-- begin publish.classesIndex -->
+						<h3></h3>
+						<ul class="classList" >
+							<br />
+							<li style="top:60px;left:50px">
+								<a href="index.html">Back to index</a>
+							</li>
+						</ul>
+						<hr />
+						<!-- end publish.classesIndex -->
+					</div>
+
+				</div>
+		        <div class="span12">
+
+		<div class="reference row">
+
+<!-- ============================== classes index ============================ -->
+
+		
+		<div id="content">
+<!-- ============================== class title ============================ -->
+			<h2 class="classTitle">
+				Class RiText
+			</h2>
+			<p>&nbsp;</p>
+<!-- ============================== class summary ========================== -->			
+			
+	<table cellpadding="0" cellspacing="0" border="0" class="ref-item">
+		<tr class="">
+	      <th scope="row">Description</th>
+	      <!-- DESCRIPTION  -->
+	      <td>
+			<p>
+			A text display object for the RiTa tools. 
+			</p>
+			<p>
+			Wraps an instance of RiString to provide utility methods for typography, text effects, animation, etc.
+			</p> 
+		   </td>
+		</tr>			    
+		<tr class="">
+          <th scope="row">Examples</th>
+          <td><div class="example"> 
+			    <!-- EXAMPLES  -->
+			    <!-- <img src="../alpha_.gif" alt="example pic" /> -->
+	     <pre class="margin">
+import rita.*;
+     
+RiText rt;
+
+void setup() {
+	
+   // start in the upper left corner
+   rt = new RiText(this, "hello", 0, 10);
+
+   // move to the lower right over 2 seconds
+   rt.moveTo(width-40, height, 2);    
+}
+
+void draw() {
+	
+   // draw bg and RiText each frame
+   background(255);
+   rt.draw(); 
+}</pre>
+            </div></td>
+        </tr> 
+			    
+			    <tr class="">
+			      <th scope="row">Syntax</th>
+			      <!-- SYNTAX  -->
+			      <td><pre>
+			      	
+// Creates a new RiText object base-aligned at ('x', 'y') 
+// using the font object (optionally) specified by 'theFont'.
+
+RiText(PApplet pApplet, String text) 
+RiText(PApplet pApplet, String text, float x, float y)
+RiText(PApplet pApplet, String text, float x, float y, PFont theFont) 
+
+Note: First argument (pApplet) is optional in JavaScript mode 
+</pre></td>
+			      				      	
+		        </tr>
+			    <tr class="">
+			      <th scope="row">Parameters</th>
+			      <td><table cellpadding="0" cellspacing="0" border="0" class="sub-table">
+			        <tr class="">
+			          <!-- PARAMETERS  -->
+			          <th width="25%" scope="row" class="nobold">&nbsp; PApplet</th>
+			          <td width="75%">the pApplet</td>
+		            </tr>
+                    <tr class="">
+			          <!-- PARAMETERS  -->
+			          <th width="25%" scope="row" class="nobold">&nbsp; String</th>
+			          <td width="75%">the text</td>
+		            </tr>
+                    <tr class="">
+			          <!-- PARAMETERS  -->
+			          <th width="25%" scope="row" class="nobold">&nbsp; float</th>
+			          <td width="75%">the X position (optional)</td>
+		            </tr>
+                    <tr class="">
+			          <!-- PARAMETERS  -->
+			          <th width="25%" scope="row" class="nobold">&nbsp; float</th>
+			          <td width="75%">the Y position (optional)</td>
+		            </tr>
+                    <tr class="">
+			          <!-- PARAMETERS  -->
+			          <th width="25%" scope="row" class="nobold">&nbsp; PFont</th>
+			          <td width="75%">the font (optional)</td>
+		            </tr>
+                    
+			        </table></td>
+		        </tr>
+			   <tr class="">
+			      <th scope="row">Platform</th>
+			      <!-- SYNTAX  -->
+			      <td>Java / Javascript</td>
+		        </tr>
+				<tr class='Note'>
+			      <th scope="row">Note</th>
+			      <!-- NOTE  -->
+			      <td>First argument (pApplet) is optional when using JavaScript mode</td>
+		        </tr>
+		        
+				<tr class="">
+					<th scope="row"></th>
+					<td></td>
+				</tr>
+						
+		      </table>
+
+			</div>
+	        </div>
+	       
+	      </div>
+		
+<!-- ============================== footer ================================= -->
+
+	 <div class="footer">
+	         <p> <br />
+       <br /></p>
+	     </div>
+	    </div>
+
+	 
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(["trackPageView"]);
+  _paq.push(["enableLinkTracking"]);
+  (function() {
+    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://rednoise.org/al/piwik/";
+    _paq.push(["setTrackerUrl", u+"piwik.php"]);
+    _paq.push(["setSiteId", "1"]);
+    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
+    g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Piwik Code -->
+
+	</body>
+</html>
