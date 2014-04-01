@@ -14,9 +14,8 @@ public class POSKey {
 	private Object _key;
 
 	private POSKey(POS pos, Object key) {
-		if (pos == null || key == null) {
-            throw new JWNLRuntimeException("DICTIONARY_EXCEPTION_001");
-        }
+		if (pos == null || key == null) 
+		  throw new JWNLPosException("DICTIONARY_EXCEPTION_001");
 		_pos = pos;
 		_key = key;
 	}

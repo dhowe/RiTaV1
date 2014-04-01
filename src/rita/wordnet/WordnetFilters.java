@@ -18,6 +18,8 @@ import rita.wordnet.jwnl.wndata.POS;
  */
 public class WordnetFilters
 {  
+  private static final String ERROR_FLAGS_AND_PATTERNS = "[ERROR] must pass equal # of filter flags and patterns";
+  
   protected Dictionary dictionary;
   protected Map filterCache;
   protected RiWordNet wordnet;
@@ -79,7 +81,7 @@ public class WordnetFilters
   public List orFilter(int[] filterFlags, String[] filterPatterns, POS pos, int maxResults)
   {
     if (filterFlags.length != filterPatterns.length)
-      throw new IllegalArgumentException("[ERROR] must pass equal # of flags and patterns!");
+      throw new RiWordNetError(ERROR_FLAGS_AND_PATTERNS);
     
     RiFilter[] filters = new RiFilter[filterFlags.length];
     for (int i = 0; i < filterPatterns.length; i++)
@@ -93,7 +95,7 @@ public class WordnetFilters
    * returning at most <code>maxResults</code> instances 
    * @see RiFilter#accept(String)
    */
-  public List orFilter(RiFilter[] filters, POS pos, int MaxResults)
+  public List orFilter(RiFilter[] filters, POS pos, int maxResults)
   {
     if (pos == null) return null;
     List result = new LinkedList();
@@ -107,6 +109,8 @@ public class WordnetFilters
       for (int i = 0; i < filters.length; i++) {
         if (filters[i].accept(lemma)) {
           result.add(lemma);
+          if (result.size()>=maxResults)
+            break WHILE;
           continue WHILE;
         }
       }      
@@ -133,7 +137,7 @@ public class WordnetFilters
   public List andFilter(int[] filterFlags, String[] filterPatterns, POS pos, int maxResults)
   {
     if (filterFlags.length != filterPatterns.length)
-      throw new IllegalArgumentException("[ERROR] must pass equal # of flags and patterns!");
+      throw new RiWordNetError(ERROR_FLAGS_AND_PATTERNS);
     
     RiFilter[] filters = new RiFilter[filterFlags.length];
     for (int i = 0; i < filterPatterns.length; i++)
@@ -189,7 +193,9 @@ public class WordnetFilters
     
     // check the Set cache 
     Set result = (Set)filterCache.get(tag);
+    
     if (result == null) { 
+      
       result = new HashSet();
       Iterator it = iterator(d, pos);
       while (it.hasNext()) {
@@ -198,6 +204,7 @@ public class WordnetFilters
         if (lemma != null) 
           result.add(lemma);
       }
+      
       // cache the Set
       filterCache.put(tag, result);
     }

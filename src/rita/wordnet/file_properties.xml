@@ -42,5 +42,4 @@
 		<param name="dictionary_path" value=""/>
 		</param>
 	</dictionary>
-	<resource class="PrincetonResource"/>
 </jwnl_properties>
