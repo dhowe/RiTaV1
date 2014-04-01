@@ -1,0 +1,293 @@
+{
+    "class": "rita.RiGrammar",
+    "fields": [
+	{
+      "methodName":"addRule()",
+      "example":"",
+      "description":"Adds a rule to the existing grammar, replacing any existing rule with the same name ",
+      "syntax":"addRule(name, ruleStr, weight)",
+      "parameters":
+      [
+			{ 
+			"type": "String", 
+			"desc": "the rule name" 
+			},
+			{ 
+			"type": "String", 
+			"desc": "the rule definition" 
+			},
+			{ 
+			"type": "float", 
+			"desc": "the rule weight (optional, defaults to 1)" 
+			}
+			
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "RiGrammar", 
+			"desc": "this RiGrammar" 
+			}
+			
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"expand()",
+      "example":"",
+      "description":"Expands a grammar from its '&#60;start&#62;' symbol",
+      "syntax":"expand()<br/>expand(callbackObject)",
+      "parameters":
+      [
+      		{ 
+				"type": "Object", 
+				"desc": "the object on which to call any (back-ticked) callback functions (optional)" 
+			}
+	  ],
+	  "returns":
+      [
+			{ 
+				"type": "String", 
+				"desc": "the result of the expansion" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"expandFrom()",
+      "example":"",
+      "description":"Expands the grammar, starting from the given symbol. <br/>&nbsp;<br/>RiGrammar.expand() is equivalent to RiGrammar.expandFrom('&lt;start&gt;').",
+      "syntax":"expandFrom(rule)<br/>expandFrom(rule, callbackObject)",
+      "parameters":
+      [
+			{ 
+			"type": "String", 
+			"desc": "the rule from which to start the expansion" 
+			},
+	   		{ 
+				"type": "Object", 
+				"desc": "the object on which to call any (back-ticked) callback functions (optional)" 
+			}
+			
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "String", 
+			"desc": "the result of the expansion"  
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"expandWith()",
+      "example":"",
+      "description":"Expands the grammar after replacing an instance of the non-terminal 'symbol' with the String in 'literal'.<br/>&nbsp;<br/>Guarantees that 'literal' will be in the final expanded String, assuming at least one instance of 'symbol' in the Grammar.",
+      "syntax":"expandWith(literal, symbol)<br/>expandWith(literal, symbol,callbackObject)",
+      "parameters":
+      [
+			{ 
+			"type": "String", 
+			"desc": "a literal" 
+			},
+			{ 
+			"type": "String", 
+			"desc": "a symbol" 
+			},
+	   		{ 
+				"type": "Object", 
+				"desc": "the object on which to call any (back-ticked) callback functions (optional)" 
+			}
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "String", 
+			"desc": "the result of the expansion" 
+			}			
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"load()",
+      "example":"",
+      "description":"Loads a grammar from a String or JSON object",
+      "syntax":"load(grammarRules);",
+      "parameters":
+      [
+      		{ 
+			"type": "String or Object", 
+			"desc": "a String or (JSON) Object representationof the grammar" 
+			}
+	  ],
+      "returns":
+      [
+			{ 
+			"type": "Object", 
+			"desc": "this RiGrammar object" 
+			}		
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"getGrammar()",
+      "example":"",
+      "description":"Gets the current grammar as a String",
+      "syntax":"grammar();",
+      "parameters":[],
+      "returns":
+      [
+			{ 
+			"type": "String", 
+			"desc": "a string representation of the grammar" 
+			}
+			
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"loadFrom()",
+      "example":"",
+      "description":"Re-initializes the grammar from a file or URL containing the grammar rules",
+      "syntax":"loadFrom(url, option)",
+      "parameters":
+      [
+			{ 
+				"type": "String", 
+				"desc": "File or URL containing the grammar rules" 
+			},
+			{
+            	"type":"Function or Object (optional)",
+            	"desc":"If a Function is supplied (in JavaScript), it will be called after the file is loaded.<br>If a PApplet(in Java) is passed, it will be used to locate and check the 'data' folder of the sketch for the specified file"
+         	}
+	  ],
+	  "returns":
+      [
+			{ 
+				"type": "RiGrammar", 
+				"desc": "this RiGrammar" 
+			}
+	  ],
+      "related":"",
+      "platform":"Delegates to RiTa.loadString() to load. To check if the object has finished loading, check RiGrammar.ready(). Alternatively, one can use the &lt;script src=...&gt; tag to include the JSON grammar file in an html page (probably a better option).",
+	  "note":""
+   },
+   {
+      "methodName":"hasRule()",
+      "example":"",
+      "description":"Returns true if the requested rule exists in the grammar, else false",
+      "syntax":"hasRule(ruleName)",
+      "parameters":
+      [
+			{ 
+			"type": "String", 
+			"desc": "the rule name" 
+			}
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "boolean", 
+			"desc": "true if the rule exists in the grammar, else false" 
+			}
+			
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"print()",
+      "example":"",
+      "description":"Prints the grammar rules to the console in human-readable format (useful for debugging)",
+      "syntax":"print()",
+      "parameters":
+      [
+
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "RiGrammar", 
+			"desc": "this RiGrammar" 
+			}
+			
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"removeRule()",
+      "example":"",
+      "description":"Deletes the named rule from the grammar",
+      "syntax":"removeRule(name)",
+      "parameters":
+      [
+			{ 
+			"type": "String", 
+			"desc": "the rule name" 
+			}
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "RiGrammar", 
+			"desc": "this RiGrammar" 
+			}
+			
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"ready()",
+      "example":"",
+      "description":"Returns true if there is at least one valid rule, else false",
+      "syntax":"ready();",
+      "parameters":  [  ],
+	  "returns":
+      [
+			{ 
+			"type": "boolean", 
+			"desc": "true if there is at least one valid rule, else false" 
+			}
+			
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"reset()",
+      "example":"",
+      "description":"Clears all rules in the current grammar",
+      "syntax":"reset()",
+      "parameters": [],
+	  "returns":
+      [
+			{ 
+			"type": "RiGrammar", 
+			"desc": "this RiGrammar" 
+			}
+			
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   }
+]
+}

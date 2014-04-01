@@ -1,0 +1,45 @@
+<canvas id="canvas" width=200 height=200 style="border: 1px solid #000000;"></canvas>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="http://rednoise.org/rita/rita-0.14a.min.js"></script>
+<script>
+
+//2 RiTexts, moving to random spots
+
+function setup()
+{
+    RiText.defaultFont({name:"Georgia",size:30});  
+
+    var rt1 = new RiText("ZIG");
+    var rt2 = new RiText("ZAG", 300, 300);
+
+    moveToRandom(rt1);
+    moveToRandom(rt2);
+}
+
+
+//pick a new random location to go to
+function moveToRandom(rt) {
+
+    var newX = RiText.random(RiText.width() - rt.textWidth());
+    var newY = RiText.random(rt.textHeight(), RiText.height() - 10);
+    var dst = RiText.distance(rt.x, rt.y, newX, newY);
+    rt.moveTo(newX,newY,dst / RiText.width());
+}
+
+
+function draw()
+{
+    background(255, 100);
+    RiText.drawAll();
+}
+
+
+//called by RiTa whenever a 'moveTo' behavior finishes
+function onRiTaEvent(e)
+{
+    if (e.getType() == 'moveToCompleted') 
+        moveToRandom(e.getSource());
+}
+
+</script>
+

@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.o../xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<title>RiWordNet</title>
+		 <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
+		    <link rel="stylesheet" href="../css/syntax.css" type="text/css" />
+		    <link rel="stylesheet" href="../css/style.css" type="text/css" />
+		    <link rel="shortcut icon" type="image/x-icon" href="http://rednoise.org/rita/rita.ico"/>
+		    
+		    <!-- <script src="../js/processing-min.js" type="text/javascript"></script> -->
+		    
+		    <script type="text/javascript" src="../mailto.js"></script>
+	</head>
+
+	<body>
+		
+<!-- ============================== header ================================= -->	
+
+		<!-- begin static/header.html -->
+		<div id="header"></div>
+		<!-- end static/header.html -->
+
+			<div class="container">
+		      <div class="header"> <a href="../index.html"><img src="../img/RiTa-logo3.png" width="60" height="60"></a> <a href="https://github.com/dhowe/RiTaJS/"> <img style="position:absolute; margin-left:723px; border: 0; z-index:999999999" src="../img/forkme.png" alt="Fork me on GitHub"> </a></div>
+		      <span class="tagline">a software toolkit for generative literature</span>
+		          <div class="navbar">
+			        
+				</div>
+		      	<div class="page row">
+					<div class="refbar span3">
+					<div id="index">
+						<!-- begin publish.classesIndex -->
+						<h3></h3>
+						<ul class="classList" >
+							<br />
+							<li style="top:60px;left:50px">
+								<a href="index.html">Back to index</a>
+							</li>
+						</ul>
+						<hr />
+						<!-- end publish.classesIndex -->
+					</div>
+
+				</div>
+		        <div class="span12">
+
+		<div class="reference row">
+		
+
+<!-- ============================== classes index ============================ -->
+
+		
+		<div id="content">
+<!-- ============================== class title ============================ -->
+			<h2 class="classTitle">
+				Class RiWordNet
+			</h2>
+			<p>&nbsp;</p>
+			
+
+<!-- ============================== class summary ========================== -->
+			
+			<div class="span11">
+			  <table cellpadding="0" cellspacing="0" border="0" class="ref-item">
+			    <tr class="">
+			      <th scope="row">Description</th>
+			      <!-- DESCRIPTION  -->
+			      <td>
+Provides support for access to the WordNet ontological database. Note that WordNet data files are no longer supplied 
+as part of the installation. Please download the version (3.x is recommended) for your platform
+<a href="http://wordnet.princeton.edu/wordnet/download/current-version/" target=_blank>here</a>.  
+ <p/>
+ <br/>
+ Construct a RiWordNet object like so:
+ 
+ <pre>
+   RiWordNet wordnet = new RiWordNet(&quot;/WordNet3.1&quot;);
+ </pre>
+ 
+ or, on Windows:
+ 
+ <pre> 
+   RiWordNet wordnet = new RiWordNet(&quot;c:\\WordNet3.0&quot;);
+ </pre>
+ 
+ Generally three methods are provided for each relation type. Using hypernyms as an example:
+ <pre>
+ getHyponyms(int id);
+ 
+ getHyponyms(String word, String pos)
+ 
+ getAllHyponyms(String word, String pos).</pre>
+ 
+ The 1st version returns hyponyms for a specific
+ sense (as specified by its unique id), the 2nd returns hyponyms for the most common sense,
+ and the 3rd returns hyponyms for ALL senses for the word/pos pair.
+ 
+ <p/>
+ <br/>
+ You can also retrieve the entire tree of hyponyms (down to the leaves) for a
+ specific sense of a word (see the VariousHyponyms example).
+ 
+ <p>
+ Note: Valid WordNet parts-of-speech include (noun="n",verb="v",adj="a", and
+ adverb="r"). <br>These can be specified either as a literal (e.g., "n") or using the constants:
+ 
+ <pre>
+    RiWordNet.NOUN
+    RiWordNet.VERB
+    RiWordNet.ADJ
+    RiWordNet.ADV
+ </pre>
+ 
+ <p>
+ <em>NOTE:</em>&nbsp; Methods returning a String[] will return a zero-length array when the query term
+  is not found or there are no entries for the relation type being sought, 
+  rather than null (as in the original version of this library). 
+ 
+ <p>
+ For more info on the meaning of various WordNet concepts (synset, sense,
+ hypernym, etc), see <a href="http://wordnet.princeton.edu/wordnet/man/wngloss.7WN.html" target=_blank>this page</a>.
+ 
+ <p>
+ See the included documentation for license information (in the rita.wordnet pkg).
+   
+			      </td>
+		        </tr>
+		        </table>
+		        
+		        <table cellpadding="0" cellspacing="0" border="1">
+		        		        
+			   	<tr class="">
+			      <th scope="row">Platform</th>
+			      <td>Java only&nbsp;  
+			      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+			      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+			      </td>
+		        </tr>
+
+		      </table>
+		  </div>
+			<p class="description"><br />
+		  </p>
+			<dl class="detailList">
+			  <dd></dd>  
+			</dl>
+<!-- ============================== event details ========================= -->
+			</div>
+			</div>
+	        </div>
+	      	</div>
+<!-- ============================== footer ================================= -->
+
+	 <div class="footer">
+	         <p> <br />
+         <br/></p>
+	     </div>
+	    </div>
+ 
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(["trackPageView"]);
+  _paq.push(["enableLinkTracking"]);
+  (function() {
+    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://rednoise.org/al/piwik/";
+    _paq.push(["setTrackerUrl", u+"piwik.php"]);
+    _paq.push(["setSiteId", "1"]);
+    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
+    g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Piwik Code -->
+
+	</body>
+</html>

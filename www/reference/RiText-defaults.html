@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.o../xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<title>RiTaEvent</title>
+		 <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
+		    <link rel="stylesheet" href="../css/syntax.css" type="text/css" />
+		    <link rel="stylesheet" href="../css/style.css" type="text/css" />
+		    <link rel="shortcut icon" type="image/x-icon" href="http://rednoise.org/rita/rita.ico"/>
+		    
+		    <!-- <script src="../js/processing-min.js" type="text/javascript"></script> -->
+		    
+		    <script type="text/javascript" src="../mailto.js"></script>
+	</head>
+
+	<body>
+		
+<!-- ============================== header ================================= -->	
+
+		<!-- begin static/header.html -->
+		<div id="header"></div>
+		<!-- end static/header.html -->
+
+			<div class="container">
+		      <div class="header"> <a href="../index.html"><img src="../img/RiTa-logo3.png" width="60" height="60"></a> <a href="https://github.com/dhowe/RiTaJS/"> <img style="position:absolute; margin-left:723px; border: 0; z-index:999999999" src="../img/forkme.png" alt="Fork me on GitHub"> </a></div>
+		      <span class="tagline">a software toolkit for generative literature</span>
+		          <div class="navbar">
+			        
+				</div>
+		      	<div class="page row">
+					<div class="refbar span3">
+					<div id="index">
+						<!-- begin publish.classesIndex -->
+						<h3></h3>
+						<ul class="classList" >
+							<br />
+							<li style="top:60px;left:50px">
+								<a href="index.html">Back to index</a>
+							</li>
+						</ul>
+						<hr />
+						<!-- end publish.classesIndex -->
+					</div>
+
+				</div>
+		        <div class="span12">
+
+		<div class="reference row">
+		
+
+<!-- ============================== classes index ============================ -->
+
+		
+		<div id="content">
+<!-- ============================== class title ============================ -->
+			<h2 class="classTitle">
+				RiText.Defaults
+			</h2>
+			<p>&nbsp;</p>
+			
+
+<!-- ============================== class summary ========================== -->
+			
+			<div class="span11">
+			  <table cellpadding="0" cellspacing="0" border="0" class="ref-item">
+			    <tr class="">
+			      <th scope="row">Description</th>
+			      <!-- DESCRIPTION  -->
+			      <td>This (static) object stores the default values for newly created RiTexts<p></td></tr>
+				<tr class="">
+		          <th scope="row">Fields/Types</th>
+		          <td><div class="example"> 
+			     	<!--pre class="margin"-->
+			     	<table class="fields">
+			     		<tr><td>RiText.defaults.fill</td><td>float[]</td></tr>
+			     		<tr><td>RiText.defaults.alignment</td><td>int</td></tr>
+			     		<tr><td>RiText.defaults.motionType</td><td>int</td></tr>
+			     		<tr><td>RiText.defaults.scaleX</td><td>float</td></tr>
+			     		<tr><td>RiText.defaults.scaleY</td><td>float</td></tr>
+			     		<tr><td>RiText.defaults.scaleZ</td><td>float</td></tr>
+						<tr><td>RiText.defaults.rotateX</td><td>float</td></tr>
+			     		<tr><td>RiText.defaults.rotateY</td><td>float</td></tr>
+			     		<tr><td>RiText.defaults.rotateZ</td><td>float</td></tr>
+			     		<tr><td>RiText.defaults.fontSize</td><td>float</td></tr>
+			     		<tr><td>RiText.defaults.leadingFactor</td><td>float</td></tr>
+						<tr><td>RiText.defaults.paragraphIndent</td><td>float</td></tr>
+			     		<tr><td>RiText.defaults.paragraphLeading</td><td>float</td></tr>
+			     		<tr><td>RiText.defaults.boundingStrokeWeight</td><td>float</td></tr>
+			     		<tr><td>RiText.defaults.boundingStroke</td><td>float[]</td></tr>
+						<tr><td>RiText.defaults.showBounds</td><td>boolean</td></tr>
+						<tr><td>RiText.defaults.fontFamily</td><td>string</td></tr>
+						<tr><td>RiText.defaults.font</td><td>object</td></tr>
+			     	</table> 	
+			     	<!--/pre-->
+		            </div>
+				  </td>
+		        </tr> 
+			    
+			    <tr class="">
+			      <th scope="row">Syntax</th>
+			      <!-- SYNTAX  -->
+			      <td>
+<pre>
+// Access the variables directly
+
+RiText.defaults.motionType = RiTa.EASE_IN;  // 15 options
+RiText.defaults.alignment = RiTa.CENTER;  // default=RiTa.LEFT
+RiText.defaults.leadingFactor = 1.5;  // default=1.2
+RiText.defaults.fontFamily = "Arial"; // default="Times New Roman"
+RiText.defaults.boundingStroke = 2; // default=1
+
+// Use helper methods instead:
+
+RiText.defaultFont("Arial", 24);
+RiText.defaultFill(255, 0, 0);
+</pre>
+				  </td>
+		        </tr>
+			    <tr class="" style='display:none'>
+			      <th scope="row">Parameters</th>
+			      <td><table cellpadding="0" cellspacing="0" border="0" class="sub-table">
+			        <tr class="">
+			          <!-- PARAMETERS  -->
+			          <th width="25%" scope="row" class="nobold">&nbsp; Object</th>
+			          <td width="75%">the source</td>
+		            </tr>
+                    			        <tr class="">
+			          <!-- PARAMETERS  -->
+			          <th width="25%" scope="row" class="nobold">&nbsp; int</th>
+			          <td width="75%">the type</td>
+		            </tr>
+			        </table></td>
+		        </tr>
+			   	<tr class="">
+			      <th scope="row">Platform</th>
+			      <!-- SYNTAX  -->
+			      <td>Java / Javascript</td>
+		        </tr>
+				<tr class='Note' style='display:none'>
+			      <th scope="row">Note</th>
+			      <!-- SYNTAX  -->
+			      <td></td>
+		        </tr>
+				<tr class="">
+						<th scope="row"></th>
+						<td></td>
+					</tr>
+
+		      </table>
+		  </div>
+			<p class="description"><br />
+		  </p>
+			<dl class="detailList">
+			  <dd></dd>  
+			</dl>
+<!-- ============================== event details ========================= -->
+			</div>
+			</div>
+	        </div>
+	      	</div>
+<!-- ============================== footer ================================= -->
+
+	 <div class="footer">
+	         <p> <br />
+       <br /></p>
+	     </div>
+	    </div>
+ 
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(["trackPageView"]);
+  _paq.push(["enableLinkTracking"]);
+  (function() {
+    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://rednoise.org/al/piwik/";
+    _paq.push(["setTrackerUrl", u+"piwik.php"]);
+    _paq.push(["setSiteId", "1"]);
+    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
+    g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Piwik Code -->
+
+	</body>
+</html>

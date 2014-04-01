@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>RiTaJS Tutorial</title>
+    <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="../css/syntax.css" type="text/css" />
+    <link rel="stylesheet" href="../css/style.css" type="text/css" />
+    <link rel="shortcut icon" type="image/x-icon" href="http://rednoise.org/rita/rita.ico"/>
+
+    <!--script src="../js/processing-min.js" type="text/javascript"></script-->
+    <!--script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script-->  
+    <script type="text/javascript" src="../js/mailto.js"></script>
+  </head>
+  <body>
+    <div class="container">
+        <div class="header">
+        	<a href="../index.html"><img src="../img/RiTa-logo3.png" width="60" height="60"></a>
+        	<a href="https://github.com/dhowe/RiTa/"><img style="position:absolute; width:149px;margin-top:-8px;margin-left:723px; border: 0; z-index:999999999" src="../img/forkme.png" alt="Fork me on GitHub"></a>
+		</div>
+      <span class="tagline">a software toolkit for generative literature</span>
+      <div class="navbar">
+        <!--canvas width="940px" height="78px" data-processing-sources="../RiTaBanner.pde"></canvas-->
+        <ul>
+          <li><a href="../index.html"><span>home</span></a></li>
+          <li><a href="../download/index.html"><span>download</span></a></li>
+          <li><a href="../reference/index.html"><span>reference</span></a></li>
+		  <li><a href="../examples/index.html"><span>examples</span></a></li>
+          <li><a href="./index.html" class="selected"><span>tutorial</span></a></li>
+       	  <li><a href="../gallery/index.html"><span>gallery</span></a></li>
+
+          <li>
+            <script language="JavaScript">InsertMailToTag("daniel", "rednoise.org");</script>
+          </li>
+        </ul>
+        <!--a class="viewsource" href="../RiTaBanner.pde">view source</a--> 
+      </div>
+      <div class="page row">
+        <div class="span11">
+
+<h2>Tutorial</h2>
+<br/>
+<p>This page explains how to quickly get started with RiTa.js with just a text-editor and a browser (RiTa and RiTaJS can also be used directly in Processing). If you encounter any problems with these instructions,
+ please <script language="JavaScript">InsertMailToTag("daniel", "rednoise.org");</script> us!
+
+<p>
+<div class="body">
+
+<!--  START TUTORIAL CONTENT -->
+
+<h3 id="setupenv">1. Setup your environment</h3>
+
+We need only 2 basic tools to start writing with RiTa.js: a text-editor and a web-browser. 
+If you've worked with javascript before and have both of these ready-to-go, skip down to step #2!<p>
+<p> 
+ Its not super-important which ones we use; any decent text-editor, preferably
+ with support for javascript (syntax-highlighting, etc), will be fine, but today we'll,
+  use <a href="http://www.barebones.com/products/TextWrangler/download.html">TextWrangler</a>
+   since its free and pre-installed on our lab machines.
+   <p>
+   For text-rendering, RiTa.js uses HTML5's canvas object. This is built-in to all the major web browsers, 
+   so any is fine (IE, as usual is a bit of a mess),
+    but lets start with <a href="https://www.google.com/intl/en/chrome/browser/">Google Chrome</a>
+   as it seems to have the best canvas support at the moment. We'll use the web-browser to view our work as we go.<p>
+   	
+   Note that you can also use RiTaJS from within the <a href="http://processingjs.org">Processing</a> IDE as described <a href="">here</a>.  
+
+    <h3 id="obtaining">2. Downloading RiTa.js</h3>
+    <p>
+        RiTa.js is a JavaScript library that is meant to be included in a web page.
+        You don't have to compile it or tell your web server about it. You just 
+        include in on a web page, and the browser will do the rest.</p>
+    <p>
+        You can download RiTa.js at <a href="http://rednoise.org/rita/download">the download page</a>. The library comes in a number of forms, for example:</p>
+    <ul>
+    	<!-- TODO: this should autoupdate on build with new version -->
+        <li>rita-full-1.0.54.zip</li>
+        <li>rita-1.0.54.js </li>
+        <li>rita-1.0.54.min.js *</li>
+    </ul>
+    <p> 
+        The version numbers may be different as you read this, but note the file extensions.
+        The rita-full zip package includes everything -- the source, reference, examples, tutorials, etc. 
+        The other two versions, ending in .js, are the core javascript code files. <p>
+        
+        <!--  move to footnote -->
+        * Note that the latter includes '.min'. This is a standard convention for 'minified'
+        forms of javascript, which just means it will be smaller to download (minified JavaScript uses tricks
+        like removing whitespace and renaming long variable names to single letters), but more difficult 
+        for a human reader to understand. File sizes and download times matter on the web in a way they don't with normal programming</p>
+        
+    <h3 id="creating">3. Creating a RiTa.js Web Page</h3>
+    <p>
+        It's easy to get overwhelmed with the amount there is to learn about modern web
+        brwosers. But there's a secret: you can ignore 95% of it as you start, and add
+        more later as you have time and interest. Unlike compilers or programming languages,
+        web browsers are designed to accept almost any input you throw at them, whether
+        valid or not, whether complete or not. Here's your first RiTa.js web page:</p>
+
+<div class="highlight">
+	 <pre><code class="html">&lt;canvas id="canvas" width=200 height=200 style="border: 1px solid #000000;"&gt;&lt;/canvas&gt;
+&lt;script src="http://rednoise.org/rita/download/rita-latest.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+
+RiText("This is not the Text").draw();
+
+&lt;/script&gt;
+	</code></pre>
+</div>
+
+Now lets add a bit more code:
+
+<div class="highlight"> 
+	 <pre><code class="html">
+var rt = RiText("This is not the Text");
+rt.font("arial", 16);
+rt.fill(200,100,100);
+rt.x = 30;
+rt.draw();
+	</code></pre>
+</div>
+
+Lets examine each line...
+<br/>&nbsp;<br/>
+Ok, so now lets try a loop. 
+<br/>&nbsp;<br/>
+
+<em>
+Note that since we're not using Processing here, we set the RiTa.p5Compatible() flag, 
+so that setup() and draw() are called automatically. 
+</em>
+
+<div class="highlight">
+	 <pre><code class="html">
+
+RiTa.p5Compatible(true);
+
+var rt; 
+
+function setup()
+{
+  rt = new RiText("This is not the Text");
+}
+
+function draw()
+{
+  background(255);
+  
+  rt.draw();
+
+  if (++rt.y == 200)  
+      rt.y = 0;
+}
+	
+	</code></pre>
+</div>
+
+Lets examine each line...
+<br/>&nbsp;<br/>
+
+Ok, now lets move things around:
+
+<div class="highlight">
+	 <pre><code class="html">
+
+RiTa.p5Compatible(true);
+
+function setup()
+{
+    RiText.defaultFont("Georgia",30);  
+    
+    var rt1 = RiText("ZIGX");
+    var rt2 = RiText("ZAG", 300, 300);
+    
+    rt1.moveTo(300, 300, 1);
+    rt2.moveTo(50, 50, 1.5);
+}
+
+function draw()
+{
+    background(255, 100);
+    RiText.drawAll();
+}
+	
+	</code></pre>
+</div>
+
+Lets examine each line...
+<br/>&nbsp;<br/>
+
+Ok, now lets get some more motion going:
+
+<div class="highlight">
+	 <pre><code class="html">
+// 2 RiTexts, moving to random spots
+
+RiTa.p5Compatible(true);
+
+function setup()
+{
+    RiText.defaultFont("Georgia",30);  
+    
+    var rt1 = RiText("ZIG");
+    var rt2 = RiText("ZAG", 300, 300);
+
+    moveToRandom(rt1);
+    moveToRandom(rt2);
+}
+
+// pick a new random location to go to
+function moveToRandom(rt) {
+
+    var newX = RiTa.random(200 - rt.textWidth());
+    var newY = RiTa.random(rt.textHeight(), 190);
+    var dst = RiTa.distance(rt.x, rt.y, newX, newY);
+    rt.moveTo(newX, newY, dst / 200);
+}
+
+function draw()
+{
+    background(255, 100);
+    RiText.drawAll();
+}
+
+//called by RiTa whenever a 'moveTo' behavior finishes
+function onRiTaEvent(e)
+{
+    if (e.type() == RiTa.MOVE_TO) 
+        moveToRandom(e.source());
+}
+
+	
+	</code></pre>
+</div>
+
+Lets examine each line...
+<br/>&nbsp;<br/>
+
+
+Ok, now lets try working with a 'grammar':
+
+<div class="highlight">
+	 <pre><code class="html">
+RiTa.p5Compatible(true);
+	 	
+var haikuGrammar = { 
+  "&lt;start&gt;": "<5-line> % <7-line> % <5-line>",
+  "<5-line>": "<1> <4> |<1> <3> <1> |<1> <1> <3> | <1> <2> <2> | <1> <2> <1> <1> | <1> <1> <2> <1> | <1> <1> <1> <2> | <1> <1> <1> <1> <1> | <2> <3> | <2> <2> <1> | <2> <1> <2> | <2> <1> <1> <1> | <3> <2> | <3> <1> <1> | <4> <1> | <5>",
+  "<7-line>": "<1> <1> <5-line> | <2> <5-line> | <5-line> <1> <1> | <5-line> <2>",  
+  "<1>": "red | white | black | sky | dawns | breaks | falls | leaf | rain | pool | my | your | sun | clouds | blue | green | night | day | dawn | dusk | birds | fly | grass | tree | branch | through | hell | zen | smile | gray | wave | sea | through | sound | mind | smoke | cranes | fish", 
+  "<2>": "drifting | purple | mountains | skyline | city | faces | toward | empty | buddhist | temple | japan | under | ocean | thinking | zooming | rushing | over | rice field | rising | falling | sparkling | snowflake",
+  "<3>": "sunrises | pheasant farms | people farms | samurai | juniper | fishing boats | far away | kimonos | evenings | peasant rain | sad snow fall",
+  "<4>": "aluminum | yakitori | the east village | west of the sun |  chrysanthemums | cherry blossoms",
+  "<5>": "resolutional | non-elemental | rolling foothills rise | toward mountains higher | out over this country | in the springtime again"
+};
+
+var grammar, rts = [];
+
+window.onmouseup=mouseClicked;
+
+function setup()
+{
+    RiText.size(650, 200);
+
+    RiText.defaultFont("arial",30);  
+    RiText.defaults.alignment = CENTER;
+
+    rts[0] = RiText("click to", RiText.width() / 2, 75);
+    rts[1] = RiText("generate", RiText.width() / 2, 110);
+    rts[2] = RiText("a haiku", RiText.width() / 2, 145); 
+
+    grammar = new RiGrammar(haikuGrammar);
+}
+
+function draw()
+{
+    RiText.background(230,240, 255);
+    RiText.drawAll();
+}
+
+function mouseClicked()
+{
+    var result = grammar.expand();
+    var lines =  result.split("%");
+    for (var i = 0; i < rts.length; i++) {
+        rts[i].text(lines[i]);
+    }
+}
+	</code></pre>
+</div>
+
+<!--  END TUTORIAL CONTENT -->
+
+	</div></div>
+        <div class="sidebar span4">
+          <h3>Downloads</h3>
+          <p> <a href="http://rednoise.org/rita/download/index.html">Get the latest RiTa.js!</a></p>
+          <!-- <h3><a href="articles/index.html">Meta</a></h3>
+          <p> <strong>Keywords</strong>. ##library.keywords##<br />
+            <strong>Reference</strong>. Have a look at the javadoc reference <a href="./reference/index.html" target="_blank">here</a>. A 		copy of the reference is included in the .zip as well.<br />
+            <strong>Source</strong>. The source code of RiTaJS is available at <a href="https://github.com/dhowe/RiTaJS">GitHub</a>, 
+            and its repository can be browsed <a href="##source.repository##" target="_blank">here</a>.<br />
+            <br />
+            </p>-->
+          <h3><span class="misc-title">Acknowledgments</span></h3>
+          <p> Kenny Wong | John Cayley<br/>
+            Braxon Soderman | Ian Hatcher<br/>
+            Matthew Stone | Ken Perlin<br/>
+            Mary Choueiter | Mini Ham </p>
+        </div>
+      </div>
+
+ <div class="footer">
+       <p> 
+       <br />
+ <!-- TODO: twitter or homepage link here -->
+      <!--a href="http://creativecommons.org/licenses/by-nc-sa/3.0/us/" rel="license"> <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/us/88x31.png" style="border-width:0" alt="Creative Commons License" /> </a> --> </p>      </div>
+    </div>
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(["trackPageView"]);
+  _paq.push(["enableLinkTracking"]);
+  (function() {
+    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://rednoise.org/al/piwik/";
+    _paq.push(["setTrackerUrl", u+"piwik.php"]);
+    _paq.push(["setSiteId", "1"]);
+    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
+    g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Piwik Code -->            
+  </body>
+</html>
+
+<!-- Localized -->

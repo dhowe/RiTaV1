@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.o../xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<title>RiGrammar</title>
+		 	<link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
+		    <link rel="stylesheet" href="../css/syntax.css" type="text/css" />
+		    <link rel="stylesheet" href="../css/style.css" type="text/css" />
+		    <link rel="shortcut icon" type="image/x-icon" href="http://rednoise.org/rita/rita.ico"/>
+		    <!-- <script src="../js/processing-min.js" type="text/javascript"></script> -->
+		    <script type="text/javascript" src="../mailto.js"></script>
+	</head>
+
+	<body>
+		<!-- ============================== header ================================= -->
+			
+		<!-- begin static/header.html -->
+		<div id="header"></div>
+		<!-- end static/header.html -->
+
+			<div class="container">
+		      <div class="header"> <a href="../index.html"><img src="../img/RiTa-logo3.png" width="60" 
+		      	height="60"></a> <a href="https://github.com/dhowe/RiTaJS/"> <img style="position:absolute; margin-left:723px; border: 0; z-index:999999999" src="../img/forkme.png" alt="Fork me on GitHub"> </a></div>
+		      <span class="tagline">a software toolkit for generative literature</span>
+		          <div class="navbar">
+			       
+				  </div>
+					
+		      <div class="page row">
+              		
+				<div class="refbar span3">
+					<div id="index">
+						<!-- begin publish.classesIndex -->
+						<h3></h3>
+						<ul class="classList" >
+							<br />
+							<li style="top:60px;left:50px">
+								<a href="index.html">Back to index</a>
+							</li>
+						</ul>
+						<hr />
+						<!-- end publish.classesIndex -->
+					</div>
+				</div>
+				
+		        	<div class="span12">
+
+						<div class="reference row">
+		
+							<div id="content">
+			
+<!-- ============================== class title ============================ -->
+
+								<h2 class="classTitle">Class RiGrammar</h2></br>
+			<p>&nbsp;</p>
+<!-- ============================== class summary ========================== -->
+
+<table cellpadding="0" cellspacing="0" border="0" class="ref-item">
+		<tr class="">
+			      <th scope="row"<br>Description</th>
+			      <!-- DESCRIPTION  -->
+			      <td><span class="description">A probabilistic context-free grammar with literary extensions for text-generation.</span></td>
+		</tr>
+		<tr class="">
+          <th scope="row">Examples</th>
+          <td></br>
+          	<div class="example"> 
+			    
+	     <pre class="margin"> 
+rg = new RiGrammar(jsonStringOrObject);
+
+result = rg.expand();
+		</pre>
+		
+RiTa grammars are valid JSON-formatted strings as follows:
+<pre>
+{ 	   
+	"&lt;start&gt;": "&lt;rule1&gt; | &lt;rule2&gt; | &lt;rule3&gt;",
+
+	"&lt;rule2&gt;": "terminal1 | terminal2 | &lt;rule1&gt;",
+		
+	...
+}
+</pre>
+OR
+<br/>&nbsp;
+<pre>
+{ 	   
+	"&lt;start&gt;": [ "&lt;rule1&gt;", "&lt;rule2&gt;", "&lt;rule3&gt;" ],
+
+	"&lt;rule2&gt;": [ "terminal1", "terminal2", "&lt;rule1&gt;" ],
+		
+	...
+}
+</pre>
+  
+<li>If you're not sure whether your grammar is valid JSON, you can check it at <a href='http://jsonlint.com/'> jsonlint.com</a><br/>&nbsp;
+	
+<li>Commonly used methods:</li>
+<br/>
+<ul>
+
+<li><code>expand()</code> begins at the &lt;start&gt; state and 
+generates a string of terminals from the grammar.<p>
+	
+<li><code>expandFrom(String)</code> begins with the argument
+String (which can consist of both non-terminals and terminals,) 
+and expands from there.
+<br> 
+<p>
+	<br>
+Notice that <code>expand()</code> is simply
+a convenient version of <code>expandFrom("&lt;start&gt;");</code>.</p>
+	
+<!--li><code>expandWith(String, String)</code> takes 2 String arguments, the 1st 
+(a terminal) is guaranteed to be substituted for the 2nd (a non-terminal). Once this 
+substitution is made, the algorithm then works backwards (up the tree from the leaf)
+ensuring that the terminal (terminal1) appears in the output string. 
+For example, with the grammar fragment above, one might call:<p>
+<pre>
+grammar.expandWith(terminal1, "&lt;rule2&gt;");
+</pre>
+assuring not only that <code>&lt;rule2&gt;</code>will be used at least 
+once in the generation process, but that when it is, it will be replaced 
+by the terminal "hello". -->
+</ul>
+
+<li>A RiGrammar object will assign (by default) equal weights to all choices in a rule. 
+One can adjust the weights by adding 'multipliers' as follows: (in the rule below,
+'terminal1' will be chosen twice as often as the 2 other choices.
+<pre>   
+"&lt;rule2&gt;": "terminal1 [2] | terminal2 | &lt;rule1&gt;" 
+</pre>
+
+<li>The RiGrammar object supports callbacks, from your grammar, back into your code.
+To generate a callback, add the method call in your grammar, surrounded by back-ticks, as follows:
+
+<pre>       
+"&lt;rule2&gt;": "The cat ran after the `pluralize('cat')` | The \
+	 &lt;noun&gt; ran after the `pluralize(&lt;noun&gt;)`" 
+</pre>
+
+<p>
+Then call <em>myGrammar.expand(callee)</em>, where callee is the (optional) object on which to execute the method.
+If no object is supplied (e.g., in JavaScript) then the function is called in the current scope. 
+</p><p>
+Any number of arguments may be passed in a callback, but for each call,
+there must be a corresponding method in the object that gets the callback , e.g.,
+</p>
+<pre>
+function pluralize(theString) {
+   ...
+}
+
+</pre>
+Note: this mechanism is not yet implemented in NodeJS (see <a href="https://github.com/dhowe/RiTaJS/issues/9">#9</a>)...
+
+            </div></td>
+        </tr> 
+
+		<tr class="">
+		  <th scope="row">Syntax</th>
+		  <!-- SYNTAX  -->
+		  <td>
+<pre>
+// Initialize a RiGrammar object with no grammar data.
+rg = new RiGrammar(); 
+	
+	OR
+     
+// Specify a grammar in JSON format.
+rg = RiGrammar(myJSONGrammar)
+
+	OR
+
+// Load a JSON grammar from a file 	
+rg = new RiGrammar();
+rg.loadFrom("file.json");
+
+      	OR
+      	
+// Load a JSON grammar from a URL	
+rg = new RiGrammar();
+rg.loadFrom("http://www.theserver.org/file.json");
+</pre>
+</td>
+        </tr>
+	    <tr class="">
+	      <th scope="row">Parameters</th>
+	      <td><table cellpadding="0" cellspacing="0" border="0" class="sub-table">
+		    <tr class="">
+	          <!-- PARAMETERS  -->
+	          <th width="25%" scope="row" class="nobold">&nbsp; String or Object</th>
+	          <td width="75%">the (JSON) grammar</td>
+            </tr>
+	        </table></td>
+        </tr>
+	   	<tr class="">
+	      <th scope="row">Platform</th>
+	      <!-- SYNTAX  -->
+	      <td>Java / Javascript</td>
+        </tr>
+		<tr class='Note' style='display:none'>
+	      <th scope="row">Note</th>
+	      <!-- SYNTAX  -->
+	      <td></td>
+        </tr>
+        
+        				<tr class="">
+					<th scope="row"></th>
+					<td></td>
+				</tr>
+						
+	      </table>
+      		
+<!-- ============================== event details ========================= --></div>
+
+
+	</div>
+	        </div>
+	       
+	      </div>
+		
+<!-- ============================== footer ================================= -->
+
+
+	 <div class="footer">
+	         <p> <br />
+       <br /></p>
+	     </div>
+	    </div>
+	    
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(["trackPageView"]);
+  _paq.push(["enableLinkTracking"]);
+  (function() {
+    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://rednoise.org/al/piwik/";
+    _paq.push(["setTrackerUrl", u+"piwik.php"]);
+    _paq.push(["setSiteId", "1"]);
+    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
+    g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Piwik Code -->
+
+	</body>
+</html>

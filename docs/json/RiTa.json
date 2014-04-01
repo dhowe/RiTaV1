@@ -1,0 +1,832 @@
+{
+    "class": "rita.RiTa",
+    "fields": [
+	{
+      "methodName":"RiTa.VERSION",
+      "variable": true,
+      "description":"the current RiTa version ",
+      "syntax":"RiTa.VERSION",
+      "parameters": [],
+      "returns": [
+         {
+            "type":"String",
+            "desc":""
+         }
+
+      ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"RiTa.isAbbreviation()",
+      "example":"",
+      "description":"Returns true if 'input' is an abbreviation",
+      "syntax":"RiTa.isAbbreviation(input)<br/>RiTa.isAbbreviation(input, caseSensitive)",
+      "parameters":[
+         {
+            "type":"String",
+            "desc":"text input"
+         },
+         {
+            "type":"boolean",
+            "desc":"caseSensitive (optional, default=false)"
+         }
+
+      ],
+      "returns":[
+         {
+            "type":"boolean",
+            "desc":"true if 'input' is an abbreviation"
+         }
+
+      ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+
+   },
+   {
+      "methodName":"RiTa.isQuestion()",
+      "example":"",
+      "description":"Returns true if sentence starts with a question word",
+      "syntax":"RiTa.isQuestion(sentence)",
+      "parameters":[
+         {
+            "type":"String",
+            "desc":"sentence"
+         }
+
+      ],
+      "returns":[
+         {
+            "type":"boolean",
+            "desc":"true if 'sentence' starts with a question word"
+         }
+
+      ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+
+   },
+   {
+      "methodName":"RiTa.env()",
+      "example":"",
+      "description":"Returns one of the following constants, depending on the runtime environment (RiTa.JAVA, RiTa.JS, RiTa.NODEJS) ",
+      "syntax":"RiTa.env();",
+      "parameters":[],
+      "returns":[
+         {
+            "type":"int",
+            "desc":"Returns RiTa.JAVA, RiTa.JS, or RiTa.NODEJS, depending on the runtime environment"
+         }
+
+      ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"RiTa.isSentenceEnd()",
+      "example":"",
+      "description":"Takes two consecutive words and returns true if 'currentWord' is the final word of a sentence (if true, 'nextWord' is generally the first word of the next sentence) ",
+      "syntax":"RiTa.isSentenceEnd(currentWord, nextWord)",
+      "parameters":[
+         {
+            "type":"String",
+            "desc":"currentWord"
+         },
+         {
+            "type":"String",
+            "desc":"nextWord"
+         }
+
+      ],
+      "returns":[
+         {
+            "type":"boolean",
+            "desc":"true if 'currentWord' is the final word of a sentence"
+         }
+
+      ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+
+   },
+   {
+      "methodName":"RiTa.isW_Question()",
+      "example":"",
+      "description":"Returns true if sentence starts with a w-question word, eg (who,what,why,where,when,etc.)",
+      "syntax":"RiTa.isW_Question(sentence)",
+      "parameters":[
+         {
+            "type":"String",
+            "desc":"sentence"
+         }
+
+      ],
+      "returns":[
+         {
+            "type":"boolean",
+            "desc":"true if sentence starts with a w-question word, eg (who,what,why,where,when,etc.)"
+         }
+
+      ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+
+   },
+   {
+      "methodName":"RiTa.randomItem()",
+      "example":"",
+      "description":"Returns a random item from an array (or Collection)",
+      "syntax":"RiTa.randomItem(myArray)",
+      "parameters":[],
+      "returns":[
+         {
+            "type":"Object",
+            "desc":"the item"
+         }
+
+      ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"RiTa.randomOrdering()",
+      "example":"",
+      "description":"Returns a randomly ordered array of unique integers from 0 to numElements. <br/>The size of the array will be numElements.",
+      "syntax":"RiTa.randomOrdering(numElements)",
+      "parameters":[
+         {
+            "type":"int",
+            "desc":"numElements"
+         }
+
+      ],
+      "returns":[
+         {
+            "type":"int[]",
+            "desc":"unique integers from 0 to numElements-1"
+         }
+
+      ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+      
+   },
+   {
+      "methodName":"RiTa.splitSentences()",
+      "example":"",
+      "description":"Splits 'text' into sentences (according to PENN Treebank conventions)",
+      "syntax":"RiTa.splitSentences(text)<br/>RiTa.splitSentences(text, regex)",
+      "parameters":[
+         {
+            "type":"String",
+            "desc":"text the text to be split"
+         },
+         {
+            "type":"String OR Regex (in JS)",
+            "desc":"regex (optional) the pattern to be used for word tokenization"
+         }
+      ],
+      "returns":[
+         {
+            "type":"String[]",
+            "desc":"array of sentences"
+         }
+
+      ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+      
+   },
+   {
+      "methodName":"RiTa.stripPunctuation()",
+      "example":"",
+      "description":"Strips all punctuation from the input string",
+      "syntax":"RiTa.stripPunctuation(text)",
+      "parameters":[
+         {
+            "type":"String",
+            "desc":"text input"
+         }
+      ],
+      "returns":[
+         {
+            "type":"String",
+            "desc":"result"
+         }
+
+      ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+      
+   },
+   {
+      "methodName":"RiTa.trimPunctuation()",
+      "example":"",
+      "description":"Trims punctuation from both ends the input string (does not trim whitespace or internal punctuation)",
+      "syntax":"RiTa.trimPunctuation(text)",
+      "parameters":[
+         {
+            "type":"String",
+            "desc":"text input"
+         }
+      ],
+      "returns":[
+         {
+            "type":"String",
+            "desc":"result"
+         }
+      ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+      
+   },
+   {
+      "methodName":"RiTa.isPunctuation()",
+      "example":"",
+      "description":"Returns true if every character of 'text' is a punctuation character",
+      "syntax":"RiTa.isPunctuation(text)",
+      "parameters":[
+         {
+            "type":"String",
+            "desc":"text input"
+         }
+
+      ],
+      "returns":[
+         {
+            "type":"boolean",
+            "desc":""
+         }
+      ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+      
+   },
+   {
+      "methodName":"RiTa.tokenize()",
+      "example":"",
+      "description":"Tokenizes the string (into words) according to Penn Treebank conventions<br/>See: <a href='http://www.cis.upenn.edu/~treebank/tokenization.html'>http://www.cis.upenn.edu/~treebank/tokenization.html</a>",
+      "syntax":"RiTa.tokenize(words)<br/>RiTa.tokenize(words, regex)",
+      "parameters": [
+         {
+            "type":"String",
+            "desc":"the input"
+         },
+         {
+            "type":"String OR Regex (in JS)",
+            "desc":"regex (optional) the pattern to be used for tozenization"
+         }
+      ],
+      "returns":[
+         {
+            "type":"String[]",
+            "desc":"in which each element is a single token (or word)"
+         }
+
+      ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+      
+   },
+   {
+      "methodName":"RiTa.trim()",
+      "example":"",
+      "description":"Removes blank space from either side of a string",
+      "syntax":"RiTa.trim(input)",
+      "parameters":[
+         {
+            "type":"String",
+            "desc":"the input string"
+         }
+
+      ],
+      "returns":[
+         {
+            "type":"String",
+            "desc":""
+         }
+
+      ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+      
+   },
+   {
+      "methodName":"RiTa.distance()",
+      "example":"",
+      "description":"Convenience method to get the distance between 2 points",
+      "syntax":"RiTa.distance(x1, y1, x2, y2)",
+      "parameters":[
+         {
+            "type":"float",
+            "desc":"x1"
+         },
+         {
+            "type":"float",
+            "desc":"y1"
+         },
+         {
+            "type":"float",
+            "desc":"x2"
+         },
+         {
+            "type":"float",
+            "desc":"y2"
+         }
+      ],
+      "returns":[
+         {
+            "type":"float",
+            "desc":"the distance"
+         }
+
+      ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+      
+   },
+   {
+      "methodName":"RiTa.getPhonemes()",
+      "example":"",
+      "description":"Returns a string containing all phonemes for the input text",
+      "syntax":"RiTa.getPhonemes(wordStr)<br/>RiTa.getPhonemes(wordArr)",
+      "parameters":[
+         {
+            "type":"String OR String[]",
+            "desc":"words to analyze"
+         }
+        
+      ],
+      "returns":[
+         {
+            "type":"String",
+            "desc":"e.g., 'dh-ax-d-ao-g-r-ae-n-f-ae-s-t'"
+         }
+
+      ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+      
+   },
+   {
+      "methodName":"RiTa.getPosTags()",
+      "example":"",
+      "description":"Uses the default PosTagger to tag the input with tags from the <a href='../../PennTags.html'>PENN tag set</a>",
+      "syntax":"RiTa.getPosTags(word)<br/>RiTa.getPosTags(wordArr)",
+      "parameters":[
+         {
+            "type":"String OR String[]",
+            "desc":"the text to be tagged"
+         },
+         {
+            "type":"boolean",
+            "desc":"if true, use WordNet syle tags (optional, default=false)"
+         }
+        
+      ],
+      "returns":[
+       {
+            "type":"String[] of part-of-speech tags",
+            "desc":""
+       }
+
+      ],
+      "related":"<a href='../../PennTags.html'>the PENN tagset</a>",
+      "platform":"Java / Javascript",
+	  "note":""
+      
+   },
+   {
+      "methodName":"RiTa.getPosTagsInline()",
+      "example":"",
+      "description":"Takes an string returns a combined string of the form:<p><pre>'The/dt doctor/nn treated/vbd dogs/nns'</pre>, using lowercased tags from the <a href='../../PennTags.html'>PENN tag set</a>",
+      "syntax":"RiTa.getPosTagsInline(word)",
+      "parameters":[
+         {
+            "type":"String or String[]",
+            "desc":"the text to tag"
+         }
+        
+      ],
+      "returns":[
+         {
+            "type":"String",
+            "desc":"a combined string of words and pos tags"
+         }
+
+      ],
+      "related":"<a href='../../PennTags.html'>the PENN tagset</a>",
+      "platform":"Java / Javascript",
+	  "note":""
+      
+   },
+   {
+      "methodName":"RiTa.getStresses()",
+      "example":"",
+      "description":"Analyzes the input and returns a new string containing the stresses for each syllable of the input text ",
+      "syntax":"RiTa.getStresses(word)<br/>RiTa.getStresses(wordArr)",
+      "parameters":[
+         {
+            "type":"String OR String[]",
+            "desc":"words to analyze"
+         }
+        
+      ],
+      "returns":[
+         {
+            "type":"String",
+            "desc":"e.g., '01-0-1', with 1's meaning 'stressed', and 0's meaning 'unstressed', "
+         }
+
+      ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+      
+   },
+   {
+      "methodName":"RiTa.getSyllables()",
+      "example":"",
+      "description":"Analyzes the input and returns a String containing the phonemes for each syllable of each word of the input text,  delimited by dashes (phonemes) and spaces (words) ",
+      "syntax":"RiTa.getSyllables(word)<br/>RiTa.getSyllables(wordArr)",
+      "parameters":[
+         {
+            "type":"String OR String[]",
+            "desc":"words to analyze"
+         }
+        
+      ],
+      "returns":[
+         {
+            "type":"String",
+            "desc": "e.g., 'dh-ax d-ao-g r-ae-n f-ae-s-t' for the 4 syllables of the phrase 'The dog ran fast'"
+         }
+
+      ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+      
+   },
+   {
+      "methodName":"RiTa.getWordCount()",
+      "example":"",
+      "description":"Returns the # of words in the String according to the default tokenizer",
+      "syntax":"RiTa.getWordCount(text)",
+      "parameters":[
+         {
+            "type":"String",
+            "desc":"the string to analyze"
+         }
+        
+      ],
+      "returns":[
+         {
+            "type":"int",
+            "desc":"the # of words"
+         }
+
+      ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"RiTa.posToWordNet()",
+      "example":"",
+      "description":"Converts a PENN part-of-speech tag to the simplified WordNet scheme, consisting of the following 5 tags: 'n' (noun), 'v' (verb), 'a' (adj), 'r' (adverb), and '-'(other).",
+      "syntax":"RiTa.posToWordNet(pennPosTag)",
+      "parameters":[
+         {
+            "type":"String",
+            "desc":"the (PENN) pos tag to convert"
+         }
+      ],
+      "returns":[
+         {
+            "type":"String",
+            "desc":"the simplified WordNet tag"
+         }
+      ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "methodName":"RiTa.conjugate()",
+      "example":"// Java<br><br>Map args = new HashMap();<br>args.put(\"tense\", RiTa.PAST_TENSE);<br>args.put(\"number\", RiTa.SINGULAR);<br>args.put(\"person\", RiTa.FIRST_PERSON);<br><br>String c = RiTa.conjugate(\"swim\", args);<br> <br> <br>// Javascript<br><br>var args = {<br>  tense: RiTa.PRESENT_TENSE,<br>  number: RiTa.SINGULAR,<br>  person: RiTa.THIRD_PERSON<br>};<br><br>var c = RiTa.conjugate('swim', args);<br> <br>",
+      "description":"Conjugates the 'verb' according to the specified options",
+      "syntax":"RiTa.conjugate(verb, args)",
+      "parameters":[
+         {
+            "type":"String",
+            "desc":"the verb stem"
+         },
+         {
+            "type":"Object<br>(or Map in Java)",
+            "desc":"args containing the relevant options for the conjugator"
+         }
+        
+      ],
+      "returns":[
+         {
+            "type":"String",
+            "desc":"the conjugated verb"
+         }
+
+      ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+      
+   },   
+   {
+      "methodName":"RiTa.getPastParticiple()",
+      "example":"",
+      "description":"Returns the past participle form of the stemmed or non-stemmed 'verb'",
+      "syntax":"RiTa.getPastParticiple(verb)",
+      "parameters":[
+         {
+            "type":"String",
+            "desc":"the verb"
+         }
+
+      ],
+      "returns":[
+         {
+            "type":"String",
+            "desc":"the past participle form of the verb"
+         }
+
+      ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+      
+   }, 
+   {
+      "methodName":"RiTa.getPresentParticiple()",
+      "example":"",
+      "description":"Returns the present participle form of the stemmed or non-stemmed 'verb'",
+      "syntax":"RiTa.getPresentParticiple(verb)",
+      "parameters":[
+         {
+            "type":"String",
+            "desc":"the verb"
+         }
+
+      ],
+      "returns":[
+         {
+            "type":"String",
+            "desc":"the present participle form of the verb"
+         }
+
+      ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+      
+   }, 
+   {
+      "methodName":"RiTa.stem()",
+      "example":"String s = RiTa.stem('cakes');\n\nString y = RiTa.stem('cakes', RiTa.PORTER);",
+      "description":"Extracts base roots from a word according to the specified stemming algorithm <br/>&nbsp;<br/> Note: see <a href='http://text-processing.com/demo/stem/'>http://text-processing.com/demo/stem/</a> for comparison of Lancaster and Porter algorithms or <a href='http://mpii.de/yago-naga/javatools'>http://mpii.de/yago-naga/javatools</a> for info on PlingStemmer",
+      "syntax":"RiTa.stem(word, type)",
+      "parameters":[
+         {
+            "type":"String",
+            "desc":"the word to analyze"
+         },
+         {
+            "type":"String",
+            "desc":"Choose RiTa.LANCASTER (the default), RiTa.PORTER, or RiTa.PLING, to specify the stemming algorithm to use"
+         }
+
+      ],
+      "returns":[
+         {
+            "type":"String",
+            "desc":"the stemmed form of 'word'"
+         }
+
+      ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+      
+   }, 
+   {
+      "methodName":"RiTa.pluralize()",
+      "example":"",
+      "description":"Pluralizes a noun according to pluralization rules",
+      "syntax":"RiTa.pluralize(word)",
+      "parameters":[
+         {
+            "type":"String",
+            "desc":"the noun"
+         }
+         
+      ],
+      "returns":[
+         {
+            "type":"String",
+            "desc":"the regular or irregular plural form of the noun"
+         }
+
+      ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+      
+   }, 
+   {
+      "methodName":"RiTa.singularize()",
+      "example":"",
+      "description":"Singularize a word according to singularization rules",
+      "syntax":"RiTa.singularize(word)",
+      "parameters":[
+         {
+            "type":"String",
+            "desc":"the noun"
+         }
+         
+      ],
+      "returns":[
+         {
+            "type":"String",
+            "desc":"the singular form of the noun"
+         }
+
+      ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+      
+    }, 
+	{
+      "methodName":"RiTa.timer()",
+      "example":"",
+      "description":"Starts a timer that calls 'onRiTaEvent()', or the specified callback (in JS), every 'period' seconds",
+      "syntax":"RiTa.timer(parent, period)<br/>RiTa.timer(parent, period, callback)",
+      "parameters":[
+         {
+            "type":"Object",
+            "desc":"the parent object in which to find (optional in JS)"
+         },
+         {
+            "type":"float",
+            "desc":"period (in seconds)"
+         },
+         {
+            "type":"String OR Function ",
+            "desc":"callback function to be called every 'period' seconds<br>the function name String (in Java) or the function itself (in JS) "
+         }
+         
+      ],
+      "returns":[
+         {
+            "type":"int",
+            "desc":"the unique id for the timer"
+         }
+
+      ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":"The 'parent' object is optional in JS, and the optional callback is a function, rather than a String name"	
+      
+   }, 
+   {
+      "methodName":"RiTa.stopTimer()",
+      "example":"",
+      "description":"Stops a timer according to its unique id",
+      "syntax":"RiTa.stopTimer(id)",
+      "parameters":[
+         {
+            "type":"int",
+            "desc":"the unique id for the timer"
+         }
+         
+      ],
+      "returns":[],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+      
+   }, 
+   {
+      "methodName":"RiTa.pauseTimer()",
+      "example":"",
+      "description":"Pauses a timer according to its unique id",
+      "syntax":"RiTa.pauseTimer(id, pauseSec)",
+      "parameters":[
+         {
+            "type":"int",
+            "desc":"the unique id for the timer"
+         },
+         {
+            "type":"float",
+            "desc":"pause-time (in seconds)"
+         }
+         
+      ],
+      "returns":[
+         {
+            "type":"id",
+            "desc":"the new unique id for the timer"
+         }
+
+      ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+      
+   },  
+   {
+      "methodName":"RiTa.random()",
+      "example":"",
+      "description":"Returns a random number between >= min (default=0) and < max (default=1)",
+      "syntax":"RiTa.random()<br>RiTa.random(min)<br>RiTa.random(min, max)",
+      "parameters":[
+         {
+            "type":"int or float",
+            "desc":"min-value, (optional, default=0) "
+         },
+         {
+            "type":"int or float",
+            "desc":"max-value, (optional, default=1) "
+         }
+      ],
+      "returns":[
+         {
+            "type":"int or float ",
+            "desc":"the random number (its type depends on input parameters)"
+         }
+
+      ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":"if only one parameter is supplied, it is read as the max-value (with min=0)"
+
+   },
+   {
+      "methodName":"RiTa.loadString()",
+      "example":"",
+      "description":"Loads the contents from one or more files/urls and then calls back to the supplied 'callback' function with the loaded string as an argument.",
+      "syntax":"RiTa.loadString(url); RiTa.loadString(url, callback);<br/>RiTa.loadString(url, pApplet)",
+      "parameters":[
+         {
+            "type":"String or Array",
+            "desc":"the filename(s) from which to load the file"
+         },
+		 {
+            "type":"Function (optional: the callback, for JavaScript only) or Object (optional: the PApplet, for Java only)",
+            "desc":"If a Function (in JavaScript), it will be called after the file is loaded (with one string, the aggregate data, as its argument);<br>if no callback is supplied, or the argument is a PApplet(in Java), onRiTaEvent(re) will be called instead, with re.type() == RiTa.DATA_LOADED"
+         }
+      ],
+      "returns":[],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":"In Node, uses the node 'filesystem' or 'request' modules; in JavaScript, uses an invisible iframe; In Java, if a PApplet is passed as 2nd argument, it will be used to locate and check the 'data' folder of the sketch for the specified file"
+   },
+   {
+   	  "hidden": false,
+      "methodName":"RiTa.p5Compatible()",
+      "example":"",
+      "description":"For convenience, provides implementations of some of Processing built-in method, e.g. size(), background(), etc. and calls setup() and draw() automatically (if they exist)",
+      "syntax":"RiTa.p5Compatible(value)",
+      "parameters":[
+         {
+            "type":"boolean (optional, only for sets)",
+            "desc":"true to enable compatibility, else false"
+         }
+      ],
+      "returns":[
+         {
+            "type":"boolean",
+            "desc":"returns current value when no argument is given"
+         }
+      ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":"Does nothing in Java"
+   }
+]
+}
