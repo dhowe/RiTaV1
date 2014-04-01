@@ -141,6 +141,8 @@ public abstract class Dictionary implements Installable {
 	 */
 	public IndexWord lookupIndexWord(POS pos, String lemma) throws JWNLException {
 
+	  if (pos == null || lemma == null) return null;
+	  
 		//lemma = prepareQueryString(lemma);
 		IndexWord word = getIndexWord(pos, lemma);
 		if (word == null && RiWordNet.useMorphologicalProcessor) {

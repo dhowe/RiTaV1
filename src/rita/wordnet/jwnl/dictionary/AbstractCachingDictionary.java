@@ -42,6 +42,7 @@ public abstract class AbstractCachingDictionary extends Dictionary {
 	}
 
 	public void setCachingEnabled(boolean cachingEnabled) {
+System.out.println("AbstractCachingDictionary.setCachingEnabled("+cachingEnabled+")");
 		_isCachingEnabled = cachingEnabled;
 	}
 
