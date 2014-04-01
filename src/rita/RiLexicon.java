@@ -278,7 +278,7 @@ public class RiLexicon implements Constants
    */
   public String[] words()
   {
-    return SetOp.toStringArray(lexicalData().keySet());
+    return SetOp.toStringArray(lexicalData().keySet(), true);
   }
   
   /** 

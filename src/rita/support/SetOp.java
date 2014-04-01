@@ -20,16 +20,32 @@ public final class SetOp
     return new TreeSet(set);
   }
   
-  /** Converts a Set to a new String[]  */
+  /** Converts a Set to a new String[], assuming all elements are Strings  */
 	public static String[] toStringArray(Set set) {
+	  return toStringArray(set, false);
+	}
+	
+  public static String[] toStringArray(Set set, boolean shuffle) {
+
     if (set == null || set.size()==0)
       return new String[0];
-		int idx = 0;
-		String[] s = new String[set.size()];
-		for (Iterator i = set.iterator(); i.hasNext();) 
-			s[idx++] = (String)i.next();	
-		return s;
-	}
+    
+    Iterator i = set.iterator();
+    
+    if (shuffle) {
+      List l = new ArrayList(set);
+      Collections.shuffle(l);
+      i = l.iterator();
+    }
+    
+    int idx = 0;
+    String[] s = new String[set.size()];
+    while (i.hasNext()) {
+      s[idx++] = (String)i.next();
+    }
+    
+    return s;  
+  }
 	
 	/**
    * returns the set cross product of s1 and s2, as <code>Pair</code>s
@@ -83,20 +99,20 @@ public final class SetOp
 			h.add(h0);
 			return h;
 		} 
-		else {
-			Iterator i = s.iterator();
-			Object elt = i.next();
-			s.remove(elt);
-			Set pow = powerSet(s);
-			Set pow1 = powerSet(s);
-			for (Iterator j = pow1.iterator(); j.hasNext();) {
-				Set t = new HashSet((Set) j.next());
-				t.add(elt);
-				pow.add(t);
-			}
-			s.add(elt);
-			return pow;
+
+		Iterator i = s.iterator();
+		Object elt = i.next();
+		s.remove(elt);
+		Set pow = powerSet(s);
+		Set pow1 = powerSet(s);
+		for (Iterator j = pow1.iterator(); j.hasNext();) {
+			Set t = new HashSet((Set) j.next());
+			t.add(elt);
+			pow.add(t);
 		}
+		s.add(elt);
+		return pow;
+		
 	}
 
 	public static void main(String[] args) {
@@ -105,7 +121,13 @@ public final class SetOp
 		h.add("a");
 		h.add("z");
 		h.add("c");
-		System.out.println(sort(h));
+    System.out.println(sort(h));
+
+		System.out.println(Arrays.asList(toStringArray(h)));
+		for (int i = 0; i < 10; i++)
+      System.out.println(" "+i+") "+Arrays.asList(toStringArray(h,true)));
+
+		
 		Set pow = powerSet(h);
 		System.out.println(pow);
 	}

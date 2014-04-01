@@ -20,22 +20,22 @@
         
         $(document).ready(function() {
             
-            //var theHtml = '<h2>Download RiTa v'+V+'</h2><br/>'+
             var theHtml = '<h2>Downloads</h2><br/>'+
             	'<strong>RiTa library</strong>&nbsp; &nbsp;(java, js, reference, examples, tutorial, src)<p/> '+
             	'<a href="./RiTa-'+V+'.zip">RiTa-'+V+'.zip</a><br/>&nbsp;<p/>';
-            //'<strong>RiTa</strong> version '+V+' [jar-only]<br/> <a href="./rita-full-'+V+'.zip">rita-full-'+V+'.zip</a><br/><br/>';
             
             theHtml += // '<p><h2>Download RiTa.js v'+V+'</h2><br/>'+
-           	 	//'<strong>RiTa.js</strong> version '+V+' [complete]<br/> <a href="./rita-full-'+V+'.zip">ritasj-full-'+V+'.zip</a><br/><br/>'+
            	 	
             	'<strong>RiTa.js</strong>&nbsp; &nbsp;(js-source only)<p/> <a href="./rita-'+V+'.min.js">rita-'+V+'.min.js</a><br/>'+
             	'<a href="./rita-latest.js">rita-'+V+'.js</a><br/>&nbsp;<p/>'+	
 				'<strong>RiTa.jar</strong>&nbsp; &nbsp;(java-jar only)<p/> <a href="./rita-'+V+'.jar">rita-'+V+'.jar</a><br/><p>';
             
             theHtml += '&nbsp;</p><h3>Archived Versions</h3><br/>'+
-				//'<strong>RiTa-original</strong> [v1022 alpha]<br/>'+
-				'<a href="http://rednoise.org/rita-archive/RiTa-1022.zip">RiTa-alpha.1022.zip</a><br/>&nbsp;<br/>'+
+				'<a href="http://rednoise.org/rita-archive/RiTa-1022.zip">RiTa-alpha.1022.zip</a><br/>'+
+				'<a href="http://rednoise.org/rita-archive/RiTa.Wordnet-034.zip">RiTa.Wordnet-034.zip</a><br/>&nbsp;<br/>';
+				
+           theHtml += '<h3>WordNet-3.1 (osx/unix)</h3><br/>'+
+				'<a href="http://rednoise.org/rita-archive/WordNet-3.1.zip">WordNet-3.1.zip</a><br/>&nbsp;<br/>'+
             	'<br/>&nbsp;<br/><br/>&nbsp;<br/><br/>&nbsp;<br/><br/>&nbsp;<br/><br/>&nbsp;<br/><br/>&nbsp;<br/><br/>&nbsp;<br/><br/>&nbsp;<br/>';
 
             $("#version-div").html('<p>'+theHtml+'</p>');
@@ -76,17 +76,6 @@
         <div id="version-div" class="span11" height=500>js-code</div>
           
         <div class="sidebar span4">
-          <!-- h3>Downloads</h3>
-          <p> <a href="./index.html">Download the latest version of RiTa.js!</a></p>
-          <<h3><a href="articles/index.html">Meta</a></h3>
-          <p> <strong>Keywords</strong>. ##library.keywords##<br />
-            <strong>Reference</strong>. Have a look at the javadoc reference <a href="./reference/index.html" target="_blank">here</a>. A 		copy of the reference is included in the .zip as well.<br />
-            <strong>Source</strong>. The source code of RiTaJS is available at <a href="https://github.com/dhowe/RiTaJS">GitHub</a>, 
-            and its repository can be browsed <a href="##source.repository##" target="_blank">here</a>.<br />
-            <br />
-            </p>-->
-            
-       
             
           <h3><span class="misc-title">Acknowledgments</span></h3>
           <p> Kenny Wong | John Cayley<br/>

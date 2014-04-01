@@ -18,7 +18,8 @@ import rita.render.test.RiTextTest;
   RiMarkovTest.class,
   RiGrammarTest.class,
   RiTaEventTest.class,
-  RiWordNetTest.class, 
+  RiWordNetTest.class,
+  //RiWordNetIteratorsTest.class, // TOO SLOW! 
   //KnownIssuesTest.class, 
 })
 
