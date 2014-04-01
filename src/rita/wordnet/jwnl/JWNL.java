@@ -97,15 +97,16 @@ public final class JWNL {
 			factory.setValidating(false);
 			DocumentBuilder docBuilder = factory.newDocumentBuilder();
 			doc = docBuilder.parse(propertiesStream);
-		} catch (Exception ex) {
+		} 
+		catch (Exception ex) {
+		  
 			throw new JWNLException("JWNL_EXCEPTION_002", ex);
 		}
 
 		// do this in a separate try/catch since parse can also throw an IOException
 		try {
 			propertiesStream.close();
-		} catch (IOException ex) {
-		}
+		} catch (IOException ex) {}
 
 		org.w3c.dom.Element root = doc.getDocumentElement();
 
@@ -120,7 +121,7 @@ public final class JWNL {
 			String resource = getAttribute(resourceNodes.item(i), CLASS_ATTRIBUTE);
       //System.err.println("JWNL.initialize("+resourceNodes.item(i)+")");
 			if (resource != null) {
-        //System.err.println("JWNL.addBundle("+resourceNodes.item(i)+")");
+        System.err.println("JWNL.addBundle("+resource+")");
 				_bundle.addResource(resource);
 			}
 		}   

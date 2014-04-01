@@ -228,12 +228,14 @@ public class FileBackedDictionary extends AbstractCachingDictionary
 
   public IndexWord getRandomIndexWord(POS pos) throws JWNLException
   {
+    if (pos == null) return null;
     try
     {
-      long offset = getFileManager().getRandomLinePointer(pos,
-          DictionaryFileType.INDEX);
+      long offset = getFileManager().getRandomLinePointer(pos, DictionaryFileType.INDEX);
+      
       return parseAndCacheIndexWordLine(pos, offset, getFileManager()
           .readLineAt(pos, DictionaryFileType.INDEX, offset));
+      
     } catch (IOException ex)
     {
       throw new JWNLException("DICTIONARY_EXCEPTION_004", ex);
