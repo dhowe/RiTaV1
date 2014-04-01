@@ -229,6 +229,10 @@ public class QUnitStubs
       return;
     }
     
+    List asList = Arrays.asList(l);
+    Collections.sort(asList);
+    l = asList.toArray(new Object[0]);
+    
     System.out.print("{ ");
     for (int j = 0; j < l.length; j++) {
       String item = l[j].toString().replaceAll("\"", "\\\\\"");
