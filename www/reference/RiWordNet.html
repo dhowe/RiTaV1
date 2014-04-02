@@ -56,7 +56,7 @@
 		<div id="content">
 <!-- ============================== class title ============================ -->
 			<h2 class="classTitle">
-				Class RiWordNet
+				RiWordNet (Java-only)
 			</h2>
 			<p>&nbsp;</p>
 			
@@ -69,10 +69,15 @@
 			      <th scope="row">Description</th>
 			      <!-- DESCRIPTION  -->
 			      <td>
+			      <p>
 Provides support for access to the WordNet ontological database. Note that WordNet data files are no longer supplied 
 as part of the installation. Please download the version (3.x is recommended) for your platform
 <a href="http://wordnet.princeton.edu/wordnet/download/current-version/" target=_blank>here</a>.  
- <p/>
+ </p>
+  <p>
+ For more info on the meaning of various WordNet concepts (synset, sense,
+ hypernym, etc), see <a href="http://wordnet.princeton.edu/wordnet/man/wngloss.7WN.html" target=_blank>this page</a>.
+  </p>
  <br/>
  Construct a RiWordNet object like so:
  
@@ -99,10 +104,14 @@ as part of the installation. Please download the version (3.x is recommended) fo
  and the 3rd returns hyponyms for ALL senses for the word/pos pair.
  
  <p/>
+ 
  <br/>
  You can also retrieve the entire tree of hyponyms (down to the leaves) for a
- specific sense of a word (see the VariousHyponyms example).
+ specific sense of a word.
  
+ <!-- ADD EXAMPLE: VariousHypernyms -->
+ 
+ <br/>&nbsp;<br/>
  <p>
  Note: Valid WordNet parts-of-speech include (noun="n",verb="v",adj="a", and
  adverb="r"). <br>These can be specified either as a literal (e.g., "n") or using the constants:
