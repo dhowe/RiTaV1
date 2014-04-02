@@ -259,7 +259,7 @@
    {
       "methodName":"pos()",
       "example":"",
-      "description":"Returns an array of part-of-speech tags, one per word, using RiTa.tokenize() and RiTa.getPosTags()",
+      "description":"Returns an array of part-of-speech tags (from the <a href='../../PennTags.html'>PENN tag set</a>), one per word, using RiTa.tokenize() and RiTa.getPosTags()",
       "syntax":"pos()",
       "parameters":
       [
@@ -279,7 +279,7 @@
    {
       "methodName":"posAt()",
       "example":"",
-      "description":"Returns the part-of-speech tag for the word at 'index', using RiTa.tokenize() and RiTa.getPosTags()",
+      "description":"Returns the part-of-speech tag for the word at 'index' (from the <a href='../../PennTags.html'>PENN tag set</a>), using RiTa.tokenize() and RiTa.getPosTags()",
       "syntax":"posAt(index)",
       "parameters":
       [
