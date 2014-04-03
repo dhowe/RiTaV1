@@ -7,7 +7,7 @@ import static rita.support.Constants.EventType.*;
 
 public class TextMotion2D extends InterpolatingBehavior 
 {      
-  private TextMotion2D(RiTextIF rt, float startTimeOffset, float duration) {
+  private TextMotion2D(RiText rt, float startTimeOffset, float duration) {
     super(rt, startTimeOffset, duration); 
   }
   
@@ -27,17 +27,17 @@ public class TextMotion2D extends InterpolatingBehavior
     checkForCompletion();
   }
   
-  public TextMotion2D(RiTextIF rt, float[] targetXY, float duration) 
+  public TextMotion2D(RiText rt, float[] targetXY, float duration) 
   {
     this(rt, targetXY, 0, duration);
   }
   
-  public TextMotion2D(RiTextIF rt, float newX, float newY, float duration) 
+  public TextMotion2D(RiText rt, float newX, float newY, float duration) 
   {
     this(rt, new float[]{newX, newY}, 0, duration);
   }
 
-  public TextMotion2D(RiTextIF rt, float[] targetXY, float startTimeOffset, float duration) 
+  public TextMotion2D(RiText rt, float[] targetXY, float startTimeOffset, float duration) 
   {
     super(rt, startTimeOffset, duration); 
     this.interpolater = new RiInterpolater2D
@@ -46,18 +46,18 @@ public class TextMotion2D extends InterpolatingBehavior
     setType(MoveTo);
   }
       
-  public void updateParentValues(RiTextIF rxt, float[] values) {
+  public void updateParentValues(RiText rxt, float[] values) {
      rxt.position(values[0], values[1]);
   }
 
-  public void getStartValueFromParent(RiTextIF parent, Interpolater inter) {
+  public void getStartValueFromParent(RiText parent, Interpolater inter) {
     inter.setStart(parent.position());
   }
 
  /* public static void main(String[] args) throws InterruptedException
   {
     long startTime = System.currentTimeMillis();
-    RiTextIF rt = new RiText(null, "hello", 500, 50);
+    RiText rt = new RiText(null, "hello", 500, 50);
     TextMotion2D e = new TextMotion2D(rt, new float[] { 0, 0 }, 2f);
     while (!e.isCompleted()) {    
       Thread.sleep(30);

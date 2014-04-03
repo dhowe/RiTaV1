@@ -1,13 +1,13 @@
 package rita.render;
 
-import rita.RiTextIF;
+import rita.RiText;
 
 // TODO: factor out this class
 public abstract class TextMotion extends InterpolatingBehavior
 {
   //public float wwyw = 0;  // wiggle while you wait (for NTM only) 
   
-  public TextMotion(RiTextIF rt, float startTimeOffset, float duration) {
+  public TextMotion(RiText rt, float startTimeOffset, float duration) {
     super(rt, startTimeOffset, duration); 
   }
   

@@ -1,17 +1,17 @@
 package rita.render;
 
-import rita.RiTextIF;
+import rita.RiText;
 import rita.support.*;
 import static rita.support.Constants.EventType.*;
 
 // fades fill and stroke of bounding box
 public class BoundingBoxAlphaFade extends InterpolatingBehavior
 {
-  public BoundingBoxAlphaFade(RiTextIF rt, float newAlpha, float duration) {
+  public BoundingBoxAlphaFade(RiText rt, float newAlpha, float duration) {
     this(rt, newAlpha, 0, duration);
   }
   
-  public BoundingBoxAlphaFade(RiTextIF rt, float newAlpha, float startTime, float duration) {
+  public BoundingBoxAlphaFade(RiText rt, float newAlpha, float startTime, float duration) {
     super(rt, startTime, duration);    
     float[] fill = rt.boundingBoxFill();
     float[] stroke = rt.boundingBoxStroke();
@@ -21,13 +21,13 @@ public class BoundingBoxAlphaFade extends InterpolatingBehavior
     this.type = BoundingAlpha;
   }
   
-  public void getStartValueFromParent(RiTextIF parent, Interpolater interpolater) {
+  public void getStartValueFromParent(RiText parent, Interpolater interpolater) {
     float[] bbf = rt.boundingBoxFill();
     float[] bbs = rt.boundingBoxStroke();
     interpolater.setStart(new float[]{ bbf[3], bbs[3] });
   }  
   
-  public void updateParentValues(RiTextIF rt, float[] values) 
+  public void updateParentValues(RiText rt, float[] values) 
   {
     //fill
     float[] bbf = rt.boundingBoxFill();

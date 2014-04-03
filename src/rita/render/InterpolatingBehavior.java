@@ -8,7 +8,7 @@ public abstract class InterpolatingBehavior extends RiTextBehavior
   protected Interpolater interpolater;
   protected float[] targets;
 
-  public InterpolatingBehavior(RiTextIF text, float startOffsetInSec, float durationInSeconds)
+  public InterpolatingBehavior(RiText text, float startOffsetInSec, float durationInSeconds)
   {
     super(text, startOffsetInSec, durationInSeconds);
   }
@@ -38,9 +38,9 @@ public abstract class InterpolatingBehavior extends RiTextBehavior
     checkForCompletion();
   }
 
-  public abstract void updateParentValues(RiTextIF rt, float[] values);
+  public abstract void updateParentValues(RiText rt, float[] values);
 
-  public abstract void getStartValueFromParent(RiTextIF rt, Interpolater interpolater);
+  public abstract void getStartValueFromParent(RiText rt, Interpolater interpolater);
 
   public float[] getTarget()
   {
