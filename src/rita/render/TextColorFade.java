@@ -5,11 +5,11 @@ import rita.support.*;
 
 public class TextColorFade extends InterpolatingBehavior
 {
-  public TextColorFade(RiTextIF rt, float[] colors, float duration) {
+  public TextColorFade(RiText rt, float[] colors, float duration) {
     this(rt, colors, 0, duration);
   }
   
-  public TextColorFade(RiTextIF rt, float[] colors, float startTime, float duration) {
+  public TextColorFade(RiText rt, float[] colors, float startTime, float duration) {
     
     super(rt, startTime, duration);
     this.interpolater = new RiInterpolater4D
@@ -45,12 +45,12 @@ public class TextColorFade extends InterpolatingBehavior
     return full;
   }
 
-  public void getStartValueFromParent(RiTextIF parent, Interpolater interp) {
+  public void getStartValueFromParent(RiText parent, Interpolater interp) {
     
     interp.setStart(parent.fill());
   }  
   
-  public void updateParentValues(RiTextIF r, float[] values) {
+  public void updateParentValues(RiText r, float[] values) {
     
      r.fill(values);
   }

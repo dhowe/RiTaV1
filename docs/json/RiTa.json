@@ -19,6 +19,23 @@
 	  "note":""
    },
    {
+      "methodName":"RiTa.start()",
+      "example":"RiTa.start(this);",
+      "description":"Initializes the RiTa library and associated renderers for the current context",
+      "syntax":"RiTa.start(context)",
+      "parameters":[
+         {
+            "type":"Object",
+            "desc":"the current context, generally 'this'"
+         }
+      ],
+      "returns":[
+      ],
+      "related":"",
+      "platform":"Java-only",
+	  "note":"Only required when using RiTa's visual components (RiText, etc), or loading external resources from with the Processing IDE"
+   },
+   {
       "methodName":"RiTa.isAbbreviation()",
       "example":"",
       "description":"Returns true if 'input' is an abbreviation",
@@ -73,13 +90,13 @@
    {
       "methodName":"RiTa.env()",
       "example":"",
-      "description":"Returns one of the following constants, depending on the runtime environment (RiTa.JAVA, RiTa.JS, RiTa.NODEJS) ",
+      "description":"Returns one of the following constants, depending on the runtime environment (RiTa.JAVA, RiTa.JS, RiTa.NODE) ",
       "syntax":"RiTa.env();",
       "parameters":[],
       "returns":[
          {
             "type":"int",
-            "desc":"Returns RiTa.JAVA, RiTa.JS, or RiTa.NODEJS, depending on the runtime environment"
+            "desc":"Returns RiTa.JAVA, RiTa.JS, or RiTa.NODE, depending on the runtime environment"
          }
 
       ],

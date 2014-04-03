@@ -16,8 +16,8 @@ import static rita.support.Constants.EventType.*;
  * <pre>
  *    public void onRiTaEvent(RiTaEvent re)
  *    {
- *      // do something with the RiTextIF whose behavior has finished
- *      RiTextIF parent = (RiTextIF)re.getSource();  
+ *      // do something with the RiText whose behavior has finished
+ *      RiText parent = (RiText)re.getSource();  
  *      ...
  *      
  *      // do something with the Behavior directly
@@ -49,7 +49,7 @@ public class RiTextBehavior implements Constants
   public boolean completed;
       
   protected List listeners;
-  protected RiTextIF rt;  
+  protected RiText rt;  
   protected float pauseFor;
   protected boolean initd, running, /*paused,*/ repeating;
   protected EventType type;
@@ -63,7 +63,7 @@ public class RiTextBehavior implements Constants
   /**
    * Creates a behavior to start immediately
    */
-  public RiTextBehavior(RiTextIF riText, float duration) {
+  public RiTextBehavior(RiText riText, float duration) {
     this(riText, null, -1, duration);
   }
   
@@ -71,14 +71,14 @@ public class RiTextBehavior implements Constants
    * Creates a behavior and assigns it an Id. Note: the
    * behavior cannot start w'out first being assigned a duration.
    */
-  public RiTextBehavior(RiTextIF riText) {
+  public RiTextBehavior(RiText riText) {
     this(riText, null, -1, -1);
   }
   
   /**
    * Creates a behavior to start immediately
    */
-  public RiTextBehavior(RiTextIF riText, String timerName, float duration) {
+  public RiTextBehavior(RiText riText, String timerName, float duration) {
     this(riText, timerName, -1, duration);
   }
 
@@ -86,7 +86,7 @@ public class RiTextBehavior implements Constants
    * Creates a behavior to start at <code>startOffsetInSec</code> 
    * seconds in the future
    */
-  public RiTextBehavior(RiTextIF riText, float startOffsetInSec, float durationInSeconds)  {
+  public RiTextBehavior(RiText riText, float startOffsetInSec, float durationInSeconds)  {
     this(riText, null, startOffsetInSec, durationInSeconds);
   }
   
@@ -94,7 +94,7 @@ public class RiTextBehavior implements Constants
    * Creates a behavior to start at <code>startOffsetInSec</code> 
    * seconds in the future
    */
-  protected RiTextBehavior(RiTextIF riText, String timerName, float startOffsetInSec, float durationInSeconds) 
+  protected RiTextBehavior(RiText riText, String timerName, float startOffsetInSec, float durationInSeconds) 
   {
     initBehavior(riText, timerName, startOffsetInSec, durationInSeconds, false,nextId());
   }
@@ -103,12 +103,12 @@ public class RiTextBehavior implements Constants
    * Creates a behavior to start at <code>startOffsetInSec</code> 
    * seconds in the future, that may repeat indefinately
    */
-  protected RiTextBehavior(RiTextIF riText, String timerName, float startOffsetInSec, float durationInSeconds, boolean repeating) 
+  protected RiTextBehavior(RiText riText, String timerName, float startOffsetInSec, float durationInSeconds, boolean repeating) 
   {
     initBehavior(riText, timerName, startOffsetInSec, durationInSeconds, repeating,nextId());
   }
   
-  protected void initBehavior(RiTextIF riText, String timerName, float startOffsetInSec, float durationInSeconds, boolean repeating, int theId) 
+  protected void initBehavior(RiText riText, String timerName, float startOffsetInSec, float durationInSeconds, boolean repeating, int theId) 
   {
     //System.out.println("RiTextBehavior.initBehavior("+riText+","+startOffsetInSec+","+durationInSeconds+","+theId+")");
     
@@ -165,11 +165,11 @@ public class RiTextBehavior implements Constants
   }
   
   /**
-   * Stops and deletes all the behaviors for the specified RiTextIF that are of type 
+   * Stops and deletes all the behaviors for the specified RiText that are of type 
    * FADE_IN, FADE_OUT or FADE_TO_TEXT. 
    * @exclude
    */
-  public static void deleteAllFades(RiTextIF rt) {
+  public static void deleteAllFades(RiText rt) {
     List bh = rt.behaviors();
     if (bh == null) return;
     for (int i = 0; i < bh.size(); i++) {
@@ -221,8 +221,8 @@ public class RiTextBehavior implements Constants
     return RiTa.millis() < startTime;
   }
 
-  /** Returns the RiTextIF object in which this behavior is operating. */
-  public RiTextIF getParent() {    
+  /** Returns the RiText object in which this behavior is operating. */
+  public RiText getParent() {    
     return rt;
   }
  
@@ -391,7 +391,7 @@ public class RiTextBehavior implements Constants
             Method method = RiTa._findMethod(rt.getPApplet(), DEFAULT_CALLBACK,
                 new Class[] { RiTaEvent.class });
             
-            // Source should always be a RiTextIF (or a RiTimer?)
+            // Source should always be a RiText (or a RiTimer?)
             ok = (new RiTaEvent(this.getParent(), this.type)).fire(rt.getPApplet(), method);
           }
           catch (RiTaException e)

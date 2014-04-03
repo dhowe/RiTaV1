@@ -128,7 +128,7 @@ public interface RiTextIF extends rita.support.Constants
   
   // Note: these added for RiText refactor
   public List behaviors();
-  public Object getPApplet();
+  //public Object getPApplet();
   public boolean autodraw();
   public float rotateZ();
   public float[] boundingBoxFill();

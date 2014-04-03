@@ -8,11 +8,11 @@ public class RiLerpBehavior extends InterpolatingBehavior
 {
   protected float value;
 
-  public RiLerpBehavior(RiTextIF rt, float start, float target, float duration) {
+  public RiLerpBehavior(RiText rt, float start, float target, float duration) {
     this(rt, start, target, 0, duration);
   }
   
-  public RiLerpBehavior(RiTextIF rt, float start, float target, float delay, float duration) {
+  public RiLerpBehavior(RiText rt, float start, float target, float delay, float duration) {
     super(rt, delay, duration);
     setType(Lerp);
     interpolater = new RiInterpolater(start, target, toOffsetMs(delay), toMs(duration));
@@ -41,11 +41,11 @@ public class RiLerpBehavior extends InterpolatingBehavior
     resetTarget(new float[]{start}, new float[]{target}, startOffsetSec, durationSec);
   }
  
-  public void getStartValueFromParent(RiTextIF parent, Interpolater interpolater) {
+  public void getStartValueFromParent(RiText parent, Interpolater interpolater) {
     System.err.println("getStartValueFromParent: Invalid state!");
   }  
   
-  public void updateParentValues(RiTextIF rt, float[] values) {
+  public void updateParentValues(RiText rt, float[] values) {
     System.err.println("updateParentValues: Invalid state!");
   }
   
