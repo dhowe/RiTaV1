@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="slipper.local" name="rita.test.RiMarkovTest" tests="25" time="14.498" timestamp="2014-04-03T08:31:39">
+<testsuite errors="0" failures="0" hostname="slipper.local" name="rita.test.RiMarkovTest" tests="24" time="3.569" timestamp="2014-04-03T08:44:48">
   <properties>
     <property name="env.COM_GOOGLE_CHROME_FRAMEWORK_SERVICE_PROCESS/USERS/DHOWE/LIBRARY/APPLICATION_SUPPORT/GOOGLE/CHROME_SOCKET" value="/tmp/launch-fBOyc3/ServiceProcessSocket" />
     <property name="file.encoding.pkg" value="sun.io" />
@@ -15,7 +15,7 @@
     <property name="source.url" value="https://github.com/dhowe/rita" />
     <property name="path.to.node" value="/usr/local/bin" />
     <property name="java.vendor.url.bug" value="http://bugreport.apple.com/" />
-    <property name="ant.project.invoked-targets" value="run.tests" />
+    <property name="ant.project.invoked-targets" value="run.unit.tests" />
     <property name="env.Apple_Ubiquity_Message" value="/tmp/launch-eQmoPk/Apple_Ubiquity_Message" />
     <property name="props.dst" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/distribution/RiTa-1.0.53/RiTa/library.properties" />
     <property name="project.src.test" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/src/rita/test" />
@@ -40,7 +40,7 @@
     <property name="project.examples" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/RiTaLibraryJS/examplesP5" />
     <property name="env.HOME" value="/Users/dhowe" />
     <property name="project.copyright" value="(c) 2009" />
-    <property name="sun.java.command" value="org.eclipse.ant.internal.launching.remote.InternalAntRunner -Dorg.eclipse.ant.core.ANT_PROCESS_ID=1396513891323 -Declipse.connect.port=50252 -Dant.home=/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030 -logger org.eclipse.ant.internal.launching.remote.logger.RemoteAntBuildLogger -inputhandler org.eclipse.ant.internal.ui.antsupport.inputhandler.ProxyInputHandler -buildfile /Users/dhowe/Documents/eclipse-workspace/RiTa/resources/build.xml run.tests" />
+    <property name="sun.java.command" value="org.eclipse.ant.internal.launching.remote.InternalAntRunner -Dorg.eclipse.ant.core.ANT_PROCESS_ID=1396514681760 -Declipse.connect.port=50649 -Dant.home=/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030 -logger org.eclipse.ant.internal.launching.remote.logger.RemoteAntBuildLogger -inputhandler org.eclipse.ant.internal.ui.antsupport.inputhandler.ProxyInputHandler -buildfile /Users/dhowe/Documents/eclipse-workspace/RiTa/resources/build.xml run.unit.tests" />
     <property name="project.compile" value="normal" />
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16" />
     <property name="ant.file" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/resources/build.xml" />
@@ -100,12 +100,10 @@
     <property name="props.src" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/resources/library.properties" />
     <property name="reports.tests" value="reports" />
     <property name="env.USER" value="dhowe" />
-    <property name="env.JAVA_MAIN_CLASS_18197" value="org.eclipse.ant.internal.launching.remote.InternalAntRunner" />
     <property name="classpath.local.include" value="core.jar,junit.jar" />
     <property name="project.keywords" value="?" />
     <property name="env.COMMAND_MODE" value="unix2003" />
     <property name="ant.project.name" value="RiTa" />
-    <property name="env.JAVA_STARTED_ON_FIRST_THREAD_18197" value="1" />
     <property name="java.vm.specification.version" value="1.0" />
     <property name="awt.toolkit" value="apple.awt.CToolkit" />
     <property name="sun.cpu.isalist" value="" />
@@ -129,13 +127,15 @@
     <property name="ant.library.dir" value="/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030/lib" />
     <property name="project.bin" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/bin" />
     <property name="os.arch" value="x86_64" />
+    <property name="env.JAVA_MAIN_CLASS_18769" value="org.eclipse.ant.internal.launching.remote.InternalAntRunner" />
     <property name="env.Apple_PubSub_Socket_Render" value="/tmp/launch-2O1zB6/Render" />
     <property name="sun.java.launcher" value="SUN_STANDARD" />
     <property name="ant.core.lib" value="/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030/lib/ant.jar" />
+    <property name="env.JAVA_STARTED_ON_FIRST_THREAD_18769" value="1" />
     <property name="is.normal" value="true" />
     <property name="install.source" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/resources/install_instructions.txt" />
     <property name="java.vm.specification.vendor" value="Sun Microsystems Inc." />
-    <property name="TSTAMP" value="1631" />
+    <property name="TSTAMP" value="1644" />
     <property name="file.separator" value="/" />
     <property name="java.runtime.version" value="1.6.0_65-b14-462-11M4609" />
     <property name="env.SSH_AUTH_SOCK" value="/tmp/launch-U7SR9K/Listeners" />
@@ -153,30 +153,29 @@
     <property name="java.specification.version" value="1.6" />
     <property name="sun.arch.data.model" value="64" />
   </properties>
-  <testcase classname="rita.test.RiMarkovTest" name="testLoadFromFile" time="0.39" />
+  <testcase classname="rita.test.RiMarkovTest" name="testLoadFromFile" time="0.318" />
   <testcase classname="rita.test.RiMarkovTest" name="testPrint" time="0.0010" />
-  <testcase classname="rita.test.RiMarkovTest" name="testSize" time="0.0030" />
+  <testcase classname="rita.test.RiMarkovTest" name="testSize" time="0.0060" />
   <testcase classname="rita.test.RiMarkovTest" name="testRiMarkovInt" time="0.0" />
   <testcase classname="rita.test.RiMarkovTest" name="testGetN" time="0.0" />
-  <testcase classname="rita.test.RiMarkovTest" name="testLoadFromFileMulti" time="0.603" />
-  <testcase classname="rita.test.RiMarkovTest" name="testLoadFromUrl" time="7.731" />
-  <testcase classname="rita.test.RiMarkovTest" name="testLoadFromURL" time="5.087" />
-  <testcase classname="rita.test.RiMarkovTest" name="testGenerateSentencesInt" time="0.0090" />
+  <testcase classname="rita.test.RiMarkovTest" name="testLoadFromFileMulti" time="0.494" />
+  <testcase classname="rita.test.RiMarkovTest" name="testLoadFromUrl" time="1.735" />
+  <testcase classname="rita.test.RiMarkovTest" name="testGenerateSentencesInt" time="0.011" />
   <testcase classname="rita.test.RiMarkovTest" name="testRecognizeSentences" time="0.0" />
-  <testcase classname="rita.test.RiMarkovTest" name="testGenerateTokens" time="0.0020" />
-  <testcase classname="rita.test.RiMarkovTest" name="testGenerateUntilString" time="0.224" />
-  <testcase classname="rita.test.RiMarkovTest" name="testGenerateUntilStringInt" time="0.169" />
-  <testcase classname="rita.test.RiMarkovTest" name="testGenerateUntilStringIntInt" time="0.256" />
-  <testcase classname="rita.test.RiMarkovTest" name="testGetCompletionsStringArray" time="0.0010" />
+  <testcase classname="rita.test.RiMarkovTest" name="testGenerateTokens" time="0.0030" />
+  <testcase classname="rita.test.RiMarkovTest" name="testGenerateUntilString" time="0.601" />
+  <testcase classname="rita.test.RiMarkovTest" name="testGenerateUntilStringInt" time="0.142" />
+  <testcase classname="rita.test.RiMarkovTest" name="testGenerateUntilStringIntInt" time="0.234" />
+  <testcase classname="rita.test.RiMarkovTest" name="testGetCompletionsStringArray" time="0.0020" />
   <testcase classname="rita.test.RiMarkovTest" name="testGetCompletionsStringArrayStringArray" time="0.0010" />
   <testcase classname="rita.test.RiMarkovTest" name="testGetProbabilities" time="0.0010" />
-  <testcase classname="rita.test.RiMarkovTest" name="testGetProbability" time="0.0" />
-  <testcase classname="rita.test.RiMarkovTest" name="testLoadTextStringString" time="0.0020" />
+  <testcase classname="rita.test.RiMarkovTest" name="testGetProbability" time="0.0010" />
+  <testcase classname="rita.test.RiMarkovTest" name="testLoadTextStringString" time="0.0010" />
   <testcase classname="rita.test.RiMarkovTest" name="testLoadTextString" time="0.0" />
   <testcase classname="rita.test.RiMarkovTest" name="testLoadTextStringInt" time="0.0" />
-  <testcase classname="rita.test.RiMarkovTest" name="testLoadTextStringIntString" time="0.0010" />
-  <testcase classname="rita.test.RiMarkovTest" name="testLoadTokensStringArray" time="0.0010" />
-  <testcase classname="rita.test.RiMarkovTest" name="testLoadTokensChars" time="0.0040" />
+  <testcase classname="rita.test.RiMarkovTest" name="testLoadTextStringIntString" time="0.0" />
+  <testcase classname="rita.test.RiMarkovTest" name="testLoadTokensStringArray" time="0.0020" />
+  <testcase classname="rita.test.RiMarkovTest" name="testLoadTokensChars" time="0.0050" />
   <testcase classname="rita.test.RiMarkovTest" name="testLoadTokensStringArrayInt" time="0.0010" />
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[

@@ -50,9 +50,7 @@
 	<property name="license.destination" location="${project.dist.version}/RiTa/LICENSE.txt"/>
 	<property name="processing.library" location="${user.home}/Documents/Processing/libraries/RiTa/library"/>
 
-	<target name="run.tests" depends="init">
-
-		<echo message="calling run.tests: ${project.libs} ..." />
+	<target name="run.unit.tests" depends="init">
 
 		<junit printsummary="yes" haltonfailure="yes">
 
@@ -75,20 +73,21 @@
 					<include name="**/*Test.*" />
 				</fileset>
 			</batchtest-->
-
-			<test name="rita.test.RiWordNetTest"  haltonfailure="no" outfile="reports/rita.test.RiWordNetTest"></test>
+	
 			<test name="rita.test.RiGrammarTest" outfile="reports/rita.test.RiGrammarTest"></test>
 			<test name="rita.test.RiLexiconTest" outfile="reports/rita.test.RiLexiconTest"></test>
 			<test name="rita.test.RiMarkovTest"  outfile="reports/rita.test.RiMarkovTest"></test>
 			<test name="rita.test.RiStringTest"  outfile="reports/rita.test.RiStringTest"></test>
 			<test name="rita.test.RiTaEventTest" outfile="reports/rita.test.RiTaEventTest"></test>
-
+			<test name="rita.test.RiWordNetTest"  haltonfailure="no" outfile="reports/rita.test.RiWordNetTest"></test>
+			<!--test name="rita.test.RiWordNetIteratorsTest"  haltonfailure="no" outfile="reports/rita.test.RiWordNetTest"></test-->
 		</junit>
 
 	</target>
 
 	<target name="_make.all">
 
+		<antcall target="run.unit.tests" />
 		<antcall target="_script.make-lib.sh" />
 		<antcall target="clean" />
 		<antcall target="_script.make-node.sh" />
