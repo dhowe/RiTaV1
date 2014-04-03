@@ -1,27 +1,29 @@
 <project name="RiTa" default="clean" basedir="../">
 
 	<!-- remove debug lines from production compiled code -->
-	
+
 	<!-- ant -logger org.apache.tools.ant.listener.ProfileLogger -->
-	
+
 	<property file="./resources/build.properties" />
-	
+
 	<description>${ant.description}</description>
 
 	<property name="line" value="------------------------------------------------------------------------------------------------" />
-	
+
 	<condition property="is.normal">
 		<equals arg1="${project.compile}" arg2="normal" />
 	</condition>
-	
+
 	<property environment="env"/>
 	<property name="main.package" value="rita"/>
+	<property name="reports.tests" value="reports"/>
 	<property name="path.to.node" value="/usr/local/bin"/>
 	<property name="project.js.name" value="${main.package}.js"/>
 	<property name="project.jar.name" value="${main.package}.jar"/>
 	<property name="project.jar.full.name" value="${main.package}.full.jar"/>
 	<property name="project.jar.support.name" value="${main.package}.support.jar"/>
 	<property name="project.src" location="src"/>
+	<property name="project.src.test" location="src/rita/test"/>
 	<property name="project.latest" location="latest"/>
 	<property name="project.js" location="RiTaLibraryJS/"/>
 	<property name="js.scripts.dir" location="${project.js}/scripts/"/>
@@ -29,6 +31,7 @@
 	<property name="project.web" location="web"/>
 	<property name="project.data" location="data"/>
 	<property name="project.lib" location="lib"/>
+	<property name="project.libs" location="libs"/>
 	<property name="project.bin" location="bin"/>
 	<property name="project.bin.data" location="${project.bin}/data"/>
 	<property name="project.examples" location="${project.js}/examplesP5"/>
@@ -46,19 +49,56 @@
 	<property name="install.destination" location="${project.dist.version}/INSTALL.txt"/>
 	<property name="license.destination" location="${project.dist.version}/RiTa/LICENSE.txt"/>
 	<property name="processing.library" location="${user.home}/Documents/Processing/libraries/RiTa/library"/>
-	
+
+	<target name="run.tests" depends="init">
+
+		<echo message="calling run.tests: ${project.libs} ..." />
+
+		<junit printsummary="yes" haltonfailure="yes">
+
+			<classpath>
+				<pathelement path="${project.bin}" />
+				<pathelement path="${project.src}" />
+				<pathelement path="${project.libs}/core.jar" />
+				<pathelement path="${project.libs}/junit.jar" />
+				<pathelement path="${project.src.test}" />
+			</classpath>
+
+			<formatter type="plain" />
+			<formatter type="xml" />
+
+			<!--batchtest fork="yes" todir="${reports.tests}">
+				<fileset dir="${project.src.test}">
+					<exclude name="**/KnownIssuesTest.java" />
+					<exclude name="**/RiGooglerApiTest.java" />
+					<exclude name="**/RiGooglerTest.java" />
+					<include name="**/*Test.*" />
+				</fileset>
+			</batchtest-->
+
+			<test name="rita.test.RiWordNetTest"  haltonfailure="no" outfile="reports/rita.test.RiWordNetTest"></test>
+			<test name="rita.test.RiGrammarTest" outfile="reports/rita.test.RiGrammarTest"></test>
+			<test name="rita.test.RiLexiconTest" outfile="reports/rita.test.RiLexiconTest"></test>
+			<test name="rita.test.RiMarkovTest"  outfile="reports/rita.test.RiMarkovTest"></test>
+			<test name="rita.test.RiStringTest"  outfile="reports/rita.test.RiStringTest"></test>
+			<test name="rita.test.RiTaEventTest" outfile="reports/rita.test.RiTaEventTest"></test>
+
+		</junit>
+
+	</target>
+
 	<target name="_make.all">
-		
+
 		<antcall target="_script.make-lib.sh" />
-		<antcall target="clean" /> 
+		<antcall target="clean" />
 		<antcall target="_script.make-node.sh" />
 	</target>
-	
+
 	<target name="_make.and.pub.local">
 		<antcall target="_make.all" />
 		<antcall target="_publish.local" />
 	</target>
-	
+
 	<target name="_publish.local">
 		<antcall target="_script.pub.local" />
 	</target>
@@ -66,7 +106,7 @@
 	<target name="_publish.rednoise">
 		<antcall target="_script.pub.rednoise" />
 	</target>
-	
+
 	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
 		<classpath>
 			<pathelement location="./resources/code/ant-contrib-1.0b3.jar"/>
@@ -77,14 +117,15 @@
 		<fileset dir="${classpath.local.location}" includes="${classpath.local.include}" />
 		<!--fileset dir="${classpath.libraries.location}" includes="**/*.jar" /-->
 		<fileset dir="${project.lib}" includes="**/*.jar" />
-	</path>		
+		<fileset dir="${project.libs}" includes="**/*.jar" />
+	</path>
 
 	<!-- Create the time stamp -->
-	<tstamp> 
+	<tstamp>
 		<format property="date" pattern="MM/dd/yyyy" offset="0" unit="hour"/>
 	</tstamp>
-	
-	<target name="init"> 
+
+	<target name="init">
 		<echo>${line}
 	building ${project.name} ${project.version}
 ${line}
@@ -96,106 +137,110 @@ ${line}
 	java target	${java.target.version}
 ${line}
 		</echo>
-	
+
 		<mkdir dir="${project.bin}"/>
 	</target>
-	
-	<target name="library.init" depends="init"> 
-		<echo message="init library ..." />	
+
+	<target name="library.init" depends="init">
+		<echo message="init library ..." />
 	</target>
-	
+
 	<target name="_script.make-lib.sh">
 		<echo>${line}</echo>
-		<echo message="calling make-lib.sh ..." />	
-	    <exec dir="${js.scripts.dir}" resolveexecutable="true" executable="make-lib.sh" failonerror="true">
-	        <arg line="${project.version}"/>
-	    </exec>
+		<echo message="calling make-lib.sh ..." />
+		<exec dir="${js.scripts.dir}" resolveexecutable="true" executable="make-lib.sh" failonerror="true">
+			<arg line="${project.version}"/>
+		</exec>
 		<echo>${line}</echo>
 	</target>
 
 	<target name="_script.make-node.sh">
 		<echo>${line}</echo>
-		<echo message="calling make-node.sh ..." />	
-	    <exec dir="${js.scripts.dir}" resolveexecutable="true" executable="make-node.sh" failonerror="true">
-	    	<env key="PATH" value="${env.PATH}:${path.to.node}" />
-	        <arg line="${project.version}"/>
-	    </exec>
+		<echo message="calling make-node.sh ..." />
+		<exec dir="${js.scripts.dir}" resolveexecutable="true" executable="make-node.sh" failonerror="true">
+			<env key="PATH" value="${env.PATH}:${path.to.node}" />
+			<arg line="${project.version}"/>
+		</exec>
 		<echo>${line}</echo>
 	</target>
-	
+
 	<target name="_publish.node">
 		<echo>${line}</echo>
-		<echo message="calling make-node.sh ${project.version} -p ..." />	
-	    <exec dir="${js.scripts.dir}" resolveexecutable="true" executable="make-node.sh" failonerror="true">
-	        <arg line="${project.version}"/>
-	    	<arg line="-p"/>
-	    </exec>
+		<echo message="calling make-node.sh ${project.version} -p ..." />
+		<exec dir="${js.scripts.dir}" resolveexecutable="true" executable="make-node.sh" failonerror="true">
+			<arg line="${project.version}"/>
+			<arg line="-p"/>
+		</exec>
 		<echo>${line}</echo>
 	</target>
-	
+
 	<target name="_publish.node.force">
 		<echo>${line}</echo>
-		<echo message="calling make-node.sh ${project.version} -p -f ..." />	
-	    <exec dir="${js.scripts.dir}" resolveexecutable="true" executable="make-node.sh" failonerror="true">
-	        <arg line="${project.version}"/>
-	    	<arg line="-p"/>
-	    	<arg line="-f"/>
-	    </exec>
+		<echo message="calling make-node.sh ${project.version} -p -f ..." />
+		<exec dir="${js.scripts.dir}" resolveexecutable="true" executable="make-node.sh" failonerror="true">
+			<arg line="${project.version}"/>
+			<arg line="-p"/>
+			<arg line="-f"/>
+		</exec>
 		<echo>${line}</echo>
 	</target>
-	
+
 	<target name="_script.pub.local">
 		<echo>${line}</echo>
-		<echo message="calling pub-lib.sh ${project.version} ..." />	
-	    <exec 
+		<echo message="calling pub-lib.sh ${project.version} ..." />
+		<exec 
 	    	dir="${js.scripts.dir}" resolveexecutable="true" resultproperty="return.code"
 	    	executable="pub-lib.sh" failonerror="true">
-	        <arg line="${project.version}"/>
-	    </exec>
+			<arg line="${project.version}"/>
+		</exec>
 		<echo>${line}</echo>
 	</target>
-	
-	
+
+
 	<target name="_script.pub.rednoise">
 		<echo>${line}</echo>
-		<echo message="calling pub-lib.sh ${project.version} -r ..." />	
-	    <exec 
+		<echo message="calling pub-lib.sh ${project.version} -r ..." />
+		<exec 
 	    	dir="${js.scripts.dir}" resolveexecutable="true" resultproperty="return.code"
 	    	executable="pub-lib.sh" failonerror="true">
-	        <arg line="${project.version}"/>
-	    	<arg line="-r"/>
-	    </exec>
+			<arg line="${project.version}"/>
+			<arg line="-r"/>
+		</exec>
 		<echo>${line}</echo>
 	</target>
-	
-	<target name="library.run" depends="library.init"> 
+
+	<target name="library.run" depends="library.init">
 		<echo message="building library ..." />
-		<antcall target="generate.structure"><param name="folder" value="library"/></antcall>
-		<antcall target="parse.source" /> 
+		<antcall target="generate.structure">
+			<param name="folder" value="library"/>
+		</antcall>
+		<antcall target="parse.source" />
 		<antcall target="compile-debug" />
-	  	<antcall target="generate.jars"><param name="folder" value="library"/></antcall>
-	  	<!--antcall target="generate.javadoc" /-->
+		<antcall target="generate.jars">
+			<param name="folder" value="library"/>
+		</antcall>
+		<!--antcall target="generate.javadoc" /-->
 		<!--antcall target="copyToSketchbook"><param name="folder" value="libraries"/></antcall-->
 		<antcall target="generate.distribution" />
 		<antcall target="generate.install.library" />
 		<antcall target="generate.install.props" />
 		<!--antcall target="generate.web" /-->
-	  	<antcall target="generate.zip" />	
-	  	<delete dir="${project.tmp}" />
+		<antcall target="generate.zip" />
+		<delete dir="${project.tmp}" />
 	</target>
-			
+
 	<target name="copyToSketchbook">
 		<echo message="Copying files to the ${folder} folder in your sketchbook." />
 		<!-- copy the jar file to processing's sketchbook libraries folder -->
 		<delete dir="${sketchbook.location}/${folder}/${project.name}" />
-  	  	<mkdir dir="${sketchbook.location}/${folder}/${project.name}" />
-  		<copy todir="${sketchbook.location}/${folder}/${project.name}">
-  			<fileset dir="${project.tmp}/${project.name}" />
-  		</copy>
+		<mkdir dir="${sketchbook.location}/${folder}/${project.name}" />
+		<copy todir="${sketchbook.location}/${folder}/${project.name}">
+			<fileset dir="${project.tmp}/${project.name}" />
+		</copy>
 	</target>
-	
+
 	<!--excludes="${project.tmp}/${project.name}/src/misc" for javac task-->
-	
+
 	<target name="compile-debug">
 		<javac srcdir="${project.tmp}/${project.name}/src"
 			excludes="**/test/**"
@@ -212,7 +257,7 @@ ${line}
 			<fileset dir="${project.data}" excludes="README" />
 		</copy-->
 	</target>
-		
+
 	<target name="compile-prod">
 		<javac srcdir="${project.tmp}/${project.name}/src" 
 			excludes="**/test/**"
@@ -224,108 +269,110 @@ ${line}
 			</classpath>
 		</javac>
 	</target>
-	
+
 	<target name="generate.jar">
-		<jar jarfile="${project.tmp}/${project.name}/library/${project.jar.name}" basedir="${project.bin}"> 
+		<jar jarfile="${project.tmp}/${project.name}/library/${project.jar.name}" basedir="${project.bin}">
 			<exclude name="**/data/**" />
-			<exclude name="**/test/**" /> 
-			<exclude name="**/docgen/**" /> 
+			<exclude name="**/test/**" />
+			<exclude name="**/docgen/**" />
 		</jar>
 		<!--copy tofile="${project.jsbuild.download}/${main.package}-${project.version}.jar" file="${project.tmp}/${project.name}/${folder}/${project.jar.name}"/-->
-  		<copy tofile="${project.latest}/${main.package}-${project.version}.jar" file="${project.tmp}/${project.name}/library/${project.jar.name}"/>
+		<copy tofile="${project.latest}/${main.package}-${project.version}.jar" file="${project.tmp}/${project.name}/library/${project.jar.name}"/>
 		<copy tofile="${processing.library}/rita.jar" file="${project.tmp}/${project.name}/library/${project.jar.name}"/>
 	</target>
-	
+
 	<target name="generate.jars">
-		
+
 		<!-- full lib -->
-		<jar jarfile="${project.latest}/${main.package}-${project.version}.jar" basedir="${project.bin}"> 
+		<jar jarfile="${project.latest}/${main.package}-${project.version}.jar" basedir="${project.bin}">
 			<exclude name="**/data/**" />
-			<exclude name="**/test/**" /> 
-			<exclude name="**/docgen/**" /> 
+			<exclude name="**/test/**" />
+			<exclude name="**/docgen/**" />
 		</jar>
-  		<!--copy tofile="${project.latest}/${main.package}-${project.version}.jar"    file="${project.tmp}/${project.name}/library/${project.jar.full.name}"/-->
+		<!--copy tofile="${project.latest}/${main.package}-${project.version}.jar"    file="${project.tmp}/${project.name}/library/${project.jar.full.name}"/-->
 
 		<!-- rita pkg only -->
-		<jar jarfile="${project.tmp}/${project.name}/library/${project.jar.name}" basedir="${project.bin}"> 
+		<jar jarfile="${project.tmp}/${project.name}/library/${project.jar.name}" basedir="${project.bin}">
 			<include name="rita/*.*/" />
 			<include name="*.properties/" />
-			<exclude name="**/test/**" /> 
+			<exclude name="**/test/**" />
 		</jar>
 		<copy tofile="${processing.library}/rita.jar" file="${project.tmp}/${project.name}/library/${project.jar.name}"/>
 
 		<!-- support pkg only -->
 		<jar jarfile="${project.tmp}/${project.name}/library/${project.jar.support.name}" basedir="${project.bin}">
-			<exclude name="data/**" /> 
+			<exclude name="data/**" />
 			<exclude name="rita/*.*/" />
 			<exclude name="*.properties/" />
-			<exclude name="**/test/**" /> 
-			<exclude name="**/docgen/**" /> 
+			<exclude name="**/test/**" />
+			<exclude name="**/docgen/**" />
 		</jar>
 		<copy tofile="${processing.library}/rita.support.jar" file="${project.tmp}/${project.name}/library/${project.jar.support.name}"/>
 
 		<!-- temp, for p5 testing with multiple jars -->
-  		<!--copy tofile="${project.latest}/${main.package}-${project.version}.jar" 	    file="${project.tmp}/${project.name}/library/${project.jar.name}"/>
+		<!--copy tofile="${project.latest}/${main.package}-${project.version}.jar" 	    file="${project.tmp}/${project.name}/library/${project.jar.name}"/>
   		<copy tofile="${project.latest}/${main.package}-${project.version}.support.jar" file="${project.tmp}/${project.name}/${project.tmp}/${project.name}/library/${project.jar.support.name}"/-->
 	</target>
-	
+
 	<target name="generate.structure">
-		
+
 		<delete dir="${project.tmp}" />
 		<mkdir dir="${project.tmp}" />
 		<mkdir dir="${project.tmp}/${project.name}" />
-	  	<mkdir dir="${project.tmp}/${project.name}/library" />
-  		<mkdir dir="${project.tmp}/${project.name}/examples" />
-	  	<mkdir dir="${project.tmp}/${project.name}/reference" />
+		<mkdir dir="${project.tmp}/${project.name}/library" />
+		<mkdir dir="${project.tmp}/${project.name}/examples" />
+		<mkdir dir="${project.tmp}/${project.name}/reference" />
 		<mkdir dir="${project.tmp}/${project.name}/css" />
-  		<mkdir dir="${project.tmp}/${project.name}/src" />
-  		
-		<copy todir="${project.tmp}/${project.name}/examples">
-  			<fileset dir="${project.examples}">
-	  			<exclude name="**/*README*"/>
-  			</fileset>
-	  	</copy>
-		
-  		<copy todir="${project.tmp}/${project.name}/src">
-  			<fileset dir="${project.src}">
-  				 <exclude name="**/test/**"/>
-  				 <exclude name="**/data/**"/>
-  				<exclude name="**/docgen/**"/>
-  			</fileset>
-	  	</copy>
-  		
-		<copy todir="${project.tmp}/${project.name}/reference">
-  			<fileset dir="www/reference"/>
-	  	</copy>
-		
- 		<copy todir="${project.tmp}/${project.name}/css">
-  			<!--fileset dir="www/css/*.css"/-->
-  		   <fileset dir="www/css/">
- 		         <include name="*.css"/>
- 		     </fileset>
-	  	</copy>
+		<mkdir dir="${project.tmp}/${project.name}/src" />
 
-	  	<zip destfile="${project.latest}/${project.name}-${project.version}-src.zip"
+		<copy todir="${project.tmp}/${project.name}/examples">
+			<fileset dir="${project.examples}">
+				<exclude name="**/*README*"/>
+			</fileset>
+		</copy>
+
+		<copy todir="${project.tmp}/${project.name}/src">
+			<fileset dir="${project.src}">
+				<exclude name="**/test/**"/>
+				<exclude name="**/data/**"/>
+				<exclude name="**/docgen/**"/>
+			</fileset>
+		</copy>
+
+		<copy todir="${project.tmp}/${project.name}/reference">
+			<fileset dir="www/reference"/>
+		</copy>
+
+		<copy todir="${project.tmp}/${project.name}/css">
+			<!--fileset dir="www/css/*.css"/-->
+			<fileset dir="www/css/">
+				<include name="*.css"/>
+			</fileset>
+		</copy>
+
+		<zip destfile="${project.latest}/${project.name}-${project.version}-src.zip"
   	       basedir="${project.tmp}/${project.name}/src"
   	       excludes="**/.DS_Store"
 		/>
-		
+
 		<copy file="${project.latest}/${project.js.name}" todir="${project.tmp}/${project.name}/library" />
-		
-	  	<copy todir="${project.tmp}/${project.name}/library">
-  			<fileset dir="${project.lib}" excludes="*.txt" />
-	  	</copy>
-		
+
+		<copy todir="${project.tmp}/${project.name}/library">
+			<fileset dir="${project.lib}" excludes="*.txt" />
+		</copy>
+
 	</target>
-	
+
 	<target name="parse.source" if="is.normal">
-		<path id="src.contents"><fileset dir="${project.tmp}/${project.name}/src/rita" includes="RiTa.java" /></path>
+		<path id="src.contents">
+			<fileset dir="${project.tmp}/${project.name}/src/rita" includes="RiTa.java" />
+		</path>
 		<!--path id="src.contents"><fileset dir="${project.tmp}/${project.name}/src" includes="**/*.java" /></path-->
 		<property name="src.list" refid="src.contents" />
 		<foreach list="${src.list}" param="file" target="versionSourcefile" delimiter=":" />
 	</target>
-	
-	
+
+
 	<target name="generate.distribution" if="is.normal">
 		<mkdir dir="${project.dist}"/>
 		<delete dir="${project.dist.version}"/>
@@ -333,11 +380,11 @@ ${line}
 		<mkdir dir="${project.dist.version}/${project.name}" />
 		<move file="${project.tmp}/${project.name}" toDir="${project.dist.version}" />
 	</target>
-	
+
 	<target name="generate.javadoc" if="is.normal">
 
-	  	<!-- MODIFIED BY DCH -->
-	  	
+		<!-- MODIFIED BY DCH -->
+
 		<javadoc bottom="processing library ${project.name} by ${author.name}. ${project.copyright}"
 		 
 				classpath="${classpath.local.location}/core.jar;${classpath.local.location}/junit.jar;${classpath.local.location}/json.jar;{project.bin}" 
@@ -346,119 +393,119 @@ ${line}
 				doctitle="Javadocs: ${project.name}" 
 				windowtitle="Javadocs: ${project.name}"
 				public="true" version="false" verbose="false">
-							
- 			<link href="${javadoc.java.href}" />
+
+			<link href="${javadoc.java.href}" />
 			<link href="${javadoc.processing.href}" />
 			<taglet name="ExampleTaglet" path="resources/code" />
 			<!--doclet name="ExcludeDoclet" path="resources/code" >
                <param name="-output" value="${project.tmp}/${project.name}/reference"/>
             </doclet-->
- 			<fileset dir="${project.tmp}/${project.name}/src/" defaultexcludes="yes">
+			<fileset dir="${project.tmp}/${project.name}/src/" defaultexcludes="yes">
 				<!-- add packages to be added to reference. src or src/rita? -->
 				<include name="test/*.java"/>
 				<include name="rita/**/*.java"/>
 				<include name="rita/**/*.pde"/>
 			</fileset>
-	 	</javadoc>
+		</javadoc>
 	</target>
-	
+
 	<target name="generate.web" if="is.normal">
-		
+
 		<mkdir dir="${project.dist.version}/web" />
-  		<copy todir="${project.dist.version}/web/reference">
-  			<fileset dir="${project.dist.version}/${project.name}/reference" />
-  		</copy>
-  	
-  		<copy todir="${project.dist.version}/web/examples">
-  			<fileset dir="${project.dist.version}/${project.name}/examples" />
-	  	</copy>
-	  	
-	  	<copy todir="${project.dist.version}/web">
-  			<fileset dir="${project.web}" />
-	  	</copy>
-	  	
-	  	<!--
+		<copy todir="${project.dist.version}/web/reference">
+			<fileset dir="${project.dist.version}/${project.name}/reference" />
+		</copy>
+
+		<copy todir="${project.dist.version}/web/examples">
+			<fileset dir="${project.dist.version}/${project.name}/examples" />
+		</copy>
+
+		<copy todir="${project.dist.version}/web">
+			<fileset dir="${project.web}" />
+		</copy>
+
+		<!--
   				format the index.html file. 
 			  	regular expressions are used to parse the web index.html file. 
 			  	key words starting and ending with ## are replaced by values 
 			  	defined earlier in the beginning of this build file.
 	  	-->
-		
-  		<replaceregexp file="${project.dist.version}/web/index.html"
+
+		<replaceregexp file="${project.dist.version}/web/index.html"
   	                         match="##project.name##"
   	                         replace="${project.name}"
   	                         flags="g" />
-  	
-	  	<replaceregexp file="${project.dist.version}/web/index.html"
+
+		<replaceregexp file="${project.dist.version}/web/index.html"
 							match="##author.name##"
 							replace="${author.name}"
 							flags="g" />
-  	
-	  	<replaceregexp file="${project.dist.version}/web/index.html"
+
+		<replaceregexp file="${project.dist.version}/web/index.html"
 							match="##project.version##"
 							replace="${project.version}"
 							flags="g" />
-  	
+
 		<replaceregexp file="${project.dist.version}/web/index.html"
 							match="##author.url##"
   							replace="${author.url}"
 							flags="g" />
-  	
-	  	<replaceregexp file="${project.dist.version}/web/index.html"
+
+		<replaceregexp file="${project.dist.version}/web/index.html"
   							match="##date##"
   	  						replace="${date}"
   	  						flags="g" />
-  	  						
-  		 <replaceregexp file="${project.dist.version}/web/index.html"
+
+		<replaceregexp file="${project.dist.version}/web/index.html"
   							match="##project.keywords##"
   	  						replace="${project.keywords}"
   	  						flags="g" />
-  	  						
-  	  						
-	  	 <replaceregexp file="${project.dist.version}/web/index.html"
+
+
+		<replaceregexp file="${project.dist.version}/web/index.html"
   							match="##tested.platform##"
   	  						replace="${tested.platform}"
   	  						flags="g" />
-  	  						
-  		 <replaceregexp file="${project.dist.version}/web/index.html"
+
+		<replaceregexp file="${project.dist.version}/web/index.html"
   							match="##tested.processingversion##"
   	  						replace="${tested.processingversion}"
   	  						flags="g" />
-  	  						
-	  	 <replaceregexp file="${project.dist.version}/web/index.html"
+
+		<replaceregexp file="${project.dist.version}/web/index.html"
   							match="##project.dependencies##"
   	  						replace="${project.dependencies}"
   	  						flags="g" />
-  	  						
-	  	 <replaceregexp file="${project.dist.version}/web/index.html"
+
+		<replaceregexp file="${project.dist.version}/web/index.html"
   							match="##source.host##"
   	  						replace="${source.host}"
   	  						flags="g" />
-  	  						
-	  	 <replaceregexp file="${project.dist.version}/web/index.html"
+
+		<replaceregexp file="${project.dist.version}/web/index.html"
   							match="##source.url##"
   	  						replace="${source.url}"
   	  						flags="g" />
-  	  						
-	  	 <replaceregexp file="${project.dist.version}/web/index.html"
+
+		<replaceregexp file="${project.dist.version}/web/index.html"
   							match="##source.repository##"
   	  						replace="${source.repository}"
   	  						flags="g" />
-  	  						
-  	  	<replaceregexp file="${project.dist.version}/web/index.html"
+
+		<replaceregexp file="${project.dist.version}/web/index.html"
   							match="##project.copyright##"
   	  						replace="${project.copyright}"
   	  						flags="g" />
-		
+
 		<antcall target="processExamples" />
-		
+
 		<replaceregexp file="${project.dist.version}/web/index.html"
   	  							match="##project.examples##"
   	  	  						replace=""
   	  	  						flags="g" />
 	</target>
 
-	<target name="generate.install.library" if="is.normal">	
+	<target name="generate.install.library" if="is.normal">
 		<echo message="Copying ${install.source}, ${license.source} ... " />
 		<echo message="  to ${project.dist.version} ... " />
 
@@ -466,44 +513,44 @@ ${line}
 		<copy file="${license.source}" tofile="${license.destination}" />
 		<!--replaceregexp file="${install.destination}" match="##name##" replace="${project.name}" flags="g" />
 		<replaceregexp file="${install.destination}" match="##folder##" replace="libraries" flags="g" /-->
-	</target>	
-	
+	</target>
+
 	<target name="generate.install.props" if="is.normal">
-		
+
 		<echo message="Copying ${props.src} to ${props.dst} ..." />
 		<copy file="${props.src}" tofile="${props.dst}" />
 		<replaceregexp file="${props.dst}" match="##version##" replace="${project.version}" flags="g" />
 		<replaceregexp file="${props.dst}" match="##versionnum##" replace="${project.version.num}" flags="g" />
 		<copy file="${props.dst}" tofile="${project.latest}/${project.name}.txt" />
-		
+
 		<!-- add the license file as well -->
 		<echo message="Copying ${license.destination} to ${project.dist.version}/${project.name}/LICENSE.txt ..." />
 		<move file="${license.destination}" tofile="${project.dist.version}/${project.name}/LICENSE.txt" />
 
-	</target>	
-			
+	</target>
+
 	<target name="generate.zip" if="is.normal">
-		
-  		<move todir="${project.dist.version}/tmp/${project.name}-${project.version}/${project.name}">
-  			<fileset dir="${project.dist.version}/${project.name}" />
-  		</move> 
-  		
-  		<move file="${install.destination}" tofile="${project.dist.version}/tmp/${project.name}-${project.version}/INSTALL.txt" />
-		
-	  	<zip destfile="${project.dist.version}/${project.name}-${project.version}.zip"
+
+		<move todir="${project.dist.version}/tmp/${project.name}-${project.version}/${project.name}">
+			<fileset dir="${project.dist.version}/${project.name}" />
+		</move>
+
+		<move file="${install.destination}" tofile="${project.dist.version}/tmp/${project.name}-${project.version}/INSTALL.txt" />
+
+		<zip destfile="${project.dist.version}/${project.name}-${project.version}.zip"
   	       basedir="${project.dist.version}/tmp/${project.name}-${project.version}"
   	       excludes="**/.DS_Store"
 		/>
-		
+
 		<move file="${project.dist.version}/${project.name}-${project.version}.zip" todir="${project.dist.version}/web/download" />
 		<move todir="${project.dist.version}">
 			<fileset dir="${project.dist.version}/web" />
 		</move>
-		
+
 		<delete dir="${project.dist.version}/tmp" />
-		
+
 	</target>
-	
+
 	<target name="versionSourcefile">
 		<echo message="Updating version info in: ${file}" />
 		<replaceregexp file="${file}" match="##author##" replace="${author.name} ${author.url}" flags="g" />
@@ -513,7 +560,7 @@ ${line}
 		<replaceregexp file="${file}" match="##name##" replace="${project.name}" flags="g" />
 		<replaceregexp file="${file}" match="##version##" replace="${project.version}" flags="g" />
 	</target>
-	
+
 	<!-- parsing the examples folder -->
 	<target name="processExamples">
 		<dirset id="examples.contents" dir="${project.examples}" excludes="*/*"/>
@@ -521,7 +568,7 @@ ${line}
 		<foreach list="${examples.list}" target="addExamples" param="exampleDir" delimiter=";">
 		</foreach>
 	</target>
-		
+
 	<target name="addExamples">
 		<echo message="adding example ${exampleDir}" />
 		<replaceregexp file="${project.dist.version}/web/index.html"
@@ -544,10 +591,10 @@ ${line}
 Done.
 ${line}	
 		</echo>
-	    <!--exec resolveexecutable="true" executable="ls" failonerror="true">
+		<!--exec resolveexecutable="true" executable="ls" failonerror="true">
 	        <arg line="${project.jsbuild.download}"/>
 	    </exec-->
 	</target>
-	
+
 </project>
 
