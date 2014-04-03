@@ -98,10 +98,10 @@ public class RiMarkovTest
   @Test
   public void testLoadFromUrl()
   {
-    RiMarkov rm1 = new RiMarkov(4);
-    rm1.loadFrom("http://rednoise.org/testfiles/kafka.txt");
-    String[] sents = rm1.generateSentences(100);
-    ok(sents.length==100);
+    RiMarkov rm = new RiMarkov(4);
+    rm.loadFrom("http://rednoise.org/testfiles/kafka-short.txt");
+    String[] sents = rm.generateSentences(10);
+    ok(sents.length==10);
     
     for (int j = 0; j < sents.length; j++) {
       //System.out.println(j+") "+sents[j]);
@@ -111,8 +111,7 @@ public class RiMarkovTest
     }
   }
 
-  @Test
-  public void testLoadFromURL()
+  public void testLoadFromUrl2() // skipped
   {
     RiMarkov rm1 = new RiMarkov(4);
     try

@@ -1,10 +1,9 @@
 Testsuite: rita.test.RiWordNetTest
-Tests run: 80, Failures: 12, Errors: 0, Time elapsed: 1.851 sec
+Tests run: 80, Failures: 1, Errors: 0, Time elapsed: 1.497 sec
 ------------- Standard Output ---------------
 AbstractCachingDictionary.setCachingEnabled(false)
 AbstractCachingDictionary.setCachingEnabled(true)
-[INFO] Loaded in 124ms
-[INFO] RiTa.version [##version##]
+[INFO] Loaded in 133ms
 null
 null
 ------------- ---------------- ---------------
@@ -80,175 +79,86 @@ null
 [WARN] RiWordNet: Invalid POS: 'j'
 [WARN] RiWordNet: Invalid POS: 'j'
 [WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
 ------------- ---------------- ---------------
 
-Testcase: testGetSynonymsInt took 0.087 sec
-Testcase: testGetSynonymsIntInt took 0.022 sec
-Testcase: testGetSynonymsStringString took 0.062 sec
-Testcase: testGetSynonymsStringStringInt took 0.025 sec
-Testcase: testGetAllSynonymsStringString took 0.041 sec
-Testcase: testGetAllSynonymsStringStringInt took 0.044 sec
-Testcase: testExistsString took 0.008 sec
-Testcase: testGetSenseIdsStringString took 0.001 sec
-Testcase: testGetHypernymsStringString took 0.005 sec
-Testcase: testGetGlossStringString took 0.001 sec
-Testcase: testGetAllGlosses took 0.004 sec
+Testcase: testIsAdverb took 0.09 sec
+Testcase: testIsNoun took 0.003 sec
+Testcase: testIsVerb took 0.003 sec
+Testcase: testIsAdjective took 0.014 sec
+Testcase: testGetSynonymsInt took 0.097 sec
+Testcase: testGetSynonymsIntInt took 0.01 sec
+Testcase: testGetSynonymsStringString took 0.057 sec
+Testcase: testGetSynonymsStringStringInt took 0.01 sec
+Testcase: testGetAllSynonymsStringString took 0.019 sec
+Testcase: testGetAllSynonymsStringStringInt took 0.015 sec
+Testcase: testExistsString took 0.004 sec
+Testcase: testGetSenseIdsStringString took 0 sec
+Testcase: testGetHypernymsStringString took 0.003 sec
+Testcase: testGetGlossStringString took 0.002 sec
+Testcase: testGetAllGlosses took 0.002 sec
 Testcase: testGetGlossInt took 0 sec
 Testcase: testGetDescriptionInt took 0 sec
-Testcase: testGetDescriptionStringString took 0.001 sec
-Testcase: testGetExamplesStringString took 0.002 sec
+Testcase: testGetDescriptionStringString took 0.002 sec
+Testcase: testGetExamplesStringString took 0.001 sec
 Testcase: testGetExamplesInt took 0.001 sec
-Testcase: testGetAllExamples took 0.018 sec
-Testcase: testGetCommonParents took 0.025 sec
-Testcase: testGetCommonParent took 0.004 sec
+Testcase: testGetAllExamples took 0.003 sec
+Testcase: testGetCommonParents took 0.017 sec
+Testcase: testGetCommonParent took 0.002 sec
 	FAILED
 null
 junit.framework.AssertionFailedError
-	at rita.support.QUnitStubs.deepEqual(QUnitStubs.java:120)
-	at rita.support.QUnitStubs.equal(QUnitStubs.java:44)
+	at rita.support.QUnitStubs.deepEqual(Unknown Source)
+	at rita.support.QUnitStubs.equal(Unknown Source)
 	at rita.test.RiWordNetTest.testGetCommonParent(RiWordNetTest.java:1029)
 	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:32)
 	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:424)
 	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:138)
 
-Testcase: testGetSynsetStringString took 0.005 sec
+Testcase: testGetSynsetStringString took 0.002 sec
 Testcase: testGetSynsetStringStringBoolean took 0.001 sec
 Testcase: testGetSynsetInt took 0.001 sec
-Testcase: testGetAllSynsets took 0.006 sec
-Testcase: testGetSenseCount took 0.001 sec
-Testcase: testGetAntonymsStringString took 0.003 sec
-	FAILED
-no exception
-junit.framework.AssertionFailedError: no exception
-	at rita.test.RiWordNetTest.testGetAntonymsStringString(RiWordNetTest.java:1377)
-	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:32)
-	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:424)
-	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:138)
-
-Testcase: testGetAntonymsInt took 0.001 sec
-	FAILED
-no exception
-junit.framework.AssertionFailedError: no exception
-	at rita.test.RiWordNetTest.testGetAntonymsInt(RiWordNetTest.java:1442)
-	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:32)
-	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:424)
-	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:138)
-
-Testcase: testGetAllAntonyms took 0.015 sec
-	FAILED
-no exception
-junit.framework.AssertionFailedError: no exception
-	at rita.test.RiWordNetTest.testGetAllAntonyms(RiWordNetTest.java:1518)
-	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:32)
-	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:424)
-	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:138)
-
-Testcase: testGetHypernymsInt took 0.002 sec
-	FAILED
-no exception
-junit.framework.AssertionFailedError: no exception
-	at rita.test.RiWordNetTest.testGetHypernymsInt(RiWordNetTest.java:1595)
-	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:32)
-	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:424)
-	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:138)
-
-Testcase: testGetAllHypernyms took 0.002 sec
-	FAILED
-no exception
-junit.framework.AssertionFailedError: no exception
-	at rita.test.RiWordNetTest.testGetAllHypernyms(RiWordNetTest.java:1643)
-	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:32)
-	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:424)
-	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:138)
-
+Testcase: testGetAllSynsets took 0.002 sec
+Testcase: testGetSenseCount took 0 sec
+Testcase: testGetAntonymsStringString took 0.001 sec
+Testcase: testGetAntonymsInt took 0 sec
+Testcase: testGetAllAntonyms took 0.007 sec
+Testcase: testGetHypernymsInt took 0.001 sec
+Testcase: testGetAllHypernyms took 0.001 sec
 Testcase: testGetHypernymTree took 0.001 sec
-	FAILED
-no exception
-junit.framework.AssertionFailedError: no exception
-	at rita.test.RiWordNetTest.testGetHypernymTree(RiWordNetTest.java:1671)
-	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:32)
-	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:424)
-	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:138)
-
-Testcase: testGetHyponymsStringString took 0.002 sec
-	FAILED
-no exception
-junit.framework.AssertionFailedError: no exception
-	at rita.test.RiWordNetTest.testGetHyponymsStringString(RiWordNetTest.java:1709)
-	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:32)
-	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:424)
-	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:138)
-
-Testcase: testGetHyponymsInt took 0.001 sec
-	FAILED
-no exception
-junit.framework.AssertionFailedError: no exception
-	at rita.test.RiWordNetTest.testGetHyponymsInt(RiWordNetTest.java:1730)
-	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:32)
-	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:424)
-	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:138)
-
-Testcase: testGetAllHyponyms took 0.002 sec
-	FAILED
-no exception
-junit.framework.AssertionFailedError: no exception
-	at rita.test.RiWordNetTest.testGetAllHyponyms(RiWordNetTest.java:1778)
-	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:32)
-	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:424)
-	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:138)
-
+Testcase: testGetHyponymsStringString took 0.001 sec
+Testcase: testGetHyponymsInt took 0 sec
+Testcase: testGetAllHyponyms took 0.001 sec
 Testcase: testGetHyponymTree took 0.001 sec
-	FAILED
-no exception
-junit.framework.AssertionFailedError: no exception
-	at rita.test.RiWordNetTest.testGetHyponymTree(RiWordNetTest.java:1801)
-	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:32)
-	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:424)
-	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:138)
-
-Testcase: testIsAdjective took 0.012 sec
-Testcase: testIsAdverb took 0.006 sec
-Testcase: testIsVerb took 0.005 sec
-Testcase: testIsNoun took 0.005 sec
-Testcase: testGetStems took 0 sec
+Testcase: testGetStems took 0.001 sec
 Testcase: testIsStem took 0.002 sec
 Testcase: testExists took 0.003 sec
 Testcase: testRemoveNonExistent took 0 sec
-Testcase: testGetPosString took 0.002 sec
+Testcase: testGetPosString took 0 sec
 Testcase: testGetPosInt took 0.001 sec
-Testcase: testGetPosStr took 0 sec
-Testcase: testGetBestPos took 0 sec
-	FAILED
-null
-junit.framework.AssertionFailedError
-	at rita.support.QUnitStubs.deepEqual(QUnitStubs.java:120)
-	at rita.support.QUnitStubs.equal(QUnitStubs.java:44)
-	at rita.test.RiWordNetTest.testGetBestPos(RiWordNetTest.java:2199)
-	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:32)
-	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:424)
-	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:138)
-
-Testcase: testGetRandomExample took 0.004 sec
-Testcase: testGetRandomExamples took 0.406 sec
-Testcase: testGetRandomWords took 0.91 sec
-Testcase: testGetRandomWordString took 0.002 sec
-Testcase: testGetRandomWordStringBooleanInt took 0.001 sec
-Testcase: testGetDistance took 0.019 sec
+Testcase: testGetPosStr took 0.001 sec
+Testcase: testGetBestPos took 0.001 sec
+Testcase: testGetRandomExample took 0.005 sec
+Testcase: testGetRandomExamples took 0.378 sec
+Testcase: testGetRandomWords took 0.67 sec
+Testcase: testGetRandomWordString took 0.003 sec
+Testcase: testGetRandomWordStringBooleanInt took 0 sec
+Testcase: testGetDistance took 0.014 sec
 Testcase: testGetMeronymsStringString took 0 sec
-Testcase: testGetMeronymsInt took 0 sec
-Testcase: testGetAllMeronyms took 0.001 sec
+Testcase: testGetMeronymsInt took 0.001 sec
+Testcase: testGetAllMeronyms took 0 sec
 Testcase: testGetHolonymsStringString took 0.001 sec
 Testcase: testGetHolonymsInt took 0 sec
 Testcase: testGetAllHolonyms took 0.001 sec
-Testcase: testGetCoordinatesStringString took 0 sec
+Testcase: testGetCoordinatesStringString took 0.001 sec
 Testcase: testGetCoordinatesInt took 0 sec
 Testcase: testGetAllCoordinates took 0.003 sec
-Testcase: testGetVerbGroupStringString took 0.004 sec
+Testcase: testGetVerbGroupStringString took 0.001 sec
 Testcase: testGetVerbGroupInt took 0 sec
 Testcase: testAllGetVerbGroupStringString took 0.001 sec
 Testcase: testGetDerivedTermsStringString took 0 sec
 Testcase: testGetDerivedTermsInt took 0 sec
-Testcase: testGetAllDerivedTerms took 0.001 sec
+Testcase: testGetAllDerivedTerms took 0 sec
 Testcase: testGetAlsoSeesStringString took 0 sec
 Testcase: testGetAlsoSeesInt took 0 sec
 Testcase: testGetAllAlsoSees took 0 sec
@@ -259,6 +169,6 @@ Testcase: testGetSimilarStringString took 0 sec
 Testcase: testGetSimilarInt took 0 sec
 Testcase: testGetAllSimilar took 0.001 sec
 Testcase: testIgnoreCompoundWords took 0 sec
-Testcase: testIgnoreUpperCaseWordsBoolean took 0.001 sec
+Testcase: testIgnoreUpperCaseWordsBoolean took 0 sec
 Testcase: testIgnoreUpperCaseWords took 0 sec
 Testcase: testIsCompound took 0 sec

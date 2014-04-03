@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="slipper.local" name="rita.test.RiLexiconTest" tests="30" time="3.99" timestamp="2014-04-03T08:44:44">
+<testsuite errors="0" failures="1" hostname="slipper.local" name="rita.test.RiWordNetTest" tests="80" time="1.497" timestamp="2014-04-03T08:44:52">
   <properties>
     <property name="env.COM_GOOGLE_CHROME_FRAMEWORK_SERVICE_PROCESS/USERS/DHOWE/LIBRARY/APPLICATION_SUPPORT/GOOGLE/CHROME_SOCKET" value="/tmp/launch-fBOyc3/ServiceProcessSocket" />
     <property name="file.encoding.pkg" value="sun.io" />
@@ -153,46 +153,172 @@
     <property name="java.specification.version" value="1.6" />
     <property name="sun.arch.data.model" value="64" />
   </properties>
-  <testcase classname="rita.test.RiLexiconTest" name="testRiLexicon" time="0.0" />
-  <testcase classname="rita.test.RiLexiconTest" name="testAddWord" time="0.134" />
-  <testcase classname="rita.test.RiLexiconTest" name="testClear" time="0.297" />
-  <testcase classname="rita.test.RiLexiconTest" name="testContainsWord" time="0.0" />
-  <testcase classname="rita.test.RiLexiconTest" name="testAlliterations" time="0.487" />
-  <testcase classname="rita.test.RiLexiconTest" name="testAlliterationsInt" time="0.169" />
-  <testcase classname="rita.test.RiLexiconTest" name="testLexicalData" time="0.0010" />
-  <testcase classname="rita.test.RiLexiconTest" name="testRandomWord" time="0.0" />
-  <testcase classname="rita.test.RiLexiconTest" name="testRandomWordInt" time="0.028" />
-  <testcase classname="rita.test.RiLexiconTest" name="testRandomWordString" time="0.431" />
-  <testcase classname="rita.test.RiLexiconTest" name="testRandomWordStringInt" time="0.427" />
-  <testcase classname="rita.test.RiLexiconTest" name="testRhymes" time="0.084" />
-  <testcase classname="rita.test.RiLexiconTest" name="testWords" time="0.028" />
-  <testcase classname="rita.test.RiLexiconTest" name="testWordsString" time="0.057" />
-  <testcase classname="rita.test.RiLexiconTest" name="testWordsStringBoolean" time="0.039" />
-  <testcase classname="rita.test.RiLexiconTest" name="testIsAdverb" time="0.0020" />
-  <testcase classname="rita.test.RiLexiconTest" name="testIsNoun" time="0.0" />
-  <testcase classname="rita.test.RiLexiconTest" name="testIsVerb" time="0.0" />
-  <testcase classname="rita.test.RiLexiconTest" name="testIsAdjective" time="0.0010" />
-  <testcase classname="rita.test.RiLexiconTest" name="testIsAlliteration" time="0.0" />
-  <testcase classname="rita.test.RiLexiconTest" name="testGetRawPhones" time="0.0" />
-  <testcase classname="rita.test.RiLexiconTest" name="testIsRhyme" time="0.0" />
-  <testcase classname="rita.test.RiLexiconTest" name="testIsRhymeBoolean" time="0.0" />
-  <testcase classname="rita.test.RiLexiconTest" name="testRemoveWord" time="0.138" />
-  <testcase classname="rita.test.RiLexiconTest" name="testSimilarByLetter" time="0.196" />
-  <testcase classname="rita.test.RiLexiconTest" name="testSimilarBySound" time="0.696" />
-  <testcase classname="rita.test.RiLexiconTest" name="testSimilarBySoundAndLetter" time="0.596" />
-  <testcase classname="rita.test.RiLexiconTest" name="testSize" time="0.0" />
-  <testcase classname="rita.test.RiLexiconTest" name="testSubstrings" time="0.097" />
-  <testcase classname="rita.test.RiLexiconTest" name="testSuperstrings" time="0.072" />
-  <system-out><![CDATA[[INFO] Loaded 33388(0) lexicon in 134 ms
-[INFO] Loaded 33388(0) lexicon in 162 ms
-[INFO] Loaded 33388(0) lexicon in 134 ms
-unseemly
-peeping
-deepened
-beer
-reelected
-emcee
-[INFO] Loaded 33388(0) lexicon in 138 ms
+  <testcase classname="rita.test.RiWordNetTest" name="testIsAdverb" time="0.09" />
+  <testcase classname="rita.test.RiWordNetTest" name="testIsNoun" time="0.0030" />
+  <testcase classname="rita.test.RiWordNetTest" name="testIsVerb" time="0.0030" />
+  <testcase classname="rita.test.RiWordNetTest" name="testIsAdjective" time="0.014" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetSynonymsInt" time="0.098" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetSynonymsIntInt" time="0.01" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetSynonymsStringString" time="0.057" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetSynonymsStringStringInt" time="0.01" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetAllSynonymsStringString" time="0.019" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetAllSynonymsStringStringInt" time="0.015" />
+  <testcase classname="rita.test.RiWordNetTest" name="testExistsString" time="0.0040" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetSenseIdsStringString" time="0.0" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetHypernymsStringString" time="0.0030" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetGlossStringString" time="0.0020" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetAllGlosses" time="0.0020" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetGlossInt" time="0.0" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetDescriptionInt" time="0.0" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetDescriptionStringString" time="0.0020" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetExamplesStringString" time="0.0010" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetExamplesInt" time="0.0010" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetAllExamples" time="0.0030" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetCommonParents" time="0.017" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetCommonParent" time="0.0030">
+    <failure type="junit.framework.AssertionFailedError">junit.framework.AssertionFailedError
+	at rita.support.QUnitStubs.deepEqual(Unknown Source)
+	at rita.support.QUnitStubs.equal(Unknown Source)
+	at rita.test.RiWordNetTest.testGetCommonParent(RiWordNetTest.java:1029)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:32)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:424)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:138)
+</failure>
+  </testcase>
+  <testcase classname="rita.test.RiWordNetTest" name="testGetSynsetStringString" time="0.0020" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetSynsetStringStringBoolean" time="0.0010" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetSynsetInt" time="0.0010" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetAllSynsets" time="0.0020" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetSenseCount" time="0.0" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetAntonymsStringString" time="0.0010" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetAntonymsInt" time="0.0" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetAllAntonyms" time="0.0070" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetHypernymsInt" time="0.0010" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetAllHypernyms" time="0.0020" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetHypernymTree" time="0.0010" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetHyponymsStringString" time="0.0010" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetHyponymsInt" time="0.0" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetAllHyponyms" time="0.0010" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetHyponymTree" time="0.0010" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetStems" time="0.0010" />
+  <testcase classname="rita.test.RiWordNetTest" name="testIsStem" time="0.0020" />
+  <testcase classname="rita.test.RiWordNetTest" name="testExists" time="0.0030" />
+  <testcase classname="rita.test.RiWordNetTest" name="testRemoveNonExistent" time="0.0" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetPosString" time="0.0" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetPosInt" time="0.0010" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetPosStr" time="0.0010" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetBestPos" time="0.0010" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetRandomExample" time="0.0050" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetRandomExamples" time="0.378" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetRandomWords" time="0.67" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetRandomWordString" time="0.0030" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetRandomWordStringBooleanInt" time="0.0" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetDistance" time="0.014" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetMeronymsStringString" time="0.0" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetMeronymsInt" time="0.0010" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetAllMeronyms" time="0.0" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetHolonymsStringString" time="0.0010" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetHolonymsInt" time="0.0" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetAllHolonyms" time="0.0010" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetCoordinatesStringString" time="0.0010" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetCoordinatesInt" time="0.0" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetAllCoordinates" time="0.0030" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetVerbGroupStringString" time="0.0010" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetVerbGroupInt" time="0.0" />
+  <testcase classname="rita.test.RiWordNetTest" name="testAllGetVerbGroupStringString" time="0.0010" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetDerivedTermsStringString" time="0.0" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetDerivedTermsInt" time="0.0" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetAllDerivedTerms" time="0.0" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetAlsoSeesStringString" time="0.0" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetAlsoSeesInt" time="0.0010" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetAllAlsoSees" time="0.0" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetNominalizationsStringString" time="0.0" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetNominalizationsInt" time="0.0" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetAllNominalizations" time="0.0010" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetSimilarStringString" time="0.0" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetSimilarInt" time="0.0" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetAllSimilar" time="0.0010" />
+  <testcase classname="rita.test.RiWordNetTest" name="testIgnoreCompoundWords" time="0.0" />
+  <testcase classname="rita.test.RiWordNetTest" name="testIgnoreUpperCaseWordsBoolean" time="0.0010" />
+  <testcase classname="rita.test.RiWordNetTest" name="testIgnoreUpperCaseWords" time="0.0" />
+  <testcase classname="rita.test.RiWordNetTest" name="testIsCompound" time="0.0" />
+  <system-out><![CDATA[AbstractCachingDictionary.setCachingEnabled(false)
+AbstractCachingDictionary.setCachingEnabled(true)
+[INFO] Loaded in 133ms
+null
+null
 ]]></system-out>
-  <system-err><![CDATA[]]></system-err>
+  <system-err><![CDATA[[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'u'
+[WARN] RiWordNet: Invalid POS: 'u'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'u'
+[WARN] RiWordNet: Invalid POS: 'u'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'u'
+[WARN] RiWordNet: Invalid POS: 'u'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 't'
+[WARN] RiWordNet: Invalid POS: 't'
+[WARN] RiWordNet: Invalid POS: 't'
+[WARN] RiWordNet: Invalid POS: 't'
+[WARN] RiWordNet: Invalid POS: 't'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'u'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+[WARN] RiWordNet: Invalid POS: 'j'
+]]></system-err>
 </testsuite>
