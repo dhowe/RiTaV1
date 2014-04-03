@@ -1,0 +1,45 @@
+Testsuite: rita.test.RiLexiconTest
+Tests run: 30, Failures: 0, Errors: 0, Time elapsed: 3.969 sec
+------------- Standard Output ---------------
+[INFO] Loaded 33388(0) lexicon in 128 ms
+[INFO] Loaded 33388(0) lexicon in 162 ms
+[INFO] Loaded 33388(0) lexicon in 120 ms
+greenmail
+sheepskin
+speeches
+peeling
+speedier
+volunteering
+[INFO] Loaded 33388(0) lexicon in 162 ms
+------------- ---------------- ---------------
+
+Testcase: testIsAdjective took 0.004 sec
+Testcase: testIsAdverb took 0 sec
+Testcase: testIsVerb took 0 sec
+Testcase: testIsNoun took 0 sec
+Testcase: testRiLexicon took 0 sec
+Testcase: testAddWord took 0.128 sec
+Testcase: testClear took 0.297 sec
+Testcase: testContainsWord took 0 sec
+Testcase: testAlliterations took 0.467 sec
+Testcase: testAlliterationsInt took 0.166 sec
+Testcase: testLexicalData took 0 sec
+Testcase: testRandomWord took 0 sec
+Testcase: testRandomWordInt took 0.013 sec
+Testcase: testRandomWordString took 0.399 sec
+Testcase: testRandomWordStringInt took 0.381 sec
+Testcase: testRhymes took 0.091 sec
+Testcase: testWords took 0.017 sec
+Testcase: testWordsString took 0.063 sec
+Testcase: testWordsStringBoolean took 0.041 sec
+Testcase: testIsAlliteration took 0.001 sec
+Testcase: testGetRawPhones took 0 sec
+Testcase: testIsRhyme took 0 sec
+Testcase: testIsRhymeBoolean took 0 sec
+Testcase: testRemoveWord took 0.162 sec
+Testcase: testSimilarByLetter took 0.194 sec
+Testcase: testSimilarBySound took 0.832 sec
+Testcase: testSimilarBySoundAndLetter took 0.54 sec
+Testcase: testSize took 0 sec
+Testcase: testSubstrings took 0.082 sec
+Testcase: testSuperstrings took 0.08 sec
