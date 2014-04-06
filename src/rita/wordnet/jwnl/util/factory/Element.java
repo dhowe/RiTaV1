@@ -1,6 +1,7 @@
 package rita.wordnet.jwnl.util.factory;
 
 
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,8 +27,23 @@ public class Element {
 		_paramMap.put(param.getName(), param);
 	}
 
+	 public void install() throws JWNLException {
+	   
+    try {
+      Class installClass = Class.forName(_className);
+      Method method = installClass.getMethod("installStatic", Map.class);
+      method.invoke(null, _paramMap);
+      
+      //Installable installable = (Installable) .newInstance();
+      //installable.install(_paramMap);
+    } catch (Exception ex) {
+      ex.printStackTrace();
+      //throw new JWNLException("UTILS_EXCEPTION_005", _className, ex);
+    }
+  }
+	 
     /** If the class is installable, this method will install it using the parameters */
-	public void install() throws JWNLException {
+	public void installOrig() throws JWNLException {
 		try {
 			Installable installable = (Installable) Class.forName(_className).newInstance();
 			installable.install(_paramMap);

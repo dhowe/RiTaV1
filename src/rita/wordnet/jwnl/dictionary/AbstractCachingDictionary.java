@@ -17,11 +17,15 @@ import rita.wordnet.jwnl.wndata.*;
 
 /** Extends <code>Dictionary</code> to provide caching of elements. */
 public abstract class AbstractCachingDictionary extends Dictionary {
+  
+  private static boolean defaultCachingEnabled = true;
+  static int count=0;
+  
 	private DictionaryCacheSet _caches;
 	private boolean _isCachingEnabled;
 
 	protected AbstractCachingDictionary() {
-		this(false);
+		this(defaultCachingEnabled);
 	}
 
 	protected AbstractCachingDictionary(boolean enableCaching) {
@@ -29,20 +33,22 @@ public abstract class AbstractCachingDictionary extends Dictionary {
 	}
 
 	protected AbstractCachingDictionary(MorphologicalProcessor morph) {
-		this(morph, false);
+		this(morph, defaultCachingEnabled);
 	}
 
-	protected AbstractCachingDictionary(MorphologicalProcessor morph, boolean enableCaching) {
+	protected AbstractCachingDictionary(MorphologicalProcessor morph, boolean enableCaching) { // impl
 		super(morph);
 		setCachingEnabled(enableCaching);
 	}
+	
+	// ============================================================================
 
 	public boolean isCachingEnabled() {
 		return _isCachingEnabled;
 	}
 
 	public void setCachingEnabled(boolean cachingEnabled) {
-System.out.println("AbstractCachingDictionary.setCachingEnabled("+cachingEnabled+")");
+	  //System.out.println("AbstractCachingDictionary.setCachingEnabled("+cachingEnabled+")");
 		_isCachingEnabled = cachingEnabled;
 	}
 
