@@ -57,32 +57,32 @@ public class FileBackedDictionary extends AbstractCachingDictionary
    * backed by a RemoteFileManager.
    * 
    * @see rita.wordnet.jwnl.dictionary.file_manager.RemoteFileManager
-   */
+
   public static void install(FileManager fileManager,
       FileDictionaryElementFactory factory)
   {
     install(fileManager, null, factory);
-  }
+  } 
 
   /**
    * Construct a Dictionary that retrieves file data from
    * <code>fileManager</code>. If enableCaching is true, lookup operations
    * will check the relavant cache before doing a lookup and will cache their
    * results after doing a lookup.
-   */
+
   public static void install(FileManager fileManager,
       MorphologicalProcessor morph, FileDictionaryElementFactory factory)
   {
     install(fileManager, morph, factory, true);
-  }
+  } 
 
   public static void install(FileManager fileManager,
       FileDictionaryElementFactory factory, boolean enableCaching)
   {
     install(fileManager, null, factory, enableCaching);
-  }
+  }  */
 
-  public static void install(FileManager fileManager,
+  private static void install(FileManager fileManager,
       MorphologicalProcessor morph, FileDictionaryElementFactory factory,
       boolean enableCaching)
   {
@@ -105,11 +105,7 @@ public class FileBackedDictionary extends AbstractCachingDictionary
     _factory = factory;
   }
 
-  /**
-   * Install a FileBackedDictionary from a map of parameters. The keys are chose
-   * from the static variables above.
-   */
-  public void install(Map params) throws JWNLException
+  public static void installStatic(Map params) throws JWNLException
   {
     Param param = (Param) params.get(MORPH);
     MorphologicalProcessor morph = (param == null) ? null
@@ -151,6 +147,17 @@ public class FileBackedDictionary extends AbstractCachingDictionary
                 .getValue()));
       }
     }
+  }
+    
+  /**
+   * Install a FileBackedDictionary from a map of parameters. The keys are chose
+   * from the static variables above.
+   * 
+   * DCH: Changed -- now calls installStatic directly to avoid double-construction
+   */
+  public void install(Map params) throws JWNLException
+  {
+    installStatic(params);
   }
 
   public void close()
