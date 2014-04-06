@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="slipper.local" name="rita.test.RiGrammarTest" tests="21" time="1.599" timestamp="2014-04-03T08:44:42">
+<testsuite errors="0" failures="0" hostname="slipper.local" name="rita.test.RiGrammarTest" tests="21" time="1.771" timestamp="2014-04-03T08:48:15">
   <properties>
     <property name="env.COM_GOOGLE_CHROME_FRAMEWORK_SERVICE_PROCESS/USERS/DHOWE/LIBRARY/APPLICATION_SUPPORT/GOOGLE/CHROME_SOCKET" value="/tmp/launch-fBOyc3/ServiceProcessSocket" />
     <property name="file.encoding.pkg" value="sun.io" />
@@ -36,15 +36,17 @@
     <property name="env.com.apple.java.jvmTask" value="CommandLine_Manual.java" />
     <property name="project.name" value="RiTa" />
     <property name="file.encoding" value="UTF-8" />
+    <property name="env.JAVA_MAIN_CLASS_18911" value="org.eclipse.ant.internal.launching.remote.InternalAntRunner" />
     <property name="ant.project.default-target" value="clean" />
     <property name="project.examples" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/RiTaLibraryJS/examplesP5" />
     <property name="env.HOME" value="/Users/dhowe" />
     <property name="project.copyright" value="(c) 2009" />
-    <property name="sun.java.command" value="org.eclipse.ant.internal.launching.remote.InternalAntRunner -Dorg.eclipse.ant.core.ANT_PROCESS_ID=1396514681760 -Declipse.connect.port=50649 -Dant.home=/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030 -logger org.eclipse.ant.internal.launching.remote.logger.RemoteAntBuildLogger -inputhandler org.eclipse.ant.internal.ui.antsupport.inputhandler.ProxyInputHandler -buildfile /Users/dhowe/Documents/eclipse-workspace/RiTa/resources/build.xml run.unit.tests" />
+    <property name="sun.java.command" value="org.eclipse.ant.internal.launching.remote.InternalAntRunner -Dorg.eclipse.ant.core.ANT_PROCESS_ID=1396514895031 -Declipse.connect.port=50726 -Dant.home=/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030 -logger org.eclipse.ant.internal.launching.remote.logger.RemoteAntBuildLogger -inputhandler org.eclipse.ant.internal.ui.antsupport.inputhandler.ProxyInputHandler -buildfile /Users/dhowe/Documents/eclipse-workspace/RiTa/resources/build.xml run.unit.tests" />
     <property name="project.compile" value="normal" />
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16" />
     <property name="ant.file" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/resources/build.xml" />
     <property name="license.destination" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/distribution/RiTa-1.0.53/RiTa/LICENSE.txt" />
+    <property name="env.JAVA_STARTED_ON_FIRST_THREAD_18911" value="1" />
     <property name="project.reference" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/reference" />
     <property name="java.io.tmpdir" value="/var/folders/nr/7f9nzyx54q11v990628s3w0w0000gn/T/" />
     <property name="TODAY" value="April 3 2014" />
@@ -127,15 +129,13 @@
     <property name="ant.library.dir" value="/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030/lib" />
     <property name="project.bin" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/bin" />
     <property name="os.arch" value="x86_64" />
-    <property name="env.JAVA_MAIN_CLASS_18769" value="org.eclipse.ant.internal.launching.remote.InternalAntRunner" />
     <property name="env.Apple_PubSub_Socket_Render" value="/tmp/launch-2O1zB6/Render" />
     <property name="sun.java.launcher" value="SUN_STANDARD" />
     <property name="ant.core.lib" value="/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030/lib/ant.jar" />
-    <property name="env.JAVA_STARTED_ON_FIRST_THREAD_18769" value="1" />
     <property name="is.normal" value="true" />
     <property name="install.source" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/resources/install_instructions.txt" />
     <property name="java.vm.specification.vendor" value="Sun Microsystems Inc." />
-    <property name="TSTAMP" value="1644" />
+    <property name="TSTAMP" value="1648" />
     <property name="file.separator" value="/" />
     <property name="java.runtime.version" value="1.6.0_65-b14-462-11M4609" />
     <property name="env.SSH_AUTH_SOCK" value="/tmp/launch-U7SR9K/Listeners" />
@@ -153,29 +153,29 @@
     <property name="java.specification.version" value="1.6" />
     <property name="sun.arch.data.model" value="64" />
   </properties>
-  <testcase classname="rita.test.RiGrammarTest" name="testRiGrammar" time="0.0090" />
-  <testcase classname="rita.test.RiGrammarTest" name="testRiGrammar2" time="0.032" />
+  <testcase classname="rita.test.RiGrammarTest" name="testRiGrammar" time="0.0070" />
+  <testcase classname="rita.test.RiGrammarTest" name="testRiGrammar2" time="0.027" />
   <testcase classname="rita.test.RiGrammarTest" name="testSetGrammar" time="0.0070" />
-  <testcase classname="rita.test.RiGrammarTest" name="testRiGrammarString" time="0.0020" />
+  <testcase classname="rita.test.RiGrammarTest" name="testRiGrammarString" time="0.0030" />
   <testcase classname="rita.test.RiGrammarTest" name="testExpand" time="0.037" />
-  <testcase classname="rita.test.RiGrammarTest" name="testSpecialChars" time="0.0030" />
-  <testcase classname="rita.test.RiGrammarTest" name="testRiGrammarExec" time="0.0040" />
-  <testcase classname="rita.test.RiGrammarTest" name="testLoadFromFile" time="0.017" />
-  <testcase classname="rita.test.RiGrammarTest" name="testExpandFromFile" time="0.0080" />
-  <testcase classname="rita.test.RiGrammarTest" name="testExpandFrom" time="0.0030" />
+  <testcase classname="rita.test.RiGrammarTest" name="testSpecialChars" time="0.0020" />
+  <testcase classname="rita.test.RiGrammarTest" name="testRiGrammarExec" time="0.0020" />
+  <testcase classname="rita.test.RiGrammarTest" name="testLoadFromFile" time="0.01" />
+  <testcase classname="rita.test.RiGrammarTest" name="testExpandFromFile" time="0.0050" />
+  <testcase classname="rita.test.RiGrammarTest" name="testExpandFrom" time="0.0020" />
   <testcase classname="rita.test.RiGrammarTest" name="testGetGrammar" time="0.0020" />
-  <testcase classname="rita.test.RiGrammarTest" name="testHasRule" time="0.0090" />
-  <testcase classname="rita.test.RiGrammarTest" name="testAddRule" time="0.0050" />
-  <testcase classname="rita.test.RiGrammarTest" name="testRemoveRule" time="0.0030" />
-  <testcase classname="rita.test.RiGrammarTest" name="testPrint" time="0.0" />
-  <testcase classname="rita.test.RiGrammarTest" name="testReset" time="0.0030" />
-  <testcase classname="rita.test.RiGrammarTest" name="testExecIgnores" time="0.382" />
-  <testcase classname="rita.test.RiGrammarTest" name="testExec1" time="0.0040" />
-  <testcase classname="rita.test.RiGrammarTest" name="testExec2" time="0.0060" />
-  <testcase classname="rita.test.RiGrammarTest" name="testExecArgs" time="0.684" />
-  <testcase classname="rita.test.RiGrammarTest" name="testExecArgs2" time="0.346" />
+  <testcase classname="rita.test.RiGrammarTest" name="testHasRule" time="0.0060" />
+  <testcase classname="rita.test.RiGrammarTest" name="testAddRule" time="0.0040" />
+  <testcase classname="rita.test.RiGrammarTest" name="testRemoveRule" time="0.0050" />
+  <testcase classname="rita.test.RiGrammarTest" name="testPrint" time="0.0020" />
+  <testcase classname="rita.test.RiGrammarTest" name="testReset" time="0.0050" />
+  <testcase classname="rita.test.RiGrammarTest" name="testExecIgnores" time="0.471" />
+  <testcase classname="rita.test.RiGrammarTest" name="testExec1" time="0.0030" />
+  <testcase classname="rita.test.RiGrammarTest" name="testExec2" time="0.0010" />
+  <testcase classname="rita.test.RiGrammarTest" name="testExecArgs" time="0.801" />
+  <testcase classname="rita.test.RiGrammarTest" name="testExecArgs2" time="0.337" />
   <system-out><![CDATA[[INFO] RiTa.version [1.0.53]
-[INFO] Loaded 33388(0) lexicon in 288 ms
+[INFO] Loaded 33388(0) lexicon in 381 ms
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
