@@ -48,6 +48,7 @@ public class FileManagerImpl implements FileManager {
 	 * in the default WN search directory.
 	 */
 	public FileManagerImpl(String customWordnetPath, Class dictionaryFileType) throws IOException {
+	  
 //System.err.println("FileManagerImpl.FileManagerImpl("+customWordnetPath+","+dictionaryFileType+")");
 		checkFileType(dictionaryFileType);
     
@@ -97,6 +98,7 @@ public class FileManagerImpl implements FileManager {
 	}
 
 	public Object create(Map params) throws JWNLException {
+	  
 		Class fileClass = null;
 		try {
 			fileClass = Class.forName(((Param)params.get(FILE_TYPE)).getValue());

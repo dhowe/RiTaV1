@@ -1,45 +1,45 @@
 Testsuite: rita.test.RiLexiconTest
-Tests run: 30, Failures: 0, Errors: 0, Time elapsed: 3.99 sec
+Tests run: 30, Failures: 0, Errors: 0, Time elapsed: 3.891 sec
 ------------- Standard Output ---------------
-[INFO] Loaded 33388(0) lexicon in 134 ms
-[INFO] Loaded 33388(0) lexicon in 162 ms
-[INFO] Loaded 33388(0) lexicon in 134 ms
-unseemly
-peeping
-deepened
-beer
-reelected
-emcee
-[INFO] Loaded 33388(0) lexicon in 138 ms
+[INFO] Loaded 33388(0) lexicon in 137 ms
+[INFO] Loaded 33388(0) lexicon in 174 ms
+[INFO] Loaded 33388(0) lexicon in 133 ms
+evergreens
+seedy
+greenness
+esteem
+seethe
+peer
+[INFO] Loaded 33388(0) lexicon in 139 ms
 ------------- ---------------- ---------------
 
 Testcase: testRiLexicon took 0 sec
-Testcase: testAddWord took 0.134 sec
-Testcase: testClear took 0.297 sec
+Testcase: testAddWord took 0.137 sec
+Testcase: testClear took 0.31 sec
 Testcase: testContainsWord took 0 sec
-Testcase: testAlliterations took 0.487 sec
-Testcase: testAlliterationsInt took 0.169 sec
+Testcase: testAlliterations took 0.463 sec
+Testcase: testAlliterationsInt took 0.164 sec
 Testcase: testLexicalData took 0 sec
 Testcase: testRandomWord took 0 sec
-Testcase: testRandomWordInt took 0.028 sec
-Testcase: testRandomWordString took 0.431 sec
-Testcase: testRandomWordStringInt took 0.427 sec
-Testcase: testRhymes took 0.084 sec
-Testcase: testWords took 0.028 sec
-Testcase: testWordsString took 0.057 sec
-Testcase: testWordsStringBoolean took 0.039 sec
+Testcase: testRandomWordInt took 0.017 sec
+Testcase: testRandomWordString took 0.438 sec
+Testcase: testRandomWordStringInt took 0.441 sec
+Testcase: testRhymes took 0.085 sec
+Testcase: testWords took 0.027 sec
+Testcase: testWordsString took 0.056 sec
+Testcase: testWordsStringBoolean took 0.04 sec
 Testcase: testIsAdverb took 0.002 sec
 Testcase: testIsNoun took 0 sec
-Testcase: testIsVerb took 0 sec
+Testcase: testIsVerb took 0.001 sec
 Testcase: testIsAdjective took 0 sec
 Testcase: testIsAlliteration took 0 sec
 Testcase: testGetRawPhones took 0 sec
 Testcase: testIsRhyme took 0 sec
 Testcase: testIsRhymeBoolean took 0 sec
-Testcase: testRemoveWord took 0.138 sec
-Testcase: testSimilarByLetter took 0.196 sec
-Testcase: testSimilarBySound took 0.696 sec
-Testcase: testSimilarBySoundAndLetter took 0.596 sec
-Testcase: testSize took 0 sec
-Testcase: testSubstrings took 0.096 sec
-Testcase: testSuperstrings took 0.072 sec
+Testcase: testRemoveWord took 0.139 sec
+Testcase: testSimilarByLetter took 0.194 sec
+Testcase: testSimilarBySound took 0.676 sec
+Testcase: testSimilarBySoundAndLetter took 0.54 sec
+Testcase: testSize took 0.001 sec
+Testcase: testSubstrings took 0.077 sec
+Testcase: testSuperstrings took 0.07 sec

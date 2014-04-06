@@ -1,9 +1,9 @@
 Testsuite: rita.test.RiWordNetTest
-Tests run: 80, Failures: 1, Errors: 0, Time elapsed: 1.497 sec
+Tests run: 80, Failures: 0, Errors: 0, Time elapsed: 1.532 sec
 ------------- Standard Output ---------------
 AbstractCachingDictionary.setCachingEnabled(false)
 AbstractCachingDictionary.setCachingEnabled(true)
-[INFO] Loaded in 133ms
+[INFO] Loaded in 85ms
 null
 null
 ------------- ---------------- ---------------
@@ -82,86 +82,76 @@ null
 [WARN] RiWordNet: Invalid POS: 'j'
 ------------- ---------------- ---------------
 
-Testcase: testIsAdverb took 0.09 sec
-Testcase: testIsNoun took 0.003 sec
-Testcase: testIsVerb took 0.003 sec
-Testcase: testIsAdjective took 0.014 sec
-Testcase: testGetSynonymsInt took 0.097 sec
-Testcase: testGetSynonymsIntInt took 0.01 sec
-Testcase: testGetSynonymsStringString took 0.057 sec
-Testcase: testGetSynonymsStringStringInt took 0.01 sec
-Testcase: testGetAllSynonymsStringString took 0.019 sec
-Testcase: testGetAllSynonymsStringStringInt took 0.015 sec
-Testcase: testExistsString took 0.004 sec
+Testcase: testIsAdverb took 0.039 sec
+Testcase: testIsNoun took 0.005 sec
+Testcase: testIsVerb took 0.005 sec
+Testcase: testIsAdjective took 0.01 sec
+Testcase: testGetSynonymsInt took 0.058 sec
+Testcase: testGetSynonymsIntInt took 0.012 sec
+Testcase: testGetSynonymsStringString took 0.051 sec
+Testcase: testGetSynonymsStringStringInt took 0.013 sec
+Testcase: testGetAllSynonymsStringString took 0.023 sec
+Testcase: testGetAllSynonymsStringStringInt took 0.016 sec
+Testcase: testExistsString took 0.005 sec
 Testcase: testGetSenseIdsStringString took 0 sec
 Testcase: testGetHypernymsStringString took 0.003 sec
-Testcase: testGetGlossStringString took 0.002 sec
-Testcase: testGetAllGlosses took 0.002 sec
+Testcase: testGetGlossStringString took 0 sec
+Testcase: testGetAllGlosses took 0.001 sec
 Testcase: testGetGlossInt took 0 sec
 Testcase: testGetDescriptionInt took 0 sec
-Testcase: testGetDescriptionStringString took 0.002 sec
+Testcase: testGetDescriptionStringString took 0.001 sec
 Testcase: testGetExamplesStringString took 0.001 sec
 Testcase: testGetExamplesInt took 0.001 sec
 Testcase: testGetAllExamples took 0.003 sec
-Testcase: testGetCommonParents took 0.017 sec
-Testcase: testGetCommonParent took 0.002 sec
-	FAILED
-null
-junit.framework.AssertionFailedError
-	at rita.support.QUnitStubs.deepEqual(Unknown Source)
-	at rita.support.QUnitStubs.equal(Unknown Source)
-	at rita.test.RiWordNetTest.testGetCommonParent(RiWordNetTest.java:1029)
-	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:32)
-	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:424)
-	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:138)
-
+Testcase: testGetCommonParents took 0.012 sec
+Testcase: testGetCommonParent took 0.004 sec
 Testcase: testGetSynsetStringString took 0.002 sec
-Testcase: testGetSynsetStringStringBoolean took 0.001 sec
-Testcase: testGetSynsetInt took 0.001 sec
+Testcase: testGetSynsetStringStringBoolean took 0 sec
+Testcase: testGetSynsetInt took 0 sec
 Testcase: testGetAllSynsets took 0.002 sec
-Testcase: testGetSenseCount took 0 sec
+Testcase: testGetSenseCount took 0.001 sec
 Testcase: testGetAntonymsStringString took 0.001 sec
-Testcase: testGetAntonymsInt took 0 sec
-Testcase: testGetAllAntonyms took 0.007 sec
+Testcase: testGetAntonymsInt took 0.001 sec
+Testcase: testGetAllAntonyms took 0.005 sec
 Testcase: testGetHypernymsInt took 0.001 sec
-Testcase: testGetAllHypernyms took 0.001 sec
-Testcase: testGetHypernymTree took 0.001 sec
-Testcase: testGetHyponymsStringString took 0.001 sec
-Testcase: testGetHyponymsInt took 0 sec
-Testcase: testGetAllHyponyms took 0.001 sec
-Testcase: testGetHyponymTree took 0.001 sec
-Testcase: testGetStems took 0.001 sec
+Testcase: testGetAllHypernyms took 0.002 sec
+Testcase: testGetHypernymTree took 0.002 sec
+Testcase: testGetHyponymsStringString took 0.002 sec
+Testcase: testGetHyponymsInt took 0.001 sec
+Testcase: testGetAllHyponyms took 0 sec
+Testcase: testGetHyponymTree took 0 sec
+Testcase: testGetStems took 0.005 sec
 Testcase: testIsStem took 0.002 sec
-Testcase: testExists took 0.003 sec
+Testcase: testExists took 0.002 sec
 Testcase: testRemoveNonExistent took 0 sec
-Testcase: testGetPosString took 0 sec
-Testcase: testGetPosInt took 0.001 sec
+Testcase: testGetPosString took 0.001 sec
+Testcase: testGetPosInt took 0 sec
 Testcase: testGetPosStr took 0.001 sec
 Testcase: testGetBestPos took 0.001 sec
-Testcase: testGetRandomExample took 0.005 sec
-Testcase: testGetRandomExamples took 0.378 sec
-Testcase: testGetRandomWords took 0.67 sec
-Testcase: testGetRandomWordString took 0.003 sec
+Testcase: testGetRandomExample took 0.003 sec
+Testcase: testGetRandomExamples took 0.42 sec
+Testcase: testGetRandomWords took 0.764 sec
+Testcase: testGetRandomWordString took 0.001 sec
 Testcase: testGetRandomWordStringBooleanInt took 0 sec
-Testcase: testGetDistance took 0.014 sec
-Testcase: testGetMeronymsStringString took 0 sec
-Testcase: testGetMeronymsInt took 0.001 sec
-Testcase: testGetAllMeronyms took 0 sec
-Testcase: testGetHolonymsStringString took 0.001 sec
+Testcase: testGetDistance took 0.012 sec
+Testcase: testGetMeronymsStringString took 0.001 sec
+Testcase: testGetMeronymsInt took 0 sec
+Testcase: testGetAllMeronyms took 0.001 sec
+Testcase: testGetHolonymsStringString took 0 sec
 Testcase: testGetHolonymsInt took 0 sec
 Testcase: testGetAllHolonyms took 0.001 sec
 Testcase: testGetCoordinatesStringString took 0.001 sec
 Testcase: testGetCoordinatesInt took 0 sec
-Testcase: testGetAllCoordinates took 0.003 sec
+Testcase: testGetAllCoordinates took 0.002 sec
 Testcase: testGetVerbGroupStringString took 0.001 sec
 Testcase: testGetVerbGroupInt took 0 sec
 Testcase: testAllGetVerbGroupStringString took 0.001 sec
 Testcase: testGetDerivedTermsStringString took 0 sec
 Testcase: testGetDerivedTermsInt took 0 sec
 Testcase: testGetAllDerivedTerms took 0 sec
-Testcase: testGetAlsoSeesStringString took 0 sec
+Testcase: testGetAlsoSeesStringString took 0.001 sec
 Testcase: testGetAlsoSeesInt took 0 sec
-Testcase: testGetAllAlsoSees took 0 sec
+Testcase: testGetAllAlsoSees took 0.001 sec
 Testcase: testGetNominalizationsStringString took 0 sec
 Testcase: testGetNominalizationsInt took 0 sec
 Testcase: testGetAllNominalizations took 0.001 sec

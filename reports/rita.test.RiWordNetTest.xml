@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="1" hostname="slipper.local" name="rita.test.RiWordNetTest" tests="80" time="1.497" timestamp="2014-04-03T08:44:52">
+<testsuite errors="0" failures="0" hostname="slipper.local" name="rita.test.RiWordNetTest" tests="80" time="1.532" timestamp="2014-04-03T08:48:23">
   <properties>
     <property name="env.COM_GOOGLE_CHROME_FRAMEWORK_SERVICE_PROCESS/USERS/DHOWE/LIBRARY/APPLICATION_SUPPORT/GOOGLE/CHROME_SOCKET" value="/tmp/launch-fBOyc3/ServiceProcessSocket" />
     <property name="file.encoding.pkg" value="sun.io" />
@@ -36,15 +36,17 @@
     <property name="env.com.apple.java.jvmTask" value="CommandLine_Manual.java" />
     <property name="project.name" value="RiTa" />
     <property name="file.encoding" value="UTF-8" />
+    <property name="env.JAVA_MAIN_CLASS_18911" value="org.eclipse.ant.internal.launching.remote.InternalAntRunner" />
     <property name="ant.project.default-target" value="clean" />
     <property name="project.examples" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/RiTaLibraryJS/examplesP5" />
     <property name="env.HOME" value="/Users/dhowe" />
     <property name="project.copyright" value="(c) 2009" />
-    <property name="sun.java.command" value="org.eclipse.ant.internal.launching.remote.InternalAntRunner -Dorg.eclipse.ant.core.ANT_PROCESS_ID=1396514681760 -Declipse.connect.port=50649 -Dant.home=/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030 -logger org.eclipse.ant.internal.launching.remote.logger.RemoteAntBuildLogger -inputhandler org.eclipse.ant.internal.ui.antsupport.inputhandler.ProxyInputHandler -buildfile /Users/dhowe/Documents/eclipse-workspace/RiTa/resources/build.xml run.unit.tests" />
+    <property name="sun.java.command" value="org.eclipse.ant.internal.launching.remote.InternalAntRunner -Dorg.eclipse.ant.core.ANT_PROCESS_ID=1396514895031 -Declipse.connect.port=50726 -Dant.home=/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030 -logger org.eclipse.ant.internal.launching.remote.logger.RemoteAntBuildLogger -inputhandler org.eclipse.ant.internal.ui.antsupport.inputhandler.ProxyInputHandler -buildfile /Users/dhowe/Documents/eclipse-workspace/RiTa/resources/build.xml run.unit.tests" />
     <property name="project.compile" value="normal" />
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16" />
     <property name="ant.file" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/resources/build.xml" />
     <property name="license.destination" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/distribution/RiTa-1.0.53/RiTa/LICENSE.txt" />
+    <property name="env.JAVA_STARTED_ON_FIRST_THREAD_18911" value="1" />
     <property name="project.reference" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/reference" />
     <property name="java.io.tmpdir" value="/var/folders/nr/7f9nzyx54q11v990628s3w0w0000gn/T/" />
     <property name="TODAY" value="April 3 2014" />
@@ -127,15 +129,13 @@
     <property name="ant.library.dir" value="/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030/lib" />
     <property name="project.bin" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/bin" />
     <property name="os.arch" value="x86_64" />
-    <property name="env.JAVA_MAIN_CLASS_18769" value="org.eclipse.ant.internal.launching.remote.InternalAntRunner" />
     <property name="env.Apple_PubSub_Socket_Render" value="/tmp/launch-2O1zB6/Render" />
     <property name="sun.java.launcher" value="SUN_STANDARD" />
     <property name="ant.core.lib" value="/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030/lib/ant.jar" />
-    <property name="env.JAVA_STARTED_ON_FIRST_THREAD_18769" value="1" />
     <property name="is.normal" value="true" />
     <property name="install.source" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/resources/install_instructions.txt" />
     <property name="java.vm.specification.vendor" value="Sun Microsystems Inc." />
-    <property name="TSTAMP" value="1644" />
+    <property name="TSTAMP" value="1648" />
     <property name="file.separator" value="/" />
     <property name="java.runtime.version" value="1.6.0_65-b14-462-11M4609" />
     <property name="env.SSH_AUTH_SOCK" value="/tmp/launch-U7SR9K/Listeners" />
@@ -153,85 +153,76 @@
     <property name="java.specification.version" value="1.6" />
     <property name="sun.arch.data.model" value="64" />
   </properties>
-  <testcase classname="rita.test.RiWordNetTest" name="testIsAdverb" time="0.09" />
-  <testcase classname="rita.test.RiWordNetTest" name="testIsNoun" time="0.0030" />
-  <testcase classname="rita.test.RiWordNetTest" name="testIsVerb" time="0.0030" />
-  <testcase classname="rita.test.RiWordNetTest" name="testIsAdjective" time="0.014" />
-  <testcase classname="rita.test.RiWordNetTest" name="testGetSynonymsInt" time="0.098" />
-  <testcase classname="rita.test.RiWordNetTest" name="testGetSynonymsIntInt" time="0.01" />
-  <testcase classname="rita.test.RiWordNetTest" name="testGetSynonymsStringString" time="0.057" />
-  <testcase classname="rita.test.RiWordNetTest" name="testGetSynonymsStringStringInt" time="0.01" />
-  <testcase classname="rita.test.RiWordNetTest" name="testGetAllSynonymsStringString" time="0.019" />
-  <testcase classname="rita.test.RiWordNetTest" name="testGetAllSynonymsStringStringInt" time="0.015" />
-  <testcase classname="rita.test.RiWordNetTest" name="testExistsString" time="0.0040" />
+  <testcase classname="rita.test.RiWordNetTest" name="testIsAdverb" time="0.039" />
+  <testcase classname="rita.test.RiWordNetTest" name="testIsNoun" time="0.0050" />
+  <testcase classname="rita.test.RiWordNetTest" name="testIsVerb" time="0.0050" />
+  <testcase classname="rita.test.RiWordNetTest" name="testIsAdjective" time="0.01" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetSynonymsInt" time="0.058" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetSynonymsIntInt" time="0.012" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetSynonymsStringString" time="0.051" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetSynonymsStringStringInt" time="0.013" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetAllSynonymsStringString" time="0.023" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetAllSynonymsStringStringInt" time="0.016" />
+  <testcase classname="rita.test.RiWordNetTest" name="testExistsString" time="0.0050" />
   <testcase classname="rita.test.RiWordNetTest" name="testGetSenseIdsStringString" time="0.0" />
   <testcase classname="rita.test.RiWordNetTest" name="testGetHypernymsStringString" time="0.0030" />
-  <testcase classname="rita.test.RiWordNetTest" name="testGetGlossStringString" time="0.0020" />
-  <testcase classname="rita.test.RiWordNetTest" name="testGetAllGlosses" time="0.0020" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetGlossStringString" time="0.0010" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetAllGlosses" time="0.0010" />
   <testcase classname="rita.test.RiWordNetTest" name="testGetGlossInt" time="0.0" />
   <testcase classname="rita.test.RiWordNetTest" name="testGetDescriptionInt" time="0.0" />
-  <testcase classname="rita.test.RiWordNetTest" name="testGetDescriptionStringString" time="0.0020" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetDescriptionStringString" time="0.0010" />
   <testcase classname="rita.test.RiWordNetTest" name="testGetExamplesStringString" time="0.0010" />
   <testcase classname="rita.test.RiWordNetTest" name="testGetExamplesInt" time="0.0010" />
   <testcase classname="rita.test.RiWordNetTest" name="testGetAllExamples" time="0.0030" />
-  <testcase classname="rita.test.RiWordNetTest" name="testGetCommonParents" time="0.017" />
-  <testcase classname="rita.test.RiWordNetTest" name="testGetCommonParent" time="0.0030">
-    <failure type="junit.framework.AssertionFailedError">junit.framework.AssertionFailedError
-	at rita.support.QUnitStubs.deepEqual(Unknown Source)
-	at rita.support.QUnitStubs.equal(Unknown Source)
-	at rita.test.RiWordNetTest.testGetCommonParent(RiWordNetTest.java:1029)
-	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:32)
-	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:424)
-	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:138)
-</failure>
-  </testcase>
+  <testcase classname="rita.test.RiWordNetTest" name="testGetCommonParents" time="0.012" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetCommonParent" time="0.0040" />
   <testcase classname="rita.test.RiWordNetTest" name="testGetSynsetStringString" time="0.0020" />
-  <testcase classname="rita.test.RiWordNetTest" name="testGetSynsetStringStringBoolean" time="0.0010" />
-  <testcase classname="rita.test.RiWordNetTest" name="testGetSynsetInt" time="0.0010" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetSynsetStringStringBoolean" time="0.0" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetSynsetInt" time="0.0" />
   <testcase classname="rita.test.RiWordNetTest" name="testGetAllSynsets" time="0.0020" />
-  <testcase classname="rita.test.RiWordNetTest" name="testGetSenseCount" time="0.0" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetSenseCount" time="0.0010" />
   <testcase classname="rita.test.RiWordNetTest" name="testGetAntonymsStringString" time="0.0010" />
-  <testcase classname="rita.test.RiWordNetTest" name="testGetAntonymsInt" time="0.0" />
-  <testcase classname="rita.test.RiWordNetTest" name="testGetAllAntonyms" time="0.0070" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetAntonymsInt" time="0.0010" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetAllAntonyms" time="0.0050" />
   <testcase classname="rita.test.RiWordNetTest" name="testGetHypernymsInt" time="0.0010" />
   <testcase classname="rita.test.RiWordNetTest" name="testGetAllHypernyms" time="0.0020" />
-  <testcase classname="rita.test.RiWordNetTest" name="testGetHypernymTree" time="0.0010" />
-  <testcase classname="rita.test.RiWordNetTest" name="testGetHyponymsStringString" time="0.0010" />
-  <testcase classname="rita.test.RiWordNetTest" name="testGetHyponymsInt" time="0.0" />
-  <testcase classname="rita.test.RiWordNetTest" name="testGetAllHyponyms" time="0.0010" />
-  <testcase classname="rita.test.RiWordNetTest" name="testGetHyponymTree" time="0.0010" />
-  <testcase classname="rita.test.RiWordNetTest" name="testGetStems" time="0.0010" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetHypernymTree" time="0.0020" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetHyponymsStringString" time="0.0020" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetHyponymsInt" time="0.0010" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetAllHyponyms" time="0.0" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetHyponymTree" time="0.0" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetStems" time="0.0050" />
   <testcase classname="rita.test.RiWordNetTest" name="testIsStem" time="0.0020" />
-  <testcase classname="rita.test.RiWordNetTest" name="testExists" time="0.0030" />
+  <testcase classname="rita.test.RiWordNetTest" name="testExists" time="0.0020" />
   <testcase classname="rita.test.RiWordNetTest" name="testRemoveNonExistent" time="0.0" />
-  <testcase classname="rita.test.RiWordNetTest" name="testGetPosString" time="0.0" />
-  <testcase classname="rita.test.RiWordNetTest" name="testGetPosInt" time="0.0010" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetPosString" time="0.0010" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetPosInt" time="0.0" />
   <testcase classname="rita.test.RiWordNetTest" name="testGetPosStr" time="0.0010" />
   <testcase classname="rita.test.RiWordNetTest" name="testGetBestPos" time="0.0010" />
-  <testcase classname="rita.test.RiWordNetTest" name="testGetRandomExample" time="0.0050" />
-  <testcase classname="rita.test.RiWordNetTest" name="testGetRandomExamples" time="0.378" />
-  <testcase classname="rita.test.RiWordNetTest" name="testGetRandomWords" time="0.67" />
-  <testcase classname="rita.test.RiWordNetTest" name="testGetRandomWordString" time="0.0030" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetRandomExample" time="0.0030" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetRandomExamples" time="0.42" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetRandomWords" time="0.764" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetRandomWordString" time="0.0010" />
   <testcase classname="rita.test.RiWordNetTest" name="testGetRandomWordStringBooleanInt" time="0.0" />
-  <testcase classname="rita.test.RiWordNetTest" name="testGetDistance" time="0.014" />
-  <testcase classname="rita.test.RiWordNetTest" name="testGetMeronymsStringString" time="0.0" />
-  <testcase classname="rita.test.RiWordNetTest" name="testGetMeronymsInt" time="0.0010" />
-  <testcase classname="rita.test.RiWordNetTest" name="testGetAllMeronyms" time="0.0" />
-  <testcase classname="rita.test.RiWordNetTest" name="testGetHolonymsStringString" time="0.0010" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetDistance" time="0.012" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetMeronymsStringString" time="0.0010" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetMeronymsInt" time="0.0" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetAllMeronyms" time="0.0010" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetHolonymsStringString" time="0.0" />
   <testcase classname="rita.test.RiWordNetTest" name="testGetHolonymsInt" time="0.0" />
   <testcase classname="rita.test.RiWordNetTest" name="testGetAllHolonyms" time="0.0010" />
   <testcase classname="rita.test.RiWordNetTest" name="testGetCoordinatesStringString" time="0.0010" />
   <testcase classname="rita.test.RiWordNetTest" name="testGetCoordinatesInt" time="0.0" />
-  <testcase classname="rita.test.RiWordNetTest" name="testGetAllCoordinates" time="0.0030" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetAllCoordinates" time="0.0020" />
   <testcase classname="rita.test.RiWordNetTest" name="testGetVerbGroupStringString" time="0.0010" />
   <testcase classname="rita.test.RiWordNetTest" name="testGetVerbGroupInt" time="0.0" />
   <testcase classname="rita.test.RiWordNetTest" name="testAllGetVerbGroupStringString" time="0.0010" />
   <testcase classname="rita.test.RiWordNetTest" name="testGetDerivedTermsStringString" time="0.0" />
   <testcase classname="rita.test.RiWordNetTest" name="testGetDerivedTermsInt" time="0.0" />
   <testcase classname="rita.test.RiWordNetTest" name="testGetAllDerivedTerms" time="0.0" />
-  <testcase classname="rita.test.RiWordNetTest" name="testGetAlsoSeesStringString" time="0.0" />
-  <testcase classname="rita.test.RiWordNetTest" name="testGetAlsoSeesInt" time="0.0010" />
-  <testcase classname="rita.test.RiWordNetTest" name="testGetAllAlsoSees" time="0.0" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetAlsoSeesStringString" time="0.0010" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetAlsoSeesInt" time="0.0" />
+  <testcase classname="rita.test.RiWordNetTest" name="testGetAllAlsoSees" time="0.0010" />
   <testcase classname="rita.test.RiWordNetTest" name="testGetNominalizationsStringString" time="0.0" />
   <testcase classname="rita.test.RiWordNetTest" name="testGetNominalizationsInt" time="0.0" />
   <testcase classname="rita.test.RiWordNetTest" name="testGetAllNominalizations" time="0.0010" />
@@ -239,12 +230,12 @@
   <testcase classname="rita.test.RiWordNetTest" name="testGetSimilarInt" time="0.0" />
   <testcase classname="rita.test.RiWordNetTest" name="testGetAllSimilar" time="0.0010" />
   <testcase classname="rita.test.RiWordNetTest" name="testIgnoreCompoundWords" time="0.0" />
-  <testcase classname="rita.test.RiWordNetTest" name="testIgnoreUpperCaseWordsBoolean" time="0.0010" />
+  <testcase classname="rita.test.RiWordNetTest" name="testIgnoreUpperCaseWordsBoolean" time="0.0" />
   <testcase classname="rita.test.RiWordNetTest" name="testIgnoreUpperCaseWords" time="0.0" />
   <testcase classname="rita.test.RiWordNetTest" name="testIsCompound" time="0.0" />
   <system-out><![CDATA[AbstractCachingDictionary.setCachingEnabled(false)
 AbstractCachingDictionary.setCachingEnabled(true)
-[INFO] Loaded in 133ms
+[INFO] Loaded in 85ms
 null
 null
 ]]></system-out>

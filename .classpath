@@ -6,5 +6,6 @@
 	<classpathentry kind="lib" path="libs/jslint4java-2.0.5.jar"/>
 	<classpathentry kind="lib" path="libs/json.jar"/>
 	<classpathentry kind="lib" path="libs/junit.jar"/>
+	<classpathentry kind="lib" path="libs/edu.mit.jwi_2.3.3.jar" sourcepath="jwi-src.zip"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
