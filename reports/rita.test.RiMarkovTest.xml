@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="slipper.local" name="rita.test.RiMarkovTest" tests="24" time="2.308" timestamp="2014-04-03T08:48:21">
+<testsuite errors="0" failures="0" hostname="slipper.local" name="rita.test.RiMarkovTest" tests="24" time="2.591" timestamp="2014-04-08T13:13:36">
   <properties>
-    <property name="env.COM_GOOGLE_CHROME_FRAMEWORK_SERVICE_PROCESS/USERS/DHOWE/LIBRARY/APPLICATION_SUPPORT/GOOGLE/CHROME_SOCKET" value="/tmp/launch-fBOyc3/ServiceProcessSocket" />
     <property name="file.encoding.pkg" value="sun.io" />
     <property name="java.home" value="/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home" />
-    <property name="env.DISPLAY" value="/tmp/launch-tZTZc0/org.macosforge.xquartz:0" />
+    <property name="env.JAVA_STARTED_ON_FIRST_THREAD_1368" value="1" />
+    <property name="env.DISPLAY" value="/tmp/launch-OZxvvu/org.macosforge.xquartz:0" />
     <property name="project.jar.support.name" value="rita.support.jar" />
-    <property name="project.version.num" value="1053" />
+    <property name="project.version.num" value="1054" />
     <property name="java.endorsed.dirs" value="/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/lib/endorsed" />
     <property name="env.LOGNAME" value="dhowe" />
     <property name="sun.os.patch.level" value="unknown" />
@@ -15,9 +15,9 @@
     <property name="source.url" value="https://github.com/dhowe/rita" />
     <property name="path.to.node" value="/usr/local/bin" />
     <property name="java.vendor.url.bug" value="http://bugreport.apple.com/" />
-    <property name="ant.project.invoked-targets" value="run.unit.tests" />
-    <property name="env.Apple_Ubiquity_Message" value="/tmp/launch-eQmoPk/Apple_Ubiquity_Message" />
-    <property name="props.dst" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/distribution/RiTa-1.0.53/RiTa/library.properties" />
+    <property name="ant.project.invoked-targets" value="run.java.tests" />
+    <property name="env.Apple_Ubiquity_Message" value="/tmp/launch-cJvkBE/Apple_Ubiquity_Message" />
+    <property name="props.dst" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/distribution/RiTa-1.0.54/RiTa/library.properties" />
     <property name="project.src.test" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/src/rita/test" />
     <property name="project.js" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/RiTaLibraryJS" />
     <property name="user.name" value="dhowe" />
@@ -26,9 +26,8 @@
     <property name="sun.jnu.encoding" value="MacRoman" />
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment" />
     <property name="project.dependencies" value="?" />
-    <property name="project.version" value="1.0.53" />
+    <property name="project.version" value="1.0.54" />
     <property name="java.specification.name" value="Java Platform API Specification" />
-    <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16" />
     <property name="user.timezone" value="" />
     <property name="path.separator" value=":" />
     <property name="processing.library" value="/Users/dhowe/Documents/Processing/libraries/RiTa/library" />
@@ -36,22 +35,21 @@
     <property name="env.com.apple.java.jvmTask" value="CommandLine_Manual.java" />
     <property name="project.name" value="RiTa" />
     <property name="file.encoding" value="UTF-8" />
-    <property name="env.JAVA_MAIN_CLASS_18911" value="org.eclipse.ant.internal.launching.remote.InternalAntRunner" />
     <property name="ant.project.default-target" value="clean" />
     <property name="project.examples" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/RiTaLibraryJS/examplesP5" />
     <property name="env.HOME" value="/Users/dhowe" />
     <property name="project.copyright" value="(c) 2009" />
-    <property name="sun.java.command" value="org.eclipse.ant.internal.launching.remote.InternalAntRunner -Dorg.eclipse.ant.core.ANT_PROCESS_ID=1396514895031 -Declipse.connect.port=50726 -Dant.home=/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030 -logger org.eclipse.ant.internal.launching.remote.logger.RemoteAntBuildLogger -inputhandler org.eclipse.ant.internal.ui.antsupport.inputhandler.ProxyInputHandler -buildfile /Users/dhowe/Documents/eclipse-workspace/RiTa/resources/build.xml run.unit.tests" />
+    <property name="sun.java.command" value="org.eclipse.ant.internal.launching.remote.InternalAntRunner -Dorg.eclipse.ant.core.ANT_PROCESS_ID=1396962808756 -Declipse.connect.port=50274 -Dant.home=/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030 -logger org.eclipse.ant.internal.launching.remote.logger.RemoteAntBuildLogger -inputhandler org.eclipse.ant.internal.ui.antsupport.inputhandler.ProxyInputHandler -buildfile /Users/dhowe/Documents/eclipse-workspace/RiTa/resources/build.xml _make.and.pub.local" />
     <property name="project.compile" value="normal" />
-    <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16" />
     <property name="ant.file" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/resources/build.xml" />
-    <property name="license.destination" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/distribution/RiTa-1.0.53/RiTa/LICENSE.txt" />
-    <property name="env.JAVA_STARTED_ON_FIRST_THREAD_18911" value="1" />
+    <property name="license.destination" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/distribution/RiTa-1.0.54/RiTa/LICENSE.txt" />
+    <property name="env.JAVA_MAIN_CLASS_25680" value="org.eclipse.ant.internal.launching.remote.InternalAntRunner" />
     <property name="project.reference" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/reference" />
     <property name="java.io.tmpdir" value="/var/folders/nr/7f9nzyx54q11v990628s3w0w0000gn/T/" />
-    <property name="TODAY" value="April 3 2014" />
+    <property name="TODAY" value="April 8 2014" />
     <property name="user.language" value="en" />
     <property name="project.jsbuild" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/RiTaLibraryJS/build" />
+    <property name="env.JAVA_STARTED_ON_FIRST_THREAD_25680" value="1" />
     <property name="line.separator" value="&#xa;" />
     <property name="project.tmp" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/tmp" />
     <property name="java.target.version" value="1.5" />
@@ -60,14 +58,13 @@
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification" />
     <property name="env.__CF_USER_TEXT_ENCODING" value="0x1F5:0:0" />
     <property name="ant.file.RiTa" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/resources/build.xml" />
-    <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16" />
     <property name="author.name" value="Daniel C. Howe" />
     <property name="java.awt.printerjob" value="apple.awt.CPrinterJob" />
     <property name="project.js.name" value="rita.js" />
     <property name="javadoc.java.href" value="" />
     <property name="ant.version" value="Apache Ant(TM) version 1.8.4 compiled on May 22 2012" />
     <property name="project.dist" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/distribution" />
-    <property name="project.download" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/distribution/RiTa-1.0.53/download" />
+    <property name="project.download" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/distribution/RiTa-1.0.54/download" />
     <property name="project.src" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/src" />
     <property name="gopherProxySet" value="false" />
     <property name="sketchbook.location" value="/Users/dhowe/Documents/Processing" />
@@ -87,13 +84,12 @@
     <property name="ant.home" value="/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030" />
     <property name="main.package" value="rita" />
     <property name="license.source" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/resources/license.txt" />
-    <property name="env.APP_ICON_12895" value="../Resources/Eclipse.icns" />
     <property name="project.libs" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/libs" />
     <property name="project.bin.data" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/bin/data" />
     <property name="source.host" value="github" />
-    <property name="project.dist.version" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/distribution/RiTa-1.0.53" />
+    <property name="project.dist.version" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/distribution/RiTa-1.0.54" />
     <property name="author.url" value="http://rednoise.org/~dhowe" />
-    <property name="date" value="04/03/2014" />
+    <property name="date" value="04/08/2014" />
     <property name="sun.boot.library.path" value="/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Libraries" />
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers" />
     <property name="java.awt.graphicsenv" value="apple.awt.CGraphicsEnvironment" />
@@ -107,6 +103,7 @@
     <property name="env.COMMAND_MODE" value="unix2003" />
     <property name="ant.project.name" value="RiTa" />
     <property name="java.vm.specification.version" value="1.0" />
+    <property name="env.APP_ICON_1368" value="../Resources/Eclipse.icns" />
     <property name="awt.toolkit" value="apple.awt.CToolkit" />
     <property name="sun.cpu.isalist" value="" />
     <property name="java.ext.dirs" value="/Library/Java/Extensions:/System/Library/Java/Extensions:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/lib/ext" />
@@ -124,22 +121,21 @@
     <property name="java.vm.version" value="20.65-b04-462" />
     <property name="tested.platform" value="osx,windows,linux" />
     <property name="java.class.path" value="/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030/lib/ant-antlr.jar:/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030/lib/ant-apache-bcel.jar:/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030/lib/ant-apache-bsf.jar:/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030/lib/ant-apache-log4j.jar:/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030/lib/ant-apache-oro.jar:/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030/lib/ant-apache-regexp.jar:/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030/lib/ant-apache-resolver.jar:/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030/lib/ant-apache-xalan2.jar:/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030/lib/ant-commons-logging.jar:/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030/lib/ant-commons-net.jar:/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030/lib/ant-jai.jar:/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030/lib/ant-javamail.jar:/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030/lib/ant-jdepend.jar:/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030/lib/ant-jmf.jar:/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030/lib/ant-jsch.jar:/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030/lib/ant-junit.jar:/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030/lib/ant-junit4.jar:/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030/lib/ant-launcher.jar:/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030/lib/ant-netrexx.jar:/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030/lib/ant-swing.jar:/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030/lib/ant-testutil.jar:/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030/lib/ant.jar:/Applications/eclipse/configuration/org.eclipse.osgi/bundles/424/1/.cp/lib/antdebug.jar:/Applications/eclipse/configuration/org.eclipse.osgi/bundles/424/1/.cp/lib/remote.jar:/Applications/eclipse/configuration/org.eclipse.osgi/bundles/425/1/.cp/lib/remoteAnt.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/lib/tools.jar:/Applications/eclipse/plugins/org.eclipse.swt.cocoa.macosx.x86_64_3.102.1.v20140206-1358.jar" />
-    <property name="DSTAMP" value="20140403" />
-    <property name="env.JAVA_STARTED_ON_FIRST_THREAD_12895" value="1" />
+    <property name="DSTAMP" value="20140408" />
     <property name="ant.library.dir" value="/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030/lib" />
     <property name="project.bin" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/bin" />
     <property name="os.arch" value="x86_64" />
-    <property name="env.Apple_PubSub_Socket_Render" value="/tmp/launch-2O1zB6/Render" />
+    <property name="env.Apple_PubSub_Socket_Render" value="/tmp/launch-m3Y1Fe/Render" />
     <property name="sun.java.launcher" value="SUN_STANDARD" />
     <property name="ant.core.lib" value="/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030/lib/ant.jar" />
     <property name="is.normal" value="true" />
     <property name="install.source" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/resources/install_instructions.txt" />
     <property name="java.vm.specification.vendor" value="Sun Microsystems Inc." />
-    <property name="TSTAMP" value="1648" />
+    <property name="TSTAMP" value="2113" />
     <property name="file.separator" value="/" />
     <property name="java.runtime.version" value="1.6.0_65-b14-462-11M4609" />
-    <property name="env.SSH_AUTH_SOCK" value="/tmp/launch-U7SR9K/Listeners" />
-    <property name="install.destination" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/distribution/RiTa-1.0.53/INSTALL.txt" />
+    <property name="env.SSH_AUTH_SOCK" value="/tmp/launch-Zvhs4z/Listeners" />
+    <property name="install.destination" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/distribution/RiTa-1.0.54/INSTALL.txt" />
     <property name="sun.boot.class.path" value="/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/jsfd.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/classes.jar:/System/Library/Frameworks/JavaVM.framework/Frameworks/JavaRuntimeSupport.framework/Resources/Java/JavaRuntimeSupport.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/ui.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/laf.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/sunrsasign.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/jsse.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/jce.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/charsets.jar" />
     <property name="classpath.local.location" value="/Users/dhowe/Documents/eclipse-workspace/libs" />
     <property name="env.ANT_HOME" value="/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030" />
@@ -153,31 +149,33 @@
     <property name="java.specification.version" value="1.6" />
     <property name="sun.arch.data.model" value="64" />
   </properties>
-  <testcase classname="rita.test.RiMarkovTest" name="testLoadFromFile" time="0.291" />
+  <testcase classname="rita.test.RiMarkovTest" name="testLoadFromFile" time="0.335" />
   <testcase classname="rita.test.RiMarkovTest" name="testPrint" time="0.0010" />
   <testcase classname="rita.test.RiMarkovTest" name="testSize" time="0.0030" />
   <testcase classname="rita.test.RiMarkovTest" name="testRiMarkovInt" time="0.0" />
   <testcase classname="rita.test.RiMarkovTest" name="testGetN" time="0.0" />
-  <testcase classname="rita.test.RiMarkovTest" name="testLoadFromFileMulti" time="0.451" />
-  <testcase classname="rita.test.RiMarkovTest" name="testLoadFromUrl" time="0.787" />
+  <testcase classname="rita.test.RiMarkovTest" name="testLoadFromFileMulti" time="0.488" />
+  <testcase classname="rita.test.RiMarkovTest" name="testLoadFromUrl" time="0.913" />
   <testcase classname="rita.test.RiMarkovTest" name="testGenerateSentencesInt" time="0.012" />
   <testcase classname="rita.test.RiMarkovTest" name="testRecognizeSentences" time="0.0" />
-  <testcase classname="rita.test.RiMarkovTest" name="testGenerateTokens" time="0.0040" />
-  <testcase classname="rita.test.RiMarkovTest" name="testGenerateUntilString" time="0.351" />
-  <testcase classname="rita.test.RiMarkovTest" name="testGenerateUntilStringInt" time="0.154" />
-  <testcase classname="rita.test.RiMarkovTest" name="testGenerateUntilStringIntInt" time="0.227" />
+  <testcase classname="rita.test.RiMarkovTest" name="testGenerateTokens" time="0.0030" />
+  <testcase classname="rita.test.RiMarkovTest" name="testGenerateUntilString" time="0.385" />
+  <testcase classname="rita.test.RiMarkovTest" name="testGenerateUntilStringInt" time="0.137" />
+  <testcase classname="rita.test.RiMarkovTest" name="testGenerateUntilStringIntInt" time="0.292" />
   <testcase classname="rita.test.RiMarkovTest" name="testGetCompletionsStringArray" time="0.0010" />
   <testcase classname="rita.test.RiMarkovTest" name="testGetCompletionsStringArrayStringArray" time="0.0010" />
-  <testcase classname="rita.test.RiMarkovTest" name="testGetProbabilities" time="0.0020" />
-  <testcase classname="rita.test.RiMarkovTest" name="testGetProbability" time="0.0010" />
+  <testcase classname="rita.test.RiMarkovTest" name="testGetProbabilities" time="0.0010" />
+  <testcase classname="rita.test.RiMarkovTest" name="testGetProbability" time="0.0" />
   <testcase classname="rita.test.RiMarkovTest" name="testLoadTextStringString" time="0.0020" />
   <testcase classname="rita.test.RiMarkovTest" name="testLoadTextString" time="0.0" />
-  <testcase classname="rita.test.RiMarkovTest" name="testLoadTextStringInt" time="0.0010" />
+  <testcase classname="rita.test.RiMarkovTest" name="testLoadTextStringInt" time="0.0" />
   <testcase classname="rita.test.RiMarkovTest" name="testLoadTextStringIntString" time="0.0" />
   <testcase classname="rita.test.RiMarkovTest" name="testLoadTokensStringArray" time="0.0020" />
-  <testcase classname="rita.test.RiMarkovTest" name="testLoadTokensChars" time="0.0090" />
-  <testcase classname="rita.test.RiMarkovTest" name="testLoadTokensStringArrayInt" time="0.0020" />
-  <system-out><![CDATA[]]></system-out>
+  <testcase classname="rita.test.RiMarkovTest" name="testLoadTokensChars" time="0.0040" />
+  <testcase classname="rita.test.RiMarkovTest" name="testLoadTokensStringArrayInt" time="0.0010" />
+  <system-out><![CDATA[[WARN] Bad last token: ''' in:
+  A picture contains the form of the operation -- -- -TE,...'
+]]></system-out>
   <system-err><![CDATA[
 [WARN] RiMarkov failed to complete after 1000 tries
        Giving up after 0 successful generations...
