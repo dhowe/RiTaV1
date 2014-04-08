@@ -1,7 +1,7 @@
 Testsuite: rita.test.RiTaEventTest
-Tests run: 4, Failures: 0, Errors: 0, Time elapsed: 0.006 sec
+Tests run: 4, Failures: 0, Errors: 0, Time elapsed: 0.009 sec
 
-Testcase: testRiTaEvent took 0.002 sec
+Testcase: testRiTaEvent took 0.003 sec
 Testcase: testSource took 0 sec
 Testcase: testToString took 0 sec
 Testcase: testType took 0 sec

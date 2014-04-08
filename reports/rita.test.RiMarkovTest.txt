@@ -1,5 +1,9 @@
 Testsuite: rita.test.RiMarkovTest
-Tests run: 24, Failures: 0, Errors: 0, Time elapsed: 2.308 sec
+Tests run: 24, Failures: 0, Errors: 0, Time elapsed: 2.591 sec
+------------- Standard Output ---------------
+[WARN] Bad last token: ''' in:
+  A picture contains the form of the operation -- -- -TE,...'
+------------- ---------------- ---------------
 ------------- Standard Error -----------------
 
 [WARN] RiMarkov failed to complete after 1000 tries
@@ -9,27 +13,27 @@ Tests run: 24, Failures: 0, Errors: 0, Time elapsed: 2.308 sec
 [WARN] No sentences found, parsing as tokens
 ------------- ---------------- ---------------
 
-Testcase: testLoadFromFile took 0.291 sec
+Testcase: testLoadFromFile took 0.335 sec
 Testcase: testPrint took 0.001 sec
 Testcase: testSize took 0.003 sec
 Testcase: testRiMarkovInt took 0 sec
 Testcase: testGetN took 0 sec
-Testcase: testLoadFromFileMulti took 0.451 sec
-Testcase: testLoadFromUrl took 0.787 sec
+Testcase: testLoadFromFileMulti took 0.488 sec
+Testcase: testLoadFromUrl took 0.913 sec
 Testcase: testGenerateSentencesInt took 0.012 sec
 Testcase: testRecognizeSentences took 0 sec
 Testcase: testGenerateTokens took 0.003 sec
-Testcase: testGenerateUntilString took 0.351 sec
-Testcase: testGenerateUntilStringInt took 0.154 sec
-Testcase: testGenerateUntilStringIntInt took 0.227 sec
+Testcase: testGenerateUntilString took 0.385 sec
+Testcase: testGenerateUntilStringInt took 0.137 sec
+Testcase: testGenerateUntilStringIntInt took 0.292 sec
 Testcase: testGetCompletionsStringArray took 0.001 sec
 Testcase: testGetCompletionsStringArrayStringArray took 0.001 sec
 Testcase: testGetProbabilities took 0.001 sec
-Testcase: testGetProbability took 0.001 sec
+Testcase: testGetProbability took 0 sec
 Testcase: testLoadTextStringString took 0.001 sec
 Testcase: testLoadTextString took 0 sec
-Testcase: testLoadTextStringInt took 0.001 sec
+Testcase: testLoadTextStringInt took 0 sec
 Testcase: testLoadTextStringIntString took 0 sec
 Testcase: testLoadTokensStringArray took 0.002 sec
-Testcase: testLoadTokensChars took 0.009 sec
-Testcase: testLoadTokensStringArrayInt took 0.002 sec
+Testcase: testLoadTokensChars took 0.003 sec
+Testcase: testLoadTokensStringArrayInt took 0.001 sec

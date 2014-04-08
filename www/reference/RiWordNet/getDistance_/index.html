@@ -60,7 +60,7 @@
 							<th scope="row">Description</th>
 
 							<!-- DESCRIPTION  -->
-							<td>Returns the min distance between any two senses for the 2 words in the WordNet tree (result normalized to 0-1) with specified pos, or 1.0 if either is not found.<P>The algorithm procedes as follows:<ol><li>locate node <code>cp</code>, the common parent of the two lemmas, if one exists, by checking each sense of each lemma; if one is not found, return 1.0<li>calculate <code>minDistToCommonParent</code>, the shortest path from either lemma to cp<li>calculate <code>distFromCommonParentToRoot</code>, the length of the path from cp to the root of ontology<li>calculate and return the <code>normalizedDistToCommonParent</code> as:<br><code>(minDistToCommonParent / (distFromCommonParentToRoot + minDistToCommonParent))</code><ol></td>
+							<td>Returns the minimum distance between any two senses for the 2 words in the WordNet tree (result normalized to 0-1) with specified pos, or 1.0 if either is not found.<P>The algorithm procedes as follows:<ol><li>locate node <code>cp</code>, the common parent of the two lemmas, if one exists, by checking each sense of each lemma; if one is not found, return 1.0<li>calculate <code>minDistToCommonParent</code>, the shortest path from either lemma to cp<li>calculate <code>distFromCommonParentToRoot</code>, the length of the path from cp to the root of ontology<li>calculate and return the <code>normalizedDistToCommonParent</code> as:<br><code>(minDistToCommonParent / (distFromCommonParentToRoot + minDistToCommonParent))</code><ol></td>
 						</tr>
 						
 						<tr class='Syntax'>
@@ -78,7 +78,7 @@
 							<!-- PARAMETERS  -->
 							
 							<table cellpadding="0" cellspacing="0" border="0" class="sub-table">
-								<tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>lemma1</td></tr><tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>lemma2</td></tr><tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>pos</td></tr>
+								<tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>first lemma</td></tr><tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>second lemma</td></tr><tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>the part-of-speech</td></tr>
 							</table></td>
 						</tr>
 
@@ -90,7 +90,7 @@
 							<!-- RETURNS/TYPE (for variables)  -->
 
 							<table cellpadding="0" cellspacing="0" border="0" class="sub-table">
-								<tr class=''><th width='25%' scope='row' class=nobold>float</th><td width='75%'></td></tr>
+								<tr class=''><th width='25%' scope='row' class=nobold>float</th><td width='75%'>distance normalized to 0 <= d < 1, or 1 if either is not found</td></tr>
 							</table></td>
 						</tr>
 

@@ -19,6 +19,11 @@
 
 /* The amount of CSS needed for the navbar is terrifying. I am sorry. -Kenny */
 
+.features li {
+  line-height:20px;
+  margin-left:35px;
+}
+
 .navbar {
 	background-color: #000000;
 	line-height: 0;
@@ -113,8 +118,10 @@ a:hover, a:focus {
 
 .home-exhibition {
 	padding-top: 8px;
+	padding-right: 25px;
 	float: left;
 	width: 190px;
+	height: 600px; 
 }
 
 .home-exhibition span a img {
@@ -247,8 +254,9 @@ a:hover, a:focus {
 }
 
 .intro {
-	padding-left: 210px;
+	padding-left: 200px;padding-right: 10px;
 }
+
 
 /*---------Reference------------*/
 
