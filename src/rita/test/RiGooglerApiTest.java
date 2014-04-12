@@ -7,7 +7,7 @@ import static rita.support.QUnitStubs.println;
 
 import org.junit.Test;
 
-import rita.RiGoogler;
+import rita.support.RiGoogler;
 import rita.support.RiGooglerIF;
 
 public class RiGooglerApiTest

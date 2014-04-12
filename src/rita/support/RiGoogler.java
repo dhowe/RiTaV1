@@ -1,5 +1,6 @@
-package rita;
+package rita.support;
 
+import rita.RiTa;
 import rita.support.*;
 
 /**
