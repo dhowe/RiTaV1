@@ -1,8 +1,9 @@
-package rita;
+package rita.support;
 
 import java.io.*;
 import java.util.*;
 
+import rita.*;
 import rita.json.JSONArray;
 import rita.json.JSONException;
 import rita.support.*;
@@ -12,24 +13,24 @@ import rita.support.*;
  */
 /**
  * @exclude
- * NOT READY YET
+ * DCH: NOT READY YET
  */
-public class RiTranslator
-{
-  static { RiTa.init(); }
-  
-  public static final String COOKIE_PATH = System.getProperty("user.home") + "/Library/Cookies/Cookies.plist";
+public class RiTranslatorOrig
+{  
+  public static final String COOKIE_PATH = System.getProperty("user.home")
+      + "/Library/Cookies/Cookies.plist";
 
-  public static String TRANSLATE_URL = "http://translate.google.com/#auto/en/%QUERY%";
+  public static String TRANSLATE_URL = "http://translate.google.com/translate_a/ex?sl=en&tl=en&q=%QUERY%&utrans=";
 
+  protected RiGoogler google;
   protected RiLexicon lexicon;
-  protected RiWebScraper scraper;
   
   String ignores = "athletics,football,archery,badminton,baseball,basketball,bowling,boxing,cricket,cycling,canoe,curling,climbing,diving,dancing,equestrian,football,fencing,gymnastics,golf,hockey,handball,hockey,skating,judo,karate,lacrosse,olympics,polo,rugby,running,skating,soccer,squash,swimming,sailing,skiing,surfing,softball,tennis,volleyball,wrestling,weightlifting,yoga,NBA,NFL,MLB";
 
-  public RiTranslator()
+  public RiTranslatorOrig(Object pApplet)
   {
-    scraper = new RiWebScraper();
+    this.google = new RiGoogler();
+    google.cookiePath(pApplet, COOKIE_PATH);
   }
 
   class Gloss
@@ -98,7 +99,7 @@ public class RiTranslator
     String query = s.replaceAll("\\s+", "%20");
     String url = TRANSLATE_URL.replaceAll("%QUERY%", query);
     //System.out.println("URL: "+url);
-    String data = scraper.connect(url).get();
+    String data = google.fetch(url);
 
     JSONArray js = null;
     try
@@ -306,7 +307,7 @@ public class RiTranslator
   // TODO: append them to sentence file
   public static void main(String[] args)
   {
-    RiTranslator tr = new RiTranslator();
+    RiTranslatorOrig tr = new RiTranslatorOrig(null);
     String[] tns = tr.generate("violence", 2);
     for (int i = 0; i < tns.length; i++)
     {

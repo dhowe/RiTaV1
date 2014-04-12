@@ -7,14 +7,20 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+/**
+ * @exclude
+ * NOT READY YET
+ */
 public class RiWebScraper
-{
-  private static final String IGNORE_CONTENT_TYPE = "ignoreContentType";
-  private static final String IGNORE_HTTP_ERRORS = "ignoreHttpErrors";
+{ 
+  static final String DEFAULT_USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.56 Safari/536.5";
+  
   private static final String TIMEOUT = "timeout";
   private static final String REFERRER = "referrer";
   private static final String USER_AGENT = "userAgent";
   private static final String FOLLOW_REDIRECTS = "followRedirects";
+  private static final String IGNORE_CONTENT_TYPE = "ignoreContentType";
+  private static final String IGNORE_HTTP_ERRORS = "ignoreHttpErrors";
   
   public Connection conn;
   public Document doc;
@@ -29,15 +35,7 @@ public class RiWebScraper
 
   public RiWebScraper connect(String url)
   {
-
-    return connect(url, null);
-  }
-
-  protected RiWebScraper connect(String url, Map<String, String> options)
-  {
-
     conn = Jsoup.connect(url);
-
     return this;
   }
 
@@ -111,42 +109,18 @@ public class RiWebScraper
     return this;
   }
 
-  public String get()
-  {
-    prepareConnection();
-
-    try
-    {
-      doc = conn.get();
-    }
-    catch (IOException e)
-    {
-      throw new RiTaException(e);
-    }
-
-    return doc.outerHtml();
-  }
-
-  private void prepareConnection()
+  private RiWebScraper prepareConnection()
   {
     if (conn == null)
       throw new RiTaException("Null Connection: Call connect(url) first!");
-    setCookies();
-    setHeaders();
-    setOptions();
+    
+    setCookies().setHeaders().setOptions();
+    
+    return this;
   }
 
   private RiWebScraper setOptions()
   {
-    if (options.containsKey(FOLLOW_REDIRECTS)) {
-      conn.followRedirects(Boolean.parseBoolean(options.get(FOLLOW_REDIRECTS)));
-    }
-    if (options.containsKey(IGNORE_HTTP_ERRORS)) {
-      conn.ignoreHttpErrors(Boolean.parseBoolean(options.get(IGNORE_HTTP_ERRORS)));
-    }
-    if (options.containsKey(IGNORE_CONTENT_TYPE)) {
-      conn.ignoreContentType(Boolean.parseBoolean(options.get(IGNORE_CONTENT_TYPE)));
-    }  
     if (options.containsKey(TIMEOUT)) {
       conn.timeout(Integer.parseInt(options.get(TIMEOUT)));
     }  
@@ -156,6 +130,15 @@ public class RiWebScraper
     if (options.containsKey(USER_AGENT)) {
       conn.userAgent(options.get(USER_AGENT));
     }  
+    if (options.containsKey(FOLLOW_REDIRECTS)) {
+      conn.followRedirects(Boolean.parseBoolean(options.get(FOLLOW_REDIRECTS)));
+    }
+    if (options.containsKey(IGNORE_HTTP_ERRORS)) {
+      conn.ignoreHttpErrors(Boolean.parseBoolean(options.get(IGNORE_HTTP_ERRORS)));
+    }
+    if (options.containsKey(IGNORE_CONTENT_TYPE)) {
+      conn.ignoreContentType(Boolean.parseBoolean(options.get(IGNORE_CONTENT_TYPE)));
+    } 
     return this;
   }
 
@@ -179,9 +162,26 @@ public class RiWebScraper
     return this;
   }
 
-  public String post()
+  public String get(/*String url*/)
   {
-    setHeaders();
+    prepareConnection();//.connect(url);
+
+    try
+    {
+      doc = conn.get();
+    }
+    catch (IOException e)
+    {
+      System.out.println(conn.response());
+      throw new RiTaException(e);
+    }
+
+    return doc.outerHtml();
+  }
+    
+  public String post(/*String url*/)
+  {
+    prepareConnection();//.connect(url);
 
     try
     {
@@ -197,7 +197,22 @@ public class RiWebScraper
 
   public static void main(String[] args)
   {
+    /*fetchCookies("http://google.com");
+    //loadCookiesFromDisk();
+    if (1==1) return;*/
 
+
+
+    RiWebScraper scraper = new RiWebScraper();
+    scraper.header("User-Agent", DEFAULT_USER_AGENT).
+      header("Accept-Language", "en-US,en.q=0.8").
+      header("Accept-Charset", "ISO-8859-1,utf-8.q=0.7,*.q=0.3").
+      header("Connection", "keep-alive").
+      header("Accept","text/html,application/xhtml+xml,application/xml.q=0.9,*/*.q=0.8").
+      //header("Cookie", cookie).
+      header("DNT", "1");
+    //scraper.cookie("PREF", value);
+    System.out.println(scraper.connect("http://rednoise.org/wdmtest.html").get());
   }
 
 }
