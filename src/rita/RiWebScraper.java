@@ -13,6 +13,8 @@ import org.jsoup.nodes.Document;
  */
 public class RiWebScraper
 { 
+  static { RiTa.init(); }
+  
   static final String DEFAULT_USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.56 Safari/536.5";
   
   private static final String TIMEOUT = "timeout";

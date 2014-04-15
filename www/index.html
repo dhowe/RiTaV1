@@ -46,44 +46,59 @@
     	<div class="page row">
           <div class="span11">
 			<div class="home-exhibition">
+  	    
+	<p style="line-height:15px;">&nbsp;</p>
   
-  	<div style="margin-top:1px;">
+  	<div class="gallery_home">
 
+	  <span>
+	    <a href="../sketches/CornellsYoke"><img src="./img/gallery/cornell.jpg" width="180"/></a>
+	    <a href="../sketches/CornellsYoke">Cornell's Yoke Machine</a>
+	    <p>by Janalyn Guo</p>
+	    <p class="gallery_home_spacer">&nbsp;</p>
+	  </span>
+	  
+	  <span>
+	    <a href="http://www.gamedefinitions.com/"><img src="./img/gallery/gamedefs.png" width="180"/></a>
+	    <a href="http://www.gamedefinitions.com/">Game Definitions</a>
+	    <p>by MolleIndustria</p>
+	    <p class="gallery_home_spacer">&nbsp;</p>
+	  </span>
+	  	  
+	  <span>
+	    <a href="http://thefollowingphrases.com/memory/memory.html" target=new><img src="./img/gallery/memory.gif" width="180" height="60" /></a>
+	    <a href="http://thefollowingphrases.com/memory/memory.html" target=new>Memoire Involontaire No. 1</a>
+	        <p>by A. Braxton Soderman</p>
+	    <p class="gallery_home_spacer">&nbsp;</p>
+	  </span>
+
+	  <span>
+	    <a href="http://antiart.feenelcaos.org/indexhibit/project/massive-comprehension-machine/" target=new><img src="./img/gallery/massive.png" width="180" height="60" /></a>
+	    <a href="http://antiart.feenelcaos.org/indexhibit/project/massive-comprehension-machine/" target=new>Massive Comprehension Machine</a> 
+	    &nbsp;by Lot Amoros<br>&nbsp;<br>
+	    <p class="gallery_home_spacer">&nbsp;</p>
+	  </span>
+	  
+	  <span>
+	    <a href="http://www.open-output.org/mchoueiter/project/8831" target=new><img src="http://www.rednoise.org/rita/imgs/mc_wind.jpg" alt="preview image" width="180" height="60" /></a>
+	    <a href="http://www.open-output.org/mchoueiter/project/8831" target=new>Wind Writings</a><br/>
+	    <p>by Mary Choueiter</p>
+	    <p class="gallery_home_spacer">&nbsp;</p>
+	  </span>
+	  
+  	</div>
+  	
   	  <!--span>
 	    <a href="gallery/" target=new><img src="http://www.rednoise.org/pdal08/uploads/jc1.png" alt="preview image" width="180" height="60" /></a>
 	    <a href="gallery/" target=new>Suflosi Grammar</a><br/>by John Cayley</p>
 	    <p>&nbsp;</p-->
 	  </span>
-	  <span>
-	    <a href="../sketches/CornellsYoke"><img src="./img/gallery/cornell.jpg" width="180"/></a>
-	    <a href="../sketches/CornellsYoke">Cornell's Yoke Machine</a>
-	    <p>by Janalyn Guo</p>
-	    <p>&nbsp;</p>
-	  </span>
-	  <span>
-	    <a href="http://thefollowingphrases.com/memory/memory.html" target=new><img src="./img/gallery/memory.gif" width="180" height="60" /></a>
-	    <a href="http://thefollowingphrases.com/memory/memory.html" target=new>Memoire Involontaire No. 1</a>
-	        <p>by A. Braxton Soderman</p>
-		<p>&nbsp;</p>
-	  </span>
-	  <!--span>
+	  	  <!--span>
 	    <a href="gallery/" target=new><img src="./img/gallery/ntm272.png" width="180" height="60"/></a>
 	    <a href="gallery/" target=new>No Time Machine</a>
 	        <p>by A. Karpinska &amp; D. C. Howe</p>
 		<p>&nbsp;</p>
 	  </span-->
-	  <span>
-	    <a href="http://antiart.feenelcaos.org/indexhibit/project/massive-comprehension-machine/" target=new><img src="./img/gallery/massive.png" width="180" height="60" /></a>
-	    <a href="http://antiart.feenelcaos.org/indexhibit/project/massive-comprehension-machine/" target=new>the Massive Comprehension Machine</a> &nbsp;by Lot Amoros</p>
-		<p>&nbsp;</p>
-
-	  </span>
-	  <span>
-	    <a href="http://www.open-output.org/mchoueiter/project/8831" target=new><img src="http://www.rednoise.org/rita/imgs/mc_wind.jpg" alt="preview image" width="180" height="60" /></a>
-	    <a href="http://www.open-output.org/mchoueiter/project/8831" target=new>Wind Writings</a><br/>by Mary Choueiter</p>
-	  </span>
-  	</div>
-  	
 </div>
 
 <div class="intro">
@@ -97,7 +112,7 @@ advanced tasks. RiTa is implemented in Java and JavaScript with a single API
 and optionally integrates with Processing. It is free/libre and open-source via a GPL license.  
 </p>
 <br>
-<p>Some of the features of RiTa/RiTaJS include:
+<p>Some of the features of RiTa include:
 <div class="features">
       <li>Text-generation via Context-Free Grammars and Markov-chains</li>
       <li>Taggers for Syllables, Phonemes, Stress, Part-of-Speech, etc. </li>
@@ -106,7 +121,8 @@ and optionally integrates with Processing. It is free/libre and open-source via 
       <li>A standard set of 'easing' effects for animation &amp; textual behaviors</li>
       <li>Integration with <a href="http://processing.org/">Processing</a>,
       		 <a href="http://processingjs.org/">ProcessingJS</a>, and <a href="http://nodejs.org/">NodeJS</a></li>
-	  <li>Runs in or outside the browser, with or without Processing (also in Android!)</li>
+	  <li>Runs in or outside the browser, with or without Processing (also in Android)</li>
+	  <li>Integrates with (locally-installed) <a href="http://wordnet.princeton.edu/">WordNet</a> dictionary</li>
 </div>
 </p>
 
@@ -157,7 +173,7 @@ For server-side applications, RiTaJS also runs as a <a href="http://nodejs.org/"
           <h3><span class="misc-title">Acknowledgments</span></h3>
           <p>
 Kenny Wong | John Cayley<br/>
-Braxon Soderman | Ian Hatcher<br/>
+A.B. Soderman | Ian Hatcher<br/>
 Matthew Stone | Ken Perlin<br/>
 Mary Choueiter | Mini Ham          </p>
 

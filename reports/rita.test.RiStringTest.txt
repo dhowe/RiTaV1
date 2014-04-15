@@ -1,5 +1,5 @@
 Testsuite: rita.test.RiStringTest
-Tests run: 43, Failures: 0, Errors: 0, Time elapsed: 0.026 sec
+Tests run: 43, Failures: 0, Errors: 0, Time elapsed: 0.018 sec
 ------------- Standard Output ---------------
 [RiTa] Used LTS-rules for 'laggin'
 [RiTa] Used LTS-rules for 'laggin'
@@ -10,30 +10,30 @@ Testcase: testRiStringObjectCharSequence took 0 sec
 Testcase: testRiStringCharSequence took 0 sec
 Testcase: testSubSequence took 0 sec
 Testcase: testSubstring took 0 sec
-Testcase: testAnalyze took 0.004 sec
+Testcase: testAnalyze took 0.001 sec
 Testcase: testCharAt took 0 sec
 Testcase: testConcatRiString took 0 sec
 Testcase: testConcatString took 0 sec
 Testcase: testEndsWith took 0 sec
 Testcase: testEqualsIgnoreCaseString took 0 sec
 Testcase: testGet took 0 sec
-Testcase: testFeatures took 0.001 sec
+Testcase: testFeatures took 0 sec
 Testcase: testIndexOf took 0 sec
-Testcase: testInsertWordAt took 0.001 sec
+Testcase: testInsertWordAt took 0 sec
 Testcase: testLastIndexOf took 0 sec
 Testcase: testLength took 0 sec
-Testcase: testMatch took 0.001 sec
+Testcase: testMatch took 0 sec
 Testcase: testPos took 0 sec
-Testcase: testPosAt took 0 sec
+Testcase: testPosAt took 0.001 sec
 Testcase: testRemoveCharAt took 0 sec
 Testcase: testReplaceCharAt took 0 sec
 Testcase: testReplaceFirst took 0 sec
 Testcase: testReplaceFirstRegex took 0 sec
-Testcase: testReplaceLast took 0.001 sec
+Testcase: testReplaceLast took 0 sec
 Testcase: testReplaceAll took 0 sec
 Testcase: testReplaceWordAt took 0.001 sec
 Testcase: testSlice took 0 sec
-Testcase: testSplit took 0 sec
+Testcase: testSplit took 0.001 sec
 Testcase: testStartsWith took 0 sec
 Testcase: testSubstr took 0 sec
 Testcase: testText took 0 sec
@@ -41,10 +41,10 @@ Testcase: testToCharArray took 0 sec
 Testcase: testToLowerCase took 0 sec
 Testcase: testToUpperCase took 0 sec
 Testcase: testTrim took 0 sec
-Testcase: testWordAt took 0.001 sec
+Testcase: testWordAt took 0 sec
 Testcase: testWordCount took 0 sec
 Testcase: testCopy took 0 sec
 Testcase: testStringify took 0 sec
 Testcase: testSyllabifyString took 0 sec
 Testcase: testSyllabifyArray took 0 sec
-Testcase: testSyllabifyBatch took 0.002 sec
+Testcase: testSyllabifyBatch took 0.001 sec

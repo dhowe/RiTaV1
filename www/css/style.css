@@ -14,7 +14,16 @@
 	padding-left: 1em;
 	color: #3F5366;
 	font-family: "lucida console", verdana;
-	line-height: 2;
+	line-height: 20px;
+}
+
+.gallery_home {
+    margin-top: 1px;
+    line-height: 14px;
+}
+
+.gallery_home_spacer {
+	line-height: 3px;
 }
 
 /* The amount of CSS needed for the navbar is terrifying. I am sorry. -Kenny */

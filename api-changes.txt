@@ -1,0 +1,13 @@
+When changing an API-function:
+
+// SRC
+RiTa/src -> Java Function
+/RiTa/RiTaLibraryJS/src -> JS Function
+
+// DOCS
+/RiTa/www/reference/index.html
+/RiTa/docs/json/CLASS.json
+
+// TESTS
+/RiTa/src/rita/test/CLASSTest.java
+/RiTa/RiTaLibraryJS/test/CLASS-tests.js (test + function-test)

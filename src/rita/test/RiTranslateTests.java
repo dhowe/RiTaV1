@@ -11,6 +11,8 @@ import rita.RiTaException;
 
 public class RiTranslateTests
 {
+  // URL for audio (mp3): http://translate.google.com/translate_tts?tl=en&q=dog
+  
   static final String DEFAULT_USER_AGENT = "Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1667.0 Safari/537.36";
   
   /*private static void loadCookiesFromDisk() // load firefox cookies via sqlite
