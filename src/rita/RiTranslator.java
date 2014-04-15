@@ -16,6 +16,8 @@ import rita.support.*;
  */
 public class RiTranslator
 {
+  // URL for audio (mp3): http://translate.google.com/translate_tts?tl=en&q=dog
+  
   static { RiTa.init(); }
   
   public static final String COOKIE_PATH = System.getProperty("user.home") + "/Library/Cookies/Cookies.plist";

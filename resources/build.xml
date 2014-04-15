@@ -58,7 +58,12 @@
 	<target name="run.node.tests" depends="init">
 		
 		<!-- ***********  working here  *********** -->
-		
+		<echo>${line}</echo>
+		<echo message="calling run-node-tests.sh ..." />
+		<exec dir="${js.scripts.dir}" resolveexecutable="true" executable="run-node-tests.sh" failonerror="true">
+			<env key="PATH" value="${env.PATH}:${path.to.node}" />
+		</exec>
+		<echo>${line}</echo>
 	</target>
 		
 	<target name="run.java.tests" depends="init">

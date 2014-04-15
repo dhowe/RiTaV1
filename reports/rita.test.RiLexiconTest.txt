@@ -1,45 +1,45 @@
 Testsuite: rita.test.RiLexiconTest
-Tests run: 30, Failures: 0, Errors: 0, Time elapsed: 4.448 sec
+Tests run: 30, Failures: 0, Errors: 0, Time elapsed: 4.141 sec
 ------------- Standard Output ---------------
-[INFO] Loaded 33388(0) lexicon in 137 ms
-[INFO] Loaded 33388(0) lexicon in 174 ms
-[INFO] Loaded 33388(0) lexicon in 146 ms
-indeed
-sweetheart
-seed
-pedigree
-cheeseburgers
-franchisee
-[INFO] Loaded 33388(0) lexicon in 220 ms
+[INFO] Loaded 33388(0) lexicon in 172 ms
+[INFO] Loaded 33388(0) lexicon in 162 ms
+[INFO] Loaded 33388(0) lexicon in 122 ms
+tumbleweed
+meet
+threefold
+sweetener
+greets
+feelings
+[INFO] Loaded 33388(0) lexicon in 145 ms
 ------------- ---------------- ---------------
 
 Testcase: testRiLexicon took 0 sec
-Testcase: testAddWord took 0.137 sec
-Testcase: testClear took 0.322 sec
+Testcase: testAddWord took 0.173 sec
+Testcase: testClear took 0.287 sec
 Testcase: testContainsWord took 0 sec
-Testcase: testAlliterations took 0.545 sec
-Testcase: testAlliterationsInt took 0.168 sec
+Testcase: testAlliterations took 0.442 sec
+Testcase: testAlliterationsInt took 0.165 sec
 Testcase: testLexicalData took 0 sec
-Testcase: testRandomWord took 0 sec
-Testcase: testRandomWordInt took 0.024 sec
-Testcase: testRandomWordString took 0.409 sec
-Testcase: testRandomWordStringInt took 0.407 sec
-Testcase: testRhymes took 0.117 sec
-Testcase: testWords took 0.035 sec
-Testcase: testWordsString took 0.077 sec
-Testcase: testWordsStringBoolean took 0.045 sec
-Testcase: testIsAdverb took 0.004 sec
-Testcase: testIsNoun took 0.001 sec
+Testcase: testRandomWord took 0.001 sec
+Testcase: testRandomWordInt took 0.017 sec
+Testcase: testRandomWordString took 0.422 sec
+Testcase: testRandomWordStringInt took 0.398 sec
+Testcase: testRhymes took 0.092 sec
+Testcase: testWords took 0.024 sec
+Testcase: testWordsString took 0.056 sec
+Testcase: testWordsStringBoolean took 0.035 sec
+Testcase: testIsAdverb took 0.002 sec
+Testcase: testIsNoun took 0 sec
 Testcase: testIsVerb took 0 sec
 Testcase: testIsAdjective took 0 sec
-Testcase: testIsAlliteration took 0.001 sec
-Testcase: testGetRawPhones took 0 sec
+Testcase: testIsAlliteration took 0 sec
+Testcase: testGetRawPhones took 0.001 sec
 Testcase: testIsRhyme took 0 sec
 Testcase: testIsRhymeBoolean took 0 sec
-Testcase: testRemoveWord took 0.221 sec
-Testcase: testSimilarByLetter took 0.282 sec
-Testcase: testSimilarBySound took 0.942 sec
-Testcase: testSimilarBySoundAndLetter took 0.541 sec
+Testcase: testRemoveWord took 0.145 sec
+Testcase: testSimilarByLetter took 0.2 sec
+Testcase: testSimilarBySound took 0.923 sec
+Testcase: testSimilarBySoundAndLetter took 0.598 sec
 Testcase: testSize took 0 sec
-Testcase: testSubstrings took 0.076 sec
-Testcase: testSuperstrings took 0.078 sec
+Testcase: testSubstrings took 0.078 sec
+Testcase: testSuperstrings took 0.068 sec
