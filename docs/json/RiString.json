@@ -1,10 +1,27 @@
 {
     "class": "rita.RiString",
     "fields": [
+   	{
+      "methodName":"features()",
+      "example":"theFeatures = myRiString.features();",
+      "description":"Returns the current set of features for the object, including <a target=_new href='../../PhonemeTags.html'>phonemes</a>, syllables, stresses, etc.",
+      "syntax":"features()",
+      "parameters":[],
+	  "returns":
+      [
+			{ 
+			"type": "Object", 
+			"desc": "Map (in Java), Object with key-value pairs (in JS)" 
+			}
+	  ],
+      "related":"RiString.analyze()<br>RiString.get()",
+      "platform":"Java / Javascript",
+	  "note":""
+    },
 	{
       "methodName":"analyze()",
       "example":'myRiString.analyze();\n\nmyRiString.get(RiTa.PHONEMES);\n\nOR\n\nmyRiString.get("phonemes");',
-      "description":"Computes a set of features for the contained string, including phonemes, syllables, stresses, etc. To access any of these, use myRistring.get(name)",
+      "description":"Computes a set of features for the object, including <a target=_new href='../../PhonemeTags.html'>phonemes</a>, syllables, stresses, etc. To access any of these, use myRiString.get(featureName)",
       "syntax":"analyze()",
       "parameters":[],
 	  "returns":
@@ -27,7 +44,7 @@
       [
 			{ 
 			"type": "int", 
-			"desc": "index of the character (accepts negative offsets, which count backward from lhe end)" 
+			"desc": "index of the character (accepts negative offsets, which count backward from the end)" 
 			}
 	  ],
 	  "returns":

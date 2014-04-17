@@ -15,6 +15,12 @@ public class RiTranslateTests
   
   static final String DEFAULT_USER_AGENT = "Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1667.0 Safari/537.36";
   
+  // SAVED SQLITE Queries --------------------------------------------------
+  // select * from cookies where host_key like '%google.com';
+  // select value from cookies where host_key='.google.com' and name='PREF';
+  // PRAGMA table_info(cookies);
+
+
   /*private static void loadCookiesFromDisk() // load firefox cookies via sqlite
   {
     try

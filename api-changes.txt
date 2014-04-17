@@ -1,4 +1,4 @@
-When changing an API-function:
+For changes to the API:
 
 // SRC
 RiTa/src -> Java Function

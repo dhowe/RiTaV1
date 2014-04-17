@@ -1,9 +1,5 @@
 Testsuite: rita.test.RiMarkovTest
-Tests run: 24, Failures: 0, Errors: 0, Time elapsed: 2.677 sec
-------------- Standard Output ---------------
-[WARN] Bad last token: ''' in:
-  He would have been any quicker about it, the feelers of the operation -- -- -TE,.....'
-------------- ---------------- ---------------
+Tests run: 24, Failures: 0, Errors: 0, Time elapsed: 3.452 sec
 ------------- Standard Error -----------------
 
 [WARN] RiMarkov failed to complete after 1000 tries
@@ -13,27 +9,27 @@ Tests run: 24, Failures: 0, Errors: 0, Time elapsed: 2.677 sec
 [WARN] No sentences found, parsing as tokens
 ------------- ---------------- ---------------
 
-Testcase: testLoadFromFile took 0.325 sec
+Testcase: testLoadFromFile took 0.282 sec
 Testcase: testPrint took 0.001 sec
-Testcase: testSize took 0.005 sec
+Testcase: testSize took 0.024 sec
 Testcase: testRiMarkovInt took 0 sec
 Testcase: testGetN took 0 sec
-Testcase: testLoadFromFileMulti took 0.45 sec
-Testcase: testLoadFromUrl took 1.236 sec
-Testcase: testGenerateSentencesInt took 0.007 sec
+Testcase: testLoadFromFileMulti took 0.572 sec
+Testcase: testLoadFromUrl took 1.417 sec
+Testcase: testGenerateSentencesInt took 0.01 sec
 Testcase: testRecognizeSentences took 0 sec
-Testcase: testGenerateTokens took 0.012 sec
-Testcase: testGenerateUntilString took 0.243 sec
-Testcase: testGenerateUntilStringInt took 0.143 sec
-Testcase: testGenerateUntilStringIntInt took 0.232 sec
-Testcase: testGetCompletionsStringArray took 0.001 sec
+Testcase: testGenerateTokens took 0.004 sec
+Testcase: testGenerateUntilString took 0.414 sec
+Testcase: testGenerateUntilStringInt took 0.43 sec
+Testcase: testGenerateUntilStringIntInt took 0.27 sec
+Testcase: testGetCompletionsStringArray took 0 sec
 Testcase: testGetCompletionsStringArrayStringArray took 0.001 sec
 Testcase: testGetProbabilities took 0.001 sec
 Testcase: testGetProbability took 0.001 sec
-Testcase: testLoadTextStringString took 0.001 sec
-Testcase: testLoadTextString took 0.001 sec
-Testcase: testLoadTextStringInt took 0 sec
+Testcase: testLoadTextStringString took 0.002 sec
+Testcase: testLoadTextString took 0 sec
+Testcase: testLoadTextStringInt took 0.001 sec
 Testcase: testLoadTextStringIntString took 0 sec
 Testcase: testLoadTokensStringArray took 0.002 sec
-Testcase: testLoadTokensChars took 0.004 sec
+Testcase: testLoadTokensChars took 0.005 sec
 Testcase: testLoadTokensStringArrayInt took 0.002 sec
