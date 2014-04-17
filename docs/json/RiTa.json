@@ -381,7 +381,7 @@
    {
       "methodName":"RiTa.getPhonemes()",
       "example":"",
-      "description":"Returns a string containing all phonemes for the input text",
+      "description":"Returns a string containing all <a target=_new href='../../PhonemeTags.html'>phonemes</a> for the input text",
       "syntax":"RiTa.getPhonemes(wordStr)<br/>RiTa.getPhonemes(wordArr)",
       "parameters":[
          {
@@ -393,7 +393,7 @@
       "returns":[
          {
             "type":"String",
-            "desc":"e.g., 'dh-ax-d-ao-g-r-ae-n-f-ae-s-t'"
+            "desc":"e.g., 'ae-n  eh-l-ax-f-ax-n-t  ih-z  ey  m-ae-m-ax-l'<br>(for 'An elephant is a mammal')"
          }
 
       ],

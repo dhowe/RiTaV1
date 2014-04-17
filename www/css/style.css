@@ -10,6 +10,7 @@
 	padding-left: 8px;
 }
 
+
 .tagline {
 	padding-left: 1em;
 	color: #3F5366;
@@ -336,3 +337,8 @@ a:hover, a:focus {
 .name-row th {
 	width: 18%;
 }
+
+.phones table {
+	border:1;
+}
+

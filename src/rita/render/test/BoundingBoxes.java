@@ -20,6 +20,8 @@ public class BoundingBoxes extends PApplet {
 		background(255);
 		line(200, 0, 200, 400);
 		RiText.drawAll();
+		
+		
 	}
 
 

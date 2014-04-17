@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry excluding="rita/render/test/ReplaceableWriting.java|rita/render/test/PageLayoutTest.java|rita/jslint14java/|rita/test/sketches/RiLinter.java" kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="libs/core.jar"/>
+	<classpathentry kind="lib" path="libs/core.jar" sourcepath="/Users/dhowe/code/processing/core/src"/>
 	<classpathentry kind="lib" path="libs/jslint4java-2.0.5.jar"/>
 	<classpathentry kind="lib" path="libs/json.jar"/>
 	<classpathentry kind="lib" path="libs/junit.jar"/>

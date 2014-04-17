@@ -30,7 +30,7 @@
 	<property name="project.tmp" location="tmp"/>
 	<property name="project.web" location="web"/>
 	<property name="project.data" location="data"/>
-	<property name="project.lib" location="lib"/>
+	<!--property name="project.lib" location="lib"/-->
 	<property name="project.libs" location="libs"/>
 	<property name="project.bin" location="bin"/>
 	<property name="project.bin.data" location="${project.bin}/data"/>
@@ -52,7 +52,7 @@
 
 	<target name="run.unit.tests" depends="init">
 		<antcall target="run.java.tests" />
-		<!--antcall target="run.node.tests" /-->
+		<antcall target="run.node.tests" />
 	</target>
 
 	<target name="run.node.tests" depends="init">
@@ -60,9 +60,11 @@
 		<!-- ***********  working here  *********** -->
 		<echo>${line}</echo>
 		<echo message="calling run-node-tests.sh ..." />
-		<exec dir="${js.scripts.dir}" resolveexecutable="true" executable="run-node-tests.sh" failonerror="true">
+		<exec dir="${js.scripts.dir}" resolveexecutable="true" output="/dev/null" executable="run-node-tests.sh" failonerror="true" failifexecutionfails="true" logError="true">
 			<env key="PATH" value="${env.PATH}:${path.to.node}" />
 		</exec>
+		<echo>${line}</echo>
+		<echo message="all node-tests passed." />
 		<echo>${line}</echo>
 	</target>
 		
@@ -131,7 +133,7 @@
 	<path id="classpath">
 		<fileset dir="${classpath.local.location}" includes="${classpath.local.include}" />
 		<!--fileset dir="${classpath.libraries.location}" includes="**/*.jar" /-->
-		<fileset dir="${project.lib}" includes="**/*.jar" />
+		<!--fileset dir="${project.lib}" includes="**/*.jar" /-->
 		<fileset dir="${project.libs}" includes="**/*.jar" />
 	</path>
 
@@ -372,9 +374,9 @@ ${line}
 
 		<copy file="${project.latest}/${project.js.name}" todir="${project.tmp}/${project.name}/library" />
 
-		<copy todir="${project.tmp}/${project.name}/library">
+		<!--copy todir="${project.tmp}/${project.name}/library">
 			<fileset dir="${project.lib}" excludes="*.txt" />
-		</copy>
+		</copy-->
 
 	</target>
 
