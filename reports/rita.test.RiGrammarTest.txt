@@ -1,28 +1,28 @@
 Testsuite: rita.test.RiGrammarTest
-Tests run: 21, Failures: 0, Errors: 0, Time elapsed: 1.51 sec
+Tests run: 21, Failures: 0, Errors: 0, Time elapsed: 1.601 sec
 ------------- Standard Output ---------------
 [INFO] RiTa.version [1.0.56]
-[INFO] Loaded 33388(0) lexicon in 270 ms
+[INFO] Loaded 33388(0) lexicon in 317 ms
 ------------- ---------------- ---------------
 
-Testcase: testRiGrammar took 0.009 sec
-Testcase: testRiGrammar2 took 0.038 sec
+Testcase: testRiGrammar took 0.008 sec
+Testcase: testRiGrammar2 took 0.034 sec
 Testcase: testSetGrammar took 0.007 sec
 Testcase: testRiGrammarString took 0.002 sec
-Testcase: testExpand took 0.036 sec
+Testcase: testExpand took 0.041 sec
 Testcase: testSpecialChars took 0.002 sec
 Testcase: testRiGrammarExec took 0.003 sec
 Testcase: testLoadFromFile took 0.007 sec
-Testcase: testExpandFromFile took 0.005 sec
-Testcase: testExpandFrom took 0.002 sec
+Testcase: testExpandFromFile took 0.008 sec
+Testcase: testExpandFrom took 0.001 sec
 Testcase: testGetGrammar took 0.001 sec
 Testcase: testHasRule took 0.003 sec
-Testcase: testAddRule took 0.003 sec
-Testcase: testRemoveRule took 0.004 sec
-Testcase: testPrint took 0.001 sec
-Testcase: testReset took 0.004 sec
-Testcase: testExecIgnores took 0.365 sec
-Testcase: testExec1 took 0.001 sec
+Testcase: testAddRule took 0.004 sec
+Testcase: testRemoveRule took 0.003 sec
+Testcase: testPrint took 0 sec
+Testcase: testReset took 0.003 sec
+Testcase: testExecIgnores took 0.417 sec
+Testcase: testExec1 took 0.004 sec
 Testcase: testExec2 took 0.001 sec
-Testcase: testExecArgs took 0.641 sec
-Testcase: testExecArgs2 took 0.342 sec
+Testcase: testExecArgs took 0.669 sec
+Testcase: testExecArgs2 took 0.345 sec

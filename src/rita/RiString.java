@@ -62,15 +62,6 @@ public class RiString implements FeaturedIF, Constants
     JSONLexicon lex = JSONLexicon.getInstance();
 
     String[] words = RiTa.tokenize(delegate.toLowerCase());
-/*    
-    boolean isA = false;
-    for (int i = 0; i < words.length; i++)
-    {
-      if (words[i].equals("a"))
-        isA = true;
-    }*/
-    
-    //System.out.println(RiTa.asList(words));
 
     if (features == null || features.size() < 1) 
       initFeatureMap();
@@ -149,7 +140,7 @@ public class RiString implements FeaturedIF, Constants
     else 
       this.features.clear();
     
-    this.features.put(MUTABLE, "true");
+    //this.features.put(MUTABLE, "true");
     this.features.put(TEXT, delegate);
   }
 
@@ -179,7 +170,7 @@ public class RiString implements FeaturedIF, Constants
   {
     Map feats = features();
     String s = (String) feats.get(featureName);
-    if (s == null && !feats.containsKey(SYLLABLES)) {
+    if (s == null && !feats.containsKey(featureName)) {
       this.analyze();
       s = (String) feats.get(featureName);
     }
@@ -188,8 +179,9 @@ public class RiString implements FeaturedIF, Constants
 
   public Map features()
   {
-    if (features == null) 
-      initFeatureMap(); // dont analyze by default
+    if (features == null)
+      this.analyze();
+      //initFeatureMap(); // don't analyze by default
     return features;
   }
   
