@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="slipper.local" name="rita.test.RiStringTest" tests="43" time="0.034" timestamp="2014-04-17T11:25:52">
+<testsuite errors="0" failures="0" hostname="slipper.local" name="rita.test.RiStringTest" tests="43" time="0.031" timestamp="2014-04-17T12:36:57">
   <properties>
     <property name="env.COM_GOOGLE_CHROME_FRAMEWORK_SERVICE_PROCESS/USERS/DHOWE/LIBRARY/APPLICATION_SUPPORT/GOOGLE/CHROME_SOCKET" value="/tmp/launch-6vMO9t/ServiceProcessSocket" />
     <property name="file.encoding.pkg" value="sun.io" />
@@ -14,6 +14,7 @@
     <property name="java.vendor.url" value="http://www.apple.com/" />
     <property name="java.version" value="1.6.0_65" />
     <property name="source.url" value="https://github.com/dhowe/rita" />
+    <property name="env.JAVA_MAIN_CLASS_14942" value="org.eclipse.ant.internal.launching.remote.InternalAntRunner" />
     <property name="path.to.node" value="/usr/local/bin" />
     <property name="java.vendor.url.bug" value="http://bugreport.apple.com/" />
     <property name="ant.project.invoked-targets" value="run.java.tests" />
@@ -22,6 +23,7 @@
     <property name="project.src.test" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/src/rita/test" />
     <property name="project.js" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/RiTaLibraryJS" />
     <property name="user.name" value="dhowe" />
+    <property name="env.JAVA_STARTED_ON_FIRST_THREAD_14942" value="1" />
     <property name="sun.io.unicode.encoding" value="UnicodeLittle" />
     <property name="project.jsbuild.www" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/RiTaLibraryJS/build/www" />
     <property name="sun.jnu.encoding" value="MacRoman" />
@@ -40,7 +42,7 @@
     <property name="project.examples" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/RiTaLibraryJS/examplesP5" />
     <property name="env.HOME" value="/Users/dhowe" />
     <property name="project.copyright" value="(c) 2009" />
-    <property name="sun.java.command" value="org.eclipse.ant.internal.launching.remote.InternalAntRunner -Dorg.eclipse.ant.core.ANT_PROCESS_ID=1397733942363 -Declipse.connect.port=63458 -Dant.home=/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030 -logger org.eclipse.ant.internal.launching.remote.logger.RemoteAntBuildLogger -inputhandler org.eclipse.ant.internal.ui.antsupport.inputhandler.ProxyInputHandler -buildfile /Users/dhowe/Documents/eclipse-workspace/RiTa/resources/build.xml run.unit.tests" />
+    <property name="sun.java.command" value="org.eclipse.ant.internal.launching.remote.InternalAntRunner -Dorg.eclipse.ant.core.ANT_PROCESS_ID=1397738207993 -Declipse.connect.port=64903 -Dant.home=/Applications/eclipse/plugins/org.apache.ant_1.8.4.v201303080030 -logger org.eclipse.ant.internal.launching.remote.logger.RemoteAntBuildLogger -inputhandler org.eclipse.ant.internal.ui.antsupport.inputhandler.ProxyInputHandler -buildfile /Users/dhowe/Documents/eclipse-workspace/RiTa/resources/build.xml _make.all" />
     <property name="project.compile" value="normal" />
     <property name="ant.file" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/resources/build.xml" />
     <property name="license.destination" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/distribution/RiTa-1.0.56/RiTa/LICENSE.txt" />
@@ -88,14 +90,12 @@
     <property name="project.bin.data" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/bin/data" />
     <property name="source.host" value="github" />
     <property name="project.dist.version" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/distribution/RiTa-1.0.56" />
-    <property name="env.JAVA_MAIN_CLASS_11691" value="org.eclipse.ant.internal.launching.remote.InternalAntRunner" />
     <property name="author.url" value="http://rednoise.org/~dhowe" />
     <property name="date" value="04/17/2014" />
     <property name="sun.boot.library.path" value="/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Libraries" />
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers" />
     <property name="java.awt.graphicsenv" value="apple.awt.CGraphicsEnvironment" />
     <property name="tested.processingversion" value="2.0" />
-    <property name="env.JAVA_STARTED_ON_FIRST_THREAD_11691" value="1" />
     <property name="ant.file.type.RiTa" value="file" />
     <property name="props.src" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/resources/library.properties" />
     <property name="reports.tests" value="reports" />
@@ -131,7 +131,7 @@
     <property name="is.normal" value="true" />
     <property name="install.source" value="/Users/dhowe/Documents/eclipse-workspace/RiTa/resources/install_instructions.txt" />
     <property name="java.vm.specification.vendor" value="Sun Microsystems Inc." />
-    <property name="TSTAMP" value="1925" />
+    <property name="TSTAMP" value="2036" />
     <property name="file.separator" value="/" />
     <property name="java.runtime.version" value="1.6.0_65-b14-462-11M4609" />
     <property name="env.SSH_AUTH_SOCK" value="/tmp/launch-lxHI72/Listeners" />
@@ -149,43 +149,43 @@
     <property name="java.specification.version" value="1.6" />
     <property name="sun.arch.data.model" value="64" />
   </properties>
-  <testcase classname="rita.test.RiStringTest" name="testWords" time="0.0" />
+  <testcase classname="rita.test.RiStringTest" name="testWords" time="0.0010" />
   <testcase classname="rita.test.RiStringTest" name="testRiStringObjectCharSequence" time="0.0" />
   <testcase classname="rita.test.RiStringTest" name="testRiStringCharSequence" time="0.0" />
-  <testcase classname="rita.test.RiStringTest" name="testSubSequence" time="0.0" />
+  <testcase classname="rita.test.RiStringTest" name="testSubSequence" time="0.0010" />
   <testcase classname="rita.test.RiStringTest" name="testSubstring" time="0.0" />
   <testcase classname="rita.test.RiStringTest" name="testAnalyze" time="0.0010" />
-  <testcase classname="rita.test.RiStringTest" name="testCharAt" time="0.0010" />
+  <testcase classname="rita.test.RiStringTest" name="testCharAt" time="0.0" />
   <testcase classname="rita.test.RiStringTest" name="testConcatRiString" time="0.0" />
-  <testcase classname="rita.test.RiStringTest" name="testConcatString" time="0.0" />
+  <testcase classname="rita.test.RiStringTest" name="testConcatString" time="0.0010" />
   <testcase classname="rita.test.RiStringTest" name="testEndsWith" time="0.0" />
   <testcase classname="rita.test.RiStringTest" name="testEqualsIgnoreCaseString" time="0.0" />
   <testcase classname="rita.test.RiStringTest" name="testGet" time="0.0" />
-  <testcase classname="rita.test.RiStringTest" name="testFeatures" time="0.0010" />
+  <testcase classname="rita.test.RiStringTest" name="testFeatures" time="0.0" />
   <testcase classname="rita.test.RiStringTest" name="testIndexOf" time="0.0" />
   <testcase classname="rita.test.RiStringTest" name="testInsertWordAt" time="0.0010" />
   <testcase classname="rita.test.RiStringTest" name="testLastIndexOf" time="0.0" />
   <testcase classname="rita.test.RiStringTest" name="testLength" time="0.0" />
-  <testcase classname="rita.test.RiStringTest" name="testMatch" time="0.0010" />
-  <testcase classname="rita.test.RiStringTest" name="testPos" time="0.0" />
-  <testcase classname="rita.test.RiStringTest" name="testPosAt" time="0.0040" />
-  <testcase classname="rita.test.RiStringTest" name="testRemoveCharAt" time="0.0" />
-  <testcase classname="rita.test.RiStringTest" name="testReplaceCharAt" time="0.0010" />
+  <testcase classname="rita.test.RiStringTest" name="testMatch" time="0.0" />
+  <testcase classname="rita.test.RiStringTest" name="testPos" time="0.0010" />
+  <testcase classname="rita.test.RiStringTest" name="testPosAt" time="0.0010" />
+  <testcase classname="rita.test.RiStringTest" name="testRemoveCharAt" time="0.0010" />
+  <testcase classname="rita.test.RiStringTest" name="testReplaceCharAt" time="0.0" />
   <testcase classname="rita.test.RiStringTest" name="testReplaceFirst" time="0.0" />
   <testcase classname="rita.test.RiStringTest" name="testReplaceFirstRegex" time="0.0" />
-  <testcase classname="rita.test.RiStringTest" name="testReplaceLast" time="0.0" />
-  <testcase classname="rita.test.RiStringTest" name="testReplaceAll" time="0.0010" />
+  <testcase classname="rita.test.RiStringTest" name="testReplaceLast" time="0.0010" />
+  <testcase classname="rita.test.RiStringTest" name="testReplaceAll" time="0.0" />
   <testcase classname="rita.test.RiStringTest" name="testReplaceWordAt" time="0.0010" />
   <testcase classname="rita.test.RiStringTest" name="testSlice" time="0.0" />
-  <testcase classname="rita.test.RiStringTest" name="testSplit" time="0.0010" />
+  <testcase classname="rita.test.RiStringTest" name="testSplit" time="0.0060" />
   <testcase classname="rita.test.RiStringTest" name="testStartsWith" time="0.0" />
-  <testcase classname="rita.test.RiStringTest" name="testSubstr" time="0.0010" />
+  <testcase classname="rita.test.RiStringTest" name="testSubstr" time="0.0" />
   <testcase classname="rita.test.RiStringTest" name="testText" time="0.0" />
   <testcase classname="rita.test.RiStringTest" name="testToCharArray" time="0.0" />
   <testcase classname="rita.test.RiStringTest" name="testToLowerCase" time="0.0" />
-  <testcase classname="rita.test.RiStringTest" name="testToUpperCase" time="0.0" />
+  <testcase classname="rita.test.RiStringTest" name="testToUpperCase" time="0.0010" />
   <testcase classname="rita.test.RiStringTest" name="testTrim" time="0.0" />
-  <testcase classname="rita.test.RiStringTest" name="testWordAt" time="0.0030" />
+  <testcase classname="rita.test.RiStringTest" name="testWordAt" time="0.0010" />
   <testcase classname="rita.test.RiStringTest" name="testWordCount" time="0.0010" />
   <testcase classname="rita.test.RiStringTest" name="testCopy" time="0.0" />
   <testcase classname="rita.test.RiStringTest" name="testStringify" time="0.0" />
@@ -194,6 +194,17 @@
   <testcase classname="rita.test.RiStringTest" name="testSyllabifyBatch" time="0.0020" />
   <system-out><![CDATA[[RiTa] Used LTS-rules for 'laggin'
 [RiTa] Used LTS-rules for 'laggin'
+[RiTa] Used LTS-rules for 'asdfaasd'
+Using cached feature: nn for asdfaasd
+Using cached feature: nn for cat
+Using cached feature: nns for clothes
+Using cached feature: ex vbz dt nn . for There is a cat.
+Using cached feature: dt nn , vbn in jj , vbd dt nn . for The boy, dressed in red, ate an apple.
+Using cached feature: dt nn vbd dt nns in . for The emperor had no clothes on.
+Using cached feature: ex vbz dt nn . for There is a cat.
+Using cached feature: ex vbz dt nn . for There is a cat.
+Using cached feature: ex vbz dt nn . for There is a cat.
+Using cached feature: ex vbz dt nn . for There is a cat.
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

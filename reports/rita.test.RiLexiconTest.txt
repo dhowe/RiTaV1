@@ -1,45 +1,45 @@
 Testsuite: rita.test.RiLexiconTest
-Tests run: 30, Failures: 0, Errors: 0, Time elapsed: 4.288 sec
+Tests run: 30, Failures: 0, Errors: 0, Time elapsed: 4.08 sec
 ------------- Standard Output ---------------
-[INFO] Loaded 33388(0) lexicon in 145 ms
-[INFO] Loaded 33388(0) lexicon in 133 ms
-[INFO] Loaded 33388(0) lexicon in 133 ms
-feedstock
-breeds
-knee
-parakeet
-agreements
-draftees
-[INFO] Loaded 33388(0) lexicon in 124 ms
+[INFO] Loaded 33388(0) lexicon in 153 ms
+[INFO] Loaded 33388(0) lexicon in 143 ms
+[INFO] Loaded 33388(0) lexicon in 146 ms
+freehand
+sixteenth
+careened
+steed
+guarantee
+bleed
+[INFO] Loaded 33388(0) lexicon in 129 ms
 ------------- ---------------- ---------------
 
 Testcase: testRiLexicon took 0 sec
-Testcase: testAddWord took 0.145 sec
-Testcase: testClear took 0.27 sec
+Testcase: testAddWord took 0.155 sec
+Testcase: testClear took 0.292 sec
 Testcase: testContainsWord took 0 sec
-Testcase: testAlliterations took 0.547 sec
-Testcase: testAlliterationsInt took 0.208 sec
+Testcase: testAlliterations took 0.46 sec
+Testcase: testAlliterationsInt took 0.158 sec
 Testcase: testLexicalData took 0 sec
 Testcase: testRandomWord took 0.001 sec
-Testcase: testRandomWordInt took 0.024 sec
-Testcase: testRandomWordString took 0.473 sec
-Testcase: testRandomWordStringInt took 0.462 sec
-Testcase: testRhymes took 0.111 sec
-Testcase: testWords took 0.028 sec
-Testcase: testWordsString took 0.061 sec
-Testcase: testWordsStringBoolean took 0.047 sec
+Testcase: testRandomWordInt took 0.019 sec
+Testcase: testRandomWordString took 0.407 sec
+Testcase: testRandomWordStringInt took 0.425 sec
+Testcase: testRhymes took 0.107 sec
+Testcase: testWords took 0.03 sec
+Testcase: testWordsString took 0.073 sec
+Testcase: testWordsStringBoolean took 0.04 sec
 Testcase: testIsAdverb took 0.003 sec
 Testcase: testIsNoun took 0 sec
 Testcase: testIsVerb took 0 sec
 Testcase: testIsAdjective took 0 sec
 Testcase: testIsAlliteration took 0 sec
-Testcase: testGetRawPhones took 0 sec
+Testcase: testGetRawPhones took 0.001 sec
 Testcase: testIsRhyme took 0 sec
 Testcase: testIsRhymeBoolean took 0 sec
-Testcase: testRemoveWord took 0.124 sec
-Testcase: testSimilarByLetter took 0.229 sec
-Testcase: testSimilarBySound took 0.708 sec
-Testcase: testSimilarBySoundAndLetter took 0.657 sec
+Testcase: testRemoveWord took 0.13 sec
+Testcase: testSimilarByLetter took 0.228 sec
+Testcase: testSimilarBySound took 0.774 sec
+Testcase: testSimilarBySoundAndLetter took 0.579 sec
 Testcase: testSize took 0 sec
-Testcase: testSubstrings took 0.089 sec
-Testcase: testSuperstrings took 0.074 sec
+Testcase: testSubstrings took 0.102 sec
+Testcase: testSuperstrings took 0.084 sec
