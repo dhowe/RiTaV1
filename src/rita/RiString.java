@@ -76,7 +76,7 @@ public class RiString implements FeaturedIF, Constants
       
       if (phones == null || phones.length()<1)
       {
-        if (!RiTa.SILENT && words[i].matches("[a-zA-Z]+"))
+        if (!RiTa.SILENT && !RiTa.SILENT_LTS && words[i].matches("[a-zA-Z]+"))
           System.out.println("[RiTa] Used LTS-rules for '" + words[i] + "'");
 
         String[] ltsPhones = lts.getPhones(words[i]); // next try LTS
