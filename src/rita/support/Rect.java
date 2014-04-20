@@ -1,7 +1,7 @@
 package rita.support;
 
-public class Rect { // TODO: move inside RiText ??
-  
+public class Rect 
+{  
   public float x,y,w,h; 
 
   public Rect() {}

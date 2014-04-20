@@ -137,11 +137,22 @@ public class RiString implements FeaturedIF, Constants
   {
     if (this.features == null)
       this.features = new HashMap();
-    else 
-      this.features.clear();
+    else {
+      // this.features.clear(); // NO: save users features if they exist
+      clearFeatures();
+    }
     
     //this.features.put(MUTABLE, "true");
     this.features.put(TEXT, delegate);
+  }
+
+  private void clearFeatures()
+  {
+    this.features.remove(TOKENS);
+    this.features.remove(STRESSES);
+    this.features.remove(PHONEMES);
+    this.features.remove(SYLLABLES);
+    this.features.remove(POS);
   }
 
   public String charAt(int charIdx)
