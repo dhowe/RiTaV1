@@ -6,8 +6,6 @@ import org.junit.runner.notification.Failure;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import rita.render.test.RiTextTest;
-
 @RunWith(Suite.class)
 
 @Suite.SuiteClasses( {

@@ -1,6 +1,7 @@
 package rita.render.test;
 
 import rita.RiText;
+import rita.test.PixelCompare;
 
 // TODO: add warning message to JS code about vlw files...
 public class FontVlwTest extends processing.core.PApplet
@@ -37,5 +38,10 @@ public class FontVlwTest extends processing.core.PApplet
     rt.font("Ziggurat32.vlw");
     
     RiText.drawAll();
+  }
+  
+  public static void main(String[] args) {
+    String testPath = "/Users/dhowe/Documents/eclipse-workspace/RiTa/src/";
+    new PixelCompare(testPath).generateRefFile(FontVlwTest.class.getName());
   }
 }

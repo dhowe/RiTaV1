@@ -214,8 +214,10 @@ public class PageLayout implements Constants
     // check if leftover words can make a new line 
     if (RiText._withinBoundsY(currentY, leading, maxY, descent)) {
       
+      float yPos = firstLine ? currentY : currentY + (int)leading; // or round?
+
       // TODO: what if there is are tags in here -- is it possible?)
-      rlines.add(newRiTextLine(sb, pf, textRectangle.x+1, leading + currentY));
+      rlines.add(newRiTextLine(sb, pf, textRectangle.x+1, yPos));
     }
     else
       addToStack(sb.toString().split(SP)); // else save them for next time
