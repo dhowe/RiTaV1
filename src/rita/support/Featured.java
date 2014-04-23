@@ -32,7 +32,7 @@ public class Featured implements FeaturedIF, Constants
   /* (non-Javadoc)
    * @see rita.feature.FeaturedIF#hasFeature(java.lang.String)
    */
-  public boolean hasFeature(CharSequence name) {
+  public boolean hasFeature(String name) {
     if (name == null) return false;
     if (name.equals(ID)) return true;
     if (features == null) return false;
@@ -59,32 +59,30 @@ public class Featured implements FeaturedIF, Constants
   }
   
   /* (non-Javadoc)
-   * @see rita.feature.FeaturedIF#getFeature(java.lang.CharSequence)
+   * @see rita.feature.FeaturedIF#getFeature(java.lang.String)
    */
-  public String getFeature(CharSequence name) {
+  public String get(String name) {
     if (name == null) return null;
     if (features == null) return null;
     return (String)features.get(name.toString());
   }
   
+  public String getFeature(String name) {
+    return get(name);
+  }
+
+  
   /* (non-Javadoc)
-   * @see rita.feature.FeaturedIF#addFeature(java.lang.CharSequence, java.lang.CharSequence)
+   * @see rita.feature.FeaturedIF#addFeature(java.lang.String, java.lang.String)
    */
-  public void addFeature(CharSequence name, CharSequence value) { 
+  public void setFeature(String name, String value) { 
     this.features.put(name.toString(), value.toString());
   }
 
-  public static void addFeature(Map featureList, CharSequence name, CharSequence value) { 
-    if (featureList == null) {
-      featureList = new HashMap();
-    }
-    featureList.put(name.toString(), value.toString());
-  }
-  
   /* (non-Javadoc)
-   * @see rita.feature.FeaturedIF#removeFeature(java.lang.CharSequence)
+   * @see rita.feature.FeaturedIF#removeFeature(java.lang.String)
    */
-  public void removeFeature(CharSequence name) {
+  public void removeFeature(String name) {
     if (features == null) return;
     features.remove(name.toString());
   }
@@ -108,7 +106,7 @@ public class Featured implements FeaturedIF, Constants
         origVal += " "; 
       value = origVal + value;
     }
-    addFeature(name, value.toString());    
+    setFeature(name, value.toString());    
   }
   
   public static String asFeature(boolean val) {
