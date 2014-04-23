@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 import rita.support.*;
 
-public class RiString implements FeaturedIF, Constants
+public class RiString implements FeaturedIF, Constants 
 {
   static { RiTa.init(); }
   
@@ -176,14 +176,14 @@ public class RiString implements FeaturedIF, Constants
   {
     return cs != null && delegate.toLowerCase().equals(cs.toLowerCase()) ;
   }
-
+  
   public String get(String featureName)
   {
-    Map feats = features();
-    String s = (String) feats.get(featureName);
-    if (s == null && !feats.containsKey(featureName)) {
+    if (features == null) this.initFeatureMap();
+    String s = features.get(featureName);
+    if (s == null && !features.containsKey(featureName)) {
       this.analyze();
-      s = (String) feats.get(featureName);
+      s = features.get(featureName);
     }
     return s;
   }
@@ -191,8 +191,8 @@ public class RiString implements FeaturedIF, Constants
   public Map features()
   {
     if (features == null)
-      this.analyze();
-      //initFeatureMap(); // don't analyze by default
+      this.analyze(); 
+    
     return features;
   }
   
@@ -437,7 +437,7 @@ public class RiString implements FeaturedIF, Constants
         {
           String[] wordFeatures = feature.split(WORD_BOUNDARY);
           if (wordFeatures.length == fs.length) 
-             fs[i].addFeature(fkey, wordFeatures[i]);          
+             fs[i].set(fkey, wordFeatures[i]);          
         }
       }
     }
@@ -581,15 +581,23 @@ public class RiString implements FeaturedIF, Constants
   
   // For FeaturedIF
 
-  public String getFeature(CharSequence name)
+  public String getFeature(String name)
   {
     return (String) features().get(name);
   }
 
-  public void addFeature(CharSequence name, CharSequence value)
+  public RiString set(String name, String value)
   {
-    features().put(name, value);
+    if (features == null)
+      initFeatureMap();
+    features.put(name, value); // yuck
+    return this;
   }
+
+  public void setFeature(String name, String value) {
+    this.set(name, value);
+  }
+
 
   public RiString insertChar(int idx, char c)
   {
@@ -612,7 +620,7 @@ public class RiString implements FeaturedIF, Constants
     return features().keySet();
   }
 
-  public boolean hasFeature(CharSequence name)
+  public boolean hasFeature(String name)
   {
     return features().containsKey(name);
   }
