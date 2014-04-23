@@ -2,10 +2,9 @@ package rita.render.test;
 
 import processing.core.PApplet;
 import rita.*;
+import rita.test.PixelCompare;
 
 public class DefaultFont extends PApplet {
-
-
 
 	public void setup() {
 
@@ -37,4 +36,9 @@ public class DefaultFont extends PApplet {
 		RiText.drawAll();
 	}
 
+	public static void main(String[] args)
+  {
+    String testPath = "/Users/dhowe/Documents/eclipse-workspace/RiTa/src/";
+    new PixelCompare(testPath).generateRefFile(DefaultFont.class.getName());
+  }
 }

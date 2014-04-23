@@ -1,8 +1,8 @@
 package rita.render.test;
 
 import processing.core.PApplet;
-import processing.core.PFont;
-import rita.*;
+import rita.RiText;
+import rita.test.PixelCompare;
 
 public class WordsLettersLines extends PApplet {
 
@@ -12,38 +12,25 @@ public class WordsLettersLines extends PApplet {
 	RiText line1, line2[], line3[];
 
 	public void setup() {
+	  
 		size(400, 200);
 
-		RiText.defaultFont("Georgia", 32);
+    RiText.defaultFont("Georgia", 32);
     RiText.defaults.showBounds = true;
-
-		line1 = new RiText(this, txt, 64, 100); // lines
-
-		line2 = line1.splitWords(); // words
-
-		line1.y = 150;
-		line3 = line1.splitLetters(); // letters
-
-		setColors();
+  
+    line1 = new RiText(this, txt, 64, 150); // a line
+    line2 = RiText.createWords(this, txt, 64, 40); // words
+    line3 = RiText.createLetters(this, txt, 64, 82); // letters
 	}
 
 	public void draw() {
 
 		background(255);
-
-		line1.y = 50 + frameCount % 2; // wiggle
-		line2[line2.length - 1].y = 100 + frameCount % 4;
-		line3[line3.length - 2].y = 150 + frameCount % 7;
-
 		RiText.drawAll();
 	}
-
-	public void setColors() {
-
-		for (int i = 0; i < line2.length; i++)
-			line2[i].fill(50 + random(155), 50 + random(155), 0);
-
-		for (int i = 0; i < line3.length; i++)
-			line3[i].fill(50 + random(155), 50 + random(155), 0);
-	}
+	
+	public static void main(String[] args) {
+    String testPath = "/Users/dhowe/Documents/eclipse-workspace/RiTa/src/";
+    new PixelCompare(testPath).generateRefFile(WordsLettersLines.class.getName());
+  }
 }

@@ -2,6 +2,7 @@ package rita.render.test;
 
 import processing.core.PApplet;
 import rita.RiText;
+import rita.test.PixelCompare;
 
 public class TextLayout extends PApplet
 {
@@ -26,4 +27,8 @@ public class TextLayout extends PApplet
     RiText.drawAll();
   }
 
+  public static void main(String[] args) {
+    String testPath = "/Users/dhowe/Documents/eclipse-workspace/RiTa/src/";
+    new PixelCompare(testPath).generateRefFile(TextLayout.class.getName());
+  }
 }
