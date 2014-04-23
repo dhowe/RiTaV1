@@ -16,29 +16,29 @@ import processing.core.PImage;
 import rita.RiTa;
 import rita.RiTaException;
 
-public class PAppletTester
+public class PixelCompare
 {
   public static String refDirName = "imageRefs/";
   public static String tmpPath = "/tmp/"+refDirName;
   
   File refFile;
   PApplet applet;
-  
-  PImage expected, actual, diff;
   String testPath;
   int sketchWidth, sketchHeight;
+  PImage expected, actual, diff;
   
   public static void main(String[] args)
   {
     String testPath = "/Users/dhowe/Documents/eclipse-workspace/RiTa/src/";
-    PAppletTester pat = new PAppletTester(testPath);
+    
+    PixelCompare pat = new PixelCompare(testPath);
 
     String[] testNames = { "rita.render.test.Simplest", /*"rita.render.test.BoundingBoxes"*/ };
     for (int i = 0; i < testNames.length; i++)
     {
       //pat.generateRefFile(testNames[i]);
-      assertTrue("Image mismatch: "+testNames[i], pat.compare(testNames[i]));
-      //pat.visualDiff(testNames[i]);
+      //assertTrue("Image mismatch: "+testNames[i], pat.compare(testNames[i]));
+      pat.visualDiff(testNames[i]);
     }
   }
       
@@ -52,7 +52,7 @@ public class PAppletTester
     expected = applet.loadImage(refFile.getAbsolutePath());
     actual = applet.loadImage(actualFile.getAbsolutePath());
     diff = loadImageDiff(refFile, actualFile);
-    System.out.println((expected+"\n"+actual+"\n"+diff));
+    //System.out.println((expected+"\n"+actual+"\n"+diff));
     sketchWidth = applet.width; 
     sketchHeight = applet.height;
     applet.frame.setVisible(false);
@@ -60,14 +60,14 @@ public class PAppletTester
     PApplet.runSketch(new String[]{ viewer.getClass().getName() }, viewer);
   }
   
-  public DiffView createDiffView() {
+  protected DiffView createDiffView() {
     
     DiffView instance = null;
     try
     {
-      Class<PAppletTester.DiffView> clazz = PAppletTester.DiffView.class;
+      Class<PixelCompare.DiffView> clazz = PixelCompare.DiffView.class;
 
-      Constructor<PAppletTester.DiffView> ctor = clazz.getConstructor(getClass());
+      Constructor<PixelCompare.DiffView> ctor = clazz.getConstructor(getClass());
       instance = ctor.newInstance(this);
     }
     catch (Exception e)
@@ -144,36 +144,27 @@ public class PAppletTester
     assertTrue("Unable to write refImage!", !refFile.exists());
   }
   
-  private void writeRefFile(String testName)
-  {
-    setReferenceFile(testName);
-    this.applet = startApplet(testName);
-    String epath = refFile.getAbsolutePath();
-    applet.saveFrame(epath);
-    applet.image(applet.loadImage(epath), 0, 0);
-  }
-
   private boolean existsRefImage()
   {
     return (refFile != null && refFile.exists());
   }
 
-  public PAppletTester(String testPath)
+  public PixelCompare(String testPath)
   {
     this.testPath = testPath;
   }
   
-  public String getShortName(String testClass) {
+  private String getShortName(String testClass) {
     
     return testClass.substring(testClass.lastIndexOf('.')+1);
   }
   
-  public String getPackage(String testClass) {
+  private String getPackage(String testClass) {
 
     return testClass.substring(0,testClass.lastIndexOf('.'));
   }
   
-  public void setReferenceFile(String testClass) {
+  private void setReferenceFile(String testClass) {
     
     String testName = getShortName(testClass);
     String testPkg = getPackage(testClass);
@@ -181,21 +172,20 @@ public class PAppletTester
     refFile = new File(epath + testName + ".png");
   }
 
-  PApplet startApplet(String testClass)
+  private PApplet startApplet(String testClass)
   {
     return startApplet(testClass, false);
   }
   
-  PApplet startApplet(String testClass, boolean visible)
+  private PApplet startApplet(String testClass, boolean visible)
   {
     String testName = getShortName(testClass);
     String testPkg = getPackage(testClass);
-    PApplet papp = startApplet(testPkg, testName);
-    papp.frame.setVisible(visible);
+    PApplet papp = startApplet(testPkg, testName, visible);
     return papp;
   }
     
-  PApplet startApplet(String testPkg, String testName)
+  private PApplet startApplet(String testPkg, String testName, boolean visible)
   {
     PApplet testApplet = null;
     try
@@ -203,6 +193,7 @@ public class PAppletTester
       Class clss = Class.forName(testPkg+"."+testName);
       testApplet = (PApplet) clss.newInstance();
       PApplet.runSketch(new String[] { testApplet.getClass().getName() }, testApplet);
+      testApplet.frame.setVisible(visible);
     }
     catch (Exception e)
     {
@@ -211,25 +202,6 @@ public class PAppletTester
     
     return testApplet;
   }
-
-  private boolean verifyRefImage(File exp)
-  {
-    System.out.print("[INFO] Checking for ref-image: " + exp.getAbsolutePath());
-    
-    if (!exp.exists()) {
-      System.out.println("\n[WARN] No ref image! Writing " + exp.getAbsolutePath());
-
-      applet.saveFrame(exp.getAbsolutePath());
-      applet.noLoop();
-      applet.image(applet.loadImage(exp.getAbsolutePath()),0,0);
-      return false;
-    }
-
-    System.out.println(" ...OK");
-    
-    return true;
-  }
-
 
   static PImage loadImageDiff(File expectedFile, File resultFile)
   {
@@ -371,5 +343,10 @@ public class PAppletTester
     // +" first different pixel at: " + x + "," + y, bad==0);
 
     return bad == 0;
+  }
+
+  public void assertEqual(String testName)
+  {
+    assertTrue("Image mismatch: "+testName, compare(testName));
   }
 }
