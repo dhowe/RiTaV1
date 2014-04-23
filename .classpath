@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="rita/render/test/ReplaceableWriting.java|rita/render/test/PageLayoutTest.java|rita/jslint14java/|rita/test/sketches/RiLinter.java" kind="src" path="src"/>
+	<classpathentry excluding="rita/render/test/ReplaceableWriting.java|rita/render/test/PageLayoutTest.java|rita/jslint14java/|rita/test/sketches/RiLinter.java|rita/render/test/imageRefs/" kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="libs/jslint4java-2.0.5.jar"/>
 	<classpathentry kind="lib" path="libs/json.jar"/>
 	<classpathentry kind="lib" path="libs/junit.jar"/>
 	<classpathentry kind="lib" path="libs/edu.mit.jwi_2.3.3.jar" sourcepath="jwi-src.zip"/>
 	<classpathentry kind="lib" path="libs/jsoup-1.7.3.jar" sourcepath="jsoup-1.7.3-sources.jar"/>
-	<classpathentry kind="lib" path="libs/core.jar"/>
+	<classpathentry kind="lib" path="libs/core.jar" sourcepath="/Users/dhowe/code/processing/core/src"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
