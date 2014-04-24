@@ -1,6 +1,7 @@
 package rita.support;
 
 import processing.core.PFont;
+import rita.RiTa;
 
 public class Defaults implements Constants 
 {
@@ -14,7 +15,8 @@ public class Defaults implements Constants
   
   public static float fontSize = DEFAULT_FONT_SIZE;
   public static float leadingFactor = 1.2f;
-  public static String fontFamily= "Times New Roman";
+  
+  public static String fontFamily = (RiTa.env() == RiTa.ANDROID) ? "Serif" : "Times New Roman";
   
   public static float paragraphIndent = 30;
   public static float paragraphLeading =  0;

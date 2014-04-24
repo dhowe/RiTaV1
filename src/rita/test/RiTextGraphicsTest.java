@@ -28,8 +28,8 @@ public class RiTextGraphicsTest
   {
     String testName = "rita.render.test.Simplest";
     PixelCompare pc = new PixelCompare(PATH);
-    pc.generateRefFile(testName);
-    //pc.visualDiff("rita.render.test.Simplest");
+    //pc.generateRefFile(testName);
+    pc.visualDiff(testName);
   }
 
 }
