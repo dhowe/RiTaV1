@@ -26,7 +26,7 @@ public class CreateLines extends PApplet {
 	public static void main(String[] args)
   {
 	  String testPath = "/Users/dhowe/Documents/eclipse-workspace/RiTa/src/";
-    new PixelCompare(testPath).generateRefFile(CreateLines.class.getName());
+    new PixelCompare(testPath).generateRefImage(CreateLines.class.getName());
   }
 
 }

@@ -19,16 +19,14 @@ public class TextLayout extends PApplet
       
     // Start at (40, 60) & break 'poem' into  
     // lines, each no more than 220 pix wide
-    RiText.createLines(this, poem, 40, 60, 220, 320);      
-  }
+    RiText.createLines(this, poem, 40, 60, 220);      
 
-  public void draw() {
     background(255);
     RiText.drawAll();
   }
 
   public static void main(String[] args) {
     String testPath = "/Users/dhowe/Documents/eclipse-workspace/RiTa/src/";
-    new PixelCompare(testPath).generateRefFile(TextLayout.class.getName());
+    new PixelCompare(testPath).generateRefImage(TextLayout.class.getName());
   }
 }

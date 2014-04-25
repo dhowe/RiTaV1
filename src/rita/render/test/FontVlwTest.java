@@ -42,6 +42,6 @@ public class FontVlwTest extends processing.core.PApplet
   
   public static void main(String[] args) {
     String testPath = "/Users/dhowe/Documents/eclipse-workspace/RiTa/src/";
-    new PixelCompare(testPath).generateRefFile(FontVlwTest.class.getName());
+    new PixelCompare(testPath).generateRefImage(FontVlwTest.class.getName());
   }
 }

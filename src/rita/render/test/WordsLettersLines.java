@@ -21,9 +21,6 @@ public class WordsLettersLines extends PApplet {
     line1 = new RiText(this, txt, 64, 150); // a line
     line2 = RiText.createWords(this, txt, 64, 40); // words
     line3 = RiText.createLetters(this, txt, 64, 82); // letters
-	}
-
-	public void draw() {
 
 		background(255);
 		RiText.drawAll();
@@ -31,6 +28,6 @@ public class WordsLettersLines extends PApplet {
 	
 	public static void main(String[] args) {
     String testPath = "/Users/dhowe/Documents/eclipse-workspace/RiTa/src/";
-    new PixelCompare(testPath).generateRefFile(WordsLettersLines.class.getName());
+    new PixelCompare(testPath).generateRefImage(WordsLettersLines.class.getName());
   }
 }

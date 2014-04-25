@@ -21,7 +21,7 @@
    {
       "methodName":"RiTa.start()",
       "example":"RiTa.start(this);",
-      "description":"Initializes the RiTa library and associated renderers for the current context",
+      "description":"Initializes the RiTa library for rendering visual output",
       "syntax":"RiTa.start(context)",
       "parameters":[
          {
@@ -32,8 +32,8 @@
       "returns":[
       ],
       "related":"",
-      "platform":"Java-only",
-	  "note":"Only required when using RiTa's visual components (RiText, etc), or loading external resources from with the Processing IDE"
+      "platform":"Java-only (has no effect in JS)",
+	  "note":"Only required when using RiTa's Java renderer (RiText, etc), or loading external resources from with the Processing IDE"
    },
    {
       "methodName":"RiTa.isAbbreviation()",

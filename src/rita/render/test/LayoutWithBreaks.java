@@ -44,6 +44,6 @@ public class LayoutWithBreaks extends PApplet {
 	 public static void main(String[] args)
   {
     String testPath = "/Users/dhowe/Documents/eclipse-workspace/RiTa/src/";
-    new PixelCompare(testPath).generateRefFile(LayoutWithBreaks.class.getName());
+    new PixelCompare(testPath).generateRefImage(LayoutWithBreaks.class.getName());
   }
 }

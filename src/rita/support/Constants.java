@@ -2,10 +2,6 @@ package rita.support;
 
 public interface Constants extends EnglishConstants
 {
-  // ====== RiText ============= 
-
-  int LEFT = 37, UP = 38, RIGHT = 39, DOWN = 40,  CENTER = 3;
-
   // ==== RiTaEvent ============ 
   
   enum EventType {  

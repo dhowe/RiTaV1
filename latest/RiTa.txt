@@ -12,6 +12,6 @@ paragraph=RiTa is a library for experiments in natural language and generative w
  
 version=1058
 
-prettyVersion=1.0.58
+prettyVersion=1.0.581
 
 imports=rita
