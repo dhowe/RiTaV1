@@ -10,18 +10,19 @@ public class BoundingBoxes extends PApplet {
 	  
 		size(400, 400);
 
-    RiText.defaults.showBounds = true;
-		RiText.defaultFont("Times", 64);
+		RiTa.start(this);
 		
-		RiText rt = new RiText(this, "Left", 200,  100);
-		new RiText(this, "Center", 200, 200).align(CENTER);
-		new RiText(this, "Right", 200, 300).align(RIGHT);
+    RiText.defaults.showBounds = true;
+    RiText.defaults.fontSize = 64;
+		
+		new RiText("Left", 200,  100);
+		new RiText("Center", 200, 200).align(CENTER);
+		new RiText("Right", 200, 300).align(RIGHT);
 
 		background(255);
 		line(200, 0, 200, 400);
+		
 		RiText.drawAll();
-		
-		
 	}
 
 

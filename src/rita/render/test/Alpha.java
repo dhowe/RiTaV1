@@ -1,31 +1,30 @@
 package rita.render.test;
 
 import processing.core.PApplet;
-import rita.*;
-import rita.support.RiTimer;
+import rita.RiText;
+import rita.test.PixelCompare;
+import rita.test.RiTextGraphicsTest;
 
-public class Alpha extends PApplet {
-  
-	public void setup() {
-	  
-		size(400, 400);
+public class Alpha extends PApplet
+{
+  public void setup()
+  {
 
-  
-		RiText.defaultFont("Times", 64);
-		
-		RiText rt = new RiText(this, "Alpha 50", 100,  100);
-		rt.alpha(50);
-		System.out.println(rt.alpha());
-		new RiText(this, "Alpha 00" , 100, 200).alpha(0);
-		
-		new RiText(this, "Alpha 100" , 100, 300).alpha(100);
+    size(400, 400);
+    background(255);
 
-		background(255);
+    RiText.defaultFont("Times", 64);
 
-		RiText.drawAll();
-		
-		
-	}
+    for (int i = 0; i < 10; i++)
+      new RiText(this, "alpha " + (i * 10), 100, 
+          (i + 1) * 38).alpha(i * 10).draw();
+  }
 
+  public static void main(String[] args)
+  {
+    System.out.println(RiTextGraphicsTest.PATH);
+    new PixelCompare(RiTextGraphicsTest.PATH)
+      .generateRefImage(Alpha.class.getName());
+  }
 
 }

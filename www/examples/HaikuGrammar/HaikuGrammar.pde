@@ -25,7 +25,7 @@ void draw()
     rts[k].draw();
 }
 
-void mouseClicked()
+void mouseReleased()
 {
   String result = grammar.expand();
   String[] lines = result.split("%");

@@ -92,6 +92,7 @@
 				</fileset>
 			</batchtest-->
 	
+			<test name="rita.test.RiTextGraphicsTest" outfile="reports/rita.test.RiTextGraphicsTest"></test>
 			<test name="rita.test.RiGrammarTest" outfile="reports/rita.test.RiGrammarTest"></test>
 			<test name="rita.test.RiLexiconTest" outfile="reports/rita.test.RiLexiconTest"></test>
 			<test name="rita.test.RiMarkovTest"  outfile="reports/rita.test.RiMarkovTest"></test>
@@ -226,7 +227,7 @@ ${line}
 		<echo>${line}</echo>
 	</target>
 
-	<target name="library.run" depends="library.init">
+	<target name="make.java" depends="library.init">
 		<echo message="building library ..." />
 		<antcall target="generate.structure">
 			<param name="folder" value="library"/>
@@ -594,7 +595,7 @@ ${line}
 	  	  			flags="g" />
 	</target>
 
-	<target name="clean" depends="library.run">
+	<target name="clean" depends="make.java">
 		<!--delete dir="${project.bin}"-->
 		<delete dir="${project.tmp}"/>
 		<echo>

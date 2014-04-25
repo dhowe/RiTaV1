@@ -38,7 +38,7 @@ public class SplitText extends PApplet {
 	public static void main(String[] args)
   {
     String testPath = "/Users/dhowe/Documents/eclipse-workspace/RiTa/src/";
-    new PixelCompare(testPath).generateRefFile(SplitText.class.getName());
+    new PixelCompare(testPath).generateRefImage(SplitText.class.getName());
   }
 
 }

@@ -13,104 +13,24 @@ import javax.imageio.ImageIO;
 
 import processing.core.PApplet;
 import processing.core.PImage;
-import rita.RiTa;
-import rita.RiTaException;
+import rita.*;
+import rita.render.Defaults;
 
 public class PixelCompare
 {
   public static String refDirName = "imageRefs/";
-  public static String tmpPath = "/tmp/"+refDirName;
+  public static String tmpPath = "/tmp/" + refDirName;
   
   File refFile;
   PApplet applet;
   String testPath;
   int sketchWidth, sketchHeight;
   PImage expected, actual, diff;
-  
-  public static void main(String[] args)
+    
+  public PixelCompare(String testPath)
   {
-    String testPath = "/Users/dhowe/Documents/eclipse-workspace/RiTa/src/";
-    
-    PixelCompare pat = new PixelCompare(testPath);
-
-    String[] testNames = { "rita.render.test.Simplest", /*"rita.render.test.BoundingBoxes"*/ };
-    for (int i = 0; i < testNames.length; i++)
-    {
-      //pat.generateRefFile(testNames[i]);
-      //assertTrue("Image mismatch: "+testNames[i], pat.compare(testNames[i]));
-      pat.visualDiff(testNames[i]);
-    }
-  }
-      
-  public void visualDiff(String testClass)
-  {
-    setReferenceFile(testClass);
-    assertTrue("No ref image at " + refFile.getAbsolutePath(), existsRefImage());
-    applet = startApplet(testClass);
-    File actualFile = new File(tmpPath + testClass + ".png");
-    applet.saveFrame(actualFile.getAbsolutePath());
-    expected = applet.loadImage(refFile.getAbsolutePath());
-    actual = applet.loadImage(actualFile.getAbsolutePath());
-    diff = loadImageDiff(refFile, actualFile);
-    //System.out.println((expected+"\n"+actual+"\n"+diff));
-    sketchWidth = applet.width; 
-    sketchHeight = applet.height;
-    applet.frame.setVisible(false);
-    DiffView viewer = createDiffView();
-    PApplet.runSketch(new String[]{ viewer.getClass().getName() }, viewer);
-  }
-  
-  protected DiffView createDiffView() {
-    
-    DiffView instance = null;
-    try
-    {
-      Class<PixelCompare.DiffView> clazz = PixelCompare.DiffView.class;
-
-      Constructor<PixelCompare.DiffView> ctor = clazz.getConstructor(getClass());
-      instance = ctor.newInstance(this);
-    }
-    catch (Exception e)
-    {
-      e.printStackTrace();
-    }
-    
-    return instance;
-  }
-  
-  class DiffView extends PApplet {
-    
-    public DiffView() {}
-    
-    public void setup()
-    {
-      super.setup();
-      size(sketchWidth*3+20, sketchHeight+10);
-    }
-    
-    public void draw() {
-
-      background(200);
-  
-      image(expected, 5, 5);
-      image(actual,     sketchWidth+10, 5);
-      image(expected, 2*sketchWidth+15, 5);
-      image(diff,     2*sketchWidth+15, 5);
-      
-      textInRect("expected", 5, 5);
-      textInRect("received",sketchWidth+10, 5);
-      textInRect("difference",2*sketchWidth+15, 5);   
-    }
-  
-    void textInRect(String t, float x, float y)
-    {
-      noStroke();
-      textSize(8);
-      fill(230);
-      rect(x, y, 50,10);
-      fill(0);
-      text(t, x+5, y+7);
-    }   
+    RiText.defaults = new Defaults();
+    this.testPath = testPath;
   }
 
   public boolean compare(String testClass) {
@@ -129,8 +49,7 @@ public class PixelCompare
     return compareImages(refFile, actualFile, threshold);
   }
   
-  
-  public void generateRefFile(String testName)
+  public void generateRefImage(String testName)
   {
     setReferenceFile(testName);
     final String epath = refFile.getAbsolutePath();
@@ -152,11 +71,6 @@ public class PixelCompare
   private boolean existsRefImage()
   {
     return (refFile != null && refFile.exists());
-  }
-
-  public PixelCompare(String testPath)
-  {
-    this.testPath = testPath;
   }
   
   private String getShortName(String testClass) {
@@ -324,17 +238,23 @@ public class PixelCompare
       return compareImages(expectFile, actualFile, 0);
   }
     
-  boolean compareImages(File expectFile, File actualFile, float threshold)
+  @SuppressWarnings("hiding")
+  boolean compareImages(File refFile, File genFile, float threshold)
   {
     //System.out.println("Comparing:\n  " + expectFile + "\nvs.\n  " + actualFile);
 
-    BufferedImage expectedImg = loadBImage(expectFile);
-    BufferedImage actualImg = loadBImage(actualFile);
+    BufferedImage refImg = loadBImage(refFile);
+    BufferedImage genImg = loadBImage(genFile);
     
-    assertTrue("Images are not the same size", actualImg.getWidth() == expectedImg.getWidth()
-        && actualImg.getHeight() == expectedImg.getHeight());
+    assertTrue("Reference image is null", refImg != null);
+    assertTrue("Generated image is null", genImg != null);
     
-    int diffpix = countDiff(expectedImg, actualImg, threshold);
+    assertTrue("Images are not the same size, Reference: " + 
+        refImg.getWidth() + "," + refImg.getHeight() + " Generated: " 
+        + genImg.getWidth() + "," + genImg.getHeight(), 
+        genImg.getWidth() == refImg.getWidth() && genImg.getHeight() == refImg.getHeight());
+    
+    int diffpix = countDiff(refImg, genImg, threshold);
     
     return (diffpix == 0);
   }
@@ -346,6 +266,87 @@ public class PixelCompare
     
   public void assertEqual(String testName, float threshold)
   {
-    assertTrue("Image mismatch: "+testName, compare(testName));
+    assertTrue("Image mismatch: "+testName, compare(testName, threshold));
   }
+  
+        
+  public void visualDiff(String testClass)
+  {
+    setReferenceFile(testClass);
+    assertTrue("No ref image at " + refFile.getAbsolutePath(), existsRefImage());
+    applet = startApplet(testClass);
+    File actualFile = new File(tmpPath + testClass + ".png");
+    applet.saveFrame(actualFile.getAbsolutePath());
+    expected = applet.loadImage(refFile.getAbsolutePath());
+    actual = applet.loadImage(actualFile.getAbsolutePath());
+    diff = loadImageDiff(refFile, actualFile);
+    //System.out.println((expected+"\n"+actual+"\n"+diff));
+    sketchWidth = applet.width; 
+    sketchHeight = applet.height;
+    applet.frame.setVisible(false);
+    DiffView viewer = createDiffView();
+    PApplet.runSketch(new String[]{ viewer.getClass().getName() }, viewer);
+  }
+  
+  protected DiffView createDiffView() {
+    
+    DiffView instance = null;
+    try
+    {
+      Class<PixelCompare.DiffView> clazz = PixelCompare.DiffView.class;
+
+      Constructor<PixelCompare.DiffView> ctor = clazz.getConstructor(getClass());
+      instance = ctor.newInstance(this);
+    }
+    catch (Exception e)
+    {
+      e.printStackTrace();
+    }
+    
+    return instance;
+  }
+  
+  class DiffView extends PApplet {
+    
+    public DiffView() {}
+    
+    public void setup()
+    {
+      super.setup();
+      size(sketchWidth*3+20, sketchHeight+10);
+    }
+    
+    public void draw() {
+
+      background(200);
+  
+      image(expected, 5, 5);
+      image(actual,     sketchWidth+10, 5);
+      image(expected, 2*sketchWidth+15, 5);
+      image(diff,     2*sketchWidth+15, 5);
+      
+      textInRect("expected", 5, 5);
+      textInRect("received",sketchWidth+10, 5);
+      textInRect("difference",2*sketchWidth+15, 5);   
+    }
+  
+    void textInRect(String t, float x, float y)
+    {
+      noStroke();
+      textSize(8);
+      fill(230);
+      rect(x, y, 50,10);
+      fill(0);
+      text(t, x+5, y+7);
+    }   
+  }
+  
+  public static void main(String[] args)
+  {
+    String testPath = "/Users/dhowe/Documents/eclipse-workspace/RiTa/src/";
+    
+    PixelCompare pat = new PixelCompare(testPath);
+    pat.visualDiff("rita.render.test.Simplest");
+  }
+
 }

@@ -58,13 +58,9 @@ public class BoundingBoxFeatures extends PApplet {
 		float[] i3 = rt5.center();
 		new RiText(this, "X: "+i3[0] +"Y: " +i3[1], i3[0], i3[1]).align(CENTER).fontSize(10);
 		
-		
 		background(255);
 		line(200, 0, 200, 800);
-		RiText.drawAll();
-		
-		
+		RiText.drawAll();	
 	}
-
 
 }

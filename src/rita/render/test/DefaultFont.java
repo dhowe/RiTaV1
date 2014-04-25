@@ -39,6 +39,6 @@ public class DefaultFont extends PApplet {
 	public static void main(String[] args)
   {
     String testPath = "/Users/dhowe/Documents/eclipse-workspace/RiTa/src/";
-    new PixelCompare(testPath).generateRefFile(DefaultFont.class.getName());
+    new PixelCompare(testPath).generateRefImage(DefaultFont.class.getName());
   }
 }
