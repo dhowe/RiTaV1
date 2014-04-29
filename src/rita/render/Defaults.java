@@ -10,7 +10,7 @@ public class Defaults implements Constants
   public static boolean mouseDraggable = false;
 
   public static float[] fill = { 0, 0, 0, 255 };
-  public static int alignment = RiText.LEFT;
+  public static int alignment = RiTa.LEFT;
   public static int motionType = Constants.LINEAR;
   public static float scaleX = 1, scaleY = 1, scaleZ = 1;
   public static float rotateX = 0, rotateY = 0, rotateZ = 0;
@@ -37,7 +37,7 @@ public class Defaults implements Constants
     mouseDraggable = false;
 
     fill = new float[] { 0, 0, 0, 255 };
-    alignment = RiText.LEFT;
+    alignment = RiTa.LEFT;
     motionType = Constants.LINEAR;
     
     scaleX = 1;

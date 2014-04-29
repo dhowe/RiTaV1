@@ -355,14 +355,14 @@ public class PageLayout implements Constants
   public void header(String headerText)
   {
     this.header = new RiText(_pApplet, headerText, textRectangle.x + textRectangle.w / 2f, textRectangle.y - 25);
-    header.align(RiText.CENTER);
+    header.align(RiTa.CENTER);
   }
 
   public void footer(String footerText)
   {
     this.footer = new RiText(_pApplet, footerText, 
         textRectangle.x + textRectangle.w / 2f, textRectangle.y + textRectangle.h + RiTa.PAGE_NO_OFFSET);
-    footer.align(RiText.CENTER);
+    footer.align(RiTa.CENTER);
   }
 
   public RiTextIF[] getLines()
