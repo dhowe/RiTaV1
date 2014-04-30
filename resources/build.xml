@@ -50,7 +50,7 @@
 	<property name="license.destination" location="${project.dist.version}/RiTa/LICENSE.txt"/>
 	<property name="processing.library" location="${user.home}/Documents/Processing/libraries/RiTa/library"/>
 
-	<target name="run.unit.tests" depends="init">
+	<target name="run.unit.tests">
 		<antcall target="run.java.tests" />
 		<antcall target="run.node.tests" />
 	</target>

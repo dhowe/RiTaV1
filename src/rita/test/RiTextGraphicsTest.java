@@ -4,8 +4,7 @@ import org.junit.After;
 import org.junit.Test;
 
 import rita.RiText;
-import rita.render.test.Alpha;
-import rita.render.test.BoundingBoxes;
+import rita.render.test.*;
 
 public class RiTextGraphicsTest // TODO: how to run these on JS tests?
 {
@@ -105,7 +104,7 @@ public class RiTextGraphicsTest // TODO: how to run these on JS tests?
   {
     PixelCompare pc = new PixelCompare(PATH);
     //pc.generateRefImage(Alpha.class.getName());
-    pc.assertEqual(Alpha.class.getName());
+    pc.visualDiff(Simplest.class.getName());
   }
 
 }
