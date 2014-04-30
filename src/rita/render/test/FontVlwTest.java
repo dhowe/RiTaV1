@@ -9,7 +9,7 @@ public class FontVlwTest extends processing.core.PApplet
   RiText rt;
   public void setup()
   {
-    size(400,400);
+    size(400,600);
 
     RiText.defaults.alignment = CENTER;
     
@@ -37,6 +37,15 @@ public class FontVlwTest extends processing.core.PApplet
     rt = new RiText(this, "Zig-Vlw", 200, 370);
     rt.font("Ziggurat32.vlw");
     
+    rt = new RiText(this, "Zig-Vlw", 200, 450);
+    
+    text(rt.fontSize(),200,400);
+    
+    rt.font("Ziggurat32.vlw");
+    rt.fontSize(50);
+    
+    text(rt.fontSize(),200,480);
+
     RiText.drawAll();
   }
   
