@@ -8,7 +8,7 @@ public class BoundingBoxFeatures extends PApplet {
   
 	public void setup() {
 	  
-		size(400, 800);
+		size(400, 900);
 
     RiText.defaults.showBounds = true;
 		RiText.defaultFont("Times", 20);
@@ -47,6 +47,8 @@ public class BoundingBoxFeatures extends PApplet {
 		System.out.println(new RiText(this, "Bounding Box Stroke", 200, 680).boundingBoxStroke(c2).boundingBoxWeight(-50).boundingBoxWeight());
 */
 
+		//center()
+		
 		RiText rt3 = new RiText(this, "Grayscale Fill & Alpha", 200,  600).align(LEFT);// TODO weird x-offset caused X position incorrect
 		float[] i = rt3.center();
 		new RiText(this, "X: "+i[0] +"Y: " +i[1], i[0], i[1]).align(CENTER).fontSize(10);
@@ -58,8 +60,16 @@ public class BoundingBoxFeatures extends PApplet {
 		float[] i3 = rt5.center();
 		new RiText(this, "X: "+i3[0] +"Y: " +i3[1], i3[0], i3[1]).align(CENTER).fontSize(10);
 		
+		
+		if(rt3.contains(205,601)){
+			new RiText(this, "contains true", 200,  800);
+		}
+		if(rt3.contains(1,1)){ //should not display
+			new RiText(this, "contains false", 200,  800);
+		}
+
 		background(255);
-		line(200, 0, 200, 800);
+		line(200, 0, 200, 900);
 		RiText.drawAll();	
 	}
 
