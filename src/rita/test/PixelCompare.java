@@ -29,7 +29,7 @@ public class PixelCompare
     
   public PixelCompare(String testPath)
   {
-    RiText.defaults = new Defaults();
+    RiText.resetDefaults();
     this.testPath = testPath;
   }
 
@@ -37,16 +37,22 @@ public class PixelCompare
     return compare(testClass, 0);
   }
 
-  public boolean compare(String testClass, float threshold) 
+  public boolean compare(final String testClass, final float threshold) 
   {
     setReferenceFile(testClass);
     assertTrue("No ref image at " + refFile.getAbsolutePath(), existsRefImage());
+    File actualFile = runSketch(testClass);
+    return compareImages(refFile, actualFile, threshold);
+  }
+
+  private File runSketch(String testClass)
+  {
     applet = startApplet(testClass);
     File actualFile = new File(tmpPath + testClass + ".png");
     applet.saveFrame(actualFile.getAbsolutePath());
     assertTrue("Unable to write tmp image at " + refFile.getAbsolutePath(), actualFile.exists());
     applet.noLoop();
-    return compareImages(refFile, actualFile, threshold);
+    return actualFile;
   }
   
   public void generateRefImage(String testName)
@@ -251,7 +257,7 @@ public class PixelCompare
     
     assertTrue("Images are not the same size, Reference: " + 
         refImg.getWidth() + "," + refImg.getHeight() + " Generated: " 
-        + genImg.getWidth() + "," + genImg.getHeight(), 
+        + genImg.getWidth() + "," + genImg.getHeight() + " ["+genFile.getName()+"]", 
         genImg.getWidth() == refImg.getWidth() && genImg.getHeight() == refImg.getHeight());
     
     int diffpix = countDiff(refImg, genImg, threshold);
@@ -264,11 +270,10 @@ public class PixelCompare
     this.assertEqual(testName, 0);
   }
     
-  public void assertEqual(String testName, float threshold)
+  public void assertEqual(final String testName, final float threshold)
   {
-    assertTrue("Image mismatch: "+testName, compare(testName, threshold));
+    assertTrue("Image mismatch: "+testName,  compare(testName, threshold));
   }
-  
         
   public void visualDiff(String testClass)
   {

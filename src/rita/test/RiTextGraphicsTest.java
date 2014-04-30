@@ -22,62 +22,6 @@ public class RiTextGraphicsTest // TODO: how to run these on JS tests?
   }
 
   @Test
-  public void testAlpha()
-  {
-    PixelCompare pc = new PixelCompare(PATH);
-    pc.assertEqual(Alpha.class.getName()); 
-    // TODO: (Kenny) better to specify class names like this from now on 
-  }
-  
-  @Test
-  public void testCreateLines()
-  {
-    String testName = "rita.render.test.CreateLines";
-    PixelCompare pc = new PixelCompare(PATH);
-    pc.assertEqual(testName);
-  }
-    
-  @Test
-  public void testBoundingBoxes()
-  {
-    String testName = "rita.render.test.BoundingBoxes";
-    PixelCompare pc = new PixelCompare(PATH);
-    pc.assertEqual(testName);
-  }
-
-  @Test
-  public void testLayoutWithBreaks()
-  {
-    String testName = "rita.render.test.LayoutWithBreaks";
-    PixelCompare pc = new PixelCompare(PATH);
-    pc.assertEqual(testName);
-  }
-
-  @Test
-  public void testSimplest()
-  {
-    String testName = "rita.render.test.Simplest";
-    PixelCompare pc = new PixelCompare(PATH);
-    pc.assertEqual(testName);
-  }
-
-  @Test
-  public void testDefaultFont()
-  {
-    String testName = "rita.render.test.DefaultFont";
-    PixelCompare pc = new PixelCompare(PATH);
-    pc.assertEqual(testName);
-  }
-
-  @Test
-  public void testFontVlwTest()
-  {
-    String testName = "rita.render.test.FontVlwTest";
-    PixelCompare pc = new PixelCompare(PATH);
-    pc.assertEqual(testName);
-  }
-
-  @Test
   public void testSplitText()
   {
     String testName = "rita.render.test.SplitText";
@@ -99,13 +43,69 @@ public class RiTextGraphicsTest // TODO: how to run these on JS tests?
     String testName = "rita.render.test.WordsLettersLines";
     PixelCompare pc = new PixelCompare(PATH);
     pc.assertEqual(testName);
+  }  
+  @Test
+  public void testFontVlwTest()
+  {
+    String testName = "rita.render.test.FontVlwTest";
+    PixelCompare pc = new PixelCompare(PATH);
+    pc.assertEqual(testName);
   }
+  
+  @Test
+  public void testDefaultFont()
+  {
+    String testName = "rita.render.test.DefaultFont";
+    PixelCompare pc = new PixelCompare(PATH);
+    pc.assertEqual(testName);
+  }
+    
+  @Test
+  public void testLayoutWithBreaks()
+  {
+    String testName = "rita.render.test.LayoutWithBreaks";
+    PixelCompare pc = new PixelCompare(PATH);
+    pc.assertEqual(testName);
+  }
+    
+  @Test
+  public void testCreateLines()
+  {
+    String testName = "rita.render.test.CreateLines";
+    PixelCompare pc = new PixelCompare(PATH);
+    pc.assertEqual(testName);
+  }
+    
+  @Test
+  public void testBoundingBoxes()
+  {
+    String testName = "rita.render.test.BoundingBoxes";
+    PixelCompare pc = new PixelCompare(PATH);
+    pc.assertEqual(testName);
+  }
+
+  @Test
+  public void testSimplest()
+  {
+    String testName = "rita.render.test.Simplest";
+    PixelCompare pc = new PixelCompare(PATH);
+    pc.assertEqual(testName);
+  }
+  
+  @Test
+  public void testAlpha()
+  {
+    PixelCompare pc = new PixelCompare(PATH);
+    pc.assertEqual(Alpha.class.getName()); 
+    // TODO: (Kenny) better to specify class names like this from now on 
+  }
+
 
   public static void main(String[] args)
   {
     PixelCompare pc = new PixelCompare(PATH);
-    pc.generateRefImage(BoundingBoxes.class.getName());
-    // pc.visualDiff(testName);
+    //pc.generateRefImage(Alpha.class.getName());
+    pc.assertEqual(Alpha.class.getName());
   }
 
 }
