@@ -1,11 +1,12 @@
 package rita.render;
 
+import java.util.Map;
+
 import processing.core.PFont;
 import rita.RiTa;
-import rita.RiText;
 import rita.support.Constants;
 
-public class Defaults implements Constants 
+public abstract class Defaults implements Constants 
 {
   public static boolean mouseDraggable = false;
 
@@ -28,10 +29,16 @@ public class Defaults implements Constants
   public static float[] boundingStroke = { 0,0,0,255 };
   public static float boundingStrokeWeight = 1;
 
-  public static PFont font;  
+  public static Map fonts; // cache
+  public static PFont font;
   
-  public Defaults()
+  private Defaults() // no instances
   {
+  }
+  
+  public static void reset()
+  {
+    fonts = null;
     font = null;
     
     mouseDraggable = false;

@@ -24,6 +24,5 @@ public class BoundingBoxes extends PApplet {
 		
 		RiText.drawAll();
 	}
-
-
+	
 }
