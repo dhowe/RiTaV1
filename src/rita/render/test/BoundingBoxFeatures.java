@@ -17,12 +17,12 @@ public class BoundingBoxFeatures extends PApplet {
 		rt.boundingBoxFill(155);
 		
 		RiText rt2 = new RiText(this, "Grayscale Fill & Alpha", 200,  110);
-		rt2.boundingBoxFill(10,100);
+		//rt2.boundingBoxFill(10,100);
 
 		new RiText(this, "Color Fill", 200, 150).align(CENTER).boundingBoxFill(255,255,0);
 		float[] c = {255,0,0};
 		new RiText(this, "Color Fill", 200, 220).align(CENTER).boundingBoxFill(c);
-		new RiText(this, "Color Fill & Alpha", 200, 200).align(CENTER).boundingBoxFill(255,255,0,100);
+		//new RiText(this, "Color Fill & Alpha", 200, 200).align(CENTER).boundingBoxFill(255,255,0,100);
 
 	//TODO	boundingBoxPadding
 		/*
@@ -32,13 +32,13 @@ public class BoundingBoxFeatures extends PApplet {
 		*/
 		
 		new RiText(this, "Bounding Box Stroke", 200, 300).align(RIGHT).boundingBoxStroke(200);
-		new RiText(this, "Bounding Box Stroke", 200, 350).align(RIGHT).boundingBoxStroke(200,100);
+		//new RiText(this, "Bounding Box Stroke", 200, 350).align(RIGHT).boundingBoxStroke(200,100);
 		
 		new RiText(this, "Bounding Box Stroke", 200, 400).align(RIGHT).boundingBoxStroke(0,0,255);
-		new RiText(this, "Bounding Box Stroke", 200, 450).align(RIGHT).boundingBoxStroke(0,0,255,150);
+		//new RiText(this, "Bounding Box Stroke", 200, 450).align(RIGHT).boundingBoxStroke(0,0,255,150);
 		float[] c2 = {255,0,0};
 		new RiText(this, "Bounding Box Stroke", 200, 500).align(RIGHT).boundingBoxStroke(c2);
-		new RiText(this, "Bounding Box Stroke", 200, 550).align(RIGHT).boundingBoxStroke(255,0,0,150);
+		//new RiText(this, "Bounding Box Stroke", 200, 550).align(RIGHT).boundingBoxStroke(255,0,0,150);
 
 		//TODO boundingBoxWeight 
 		/*
