@@ -5,10 +5,6 @@ import org.junit.Test;
 
 import rita.RiText;
 import rita.render.test.*;
-<<<<<<< HEAD
-
-=======
->>>>>>> refs/remotes/origin/master
 
 public class RiTextGraphicsTest // TODO: how to run these on JS tests?
 {
@@ -31,8 +27,6 @@ public class RiTextGraphicsTest // TODO: how to run these on JS tests?
 		pc.assertEqual(Alpha.class.getName()); 
 	}
 
-
-<<<<<<< HEAD
 	@Test
 	public void testBoundingBoxes()
 	{
