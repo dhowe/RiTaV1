@@ -21,10 +21,10 @@ public class BoundingBoxAlphaFade extends InterpolatingBehavior
     this.type = BoundingAlpha;
   }
   
-  public void getStartValueFromParent(RiText parent, Interpolater interpolater) {
+  public void getStartValueFromParent(RiText parent, Interpolater interp) {
     float[] bbf = rt.boundingBoxFill();
     float[] bbs = rt.boundingBoxStroke();
-    interpolater.setStart(new float[]{ bbf[3], bbs[3] });
+    interp.setStart(new float[]{ bbf[3], bbs[3] });
   }  
   
   public void updateParentValues(RiText rt, float[] values) 
@@ -36,7 +36,7 @@ public class BoundingBoxAlphaFade extends InterpolatingBehavior
     
     //stroke
     float[] bbs = rt.boundingBoxStroke();
-    bbs[3] = values[0];
+    //bbs[3] = values[0];
     rt.boundingBoxStroke(bbs);
   }
 

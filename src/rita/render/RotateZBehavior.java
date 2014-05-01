@@ -1,9 +1,9 @@
 package rita.render;
 
-import rita.RiTa;
+import static rita.support.Constants.EventType.RotateTo;
+
 import rita.RiText;
-import rita.support.*;
-import static rita.support.Constants.EventType.*;
+import rita.support.Interpolater;
 
 public class RotateZBehavior extends InterpolatingBehavior
 {
@@ -20,12 +20,12 @@ public class RotateZBehavior extends InterpolatingBehavior
   }
   
   public void getStartValueFromParent(RiText r, Interpolater interp) {
-    System.out.println("ScaleBehavior.getStartValueFromParent("+r.rotateZ()+") @ "+RiTa.millis());
+    //System.out.println("ScaleBehavior.getStartValueFromParent("+r.rotateZ()+") @ "+RiTa.millis());
     interp.setStart(new float[] { r.rotateZ() });
   }  
   
   public void updateParentValues(RiText theR, float[] values) {
-    System.out.println(this+".updateParentValues("+values[0]+")");
+    //System.out.println(this+".updateParentValues("+values[0]+")");
     theR.rotateZ(values[0]);
   }
 
