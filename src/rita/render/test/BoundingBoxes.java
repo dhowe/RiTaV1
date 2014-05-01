@@ -21,7 +21,7 @@ public class BoundingBoxes extends PApplet {
 		new RiText("Left", 200, 400).align(LEFT);
 		
 		background(255);
-		line(200, 0, 200, 400);
+		line(200, 0, 200, height);
 		
 		RiText.drawAll();
 	}

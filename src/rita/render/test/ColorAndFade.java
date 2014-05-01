@@ -20,9 +20,12 @@ public class ColorAndFade extends PApplet {
 		// TODO colorTo seems not working
 		RiText rt = new RiText(this, "ColorTo gray in 2 sec", 100,  100);
 		rt.colorTo(200, 2);
+		rt.showBounds(true);
 		System.out.println(rt.alpha());
 		float[] c = {0,0,255};
-		new RiText(this, "ColorTo Bluein 2 sec" , 100, 200).colorTo(c,2);
+		RiText rt6 = new RiText(this, "ColorTo Bluein 2 sec" , 100, 200);
+		rt6.colorTo(c,2);
+		rt6.showBounds(true);
 		new RiText(this, "ColorTo Blue 5s delay 5" , 100, 300).colorTo(c,5,2);
 
 
@@ -36,6 +39,19 @@ public class ColorAndFade extends PApplet {
 		
 		rt2.fadeIn(2,4);
 		rt3.fadeIn(2,8);
+		
+		
+		RiText rt4 = new RiText(this, "fade out and in" , 100, 600);
+		rt4.showBounds(true);
+		rt4.fadeOut(2);
+
+		RiText rt5 = new RiText(this, "fade out delay and in" , 100, 700);
+		rt5.showBounds(true);
+		rt5.fadeOut(2,2);
+		
+		
+		rt4.fadeIn(2,4);
+		rt5.fadeIn(2,8);
 
 		
 		background(255);
@@ -46,7 +62,7 @@ public class ColorAndFade extends PApplet {
 	public void draw() {
 		
 		background(255);
-		fill(0);
+		//fill(0);
 		//text(millis()+ "" ,10,750);
 		RiText.drawAll();
 	}
