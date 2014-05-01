@@ -61,16 +61,27 @@ public class BoundingBoxFeatures extends PApplet {
 		new RiText(this, "X: "+i3[0] +"Y: " +i3[1], i3[0], i3[1]).align(CENTER).fontSize(10);
 		
 		
-		if(rt3.contains(205,601)){
-			new RiText(this, "contains true", 200,  800);
+		if(rt3.contains(205,602)){
+			new RiText(this, "contains true", 205,602).align(RIGHT);
 		}
 		if(rt3.contains(1,1)){ //should not display
-			new RiText(this, "contains false", 200,  800);
+			new RiText(this, "contains false", 200,  750);
 		}
+		
+		RiText rt6 = new RiText(this, "Show Bounds", 200,  800);
+		rt6.showBounds(true);
+
+		RiText rt7 = new RiText(this, "Show Bounds", 200,  850);
+		rt7.showBounds(false);
 
 		background(255);
 		line(200, 0, 200, 900);
 		RiText.drawAll();	
+		fill(0);
+		text(rt6.showBounds()+"", 100,  800);
+		text(rt7.showBounds()+"", 100,  850);
+		
+		
 	}
 
 }
