@@ -5,7 +5,10 @@ import org.junit.Test;
 
 import rita.RiText;
 import rita.render.test.*;
+<<<<<<< HEAD
 
+=======
+>>>>>>> refs/remotes/origin/master
 
 public class RiTextGraphicsTest // TODO: how to run these on JS tests?
 {
@@ -29,6 +32,7 @@ public class RiTextGraphicsTest // TODO: how to run these on JS tests?
 	}
 
 
+<<<<<<< HEAD
 	@Test
 	public void testBoundingBoxes()
 	{
@@ -101,11 +105,13 @@ public class RiTextGraphicsTest // TODO: how to run these on JS tests?
 		pc.assertEqual(WordsLettersLines.class.getName());
 	}  
 
-	public static void main(String[] args)
-	{
-		PixelCompare pc = new PixelCompare(PATH);
-		pc.generateRefImage(BoundingBoxFeatures.class.getName());
-		//pc.assertEqual(BoundingBoxes.class.getName());
-	}
+
+  public static void main(String[] args)
+  {
+    PixelCompare pc = new PixelCompare(PATH);
+    //pc.generateRefImage(Alpha.class.getName());
+    pc.visualDiff(Simplest.class.getName());
+  }
+
 
 }
