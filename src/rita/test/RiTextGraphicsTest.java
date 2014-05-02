@@ -12,8 +12,12 @@ public class RiTextGraphicsTest // TODO: how to run these on JS tests?
 	static String homeDir = System.getProperty("user.home");
 	static String project = homeDir + "/Documents/eclipse-workspace/RiTa";
 
-	public static final String PATH = project + "/src/";
 
+	  public static final String PATH = project + "/src/";
+	  //Kenny
+	 // static String projectDir = System.getProperty("user.home");
+	 // public static final String PATH = projectDir +"/src/";
+	 
 	@After // run this after each test
 	public void cleanup()
 	{
@@ -24,6 +28,7 @@ public class RiTextGraphicsTest // TODO: how to run these on JS tests?
 	public void testAlpha()
 	{
 		PixelCompare pc = new PixelCompare(PATH);
+		System.out.println(PATH);
 		pc.assertEqual(Alpha.class.getName()); 
 	}
 
@@ -51,18 +56,12 @@ public class RiTextGraphicsTest // TODO: how to run these on JS tests?
 	}
 	
 	@Test
-	public void testDefaultFont()
+	public void testDefaultFontAndFontVlw()
 	{
 		PixelCompare pc = new PixelCompare(PATH);
-		pc.assertEqual(DefaultFont.class.getName());
+		pc.assertEqual(DefaultFontAndFontVlw.class.getName());
 	}
 	
-	@Test
-	public void testFontVlwTest()
-	{
-		PixelCompare pc = new PixelCompare(PATH);
-		pc.assertEqual(FontVlwTest.class.getName());
-	}
 
 	@Test
 	public void testLayoutWithBreaks()
@@ -103,8 +102,8 @@ public class RiTextGraphicsTest // TODO: how to run these on JS tests?
   public static void main(String[] args)
   {
     PixelCompare pc = new PixelCompare(PATH);
-    //pc.generateRefImage(Alpha.class.getName());
-    pc.visualDiff(Simplest.class.getName());
+    pc.generateRefImage(DefaultFontAndFontVlw.class.getName());
+    //pc.visualDiff(BoundingBoxes.class.getName());
   }
 
 
