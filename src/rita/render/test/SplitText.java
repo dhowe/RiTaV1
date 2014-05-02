@@ -30,7 +30,8 @@ public class SplitText extends PApplet {
       float r = i*(256/words.length);
       words[i].fill(r, 100, 255-r);
     }
-		
+		System.out.println(rt.textAscent());
+		System.out.println(rt.textDescent());
 		background(250);
     RiText.drawAll();
 	}
