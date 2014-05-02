@@ -32,27 +32,39 @@ public class MotionTypes extends PApplet
 
     boolean movingUp;
     RiText  rts[] = new RiText[16]; 
+    
+int counter =0;
+boolean goBack = false;
 
     public void setup()
     {
       size(700, 700);
       smooth();
-      
-      RiText info = new RiText(this, "click to reverse animations");
+ 
 
       RiText.defaultFont("Times",40);   
       RiText.defaults.alignment=(LEFT);    
           
-      mouseClicked();
+
     }
 
     public void draw() 
     {
       background(255);
       RiText.drawAll();
+      
+      counter++;
+      if(counter == 5 || counter == 305){
+    	  goBack = true;
+      }
+     
+      if(goBack){
+          moveBack();
+          goBack = false;
+      }
     }
       
-    public void mouseClicked()
+    public void moveBack()
     {
       movingUp = !movingUp;
       for (int i = 0; i < rts.length; i++)  {
@@ -64,8 +76,5 @@ public class MotionTypes extends PApplet
         rts[i].moveTo(xPos, (movingUp ? 30 : height), 3f);          
       }
     }
-
-
-
 
 }

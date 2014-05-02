@@ -4,12 +4,12 @@ import rita.RiText;
 import rita.test.PixelCompare;
 
 // TODO: add warning message to JS code about vlw files...
-public class FontVlwTest extends processing.core.PApplet
+public class DefaultFontAndFontVlw extends processing.core.PApplet
 {
   RiText rt;
   public void setup()
   {
-    size(400,600);
+    size(800,600);
 
     RiText.defaults.alignment = CENTER;
     
@@ -45,12 +45,37 @@ public class FontVlwTest extends processing.core.PApplet
     rt.fontSize(50);
     
     text(rt.fontSize(),200,480);
+    
+    
+    
+	RiText.defaultFont("Batang", 100);
+
+	rt = new RiText(this, "Batang-80", 540, 280);
+
+	rt = new RiText(this, "Batang-14", 530, 20);
+	rt.font("Batang", 14);
+
+	rt = new RiText(this, "Batang-24", 530, 80);
+	rt.scale(24 / 100f);
+
+	rt = new RiText(this, "Arial-50", 700, 170);
+	rt.font("Arial", 50);
+
+	rt = new RiText(this, "Times-60", 680, 400);
+	rt.font("Times New Roman", 60);
+
+	RiText.defaultFont("Georgia", 32);
+
+	rt = new RiText(this, "Default", 700, 80);
+	
+    
+    
 
     RiText.drawAll();
   }
   
   public static void main(String[] args) {
     String testPath = "/Users/dhowe/Documents/eclipse-workspace/RiTa/src/";
-    new PixelCompare(testPath).generateRefImage(FontVlwTest.class.getName());
+    new PixelCompare(testPath).generateRefImage(DefaultFontAndFontVlw.class.getName());
   }
 }

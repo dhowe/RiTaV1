@@ -10,7 +10,6 @@ public class ColorAndFade extends PApplet {
 
 		size(400, 800);
 		
-		// TODO: Kenny: fill() is the method to set the color
 		// TODO: colorTo() works, but won't work for a test 
 		// until I add a function to delay writing the image.
 
