@@ -11,7 +11,7 @@ import org.jsoup.nodes.Document;
  * @exclude
  * NOT READY YET
  */
-public class RiWebScraper
+public class RiScraper
 { 
   static { RiTa.init(); }
   
@@ -28,90 +28,90 @@ public class RiWebScraper
   public Document doc;
   public Map<String, String> options, cookies, headers;
 
-  public RiWebScraper()
+  public RiScraper()
   {
     options = new HashMap<String, String>();
     cookies = new HashMap<String, String>();
     headers = new HashMap<String, String>();
   }
 
-  public RiWebScraper connect(String url)
+  public RiScraper connect(String url)
   {
     conn = Jsoup.connect(url);
     return this;
   }
 
-  public RiWebScraper userAgent(String userAgent)
+  public RiScraper userAgent(String userAgent)
   {
     options.put(USER_AGENT, userAgent);
     return this;
   }
   
-  public RiWebScraper referrer(String referrer)
+  public RiScraper referrer(String referrer)
   {
     options.put(REFERRER, referrer);
     return this;
   }
 
 
-  public RiWebScraper timeout(int millis)
+  public RiScraper timeout(int millis)
   {
     options.put(TIMEOUT, "" + millis);
     return this;
   }
 
-  public RiWebScraper followRedirects(boolean followRedirects)
+  public RiScraper followRedirects(boolean followRedirects)
   {
     options.put(FOLLOW_REDIRECTS, followRedirects + "");
     return this;
   }
 
-  public RiWebScraper ignoreHttpErrors(boolean ignoreHttpErrors)
+  public RiScraper ignoreHttpErrors(boolean ignoreHttpErrors)
   {
     options.put(IGNORE_HTTP_ERRORS, ignoreHttpErrors + "");
     return this;
   }
 
-  public RiWebScraper ignoreContentType(boolean ignoreContentType)
+  public RiScraper ignoreContentType(boolean ignoreContentType)
   {
     options.put(IGNORE_CONTENT_TYPE, ignoreContentType + "");
     return this;
   }
 
-  public RiWebScraper data(String key, String value)
+  public RiScraper data(String key, String value)
   {
     return this;
   }
 
-  public RiWebScraper data(Map<String, String> data)
+  public RiScraper data(Map<String, String> data)
   {
     return this;
   }
 
-  public RiWebScraper data(String... keyvals)
+  public RiScraper data(String... keyvals)
   {
     return this;
   }
 
-  public RiWebScraper header(String name, String value)
+  public RiScraper header(String name, String value)
   {
     headers.put(name, value);
     return this;
   }
 
-  public RiWebScraper cookie(String name, String value)
+  public RiScraper cookie(String name, String value)
   {
     cookies.put(name, value);
     return this;
   }
 
-  public RiWebScraper cookies(Map<String, String> cookies)
+  public RiScraper cookies(Map<String, String> cookies)
   {
     cookies.putAll(cookies);
     return this;
   }
 
-  private RiWebScraper prepareConnection()
+  private RiScraper prepareConnection()
   {
     if (conn == null)
       throw new RiTaException("Null Connection: Call connect(url) first!");
@@ -121,7 +121,7 @@ public class RiWebScraper
     return this;
   }
 
-  private RiWebScraper setOptions()
+  private RiScraper setOptions()
   {
     if (options.containsKey(TIMEOUT)) {
       conn.timeout(Integer.parseInt(options.get(TIMEOUT)));
@@ -144,7 +144,7 @@ public class RiWebScraper
     return this;
   }
 
-  private RiWebScraper setHeaders()
+  private RiScraper setHeaders()
   {
     for (Iterator it = headers.keySet().iterator(); it.hasNext();)
     {
@@ -154,7 +154,7 @@ public class RiWebScraper
     return this;
   }
 
-  private RiWebScraper setCookies()
+  private RiScraper setCookies()
   {
     for (Iterator it = cookies.keySet().iterator(); it.hasNext();)
     {
@@ -205,7 +205,7 @@ public class RiWebScraper
 
 
 
-    RiWebScraper scraper = new RiWebScraper();
+    RiScraper scraper = new RiScraper();
     scraper.header("User-Agent", DEFAULT_USER_AGENT).
       header("Accept-Language", "en-US,en.q=0.8").
       header("Accept-Charset", "ISO-8859-1,utf-8.q=0.7,*.q=0.3").

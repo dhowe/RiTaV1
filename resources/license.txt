@@ -1,14 +1,17 @@
 /*
- * RiTa/RiTaJS: a Software Toolkit for Generative Language
+ * RiTa: a Software Toolkit for Generative Language
  *
  * Written by Daniel C. Howe (daniel-at-rednoise.org).  
  * Available at http://rednoise.org/rita/.
  * 
  * Copyright (C) 2009  Daniel C. Howe
  * 
- * Portions of the included code were adapted from the JWNL WordNet package
- * by John Didion, the Jawbone WordNet package by Mike Wallace, and the FreeTTS
- * library. I thank all of those involved for their efforts.
+ * Portions of the included code were adapted from a variety of sources including 
+ * the JWNL and Jawbone WordNet packages, and the FreeTTS, CMU-pronunciation, and 
+ * PENN treebank libraries. It also includes modified versions of several canonical 
+ * NLP algorithms, including pluralization via Minnen, Carroll, and Pearce, and 
+ * stemming via the Brill, Porter and Lancaster (Paice/Husk) algorithms. I would like
+ * to thank all of those involved in these projects for their generous efforts.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
