@@ -14,10 +14,7 @@ public class RiTextMotionTest // TODO: how to run these on JS tests?
   static String project = homeDir + "/Documents/eclipse-workspace/RiTa";
 
   public static final String PATH = project + "/src/";
-  //Kenny
- // static String projectDir = System.getProperty("user.home");
- // public static final String PATH = projectDir +"/src/";
- 
+
   @After // run this after each test
   public void cleanup()
   {
@@ -47,8 +44,6 @@ public class RiTextMotionTest // TODO: how to run these on JS tests?
 
 	}
 	
-
-
   public static void main(String[] args)
   {
     PixelCompare pc = new PixelCompare(PATH);

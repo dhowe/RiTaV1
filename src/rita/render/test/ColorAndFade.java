@@ -20,14 +20,12 @@ public class ColorAndFade extends PApplet {
 		RiText rt = new RiText(this, "ColorTo gray in 2 sec", 100,  50);
 		rt.colorTo(200, 2);
 		rt.showBounds(true);
-		System.out.println(rt.alpha());
+
 		float[] c = {0,0,255};
 		RiText rt6 = new RiText(this, "ColorTo Bluein 2 sec" , 100, 100);
 		rt6.colorTo(c,2);
 		rt6.showBounds(true);
 		new RiText(this, "ColorTo Blue 5s delay 5" , 100, 150).colorTo(c,5,2);
-
-
 
 		RiText rt2 = new RiText(this, "fade out and in" , 100, 200);
 		rt2.fadeOut(2);
