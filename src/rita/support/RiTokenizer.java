@@ -41,7 +41,7 @@ public class RiTokenizer implements TokenizerIF, Constants
   }
     
   /**
-   * Valid types are: PENN_WORD_TOKENIZER, FREE_TTS_TOKENIZER, REGEX_TOKENIZER
+   * Valid types are: PENN_WORD_TOKENIZER, REGEX_TOKENIZER
    * @param type
    * @return RiTokenizer
    */

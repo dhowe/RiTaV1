@@ -25,13 +25,13 @@ public class RiTranslator
   public static String TRANSLATE_URL = "http://translate.google.com/#auto/en/%QUERY%";
 
   protected RiLexicon lexicon;
-  protected RiWebScraper scraper;
+  protected RiScraper scraper;
   
   String ignores = "athletics,football,archery,badminton,baseball,basketball,bowling,boxing,cricket,cycling,canoe,curling,climbing,diving,dancing,equestrian,football,fencing,gymnastics,golf,hockey,handball,hockey,skating,judo,karate,lacrosse,olympics,polo,rugby,running,skating,soccer,squash,swimming,sailing,skiing,surfing,softball,tennis,volleyball,wrestling,weightlifting,yoga,NBA,NFL,MLB";
 
   public RiTranslator()
   {
-    scraper = new RiWebScraper();
+    scraper = new RiScraper();
   }
 
   class Gloss

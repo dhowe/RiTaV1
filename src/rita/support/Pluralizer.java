@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
  * Uses a combination of letter-based rules and a lookup 
  * table of irregular exceptions, e.g., 'appendix' -> 'appendices'
  * 
-    Note: this implementation is based closely follows rules found in the MorphG package,
+    Note: this implementation is closely follows rules found in the MorphG package,
     further described here:<p>
       Minnen, G., Carroll, J., and Pearce, D. (2001). Applied Morphological Processing of English.
       Natural Language Engineering 7(3): 207--223.    
