@@ -1,0 +1,56 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <!--  pom.xml: in progress -->
+    
+	<project>
+		<modelVersion>4.0.0</modelVersion>
+
+		<groupId>org.rednoise.rita</groupId>
+		<artifactId>rita</artifactId>
+		<packaging>jar</packaging>
+		<name>RiTa</name>
+		<version>##version##</version>
+		<description>RiTa: A toolkit for natural language and computational literature</description>
+		<url>http://rednoise.org/rita</url>
+
+		<issueManagement>
+			<url>https://github.com/dhowe/rita/issues</url>
+			<system>GitHub Issues</system>
+		</issueManagement>
+
+		<licenses>
+			<license>
+				<name>GNU General Public License (GPL)</name>
+				<url>http://www.gnu.org/licenses/gpl.html</url>
+			</license>
+		</licenses>
+
+		<scm>
+			<url>https://github.com/dhowe/rita</url>
+			<connection>scm:git:git://github.com/dhowe/rita.git</connection>
+			<developerConnection>scm:git:git@github.com:dhowe/rita.git</developerConnection>
+		</scm>
+
+		<developers>
+			<developer>
+				<id>danielchowe</id>
+				<name>Daniel C. Howe</name>
+				<email>daniel@rednoise.org</email>
+			</developer>
+		</developers>
+
+		<dependencies>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<scope>test</scope>
+				<optional>true</optional>
+			</dependency>
+		</dependencies>
+
+		<properties>
+			<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		</properties>
+
+	</project>

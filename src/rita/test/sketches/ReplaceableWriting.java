@@ -34,14 +34,16 @@ public class ReplaceableWriting extends PApplet
     String[] words = text.split(" ");
 
     // loop from a random spot
-    int count = (int)random(0, words.length);
+    int offset = (int)random(0, words.length);
     
-    for (int i = count; i < words.length; i++) 
+    for (int j = 0; j < words.length; j++) 
     {
+      int i = offset + j % words.length;
+      
       // only words of 3 or more chars
       if (words[i].length()<3) continue;
        
-      // call a function to find a replacement
+      // call function to find a replacement
       String newWord = replaceWord(words[i]);
       if (newWord != null) {
       
@@ -68,7 +70,7 @@ public class ReplaceableWriting extends PApplet
       String[] syns = wordnet.getSynonyms(word, pos);
 
       // only words with >1 synonyms
-      if (syns.length<2) return pos;
+      if (syns.length<2) return null;
 
       // pick a random synonym
       int randIdx = (int)random(0, syns.length);

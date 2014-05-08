@@ -314,16 +314,16 @@ public class RiLexiconTest
 		RiLexicon lex = new RiLexicon();
 		String[] result = lex.words();
 		ok(result.length > 30000);
-		//    System.out.println(result[0]);
-		//    System.out.println(result[1]);
-		//    System.out.println(result[2]);
+		//System.out.println(result[0]);
+		//System.out.println(result[1]);
+		//System.out.println(result[2]);
 
 		RiLexicon lex2 = new RiLexicon();
 		String[] result2 = lex.words();
 		ok(result2.length > 30000);
-		//    System.out.println(result2[0]);
-		//    System.out.println(result2[1]);
-		//    System.out.println(result2[2]);
+		//System.out.println(result2[0]);
+		//System.out.println(result2[1]);
+		//System.out.println(result2[2]);
 
 
 		ok(result[0]!=result2[0] || result[1]!=result2[1] || result[2]!=result2[2]);// TODO: failed: not in random order
@@ -338,12 +338,12 @@ public class RiLexiconTest
 		for (int i = 0; i < result.length; i++)
 			result[i].matches("^.*ee.*$");
 
-		System.out.println(result[0]);
+/*	System.out.println(result[0]);
 		System.out.println(result[1]);
 		System.out.println(result[2]);
 		System.out.println(result2[0]);
 		System.out.println(result2[1]);
-		System.out.println(result2[2]);
+		System.out.println(result2[2]);*/
 
 		ok(result[0]!=result2[0] || result[1]!=result2[1] || result[2]!=result2[2]);
 
@@ -905,9 +905,9 @@ public class RiLexiconTest
 
 
 		String[] result2 = lex.substrings("headache");
-		for(int i=0; i<result2.length; i++){
-			// System.out.println(result2[i]);
-		}
+/*		for(int i=0; i<result2.length; i++){
+			//System.out.println(result2[i]);
+		}*/
 		String[] answer2 = { "ache", "head" };
 		deepEqual(result2, answer2);
 
@@ -922,17 +922,17 @@ public class RiLexiconTest
 
 
 		String[] result3 = lex.substrings("exhibition");
-		for(int i=0; i<result3.length; i++){
+/*		for(int i=0; i<result3.length; i++){
 			//System.out.println(result3[i]);
-		}
+		}*/
 		String[] answer3 = { "exhibit"};
 		deepEqual(result3, answer3);
 
 		result3 = lex.substrings("exhibition", 3); 
 		answer3 = new String[] {"ion","bit","exhibit"};
-		for(int i=0; i<result3.length; i++){
+/*		for(int i=0; i<result3.length; i++){
 			//System.out.println(result3[i]);
-		}
+		}*/
 		deepEqual(result3, answer3);
 
 		result3 = lex.substrings("exhibition", 5); 
@@ -941,16 +941,16 @@ public class RiLexiconTest
 
 
 		String[] result4 = lex.substrings("hell");
-		for(int i=0; i<result4.length; i++){
+/*		for(int i=0; i<result4.length; i++){
 			System.out.println(result4[i]);
-		}
+		}*/
 		String[] answer4 = { };
 		deepEqual(result4, answer4);
 
 		String[] result5 = lex.substrings("hi");
-		for(int i=0; i<result5.length; i++){
+/*		for(int i=0; i<result5.length; i++){
 			System.out.println(result5[i]);
-		}
+		}*/
 		String[] answer5 = { };
 		deepEqual(result5, answer5);
 
