@@ -9,14 +9,10 @@ public class ColorAndFade extends PApplet {
 	public void setup() {
 
 		size(400, 800);
-		
-		// TODO: colorTo() works, but won't work for a test 
-		// until I add a function to delay writing the image.
 
-		  
 		RiText.defaultFont("Times", 20);
 		
-		// TODO colorTo seems not working
+
 		RiText rt = new RiText(this, "ColorTo gray in 2 sec", 100,  50);
 		rt.colorTo(200, 2);
 		rt.showBounds(true);
@@ -39,7 +35,7 @@ public class ColorAndFade extends PApplet {
 		
 		
 		RiText rt4 = new RiText(this, "fade out and in" , 100, 300);
-		rt4.showBounds(true); //TODO crash on showBounds with fadeOut
+		rt4.showBounds(true); 
 		rt4.fadeOut(2);
 
 		RiText rt5 = new RiText(this, "fade out delay and in" , 100, 350);
@@ -57,7 +53,7 @@ public class ColorAndFade extends PApplet {
 		
 		RiText rt8 = new RiText(this, "Null" , 100, 450);
 
-		rt8.textTo("Changed Text delay3s",3,5); //TODO the third parameter seems not a "startTime" and In API: textTo(newText, seconds, endAlpha)
+		rt8.textTo("Changed Text delay3s",3,5); 
 		
 		RiText rt9 = new RiText(this, "Null" , 100, 500);
 		rt9.showBounds(true);
