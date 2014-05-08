@@ -362,20 +362,20 @@ public class RiGrammarTest
 
 
   @Test
-  public void testLoadFromFile()
+  public void testLoadFrom()
   {
     RiGrammar g = new RiGrammar();
-    g.loadFrom("sentence1.json", null);
+    g.loadFrom("sentence1.json");
     ok(!g.hasRule("{")); // empty
     ok(g.hasRule("<start>"));
     
     g = new RiGrammar();
-    g.loadFrom("sentence2.json", null);
+    g.loadFrom("sentence2.json");
     ok(!g.hasRule("{")); // empty
     ok(g.hasRule("<start>"));
 
     RiGrammar rg = new RiGrammar(); 
-    rg.loadFrom("haikuGrammar.json", null);
+    rg.loadFrom("haikuGrammar.json");
     
     //rg.print();
     ok(!rg.hasRule("")); // empty
@@ -403,7 +403,7 @@ public class RiGrammarTest
   public void testExpandFromFile()
   {
     RiGrammar g = new RiGrammar();
-    g.load(RiTa.loadString("sentence1.json",null));
+    g.load(RiTa.loadString("sentence1.json"));
     ok(g.hasRule("<start>"));
     for (int i = 0; i < 10; i++)
     {
@@ -412,7 +412,7 @@ public class RiGrammarTest
     }
     
     g = new RiGrammar();
-    g.load(RiTa.loadString("sentence2.json",null));
+    g.load(RiTa.loadString("sentence2.json"));
     ok(g.hasRule("<start>"));
     for (int i = 0; i < 10; i++)
     {
@@ -507,61 +507,6 @@ public class RiGrammarTest
     equal(s, e);
 
   }
-  
-  /*
-  @Test
-  public void testGetRule()
-  {
-    RiGrammar rg = new RiGrammar(sentenceGrammar);
-    String r = rg.getRule("<noun_phrase>");
-    equal(r,"<determiner> <noun>");
-  
-    rg = new RiGrammar(sentenceGrammar);
-    rg.setGrammar(RiTa.loadString("sentence2.json");
-    r = rg.getRule("<noun_phrase>");    
-    equal(r,"<determiner> <noun>");
-    
-    rg = new RiGrammar(sentenceGrammar);
-    rg.setGrammar(RiTa.loadString("sentence1.json");
-    r = rg.getRule("<noun_phrase>");    
-    //println("'"+r+"'");
-    equal(r,"<determiner> <noun>");
-
-    rg.reset();
-    rg.addRule("<rule1>", "<pet>", 1);
-    equal(rg.getRule("<rule1>"),"<pet>");
-
-    rg.reset();
-    rg.addRule("<rule1>", "cat", .4f);
-    rg.addRule("<rule1>", "dog", .6f);
-    rg.addRule("<rule1>", "boy", .2f);
-    String answer = "cat [0.4] | dog [0.6] | boy [0.2]";
-    String result = rg.getRule("<rule1>");
-    equal(result, answer);
-
-    rg.reset();
-    rg.addRule("rule1", "<pet>", 1);
-    equal(rg.getRule("rule1"),"<pet>");
-
-    rg.reset();
-    
-    equal("", rg.getRule("<start>"));
-    equal("", rg.getRule("start"));
-
-    RiGrammar[] g = {
-        (new RiGrammar()).setGrammar(sentenceGrammar) , 
-        (new RiGrammar()).setGrammar(RiTa.loadString("sentence1.json"),
-        (new RiGrammar()).setGrammar(RiTa.loadString("sentence2.json")
-    };
-    for (int i = 0; i < g.length; i++)
-    {
-      String rule = g[i].getRule("<noun_phrase>");
-      //println(i+"R='"+rule+"'");
-      equal(rule,"<determiner> <noun>");
-    }
-    }
-  */
-    
                
   @Test
   public void testHasRule()

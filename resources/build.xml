@@ -93,6 +93,7 @@
 			</batchtest-->
 	
 			<!--test name="rita.test.RiTextGraphicsTest" outfile="reports/rita.test.RiTextGraphicsTest"></test-->
+			<test name="rita.test.RiTaTest" outfile="reports/rita.test.RiTaTest"></test>
 			<test name="rita.test.RiGrammarTest" outfile="reports/rita.test.RiGrammarTest"></test>
 			<test name="rita.test.RiLexiconTest" outfile="reports/rita.test.RiLexiconTest"></test>
 			<test name="rita.test.RiMarkovTest"  outfile="reports/rita.test.RiMarkovTest"></test>

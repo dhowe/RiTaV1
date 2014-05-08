@@ -30,7 +30,6 @@ public class RiTaEvent implements Constants
     this.type = type;//checkType(type);
   }
   
-  
   public boolean fire(Object parent) {
     
     return this.fire(parent, false);
@@ -82,28 +81,6 @@ public class RiTaEvent implements Constants
     return s + "]";
   }
 
-/*  private static String typeToString(int type)
-  {
-    String s = TypeStrings.get(type);
-    return s != null ? s : TypeStrings.get(RiTa.UNKNOWN);
-  }
-
-  protected int checkType(int type)
-  {
-    boolean match = false; 
-    for (Iterator<Integer> it = TypeStrings.keySet().iterator(); it.hasNext();)
-    {
-      if (it.next() == type) {
-          match = true;
-          break;
-      }
-    }  
-    if (!match) 
-      throw new RiTaException("Invalid Event Type: "+type); 
-    return type;
-  }
-  */
-  
   public Object source()
   {
     return source;
