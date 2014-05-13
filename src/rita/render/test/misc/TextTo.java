@@ -24,7 +24,7 @@ public class TextTo extends PApplet {
 	}
 
 	public void onRiTaEvent(RiTaEvent re) {
-	  System.out.println("FadeToText.onRiTaEvent("+re+")");
+	  System.out.println("TextTo.onRiTaEvent("+re+")");
 	}
 	
 	public void mouseClicked() {

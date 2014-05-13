@@ -1,10 +1,11 @@
 package rita.support;
 
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public interface EnglishConstants
-{
+{   
+  // ----------------------- Pluralizer -----------------------
+  
   RegexRule NULL_PLURALS = new RegexRule(
       "^(bantu|bengalese|bengali|beninese|boche|bonsai|"
       + "burmese|chinese|colossus|congolese|discus|gabonese|guyanese|japanese|javanese|"
@@ -26,7 +27,63 @@ public interface EnglishConstants
       + "undersigned|veg|waterfowl|waterworks|waxworks|whiting|wildfowl|woodworm|"
       + "yen|aries|pisces|forceps|lieder|jeans|physics|mathematics|news|odds|politics|remains|"
       + "surroundings|thanks|statistics|goods|aids|wildlife)$", 0, "");
+  
+  List MODALS = Arrays.asList(new String[] 
+      { "shall", "would", "may", "might", "ought", "should" });
 
+  String ANY_STEM = "^((\\w+)(-\\w+)*)(\\s((\\w+)(-\\w+)*))*$";
+  String C = "[bcdfghjklmnpqrstvwxyz]", VL = "[lraeiou]";
+  
+  RegexRule DEFAULT_PLURAL_RULE = new RegexRule(ANY_STEM, 0, "s", 2);
+
+  RegexRule[] PLURAL_RULES = new RegexRule[] {
+      NULL_PLURALS,
+      new RegexRule("^(piano|photo|solo|ego|tobacco|cargo|golf|grief)$", 0,"s"),
+      new RegexRule("^(wildlife)$", 0, "s"),
+      new RegexRule(C + "o$", 0, "es"),
+      new RegexRule(C + "y$", 1, "ies"),
+      new RegexRule("^ox$", 0, "en"),
+      new RegexRule("^(stimulus|alumnus)$", 2, "i"),
+      new RegexRule("^corpus$", 2, "ora"),
+      new RegexRule("(xis|sis)$", 2, "es"),
+      new RegexRule("([zsx]|ch|sh)$", 0, "es"),
+      new RegexRule(VL + "fe$", 2, "ves"),
+      new RegexRule(VL + "f$", 1, "ves"),
+      new RegexRule("(eu|eau)$", 0, "x"),
+      
+      new RegexRule("(man|woman)$", 2, "en"),
+      new RegexRule("money$", 2, "ies"),
+      new RegexRule("person$", 4, "ople"),
+      new RegexRule("motif$", 0, "s"),
+      new RegexRule("^meninx|phalanx$", 1, "ges"),
+      
+      new RegexRule("schema$", 0, "ta"),
+      new RegexRule("^bus$", 0, "ses"),
+      new RegexRule("child$", 0, "ren"),
+      new RegexRule("^(curi|formul|vertebr|larv|uln|alumn|signor|alg)a$", 0,"e"),
+      new RegexRule("^(maharaj|raj|myn|mull)a$", 0, "hs"),
+      new RegexRule("^aide-de-camp$", 8, "s-de-camp"),
+      new RegexRule("^apex|cortex$", 2, "ices"),
+      new RegexRule("^weltanschauung$", 0, "en"),
+      new RegexRule("^lied$", 0, "er"),
+      new RegexRule("^tooth$", 4, "eeth"),
+      new RegexRule("^[lm]ouse$", 4, "ice"),
+      new RegexRule("^foot$", 3, "eet"),
+      new RegexRule("femur", 2, "ora"),
+      new RegexRule("goose", 4, "eese"),
+      new RegexRule("(human|german|roman)$", 0, "s"),
+      new RegexRule("^(monarch|loch|stomach)$", 0, "s"),
+      new RegexRule("^(taxi|chief|proof|ref|relief|roof|belief)$", 0, "s"),
+      new RegexRule("^(co|no)$", 0, "'s"),
+      new RegexRule("^blond$", 0, "es"),
+
+      // Latin stems
+      new RegexRule("^(memorandum|bacterium|curriculum|minimum|"
+          + "maximum|referendum|spectrum|phenomenon|criterion)$", 2,"a"),
+      new RegexRule("^(appendix|index|matrix)", 2, "ices"),
+  };
+  
+  // ----------------------------------------------------------------------
   
   String[] QUESTION_STARTS = {
     "Was", "What", "When", "Where", "How", "Which", "If",  
@@ -57,6 +114,8 @@ public interface EnglishConstants
     "WON'T", "OK", "THEY'RE", "YEAH", "MINE", "WE'RE", "WHAT'S", "SHALL",
     "SHE'S", "HELLO", "OKAY", "HERE'S", "-", "LESS"
   };
+  
+  // Stemmer
   
   /** 
    * Words that end in "-se" in their plural forms (like "nurse" etc.)
@@ -726,6 +785,7 @@ public interface EnglishConstants
 
   /** Maps irregular Germanic English plural nouns to their singular form */
   Map<String,String> irregular = new FinalMap<String,String>(
+    "blondes","blonde",
     "beefs","beef",
     "beeves","beef",
     "brethren","brother",

@@ -74,7 +74,7 @@ public class RegexRule //implements Comparable
 	}
   
   public String toString() {
-    return "RE: "+leftHandString+" -> "+ suffix+" ("+leftHandSide+")";
+    return "RE: "+leftHandString+" -> "+ suffix;//+" ("+leftHandSide+")";
   }
 
 	/**

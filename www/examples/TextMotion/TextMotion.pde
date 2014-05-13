@@ -1,10 +1,10 @@
 import rita.*;
 
-void setup()
-{
+void setup() {
+
   size(400, 400);
 
-  RiText.defaultFont("Georgia", 30);
+  RiText.defaultFontSize(30);
 
   RiText rt1 = new RiText(this, "ZIG");
   RiText rt2 = new RiText(this, "ZAG");
@@ -15,21 +15,22 @@ void setup()
   moveToRandom(rt2);
 }
 
-void draw()
-{
+void draw() {
+
   fill(255, 100); // leave trails
   rect(0, 0, width, height);
 
   RiText.drawAll();
 }
 
-void onRiTaEvent(RiTaEvent re) {  
+void onRiTaEvent(RiTaEvent re) {
+  
   if (re.type() == RiTa.MOVE_TO)
     moveToRandom((RiText) re.source());
 }
 
-void moveToRandom(RiText rt)
-{
+void moveToRandom(RiText rt) {
+
   float newX = random(width - rt.textWidth()); 
   float newY = random(rt.textHeight(), height - 10);
   float dst = rt.distanceTo(newX, newY);

@@ -7,7 +7,7 @@ void setup()
 {
   size(650, 200);
 
-  RiText.defaults.fontSize = 30;
+  RiText.defaultFontSize(30);
   RiText.defaults.alignment = CENTER;
   
   rts[0] = new RiText(this, "click to", width / 2, 75);

@@ -660,7 +660,6 @@
             "type":"String",
             "desc":"the noun"
          }
-         
       ],
       "returns":[
          {
@@ -671,8 +670,7 @@
       ],
       "related":"",
       "platform":"Java / Javascript",
-	  "note":""
-      
+	  "note":""      
    }, 
    {
       "methodName":"RiTa.singularize()",
@@ -684,14 +682,12 @@
             "type":"String",
             "desc":"the noun"
          }
-         
       ],
       "returns":[
          {
             "type":"String",
             "desc":"the singular form of the noun"
          }
-
       ],
       "related":"",
       "platform":"Java / Javascript",
