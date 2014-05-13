@@ -1,5 +1,11 @@
 import rita.*;
 
+/*
+ * Note: Java-only, requires a local WordNet installation
+ * Grab one here: http://rednoise.org/rita-archive/WordNet-3.1.zip
+ * install it, and update the path below 
+ */
+ 
 RiText[] rts; 
 RiWordNet wordnet; 
 
@@ -9,8 +15,8 @@ void setup()
 {
   size(600, 400);   
   
-  RiText.defaults.fontSize = 18; 
-  
+  RiText.defaultFontSize(18);
+
   wordnet = new RiWordNet("/WordNet-3.1", true, true);
   rts = RiText.createLines(this, text, 50, 50, 500);
 

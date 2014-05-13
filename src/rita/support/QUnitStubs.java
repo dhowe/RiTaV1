@@ -112,12 +112,13 @@ public class QUnitStubs
     }
   }
   
-  public static void deepEqual(Object o, Object p)
+  public static void deepEqual(Object exp, Object act)
   {
-    if (o instanceof Object[] && p instanceof Object[])
-      assertArrayEquals((Object[])o, (Object[])p);
+    if (exp instanceof Object[] && act instanceof Object[])
+      assertArrayEquals((Object[])exp, (Object[])act);
     else {
-      assertTrue((o==null && p==null) || (o!=null && p!=null && o.equals(p)));
+      assertTrue(" expected: '"+exp+"' but found: '"+act+"'",
+          (exp==null && act==null)  || (exp!=null && act!=null && exp.equals(act)));
     }
   }
 

@@ -34,7 +34,8 @@
 	<property name="project.libs" location="libs"/>
 	<property name="project.bin" location="bin"/>
 	<property name="project.bin.data" location="${project.bin}/data"/>
-	<property name="project.examples" location="${project.js}/examplesP5"/>
+	<!--property name="project.examples" location="${project.js}/examplesP5"/-->
+	<property name="project.examples" location="www/examples"/>
 	<property name="project.reference" location="reference"/>
 	<property name="project.dist" location="distribution"/>
 	<property name="project.dist.version" location="distribution/${project.name}-${project.version}"/>
@@ -48,7 +49,9 @@
 	<property name="props.dst" location="${project.dist.version}/${project.name}/library.properties"/>
 	<property name="install.destination" location="${project.dist.version}/INSTALL.txt"/>
 	<property name="license.destination" location="${project.dist.version}/RiTa/LICENSE.txt"/>
-	<property name="processing.library" location="${user.home}/Documents/Processing/libraries/RiTa/library"/>
+	<property name="processing.lib.rita" location="${user.home}/Documents/Processing/libraries/RiTa"/>
+	<property name="processing.library" location="${processing.lib.rita}/library"/>
+	<property name="processing.examples" location="${processing.lib.rita}/examples"/>
 
 	<target name="run.unit.tests">
 		<antcall target="run.java.tests" />
@@ -344,10 +347,6 @@ ${line}
 			<exclude name="**/docgen/**" />
 		</jar>
 		<copy tofile="${processing.library}/rita.support.jar" file="${project.tmp}/${project.name}/library/${project.jar.support.name}"/>
-
-		<!-- temp, for p5 testing with multiple jars -->
-		<!--copy tofile="${project.latest}/${main.package}-${project.version}.jar" 	    file="${project.tmp}/${project.name}/library/${project.jar.name}"/>
-  		<copy tofile="${project.latest}/${main.package}-${project.version}.support.jar" file="${project.tmp}/${project.name}/${project.tmp}/${project.name}/library/${project.jar.support.name}"/-->
 	</target>
 
 	<target name="generate.structure">
@@ -361,10 +360,23 @@ ${line}
 		<mkdir dir="${project.tmp}/${project.name}/css" />
 		<mkdir dir="${project.tmp}/${project.name}/src" />
 
+		<fileset id="exampleFileSet" dir="${project.examples}">
+			<exclude name="**/*README*"/>
+			<exclude name="**/*.html"/>
+			<exclude name="**/*.properties"/>
+			<exclude name="**/*.xml"/>
+			<exclude name="**/web-export/**"/>
+			<exclude name="**/lib/**"/>
+		</fileset>
+		
+		<echo message="Copying ${project.examples} to ${processing.examples}... " />
+		<copy todir="${processing.examples}">
+			<fileset refid="exampleFileSet"/>
+		</copy>
+		
+		<echo message="Copying ${project.examples} to ${project.tmp}/${project.name}/examples... " />
 		<copy todir="${project.tmp}/${project.name}/examples">
-			<fileset dir="${project.examples}">
-				<exclude name="**/*README*"/>
-			</fileset>
+			<fileset refid="exampleFileSet"/>
 		</copy>
 
 		<copy todir="${project.tmp}/${project.name}/src">

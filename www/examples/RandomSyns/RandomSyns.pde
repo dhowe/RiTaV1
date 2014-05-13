@@ -4,6 +4,8 @@ import java.util.*;
 /*
  * Random Synonyms from WordNet
  * Note: Java-only, requires a local WordNet installation
+ * Grab one here: http://rednoise.org/rita-archive/WordNet-3.1.zip
+ * install it, and update the path below 
  */
 
 RiText rt, rts[];
@@ -16,7 +18,8 @@ void setup()
   RiText.defaultFill(255);
   RiText.defaultFont("arial", 14);
   
-  (rt = new RiText(this, "random", 280, 40)).align(RIGHT).fontSize(36);
+  rt = new RiText(this, "random", 280, 40);
+  rt.align(RIGHT).fontSize(36);
 
   wordnet = new RiWordNet("/WordNet-3.1", false, false);
   RiTa.timer(this, 2.0); 
@@ -31,7 +34,7 @@ void draw()
 void onRiTaEvent(RiTaEvent re) { // called every 2 seconds by timer   
   
     String[] tmp = {};    
-    while (tmp.length<1) {
+    while (tmp.length < 1) {
       
       String word = wordnet.getRandomWord("n");
       rt.text(word);

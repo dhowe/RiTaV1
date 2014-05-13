@@ -6,7 +6,7 @@ void setup()
 {    
   size(500, 500);
   
-  RiText.defaults.fontSize = 18;
+  RiText.defaultFontSize(18);
 
   new RiText(this, "click to (re)generate!");
 

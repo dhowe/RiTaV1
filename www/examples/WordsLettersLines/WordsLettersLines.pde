@@ -9,12 +9,12 @@ void setup() {
   
   size(400, 200);
 
-  RiText.defaultFont("Georgia", 32);
+  RiText.defaultFontSize(32);
   RiText.defaults.showBounds = true;
 
-  line1 = new RiText(this, txt, 64, 150); // a line
-  line2 = RiText.createWords(this, txt, 64, 40); // words
-  line3 = RiText.createLetters(this, txt, 64, 90); // letters
+  line1 = new RiText(this, txt, 64, 50); // a line
+  line2 = RiText.createWords(this, txt, 64, 80); // words
+  line3 = RiText.createLetters(this, txt, 64, 132); // letters
 
   setColors();
 }
@@ -24,8 +24,8 @@ void draw() {
   background(255);
 
   line1.y = 50 + frameCount % 3; // wiggle
-  line2[line2.length - 1].y = 100 + frameCount % 4;
-  line3[line3.length - 2].y = 150 + frameCount % 7;
+  line2[line2.length - 1].y = line2[0].y + frameCount % 4;
+  line3[line3.length - 2].y = line3[0].y + frameCount % 7;
 
   RiText.drawAll();
 }

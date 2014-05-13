@@ -5,7 +5,7 @@ size(400, 400);
 
 RiTa.start(this);
 
-RiText.defaults.fontSize = 64;
+RiText.defaultFontSize(64);
 RiText.defaults.showBounds = true;
 
 new RiText("Left", 200,  100);
