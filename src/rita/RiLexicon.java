@@ -372,7 +372,7 @@ public class RiLexicon implements Constants
    * and all following phonemes are identical). Note: returns false 
    * if wordA.equals(wordB) or if either are null; 
    * <p>
-   * Note: will only use letter-to-sound engine for wrods not found in lexicon if useLTS=true 
+   * Note: will only use letter-to-sound engine for words not found in lexicon if useLTS=true 
    */
   public boolean isRhyme(String wordA, String wordB, boolean useLTS) 
   {
