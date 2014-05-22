@@ -102,8 +102,8 @@ public class RiTextGraphicsTest // TODO: how to run these on JS tests?
   public static void main(String[] args)
   {
     PixelCompare pc = new PixelCompare(PATH);
-    pc.generateRefImage(DefaultFontAndFontVlw.class.getName());
-    //pc.visualDiff(DefaultFontAndFontVlw.class.getName());
+    pc.generateRefImage(WordsLettersLines.class.getName());
+    //pc.visualDiff(WordsLettersLines.class.getName());
   }
 
 
