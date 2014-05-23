@@ -1,4 +1,4 @@
-package rita.render.test;
+package rita.render.test.misc;
 
 import processing.core.PApplet;
 import rita.RiText;
