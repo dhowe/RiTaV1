@@ -1,0 +1,49 @@
+import rita.*;
+
+String[] txt = { 
+  "A huge lizard was discovered drinking out of the", 
+  "fountain today. It was not menacing anyone, it was", 
+  "just very thirsty. A small crowd gathered and", 
+  "whispered to one another, as though the lizard", 
+  "would understand them if they spoke in normal", 
+  "voices. The lizard seemed not even a little perturbed", 
+  "by their gathering. It drank and drank, its long", 
+  "forked tongue was like a red river hypnotizing the", 
+  "people, keeping them in a trance-like state. 'It's like", 
+  "a different town,' one of them whispered. 'Change is", 
+  "good,' the other one whispered back.", "", 
+  "    A huge lizard was discovered drinking out of the", 
+  "fountain today. It was not menacing anyone, it was", 
+  "just very thirsty. A small crowd gathered and", 
+  "whispered to one another, as though the lizard", 
+  "would understand them if they spoke in normal", 
+  "voices. The lizard seemed not even a little perturbed", 
+  "by their gathering. It drank and drank, its long", 
+  "forked tongue was like a red river hypnotizing the", 
+  "people, keeping them in a trance-like state. 'It's like", 
+  "a different town,' one of them whispered. 'Change is", 
+  "good,' the other one whispered back."
+};
+
+float x=30, y=30, w=400-60, h=623;
+float x2=420, y2=30, w2=400-60, h2=623;
+float x3=810, y3=30, w3=400-60, h3=h2/2;
+
+void setup() {
+
+  size(1200, 700);
+  background(250);
+  RiText.defaultFont("Georgia", 16);
+  RiText.createLines(this, txt, x, y); // preserve line-breaks
+
+
+  RiText.createLines(this, txt, x2, y2, w2, h2); // preserve line-breaks
+  rect(x2, y2, w2, h2);
+
+
+  RiText.createLines(this, txt, x3, y3, w3, h3); // preserve line-breaks
+  rect(x3, y3, w3, h3);
+
+  RiText.drawAll();
+}
+
