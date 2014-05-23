@@ -5,7 +5,7 @@ import processing.core.PFont;
 import rita.*;
 import rita.test.PixelCompare;
 
-public class LayoutWithBreaks extends PApplet {
+public class CreateLinesAndLayoutWithBreaks extends PApplet {
 
 	String[] txt = { 
 	    "A huge lizard was discovered drinking out of the",
@@ -31,19 +31,31 @@ public class LayoutWithBreaks extends PApplet {
 			"a different town,' one of them whispered. 'Change is",
 			"good,' the other one whispered back." };
 
-	float x=30,y=30,w=500-60,h=423;
+	float x=30, y=30, w=400-60, h=623;
+	float x2=420, y2=30, w2=400-60, h2=623;
+	float x3=810, y3=30, w3=400-60, h3=h2/2;
+
 	public void setup() {
 
-		size(500, 500);
+		size(1200, 700);
 		background(250);
 		RiText.defaultFont("Georgia", 16);
 		RiText.createLines(this, txt, x, y); // preserve line-breaks
+		
+		
+		RiText.createLines(this, txt, x2, y2,w2,h2); // preserve line-breaks
+	    rect(x2, y2, w2, h2);
+	    
+		
+		RiText.createLines(this, txt, x3, y3,w3,h3); // preserve line-breaks
+	    rect(x3, y3, w3, h3);
+		
 		RiText.drawAll();
 	}
 
 	 public static void main(String[] args)
   {
     String testPath = "/Users/dhowe/Documents/eclipse-workspace/RiTa/src/";
-    new PixelCompare(testPath).generateRefImage(LayoutWithBreaks.class.getName());
+    new PixelCompare(testPath).generateRefImage(CreateLinesAndLayoutWithBreaks.class.getName());
   }
 }

@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import rita.RiText;
 import rita.render.test.*;
+import rita.render.test.misc.TextLayout;
 
 public class RiTextGraphicsTest // TODO: how to run these on JS tests?
 {
@@ -25,18 +26,10 @@ public class RiTextGraphicsTest // TODO: how to run these on JS tests?
 	}
 	
 	@Test
-	public void testAlpha()
+	public void testBoundingBoxAndAlpha()
 	{
 		PixelCompare pc = new PixelCompare(PATH);
-		System.out.println(PATH);
-		pc.assertEqual(Alpha.class.getName()); 
-	}
-
-	@Test
-	public void testBoundingBoxes()
-	{
-		PixelCompare pc = new PixelCompare(PATH);
-		pc.assertEqual(BoundingBoxes.class.getName());
+		pc.assertEqual(BoundingBoxAndAlpha.class.getName());
 	}
 	
 
@@ -47,27 +40,20 @@ public class RiTextGraphicsTest // TODO: how to run these on JS tests?
 		pc.assertEqual(BoundingBoxFeatures.class.getName());
 	}
 
-
-	@Test
-	public void testCreateLines()
-	{
-		PixelCompare pc = new PixelCompare(PATH);
-		pc.assertEqual(CreateLines.class.getName());
-	}
 	
 	@Test
-	public void testDefaultFontAndFontVlw()
+	public void testDefaultFontAndFontVlwTtf()
 	{
 		PixelCompare pc = new PixelCompare(PATH);
-		pc.assertEqual(DefaultFontAndFontVlw.class.getName());
+		pc.assertEqual(DefaultFontAndFontVlwTtf.class.getName());
 	}
 	
 
 	@Test
-	public void testLayoutWithBreaks()
+	public void CreateLinesAndLayoutWithBreaks()
 	{
 		PixelCompare pc = new PixelCompare(PATH);
-		pc.assertEqual(LayoutWithBreaks.class.getName());
+		pc.assertEqual(CreateLinesAndLayoutWithBreaks.class.getName());
 	}
 	
 	@Test
@@ -77,19 +63,7 @@ public class RiTextGraphicsTest // TODO: how to run these on JS tests?
 		pc.assertEqual(Simplest.class.getName());
 	}
 	
-	@Test
-	public void testSplitText()
-	{
-		PixelCompare pc = new PixelCompare(PATH);
-		pc.assertEqual(SplitText.class.getName());
-	}
 
-	@Test
-	public void testTextLayout()
-	{
-		PixelCompare pc = new PixelCompare(PATH);
-		pc.assertEqual(TextLayout.class.getName());
-	}
 
 	@Test
 	public void testWordsLettersLines()

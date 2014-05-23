@@ -28,11 +28,9 @@ public class ColorAndFade extends PApplet {
 
 		RiText rt3 = new RiText(this, "fade out delay and in" , 100, 250);
 		rt3.fadeOut(2,2);
-		
-		
+
 		rt2.fadeIn(2,4);
 		rt3.fadeIn(2,8);
-		
 		
 		RiText rt4 = new RiText(this, "fade out and in" , 100, 300);
 		rt4.showBounds(true); 
