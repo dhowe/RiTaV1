@@ -24,10 +24,6 @@ public class WordsLettersLines extends PApplet
 		line2 = RiText.createWords(this, txt, 64, 80); // words
 		line3 = RiText.createLetters(this, txt, 64, 130); // letters
 
-
-
-
-
 		RiText.defaults.showBounds = false;
 
 		RiText.defaultFont("Times", 28);
@@ -48,11 +44,7 @@ public class WordsLettersLines extends PApplet
 			float r = i*(256/words.length);
 			words[i].fill(r, 100, 255-r);
 		}
-		System.out.println(rt.textAscent());
-		System.out.println(rt.textDescent());
-
-
-
+		
 		background(255);
 		RiText.drawAll();
 	}
