@@ -24,7 +24,7 @@
 		<!-- end static/header.html -->
 
 			<div class="container">
-		      <div class="header"> <a href="../index.html"><img src="../img/RiTa-logo3.png" width="60" height="60"></a> <a href="https://github.com/dhowe/RiTaJS/"> <img style="position:absolute; margin-left:723px; border: 0; z-index:999999999" src="../img/forkme.png" alt="Fork me on GitHub"> </a></div>
+		      <div class="header"> <a href="../index.html"><img src="../img/RiTa-logo3.png" width="60" height="60"></a> <a href="https://github.com/dhowe/RiTa/"> <img style="position:absolute; margin-left:723px; border: 0; z-index:999999999" src="../img/forkme.png" alt="Fork me on GitHub"> </a></div>
 		      <span class="tagline">a software toolkit for generative literature</span>
 		          <div class="navbar">
 			        
@@ -127,7 +127,12 @@ as part of the installation.</b> Please download the version (3.x is recommended
  <em>NOTE:</em>&nbsp; Methods returning a String[] will return a zero-length array when the query term
   is not found or there are no entries for the relation type being sought, 
   rather than null (as in the original version of this library). 
+
+ <p>
+ <em>NOTE:</em>&nbsp; Methods returning a String[] will return results in <em>randomized</em> order. 
+ To disable this behavior, call wordnet.randomizeResults(false);  
  
+  
  <p>
  For more info on the meaning of various WordNet concepts (synset, sense,
  hypernym, etc), see <a href="http://wordnet.princeton.edu/wordnet/man/wngloss.7WN.html" target=_blank>this page</a>.
