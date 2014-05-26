@@ -12,7 +12,7 @@ public class RiGoogler implements RiGooglerIF
   public static final String DEFAULT_COOKIE_PATH = 
       System.getProperty("user.home") + "/Library/Cookies/Cookies.plist";
 
-  static  { String s = RiTa.VERSION; }
+  static  { String s = RiTa.VERSION; } // why?
   
   RiGooglerIF delegate;
 

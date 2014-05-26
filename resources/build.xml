@@ -73,7 +73,7 @@
 		
 	<target name="run.java.tests" depends="init">
 
-		<junit printsummary="yes" haltonfailure="yes">
+		<junit printsummary="yes" timeout="100000" haltonfailure="yes">
 
 			<classpath>
 				<pathelement path="${project.bin}" />
@@ -95,7 +95,7 @@
 				</fileset>
 			</batchtest-->
 	
-			<!--test name="rita.test.RiTextGraphicsTest" outfile="reports/rita.test.RiTextGraphicsTest"></test-->
+			<!--test name="rita.test.RiTextGraphicsTest" outfile="reports/rita.test.RiTextGraphicsTest"></test--> <!-- why does this fail from ant? -->
 			<test name="rita.test.RiLexiconTest" outfile="reports/rita.test.RiLexiconTest"></test>
 			<test name="rita.test.RiTaTest" outfile="reports/rita.test.RiTaTest"></test>
 			<test name="rita.test.RiGrammarTest" outfile="reports/rita.test.RiGrammarTest"></test>
