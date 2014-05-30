@@ -26,7 +26,7 @@ public class BoundingBoxAndAlpha extends PApplet {
 
 		RiText.defaultFont("Times", 32);
 
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < 11; i++)
 			new RiText(this, "alpha " + (i * 10), 400, 
 					(i + 1) * 38).alpha(i * 10).draw();
 
@@ -34,7 +34,7 @@ public class BoundingBoxAndAlpha extends PApplet {
 
 		RiText.defaultFont("Times",32);
 
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < 11; i++)
 			new RiText(this, "alpha " + (i * 10), 600, 
 					(i + 1) * 38).alpha(i * 10).draw();
 
