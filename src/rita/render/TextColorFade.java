@@ -25,8 +25,8 @@ public class TextColorFade extends InterpolatingBehavior
     
     switch (colors.length) {
       
-      case 3:
-        full[3] = 255;
+      case 3: 
+        full[3] = rt.alpha(); // DCH: changed from 255 ?
         break;
         
       case 2:
@@ -38,7 +38,7 @@ public class TextColorFade extends InterpolatingBehavior
       case 1:
         full[1] = colors[0];
         full[2] = colors[0];
-        full[3] = 255;
+        full[3] = rt.alpha(); // DCH: changed from 255 ?
         break;
     }
     
