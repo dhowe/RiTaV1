@@ -14,7 +14,7 @@ public class TextTo extends PApplet {
 	  
 		size(400, 100);
 		rt = new RiText(this, txt[0], 10, 70);
-		rt.createFont("Arial", 60);
+		rt.font("Arial", 60);
 	}
 
 	public void draw() {
