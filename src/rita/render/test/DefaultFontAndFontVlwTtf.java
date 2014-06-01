@@ -81,7 +81,7 @@ public class DefaultFontAndFontVlwTtf extends processing.core.PApplet
 	  rt2 = new RiText(this, "disposed and should not appear", 700, 100);
 	  
 	  RiText.dispose(rt2);
-	  //RiText.createFont(fontName, sz)//TODO test needed
+
 
 
 

@@ -57,6 +57,7 @@ public class ColorAndFade extends PApplet {
 		RiText rt9 = new RiText(this, "10.Null" , 100, 500);
 		rt9.showBounds(true);
 		rt9.textTo("10.Changed Text delay3s",3,5);	
+
 		
 		background(255);
 
