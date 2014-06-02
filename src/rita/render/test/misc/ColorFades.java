@@ -8,6 +8,8 @@ public class ColorFades extends PApplet {
 	public void setup() {
 	  
 		size(600, 400);
+		
+		RiText.defaults.showBounds = true;
 
 		RiText rt1 = new RiText(this, "One", 30, 30);
 		RiText rt2 = new RiText(this, "Two", 90, 90);
@@ -26,7 +28,6 @@ public class ColorFades extends PApplet {
 
 		rt1.fadeOut(4, 0, true);
 		rt2.fadeOut(2);
-
 		rt3.colorTo(new float[] { 0, 0, 255, 255 }, 4);
 		rt4.colorTo(new float[] { 0, 255, 0, 255 }, 4);
 	}

@@ -23,6 +23,8 @@ public class DefaultFontAndFontVlwTtf extends processing.core.PApplet
 
 	  RiText.defaultFont("Ziggurat32.vlw");
 	  rt = new RiText(this, "Default-Zig-vlw", 200, 170);
+	  
+	  
 	  //System.out.println(RiText.defaults.fontFamily+"/"+RiText.defaults.fontSize+
 	  //"\n"+rt.font()+"/"+ ((PFont)rt.font()).getSize()+"/fontSize="+rt.fontSize());
 	  RiText.defaultFont("mono0755.ttf");
@@ -39,24 +41,20 @@ public class DefaultFontAndFontVlwTtf extends processing.core.PApplet
 	  rt.font("Ziggurat32.vlw");
 
 	  rt = new RiText(this, "Zig-Vlw", 200, 450);
-
+    rt.font("Ziggurat32.vlw");
+    rt.fontSize(50);
 
 	  text(rt.fontSize(), 200, 400);
-
-	  rt.font("Ziggurat32.vlw");
-	  rt.fontSize(50);
-
 	  text(rt.fontSize(), 200, 480);
 
-
-
-
+	  // TODO: THESE 2 SEEM TO BE FAILING? ====================== 
 	  rt = new RiText(this, "mono0755", 200, 520);
-	    rt.font("mono0755.ttf");
-	    rt.fontSize(20);
-	  rt = new RiText(this, "mono0755", 200, 560);
-
-
+	  rt.font("mono0755.ttf");
+	  rt.fontSize(20); 
+	  
+	  rt = new RiText(this, "mono0755", 200, 560);  // should be mono-12?
+	  // ========================================================
+	  
 	  RiText.defaultFont("Batang", 100);
 
 	  rt = new RiText(this, "Batang-80", 540, 280);
@@ -81,11 +79,6 @@ public class DefaultFontAndFontVlwTtf extends processing.core.PApplet
 	  rt2 = new RiText(this, "disposed and should not appear", 700, 100);
 	  
 	  RiText.dispose(rt2);
-
-
-
-
-
 
 	  RiText.drawAll();
   }

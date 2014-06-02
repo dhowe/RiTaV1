@@ -159,7 +159,9 @@ public class PixelCompare
   static BufferedImage getDifference(BufferedImage im1, BufferedImage im2, double threshold)
   {
     int errc = RiTa.pack(255, 0, 255, 0); 
-    BufferedImage resultImage = new BufferedImage(im1.getWidth(), im2.getHeight(), BufferedImage.TYPE_INT_ARGB);
+    
+    BufferedImage resultImage = new BufferedImage
+          (im2.getWidth(), im2.getHeight(), BufferedImage.TYPE_INT_ARGB);
 
     for (int h = 0; h < im1.getHeight(); h++)
     {
@@ -284,6 +286,15 @@ public class PixelCompare
     applet.saveFrame(actualFile.getAbsolutePath());
     expected = applet.loadImage(refFile.getAbsolutePath());
     actual = applet.loadImage(actualFile.getAbsolutePath());
+    
+    /*assertTrue("Reference image is null", expected != null);
+    assertTrue("Generated image is null", actual != null);
+    
+    assertTrue("Images are not the same size, Reference: " + 
+        expected.width + "," + expected.height + " Generated: " 
+        + actual.width + "," + actual.height + " ["+testClass+"]", 
+        actual.width == expected.width && actual.height == expected.height);
+    */
     diff = loadImageDiff(refFile, actualFile);
     //System.out.println((expected+"\n"+actual+"\n"+diff));
     sketchWidth = applet.width; 
