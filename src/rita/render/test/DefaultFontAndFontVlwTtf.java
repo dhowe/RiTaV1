@@ -24,7 +24,6 @@ public class DefaultFontAndFontVlwTtf extends processing.core.PApplet
 	  RiText.defaultFont("Ziggurat32.vlw");
 	  rt = new RiText(this, "Default-Zig-vlw", 200, 170);
 	  
-	  
 	  //System.out.println(RiText.defaults.fontFamily+"/"+RiText.defaults.fontSize+
 	  //"\n"+rt.font()+"/"+ ((PFont)rt.font()).getSize()+"/fontSize="+rt.fontSize());
 	  RiText.defaultFont("mono0755.ttf");
