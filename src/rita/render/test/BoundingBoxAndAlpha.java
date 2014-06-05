@@ -37,38 +37,32 @@ public class BoundingBoxAndAlpha extends PApplet {
 		for (int i = 0; i < 11; i++)
 			new RiText(this, "alpha " + (i * 10), 600, 
 					(i + 1) * 38).alpha(i * 10).draw();
-
-		new RiText("D.Fill_200", 50,  500);
 		RiText.defaultFill(200);
-		new RiText("D.Fill_10", 50,  550);
+		new RiText("D.Fill_200", 50,  500);
 		RiText.defaultFill(10);
-		new RiText("D.Fill_200_50A", 220,  500);
+		new RiText("D.Fill_10", 50,  550);
 		RiText.defaultFill(200,50);
-		new RiText("D.Fill_200_0A", 220,  550);
+		new RiText("D.Fill_200_50A", 220,  500);
 		RiText.defaultFill(200,0);
-		new RiText("D.Fill_RED", 450,  500);
+		new RiText("D.Fill_200_0A", 220,  550);
 		RiText.defaultFill(255,0,0);
+		new RiText("D.Fill_RED", 450,  500);
+
 		fill(0);
 		float[] df = RiText.defaultFill();
 		text(df[0]+","+df[1]+","+df[2]+","+df[3],450,  600);
-		new RiText("D.Fill_BLUE", 450,  500);
 		RiText.defaultFill(0,0,255);
-		new RiText("D.Fill_RED_100A", 650,  500);
+		new RiText("D.Fill_BLUE", 450,  550);
 		RiText.defaultFill(255,0,0,100);
-		new RiText("D.Fill_RED_0A", 650,  550);
+		new RiText("D.Fill_RED_100A", 650,  500);
 		RiText.defaultFill(255,0,0,0); // invisible
+		new RiText("D.Fill_RED_0A", 650,  550);
+
 		df = RiText.defaultFill();
 		fill(0);
 		text(df[0]+","+df[1]+","+df[2]+","+df[3],650,  600);
 		
-		/*
-		RiText rt9 = new RiText("Random Color", 50,  650);
-		RiText.randomColor();
-		rt9.fill(RiText.randomColor(0,100,false));
-		fill(0);
-		text(rt7.defaultFill()[0]+","+rt7.defaultFill()[1]+","+rt7.defaultFill()[2]+","+rt7.defaultFill()[3],50,  650);
-		*/
-		
+	
 		RiText.drawAll();
 	}
 
