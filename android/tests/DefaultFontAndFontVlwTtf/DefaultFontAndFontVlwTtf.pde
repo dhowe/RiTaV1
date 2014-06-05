@@ -19,8 +19,8 @@ public void setup()
   rt = new RiText(this, "Default-Zig-vlw", 200, 170);
   //System.out.println(RiText.defaults.fontFamily+"/"+RiText.defaults.fontSize+
   //"\n"+rt.font()+"/"+ ((PFont)rt.font()).getSize()+"/fontSize="+rt.fontSize());
-  RiText.defaultFont("mono0755.ttf");
-  rt = new RiText(this, "mono0755-ttf", 200, 210);
+    RiText.defaultFont("wendy.ttf");
+    rt = new RiText(this, "wendy-ttf", 200, 210);
   ///////////////////// instances ////////////////////////
 
   rt = new RiText(this, "Courier", 200, 250);
@@ -45,10 +45,11 @@ public void setup()
 
 
 
-  rt = new RiText(this, "mono0755", 200, 520);
-    rt.font("mono0755.ttf");
-    rt.fontSize(20);
-  rt = new RiText(this, "mono0755", 200, 560);
+   rt = new RiText(this, "wendy-20", 200, 520);
+    rt.font("wendy.ttf");
+    rt.fontSize(20); 
+    
+    rt = new RiText(this, "wendy", 200, 560);  
 
 
   RiText.defaultFont("Batang", 100);
