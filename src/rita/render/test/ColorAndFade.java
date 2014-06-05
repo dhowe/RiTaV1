@@ -21,22 +21,24 @@ public class ColorAndFade extends PApplet {
 		RiText rt6 = new RiText(this, "2.ColorTo Bluein 2 sec" , 100, 100);
 		rt6.colorTo(c,2);
 		rt6.showBounds(true);
-		new RiText(this, "3.ColorTo Blue 5s delay 5" , 100, 150).colorTo(c,5,2);
+		new RiText(this, "3.ColorTo Blue 5s delay 2s" , 100, 150).colorTo(c,5,2);
 
 		RiText rt2 = new RiText(this, "4.fade out and in" , 100, 200);
 		rt2.fadeOut(2);
 
 		rt2.fadeIn(2,4);
 		
-		RiText rt3 = new RiText(this, "5.fade out delay 2s and in at 8s" , 100, 250);
+		RiText rt4 = new RiText(this, "5.fade out and in at 4s" , 100, 250);
+		rt4.showBounds(true); 
+		rt4.fadeOut(2);
+		rt4.fadeIn(2,4);
+
+		
+		RiText rt3 = new RiText(this, "6.fade out delay 2s and in at 8s" , 100, 300);
 		rt3.fadeOut(2,2);
 
 		rt3.fadeIn(2,8);
 		
-		RiText rt4 = new RiText(this, "6.fade out and in at 4s" , 100, 300);
-		rt4.showBounds(true); 
-		rt4.fadeOut(2);
-		rt4.fadeIn(2,4);
 
 		RiText rt5 = new RiText(this, "7.fade out delay 2s and in at 8s" , 100, 350);
 		rt5.showBounds(true);
