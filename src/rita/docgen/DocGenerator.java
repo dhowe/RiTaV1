@@ -1,16 +1,12 @@
 package rita.docgen;
 
 import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.zip.GZIPOutputStream;
-
-import org.json.*;
 
 import processing.core.PApplet;
 import rita.RiTa;
+import rita.json.*;
 
 public class DocGenerator extends PApplet
 {
