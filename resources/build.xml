@@ -1,5 +1,11 @@
 <project name="RiTa" default="clean" basedir="../">
 
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
+		<classpath>
+			<pathelement location="./libs/ant-contrib-1.0b3.jar"/>
+		</classpath>
+	</taskdef>
+				
 	<!-- remove debug lines from production compiled code -->
 
 	<!-- ant -logger org.apache.tools.ant.listener.ProfileLogger -->
@@ -128,12 +134,6 @@
 	<target name="_publish.rednoise">
 		<antcall target="_script.pub.rednoise" />
 	</target>
-
-	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
-		<classpath>
-			<pathelement location="./resources/code/ant-contrib-1.0b3.jar"/>
-		</classpath>
-	</taskdef>
 
 	<path id="classpath">
 		<fileset dir="${classpath.local.location}" includes="${classpath.local.include}" />
