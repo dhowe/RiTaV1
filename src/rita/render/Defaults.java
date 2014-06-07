@@ -11,8 +11,6 @@ public abstract class Defaults implements Constants
   static { reset(); }
 
   public static int alignment, motionType;
-  public static float scaleX = 1, scaleY = 1, scaleZ = 1; // array?
-  public static float rotateX = 0, rotateY = 0, rotateZ = 0; // array?
   public static float fontSize, boundingStrokeWeight, leadingFactor = 1.2f;
   
   public static String fontFamily;
@@ -20,7 +18,7 @@ public abstract class Defaults implements Constants
   public static float paragraphIndent, paragraphLeading;
   public static boolean showBounds, indentFirstParagraph;
 
-  public static float[] fill, boundingStroke, boundingFill;
+  public static float[] fill, boundingStroke, boundingFill, rotateXYZ, scaleXYZ;
 
   public static Map fonts; // cache
   public static PFont font;
@@ -41,25 +39,18 @@ public abstract class Defaults implements Constants
     alignment = RiTa.LEFT;
     motionType = Constants.LINEAR;
     
-    scaleX = 1;
-    scaleY = 1;
-    scaleZ = 1;
-    
-    rotateX = 0;
-    rotateY = 0;
-    rotateZ = 0;
+    scaleXYZ = new float[] { 1, 1, 1 };
+    rotateXYZ = new float[] { 0, 0, 0 };
 
-    fontSize = DEFAULT_FONT_SIZE;
+    fontSize = _defFontSize;
     leadingFactor = 1.2f;
-
-    fontFamily = (RiTa.env() == RiTa.ANDROID) ? "Serif" : "Times New Roman";
-
+    boundingStrokeWeight = 1;
     paragraphIndent = 30;
     paragraphLeading = 0;
+    
+    fontFamily = (RiTa.env() == RiTa.ANDROID) ? "Serif" : "Times New Roman";
+
     indentFirstParagraph = false;
-
     showBounds = false;
-
-    boundingStrokeWeight = 1;
   }
 }

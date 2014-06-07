@@ -210,5 +210,7 @@ public interface Constants extends EnglishConstants
   String DOMAIN = "Domain";
   
   /** offset to use for page numbers in the PageLayout footer*/
-  int PAGE_NO_OFFSET = 35, DEFAULT_FONT_SIZE = 14;
+  int PAGE_NO_OFFSET = 35;
+  
+  float _defFontSize = 14;
 }

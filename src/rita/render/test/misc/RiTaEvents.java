@@ -12,7 +12,7 @@ public class RiTaEvents extends PApplet {
 		size(600, 200);
 
 		rt1 = new RiText(this, "Fade", 130, 130);
-		rt1.textSize(120);
+		rt1.fontSize(120);
 		rt1.fill(200, 0, 0, 255);
 		rt1.fadeOut(4);
 
