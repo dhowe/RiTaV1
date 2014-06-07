@@ -4,5 +4,8 @@ bin
 RiTaLibraryJS
 tasks.txt
 reports
-/latest
+/latest/*.zip
+/latest/*.jar
+/latest/*.tgz
+/latest/*.js
 /distribution

@@ -71,8 +71,7 @@ public class DefaultFontAndFontVlwTtf extends processing.core.PApplet
 
 	  rt = new RiText(this, "Georgia(32)", 700, 80);
 
-	  RiText rt2 = new RiText(this, "disposed and should not appear", 400, 200);
-	  RiText.dispose(rt2);
+	  RiText.dispose(new RiText(this, "disposed and should not appear", 400, 200));
 	  
 	  RiText.drawAll();
   }
