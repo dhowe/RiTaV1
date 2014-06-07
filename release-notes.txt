@@ -1,3 +1,7 @@
+1.0.64
+-------------------
+Much improved tests, especially for Android
+Better font handling in RiText
 
 1.0.52
 -------------------
