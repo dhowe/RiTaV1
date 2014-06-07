@@ -17,7 +17,7 @@ public class WordsLettersLines extends PApplet
 
 		size(400, 400);
 
-		RiText.defaults.fontSize = 32;
+		RiText.defaultFontSize(32); 
 		RiText.defaults.showBounds = true;
 
 		line1 = new RiText(this, txt, 64, 50); // lines

@@ -16,7 +16,7 @@ public class GrammarExecRhyme extends PApplet
   {
     size(400, 200);
 
-    RiText.defaults.fontSize = 24;
+    RiText.defaultFontSize(24); 
     RiText.defaults.alignment = CENTER;
 
     rt = new RiText(this, "click", width / 2, 75);

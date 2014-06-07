@@ -13,7 +13,7 @@ public class DisposeAll extends PApplet {
 		RiTa.start(this);
 
 		RiText.defaults.showBounds = true;
-		RiText.defaults.fontSize = 64;
+		RiText.defaultFontSize(64); 
 
 		new RiText("Default", 200,  100);
 

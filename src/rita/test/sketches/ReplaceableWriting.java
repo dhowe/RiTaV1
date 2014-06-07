@@ -13,7 +13,7 @@ public class ReplaceableWriting extends PApplet
   public void setup()
   {
     size(600, 400);   
-    RiText.defaults.fontSize = 18; 
+    RiText.defaultFontSize(18); 
     wordnet = new RiWordNet("/WordNet-3.1", true, true);
     
     onRiTaEvent(null);
