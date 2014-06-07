@@ -1,0 +1,1319 @@
+{
+    "class": "rita.RiWordNet",
+    "fields": [
+{
+	"variable": false,
+	"methodName": "printHypernymTree()",
+	"example": "",
+	"description": "Prints the full hypernym tree to System.out (primarily for debugging).",
+	"syntax": "printHypernymTree(senseId)",
+	"parameters": [{
+		"type": "int",
+		"desc": "senseId"
+	}],
+	"returns": [],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "iterator()",
+	"example": "",
+	"description": "Returns an iterator over all words of the specified 'pos'",
+	"syntax": "iterator(pos)",
+	"parameters": [{
+		"type": "int",
+		"desc": "the part-of-speech"
+	}],
+	"returns": [{
+		"type": "java.util.Iterator",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "isVerb()",
+	"example": "",
+	"description": " ",
+	"syntax": "isVerb(word)",
+	"parameters": [{
+		"type": "String",
+		"desc": "word"
+	}],
+	"returns": [{
+		"type": "boolean",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "isStem()",
+	"example": "",
+	"description": "Returns true if 'word' exists with 'pos' and is equal (via String.equals()) to any of its stem forms, else false;",
+	"syntax": "isStem(word, pos)",
+	"parameters": [{
+		"type": "String",
+		"desc": "word"
+	}, {
+		"type": "int",
+		"desc": "the part-of-speech"
+	}],
+	"returns": [{
+		"type": "boolean",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "isNoun()",
+	"example": "",
+	"description": "",
+	"syntax": "isNoun(word)",
+	"parameters": [{
+		"type": "String",
+		"desc": "word"
+	}],
+	"returns": [{
+		"type": "boolean",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "isIgnoringUpperCaseWords()",
+	"example": "",
+	"description": "",
+	"syntax": "isIgnoringUpperCaseWords()",
+	"parameters": [],
+	"returns": [{
+		"type": "boolean",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "isIgnoringCompoundWords()",
+	"example": "",
+	"description": "",
+	"syntax": "isIgnoringCompoundWords()",
+	"parameters": [],
+	"returns": [{
+		"type": "boolean",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "isAdverb()",
+	"example": "",
+	"description": "",
+	"syntax": "isAdverb(word)",
+	"parameters": [{
+		"type": "String",
+		"desc": "word"
+	}],
+	"returns": [{
+		"type": "boolean",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "isAdjective()",
+	"example": "",
+	"description": "",
+	"syntax": "isAdjective(word)",
+	"parameters": [{
+		"type": "String",
+		"desc": "word"
+	}],
+	"returns": [{
+		"type": "boolean",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "ignoreUpperCaseWords()",
+	"example": "",
+	"description": "",
+	"syntax": "ignoreUpperCaseWords(ignoreUpperCaseWords)",
+	"parameters": [{
+		"type": "String",
+		"desc": "worignoreUpperCaseWordsd"
+	}],
+	"returns": [],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "ignoreCompoundWords()",
+	"example": "",
+	"description": "",
+	"syntax": "ignoreCompoundWords(ignoreCompoundWords)",
+	"parameters": [{
+		"type": "String",
+		"desc": "ignoreCompoundWords"
+	}],
+	"returns": [],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getWildcardMatch()",
+	"example": "",
+	"description": "",
+	"syntax": "getWildcardMatch(pattern, posStr)<br/>getWildcardMatch(pattern, posStr, maxResults)",
+	"parameters": [{
+		"type": "String",
+		"desc": "pattern"
+	}, {
+		"type": "String",
+		"desc": "posStr"
+	}, {
+		"type": "int",
+		"desc": "(optional) maxResults"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getVerbGroup()",
+	"example": "",
+	"description": "Returns verb group for id<br/>Example: live -> [dwell, inhabit]; Holds for verbs",
+	"syntax": "getVerbGroup(id)<br/>getVerbGroup(query, pos)",
+	"parameters": [{
+		"type": "String",
+		"desc": "query"
+	}, {
+		"type": "String",
+		"desc": "(Optional) pos"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getSynset()",
+	"example": "",
+	"description": "Returns String[] of Synsets for unique id",
+	"syntax": "getSynset(id)<br/>getSynset(word, pos)<br/>getSynset(word, pos, includeOriginal)",
+	"parameters": [{
+		"type": "int",
+		"desc": "(Optional) the unique id"
+	}, {
+		"type": "String",
+		"desc": "(Optional) word"
+	}, {
+		"type": "String",
+		"desc": "(Optional) the pos"
+	}, {
+		"type": "boolean",
+		"desc": "(Optional) includeOriginal"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getSynonyms()",
+	"example": "",
+	"description": "Returns an unordered String[] containing the synset, hyponyms, similars, alsoSees, and coordinate terms (checking each in order) for all senses of word with pos",
+	"syntax": "getSynonyms(word, posStr)<br/>getSynonyms(word, posStr, maxResults)",
+	"parameters": [{
+		"type": "String",
+		"desc": "word"
+	}, {
+		"type": "String",
+		"desc": "posStr"
+	}, {
+		"type": "int",
+		"desc": "(Optional) maxResults"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getStems()",
+	"example": "",
+	"description": "Returns an array of all stems",
+	"syntax": "getStems(query, pos)",
+	"parameters": [{
+		"type": "String",
+		"desc": "query"
+	}, {
+		"type": "String",
+		"desc": "the part-of-speech"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getStartsWith()",
+	"example": "",
+	"description": "Returns up to maxResults of the specified pos starting with the given word.<br/>Example: 'turn' returns 'turntable'",
+	"syntax": "getStartsWith(word, posStr)<br/>getStartsWith(word, posStr, maxResults)",
+	"parameters": [{
+		"type": "String",
+		"desc": "word"
+	}, {
+		"type": "String",
+		"desc": "posStr"
+	}, {
+		"type": "int",
+		"desc": "(Optional) maxResults"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getSoundsLike()",
+	"example": "",
+	"description": "Returns up to maxResults of the specified pos that match the soundex code of the given word.",
+	"syntax": "getSoundsLike(pattern, posStr)<br/>getSoundsLike(pattern, posStr, maxResults)",
+	"parameters": [{
+		"type": "String",
+		"desc": "pattern"
+	}, {
+		"type": "String",
+		"desc": "posStr"
+	}, {
+		"type": "int",
+		"desc": "(Optional) maxResults"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getSimilar()",
+	"example": "",
+	"description": "Returns similar-to list for the id or word/pos pair<br/>Holds for adjectives<br/>Example:happy(a) -> [blessed, blissful, bright, golden, halcyon, prosperous...]",
+	"syntax": "getSimilar(id)<br/>getSimilar(query, pos)",
+	"parameters": [{
+		"type": "int",
+		"desc": "(Optional) the id"
+	}, {
+		"type": "String",
+		"desc": "(Optional) the word"
+	}, {
+		"type": "String",
+		"desc": "(Optional) pos"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getSenseIds()",
+	"example": "",
+	"description": "Returns an array of unique ids, one for each sense of word with pos",
+	"syntax": "getSenseIds(idw)<br/>getSenseIds(word, posStr)",
+	"parameters": [{
+		"type": "IndexWord",
+		"desc": "idw"
+	}, {
+		"type": "String",
+		"desc": "word"
+	}, {
+		"type": "String",
+		"desc": "posStr"
+	}],
+	"returns": [{
+		"type": "int[]",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getSenseCount()",
+	"example": "",
+	"description": "Return the # of senses (polysemy) for a given word/pos. A 'sense' refers to a specific WordNet meaning and maps 1-1 to the concept of synsets. Each 'sense' of a word exists in a different synset.<br/>For more info, see: {@link http://wordnet.princeton.edu/gloss}",
+	"syntax": "getSenseCount(word, pos)",
+	"parameters": [{
+		"type": "String",
+		"desc": "word"
+	}, {
+		"type": "String",
+		"desc": "the part-of-speech"
+	}],
+	"returns": [{
+		"type": "int",
+		"desc": "# of senses or 0 if not found"
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getRegexMatch()",
+	"example": "",
+	"description": "Returns up to maxResults of the specified pos Example: '.*table' returns 'turntable' & 'uncomfortable'",
+	"syntax": "getRegexMatch(pattern, posStr)<br/>getRegexMatch(pattern, posStr, maxResults)",
+	"parameters": [{
+		"type": "String",
+		"desc": "pattern"
+	}, {
+		"type": "String",
+		"desc": "posStr"
+	}, {
+		"type": "int",
+		"desc": "(Optional) maxResults"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getRandomWords()",
+	"example": "",
+	"description": "Returns count random words w' pos",
+	"syntax": "getRandomWords(pos, count)",
+	"parameters": [{
+		"type": "String",
+		"desc": "the part-of-speech"
+	}, {
+		"type": "int",
+		"desc": "count"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": "String[] of random words"
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getRandomWord()",
+	"example": "",
+	"description": "Returns a random stem with pos and a max length of this.maxCharsPerWord.",
+	"syntax": "getRandomWord(pos)<br/>getRandomWord(pos, stemsOnly, maxChars)",
+	"parameters": [{
+		"type": "String",
+		"desc": "the part-of-speech"
+	}, {
+		"type": "boolean",
+		"desc": "(Optional) stemsOnly"
+	}, {
+		"type": "int",
+		"desc": "(Optional) maxChars"
+	}],
+	"returns": [{
+		"type": "java.lang.String",
+		"desc": "random word"
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getRandomExamples()",
+	"example": "",
+	"description": "Returns numExamples random examples from random words w' pos",
+	"syntax": "getRandomExamples(pos, numExamples)",
+	"parameters": [{
+		"type": "String",
+		"desc": "the part-of-speech"
+	}, {
+		"type": "int",
+		"desc": "numExamples"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": "random examples"
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getPos()",
+	"example": "",
+	"description": "",
+	"syntax": "getPos(id)<br/>getPos(word)",
+	"parameters": [{
+		"type": "String",
+		"desc": "word"
+	}, {
+		"type": "int",
+		"desc": "id"
+	}],
+	"returns": [{
+		"type": "java.lang.String",
+		"desc": "String from ('a' = adjective, 'n' = noun, 'r' = adverb, 'v' = verb), or null if not found."
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getNominalizations()",
+	"example": "",
+	"description": "Returns nominalized terms for the id or word/pos pair<br/>Refers to the use of a verb or an adjective as a noun. Holds for nouns, verbs & adjecstives(?)<br/>Example: happiness(n) -> [happy, unhappy]<br/>happy(a) -> [happiness, felicity]",
+	"syntax": "getNominalizations(id)<br/>getNominalizations(query, pos)",
+	"parameters": [{
+		"type": "int",
+		"desc": "id"
+	}, {
+		"type": "String",
+		"desc": "query"
+	}, {
+		"type": "String",
+		"desc": "the part-of-speech"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getMeronyms()",
+	"example": "",
+	"description": "Returns array of whole-to-part relationships for the id or word/pos pair<br/>X is a meronym of Y if Y has X as a part.<br/>X is a holonym of Y if X has Y as a part. That is, if Y is a meronym of X.<br/>Holds between: Nouns and nouns<br/>Returns part,member, and substance meronyms<br/>Example: arm -> [wrist, carpus, wrist-joint, radiocarpal-joint...]",
+	"syntax": "getMeronyms(id)<br/>getMeronyms(query, pos)",
+	"parameters": [{
+		"type": "int",
+		"desc": "id"
+	}, {
+		"type": "String",
+		"desc": "query"
+	}, {
+		"type": "String",
+		"desc": "the part-of-speech"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getHyponymTree()",
+	"example": "",
+	"description": "Returns an unordered String[] of hyponym-synsets (each a colon-delimited String) representing all paths to leaves in the ontology (the full hyponym tree)",
+	"syntax": "getHyponymTree(id)",
+	"parameters": [{
+		"type": "int",
+		"desc": "id"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getHypernyms()",
+	"example": "",
+	"description": "Returns Hypernym String[] for the id or word/pos pair<p>X is a hyponym of Y if there exists an is-a relationship between X and Y.<br>That is, if X is a subtype of Y. <br>Or, for example, if X is a species of the genus Y. <br>X is a hypernym of Y is Y is a hyponym of X. <br>Holds between: nouns and nouns & verbs and verbs<br>Examples:<ul><li>artifact is a hyponym of object<li>object is a hypernym of artifact<li>carrot is a hyponym of herb<li>herb is a hypernym of carrot</ul>",
+	"syntax": "getHypernyms(id)<br/>getHypernyms(word, posStr)",
+	"parameters": [{
+		"type": "int",
+		"desc": "id"
+	}, {
+		"type": "String",
+		"desc": "word"
+	}, {
+		"type": "String",
+		"desc": "posStr"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getHolonyms()",
+	"example": "",
+	"description": "Returns part-to-whole relationships for 1st sense of word/pos, or none if not found<br>X is a meronym of Y if Y has X as a part.<br>X is a holonym of Y if X has Y as a part. That is, if Y is a meronym of X. <br>Holds between: nouns and nouns<br>Returns part, member, and substance holonyms<br>Example: arm -> [body, physical-structure, man, human...]",
+	"syntax": "getHolonyms(id)<br/>getHolonyms(query, pos)",
+	"parameters": [{
+		"type": "int",
+		"desc": "id"
+	}, {
+		"type": "String",
+		"desc": "query"
+	}, {
+		"type": "String",
+		"desc": "the part-of-speech"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getGloss()",
+	"example": "",
+	"description": "Returns full gloss for the id or word/pos pair, or null if not found",
+	"syntax": "getGloss(senseId)<br/>getGloss(word, pos)",
+	"parameters": [{
+		"type": "int",
+		"desc": "senseId"
+	}, {
+		"type": "String",
+		"desc": "word"
+	}, {
+		"type": "String",
+		"desc": "the part-of-speech"
+	}],
+	"returns": [{
+		"type": "java.lang.String",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getExamples()",
+	"example": "",
+	"description": "Returns all examples for the id or word/pos pair",
+	"syntax": "getExamples(senseId)<br/>getExamples(word, pos)",
+	"parameters": [{
+		"type": "int",
+		"desc": "senseId"
+	}, {
+		"type": "String",
+		"desc": "word"
+	}, {
+		"type": "String",
+		"desc": "the part-of-speech"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getEndsWith()",
+	"example": "",
+	"description": "Returns up to maxResults of the specified pos ending with the given word.<br/>Example: 'table' returns 'turntable' & 'uncomfortable'",
+	"syntax": "getEndsWith(word, posStr)<br/>getEndsWith(word, posStr, maxResults);",
+	"parameters": [{
+		"type": "String",
+		"desc": "word"
+	}, {
+		"type": "String",
+		"desc": "posStr"
+	}, {
+		"type": "int",
+		"desc": "(optional) maxResults"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getDistance()",
+	"example": "",
+	"description": "Returns the minimum distance between any two senses for the 2 words in the WordNet tree (result normalized to 0-1) with specified pos, or 1.0 if either is not found.<P>The algorithm procedes as follows:<ol><li>locate node <code>cp</code>, the common parent of the two lemmas, if one exists, by checking each sense of each lemma; if one is not found, return 1.0<li>calculate <code>minDistToCommonParent</code>, the shortest path from either lemma to cp<li>calculate <code>distFromCommonParentToRoot</code>, the length of the path from cp to the root of ontology<li>calculate and return the <code>normalizedDistToCommonParent</code> as:<br><code>(minDistToCommonParent / (distFromCommonParentToRoot + minDistToCommonParent))</code><ol>",
+	"syntax": "getDistance(lemma1, lemma2, pos)",
+	"parameters": [{
+		"type": "String",
+		"desc": "first lemma"
+	}, {
+		"type": "String",
+		"desc": "second lemma"
+	}, {
+		"type": "String",
+		"desc": "the part-of-speech"
+	}],
+	"returns": [{
+		"type": "float",
+		"desc": "distance normalized to 0 <= d < 1, or 1 if either is not found"
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getDescription()",
+	"example": "",
+	"description": "Returns description for the id or word/pos pair, or null if not found",
+	"syntax": "getDescription(senseId)<br/>getDescription(word, pos)",
+	"parameters": [{
+		"type": "int",
+		"desc": "senseId"
+	}, {
+		"type": "String",
+		"desc": "word"
+	}, {
+		"type": "String",
+		"desc": "the part-of-speech"
+	}],
+	"returns": [{
+		"type": "java.lang.String",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getDerivedTerms()",
+	"example": "",
+	"description": "Returns derived terms for the id or word/pos pair<br>Holds for adverbs <br>Example: happily -> [jubilant, blithe, gay, mirthful, merry, happy]",
+	"syntax": "getDerivedTerms(id)<br/>getDerivedTerms(query, pos);",
+	"parameters": [{
+		"type": "int",
+		"desc": "id"
+	}, {
+		"type": "String",
+		"desc": "query"
+	}, {
+		"type": "String",
+		"desc": "the part-of-speech"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getCoordinates()",
+	"example": "",
+	"description": "Returns String[] of Coordinates for the id or word/pos pair",
+	"syntax": "getCoordinates(id)<br/>getCoordinates(query, pos)",
+	"parameters": [{
+		"type": "int",
+		"desc": "id"
+	}, {
+		"type": "String",
+		"desc": "query"
+	}, {
+		"type": "String",
+		"desc": "the part-of-speech"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getContains()",
+	"example": "",
+	"description": "Returns all 'contains' matches for the specified word and pos <br/>Example: 'table' returns 'bleat' (but not 'tale').",
+	"syntax": "getContains(word, posStr)<br/>getContains(word, posStr, maxResults)",
+	"parameters": [{
+		"type": "String",
+		"desc": "word"
+	}, {
+		"type": "String",
+		"desc": "posStr"
+	}, {
+		"type": "int",
+		"desc": "(Optional) maxResults"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getCommonParents()",
+	"example": "",
+	"description": "Returns String[] of Common Parents for 1st senses of words with specified pos, or an empty array if not found",
+	"syntax": "getCommonParents(word1, word2, pos);",
+	"parameters": [{
+		"type": "String",
+		"desc": "word1"
+	}, {
+		"type": "String",
+		"desc": "word2"
+	}, {
+		"type": "String",
+		"desc": "the part-of-speech"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": "array of common-parents for the 1st senses of the words"
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getCommonParent()",
+	"example": "",
+	"description": "Returns common parent for words with unique ids id1, id2, or -1 if no parent is found",
+	"syntax": "getCommonParent(id1, id2)",
+	"parameters": [{
+		"type": "int",
+		"desc": "id1"
+	}, {
+		"type": "int",
+		"desc": "id2"
+	}],
+	"returns": [{
+		"type": "int",
+		"desc": "the id for the common parent of the words or -1 if no parent is found"
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getBestPos()",
+	"example": "",
+	"description": "Finds the most common part-of-speech for a word based on its polysemy count, returning the pos for the version of the word with the most different senses.",
+	"syntax": "getBestPos(word)",
+	"parameters": [{
+		"type": "String",
+		"desc": "word"
+	}],
+	"returns": [{
+		"type": "java.lang.String",
+		"desc": "A single-character String for the most common part of speech ('a' = adjective, 'n' = noun, 'r' = adverb, 'v' = verb), or null if the word is not found."
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getRandomExample()",
+	"example": "",
+	"description": "Return a random example from the set of examples from all senses of word with pos, assuming they contain word, or else null if not found",
+	"syntax": "getAnyExample(word, pos)",
+	"parameters": [{
+		"type": "String",
+		"desc": "word"
+	}, {
+		"type": "String",
+		"desc": "the part-of-speech"
+	}],
+	"returns": [{
+		"type": "java.lang.String",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getAntonyms()",
+	"example": "",
+	"description": "Returns String[] of Antonyms for the id or word/pos pair<br/>Holds for adjectives only (?)",
+	"syntax": "getAntonyms(id)<br/>getAntonyms(word, pos)",
+	"parameters": [{
+		"type": "int",
+		"desc": "id"
+	}, {
+		"type": "String",
+		"desc": "word"
+	}, {
+		"type": "String",
+		"desc": "the part-of-speech"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getAnagrams()",
+	"example": "",
+	"description": "Returns all full anagram matches for the specified word and pos<br/>Example: 'table' returns 'bleat' (but not 'tale').",
+	"syntax": "getAnagrams(word, posStr)<br/>getAnagrams(word, posStr, maxResults);",
+	"parameters": [{
+		"type": "String",
+		"desc": "word"
+	}, {
+		"type": "String",
+		"desc": "posStr"
+	}, {
+		"type": "int",
+		"desc": "(Optional) maxResults"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getAlsoSees()",
+	"example": "",
+	"description": "Returns all full anagram matches for the specified word and pos<br/>Example: 'table' returns 'bleat' (but not 'tale').",
+	"syntax": "getAlsoSees(senseId)<br/>getAlsoSees(query, pos)",
+	"parameters": [{
+		"type": "int",
+		"desc": "senseId"
+	}, {
+		"type": "String",
+		"desc": "query"
+	}, {
+		"type": "String",
+		"desc": "the part-of-speech"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getAllVerbGroups()",
+	"example": "",
+	"description": "Returns verb group for all senses of the verb<br/>Example: live -> [dwell, inhabit]<br/>Holds for verbs",
+	"syntax": "getAllVerbGroups(query, pos);",
+	"parameters": [{
+		"type": "String",
+		"desc": "query"
+	}, {
+		"type": "String",
+		"desc": "the part-of-speech"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getAllSynsets()",
+	"example": "",
+	"description": "Returns String[] of words in each synset for all senses of word with pos",
+	"syntax": "getAllSynsets(word, posStr)",
+	"parameters": [{
+		"type": "String",
+		"desc": "word"
+	}, {
+		"type": "String",
+		"desc": "posStr"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getAllSynonyms()",
+	"example": "",
+	"description": "",
+	"syntax": "getAllSynonyms(senseId)<br/>getAllSynonyms(senseId, maxResults)<br/>getAllSynonyms(word, posStr)<br/>getAllSynonyms(word, posStr, maxResults)",
+	"parameters": [{
+		"type": "int",
+		"desc": "senseId"
+	}, {
+		"type": "String",
+		"desc": "word"
+	}, {
+		"type": "String",
+		"desc": "posStr"
+	}, {
+		"type": "int",
+		"desc": "(Optional) maxResults"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getAllSimilar()",
+	"example": "",
+	"description": "Returns similar-to list for all sense of word/pos<br/>Holds for adjectives<br/>Example:<br/>happy(a) -> [blessed, blissful, bright, golden, halcyon, prosperous...]",
+	"syntax": "getAllSimilar(query, pos)",
+	"parameters": [{
+		"type": "String",
+		"desc": "query"
+	}, {
+		"type": "String",
+		"desc": "the part-of-speech"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getAllNominalizations()",
+	"example": "",
+	"description": "Returns nominalized terms for all sense of word/pos<br/>Refers to the use of a verb or an adjective as a noun. Holds for nouns, verbs & adjecstives(?)<br/>Example: happiness(n) -> [happy, unhappy]<br/>happy(a) -> [happiness, felicity]",
+	"syntax": "getAllNominalizations(query, pos)",
+	"parameters": [{
+		"type": "String",
+		"desc": "query"
+	}, {
+		"type": "String",
+		"desc": "the part-of-speech"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getAllMeronyms()",
+	"example": "",
+	"description": "Returns array of whole-to-part relationships for all senses of word/pos<br/>X is a meronym of Y if Y has X as a part.<br/>X is a holonym of Y if X has Y as a part. That is, if Y is a meronym of X. <br/>Holds between: Nouns and nouns<br/>Returns part,member, and substance meronyms<br/>Example: arm -> [wrist, carpus, wrist-joint, radiocarpal-joint...]",
+	"syntax": "getAllMeronyms(query, pos)",
+	"parameters": [{
+		"type": "String",
+		"desc": "query"
+	}, {
+		"type": "String",
+		"desc": "the part-of-speech"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getAllHyponyms()",
+	"example": "",
+	"description": "Returns an unordered String[] of hyponym-synsets (each a colon-delimited String)",
+	"syntax": "getAllHyponyms(word, posStr)",
+	"parameters": [{
+		"type": "String",
+		"desc": "word"
+	}, {
+		"type": "String",
+		"desc": "posStr"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getAllHypernyms()",
+	"example": "",
+	"description": "Returns an ordered String[] of hypernym-synsets (each a semi-colon delimited String) up to the root of WordNet for the 1st sense of the word",
+	"syntax": "getAllHypernyms(word, posStr)",
+	"parameters": [{
+		"type": "String",
+		"desc": "word"
+	}, {
+		"type": "String",
+		"desc": "posStr"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getAllHolonyms()",
+	"example": "",
+	"description": "Returns part-to-whole relationships for all sense of word/pos, or none if not found<br/>X is a meronym of Y if Y has X as a part.<br/>X is a holonym of Y if X has Y as a part. That is, if Y is a meronym of X. <br/>Holds between: nouns and nouns<br/>Returns part, member, and substance holonyms<br/>Example: arm -> [body, physical-structure, man, human...]",
+	"syntax": "getAllHolonyms(word, posStr)",
+	"parameters": [{
+		"type": "String",
+		"desc": "word"
+	}, {
+		"type": "String",
+		"desc": "posStr"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getAllGlosses()",
+	"example": "",
+	"description": "Returns glosses for all senses of 'word' with 'pos'",
+	"syntax": "getAllGlosses(word, pos)",
+	"parameters": [{
+		"type": "String",
+		"desc": "word"
+	}, {
+		"type": "String",
+		"desc": "the part-of-speech"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getAllExamples()",
+	"example": "",
+	"description": "Returns examples for all senses of word with pos that contain the word",
+	"syntax": "getAllExamples(word, pos)",
+	"parameters": [{
+		"type": "String",
+		"desc": "word"
+	}, {
+		"type": "String",
+		"desc": "the part-of-speech"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getAllDerivedTerms()",
+	"example": "",
+	"description": "Returns derived terms forall senses of word/pos<br/>Holds for adverbs <br/>Example: happily -> [jubilant, blithe, gay, mirthful, merry, happy]",
+	"syntax": "getAllDerivedTerms(query, pos)",
+	"parameters": [{
+		"type": "String",
+		"desc": "query"
+	}, {
+		"type": "String",
+		"desc": "the part-of-speech"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getAllCoordinates()",
+	"example": "",
+	"description": "Returns coordinate terms for all sense of word/pos<br>X is a coordinate term of Y if there exists a term Z which is the hypernymof both X and Y.<br>Examples:<ul><li>blackbird and robin are coordinate terms (since they are both a kind ofthrush)<li>gun and bow are coordinate terms (since they are both weapons)<li>fork and spoon are coordinate terms (since they are both cutlery, oreating utensils)<li>hat and helmet are coordinate terms (since they are both a kind ofheadgear or headdress)</ul>Example: arm -> [hind-limb, forelimb, flipper, leg, crus, thigh, arm...]<br>Holds btwn nouns/nouns and verbs/verbs",
+	"syntax": "getAllCoordinates(query, pos)",
+	"parameters": [{
+		"type": "String",
+		"desc": "query"
+	}, {
+		"type": "String",
+		"desc": "the part-of-speech"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getAllAntonyms()",
+	"example": "",
+	"description": "Returns String[] of Antonyms for the 1st sense of word with pos<br/>Holds for adjectives only (?)",
+	"syntax": "getAllAntonyms(word, pos)",
+	"parameters": [{
+		"type": "String",
+		"desc": "word"
+	}, {
+		"type": "String",
+		"desc": "the part-of-speech"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "getAllAlsoSees()",
+	"example": "",
+	"description": "Returns also-see terms for all senses of word/pos<br/>Holds for nouns (?) & adjectives<br/>Example: happy -> [cheerful, elated, euphoric, felicitous, joyful, joyous...]",
+	"syntax": "getAllAlsoSees(query, pos)",
+	"parameters": [{
+		"type": "String",
+		"desc": "query"
+	}, {
+		"type": "String",
+		"desc": "the part-of-speech"
+	}],
+	"returns": [{
+		"type": "java.lang.String[]",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": false,
+	"methodName": "exists()",
+	"example": "",
+	"description": "Checks the existence of a word in the ontology",
+	"syntax": "exists(word)",
+	"parameters": [{
+		"type": "String",
+		"desc": "word"
+	}],
+	"returns": [{
+		"type": "boolean",
+		"desc": ""
+	}],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": true,
+	"methodName": "RiWordNet.VERB",
+	"example": "",
+	"description": "String constant for Verb part-of-speech",
+	"syntax": "getSynonyms(word, RiWordNet.VERB)",
+	"parameters": [],
+	"returns": [],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": true,
+	"methodName": "RiWordNet.NOUN",
+	"example": "",
+	"description": "String constant for Noun part-of-speech",
+	"syntax": "getSynonyms(word, RiWordNet.NOUN)",
+	"parameters": [],
+	"returns": [],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": true,
+	"methodName": "RiWordNet.ADV",
+	"example": "",
+	"description": "String constant for Adverb part-of-speech",
+	"syntax": "getSynonyms(word, RiWordNet.ADV)",
+	"parameters": [],
+	"returns": [],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, {
+	"variable": true,
+	"methodName": "RiWordNet.ADJ",
+	"example": "",
+	"description": "String constant for Adjective part-of-speech",
+	"syntax": "getSynonyms(word, RiWordNet.ADJ)",
+	"parameters": [],
+	"returns": [],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}]
+}
