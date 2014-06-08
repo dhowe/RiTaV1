@@ -1,13 +1,8 @@
 <project name="RiTa" default="clean" basedir="../">
 
 	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
-		<classpath>
-			<pathelement location="./libs/ant-contrib-1.0b3.jar"/>
-		</classpath>
+		<classpath><pathelement location="./libs/ant-contrib-1.0b3.jar"/></classpath>
 	</taskdef>
-				
-	<!-- remove debug lines from production compiled code -->
-	<!-- ant -logger org.apache.tools.ant.listener.ProfileLogger -->
 
 	<property file="./resources/build.properties" />
 
@@ -61,6 +56,28 @@
 	<property name="rita.js.src" location="${project.js}/src"/>
 	<property name="rita.js.file" location="${rita.js.src}/${project.js.name}"/>
 
+	<!-- ********************** CLASSPATHS ********************** -->
+
+	<path id="classpath">
+		<fileset dir="${project.libs}" includes="**/*.jar" excludes="ant-contrib-*"/>
+	</path>
+	<path id="test.classpath">
+		<fileset dir="${project.libs}" includes="**/*.jar" excludes="ant-contrib-*"/>
+		<pathelement path="${project.bin}" />
+    	<pathelement path="${project.src}" />
+    	<!--pathelement path="${project.src}" /-->
+	</path>
+
+    <!-- get the source compile classpath in a printable form -->
+    <pathconvert pathsep="${line.separator}|   |-- "
+                 property="echo.classpath"
+                 refid="classpath">
+    </pathconvert>
+    <pathconvert pathsep="${line.separator}|   |-- "
+                 property="echo.test.classpath"
+                 refid="test.classpath">
+    </pathconvert>
+				
 	<!-- ********************** TARGETS ********************** -->
     
 	<target name="run.unit.tests">
@@ -85,13 +102,14 @@
 
 		<junit printsummary="yes" timeout="100000" haltonfailure="yes">
 
-			<classpath>
+			<classpath><path refid="test.classpath"/></classpath>
+
+			<!--classpath>
 				<pathelement path="${project.bin}" />
 				<pathelement path="${project.src}" />
 				<pathelement path="${project.libs}/core.jar" />
 				<pathelement path="${project.libs}/junit.jar" />
-				<pathelement path="${project.src.test}" />
-			</classpath>
+			</classpath-->
 
 			<formatter type="plain" />
 			<formatter type="xml" />
@@ -129,13 +147,6 @@
 		<antcall target="_script.pub.rednoise" />
 	</target>
 
-	<path id="classpath">
-		<fileset dir="${classpath.local.location}" includes="${classpath.local.include}" />
-		<!--fileset dir="${classpath.libraries.location}" includes="**/*.jar" /-->
-		<!--fileset dir="${project.lib}" includes="**/*.jar" /-->
-		<fileset dir="${project.libs}" includes="**/*.jar" />
-	</path>
-
 	<!-- Create the time stamp -->
 	<tstamp>
 		<format property="date" pattern="MM/dd/yyyy" offset="0" unit="hour"/>
@@ -147,14 +158,13 @@
 ${line}
 	src path	${project.src}
 	bin path 	${project.bin}
-	classpath.local	${classpath.local.location}
 	sketchbook	${sketchbook.location}
 	java version	${java.version}
-	java target	${java.target.version}
+	java target     ${java.target.version}
+    classpath       ${class.path}
 ${line}
 		</echo>
 
-		<mkdir dir="${project.bin}"/>
 	</target>
 
 	<target name="library.init" depends="init">
@@ -273,7 +283,6 @@ ${line}
 
 	<target name="compile-debug">
 		<javac srcdir="${project.tmp}/${project.name}/src"
-			excludes="**/test/**"
 			includeantruntime="false"
 			destdir="${project.bin}" 
 			source="${java.target.version}" 
@@ -338,6 +347,7 @@ ${line}
 
 	<target name="generate.structure">
 
+		<mkdir dir="${project.bin}"/>
 		<delete dir="${project.tmp}" />
 		<mkdir dir="${project.tmp}" />
 		<mkdir dir="${project.tmp}/${project.name}" />
@@ -368,7 +378,7 @@ ${line}
 
 		<copy todir="${project.tmp}/${project.name}/src">
 			<fileset dir="${project.src}">
-				<exclude name="**/test/**"/>
+				<exclude name="rita/test/sketches/**"/>
 				<exclude name="**/data/**"/>
 				<exclude name="**/docgen/**"/>
 			</fileset>
@@ -425,14 +435,12 @@ ${line}
 		<!-- MODIFIED BY DCH -->
 
 		<javadoc bottom="processing library ${project.name} by ${author.name}. ${project.copyright}"
-		 
-				classpath="${classpath.local.location}/core.jar;${classpath.local.location}/junit.jar;${classpath.local.location}/json.jar;{project.bin}" 
 				destdir="${project.tmp}/${project.name}/reference" 
 				stylesheetfile="resources/stylesheet.css" 
 				doctitle="Javadocs: ${project.name}" 
 				windowtitle="Javadocs: ${project.name}"
 				public="true" version="false" verbose="false">
-
+			<classpath><path refid="classpath"/></classpath>
 			<link href="${javadoc.java.href}" />
 			<link href="${javadoc.processing.href}" />
 			<taglet name="ExampleTaglet" path="resources/code" />
@@ -620,7 +628,6 @@ ${line}
 	</target>
 
 	<target name="clean" depends="make.java">
-		<!--delete dir="${project.bin}"-->
 		<delete dir="${project.tmp}"/>
 		<echo>
 		
@@ -633,9 +640,6 @@ ${line}
 Done.
 ${line}	
 		</echo>
-		<!--exec resolveexecutable="true" executable="ls" failonerror="true">
-	        <arg line="${project.jsbuild.download}"/>
-	    </exec-->
 	</target>
 
 </project>
