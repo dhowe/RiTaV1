@@ -1,7 +1,6 @@
 readme.html
 TODO.txt
-bin
-RiTaLibraryJS
+/bin
+/RiTaLibraryJS
 tasks.txt
-reports
 /distribution
