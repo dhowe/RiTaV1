@@ -7,7 +7,6 @@
 	</taskdef>
 				
 	<!-- remove debug lines from production compiled code -->
-
 	<!-- ant -logger org.apache.tools.ant.listener.ProfileLogger -->
 
 	<property file="./resources/build.properties" />
@@ -24,15 +23,12 @@
 	<property name="main.package" value="rita"/>
 	<property name="reports.tests" value="reports"/>
 	<property name="path.to.node" value="/usr/local/bin"/>
-	<property name="project.js.name" value="${main.package}.js"/>
 	<property name="project.jar.name" value="${main.package}.jar"/>
 	<property name="project.jar.full.name" value="${main.package}.full.jar"/>
 	<property name="project.jar.support.name" value="${main.package}.support.jar"/>
 	<property name="project.src" location="src"/>
 	<property name="project.src.test" location="src/rita/test"/>
 	<property name="project.latest" location="latest"/>
-	<property name="project.js" location="RiTaLibraryJS/"/>
-	<property name="js.scripts.dir" location="${project.js}/scripts/"/>
 	<property name="project.tmp" location="tmp"/>
 	<property name="project.web" location="web"/>
 	<property name="project.data" location="data"/>
@@ -40,15 +36,14 @@
 	<property name="project.libs" location="libs"/>
 	<property name="project.bin" location="bin"/>
 	<property name="project.bin.data" location="${project.bin}/data"/>
-	<!--property name="project.examples" location="${project.js}/examplesP5"/-->
 	<property name="project.examples" location="www/examples"/>
 	<property name="project.reference" location="reference"/>
 	<property name="project.dist" location="distribution"/>
 	<property name="project.dist.version" location="distribution/${project.name}-${project.version}"/>
 	<property name="project.download" location="${project.dist.version}/download"/>
-	<property name="project.jsbuild" location="${project.js}/build"/>
+	<!--property name="project.jsbuild" location="${project.js}/build"/>
 	<property name="project.jsbuild.www" location="${project.jsbuild}/www"/>
-	<property name="project.jsbuild.download" location="${project.jsbuild.www}/download"/>
+	<property name="project.jsbuild.download" location="${project.jsbuild.www}/download"/-->
 	<property name="install.source" location="resources/install_instructions.txt"/>
 	<property name="license.source" location="resources/license.txt"/>
 	<property name="props.src" location="resources/library.properties"/>
@@ -59,6 +54,15 @@
 	<property name="processing.library" location="${processing.lib.rita}/library"/>
 	<property name="processing.examples" location="${processing.lib.rita}/examples"/>
 
+    <!-- optional stuff for rita-js -->
+	<property name="project.js" location="RiTaLibraryJS"/>
+	<property name="project.js.name" value="rita.js"/>
+	<property name="rita.js.scripts" location="${project.js}/scripts"/>
+	<property name="rita.js.src" location="${project.js}/src"/>
+	<property name="rita.js.file" location="${rita.js.src}/${project.js.name}"/>
+
+	<!-- ********************** TARGETS ********************** -->
+    
 	<target name="run.unit.tests">
 		<antcall target="run.java.tests" />
 		<antcall target="run.node.tests" />
@@ -66,10 +70,10 @@
 
 	<target name="run.node.tests" depends="init">
 		
-		<!-- ***********  working here  *********** -->
 		<echo>${line}</echo>
 		<echo message="calling run-node-tests.sh ..." />
-		<exec dir="${js.scripts.dir}" resolveexecutable="true" output="/dev/null" executable="run-node-tests.sh" failonerror="true" failifexecutionfails="true" logError="true">
+		<exec dir="${rita.js.scripts}" resolveexecutable="true" output="/dev/null" 
+            executable="run-node-tests.sh" failonerror="true" failifexecutionfails="true" logError="true">
 			<env key="PATH" value="${env.PATH}:${path.to.node}" />
 		</exec>
 		<echo>${line}</echo>
@@ -91,19 +95,9 @@
 
 			<formatter type="plain" />
 			<formatter type="xml" />
-
-			<!--batchtest fork="yes" todir="${reports.tests}">
-				<fileset dir="${project.src.test}">
-					<exclude name="**/KnownIssuesTest.java" />
-					<exclude name="**/RiGooglerApiTest.java" />
-					<exclude name="**/RiGooglerTest.java" />
-					<include name="**/*Test.*" />
-				</fileset>
-			</batchtest-->
 	
-			<!--test name="rita.test.RiTextGraphicsTest" outfile="reports/rita.test.RiTextGraphicsTest"></test--> <!-- why does this fail from ant? -->
 			<test name="rita.test.RiLexiconTest" outfile="reports/rita.test.RiLexiconTest"></test>
-			<test name="rita.test.RiTaTest" outfile="reports/rita.test.RiTaTest"></test>
+			<test name="rita.test.RiTaTest"      outfile="reports/rita.test.RiTaTest"></test>
 			<test name="rita.test.RiGrammarTest" outfile="reports/rita.test.RiGrammarTest"></test>
 			<test name="rita.test.RiMarkovTest"  outfile="reports/rita.test.RiMarkovTest"></test>
 			<test name="rita.test.RiStringTest"  outfile="reports/rita.test.RiStringTest"></test>
@@ -170,7 +164,7 @@ ${line}
 	<target name="_script.make-lib.sh">
 		<echo>${line}</echo>
 		<echo message="calling make-lib.sh ..." />
-		<exec dir="${js.scripts.dir}" resolveexecutable="true" executable="make-lib.sh" failonerror="true">
+		<exec dir="${rita.js.scripts}" resolveexecutable="true" executable="make-lib.sh" failonerror="true">
 			<arg line="${project.version}"/>
 		</exec>
 		<echo>${line}</echo>
@@ -179,7 +173,7 @@ ${line}
 	<target name="_script.make-node.sh">
 		<echo>${line}</echo>
 		<echo message="calling make-node.sh ..." />
-		<exec dir="${js.scripts.dir}" resolveexecutable="true" executable="make-node.sh" failonerror="true">
+		<exec dir="${rita.js.scripts}" resolveexecutable="true" executable="make-node.sh" failonerror="true">
 			<env key="PATH" value="${env.PATH}:${path.to.node}" />
 			<arg line="${project.version}"/>
 		</exec>
@@ -195,7 +189,7 @@ ${line}
 	<target name="_publish.node">
 		<echo>${line}</echo>
 		<echo message="calling make-node.sh ${project.version} -p ..." />
-		<exec dir="${js.scripts.dir}" resolveexecutable="true" executable="make-node.sh" failonerror="true">
+		<exec dir="${rita.js.scripts}" resolveexecutable="true" executable="make-node.sh" failonerror="true">
 			<arg line="${project.version}"/>
 			<arg line="-p"/>
 		</exec>
@@ -206,7 +200,7 @@ ${line}
 		<echo>${line}</echo>
 		<echo>Nothing to do for Bower!!</echo>
 		<!--echo message="calling make-bower.sh ${project.version} -p ..." />
-		<exec dir="${js.scripts.dir}" resolveexecutable="true" executable="make-node.sh" failonerror="true">
+		<exec dir="${rita.js.scripts}" resolveexecutable="true" executable="make-node.sh" failonerror="true">
 			<arg line="${project.version}"/>
 			<arg line="-p"/>
 		</exec-->
@@ -216,7 +210,7 @@ ${line}
 	<target name="_publish.node.force">
 		<echo>${line}</echo>
 		<echo message="calling make-node.sh ${project.version} -p -f ..." />
-		<exec dir="${js.scripts.dir}" resolveexecutable="true" executable="make-node.sh" failonerror="true">
+		<exec dir="${rita.js.scripts}" resolveexecutable="true" executable="make-node.sh" failonerror="true">
 			<arg line="${project.version}"/>
 			<arg line="-p"/>
 			<arg line="-f"/>
@@ -228,7 +222,7 @@ ${line}
 		<echo>${line}</echo>
 		<echo message="calling pub-lib.sh ${project.version} ..." />
 		<exec 
-	    	dir="${js.scripts.dir}" resolveexecutable="true" resultproperty="return.code"
+	    	dir="${rita.js.scripts}" resolveexecutable="true" resultproperty="return.code"
 	    	executable="pub-lib.sh" failonerror="true">
 			<arg line="${project.version}"/>
 		</exec>
@@ -240,7 +234,7 @@ ${line}
 		<echo>${line}</echo>
 		<echo message="calling pub-lib.sh ${project.version} -r ..." />
 		<exec 
-	    	dir="${js.scripts.dir}" resolveexecutable="true" resultproperty="return.code"
+	    	dir="${rita.js.scripts}" resolveexecutable="true" resultproperty="return.code"
 	    	executable="pub-lib.sh" failonerror="true">
 			<arg line="${project.version}"/>
 			<arg line="-r"/>
@@ -263,7 +257,6 @@ ${line}
 		<antcall target="generate.distribution" />
 		<antcall target="generate.install.library" />
 		<antcall target="generate.install.props" />
-		<!--antcall target="generate.web" /-->
 		<antcall target="generate.zip" />
 		<delete dir="${project.tmp}" />
 	</target>
@@ -278,8 +271,6 @@ ${line}
 		</copy>
 	</target>
 
-	<!--excludes="${project.tmp}/${project.name}/src/misc" for javac task-->
-
 	<target name="compile-debug">
 		<javac srcdir="${project.tmp}/${project.name}/src"
 			excludes="**/test/**"
@@ -287,14 +278,10 @@ ${line}
 			destdir="${project.bin}" 
 			source="${java.target.version}" 
 			target="${java.target.version}"
-			debug="true" debuglevel="lines, vars, and source">
-			<classpath>
-				<path refid="classpath"/>
-			</classpath>
+			debug="true">
+            <!-- CHANGED: debug="true" debuglevel="lines, vars, source"-->
+			<classpath><path refid="classpath"/></classpath>
 		</javac>
-		<!--copy todir="${project.bin.data}">
-			<fileset dir="${project.data}" excludes="README" />
-		</copy-->
 	</target>
 
 	<target name="compile-prod">
@@ -392,7 +379,6 @@ ${line}
 		</copy>
 
 		<copy todir="${project.tmp}/${project.name}/css">
-			<!--fileset dir="www/css/*.css"/-->
 			<fileset dir="www/css/">
 				<include name="*.css"/>
 			</fileset>
@@ -403,14 +389,19 @@ ${line}
   	       excludes="**/.DS_Store"
 		/>
 
-		<copy file="${project.latest}/${project.js.name}" todir="${project.tmp}/${project.name}/library" />
-
-		<!--copy todir="${project.tmp}/${project.name}/library">
-			<fileset dir="${project.lib}" excludes="*.txt" />
-		</copy-->
-
 	</target>
 
+    <target name="check.rita.js">
+		<echo message="Checking for rita.js..." />
+        <available file="${rita.js.file}" property="rita.js.present"/>
+    </target>
+
+	<target name="fetch.rita.js" depends="check.rita.js" if="rita.js.present">
+		<echo message="Fetching rita.js..." />
+		<copy file="${project.latest}/${project.js.name}" todir="${project.tmp}/${project.name}/library" />
+	</target>
+
+    <!-- Add Version-info to RiTa.java      -->
 	<target name="parse.source" if="is.normal">
 		<path id="src.contents">
 			<fileset dir="${project.tmp}/${project.name}/src/rita" includes="RiTa.java" />
@@ -579,6 +570,10 @@ ${line}
 
 	<target name="generate.zip" if="is.normal">
 
+		<echo message="Generating distributable zip..." />
+
+		<antcall target="fetch.rita.js" />
+
 		<move todir="${project.dist.version}/tmp/${project.name}-${project.version}/${project.name}">
 			<fileset dir="${project.dist.version}/${project.name}" />
 		</move>
@@ -606,7 +601,6 @@ ${line}
 		<replaceregexp file="${file}" match="##date##" replace="${date}" flags="g" />
 		<replaceregexp file="${file}" match="##copyright##" replace="${project.copyright}" flags="g" />
 		<replaceregexp file="${file}" match="##name##" replace="${project.name}" flags="g" />
-		<replaceregexp file="${file}" match="##version##" replace="${project.version}" flags="g" />
 	</target>
 
 	<!-- parsing the examples folder -->
