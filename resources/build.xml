@@ -586,12 +586,13 @@ ${line}
 		<copy file="${props.src}" tofile="${props.dst}" />
 		<replaceregexp file="${props.dst}" match="##version##" replace="${project.version}" flags="g" />
 		<replaceregexp file="${props.dst}" match="##versionnum##" replace="${project.version.num}" flags="g" />
+		
 		<copy file="${props.dst}" tofile="${project.latest}/${project.name}.txt" />
 
-		<!-- add the license file as well -->
+		<!-- add the license file as well  *** NOT SURE WHAT THIS IS DOING?
 		<echo message="Copying ${license.destination} to ${project.dist.version}/${project.name}/LICENSE.txt ..." />
-		<move file="${license.destination}" tofile="${project.dist.version}/${project.name}/LICENSE.txt" />
-
+				<move file="${license.destination}" tofile="${project.dist.version}/${project.name}/LICENSE.txt" />
+        -->
 	</target>
 
 	<target name="generate.zip" if="is.normal">
