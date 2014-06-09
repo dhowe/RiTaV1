@@ -83,21 +83,29 @@
 				
 	<!-- ********************** TARGETS ********************** -->
     
-	<target name="run.unit.tests">
+	<target name="run.tests">
 		<antcall target="run.java.tests" />
 		<antcall target="run.node.tests" />
 	</target>
 
-	<target name="run.node.tests" depends="check.rita.js" if="rita.js.present">
-		<echo>${line}</echo>
-		<echo message="Calling run-node-tests.sh ..." />
-		<exec dir="${rita.js.scripts}" resolveexecutable="true" output="/dev/null" 
-            executable="run-node-tests.sh" failonerror="true" failifexecutionfails="true" logError="true">
-			<env key="PATH" value="${env.PATH}:${path.to.node}" />
-		</exec>
-		<echo>${line}</echo>
-		<echo message="all node-tests passed." />
-		<echo>${line}</echo>
+	<target name="run.node.tests" depends="check.rita.js">
+		   <if>
+		        <not><isset property="rita.js.present"/></not>
+		        <then>
+					<echo message="Skipping javascript tests..." />
+		        </then>
+		        <else>
+		   			<echo>${line}</echo>
+		   			<echo message="Calling run-node-tests.sh ..." />
+		   			<exec dir="${rita.js.scripts}" resolveexecutable="true" output="/dev/null" 
+		   	            executable="run-node-tests.sh" failonerror="true" failifexecutionfails="true" logError="true">
+		   				<env key="PATH" value="${env.PATH}:${path.to.node}" />
+		   			</exec>
+		   			<echo>${line}</echo>
+		   			<echo message="All node-tests passed." />
+		   			<echo>${line}</echo>
+		        </else>
+		    </if>
 	</target>
 		
 	<target name="run.java.tests" depends="init">
@@ -123,7 +131,7 @@
 
 	<target name="_make.all">
 
-		<antcall target="run.unit.tests" />
+		<antcall target="run.tests" />
 		<antcall target="_script.make-lib.sh" />
 		<antcall target="clean" />
 		<antcall target="_script.make-node.sh" />
@@ -166,7 +174,7 @@ ${line}
 		<echo message="Init library ..." />
 	</target>
 
-	<target name="_script.make-lib.sh">
+	<target name="_script.make-lib.sh" depends="check.rita.js" if="rita.js.present">
 		<echo>${line}</echo>
 		<echo message="Calling make-lib.sh ..." />
 		<exec dir="${rita.js.scripts}" resolveexecutable="true" executable="make-lib.sh" failonerror="true">
@@ -175,7 +183,7 @@ ${line}
 		<echo>${line}</echo>
 	</target>
 
-	<target name="_script.make-node.sh">
+	<target name="_script.make-node.sh" depends="check.rita.js" if="rita.js.present">
 		<echo>${line}</echo>
 		<echo message="Calling make-node.sh ..." />
 		<exec dir="${rita.js.scripts}" resolveexecutable="true" executable="make-node.sh" failonerror="true">
@@ -185,13 +193,12 @@ ${line}
 		<echo>${line}</echo>
 	</target>
 
-	<target name="publish.pkgs">
+	<target name="publish.pkgs" depends="check.rita.js" if="rita.js.present">
 		<antcall target="_publish.node" />
 		<antcall target="_publish.bower" />
-
 	</target>
 
-	<target name="_publish.node">
+	<target name="_publish.node" depends="check.rita.js" if="rita.js.present">
 		<echo>${line}</echo>
 		<echo message="Calling make-node.sh ${project.version} -p ..." />
 		<exec dir="${rita.js.scripts}" resolveexecutable="true" executable="make-node.sh" failonerror="true">
@@ -201,7 +208,7 @@ ${line}
 		<echo>${line}</echo>
 	</target>
 	
-	<target name="_publish.bower">
+	<target name="_publish.bower" depends="check.rita.js" if="rita.js.present">
 		<echo>${line}</echo>
 		<echo>Nothing to do for Bower!!</echo>
 		<!--echo message="Calling make-bower.sh ${project.version} -p ..." />
@@ -212,7 +219,7 @@ ${line}
 		<echo>${line}</echo>
 	</target>
 
-	<target name="_publish.node.force">
+	<target name="_publish.node.force" depends="check.rita.js" if="rita.js.present">
 		<echo>${line}</echo>
 		<echo message="Calling make-node.sh ${project.version} -p -f ..." />
 		<exec dir="${rita.js.scripts}" resolveexecutable="true" executable="make-node.sh" failonerror="true">
@@ -223,7 +230,7 @@ ${line}
 		<echo>${line}</echo>
 	</target>
 
-	<target name="_script.pub.local">
+	<target name="_script.pub.local" depends="check.rita.js" if="rita.js.present">
 		<echo>${line}</echo>
 		<echo message="Calling pub-lib.sh ${project.version} ..." />
 		<exec 
@@ -235,7 +242,7 @@ ${line}
 	</target>
 
 
-	<target name="_script.pub.rednoise">
+	<target name="_script.pub.rednoise" depends="check.rita.js" if="rita.js.present">
 		<echo>${line}</echo>
 		<echo message="Calling pub-lib.sh ${project.version} -r ..." />
 		<exec 
