@@ -10,6 +10,8 @@ public abstract class Defaults implements Constants
 {
   static { reset(); }
 
+  public static int _originalDefaultFontSize = 14;
+  
   public static int alignment, motionType;
   public static float fontSize, boundingStrokeWeight, leadingFactor = 1.2f;
   

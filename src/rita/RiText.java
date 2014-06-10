@@ -313,7 +313,7 @@ public class RiText implements RiTextIF
 
   public static final void defaultFont(String name)
   {
-    float size = name.endsWith(".vlw") ? -1 : defaults.fontSize;  //_defFontSize; // ??
+    float size = name.endsWith(".vlw") ? -1 : defaults._originalDefaultFontSize; 
     defaultFont(name, size);
   }
 
