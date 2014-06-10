@@ -9,7 +9,7 @@ public class RadomColor extends PApplet
 	  RiText rt1,rt2,rt3,rt4;
   public void setup()
   {
-    size(800, 400);
+    size(800, 700);
 
 	RiTa.start(this);
 
@@ -55,7 +55,20 @@ public class RadomColor extends PApplet
 		text(color4.length,0,380);
 		text(color4[0]+" , "+color4[1]+" , "+color4[2]+" , "+color4[3],50,380);
 
-	
+		fill(0);
+		float rand1 = RiText.random();
+		text( rand1,0,480);
+		text((RiText.random() < 1 && rand1> 0 )+"",100,480);
+		
+		float rand2 = RiText.random(2.2f);
+		text( rand2,0,580);
+		text((rand2 < 2.2 && rand2 > 0 )+"",100,580);
+		
+		fill(0);
+		float rand3 = RiText.random(2.2f,5.5f);
+		text(rand3,0,680);
+		text((rand3 < 5.5 && rand3 > 2.2 )+"",100,680);
+
 		
 	    RiText.drawAll();
 	  
