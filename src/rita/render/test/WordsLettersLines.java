@@ -15,8 +15,8 @@ public class WordsLettersLines extends PApplet
 	public void setup()
 	{
 
-		size(400, 400);
-
+		size(800, 400);
+		background(255);
 		RiText.defaultFontSize(32); 
 		RiText.defaults.showBounds = true;
 
@@ -44,9 +44,43 @@ public class WordsLettersLines extends PApplet
 			float r = i*(256/words.length);
 			words[i].fill(r, 100, 255-r);
 		}
+
 		
-		background(255);
+		
+
+		
+		RiText rt2 = new RiText(this,txt,400,50);
+		for (int i = 0; i < txt.length(); i++) {
+			line(rt2.charOffset(i),10,rt2.charOffset(i),50);
+		}
+		rect(400,56-rt2.textHeight(),rt2.textWidth(),rt2.textHeight());
+		
+		RiText rt3 = new RiText(this,txt,400,150);
+		for (int i = 0; i < rt.wordCount(); i++) {
+			line(rt3.wordOffset(i),100,rt3.wordOffset(i),150);
+		}
+
+		rect(400,156-rt3.textHeight(),rt3.textWidth(),rt3.textHeight());
+		
+		String txt2 = "The fat leo and the ele.";
+		
+		RiText rt4 = new RiText(this,txt2,400,250);
+		for (int i = 0; i < txt2.length(); i++) {
+			line(rt4.charOffset(i),210,rt4.charOffset(i),230);
+		}
+		rect(400,256-rt4.textHeight(),rt4.textWidth(),rt4.textHeight());
+		
+		RiText rt5 = new RiText(this,txt2,400,350);
+		for (int i = 0; i < rt5.wordCount(); i++) {
+			line(rt5.wordOffset(i),300,rt5.wordOffset(i),350);
+		}
+
+		rect(400,356-rt5.textHeight(),rt5.textWidth(),rt5.textHeight());
+
+
 		RiText.drawAll();
+
+
 	}
 
 	public static void main(String[] args)
