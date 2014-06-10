@@ -1,83 +1,83 @@
 X= RiString Methods, no graphics test needed
 			
-alpha()	BoundingBoxAndAlpha.java		
-analyze()			X
-boundingBox()	BoundingBoxAndAlpha.java		
-charAt()			X
-colorTo()		ColorAndFade.java	
-concat()			X
-center()	BoundingBoxFeatures.java		
-charOffset()	WordsLetteresLines.java		
+alpha()					BoundingBoxAndAlpha.java		
+analyze()				X
+boundingBox()			BoundingBoxAndAlpha.java		
+charAt()				X
+colorTo()				ColorAndFade.java	
+concat()				X
+center()				BoundingBoxFeatures.java		
+charOffset()			WordsLetteresLines.java		
 clone()			
-contains()	BoundingBoxFeatures.java		
+contains()				BoundingBoxFeatures.java		
 distanceTo()			
 draw()			
-endsWith()			X
-equals()			X
-equalsIgnoreCase()			X
-fadeIn()		ColorAndFade.java	
-fadeOut()		ColorAndFade.java	
-features()			X
-font()	DefaultFontAndFontVlw.java		
-fontSize()	DefaultFontAndFontVlw.java		
-indexOf()			X
+endsWith()				X
+equals()				X
+equalsIgnoreCase()		X
+fadeIn()				ColorAndFade.java	
+fadeOut()				ColorAndFade.java	
+features()				X
+font()					DefaultFontAndFontVlw.java		
+fontSize()				DefaultFontAndFontVlw.java		
+indexOf()				X
 insertWord()			X
-isVisible()		ColorAndFade.java	
+isVisible()				ColorAndFade.java	
 lastIndexOf()			X
-length()			X
-match()			X
-motionType()		motionType.java	
-moveTo()		TranslateTo.java	
-pos()			X
-posAt()			X
-position()		TranslateTo.java	
+length()				X
+match()					X
+motionType()			MotionTypes.java	
+moveTo()				TranslateTo.java	
+pos()					X
+posAt()					X
+position()				TranslateTo.java	
 removeChar()			X
 replaceChar()			X
 replaceFirst()			X
 replaceLast()			X
 replaceAll()			X
 replaceWord()			X
-rotate()		TranslateTo.java	
-rotateTo()		TranslateTo.java	
-scale()		TranslateTo.java	
-scaleTo()		TranslateTo.java	
-showBounds()	BoundingBoxFeatures.java		
-splitLetters()	WordsLetteresLines.java		
-splitWords()	WordsLetteresLines.java		
+rotate()				TranslateTo.java	
+rotateTo()				TranslateTo.java	
+scale()					TranslateTo.java	
+scaleTo()				TranslateTo.java	
+showBounds()			BoundingBoxFeatures.java		
+splitLetters()			WordsLetteresLines.java		
+splitWords()			WordsLetteresLines.java		
 stopBehavior()			
 stopBehaviors()			
-slice()			X
-split()			X
+slice()					X
+split()					X
 startsWith()			X
-substring()			X
-substr()			X
+substring()				X
+substr()				X
 textAscent()			
 textDescent()			
-textTo()		ColorAndFade.java	
-textHeight()	WordsLetteresLines.java		
-textWidth()	WordsLetteresLines.java		
-text()			X
+textTo()				ColorAndFade.java	
+textHeight()			WordsLetteresLines.java		
+textWidth()				WordsLetteresLines.java		
+text()					X
 toLowerCase()			X
 toUpperCase()			X
-trim()			X
-wordAt()			X
-wordCount()			X
-wordOffset()	WordsLetteresLines.java		
-words()			X
+trim()					X
+wordAt()				X
+wordCount()				X
+wordOffset()			WordsLetteresLines.java		
+words()					X
 			
-RiText.defaults	On Every java		
+RiText.defaults			On Every java		
 			
 RiText.createLetters()	WordsLetteresLines.java		
 RiText.createWords()	WordsLetteresLines.java		
 RiText.createLines()	CreateLinesAndLayoutWithBreaks.java		
-RiText.drawAll()	On Every java		
-RiText.dispose()	DefaultFontAndFontVlw.java		
-RiText.disposeAll()	DisposeAll		
+RiText.drawAll()		On Every java		
+RiText.dispose()		DefaultFontAndFontVlw.java		
+RiText.disposeAll()		DisposeAll		
 RiText.defaultFill()	BoundingBoxAndAlpha.java		
 RiText.defaultFont()	DefaultFontAndFontVlw.java		
-RiText.showBounds()	BoundingBoxFeatures.java		
-RiText.randomColor()			
+RiText.showBounds()		BoundingBoxFeatures.java		
+RiText.randomColor()	RandomColor.java
 RiText.timer() 			
 RiText.stopTimer()			
 RiText.pauseTimer() 			
-RiText.random()			
+RiText.random()			RandomColor.java
