@@ -123,12 +123,10 @@ public class PageLayout implements Constants
     
     if (leading <= 0)
       leading = pf.getSize() * RiText.defaults.leadingFactor;
-    
-    leading = (int) leading; // same as JS
-    
+
     float ascent = pf.ascent() * pf.getSize();
     float descent = pf.descent() * pf.getSize();
-    float startX = textRectangle.x + 1;
+    float startX = textRectangle.x; // DH: removed x +1
     float currentY = textRectangle.y + ascent;
     float maxX = (textRectangle.x + textRectangle.w);
     float maxY = (textRectangle.y + textRectangle.h);
@@ -185,11 +183,11 @@ public class PageLayout implements Constants
         sb.append(next + SP);
       }
       else 
-      {
+      {        
          // check yPosition for line break
-        if (RiText._withinBoundsY(currentY, leading, maxY, descent))
+        if (RiText._withinBoundsY(currentY, leading, maxY, descent, firstLine))
         {
-          float yPos = firstLine ? currentY : currentY + (int)leading; // or round?
+          float yPos = firstLine ? currentY : currentY + leading; // or round?
           RiTextIF rt = newRiTextLine(sb, pf, startX, yPos);
           rlines.add(rt);
           
@@ -212,9 +210,9 @@ public class PageLayout implements Constants
     }
     
     // check if leftover words can make a new line 
-    if (RiText._withinBoundsY(currentY, leading, maxY, descent)) {
+    if (RiText._withinBoundsY(currentY, leading, maxY, descent, firstLine)) {
       
-      float yPos = firstLine ? currentY : currentY + (int)leading; // or round?
+      float yPos = firstLine ? currentY : currentY + leading; // or round?
 
 //System.out.println("add2: "+(textRectangle.y + ascent)+"/"+yPos);
       // TODO: what if there is are tags in here -- is it possible?)
