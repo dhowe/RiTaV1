@@ -39,23 +39,37 @@ public class CreateLinesAndLayoutWithBreaks extends PApplet {
 
 		size(1200, 700);
 		background(250);
+		
 		RiText.defaultFont("Georgia", 16);
-		RiText.createLines(this, txt, x, y); // preserve line-breaks
+
+		RiText.createLines(this, txt, x, y); // preserve line-breaks (no w,h)
 		
-		
-		RiText.createLines(this, txt, x2, y2,w2,h2); // preserve line-breaks
-	    rect(x2, y2, w2, h2);
+		RiText.createLines(this, txt, x2, y2,w2,h2); // don't preserve line-breaks
+	  rect(x2, y2, w2, h2);
 	    
 		
-		RiText.createLines(this, txt, x3, y3,w3,h3); // preserve line-breaks
-	    rect(x3, y3, w3, h3);
-		
+		RiText.createLines(this, txt, x3, y3,w3,h3); // don't preserve line-breaks
+	  rect(x3, y3, w3, h3);
+	  
+	  
+	  RiText.createLines(this, "A huge lizard.", x3, y3+400,w3,64); // single line
+    rect(x3, y3+400, w3, 64);
+
+    RiText.defaultFont("Georgia", 32);
+
+    // THIS IS FAILING!!!  TODO: enter as bug  (should show as below)
+    RiText.createLines(this, "A huge lizard.", x3, y3+500, w3, 64); // single line
+    rect(x3, y3+500, w3, 64);
+    
+    // TODO: previous should look like this:
+    //new RiText(this, "A huge lizard.", x3, y3 + 500+ textAscent()).fill
+    
 		RiText.drawAll();
 	}
 
 	 public static void main(String[] args)
   {
-    String testPath = "/Users/dhowe/Documents/eclipse-workspace/RiTa/src/";
+    String testPath = "/RiTa/src/";///Users/dhowe/Documents/eclipse-workspace/RiTa/src/";
     new PixelCompare(testPath).generateRefImage(CreateLinesAndLayoutWithBreaks.class.getName());
   }
 }
