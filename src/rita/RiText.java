@@ -1860,7 +1860,6 @@ public class RiText implements RiTextIF
 
   protected static void constrainLines(List<RiTextIF> ritexts, float y, float h, float leading)
   {
-    leading = (int) leading; // same as JS
     float ascent = ritexts.get(0).textAscent();
     float descent = ritexts.get(0).textDescent();
     // System.out.println("RiText.constrainLines().ascent="+ascent+" descent="+descent+" leading="+leading);
@@ -1890,7 +1889,14 @@ public class RiText implements RiTextIF
 
   public static boolean _withinBoundsY(float currentY, float leading, float maxY, float descent)
   {
-    return currentY + leading <= maxY - descent;
+    return _withinBoundsY(currentY, leading, maxY, descent, false);
+  }
+  
+  public static boolean _withinBoundsY(float currentY, float leading, float maxY, float descent, boolean firstLine)
+  {
+    if (!firstLine)
+      return currentY + leading <= maxY - descent;
+    return currentY <= maxY - descent;
   }
 
   /**

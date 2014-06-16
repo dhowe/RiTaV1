@@ -57,13 +57,9 @@ public class CreateLinesAndLayoutWithBreaks extends PApplet {
 
     RiText.defaultFont("Georgia", 32);
 
-    // THIS IS FAILING!!!  TODO: enter as bug  (should show as below)
     RiText.createLines(this, "A huge lizard.", x3, y3+500, w3, 64); // single line
     rect(x3, y3+500, w3, 64);
-    
-    // TODO: previous should look like this:
-    //new RiText(this, "A huge lizard.", x3, y3 + 500+ textAscent()).fill
-    
+
 		RiText.drawAll();
 	}
 
