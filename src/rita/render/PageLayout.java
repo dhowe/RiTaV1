@@ -194,7 +194,7 @@ public class PageLayout implements Constants
           rlines.add(rt);
           
           currentY = newParagraph ? rt.y() + paragraphLeading : rt.y();
-          startX = textRectangle.x + 1; // reset
+          startX = textRectangle.x; // reset // // DH: removed x+1 to match JS
 
           if (newParagraph) startX += RiText.defaults.paragraphIndent;
           
@@ -216,8 +216,9 @@ public class PageLayout implements Constants
       
       float yPos = firstLine ? currentY : currentY + (int)leading; // or round?
 
+//System.out.println("add2: "+(textRectangle.y + ascent)+"/"+yPos);
       // TODO: what if there is are tags in here -- is it possible?)
-      rlines.add(newRiTextLine(sb, pf, textRectangle.x+1, yPos));
+      rlines.add(newRiTextLine(sb, pf, textRectangle.x, yPos)); // DH: removed x+1 to match JS
     }
     else
       addToStack(sb.toString().split(SP)); // else save them for next time
