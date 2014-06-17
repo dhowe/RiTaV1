@@ -10,8 +10,8 @@ center()				BoundingBoxFeatures.java
 charOffset()			WordsLetteresLines.java		
 clone()			
 contains()				BoundingBoxFeatures.java		
-distanceTo()			
-draw()			
+distanceTo()			WordsLettersLines.java
+draw()					DisposeAll.java
 endsWith()				X
 equals()				X
 equalsIgnoreCase()		X
