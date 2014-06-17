@@ -1360,8 +1360,15 @@ public class RiStringTest implements Constants
     rs2 = rs.copy();
     deepEqual(rs, rs2);
 
-    // TODO: Finish: call analyze(), then test that features() hash matches.. 
-
+    rs = new RiString("copy cat");
+    rs.analyze();
+    rs2 = rs.copy();
+    deepEqual(rs.features(), rs2.features());
+    
+    rs = new RiString("copy cat");
+    rs.set("myFeatureName", "myFeatureValue");
+    rs2 = rs.copy();
+    equal(rs.get("myFeatureName"), rs2.get("myFeatureName"));
   }
 
   @Test
