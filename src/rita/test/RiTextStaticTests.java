@@ -4,6 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import rita.RiTa;
+import rita.RiTaEvent;
+import rita.test.RiTaTest.EventListener;
 import static rita.support.QUnitStubs.*;
 
 public class RiTextStaticTests
@@ -584,6 +587,76 @@ public class RiTextStaticTests
     fail("Not yet implemented");
   }
 
+  
+  @Test
+  public void testTimer()
+  {
+    final EventListener el = new EventListener();
+    RiTa.timer(el, .1f);
+    try
+    {
+      Thread.sleep(500); // wait for it...
+    }
+    catch (InterruptedException e)
+    {
+    }
+
+    ok(el.i ==5);
+  }
+  /*
+  @Test
+  public void testPauseTimer()
+  {
+    final EventListener el = new EventListener();
+    int id = RiTa.timer(el, .1f);
+    try
+    {
+      Thread.sleep(300); // wait for it...
+    }
+    catch (InterruptedException e)
+    {
+    }
+    RiTa.pauseTimer(id, .3f);
+    try
+    {
+      Thread.sleep(600); // wait for it...
+    }
+    catch (InterruptedException e)
+    {
+    }
+    //System.out.println(el.i);
+    ok(el.i ==6);
+  }
+  @Test
+  public void testStopTimer()
+  {
+    final EventListener el = new EventListener();
+    int id = RiTa.timer(el, .1f);
+    try
+    {
+      Thread.sleep(500); // wait for it...
+    }
+    catch (InterruptedException e)
+    {
+    }
+    RiTa.stopTimer(id);
+    try
+    {
+      Thread.sleep(500); // wait for it...
+    }
+    catch (InterruptedException e)
+    {
+    }
+    //System.out.println(el.i);
+    ok(el.i == 5);
+  }
+  class EventListener {
+    int i = 0;
+    void onRiTaEvent(RiTaEvent re) { ++i; }
+  }
+  
+  */
+  
   @Test
   public void testRandom()
   {
