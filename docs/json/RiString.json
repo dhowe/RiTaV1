@@ -82,6 +82,28 @@
 	  "note":""
    },
    {
+      "methodName":"copy()",
+      "example":"",
+      "description":"Creates and returns a field-for-field copy of the object",
+      "syntax":"copy()",
+      "parameters":
+      [
+		
+			
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "RiString", 
+			"desc": "a copy of the RiString" 
+			}
+			
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
       "methodName":"endsWith()",
       "example":"",
       "description":"Tests if this string ends with the specified suffix",

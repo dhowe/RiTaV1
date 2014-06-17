@@ -1,5 +1,6 @@
 package rita.test;
 
+import static org.junit.Assert.*;
 import static rita.support.QUnitStubs.deepEqual;
 import static rita.support.QUnitStubs.equal;
 import static rita.support.QUnitStubs.notEqual;
@@ -1130,129 +1131,9 @@ public class RiTextTest
 
   }
  
-  /*
-   * 
-   * @Test public void testDraw() //no test in RiTaJS {
-   * fail("Not yet implemented"); }
-   * 
-   * @Test public void testStopBehavior()//no test in RiTaJS {
-   * fail("Not yet implemented"); }
-   * 
-   * @Test public void testStopBehaviors()//no test in RiTaJS {
-   * fail("Not yet implemented"); }
-   * 
-   * @Test public void testBoundingBox()//no test in RiTaJS {
-   * fail("Not yet implemented"); }
-   * 
-   * @Test public void testCenter()//no test in RiTaJS {
-   * fail("Not yet implemented"); }
-   * 
-   * @Test public void testCharOffset()//no test in RiTaJS {
-   * fail("Not yet implemented"); }
-   * 
-   * @Test public void testWordOffset()//no test in RiTaJS {
-   * fail("Not yet implemented"); }
-   * 
-   * @Test public void testContains()//no test in RiTaJS || containsWord?? {
-   * fail("Not yet implemented"); }
-   * 
-   * @Test public void testDistanceTo()//no test in RiTaJS {
-   * fail("Not yet implemented"); }
-   * 
-   * @Test public void testSplitLetters()//no test in RiTaJS {
-   * fail("Not yet implemented"); }
-   * 
-   * @Test public void testSplitWords()//no test in RiTaJS {
-   * fail("Not yet implemented"); }
-   * 
-   * @Test public void testTextHeight() { fail("Not yet implemented"); }
-   * 
-   * @Test public void testTextAscent() { fail("Not yet implemented"); }
-   * 
-   * @Test public void testTextDescent() { fail("Not yet implemented"); }
-   * 
-   * @Test public void testTextWidth() { fail("Not yet implemented"); }
-   * 
-   * @Test public void testFadeIn() { fail("Not yet implemented"); }
-   * 
-   * @Test public void testFadeOut() { fail("Not yet implemented"); }
-   * 
-   * @Test public void testMoveTo() { fail("Not yet implemented"); }
-   * 
-   * @Test public void testColorTo() { fail("Not yet implemented"); }
-   * 
-   * @Test public void testRotateTo() { fail("Not yet implemented"); }
-   * 
-   * @Test public void testScaleTo() { fail("Not yet implemented"); }
-   * 
-   * @Test public void testTextTo() { fail("Not yet implemented"); }
-   * 
-   * @Test public void testFont() { fail("Not yet implemented"); }
-   * 
-   * @Test public void testFontStringFloat() { fail("Not yet implemented"); }
-   * 
-   * @Test public void testFontStringFloatFloat() { fail("Not yet implemented");
-   * }
-   * 
-   * @Test public void testFontSizeFloat() { fail("Not yet implemented"); }
-   * 
-   * @Test public void testFontSize() { fail("Not yet implemented"); }
-   * 
-   * @Test public void testAlignInt() { fail("Not yet implemented"); }
-   * 
-   * @Test public void testAlign() { fail("Not yet implemented"); }
-   * 
-   * @Test public void testAlphaFloat() { fail("Not yet implemented"); }
-   * 
-   * @Test public void testAlpha() { fail("Not yet implemented"); }
-   * 
-   * @Test public void testRotateFloat() { fail("Not yet implemented"); }
-   * 
-   * @Test public void testRotateFloatFloatFloat() {
-   * fail("Not yet implemented"); }
-   * 
-   * @Test public void testRotate() { fail("Not yet implemented"); }
-   * 
-   * @Test public void testScaleFloat() { fail("Not yet implemented"); }
-   * 
-   * @Test public void testScaleFloatFloatFloat() { fail("Not yet implemented");
-   * }
-   * 
-   * @Test public void testScale() { fail("Not yet implemented"); }
-   * 
-   * @Test public void testColorFloatFloatFloatFloat() {
-   * fail("Not yet implemented"); }
-   * 
-   * @Test public void testColorFloatArray() { fail("Not yet implemented"); }
-   * 
-   * @Test public void testColor() { fail("Not yet implemented"); }
-   * 
-   * @Test public void testTextString() { fail("Not yet implemented"); }
-   * 
-   * @Test public void testText() { fail("Not yet implemented"); }
-   * 
-   * @Test public void testIsVisibleBoolean() { fail("Not yet implemented"); }
-   * 
-   * @Test public void testIsVisible() { fail("Not yet implemented"); }
-   * 
-   * @Test public void testShowBoundingBoxBoolean() {
-   * fail("Not yet implemented"); }
-   * 
-   * @Test public void testShowBoundingBox() { fail("Not yet implemented"); }
-   * 
-   * @Test public void testMotionTypeInt() { fail("Not yet implemented"); }
-   * 
-   * @Test public void testMotionType() { fail("Not yet implemented"); }
-   * 
-   * @Test public void testPositionFloatFloat() { fail("Not yet implemented"); }
-   * 
-   * @Test public void testPositionFloatFloatFloat() {
-   * fail("Not yet implemented"); }
-   * 
-   * @Test public void testPosition() { fail("Not yet implemented"); }
-   * 
-   * @Test public void testCopy() { fail("Not yet implemented"); }
-   * 
-   * @Test public void testSubSequence() { fail("Not yet implemented"); }
-   */
+  @Test 
+  public void testCopy() { 
+    fail("Write me"); // can pull from RiTaJS
+  }
+
 }
