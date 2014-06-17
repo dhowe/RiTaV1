@@ -8,24 +8,25 @@ colorTo()				ColorAndFade.java
 concat()				X
 center()				BoundingBoxFeatures.java		
 charOffset()			WordsLetteresLines.java		
-clone()			
+clone()					REMOVE (should be copy())
+copy()					X
 contains()				BoundingBoxFeatures.java		
 distanceTo()			WordsLettersLines.java
 draw()					DisposeAll.java
-endsWith()				X
-equals()				X
-equalsIgnoreCase()		X
+endsWith()				X DONT NEED
+equals()				X DONT NEED
+equalsIgnoreCase()		X DONT NEED
 fadeIn()				ColorAndFade.java	
 fadeOut()				ColorAndFade.java	
 features()				X
 font()					DefaultFontAndFontVlw.java		
 fontSize()				DefaultFontAndFontVlw.java		
-indexOf()				X
+indexOf()				X DONT NEED
 insertWord()			X
 isVisible()				ColorAndFade.java	
-lastIndexOf()			X
-length()				X
-match()					X
+lastIndexOf()			X DONT NEED
+length()				X DONT NEED
+match()					X DONT NEED
 motionType()			MotionTypes.java	
 moveTo()				TranslateTo.java	
 pos()					X
@@ -35,7 +36,7 @@ removeChar()			X
 replaceChar()			X
 replaceFirst()			X
 replaceLast()			X
-replaceAll()			X
+replaceAll()			X DONT NEED
 replaceWord()			X
 rotate()				TranslateTo.java	
 rotateTo()				TranslateTo.java	
@@ -46,20 +47,20 @@ splitLetters()			WordsLetteresLines.java
 splitWords()			WordsLetteresLines.java		
 stopBehavior()			
 stopBehaviors()			
-slice()					X
-split()					X
-startsWith()			X
-substring()				X
-substr()				X
+slice()					X DONT NEED
+split()					X DONT NEED
+startsWith()			X DONT NEED
+substring()				X DONT NEED
+substr()				X DONT NEED
 textAscent()			
 textDescent()			
 textTo()				ColorAndFade.java	
 textHeight()			WordsLetteresLines.java		
 textWidth()				WordsLetteresLines.java		
-text()					X
-toLowerCase()			X
-toUpperCase()			X
-trim()					X
+text()					X DONT NEED
+toLowerCase()			X DONT NEED
+toUpperCase()			X DONT NEED 
+trim()					X DONT NEED
 wordAt()				X
 wordCount()				X
 wordOffset()			WordsLetteresLines.java		
@@ -76,7 +77,7 @@ RiText.defaultFill()	BoundingBoxAndAlpha.java
 RiText.defaultFont()	DefaultFontAndFontVlw.java		
 RiText.showBounds()		BoundingBoxFeatures.java		
 RiText.randomColor()	RandomColor.java
-RiText.timer()			//Static tests?
-RiText.stopTimer()		//Static tests?	
-RiText.pauseTimer()		//Static tests?
+RiText.timer()			//Static tests? DONT NEED
+RiText.stopTimer()		//Static tests?	DONT NEED
+RiText.pauseTimer()		//Static tests?DONT NEED
 RiText.random()			RandomColor.java

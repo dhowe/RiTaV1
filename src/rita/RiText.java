@@ -259,7 +259,7 @@ public class RiText implements RiTextIF
     return new float[] { bb[0] + bb[2] / 2f, bb[1] - bb[3] / 2f };
   }
 
-  public static final PFont defaultFont(PApplet p)
+  public static final PFont defaultFont(PApplet p) 
   {
     return defaultFont(p, defaults.fontSize);
   }
@@ -2252,7 +2252,7 @@ public class RiText implements RiTextIF
     boundingBox.set(bbx, bby, bbw, bbh);
   }
 
-  // ughh, need to rethink, maybe reflection?
+  // hmmm, need to rethink, maybe use reflection?
   /**
    * Returns a field for field copy of <code>toCopy</code>
    */

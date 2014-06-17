@@ -1124,10 +1124,10 @@
 	  "note":""
    },
    {
-      "methodName":"clone()",
+      "methodName":"copy()",
       "example":"",
-      "description":"Creates and returns a new (copy) of this RiText",
-      "syntax":"clone()",
+      "description":"Creates and returns a field-for-field copy of this RiText",
+      "syntax":"copy()",
       "parameters":
       [
 		
@@ -1269,8 +1269,8 @@
       "parameters":
       [
 			{ 
-			"type": "PFont", 
-			"desc": "(optional) containing the font data OR" 
+			"type": Object", 
+			"desc": "(optional) generally a PFont containing the font data OR" 
 			},
 			{ 
 			"type": "String", 
@@ -1988,8 +1988,8 @@
 			"desc": "height of layout rect (optional, defaults to Number.MAX_VALUE)" 
 			},
 			{ 
-			"type": "PFont", 
-			"desc": "the font to use for the layout (optional, defaults to RiText.defaults.font)" 
+			"type": "Object", 
+			"desc": "the font to use (generally a PFont) for the layout (optional, defaults to RiText.defaults.font)" 
 			},
 			{ 
 			"type": "float", 
@@ -2040,8 +2040,8 @@
 			"desc": "height of layout rect (optional, defaults to Number.MAX_VALUE)" 
 			},
 			{ 
-			"type": "PFont", 
-			"desc": "the font to use for the layout (optional, defaults to RiText.defaults.font)" 
+			"type": "Object", 
+			"desc": "the font to use (generally a PFont) for the layout (optional, defaults to RiText.defaults.font)" 
 			},
 			{ 
 			"type": "float", 
@@ -2092,8 +2092,8 @@
 			"desc": "height of layout rect (optional, defaults to Number.MAX_VALUE)" 
 			},
 			{ 
-			"type": "PFont", 
-			"desc": "the font to use for the layout (optional, defaults to RiText.defaults.font)" 
+			"type": "Object", 
+			"desc": "the font to use (generally a PFont) for the layout (optional, defaults to RiText.defaults.font)" 
 			},
 			{ 
 			"type": "float", 
@@ -2208,8 +2208,8 @@
       "parameters":
       [
 			{ 
-			"type": "PFont", 
-			"desc": "font (optional, for 'sets' only)" 
+			"type": "Object", 
+			"desc": "font (optional, for 'sets' only), generally a PFont" 
 			},
 			{ 
 			"type": "String", 
