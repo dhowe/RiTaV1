@@ -570,12 +570,6 @@ public class RiTextStaticTests
   }
 
   @Test
-  public void testTimer()
-  {
-    fail("Not yet implemented");
-  }
-
-  @Test
   public void testStopTimer()
   {
     fail("Not yet implemented");
@@ -587,7 +581,7 @@ public class RiTextStaticTests
     fail("Not yet implemented");
   }
 
-  
+/*  
   @Test
   public void testTimer()
   {
@@ -602,7 +596,7 @@ public class RiTextStaticTests
     }
 
     ok(el.i ==5);
-  }
+  }*/
   /*
   @Test
   public void testPauseTimer()
