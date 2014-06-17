@@ -164,14 +164,13 @@ ${line}
 	sketchbook	${sketchbook.location}
 	java version	${java.version}
 	java target     ${java.target.version}
-    classpath       ${class.path}
 ${line}
 		</echo>
 
 	</target>
 
 	<target name="library.init" depends="init">
-		<echo message="Init library ..." />
+		<echo message="Initializing..." />
 	</target>
 
 	<target name="_script.make-lib.sh" depends="check.rita.js" if="rita.js.present">
