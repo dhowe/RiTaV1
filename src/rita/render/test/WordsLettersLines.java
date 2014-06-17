@@ -45,10 +45,6 @@ public class WordsLettersLines extends PApplet
 			words[i].fill(r, 100, 255-r);
 		}
 
-
-		
-
-		
 		RiText rt2 = new RiText(this,txt,400,50);
 		for (int i = 0; i < txt.length(); i++) {
 			line(rt2.charOffset(i),10,rt2.charOffset(i),50);
@@ -77,9 +73,6 @@ public class WordsLettersLines extends PApplet
 
 		rect(400,356-rt5.textHeight(),rt5.textWidth(),rt5.textHeight());
 
-		
-		
-
 		fill(0);
 
 		text(rt.distanceTo(rt3),(rt.x +rt3.x)/2,(rt.y +rt3.y)/2	);	
@@ -89,9 +82,6 @@ public class WordsLettersLines extends PApplet
 		line(rt.x,rt.y,0,400);
 		
 		RiText.drawAll();
-
-
-
 
 	}
 
