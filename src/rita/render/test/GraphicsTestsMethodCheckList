@@ -66,7 +66,6 @@ wordOffset()			WordsLetteresLines.java
 words()					X
 			
 RiText.defaults			On Every java		
-			
 RiText.createLetters()	WordsLetteresLines.java		
 RiText.createWords()	WordsLetteresLines.java		
 RiText.createLines()	CreateLinesAndLayoutWithBreaks.java		
@@ -77,7 +76,7 @@ RiText.defaultFill()	BoundingBoxAndAlpha.java
 RiText.defaultFont()	DefaultFontAndFontVlw.java		
 RiText.showBounds()		BoundingBoxFeatures.java		
 RiText.randomColor()	RandomColor.java
-RiText.timer() 			
-RiText.stopTimer()			
-RiText.pauseTimer() 			
+RiText.timer()			//Static tests?
+RiText.stopTimer()		//Static tests?	
+RiText.pauseTimer()		//Static tests?
 RiText.random()			RandomColor.java

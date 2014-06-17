@@ -28,7 +28,7 @@ public class WordsLettersLines extends PApplet
 
 		RiText.defaultFont("Times", 28);
 
-		RiText rt = new RiText(this,txt,64,300);
+		RiText rt = new RiText(this,txt,100,300);
 
 		RiText[] letters = rt.splitLetters();
 		for (int i = 0; i < letters.length; i++) {
@@ -45,7 +45,7 @@ public class WordsLettersLines extends PApplet
 			words[i].fill(r, 100, 255-r);
 		}
 
-		
+
 		
 
 		
@@ -77,8 +77,20 @@ public class WordsLettersLines extends PApplet
 
 		rect(400,356-rt5.textHeight(),rt5.textWidth(),rt5.textHeight());
 
+		
+		
 
+		fill(0);
+
+		text(rt.distanceTo(rt3),(rt.x +rt3.x)/2,(rt.y +rt3.y)/2	);	
+		line(rt.x,rt.y,rt3.x,rt3.y);
+		
+		text(rt.distanceTo(0,400),(rt.x )/2-35,(rt.y +400)/2+30	);	
+		line(rt.x,rt.y,0,400);
+		
 		RiText.drawAll();
+
+
 
 
 	}
