@@ -6,7 +6,7 @@ import rita.RiText;
 public class MotionTypes extends PApplet
 {
 
-  /*
+	/*
        An example demonstrating supported animation modes in RiTa,
        for use in RiText.moveTo() or RiText.moveBy() methods, etc.
        specified by calling RiText.setMotionType() with one of the
@@ -28,53 +28,53 @@ public class MotionTypes extends PApplet
             RiText.EASE_IN_OUT_EXPO         (N)
             RiText.EASE_IN_EXPO             (O)
             RiText.EASE_OUT_EXPO            (P)
-  */
+	 */
 
-    boolean movingUp;
-    RiText  rts[] = new RiText[16]; 
-    
-int counter =0;
-boolean goBack = false;
+	boolean movingUp;
+	RiText  rts[] = new RiText[16]; 
 
-    public void setup()
-    {
-      size(700, 700);
-      smooth();
- 
+	int counter =0;
+	boolean goBack = false;
 
-      RiText.defaultFont("Times",40);   
-      RiText.defaults.alignment=(LEFT);    
-          
+	public void setup()
+	{
+		size(700, 700);
+		smooth();
 
-    }
 
-    public void draw() 
-    {
-      background(255);
-      RiText.drawAll();
-      
-      counter++;
-      if(counter == 5 || counter == 305){
-    	  goBack = true;
-      }
-     
-      if(goBack){
-          moveBack();
-          goBack = false;
-      }
-    }
-      
-    public void moveBack()
-    {
-      movingUp = !movingUp;
-      for (int i = 0; i < rts.length; i++)  {
-        float xPos = 10+(width/(float)rts.length)*i;     
-        if (rts[i] == null) {
-          rts[i] = new RiText(this,(char)(i+65)+"", xPos, height); 
-          rts[i].motionType(i);
-        }
-        rts[i].moveTo(xPos, (movingUp ? 30 : height), 3f);          
-      }
-    }
+		RiText.defaultFont("Times",40);   
+		RiText.defaults.alignment=(LEFT);    
+
+
+	}
+
+	public void draw() 
+	{
+		background(255);
+		RiText.drawAll();
+
+		counter++;
+		if(counter == 5 || counter == 305){
+			goBack = true;
+		}
+
+		if(goBack){
+			moveBack();
+			goBack = false;
+		}
+	}
+
+	public void moveBack()
+	{
+		movingUp = !movingUp;
+		for (int i = 0; i < rts.length; i++)  {
+			float xPos = 10+(width/(float)rts.length)*i;     
+			if (rts[i] == null) {
+				rts[i] = new RiText(this,(char)(i+65)+"", xPos, height); 
+				rts[i].motionType(i);
+			}
+			rts[i].moveTo(xPos, (movingUp ? 30 : height), 3f);          
+		}
+	}
 
 }

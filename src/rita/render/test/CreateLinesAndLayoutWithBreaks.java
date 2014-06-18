@@ -8,7 +8,7 @@ import rita.test.PixelCompare;
 public class CreateLinesAndLayoutWithBreaks extends PApplet {
 
 	String[] txt = { 
-	    "A huge lizard was discovered drinking out of the",
+			"A huge lizard was discovered drinking out of the",
 			"fountain today. It was not menacing anyone, it was",
 			"just very thirsty. A small crowd gathered and",
 			"whispered to one another, as though the lizard",
@@ -29,7 +29,7 @@ public class CreateLinesAndLayoutWithBreaks extends PApplet {
 			"forked tongue was like a red river hypnotizing the",
 			"people, keeping them in a trance-like state. 'It's like",
 			"a different town,' one of them whispered. 'Change is",
-			"good,' the other one whispered back." };
+	"good,' the other one whispered back." };
 
 	float x=30, y=30, w=400-60, h=623;
 	float x2=420, y2=30, w2=400-60, h2=623;
@@ -39,33 +39,33 @@ public class CreateLinesAndLayoutWithBreaks extends PApplet {
 
 		size(1200, 700);
 		background(250);
-		
+
 		RiText.defaultFont("Georgia", 16);
 
 		RiText.createLines(this, txt, x, y); // preserve line-breaks (no w,h)
-		
+
 		RiText.createLines(this, txt, x2, y2,w2,h2); // don't preserve line-breaks
-	  rect(x2, y2, w2, h2);
-	    
-		
+		rect(x2, y2, w2, h2);
+
+
 		RiText.createLines(this, txt, x3, y3,w3,h3); // don't preserve line-breaks
-	  rect(x3, y3, w3, h3);
-	  
-	  
-	  RiText.createLines(this, "A huge lizard.", x3, y3+400,w3,64); // single line
-    rect(x3, y3+400, w3, 64);
+		rect(x3, y3, w3, h3);
 
-    RiText.defaultFont("Georgia", 32);
 
-    RiText.createLines(this, "A huge lizard.", x3, y3+500, w3, 32); // single line
-    rect(x3, y3+500, w3, 32);
+		RiText.createLines(this, "A huge lizard.", x3, y3+400,w3,64); // single line
+		rect(x3, y3+400, w3, 64);
+
+		RiText.defaultFont("Georgia", 32);
+
+		RiText.createLines(this, "A huge lizard.", x3, y3+500, w3, 32); // single line
+		rect(x3, y3+500, w3, 32);
 
 		RiText.drawAll();
 	}
 
-	 public static void main(String[] args)
-  {
-    String testPath = "/RiTa/src/";///Users/dhowe/Documents/eclipse-workspace/RiTa/src/";
-    new PixelCompare(testPath).generateRefImage(CreateLinesAndLayoutWithBreaks.class.getName());
-  }
+	public static void main(String[] args)
+	{
+		String testPath = "/RiTa/src/";///Users/dhowe/Documents/eclipse-workspace/RiTa/src/";
+		new PixelCompare(testPath).generateRefImage(CreateLinesAndLayoutWithBreaks.class.getName());
+	}
 }

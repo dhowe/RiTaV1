@@ -747,7 +747,7 @@
    {
       "methodName":"RiTa.pauseTimer()",
       "example":"",
-      "description":"Pauses a timer according to its unique id",
+      "description":"Pauses a timer according to its unique id (and assigns a new unique id)" ,
       "syntax":"RiTa.pauseTimer(id, pauseSec)",
       "parameters":[
          {
