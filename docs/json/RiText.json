@@ -1054,23 +1054,18 @@
    {
       "methodName":"boundingBox()",
       "example":"",
-      "description":"Returns the relative bounding box for the current text",
-      "syntax":"boundingBox(doTransform)",
+      "description":"Returns the screen bounding box for the current text",
+      "syntax":"boundingBox()",
       "parameters":
       [
-			{ 
-			"type": "boolean", 
-			"desc": "(optional, default=false) if true, bounding box is first transformed (rotate,translate,scale)" 
-			}
-			
 	  ],
 	  "returns":
       [
 			{ 
 			"type": "float[]", 
-			"desc": "x,y,width,height" 
+			"desc": "[x,y,width,height]" 
 			}
-			
+			nnnnb
 	  ],
       "related":"",
       "platform":"Java / Javascript",
@@ -1079,7 +1074,7 @@
    {
       "methodName":"center()",
       "example":"",
-      "description":"Returns the center point of this RiText as derived from its bounding box",
+      "description":"Returns the center point of the RiText as derived from its bounding box",
       "syntax":"center()",
       "parameters":
       [
@@ -1213,7 +1208,7 @@
    {
       "methodName":"distanceTo()",
       "example":"",
-      "description":"Returns the distance between the center points of this object and another RiText, or between this object and a point (x,y)",
+      "description":"Returns the distance between the center points of this object and another RiText, or between this object's center and a point (x,y)",
       "syntax":"distanceTo(mx, my)",
       "parameters":
       [
@@ -1231,7 +1226,7 @@
       [
 			{ 
 			"type": "float", 
-			"desc": "the distance" 
+			"desc": "the distance from this RiText's center point" 
 			}
 			
 	  ],

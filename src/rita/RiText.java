@@ -256,7 +256,7 @@ public class RiText implements RiTextIF
   public float[] center()
   {
     float[] bb = this.boundingBox();
-    return new float[] { bb[0] + bb[2] / 2f, bb[1] - bb[3] / 2f };
+    return new float[] { bb[0] + bb[2]/2f,  (bb[1]-textAscent()) + bb[3]/2f};
   }
 
   public static final PFont defaultFont(PApplet p) 
@@ -1702,7 +1702,8 @@ public class RiText implements RiTextIF
 
     try
     {
-      screenBoundingBox.set((x + boundingBox.x), (y + boundingBox.y), (boundingBox.w * scaleX), (boundingBox.h * scaleY));
+      screenBoundingBox.set((x + boundingBox.x), (y/*boundingBox.y*/), (boundingBox.w * scaleX), (boundingBox.h * scaleY));
+      // rotate and scale?
     }
     catch (Throwable e)
     {
@@ -2213,6 +2214,7 @@ public class RiText implements RiTextIF
 
   /*
    * TODO: add lazy(er) updates
+   * what about rotate and scales? 
    */
   protected void updateBoundingBox()
   {
