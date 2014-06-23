@@ -1,6 +1,6 @@
 import rita.*;
 
-void setup() {
+ void setup() {
     
     size(200, 200);
     background(255);
