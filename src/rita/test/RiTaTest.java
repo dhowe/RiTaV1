@@ -1695,13 +1695,6 @@ public class RiTaTest
   }
 
   @Test
-  public void testP5Compatible()
-  {
-    RiTa.p5Compatible(true);
-    ok("not applicable in java");
-  }
-  
-  @Test
   public void testTimer()
   {
     final EventListener el = new EventListener();

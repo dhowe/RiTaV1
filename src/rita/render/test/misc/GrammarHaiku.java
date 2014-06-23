@@ -20,7 +20,6 @@ public class GrammarHaiku extends PApplet
 
   public void setup()
   {
-    RiTa.p5Compatible(true);
     size(650, 200);
 
     RiText.defaultFont("Georgia", 30);

@@ -713,13 +713,7 @@ public class RiTa implements Constants
     
     return EntityLookup.getInstance().unescape(s);
   }
-  
-  /*
-   * Only relevant in the javascript version of RiTa
-   */
-  @SuppressWarnings("unused")
-  public static void p5Compatible(boolean b) {/* no-op */}  
-  
+    
   //////// HELPERS //////////////////////////////////////////////////////////
   
   /** Converts collection to String array */
