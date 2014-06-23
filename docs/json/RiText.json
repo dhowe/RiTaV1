@@ -2311,18 +2311,22 @@
    {
       "methodName":"RiText.timer()",
       "example":"",
-      "description":"Starts a timer that calls 'onRiTaEvent' or the specified callback every 'period' seconds",
-      "syntax":"RiText.timer(period, callback)",
+      "description":"Starts a timer that calls 'onRiTaEvent()', or the specified callback (in JS), every 'period' seconds",
+      "syntax":"RiText.timer(parent, period)<br/>RiText.timer(parent, period, callback)",
       "parameters":
       [
-      		{ 
-			"type": "float", 
-			"desc": "period (in seconds)" 
-			},
-			{ 
-			"type": "function", 
-			"desc": "callback called every 'period' seconds (default=onRiTaEvent)" 
-			}
+      	 {
+            "type":"Object",
+            "desc":"the parent object in which to find (optional in JS)"
+         },
+         {
+            "type":"float",
+            "desc":"period (in seconds)"
+         },
+         {
+            "type":"String OR Function ",
+            "desc":"callback function to be called every 'period' seconds<br>the function name String (in Java) or the function itself (in JS) "
+         }
 			
 	  ],
 	  "returns":
@@ -2335,7 +2339,8 @@
 	  ],
       "related":"",
       "platform":"Java / Javascript",
-	  "note":""
+	   "note":"The 'parent' object is optional in JS, and the optional callback is a function, rather than a String name"	
+     
    },
    {
       "methodName":"RiText.stopTimer()",
