@@ -1065,7 +1065,6 @@
 			"type": "float[]", 
 			"desc": "[x,y,width,height]" 
 			}
-			nnnnb
 	  ],
       "related":"",
       "platform":"Java / Javascript",
@@ -1264,7 +1263,7 @@
       "parameters":
       [
 			{ 
-			"type": Object", 
+			"type": "Object", 
 			"desc": "(optional) generally a PFont containing the font data OR" 
 			},
 			{ 
@@ -1275,7 +1274,6 @@
 			"type": "float", 
 			"desc": "size (optional) containing the font size " 
 			}
-
 	  ],
 	  "returns":
       [
