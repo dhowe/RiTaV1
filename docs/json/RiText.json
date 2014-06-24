@@ -3,7 +3,7 @@
     "fields": [
 	{
 	  "variable":true,
-      "methodName":"x",
+      "name":"x",
       "example":"",
       "description":"x-position of the object",
       "syntax":"",
@@ -25,7 +25,7 @@
    },
    {
 	  "variable":true,
-      "methodName":"defaults.scaleX",
+      "name":"defaults.scaleX",
       "example":"",
       "description":"The default x-scale for all newly created RiTexts",
       "syntax":"",
@@ -44,9 +44,9 @@
       "platform":"Java / Javascript",
 	  "note":""
    },
-      {
+   {
 	  "variable":true,
-      "methodName":"defaults.scaleY",
+      "name":"defaults.scaleY",
       "example":"",
       "description":"The default y-scale for all newly created RiTexts",
       "syntax":"",
@@ -67,7 +67,7 @@
    },
       {
 	  "variable":true,
-      "methodName":"defaults.scaleZ",
+      "name":"defaults.scaleZ",
       "example":"",
       "description":"The default z-scale for all newly created RiTexts",
       "syntax":"",
@@ -88,7 +88,7 @@
    },
    {
 	  "variable":true,
-      "methodName":"defaults.fill",
+      "name":"defaults.fill",
       "example":"",
       "description":"The default fill for all newly created RiTexts",
       "syntax":"",
@@ -109,7 +109,7 @@
    },
    {
 	  "variable":true,
-      "methodName":"defaults.rotateX",
+      "name":"defaults.rotateX",
       "example":"",
       "description":"The default x-rotation for all newly created RiTexts",
       "syntax":"",
@@ -130,7 +130,7 @@
    },
    {
 	  "variable":true,
-      "methodName":"defaults.rotateY",
+      "name":"defaults.rotateY",
       "example":"",
       "description":"The default y-rotation for all newly created RiTexts",
       "syntax":"",
@@ -151,7 +151,7 @@
    },
    {
 	  "variable":true,
-      "methodName":"defaults.rotateZ",
+      "name":"defaults.rotateZ",
       "example":"",
       "description":"The default z-rotation for all newly created RiTexts",
       "syntax":"",
@@ -172,7 +172,7 @@
    },
    {
 	  "variable":true,
-      "methodName":"defaults.alignment",
+      "name":"defaults.alignment",
       "example":"",
       "description":"The default alignment for all newly created RiTexts",
       "syntax":"",
@@ -193,7 +193,7 @@
    },
    {
 	  "variable":true,
-      "methodName":"defaults.motionType",
+      "name":"defaults.motionType",
       "example":"",
       "description":"The default motionType for all newly created RiTexts",
       "syntax":"",
@@ -213,10 +213,10 @@
 	  "note":""
    },
    {
-      "methodName":"features()",
+      "name":"features",
       "example":"theFeatures = myRiText.features();",
       "description":"Returns the current set of features for the object, including <a target=_new href='../../PhonemeTags.html'>phonemes</a>, syllables, stresses, etc.",
-      "syntax":"features()",
+      "syntax":"features();",
       "parameters":[],
 	  "returns":
       [
@@ -225,13 +225,13 @@
 			"desc": "Map (in Java), Object with key-value pairs (in JS)" 
 			}
 	  ],
-      "related":"RiText.analyze()<br>RiText.get()",
+      "related":"RiText.analyze()<br>RiText.get",
       "platform":"Java / Javascript",
 	  "note":""
    },
    {
    	  "variable":true,
-      "methodName":"y",
+      "name":"y",
       "example":"",
       "description":"y-position (the baseline of the text)",
       "syntax":"",
@@ -257,7 +257,7 @@
    },
    {
       "variable":true,
-      "methodName":"z",
+      "name":"z",
       "example":"",
       "description":"z-position (used only in 3d)",
       "syntax":"",
@@ -278,7 +278,7 @@
    },	
 
 	{
-      "methodName":"analyze()",
+      "name":"analyze",
       "example":"myRiText.get(\"phonemes\");<br>myRiText.get(RiTa.PHONEMES);<br>myRiText.get(RiTa.SYLLABLES);",
       "description":"Computes a set of features for the RiText, including <a target=_new href='../../PhonemeTags.html'>phonemes</a>, syllables, stresses, etc. To access any of these, use myRiText.get(featureName)",
       "syntax":"analyze(feature-type);",
@@ -299,10 +299,10 @@
 	  "note":""
    },
    {
-      "methodName":"charAt()",
+      "name":"charAt",
       "example":"",
       "description":"Returns the character at the given 'index', or an empty string if none is found",
-      "syntax":"charAt(index)",
+      "syntax":"charAt(index);",
       "parameters":
       [
 			{ 
@@ -322,10 +322,10 @@
 	  "note":""
    },
    {
-      "methodName":"concat()",
+      "name":"concat",
       "example":"",
       "description":"Concatenates the text from another RiText at the end of this one",
-      "syntax":"concat(riText)",
+      "syntax":"concat(riText);",
       "parameters":
       [
 			{ 
@@ -345,10 +345,10 @@
 	  "note":""
    },
    {
-      "methodName":"endsWith()",
+      "name":"endsWith",
       "example":"",
       "description":"Tests if this String ends with the specified suffix",
-      "syntax":"endsWith(substr)",
+      "syntax":"endsWith(substr);",
       "parameters":
       [
 			{ 
@@ -368,10 +368,10 @@
 	  "note":""
    },
    {
-      "methodName":"equals()",
+      "name":"equals",
       "example":"",
       "description":"Compares this RiText to the specified object. <br/>The result is true if and only if the argument is not null and is a String or RiText object that represents the same sequence of characters as this object.",
-      "syntax":"equals(string)<br/>equals(riText)",
+      "syntax":"equals(string);<br/>equals(riText);",
       "parameters":
       [
 			{ 
@@ -391,10 +391,10 @@
 	  "note":""
    },
    {
-      "methodName":"equalsIgnoreCase()",
+      "name":"equalsIgnoreCase",
       "example":"",
       "description":"Compares this RiText to another RiText, ignoring case considerations",
-      "syntax":"equalsIgnoreCase(string)<br/>equalsIgnoreCase(riText)",
+      "syntax":"equalsIgnoreCase(string);<br/>equalsIgnoreCase(riText);",
       "parameters":
       [
 			{ 
@@ -414,10 +414,10 @@
 	  "note":""
    },
    {
-      "methodName":"indexOf()",
+      "name":"indexOf",
       "example":"",
       "description":"Returns the index within this string of the first occurrence of the specified character",
-      "syntax":"indexOf(searchstring)<br/>indexOf(searchstring, start)",
+      "syntax":"indexOf(searchstring);<br/>indexOf(searchstring, start);",
       "parameters":
       [
 			{ 
@@ -441,10 +441,10 @@
 	  "note":""
    },
     {
-      "methodName":"insertWord()",
+      "name":"insertWord",
       "example":"",
       "description":"Inserts 'newWord' at 'wordIdx' and shifts each subsequent word accordingly.",
-      "syntax":"insertWord(newWord, wordIdx)",
+      "syntax":"insertWord(newWord, wordIdx);",
       "parameters":
       [
 			{ 
@@ -468,10 +468,10 @@
 	  "note":""
    },
    {
-      "methodName":"lastIndexOf()",
+      "name":"lastIndexOf",
       "example":"",
       "description":"Returns the index within this String of the last occurrence of the specified character",
-      "syntax":"lastIndexOf(searchstring)<br/>lastIndexOf(searchstring, start)",
+      "syntax":"lastIndexOf(searchstring);<br/>lastIndexOf(searchstring, start);",
       "parameters":
       [
 			{ 
@@ -495,10 +495,10 @@
 	  "note":""
    },
    {
-      "methodName":"length()",
+      "name":"length",
       "example":"",
       "description":"Returns the length of this String",
-      "syntax":"length()",
+      "syntax":"length();",
       "parameters":
       [
 			
@@ -515,10 +515,10 @@
 	  "note":""
    },
    {
-      "methodName":"match()",
+      "name":"match",
       "example":"",
       "description":"Searches for a match between a substring (or regular expression) and the contained string, and _returns the matches",
-      "syntax":"match(regex)",
+      "syntax":"match(regex);",
       "parameters":
       [
 			{ 
@@ -539,10 +539,10 @@
 	  "note":""
    },
    {
-      "methodName":"pos()",
+      "name":"pos",
       "example":"",
       "description":"Returns an array of part-of-speech tags (from the <a href='../../PennTags.html'>PENN tag set</a>), one per word, using RiTa.tokenize() and RiTa.getPosTags(), with tags from the <a href='../../PennTags.html'>PENN tag set</a>",
-      "syntax":"pos()",
+      "syntax":"pos();",
       "parameters":
       [
 			
@@ -560,10 +560,10 @@
 	  "note":""
    },
    {
-      "methodName":"posAt()",
+      "name":"posAt",
       "example":"",
       "description":"Returns the part-of-speech tag (from the <a href='../../PennTags.html'>PENN tag set</a>) for the word at 'index', using RiTa.tokenize() and RiTa.getPosTags(), with tags from the <a href='../../PennTags.html'>PENN tag set</a>",
-      "syntax":"posAt(index)",
+      "syntax":"posAt(index);",
       "parameters":
       [
 			{ 
@@ -584,10 +584,10 @@
 	  "note":""
    },
    {
-      "methodName":"removeChar()",
+      "name":"removeChar",
       "example":"",
       "description":"Removes the character at the specified index",
-      "syntax":"removeChar(index)",
+      "syntax":"removeChar(index);",
       "parameters":
       [
 			{ 
@@ -608,10 +608,10 @@
 	  "note":""
    },
    {
-      "methodName":"replaceChar()",
+      "name":"replaceChar",
       "example":"",
       "description":"Replaces the character at 'idx' with 'replaceWith'. <br/>If the specified 'idx' is less than zero, or beyond the length of the current text, there will be no effect",
-      "syntax":"replaceChar(idx, replaceWith)",
+      "syntax":"replaceChar(idx, replaceWith);",
       "parameters":
       [
 			{ 
@@ -636,10 +636,10 @@
 	  "note":""
    },
    {
-      "methodName":"replaceFirst()",
+      "name":"replaceFirst",
       "example":"",
       "description":"Replaces the first instance of 'regex' with 'replaceWith'",
-      "syntax":"replaceFirst(regex, replaceWith)",
+      "syntax":"replaceFirst(regex, replaceWith);",
       "parameters":
       [
 			{ 
@@ -663,10 +663,10 @@
 	  "note":""
    },
    {
-      "methodName":"replaceLast()",
+      "name":"replaceLast",
       "example":"",
       "description":"Replaces the last instance of 'regex' with 'replaceWith'",
-      "syntax":"replaceLast(regex, replaceWith)",
+      "syntax":"replaceLast(regex, replaceWith);",
       "parameters":
       [
 			{ 
@@ -690,10 +690,10 @@
 	  "note":""
    },
    {
-      "methodName":"replaceAll()",
+      "name":"replaceAll",
       "example":"",
       "description":"Replaces each substring matching the regular expression with the replacement.",
-      "syntax":"replaceAll(regex, replaceWith)",
+      "syntax":"replaceAll(regex, replaceWith);",
       "parameters":
       [
 			{ 
@@ -717,10 +717,10 @@
 	  "note":""
    },
    {
-      "methodName":"replaceWord()",
+      "name":"replaceWord",
       "example":"",
       "description":"Replaces the word at 'wordIdx' with 'newWord'",
-      "syntax":"replaceWordAt(wordIdx, newWord)",
+      "syntax":"replaceWordAt(wordIdx, newWord);",
       "parameters":
       [
 			{ 
@@ -744,10 +744,10 @@
 	  "note":""
    },
    {
-      "methodName":"slice()",
+      "name":"slice",
       "example":"",
       "description":"Extracts a part of a String from this RiText",
-      "syntax":"slice(begin)<br/>slice(begin, end)",
+      "syntax":"slice(begin);<br/>slice(begin, end);",
       "parameters":
       [
 			{ 
@@ -771,10 +771,10 @@
 	  "note":""
    },
    {
-      "methodName":"split()",
+      "name":"split",
       "example":"",
       "description":"Split a RiText into an array of sub-RiText and return the new array. <br/>If an empty String ('') is used as the separator, the String is split between each character.",
-      "syntax":"split()<br/>split(separator)<br/>split(limit)<br/>split(separator, limit)",
+      "syntax":"split()<br/>split(separator);<br/>split(limit);<br/>split(separator, limit);",
       "parameters":
       [
 			{ 
@@ -798,10 +798,10 @@
 	  "note":""
    },
    {
-      "methodName":"startsWith()",
+      "name":"startsWith",
       "example":"",
       "description":"Tests if this String starts with the specified prefix",
-      "syntax":"startsWith(substr)",
+      "syntax":"startsWith(substr);",
       "parameters":
       [
 			{ 
@@ -822,10 +822,10 @@
 	  "note":""
    },
    {
-      "methodName":"substring()",
+      "name":"substring",
       "example":"",
       "description":"Extracts the characters from a String, between two specified indices, and sets the current text to be that String. ",
-      "syntax":"substring(from)<br/>substring(from, to)",
+      "syntax":"substring(from);<br/>substring(from, to);",
       "parameters":
       [
 			{ 
@@ -850,10 +850,10 @@
 	  "note":""
    },
    {
-      "methodName":"substr()",
+      "name":"substr",
       "example":"",
       "description":"Extracts the characters from this objects contained String, beginning at 'start' and continuing through the specified number of characters, and sets the current text to be that String. (from Javascript String)",
-      "syntax":"substr(start)<br/>substr(start, length)",
+      "syntax":"substr(start);<br/>substr(start, length);",
       "parameters":
       [
 			{ 
@@ -878,10 +878,10 @@
 	  "note":""
    },
    {
-      "methodName":"text()",
+      "name":"text",
       "example":"",
       "description":"Gets/sets the text contained by this object",
-      "syntax":"text()<br/>text(theText)",
+      "syntax":"text();<br/>text(theText);",
       "parameters":
       [
 			{ 
@@ -902,10 +902,10 @@
 	  "note":""
    },
    {
-      "methodName":"toLowerCase()",
+      "name":"toLowerCase",
       "example":"",
       "description":"Converts all of the characters in this RiText to lower case",
-      "syntax":"toLowerCase()",
+      "syntax":"toLowerCase();",
       "parameters":
       [
 			
@@ -922,10 +922,10 @@
 	  "note":""
    },
    {
-      "methodName":"toUpperCase()",
+      "name":"toUpperCase",
       "example":"",
       "description":"Converts all of the characters in this RiText to upper case",
-      "syntax":"toUpperCase()",
+      "syntax":"toUpperCase();",
       "parameters":
       [
 			
@@ -943,10 +943,10 @@
 	  "note":""
    },
    {
-      "methodName":"trim()",
+      "name":"trim",
       "example":"",
       "description":"Returns a copy of the String, with leading and trailing whitespace omitted.",
-      "syntax":"trim()",
+      "syntax":"trim();",
       "parameters":
       [
 			
@@ -963,10 +963,10 @@
 	  "note":""
    },
    {
-      "methodName":"wordAt()",
+      "name":"wordAt",
       "example":"",
-      "description":"Returns the word at 'index', according to RiTa.tokenize()",
-      "syntax":"wordAt(int index)",
+      "description":"Returns the word at 'index', according to RiTa.tokenize",
+      "syntax":"wordAt(int index);",
       "parameters":
       [
 			{ 
@@ -987,10 +987,10 @@
 	  "note":""
    },
    {
-      "methodName":"wordCount()",
+      "name":"wordCount",
       "example":"",
       "description":"Returns the number of words in the object, according to RiTa.tokenize().",
-      "syntax":"wordCount()",
+      "syntax":"wordCount();",
       "parameters":
       [
 			
@@ -1007,10 +1007,10 @@
 	  "note":""
    },
    {
-      "methodName":"words()",
+      "name":"words",
       "example":"",
-      "description":"Returns the array of words in the object, via a call to RiTa.tokenize()",
-      "syntax":"words()",
+      "description":"Returns the array of words in the object, via a call to RiTa.tokenize",
+      "syntax":"words();",
       "parameters":
       [
 	  ],
@@ -1027,10 +1027,10 @@
    },
  
    {
-      "methodName":"alpha()",
+      "name":"alpha",
       "example":"",
       "description":"Set/gets the alpha (transparency) for this RiText",
-      "syntax":"alpha()<br/>alpha(value)",
+      "syntax":"alpha();<br/>alpha(value);",
       "parameters":
       [
 			{ 
@@ -1052,10 +1052,10 @@
 	  "note":""
    },
    {
-      "methodName":"boundingBox()",
+      "name":"boundingBox",
       "example":"",
       "description":"Returns the screen bounding box for the current text",
-      "syntax":"boundingBox()",
+      "syntax":"boundingBox();",
       "parameters":
       [
 	  ],
@@ -1071,10 +1071,10 @@
 	  "note":""
    },
    {
-      "methodName":"center()",
+      "name":"center",
       "example":"",
       "description":"Returns the center point of the RiText as derived from its bounding box",
-      "syntax":"center()",
+      "syntax":"center();",
       "parameters":
       [
 			
@@ -1093,10 +1093,10 @@
 	  "note":""
    },
    {
-      "methodName":"charOffset()",
+      "name":"charOffset",
       "example":"",
       "description":"Returns the pixel x-offset for the character at 'charIdx'",
-      "syntax":"charOffset(charIdx)",
+      "syntax":"charOffset(charIdx);",
       "parameters":
       [
 			{ 
@@ -1118,10 +1118,10 @@
 	  "note":""
    },
    {
-      "methodName":"copy()",
+      "name":"copy",
       "example":"",
       "description":"Creates and returns a field-for-field copy of this RiText",
-      "syntax":"copy()",
+      "syntax":"copy();",
       "parameters":
       [
 		
@@ -1140,10 +1140,10 @@
 	  "note":""
    },
    {
-      "methodName":"fill()",
+      "name":"fill",
       "example":"",
       "description":"Set/gets the fill color for this RiText",
-      "syntax":"fill()<br/>fill(r, b, a)<br/>fill(rgbaArr)",
+      "syntax":"fill();<br/>fill(r, b, a);<br/>fill(rgbaArr);",
       "parameters":
       [
 			{ 
@@ -1176,10 +1176,10 @@
 	  "note":""
    },
    {
-      "methodName":"contains()",
+      "name":"contains",
       "example":"",
       "description":"Returns true if the bounding box for this RiText contains the point mx/my",
-      "syntax":"contains(mx, my)",
+      "syntax":"contains(mx, my);",
       "parameters":
       [
 			{ 
@@ -1205,10 +1205,10 @@
 	  "note":""
    },
    {
-      "methodName":"distanceTo()",
+      "name":"distanceTo",
       "example":"",
       "description":"Returns the distance between the center points of this object and another RiText, or between this object's center and a point (x,y)",
-      "syntax":"distanceTo(mx, my)",
+      "syntax":"distanceTo(mx, my);<br>distanceTo(anOtherRiText);",
       "parameters":
       [
 			{ 
@@ -1234,10 +1234,10 @@
 	  "note":""
    },
    {
-      "methodName":"draw()",
+      "name":"draw",
       "example":"",
       "description":"Draws the object to the screen",
-      "syntax":"draw()",
+      "syntax":"draw();",
       "parameters":
       [
 		
@@ -1256,10 +1256,10 @@
 	  "note":""
    },
    {
-      "methodName":"font()",
+      "name":"font",
       "example":"",
       "description":"Set/gets the font for this RiText",
-      "syntax":"font()<br/>font(pfont)<br/>font(fontStr, fontSize)",
+      "syntax":"font();<br/>font(pfont);<br/>font(fontStr, fontSize);",
       "parameters":
       [
 			{ 
@@ -1288,10 +1288,10 @@
 	  "note":""
    },
    {
-      "methodName":"align()",
+      "name":"align",
       "example":"",
       "description":"Sets/gets the alignment.",
-      "syntax":"align()<br/>align(CENTER)",
+      "syntax":"align();<br/>align(CENTER);",
       "parameters":
       [
 			{ 
@@ -1313,10 +1313,10 @@
 	  "note":""
    },
    {
-      "methodName":"fontSize()",
+      "name":"fontSize",
       "example":"",
       "description":"Sets/gets the size of the current font. Note: this method only effects only scaleX/Y, not the font's internal properties",
-      "syntax":"fontSize()<br/>fontSize(sz)",
+      "syntax":"fontSize();<br/>fontSize(sz);",
       "parameters":
       [
 			{ 
@@ -1338,10 +1338,10 @@
 	  "note":""
    },
    {
-      "methodName":"motionType()",
+      "name":"motionType",
       "example":"",
       "description": "Sets/gets the animation <code>motionType</code> for this RiText<br/> according to one of the following functions:<br/><ul><li>RiText.LINEAR<li>RiText.EASE_IN<li>RiText.EASE_OUT<li>RiText.EASE_IN_OUT<li>RiText.EASE_IN_EXPO<li>RiText.EASE_OUT_EXPO<li>RiText.EASE_IN_OUT_EXPO<li>RiText.EASE_IN_SINE<li>RiText.EASE_OUT_SINE<li>RiText.EASE_IN_OUT_SINE<li>RiText.EASE_IN_CUBIC<li>RiText.EASE_OUT_CUBIC<li>RiText.EASE_IN_OUT_CUBIC<li>RiText.EASE_IN_QUARTIC<li>RiText.EASE_OUT_QUARTIC<li>RiText.EASE_IN_OUT_QUARTIC<li>RiText.EASE_IN_QUINTIC<li>RiText.EASE_OUT_QUINTIC<li>RiText.EASE_IN_OUT_QUINTIC<li>RiText.BACK_IN<li>RiText.BACK_OUT<li>RiText.BACK_IN_OUT<li>RiText.BOUNCE_IN<li>RiText.BOUNCE_OUT<li>RiText.BOUNCE_IN_OUT<li>RiText.CIRCULAR_IN<li>RiText.CIRCULAR_OUT<li>RiText.CIRCULAR_IN_OUT<li>RiText.ELASTIC_IN<li>RiText.ELASTIC_OUT<li>RiText.ELASTIC_IN_OUT</ul>",
-      "syntax":"motionType()<br/>motionType(motionType)",
+      "syntax":"motionType();<br/>motionType(motionType);",
       "parameters":
       [
 			{ 
@@ -1363,10 +1363,10 @@
 	  "note":""
    },
    {
-      "methodName":"position()",
+      "name":"position",
       "example":"",
       "description":"Set/gets the font for this RiText",
-      "syntax":"position()<br/>position(x y)",
+      "syntax":"position();<br/>position(x y);",
       "parameters":
       [
 			{ 
@@ -1392,10 +1392,10 @@
 	  "note":""
    },
    {
-      "methodName":"rotate()",
+      "name":"rotate",
       "example":"",
       "description":"Sets/gets the 2d rotation for this RiText",
-      "syntax":"rotate()<br/>rotate(rotateDegrees)",
+      "syntax":"rotate();<br/>rotate(rotateDegrees);",
       "parameters":
       [
 			{ 
@@ -1417,10 +1417,10 @@
 	  "note":""
    },
    {
-      "methodName":"scale()",
+      "name":"scale",
       "example":"",
       "description":"Sets/gets the scale factor for this RiText (takes 0-2 arguments) ",
-      "syntax":"scale()<br/>scale(scaleX)<br/>scale(scaleX, scaleY)",
+      "syntax":"scale();<br/>scale(scaleX);<br/>scale(scaleX, scaleY);",
       "parameters":
       [
 			{ 
@@ -1446,10 +1446,10 @@
 	  "note":""
    },
    {
-      "methodName":"showBounds()",
+      "name":"showBounds",
       "example":"",
       "description":"Set/gets the bounding box visibility for this RiText ",
-      "syntax":"showBounds()<br/>showBounds(trueOrFalse)",
+      "syntax":"showBounds();<br/>showBounds(trueOrFalse);",
       "parameters":
       [
 			{ 
@@ -1471,10 +1471,10 @@
 	  "note":""
    },
    {
-      "methodName":"splitLetters()",
+      "name":"splitLetters",
       "example":"",
       "description":"Splits the object into an array of RiTexts, one per letter.",
-      "syntax":"splitLetters()",
+      "syntax":"splitLetters();",
       "parameters":
       [
 			
@@ -1493,10 +1493,10 @@
 	  "note":""
    },
    {
-      "methodName":"splitWords()",
+      "name":"splitWords",
       "example":"",
       "description":"Splits the object into an array of RiTexts, one per word tokenized with the supplied regex.",
-      "syntax":"splitWords(regex)",
+      "syntax":"splitWords(regex);",
       "parameters":
       [
 			{ 
@@ -1518,10 +1518,10 @@
 	  "note":""
    },
    {
-      "methodName":"textHeight()",
+      "name":"textHeight",
       "example":"",
       "description":"Returns the current height of the text (derived from the bounding box)",
-      "syntax":"textHeight()",
+      "syntax":"textHeight();",
       "parameters":
       [
 			
@@ -1539,10 +1539,10 @@
 	  "note":""
    },
    {
-      "methodName":"textAscent()",
+      "name":"textAscent",
       "example":"",
       "description":"Returns the ascent of the current font ",
-      "syntax":"textAscent()",
+      "syntax":"textAscent();",
       "parameters":
       [
 			
@@ -1560,10 +1560,10 @@
 	  "note":""
    },
    {
-      "methodName":"textDescent()",
+      "name":"textDescent",
       "example":"",
       "description":"Returns the descent of the current font ",
-      "syntax":"textDescent()",
+      "syntax":"textDescent();",
       "parameters":
       [
 			
@@ -1582,10 +1582,10 @@
 	  "note":""
    },
    {
-      "methodName":"textWidth()",
+      "name":"textWidth",
       "example":"",
       "description":"Returns the current width of the text (derived from the bounding box)",
-      "syntax":"textWidth()",
+      "syntax":"textWidth();",
       "parameters":
       [
 			
@@ -1604,10 +1604,10 @@
 	  "note":""
    },
    {
-      "methodName":"isVisible()",
+      "name":"isVisible",
       "example":"",
       "description":"Returns false if the alpha value of this object is &lt;= 0, else true",
-      "syntax":"isVisible()",
+      "syntax":"isVisible();",
       "parameters":
       [
 		
@@ -1625,10 +1625,10 @@
 	  "note":""
    },
    {
-      "methodName":"wordOffset()",
+      "name":"wordOffset",
       "example":"",
       "description":"Returns the pixel x-offset for the word at 'wordIdx'",
-      "syntax":"wordOffset(wordIdx)",
+      "syntax":"wordOffset(wordIdx);",
       "parameters":
       [
 			{ 
@@ -1650,10 +1650,10 @@
 	  "note":""
    },
    {
-      "methodName":"fadeIn()",
+      "name":"fadeIn",
       "example":"",
       "description":"Fades in current text over <code>seconds</code> starting at <code>startTime</code>. <br/>Interpolates from the current color {r,g,b,a} to {r,g,b,255}.",
-      "syntax":"fadeIn(seconds, delay, callback)",
+      "syntax":"fadeIn(seconds, delay, callback);",
       "parameters":
       [
 			{ 
@@ -1682,10 +1682,10 @@
 	  "note":""
    },
    {
-      "methodName":"fadeOut()",
+      "name":"fadeOut",
       "example":"",
       "description":"Fades out current text over <code>seconds</code> starting at <code>startTime</code>. <br/>Interpolates from the current color {r,g,b,a} to {r,g,b,255}.",
-      "syntax":"fadeOut(seconds)<br/>fadeOut(seconds, delay)<br/>fadeOut(seconds, delay, callback)<br/>fadeOut(seconds, delay, callback, destroyOnComplete)",
+      "syntax":"fadeOut(seconds)<br/>fadeOut(seconds, delay);<br/>fadeOut(seconds, delay, callback);<br/>fadeOut(seconds, delay, callback, destroyOnComplete);",
       "parameters":
       [
 			{ 
@@ -1719,10 +1719,10 @@
 	  "note":""
    },
    {
-      "methodName":"moveTo()",
+      "name":"moveTo",
       "example":"",
       "description":"Move to new x,y position over 'seconds'<br/><br/>Note: uses the current <code>motionType</code> for this object, starting at 'delay' seconds in the future",
-      "syntax":"moveTo(newX, newY, seconds, delay)",
+      "syntax":"moveTo(newX, newY, seconds, delay);",
       "parameters":
       [
 			{ 
@@ -1755,10 +1755,10 @@
 	  "note":""
    },
    {
-      "methodName":"colorTo()",
+      "name":"colorTo",
       "example":"",
       "description":"Transitions to 'color' (rgba) over 'seconds' starting at 'delay' seconds in the future",
-      "syntax":"colorTo(colors)<br/>colorTo(colorArr, seconds)<br/>colorTo(colorArr, seconds, delay)<br/>colorTo(colorArr, seconds, delay, callback)",
+      "syntax":"colorTo(colors)<br/>colorTo(colorArr, seconds);<br/>colorTo(colorArr, seconds, delay);<br/>colorTo(colorArr, seconds, delay, callback);",
       "parameters":
       [
 			{ 
@@ -1791,10 +1791,10 @@
 	  "note":""
    },
    {
-      "methodName":"rotateTo()",
+      "name":"rotateTo",
       "example":"",
       "description":"Rotates to 'radians' over 'seconds' starting at 'delay' seconds in the future",
-      "syntax":"rotateTo(angleInRadians)<br/>rotateTo(angleInRadians, seconds)<br/>rotateTo(angleInRadians, seconds, delay)<br/>rotateTo(angleInRadians, seconds, delay, callback)",
+      "syntax":"rotateTo(angleInRadians)<br/>rotateTo(angleInRadians, seconds);<br/>rotateTo(angleInRadians, seconds, delay);<br/>rotateTo(angleInRadians, seconds, delay, callback);",
       "parameters":
       [
 			{ 
@@ -1829,10 +1829,10 @@
 	  "note":""
    },
    {
-      "methodName":"scaleTo()",
+      "name":"scaleTo",
       "example":"",
       "description":"Scales to 'theScale' over 'seconds' starting at 'delay' seconds in the future",
-      "syntax":"scaleTo(theScale)<br/>scaleTo(theScale, seconds)<br/>scaleTo(theScale, seconds, delay)<br/>scaleTo(theScale, seconds, delay, callback)",
+      "syntax":"scaleTo(theScale)<br/>scaleTo(theScale, seconds);<br/>scaleTo(theScale, seconds, delay);<br/>scaleTo(theScale, seconds, delay, callback);",
       "parameters":
       [
 			{ 
@@ -1866,10 +1866,10 @@
 	  "note":""
    },
    {
-      "methodName":"stopBehavior()",
+      "name":"stopBehavior",
       "example":"",
       "description":"Removes the specified text behavior for the object ",
-      "syntax":"stopBehavior(id)",
+      "syntax":"stopBehavior(id);",
       "parameters":
       [
 			{ 
@@ -1891,10 +1891,10 @@
 	  "note":""
    },
    {
-      "methodName":"stopBehaviors()",
+      "name":"stopBehaviors",
       "example":"",
       "description":"Removes all text behaviors for the object",
-      "syntax":"stopBehaviors()",
+      "syntax":"stopBehaviors();",
       "parameters":
       [
 			
@@ -1913,10 +1913,10 @@
 	  "note":""
    },
    {
-      "methodName":"textTo()",
+      "name":"textTo",
       "example":"",
       "description":"Fades out the current text and fades in the <code>newText</code> over <code>seconds</code>",
-      "syntax":"textTo(newText)<br/>textTo(newText, seconds)<br/>textTo(newText, seconds, startTime)<br/>textTo(newText, seconds, endAlpha, function callback)",
+      "syntax":"textTo(newText)<br/>textTo(newText, seconds);<br/>textTo(newText, seconds, startTime);<br/>textTo(newText, seconds, endAlpha, function callback);",
       "parameters":
       [
 			{ 
@@ -1950,10 +1950,10 @@
 	  "note":""
    },
    {
-      "methodName":"RiText.createLetters()",
+      "name":"RiText.createLetters",
       "example":"",
 	  "description":"Creates an array of RiTexts, laid out in lines within the bounding rectange(x,y,w,h), one RiText per letter, with spacing determined by the specified font and leading",
-	  "syntax":"RiText.createLetters(pApplet, text, x, y, w, h, font, leading)",
+	  "syntax":"RiText.createLetters(pApplet, text, x, y, w, h, font, leading);",
       "parameters":
       [
       	    { 
@@ -1997,15 +1997,15 @@
 			}
 			
 	  ],
-      "related":"RiText.createLines(), RiText.createWords()",
+      "related":"RiText.createLines(), RiText.createWords",
       "platform":"Java / Javascript",
 	  "note":""
    },
    {
-      "methodName":"RiText.createWords()",
+      "name":"RiText.createWords",
       "example":"",
 	  "description":"Creates an array of RiTexts ,laid out in lines within the bounding rectange(x,y,w,h), one RiText per word, with spacing determined by the specified font and leading",      
-	  "syntax":"RiText.createWords(pApplet, text, x, y, w, h, font, leading)",
+	  "syntax":"RiText.createWords(pApplet, text, x, y, w, h, font, leading);",
       "parameters":
       [
       	    { 
@@ -2049,15 +2049,15 @@
 			}
 			
 	  ],
-      "related":"RiText.createLines(), RiText.createLetters()",
+      "related":"RiText.createLines(), RiText.createLetters",
       "platform":"Java / Javascript",
 	  "note":""
    },
    {
-      "methodName":"RiText.createLines()",
+      "name":"RiText.createLines",
       "example":"",
       "description":"Creates an array of RiTexts ,laid out in lines within the bounding rectange(x,y,w,h), one RiText per line, with spacing determined by the specified font and leading",
-      "syntax":"RiText.createLines(pApplet, text, x, y, w, h, font, leading)",
+      "syntax":"RiText.createLines(pApplet, text, x, y, w, h, font, leading);",
       "parameters":
       [
     		{ 
@@ -2101,15 +2101,15 @@
 			}
 			
 	  ],
-      "related":"RiText.createWords(), RiText.createLetters()",
+      "related":"RiText.createWords(), RiText.createLetters",
       "platform":"Java / Javascript",
 	  "note":""
    },
    {
-      "methodName":"RiText.drawAll()",
+      "name":"RiText.drawAll",
       "example":"",
       "description":"A convenience method to draw all existing RiText objects (with no argument) or an array of RiText objects (if supplied as an argument)",
-      "syntax":"RiText.drawAll()<br/>RiText.drawAll(riTextArray)",
+      "syntax":"RiText.drawAll();<br/>RiText.drawAll(riTextArray);",
       "parameters":
       [
 			{ 
@@ -2127,10 +2127,10 @@
 	  "note":""
    },
    {
-      "methodName":"RiText.dispose()",
+      "name":"RiText.dispose",
       "example":"",
       "description":"Deletes the RiText (or RiText[])  and all its associated resources.",
-      "syntax":"RiText.dispose(toDelete)",
+      "syntax":"RiText.dispose(toDelete);",
       "parameters":
       [
 			{ 
@@ -2147,10 +2147,10 @@
 	  "note":""
    },
    {
-      "methodName":"RiText.disposeAll()",
+      "name":"RiText.disposeAll",
       "example":"",
       "description":"Deletes all currently existing RiTexts.",
-      "syntax":"RiText.disposeAll()",
+      "syntax":"RiText.disposeAll",
       "parameters":[],
 	  "returns": [],
       "related":"",
@@ -2158,10 +2158,10 @@
 	  "note":""
    },
    {
-      "methodName":"RiText.defaultFill()",
+      "name":"RiText.defaultFill",
       "example":"",
       "description":"Convenience method to set/get the default fill color",
-      "syntax":"RiText.defaultFill()<br/>RiText.defaultFill(r,g,b,a)<br>RiText.defaultFill(colorArr)",
+      "syntax":"RiText.defaultFill();<br/>RiText.defaultFill(r,g,b,a)<br>RiText.defaultFill(colorArr);",
       "parameters":
       [
 			{ 
@@ -2194,10 +2194,10 @@
 	  "note":""
    },
    {
-      "methodName":"RiText.defaultFont()",
+      "name":"RiText.defaultFont",
       "example":"",
       "description":"Convenience method to set/get the default font",
-      "syntax":"RiText.defaultFont()<br/>RiText.defaultFont(font)<br/>RiText.defaultFont(fontName, fontSize)",
+      "syntax":"RiText.defaultFont();<br/>RiText.defaultFont(font);<br/>RiText.defaultFont(fontName, fontSize);",
       "parameters":
       [
 			{ 
@@ -2225,10 +2225,10 @@
 	  "note":""
    },
    {
-      "methodName":"RiText.defaultFontSize()",
+      "name":"RiText.defaultFontSize",
       "example":"",
       "description":"Convenience method to set/get the default font size",
-      "syntax":"RiText.defaultFontSize()<br/>RiText.defaultFontSize(fontsz)",
+      "syntax":"RiText.defaultFontSize();<br/>RiText.defaultFontSize(fontsz);",
       "parameters":
       [
 			{ 
@@ -2248,10 +2248,10 @@
 	  "note":""
    },   
    {
-      "methodName":"RiText.randomColor()",
+      "name":"RiText.randomColor",
       "example":"",
       "description":"Returns a random color in which the 3 values for rgb (or rgba if 'includeAlpha' is true), are between min and max ",
-      "syntax":"RiText.randomColor(min, max, includeAlpha)",
+      "syntax":"RiText.randomColor(min, max, includeAlpha);",
       "parameters":
       [
       		{ 
@@ -2280,10 +2280,10 @@
 	  "note":""
    },   
    {
-      "methodName": "RiText.picked()",
+      "name": "RiText.picked",
       "example": "var rts = RiText.getPicked(mx, my);<br/>if (rts.length) { <br/>  rts[0].doSomething();<br/>}",
       "description": "Returns all RiTexts that contain the point x,y or null if none do. <br/><br/>Note: this will return an array even if only one item is picked, therefore, you should generally use it as example",
-      "syntax": "RiText.picked(x, y)",
+      "syntax":"RiText.picked(x, y);",
       "parameters": [
       		{ 
 			"type": "float", 
@@ -2307,10 +2307,10 @@
 	  "note":""
    },
    {
-      "methodName":"RiText.timer()",
+      "name":"RiText.timer",
       "example":"",
       "description":"Starts a timer that calls 'onRiTaEvent()', or the specified callback (in JS), every 'period' seconds",
-      "syntax":"RiText.timer(parent, period)<br/>RiText.timer(parent, period, callback)",
+      "syntax":"RiText.timer(parent, period);<br/>RiText.timer(parent, period, callback);",
       "parameters":
       [
       	 {
@@ -2341,10 +2341,10 @@
      
    },
    {
-      "methodName":"RiText.stopTimer()",
+      "name":"RiText.stopTimer",
       "example":"",
       "description":"Stops a timer according to its unique id",
-      "syntax":"RiText.stopTimer(id)",
+      "syntax":"RiText.stopTimer(id);",
       "parameters":
       [
       		{ 
@@ -2363,10 +2363,10 @@
 	  "note":""
    },
    {
-      "methodName":"RiText.pauseTimer()",
+      "name":"RiText.pauseTimer",
       "example":"",
       "description":"Pauses a timer according to its unique id (and assigns a new unique id)",
-      "syntax":"RiText.pauseTimer(id, pauseSec)",
+      "syntax":"RiText.pauseTimer(id, pauseSec);",
       "parameters":
       [
       		{ 
@@ -2391,10 +2391,10 @@
 	  "note":""
    },
    {
-      "methodName":"RiText.random()",
+      "name":"RiText.random",
       "example":"",
       "description":"Returns a random number between 'min' (default 0) and 'max'",
-      "syntax":"RiText.random()",
+      "syntax":"RiText.random",
       "parameters":
       [
       		{ 

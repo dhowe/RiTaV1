@@ -2,10 +2,10 @@
     "class": "rita.RiGrammar",
     "fields": [
 	{
-      "methodName":"addRule()",
+      "name": "addRule",
       "example":"",
       "description":"Adds a rule to the existing grammar, replacing any existing rule with the same name ",
-      "syntax":"addRule(name, ruleStr, weight)",
+      "syntax":"addRule(name, ruleStr, weight);",
       "parameters":
       [
 			{ 
@@ -35,10 +35,10 @@
 	  "note":""
    },
    {
-      "methodName":"expand()",
+      "name": "expand",
       "example":"",
       "description":"Expands a grammar from its '&#60;start&#62;' symbol",
-      "syntax":"expand()<br/>expand(callbackObject)",
+      "syntax":"expand();<br/>expand(callbackObject);",
       "parameters":
       [
       		{ 
@@ -58,10 +58,10 @@
 	  "note":""
    },
    {
-      "methodName":"expandFrom()",
+      "name": "expandFrom",
       "example":"",
       "description":"Expands the grammar, starting from the given symbol. <br/>&nbsp;<br/>RiGrammar.expand() is equivalent to RiGrammar.expandFrom('&lt;start&gt;').",
-      "syntax":"expandFrom(rule)<br/>expandFrom(rule, callbackObject)",
+      "syntax":"expandFrom(rule);<br/>expandFrom(rule, callbackObject);",
       "parameters":
       [
 			{ 
@@ -86,10 +86,10 @@
 	  "note":""
    },
    {
-      "methodName":"expandWith()",
+      "name": "expandWith",
       "example":"",
       "description":"Expands the grammar after replacing an instance of the non-terminal 'symbol' with the String in 'literal'.<br/>&nbsp;<br/>Guarantees that 'literal' will be in the final expanded String, assuming at least one instance of 'symbol' in the Grammar.",
-      "syntax":"expandWith(literal, symbol)<br/>expandWith(literal, symbol,callbackObject)",
+      "syntax":"expandWith(literal, symbol);<br/>expandWith(literal, symbol,callbackObject);",
       "parameters":
       [
 			{ 
@@ -117,7 +117,7 @@
 	  "note":""
    },
    {
-      "methodName":"load()",
+      "name": "load",
       "example":"",
       "description":"Loads a grammar from a String or JSON object",
       "syntax":"load(grammarRules);",
@@ -140,7 +140,7 @@
 	  "note":""
    },
    {
-      "methodName":"getGrammar()",
+      "name": "getGrammar",
       "example":"",
       "description":"Gets the current grammar as a String",
       "syntax":"grammar();",
@@ -158,10 +158,10 @@
 	  "note":""
    },
    {
-      "methodName":"loadFrom()",
+      "name": "loadFrom",
       "example":"",
       "description":"Re-initializes the grammar from a file or URL containing the grammar rules",
-      "syntax":"loadFrom(url, option)",
+      "syntax":"loadFrom(url, option);",
       "parameters":
       [
 			{ 
@@ -185,10 +185,10 @@
 	  "note":""
    },
    {
-      "methodName":"hasRule()",
+      "name": "hasRule",
       "example":"",
       "description":"Returns true if the requested rule exists in the grammar, else false",
-      "syntax":"hasRule(ruleName)",
+      "syntax":"hasRule(ruleName);",
       "parameters":
       [
 			{ 
@@ -209,10 +209,10 @@
 	  "note":""
    },
    {
-      "methodName":"print()",
+      "name": "print",
       "example":"",
       "description":"Prints the grammar rules to the console in human-readable format (useful for debugging)",
-      "syntax":"print()",
+      "syntax":"print();",
       "parameters":
       [
 
@@ -230,10 +230,10 @@
 	  "note":""
    },
    {
-      "methodName":"removeRule()",
+      "name": "removeRule",
       "example":"",
       "description":"Deletes the named rule from the grammar",
-      "syntax":"removeRule(name)",
+      "syntax":"removeRule(name);",
       "parameters":
       [
 			{ 
@@ -254,7 +254,7 @@
 	  "note":""
    },
    {
-      "methodName":"ready()",
+      "name": "ready",
       "example":"",
       "description":"Returns true if there is at least one valid rule, else false",
       "syntax":"ready();",
@@ -272,10 +272,10 @@
 	  "note":""
    },
    {
-      "methodName":"reset()",
+      "name": "reset",
       "example":"",
       "description":"Clears all rules in the current grammar",
-      "syntax":"reset()",
+      "syntax":"reset();",
       "parameters": [],
 	  "returns":
       [

@@ -15,6 +15,16 @@ public class DocGenerator extends PApplet
   
   static String DATA_DIR = "RiTaLibraryJS/docs/";
   static String OUTPUT_DIR = "/tmp/";
+ 
+  static int numOfMethods, numOfparameters, numOfreturns;
+
+  static String[] lines, tmp_methodName, tmp_example, tmp_description, tmp_syntax,
+      tmp_parameterType, tmp_parameterDesc, tmp_parameters, tmp_return, tmp_returnType,
+      tmp_returnDesc, tmp_returns, tmp_related, tmp_platform, tmp_note, tmp_parameter;
+
+  static boolean[] tmp_hidden, tmp_isVariable;
+
+  static String htmlTemplate;
   
   static String[] CLASS_NAMES = { 
     "RiTa", "RiString","RiText","RiGrammar",
@@ -67,16 +77,6 @@ public class DocGenerator extends PApplet
     pln("\nDONE: files written to " + OUTPUT_DIR);
   }
 
-  static int numOfMethods, numOfparameters, numOfreturns;
-
-  static String[] lines, tmp_methodName, tmp_example, tmp_description, tmp_syntax,
-      tmp_parameterType, tmp_parameterDesc, tmp_parameters, tmp_return, tmp_returnType,
-      tmp_returnDesc, tmp_returns, tmp_related, tmp_platform, tmp_note, tmp_parameter;
-  
-  static boolean[] tmp_hidden, tmp_isVariable;
-
-  static String htmlTemplate;
-
   static void parseJSON(String shortName)
   {
     String jsonFile = DATA_DIR + "json/" + shortName + ".json";
@@ -115,7 +115,7 @@ public class DocGenerator extends PApplet
         if (entry.has("variable"))
           tmp_isVariable[j] = entry.getBoolean("variable");
         
-        tmp_methodName[j] = entry.getString("methodName");
+        tmp_methodName[j] = entry.getString("name");
         pln("    " + tmp_methodName[j]);
         
         tmp_example[j] = "";
@@ -209,7 +209,6 @@ public class DocGenerator extends PApplet
   static void template(int idx, String shortName)
   {
     if (tmp_hidden[idx]) return;
-    
 
     String folder_methodName = tmp_methodName[idx].replaceAll("\\(\\)", "_");
     
