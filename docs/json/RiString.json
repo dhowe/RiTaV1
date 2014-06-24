@@ -2,10 +2,10 @@
     "class": "rita.RiString",
     "fields": [
    	{
-      "methodName":"features()",
+      "name": "features",
       "example":"theFeatures = myRiString.features();",
       "description":"Returns the current set of features for the object, including <a target=_new href='../../PhonemeTags.html'>phonemes</a>, syllables, stresses, etc.",
-      "syntax":"features()",
+      "syntax":"features();",
       "parameters":[],
 	  "returns":
       [
@@ -19,10 +19,10 @@
 	  "note":""
     },
 	{
-      "methodName":"analyze()",
+      "name": "analyze",
       "example":'myRiString.analyze();\n\nmyRiString.get(RiTa.PHONEMES);\n\nOR\n\nmyRiString.get("phonemes");',
       "description":"Computes a set of features for the object, including <a target=_new href='../../PhonemeTags.html'>phonemes</a>, syllables, stresses, etc. To access any of these, use myRiString.get(featureName)",
-      "syntax":"analyze()",
+      "syntax":"analyze();",
       "parameters":[],
 	  "returns":
       [
@@ -36,10 +36,10 @@
 	  "note":""
    },
    {
-      "methodName":"charAt()",
+      "name": "charAt",
       "example":"",
       "description":"Returns the character at the specified 'index'",
-      "syntax":"charAt(index)",
+      "syntax":"charAt(index);",
       "parameters":
       [
 			{ 
@@ -59,10 +59,10 @@
 	  "note":""
    },
    {
-      "methodName":"concat()",
+      "name": "concat",
       "example":"",
       "description":"Concatenates the text from another RiString at the end of this one",
-      "syntax":"concat(riString)",
+      "syntax":"concat(riString);",
       "parameters":
       [
 			{ 
@@ -82,10 +82,10 @@
 	  "note":""
    },
    {
-      "methodName":"copy()",
+      "name": "copy",
       "example":"",
       "description":"Creates and returns a field-for-field copy of the object",
-      "syntax":"copy()",
+      "syntax":"copy();",
       "parameters":
       [
 		
@@ -104,10 +104,10 @@
 	  "note":""
    },
    {
-      "methodName":"endsWith()",
+      "name": "endsWith",
       "example":"",
       "description":"Tests if this string ends with the specified suffix",
-      "syntax":"endsWith(suffix)",
+      "syntax":"endsWith(suffix);",
       "parameters":
       [
 			{ 
@@ -127,10 +127,10 @@
 	  "note":""
    },
    {
-      "methodName":"equals()",
+      "name": "equals",
       "example":"",
       "description":"Compares this RiString to the specified object. <br/>The result is true if and only if the argument is not null and is a String or RiString object that represents the same sequence of characters as this object.",
-      "syntax":"equals(string)<br/>equals(ristring)",
+      "syntax":"equals(string);<br/>equals(ristring);",
       "parameters":
       [
 			{ 
@@ -150,10 +150,10 @@
 	  "note":""
    },
    {
-      "methodName":"equalsIgnoreCase()",
+      "name": "equalsIgnoreCase",
       "example":"",
       "description":"Compares this RiString to another RiString or a String, ignoring case considerations",
-      "syntax":"equalsIgnoreCase(string)<br/>equalsIgnoreCase(ristring)",
+      "syntax":"equalsIgnoreCase(string);<br/>equalsIgnoreCase(ristring);",
       "parameters":
       [
 			{ 
@@ -173,10 +173,10 @@
 	  "note":""
    },
    {
-      "methodName":"indexOf()",
+      "name": "indexOf",
       "example":"",
       "description":"Returns the index within this string of the first occurrence of the 'searchstring'",
-      "syntax":"indexOf(searchstring)<br/>indexOf(searchstring, start)",
+      "syntax":"indexOf(searchstring);<br/>indexOf(searchstring, start);",
       "parameters":
       [
 			{ 
@@ -200,10 +200,10 @@
 	  "note":""
    },
     {
-      "methodName":"insertWordAt()",
+      "name": "insertWordAt",
       "example":"",
       "description":"Inserts 'newWord' at 'wordIdx' and shifts each subsequent word accordingly.",
-      "syntax":"insertWordAt(newWord, wordIdx)",
+      "syntax":"insertWordAt(newWord, wordIdx);",
       "parameters":
       [
 			{ 
@@ -228,10 +228,10 @@
 	  "note":""
    },
    {
-      "methodName":"lastIndexOf()",
+      "name": "lastIndexOf",
       "example":"",
       "description":"Returns the index within this string of the last occurrence of the specified character",
-      "syntax":"lastIndexOf(searchstring)<br/>lastIndexOf(searchstring, start)",
+      "syntax":"lastIndexOf(searchstring);<br/>lastIndexOf(searchstring, start);",
       "parameters":
       [
 			{ 
@@ -255,10 +255,10 @@
 	  "note":""
    },
    {
-      "methodName":"length()",
+      "name": "length",
       "example":"",
       "description":"Returns the length of this string",
-      "syntax":"length()",
+      "syntax":"length();",
       "parameters":   [	  ],
 	  "returns":
       [
@@ -272,10 +272,10 @@
 	  "note":""
    },
    {
-      "methodName":"match()",
+      "name": "match",
       "example":"",
       "description":"Searches for a match between a substring (or regular expression) and the contained string, and _returns the matches",
-      "syntax":"match(regex)",
+      "syntax":"match(regex);",
       "parameters":
       [
 			{ 
@@ -296,10 +296,10 @@
 	  "note":""
    },
    {
-      "methodName":"pos()",
+      "name": "pos",
       "example":"",
       "description":"Returns an array of part-of-speech tags (from the <a href='../../PennTags.html'>PENN tag set</a>), one per word, using RiTa.tokenize() and RiTa.getPosTags()",
-      "syntax":"pos()",
+      "syntax":"pos();",
       "parameters":
       [
 
@@ -316,10 +316,10 @@
 	  "note":""
    },
    {
-      "methodName":"posAt()",
+      "name": "posAt",
       "example":"",
       "description":"Returns the part-of-speech tag for the word at 'index' (from the <a href='../../PennTags.html'>PENN tag set</a>), using RiTa.tokenize() and RiTa.getPosTags()",
-      "syntax":"posAt(index)",
+      "syntax":"posAt(index);",
       "parameters":
       [
 			{ 
@@ -340,10 +340,10 @@
 	  "note":""
    },
    {
-      "methodName":"removeChar()",
+      "name": "removeChar",
       "example":"",
       "description":"Removes the character at the specified index",
-      "syntax":"removeChar(index)",
+      "syntax":"removeChar(index);",
       "parameters":
       [
 			{ 
@@ -364,10 +364,10 @@
 	  "note":""
    },
    {
-      "methodName":"replaceChar()",
+      "name": "replaceChar",
       "example":"",
       "description":"Replaces the character at 'idx' with 'replaceWith'. <br/>If the specified 'idx' is less than zero, or beyond the length of the current text, there will be no effect",
-      "syntax":"replaceChar(idx, replaceWith)",
+      "syntax":"replaceChar(idx, replaceWith);",
       "parameters":
       [
 			{ 
@@ -392,10 +392,10 @@
 	  "note":""
    },
    {
-      "methodName":"replaceFirst()",
+      "name": "replaceFirst",
       "example":"",
       "description":"Replaces the first instance of 'regex' with 'replaceWith'",
-      "syntax":"replaceFirst(regex, replaceWith)",
+      "syntax":"replaceFirst(regex, replaceWith);",
       "parameters":
       [
 			{ 
@@ -419,10 +419,10 @@
 	  "note":""
    },
    {
-      "methodName":"replaceLast()",
+      "name": "replaceLast",
       "example":"",
       "description":"Replaces the last instance of 'regex' with 'replaceWith'",
-      "syntax":"replaceLast(regex, replaceWith)",
+      "syntax":"replaceLast(regex, replaceWith);",
       "parameters":
       [
 			{ 
@@ -446,10 +446,10 @@
 	  "note":""
    },
    {
-      "methodName":"replaceAll()",
+      "name": "replaceAll",
       "example":"",
       "description":"Replaces each substring of this string that matches the given regular expression with the given replacement.",
-      "syntax":"replaceAll(regex, replaceWith)",
+      "syntax":"replaceAll(regex, replaceWith);",
       "parameters":
       [
 			{ 
@@ -473,10 +473,10 @@
 	  "note":""
    },
    {
-      "methodName":"replaceWordAt()",
+      "name": "replaceWordAt",
       "example":"",
       "description":"Replaces the word at 'wordIdx' with 'newWord'",
-      "syntax":"replaceWordAt(wordIdx, newWord)",
+      "syntax":"replaceWordAt(wordIdx, newWord);",
       "parameters":
       [
 			{ 
@@ -500,10 +500,10 @@
 	  "note":""
    },
    {
-      "methodName":"slice()",
+      "name": "slice",
       "example":"",
       "description":"Extracts a part of a string from this RiString",
-      "syntax":"slice(begin)<br/>slice(begin, end)",
+      "syntax":"slice(begin);<br/>slice(begin, end);",
       "parameters":
       [
 			{ 
@@ -527,10 +527,10 @@
 	  "note":""
    },
    {
-      "methodName":"split()",
+      "name": "split",
       "example":"",
       "description":"Split a RiString into an array of RiStrings, one for each element after the split, and returns the new array.",
-      "syntax": "split()<br/>split(separator)<br/>",
+      "syntax":"split();<br/>split(separator);<br/>",
       "parameters": [
 			{ 
 			"type": "String", 
@@ -549,10 +549,10 @@
 	  "note":""
    },
    {
-      "methodName":"startsWith()",
+      "name": "startsWith",
       "example":"",
       "description":"Tests if this string starts with the specified prefix",
-      "syntax":"startsWith(substr)",
+      "syntax":"startsWith(substr);",
       "parameters":
       [
 			{ 
@@ -573,10 +573,10 @@
 	  "note":""
    },
    {
-      "methodName":"substring()",
+      "name": "substring",
       "example":"",
       "description":"Extracts the characters from a string, between two specified indices, and sets the current text to be that string. ",
-      "syntax":"substring(from)<br/>substring(from, to)",
+      "syntax":"substring(from);<br/>substring(from, to);",
       "parameters":
       [
 			{ 
@@ -601,10 +601,10 @@
 	  "note":""
    },
    {
-      "methodName":"substr()",
+      "name": "substr",
       "example":"",
       "description":"Extracts the characters from this objects contained string, beginning at 'start' and continuing through the specified number of characters, and sets the current text to be that string. (from Javascript String)",
-      "syntax":"substr(start)<br/>substr(start, length)",
+      "syntax":"substr(start);<br/>substr(start, length);",
       "parameters":
       [
 			{ 
@@ -629,10 +629,10 @@
 	  "note":""
    },
    {
-      "methodName":"text()",
+      "name": "text",
       "example":"",
       "description":"Gets/sets the text contained by this object",
-      "syntax":"text()<br/>text(theText)",
+      "syntax":"text();<br/>text(theText);",
       "parameters":
       [
 			{ 
@@ -653,10 +653,10 @@
 	  "note":""
    },
    {
-      "methodName":"toCharArray()",
+      "name": "toCharArray",
       "hidden":true,
       "description":"Converts this object to an array of RiString objects, one per character",
-      "syntax":"toCharArray()",
+      "syntax":"toCharArray();",
       "parameters":
       [
 	  ],
@@ -672,10 +672,10 @@
 	  "note":""
    },
    {
-      "methodName":"toLowerCase()",
+      "name": "toLowerCase",
       "example":"",
       "description":"Converts all of the characters in this RiString to lower case",
-      "syntax":"toLowerCase()",
+      "syntax":"toLowerCase();",
       "parameters":
       [
 	  ],
@@ -691,10 +691,10 @@
 	  "note":""
    },
    {
-      "methodName":"toUpperCase()",
+      "name": "toUpperCase",
       "example":"",
       "description":"Converts all of the characters in this RiString to upper case",
-      "syntax":"toUpperCase()",
+      "syntax":"toUpperCase();",
       "parameters":
       [
 	  ],
@@ -710,10 +710,10 @@
 	  "note":""
    },
    {
-      "methodName":"trim()",
+      "name": "trim",
       "example":"",
       "description":"Removes leading and trailing whitespace from the RiString",
-      "syntax":"trim()",
+      "syntax":"trim();",
       "parameters":
       [
 	  ],
@@ -729,10 +729,10 @@
 	  "note":""
    },
    {
-      "methodName":"wordAt()",
+      "name": "wordAt",
       "example":"",
       "description":"Returns the word at 'index', according to RiTa.tokenize()",
-      "syntax":"wordAt(index)",
+      "syntax":"wordAt(index);",
       "parameters":
       [
 			{ 
@@ -753,10 +753,10 @@
 	  "note":""
    },
    {
-      "methodName":"wordCount()",
+      "name": "wordCount",
       "example":"",
       "description":"Returns the number of words in the object, according to RiTa.tokenize().",
-      "syntax":"wordCount()",
+      "syntax":"wordCount();",
       "parameters":
       [
 	  ],
@@ -772,10 +772,10 @@
 	  "note":""
    },
    {
-      "methodName":"words()",
+      "name": "words",
       "example":"",
       "description":"Returns the array of words in the object, via a call to RiTa.tokenize()",
-      "syntax":"words()",
+      "syntax":"words();",
       "parameters":
       [
 	  ],

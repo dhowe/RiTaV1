@@ -2,10 +2,10 @@
     "class": "rita.RiTaEvent",
     "fields": [
         {
-            "methodName": "source()",
+            "name": "source",
             "example": "",
             "description": "Gets the source for this event (usually a RiText)",
-            "syntax": "source()",
+            "syntax":"source();",
             "parameters": [],
             "returns": [
                 {
@@ -18,10 +18,10 @@
             "note": ""
         },
         {
-            "methodName": "type()",
+            "name": "type",
             "example": "",
             "description": "Returns the type for this event, e.g., RiTa.MOVE_TO",
-            "syntax": "type()",
+            "syntax":"type();",
             "parameters": [],
             "returns": [
                 {
@@ -34,10 +34,10 @@
             "note": ""
         },
         {
-            "methodName": "data()",
+            "name": "data",
             "example": "",
             "description": "Returns the data for this event, if it has any",
-            "syntax": "data()",
+            "syntax":"data();",
             "parameters": [],
             "returns": [
                 {
@@ -50,10 +50,10 @@
             "note": ""
         },
         {
-            "methodName": "isType()",
+            "name": "isType",
             "example": "if (event.isType(RiTa.MOVE_TO)) { ... } ",
             "description": "Returns true if the types match, else false e.g., RiTa.MOVE_TO",
-            "syntax": "isType()",
+            "syntax":"isType();",
             "parameters": [
                 {
                     "type": "int",
