@@ -36,7 +36,7 @@ import rita.*;
 
 
     RiText.defaultFont("Times",40);   
-    RiText.defaults.alignment=(LEFT);    
+    //RiText.defaults.alignment=(LEFT);    
 
 
   }

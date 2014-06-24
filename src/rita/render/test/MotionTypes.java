@@ -43,7 +43,7 @@ public class MotionTypes extends PApplet
 
 
 		RiText.defaultFont("Times",40);   
-		RiText.defaults.alignment=(LEFT);    
+		//RiText.defaults.alignment=(LEFT);    
 
 
 	}
