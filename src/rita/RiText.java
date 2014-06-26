@@ -2601,13 +2601,6 @@ public class RiText implements RiTextIF
     return text.slice(i, j);
   }
 
-  /*
-   * public RiText[] split() { return this.split(SP); }
-   * 
-   * public RiText[] split(String regex) { if (regex == null) regex = SP; return
-   * (regex.length()<1) ? splitLetters() : splitWords(text().split(regex)); }
-   */
-
   /**
    * Splits the current object into an array of RiTexts, one per word,
    * maintaining the x and y position of each. Note: In most cases the original

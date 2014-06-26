@@ -1,10 +1,10 @@
 package rita;
 
+import static rita.support.Constants.EventType.Unknown;
+
 import java.lang.reflect.Method;
-import java.util.*;
 
 import rita.support.Constants;
-import static rita.support.Constants.EventType.*;
 
 public class RiTaEvent implements Constants
 {
