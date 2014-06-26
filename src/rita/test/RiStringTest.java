@@ -897,33 +897,33 @@ public class RiStringTest implements Constants
   public void testReplaceWordAt()
   {
     RiString rs = new RiString("Who are you?");
-    rs.replaceWordAt(2, ""); // nice! this too...
+    rs.replaceWord(2, ""); // nice! this too...
     equal(rs.text(), "Who are?");
 
     rs = new RiString("Who are you?");
-    rs.replaceWordAt(2, "What");
+    rs.replaceWord(2, "What");
     equal(rs.text(), "Who are What?");
 
     rs = new RiString("Who are you?");
-    rs.replaceWordAt(0, "What");
+    rs.replaceWord(0, "What");
     equal(rs.text(), "What are you?");
 
     rs = new RiString("Who are you?");
-    rs.replaceWordAt(3, "!!");
+    rs.replaceWord(3, "!!");
     equal(rs.text(), "Who are you!!"); // nice! this is a strange one...
 
     // out of range test
 
     rs = new RiString("Who are you?");
-    rs.replaceWordAt(-1, "asfasf"); // negative number
+    rs.replaceWord(-1, "asfasf"); // negative number
     equal(rs.text(), "Who are you asfasf");
 
     rs = new RiString("Who are you?");
-    rs.replaceWordAt(-2, "asfasf"); // negative number
+    rs.replaceWord(-2, "asfasf"); // negative number
     equal(rs.text(), "Who are asfasf?");
 
     rs = new RiString("Who are you?");
-    rs.replaceWordAt(20, "asfasf");
+    rs.replaceWord(20, "asfasf");
     equal(rs.text(), "Who are you asfasf");
   }
 

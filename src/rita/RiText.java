@@ -2574,7 +2574,7 @@ public class RiText implements RiTextIF
 
   public RiTextIF replaceWord(int wordIdx, String newWord)
   {
-    text.replaceWordAt(wordIdx, newWord);
+    text.replaceWord(wordIdx, newWord);
     return this;
   }
 
