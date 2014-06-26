@@ -771,33 +771,6 @@
 	  "note":""
    },
    {
-      "name":"split",
-      "example":"",
-      "description":"Split a RiText into an array of sub-RiText and return the new array. <br/>If an empty String ('') is used as the separator, the String is split between each character.",
-      "syntax":"split()<br/>split(separator);<br/>split(limit);<br/>split(separator, limit);",
-      "parameters":
-      [
-			{ 
-			"type": "String", 
-			"desc": "(Optional) Specifies the character to use for splitting the String. If omitted, the entire String will be returned. If an empty String ('') is used as the separator, the String is split between each character." 
-			},
-			{ 
-			"type": "int", 
-			"desc": "(Optional) An integer that specifies the number of splits" 
-			}
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "RiText[]", 
-			"desc": "RiTexts" 
-			}
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
       "name":"startsWith",
       "example":"",
       "description":"Tests if this String starts with the specified prefix",
