@@ -473,10 +473,10 @@
 	  "note":""
    },
    {
-      "name": "replaceWordAt",
+      "name": "replaceWord",
       "example":"",
       "description":"Replaces the word at 'wordIdx' with 'newWord'",
-      "syntax":"replaceWordAt(wordIdx, newWord);",
+      "syntax":"replaceWord(wordIdx, newWord);",
       "parameters":
       [
 			{ 

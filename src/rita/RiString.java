@@ -328,7 +328,7 @@ public class RiString implements FeaturedIF, Constants
    * if the replace was successful, or false
    * if the index does not exist. 
    */
-  public RiString replaceWordAt(int wordIdx, String newWord)
+  public RiString replaceWord(int wordIdx, String newWord)
   {
     
     String[] words = words();
@@ -607,7 +607,7 @@ public class RiString implements FeaturedIF, Constants
 
   public RiString removeWord(int idx)
   {
-    return replaceWordAt(idx, E);
+    return replaceWord(idx, E);
   }
 
   public Set getAvailableFeatures()
