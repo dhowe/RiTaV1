@@ -20,7 +20,7 @@
     },
 	{
       "name": "analyze",
-      "example":'myRiString.analyze();\n\nmyRiString.get(RiTa.PHONEMES);\n\nOR\n\nmyRiString.get("phonemes");',
+      "example":"myRiString.analyze();<br><br>myRiString.get(RiTa.PHONEMES);<br><br>OR<br><br>myRiString.get(\"phonemes\");",
       "description":"Computes a set of features for the object, including <a target=_new href='../../PhonemeTags.html'>phonemes</a>, syllables, stresses, etc. To access any of these, use myRiString.get(featureName)",
       "syntax":"analyze();",
       "parameters":[],
@@ -200,10 +200,10 @@
 	  "note":""
    },
     {
-      "name": "insertWordAt",
+      "name": "insertWord",
       "example":"",
       "description":"Inserts 'newWord' at 'wordIdx' and shifts each subsequent word accordingly.",
-      "syntax":"insertWordAt(newWord, wordIdx);",
+      "syntax":"insertWord(newWord, wordIdx);",
       "parameters":
       [
 			{ 
@@ -214,7 +214,6 @@
 			"type": "int", 
 			"desc": "the position at which it insert the word" 
 			}
-		
 	  ],
 	  "returns":
       [
@@ -534,7 +533,7 @@
       "parameters": [
 			{ 
 			"type": "String", 
-			"desc": '(Optional) Specifies the character to use for splitting the string. If omitted, the string is split according to RiTa.tokenize(). If an empty string ("") is used as the separator, the string is split between each character.' 
+			"desc": "(Optional) Specifies the character to use for splitting the string. If omitted, the string is split according to RiTa.tokenize(). If an empty string (\"\") is used as the separator, the string is split between each character." 
 			}
 	  ],
 	  "returns":
