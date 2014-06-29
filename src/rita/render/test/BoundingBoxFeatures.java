@@ -14,37 +14,37 @@ public class BoundingBoxFeatures extends PApplet {
 		RiText.defaultFont("Times", 20);
 
 		RiText rt = new RiText(this, "Grayscale Fill", 200,  100);
-		rt.boundingBoxFill(155);
+		rt.boundingFill(155);
 
 		RiText rt2 = new RiText(this, "Grayscale Fill & Alpha", 200,  110);
-		//rt2.boundingBoxFill(10,100);
+		//rt2.boundingFill(10,100);
 
-		new RiText(this, "Color Fill", 200, 150).align(CENTER).boundingBoxFill(255,255,0);
+		new RiText(this, "Color Fill", 200, 150).align(CENTER).boundingFill(255,255,0);
 		float[] c = {255,0,0};
-		new RiText(this, "Color Fill", 200, 220).align(CENTER).boundingBoxFill(c);
-		//new RiText(this, "Color Fill & Alpha", 200, 200).align(CENTER).boundingBoxFill(255,255,0,100);
+		new RiText(this, "Color Fill", 200, 220).align(CENTER).boundingFill(c);
+		//new RiText(this, "Color Fill & Alpha", 200, 200).align(CENTER).boundingFill(255,255,0,100);
 
-		//TODO	boundingBoxPadding
+		//TODO	boundingPadding
 		/*
-		new RiText(this, "Bounding Box Stroke", 200, 300).align(RIGHT).boundingBoxPadding(50);
-		new RiText(this, "Bounding Box Stroke", 200, 340).align(RIGHT).boundingBoxPadding(200);
-		System.out.println(new RiText(this, "Bounding Box Stroke", 200, 380).align(RIGHT).boundingBoxPadding(200).boundingBoxPadding());
+		new RiText(this, "Bounding Box Stroke", 200, 300).align(RIGHT).boundingPadding(50);
+		new RiText(this, "Bounding Box Stroke", 200, 340).align(RIGHT).boundingPadding(200);
+		System.out.println(new RiText(this, "Bounding Box Stroke", 200, 380).align(RIGHT).boundingPadding(200).boundingPadding());
 		 */
 
-		new RiText(this, "Bounding Box Stroke", 200, 300).align(RIGHT).boundingBoxStroke(200);
-		//new RiText(this, "Bounding Box Stroke", 200, 350).align(RIGHT).boundingBoxStroke(200,100);
+		new RiText(this, "Bounding Box Stroke", 200, 300).align(RIGHT).boundingStroke(200);
+		//new RiText(this, "Bounding Box Stroke", 200, 350).align(RIGHT).boundingStroke(200,100);
 
-		new RiText(this, "Bounding Box Stroke", 200, 400).align(RIGHT).boundingBoxStroke(0,0,255);
-		//new RiText(this, "Bounding Box Stroke", 200, 450).align(RIGHT).boundingBoxStroke(0,0,255,150);
+		new RiText(this, "Bounding Box Stroke", 200, 400).align(RIGHT).boundingStroke(0,0,255);
+		//new RiText(this, "Bounding Box Stroke", 200, 450).align(RIGHT).boundingStroke(0,0,255,150);
 		float[] c2 = {255,0,0};
-		new RiText(this, "Bounding Box Stroke", 200, 500).align(RIGHT).boundingBoxStroke(c2);
-		//new RiText(this, "Bounding Box Stroke", 200, 550).align(RIGHT).boundingBoxStroke(255,0,0,150);
+		new RiText(this, "Bounding Box Stroke", 200, 500).align(RIGHT).boundingStroke(c2);
+		//new RiText(this, "Bounding Box Stroke", 200, 550).align(RIGHT).boundingStroke(255,0,0,150);
 
-		//TODO boundingBoxWeight 
+		//TODO boundingWeight 
 		/*
-		new RiText(this, "Bounding Box Stroke", 200, 600).boundingBoxStroke(c2).boundingBoxWeight(50);
-		new RiText(this, "Bounding Box Stroke", 200, 650).boundingBoxStroke(c2).boundingBoxWeight(-2);
-		System.out.println(new RiText(this, "Bounding Box Stroke", 200, 680).boundingBoxStroke(c2).boundingBoxWeight(-50).boundingBoxWeight());
+		new RiText(this, "Bounding Box Stroke", 200, 600).boundingStroke(c2).boundingWeight(50);
+		new RiText(this, "Bounding Box Stroke", 200, 650).boundingStroke(c2).boundingWeight(-2);
+		System.out.println(new RiText(this, "Bounding Box Stroke", 200, 680).boundingStroke(c2).boundingWeight(-50).boundingWeight());
 		 */
 
 		//center()

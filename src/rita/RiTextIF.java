@@ -131,10 +131,15 @@ public interface RiTextIF extends rita.support.Constants
   //public Object getPApplet();
   public boolean autodraw();
   public float rotateZ();
-  public float[] boundingBoxFill();
-  public float[] boundingBoxStroke();
-  public RiTextIF boundingBoxFill(float[] bbf);
-  public RiTextIF boundingBoxStroke(float[] bbs);
+  
+  public float[] boundingFill();
+  public float[] boundingStroke();
+  public float boundingStrokeWeight();
+  
+  public RiTextIF boundingFill(float[] bbf);
+  public RiTextIF boundingStroke(float[] bbs);
+  public RiTextIF boundingStrokeWeight(float bbs);
+  
   public RiTextIF scale(float[] values);
   public RiTextIF rotateZ(float f);
   public float x();
