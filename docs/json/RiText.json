@@ -6,6 +6,53 @@
       "name":"x",
       "example":"",
       "description":"x-position of the object",
+      "syntax":"rt.x",
+      "parameters":
+      [
+	  ],
+	  "returns":
+      [
+      		{ 
+			"type": "int", 
+			"desc": "" 
+			}
+			
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+   	  "variable":true,
+      "name":"y",
+      "example":"",
+      "description":"y-position (the baseline of the text)",
+      "syntax":"",
+      "parameters":
+      [
+			{ 
+			"type": "int", 
+			"desc": "" 
+			}
+			
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "", 
+			"desc": "" 
+			}
+			
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "variable":true,
+      "name":"z",
+      "example":"",
+      "description":"z-position (used only in 3d)",
       "syntax":"",
       "parameters":
       [
@@ -21,8 +68,8 @@
       "related":"",
       "platform":"Java / Javascript",
 	  "note":""
-	  
-   },
+   },	
+   
    {
 	  "variable":true,
       "name":"defaults.scaleX",
@@ -228,60 +275,12 @@
       "related":"RiText.analyze()<br>RiText.get",
       "platform":"Java / Javascript",
 	  "note":""
-   },
-   {
-   	  "variable":true,
-      "name":"y",
-      "example":"",
-      "description":"y-position (the baseline of the text)",
-      "syntax":"",
-      "parameters":
-      [
-			{ 
-			"type": "int", 
-			"desc": "" 
-			}
-			
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "", 
-			"desc": "" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "variable":true,
-      "name":"z",
-      "example":"",
-      "description":"z-position (used only in 3d)",
-      "syntax":"",
-      "parameters":
-      [
-	  ],
-	  "returns":
-      [
-      		{ 
-			"type": "int", 
-			"desc": "" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },	
-
+   	},
 	{
       "name":"analyze",
       "example":"myRiText.get(\"phonemes\");<br>myRiText.get(RiTa.PHONEMES);<br>myRiText.get(RiTa.SYLLABLES);",
       "description":"Computes a set of features for the RiText, including <a target=_new href='../../PhonemeTags.html'>phonemes</a>, syllables, stresses, etc. To access any of these, use myRiText.get(featureName)",
-      "syntax":"analyze(feature-type);",
+      "syntax":"rt.analyze(feature-type);",
       "parameters":
       [
 			
@@ -302,7 +301,7 @@
       "name":"charAt",
       "example":"",
       "description":"Returns the character at the given 'index', or an empty string if none is found",
-      "syntax":"charAt(index);",
+      "syntax":"rt.charAt(index);",
       "parameters":
       [
 			{ 
@@ -325,7 +324,7 @@
       "name":"concat",
       "example":"",
       "description":"Concatenates the text from another RiText at the end of this one",
-      "syntax":"concat(riText);",
+      "syntax":"rt.concat(riText);",
       "parameters":
       [
 			{ 
@@ -348,7 +347,7 @@
       "name":"endsWith",
       "example":"",
       "description":"Tests if this String ends with the specified suffix",
-      "syntax":"endsWith(substr);",
+      "syntax":"rt.endsWith(substr);",
       "parameters":
       [
 			{ 
@@ -371,7 +370,7 @@
       "name":"equals",
       "example":"",
       "description":"Compares this RiText to the specified object. <br/>The result is true if and only if the argument is not null and is a String or RiText object that represents the same sequence of characters as this object.",
-      "syntax":"equals(string);<br/>equals(riText);",
+      "syntax":"rt.equals(string);<br/>rt.equals(riText);",
       "parameters":
       [
 			{ 
@@ -394,7 +393,7 @@
       "name":"equalsIgnoreCase",
       "example":"",
       "description":"Compares this RiText to another RiText, ignoring case considerations",
-      "syntax":"equalsIgnoreCase(string);<br/>equalsIgnoreCase(riText);",
+      "syntax":"rt.equalsIgnoreCase(string);<br/>rt.equalsIgnoreCase(riText);",
       "parameters":
       [
 			{ 
@@ -417,7 +416,7 @@
       "name":"indexOf",
       "example":"",
       "description":"Returns the index within this string of the first occurrence of the specified character",
-      "syntax":"indexOf(searchstring);<br/>indexOf(searchstring, start);",
+      "syntax":"rt.indexOf(searchstring);<br/>rt.indexOf(searchstring, start);",
       "parameters":
       [
 			{ 
@@ -444,7 +443,7 @@
       "name":"insertWord",
       "example":"",
       "description":"Inserts 'newWord' at 'wordIdx' and shifts each subsequent word accordingly.",
-      "syntax":"insertWord(newWord, wordIdx);",
+      "syntax":"rt.insertWord(newWord, wordIdx);",
       "parameters":
       [
 			{ 
@@ -471,7 +470,7 @@
       "name":"lastIndexOf",
       "example":"",
       "description":"Returns the index within this String of the last occurrence of the specified character",
-      "syntax":"lastIndexOf(searchstring);<br/>lastIndexOf(searchstring, start);",
+      "syntax":"rt.lastIndexOf(searchstring);<br/>rt.lastIndexOf(searchstring, start);",
       "parameters":
       [
 			{ 
@@ -498,7 +497,7 @@
       "name":"length",
       "example":"",
       "description":"Returns the length of this String",
-      "syntax":"length();",
+      "syntax":"rt.length();",
       "parameters":
       [
 			
@@ -518,7 +517,7 @@
       "name":"match",
       "example":"",
       "description":"Searches for a match between a substring (or regular expression) and the contained string, and _returns the matches",
-      "syntax":"match(regex);",
+      "syntax":"rt.match(regex);",
       "parameters":
       [
 			{ 
@@ -542,7 +541,7 @@
       "name":"pos",
       "example":"",
       "description":"Returns an array of part-of-speech tags (from the <a href='../../PennTags.html'>PENN tag set</a>), one per word, using RiTa.tokenize() and RiTa.getPosTags(), with tags from the <a href='../../PennTags.html'>PENN tag set</a>",
-      "syntax":"pos();",
+      "syntax":"rt.pos();",
       "parameters":
       [
 			
@@ -563,7 +562,7 @@
       "name":"posAt",
       "example":"",
       "description":"Returns the part-of-speech tag (from the <a href='../../PennTags.html'>PENN tag set</a>) for the word at 'index', using RiTa.tokenize() and RiTa.getPosTags(), with tags from the <a href='../../PennTags.html'>PENN tag set</a>",
-      "syntax":"posAt(index);",
+      "syntax":"rt.posAt(index);",
       "parameters":
       [
 			{ 
@@ -587,7 +586,7 @@
       "name":"removeChar",
       "example":"",
       "description":"Removes the character at the specified index",
-      "syntax":"removeChar(index);",
+      "syntax":"rt.removeChar(index);",
       "parameters":
       [
 			{ 
@@ -611,7 +610,7 @@
       "name":"replaceChar",
       "example":"",
       "description":"Replaces the character at 'idx' with 'replaceWith'. <br/>If the specified 'idx' is less than zero, or beyond the length of the current text, there will be no effect",
-      "syntax":"replaceChar(idx, replaceWith);",
+      "syntax":"rt.replaceChar(idx, replaceWith);",
       "parameters":
       [
 			{ 
@@ -639,7 +638,7 @@
       "name":"replaceFirst",
       "example":"",
       "description":"Replaces the first instance of 'regex' with 'replaceWith'",
-      "syntax":"replaceFirst(regex, replaceWith);",
+      "syntax":"rt.replaceFirst(regex, replaceWith);",
       "parameters":
       [
 			{ 
@@ -666,7 +665,7 @@
       "name":"replaceLast",
       "example":"",
       "description":"Replaces the last instance of 'regex' with 'replaceWith'",
-      "syntax":"replaceLast(regex, replaceWith);",
+      "syntax":"rt.replaceLast(regex, replaceWith);",
       "parameters":
       [
 			{ 
@@ -693,7 +692,7 @@
       "name":"replaceAll",
       "example":"",
       "description":"Replaces each substring matching the regular expression with the replacement.",
-      "syntax":"replaceAll(regex, replaceWith);",
+      "syntax":"rt.replaceAll(regex, replaceWith);",
       "parameters":
       [
 			{ 
@@ -720,7 +719,7 @@
       "name":"replaceWord",
       "example":"",
       "description":"Replaces the word at 'wordIdx' with 'newWord'",
-      "syntax":"replaceWordAt(wordIdx, newWord);",
+      "syntax":"rt.replaceWordAt(wordIdx, newWord);",
       "parameters":
       [
 			{ 
@@ -747,7 +746,7 @@
       "name":"slice",
       "example":"",
       "description":"Extracts a part of a String from this RiText",
-      "syntax":"slice(begin);<br/>slice(begin, end);",
+      "syntax":"rt.slice(begin);<br/>slice(begin, end);",
       "parameters":
       [
 			{ 
@@ -774,7 +773,7 @@
       "name":"startsWith",
       "example":"",
       "description":"Tests if this String starts with the specified prefix",
-      "syntax":"startsWith(substr);",
+      "syntax":"rt.startsWith(substr);",
       "parameters":
       [
 			{ 
@@ -798,7 +797,7 @@
       "name":"substring",
       "example":"",
       "description":"Extracts the characters from a String, between two specified indices, and sets the current text to be that String. ",
-      "syntax":"substring(from);<br/>substring(from, to);",
+      "syntax":"rt.substring(from);<br/>substring(from, to);",
       "parameters":
       [
 			{ 
@@ -826,7 +825,7 @@
       "name":"substr",
       "example":"",
       "description":"Extracts the characters from this objects contained String, beginning at 'start' and continuing through the specified number of characters, and sets the current text to be that String. (from Javascript String)",
-      "syntax":"substr(start);<br/>substr(start, length);",
+      "syntax":"rt.substr(start);<br/>rt.substr(start, length);",
       "parameters":
       [
 			{ 
@@ -854,7 +853,7 @@
       "name":"text",
       "example":"",
       "description":"Gets/sets the text contained by this object",
-      "syntax":"text();<br/>text(theText);",
+      "syntax":"rt.text();<br/>rt.text(theText);",
       "parameters":
       [
 			{ 
@@ -878,7 +877,7 @@
       "name":"toLowerCase",
       "example":"",
       "description":"Converts all of the characters in this RiText to lower case",
-      "syntax":"toLowerCase();",
+      "syntax":"rt.toLowerCase();",
       "parameters":
       [
 			
@@ -898,7 +897,7 @@
       "name":"toUpperCase",
       "example":"",
       "description":"Converts all of the characters in this RiText to upper case",
-      "syntax":"toUpperCase();",
+      "syntax":"rt.toUpperCase();",
       "parameters":
       [
 			
@@ -919,7 +918,7 @@
       "name":"trim",
       "example":"",
       "description":"Returns a copy of the String, with leading and trailing whitespace omitted.",
-      "syntax":"trim();",
+      "syntax":"rt.trim();",
       "parameters":
       [
 			
@@ -939,7 +938,7 @@
       "name":"wordAt",
       "example":"",
       "description":"Returns the word at 'index', according to RiTa.tokenize",
-      "syntax":"wordAt(int index);",
+      "syntax":"rt.wordAt(int index);",
       "parameters":
       [
 			{ 
@@ -963,7 +962,7 @@
       "name":"wordCount",
       "example":"",
       "description":"Returns the number of words in the object, according to RiTa.tokenize().",
-      "syntax":"wordCount();",
+      "syntax":"rt.wordCount();",
       "parameters":
       [
 			
@@ -983,7 +982,7 @@
       "name":"words",
       "example":"",
       "description":"Returns the array of words in the object, via a call to RiTa.tokenize",
-      "syntax":"words();",
+      "syntax":"rt.words();",
       "parameters":
       [
 	  ],
@@ -998,12 +997,11 @@
       "platform":"Java / Javascript",
 	  "note":""
    },
- 
    {
       "name":"alpha",
       "example":"",
       "description":"Set/gets the alpha (transparency) for this RiText",
-      "syntax":"alpha();<br/>alpha(value);",
+      "syntax":"rt.alpha();<br/>rt.alpha(value);",
       "parameters":
       [
 			{ 
@@ -1025,10 +1023,35 @@
 	  "note":""
    },
    {
+      "name":"boundingStroke",
+      "example":"",
+      "description":"Set/gets the boundingStroke for this RiText",
+      "syntax":"rt.boundingStroke();<br/>rt.boundingStroke(value);",
+      "parameters":
+      [
+			{ 
+			"type": "float", 
+			"desc": "(optional) input (0-255) " 
+			}
+			
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "RiText OR float", 
+			"desc": "either this RiText (for set) or the current boundingStroke value (for get)" 
+			}
+			
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
       "name":"boundingBox",
       "example":"",
       "description":"Returns the screen bounding box for the current text",
-      "syntax":"boundingBox();",
+      "syntax":"rt.boundingBox();",
       "parameters":
       [
 	  ],
@@ -1047,7 +1070,7 @@
       "name":"center",
       "example":"",
       "description":"Returns the center point of the RiText as derived from its bounding box",
-      "syntax":"center();",
+      "syntax":"rt.center();",
       "parameters":
       [
 			
@@ -1069,7 +1092,7 @@
       "name":"charOffset",
       "example":"",
       "description":"Returns the pixel x-offset for the character at 'charIdx'",
-      "syntax":"charOffset(charIdx);",
+      "syntax":"rt.charOffset(charIdx);",
       "parameters":
       [
 			{ 
@@ -1094,7 +1117,7 @@
       "name":"copy",
       "example":"",
       "description":"Creates and returns a field-for-field copy of this RiText",
-      "syntax":"copy();",
+      "syntax":"rt.copy();",
       "parameters":
       [
 		
@@ -1116,7 +1139,7 @@
       "name":"fill",
       "example":"",
       "description":"Set/gets the fill color for this RiText",
-      "syntax":"fill();<br/>fill(r, b, a);<br/>fill(rgbaArr);",
+      "syntax":"rt.fill();<br/>rt.fill(r, b, a);<br/>rt.fill(rgbaArr);",
       "parameters":
       [
 			{ 
@@ -1149,10 +1172,70 @@
 	  "note":""
    },
    {
+      "name":"boundingStroke",
+      "example":"",
+      "description":"Set/gets the boundingStroke color for this RiText",
+      "syntax":"rt.boundingStroke();<br/>rt.boundingStroke(r, b, a);<br/>rt.boundingStroke(rgbaArr);",
+      "parameters":
+      [
+			{ 
+			"type": "float OR float[]", 
+			"desc": "r" 
+			},
+			{ 
+			"type": "float", 
+			"desc": "g" 
+			},
+			{ 
+			"type": "float", 
+			"desc": "b" 
+			},
+			{ 
+			"type": "float", 
+			"desc": "a" 
+			}
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "RiText OR float[]", 
+			"desc": "either this RiText (for sets) or the current color object (for gets)" 
+			}
+			
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "name":"boundingStrokeWeight",
+      "example":"",
+      "description":"Set/gets the boundingStrokeWeight for this RiText",
+      "syntax":"rt.boundingStrokeWeight();<br/>rt.boundingStrokeWeight(r, b, a);<br/>rt.boundingStrokeWeight(rgbaArr);",
+      "parameters":
+      [
+			{ 
+			"type": "float", 
+			"desc": "stroke-weight" 
+			},
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "RiText OR float", 
+			"desc": "either this RiText (for sets) or the current stroke-weight (for gets)" 
+			}
+			
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
       "name":"contains",
       "example":"",
       "description":"Returns true if the bounding box for this RiText contains the point mx/my",
-      "syntax":"contains(mx, my);",
+      "syntax":"rt.contains(mx, my);",
       "parameters":
       [
 			{ 
@@ -1181,7 +1264,7 @@
       "name":"distanceTo",
       "example":"",
       "description":"Returns the distance between the center points of this object and another RiText, or between this object's center and a point (x,y)",
-      "syntax":"distanceTo(mx, my);<br>distanceTo(anOtherRiText);",
+      "syntax":"rt.distanceTo(mx, my);<br>rt.distanceTo(anOtherRiText);",
       "parameters":
       [
 			{ 
@@ -1210,7 +1293,7 @@
       "name":"draw",
       "example":"",
       "description":"Draws the object to the screen",
-      "syntax":"draw();",
+      "syntax":"rt.draw();",
       "parameters":
       [
 		
@@ -1232,7 +1315,7 @@
       "name":"font",
       "example":"",
       "description":"Set/gets the font for this RiText",
-      "syntax":"font();<br/>font(pfont);<br/>font(fontStr, fontSize);",
+      "syntax":"rt.font();<br/>rt.font(pfont);<br/>rt.font(fontStr, fontSize);",
       "parameters":
       [
 			{ 
@@ -1264,7 +1347,7 @@
       "name":"align",
       "example":"",
       "description":"Sets/gets the alignment.",
-      "syntax":"align();<br/>align(CENTER);",
+      "syntax":"rt.align();<br/>rt.align(RiTa.CENTER);",
       "parameters":
       [
 			{ 
@@ -1289,7 +1372,7 @@
       "name":"fontSize",
       "example":"",
       "description":"Sets/gets the size of the current font. Note: this method only effects only scaleX/Y, not the font's internal properties",
-      "syntax":"fontSize();<br/>fontSize(sz);",
+      "syntax":"rt.fontSize();<br/>rt.fontSize(sz);",
       "parameters":
       [
 			{ 
@@ -1314,14 +1397,13 @@
       "name":"motionType",
       "example":"",
       "description": "Sets/gets the animation <code>motionType</code> for this RiText<br/> according to one of the following functions:<br/><ul><li>RiText.LINEAR<li>RiText.EASE_IN<li>RiText.EASE_OUT<li>RiText.EASE_IN_OUT<li>RiText.EASE_IN_EXPO<li>RiText.EASE_OUT_EXPO<li>RiText.EASE_IN_OUT_EXPO<li>RiText.EASE_IN_SINE<li>RiText.EASE_OUT_SINE<li>RiText.EASE_IN_OUT_SINE<li>RiText.EASE_IN_CUBIC<li>RiText.EASE_OUT_CUBIC<li>RiText.EASE_IN_OUT_CUBIC<li>RiText.EASE_IN_QUARTIC<li>RiText.EASE_OUT_QUARTIC<li>RiText.EASE_IN_OUT_QUARTIC<li>RiText.EASE_IN_QUINTIC<li>RiText.EASE_OUT_QUINTIC<li>RiText.EASE_IN_OUT_QUINTIC<li>RiText.BACK_IN<li>RiText.BACK_OUT<li>RiText.BACK_IN_OUT<li>RiText.BOUNCE_IN<li>RiText.BOUNCE_OUT<li>RiText.BOUNCE_IN_OUT<li>RiText.CIRCULAR_IN<li>RiText.CIRCULAR_OUT<li>RiText.CIRCULAR_IN_OUT<li>RiText.ELASTIC_IN<li>RiText.ELASTIC_OUT<li>RiText.ELASTIC_IN_OUT</ul>",
-      "syntax":"motionType();<br/>motionType(motionType);",
+      "syntax":"rt.motionType();<br/>rt.motionType(motionType);<br/>rt.motionType(RiText.BOUNCE_IN_OUT);",
       "parameters":
       [
 			{ 
 			"type": "int", 
-			"desc": "(optional) motionType" 
+			"desc": "(optional) motionType, One of LINEAR, EASE_IN, EASE_OUT, EASE_IN_OUT, EASE_IN_OUT_CUBIC, EASE_IN_CUBIC, EASE_OUT_CUBIC, EASE_IN_OUT_QUARTIC, EASE_IN_QUARTIC, EASE_OUT_QUARTIC, EASE_IN_OUT_SINE, EASE_IN_SINE, EASE_OUT_SINE, EASE_IN_OUT_EXPO, EASE_IN_EXPO, or EASE_OUT_EXPO" 
 			}
-
 	  ],
 	  "returns":
       [
@@ -1339,7 +1421,7 @@
       "name":"position",
       "example":"",
       "description":"Set/gets the font for this RiText",
-      "syntax":"position();<br/>position(x y);",
+      "syntax":"rt.position();<br/>rt.position(x y);",
       "parameters":
       [
 			{ 
@@ -1368,7 +1450,7 @@
       "name":"rotate",
       "example":"",
       "description":"Sets/gets the 2d rotation for this RiText",
-      "syntax":"rotate();<br/>rotate(rotateDegrees);",
+      "syntax":"rt.rotate();<br/>rt.rotate(rotateDegrees);",
       "parameters":
       [
 			{ 
@@ -1393,7 +1475,7 @@
       "name":"scale",
       "example":"",
       "description":"Sets/gets the scale factor for this RiText (takes 0-2 arguments) ",
-      "syntax":"scale();<br/>scale(scaleX);<br/>scale(scaleX, scaleY);",
+      "syntax":"rt.scale();<br/>rt.scale(scaleX);<br/>rt.scale(scaleX, scaleY);",
       "parameters":
       [
 			{ 
@@ -1422,7 +1504,7 @@
       "name":"showBounds",
       "example":"",
       "description":"Set/gets the bounding box visibility for this RiText ",
-      "syntax":"showBounds();<br/>showBounds(trueOrFalse);",
+      "syntax":"rt.showBounds();<br/>rt.showBounds(trueOrFalse);",
       "parameters":
       [
 			{ 
@@ -1447,7 +1529,7 @@
       "name":"splitLetters",
       "example":"",
       "description":"Splits the object into an array of RiTexts, one per letter.",
-      "syntax":"splitLetters();",
+      "syntax":"rt.splitLetters();",
       "parameters":
       [
 			
@@ -1469,7 +1551,7 @@
       "name":"splitWords",
       "example":"",
       "description":"Splits the object into an array of RiTexts, one per word tokenized with the supplied regex.",
-      "syntax":"splitWords(regex);",
+      "syntax":"rt.splitWords(regex);",
       "parameters":
       [
 			{ 
@@ -1494,7 +1576,7 @@
       "name":"textHeight",
       "example":"",
       "description":"Returns the current height of the text (derived from the bounding box)",
-      "syntax":"textHeight();",
+      "syntax":"rt.textHeight();",
       "parameters":
       [
 			
@@ -1515,7 +1597,7 @@
       "name":"textAscent",
       "example":"",
       "description":"Returns the ascent of the current font ",
-      "syntax":"textAscent();",
+      "syntax":"rt.textAscent();",
       "parameters":
       [
 			
@@ -1536,7 +1618,7 @@
       "name":"textDescent",
       "example":"",
       "description":"Returns the descent of the current font ",
-      "syntax":"textDescent();",
+      "syntax":"rt.textDescent();",
       "parameters":
       [
 			
@@ -1558,7 +1640,7 @@
       "name":"textWidth",
       "example":"",
       "description":"Returns the current width of the text (derived from the bounding box)",
-      "syntax":"textWidth();",
+      "syntax":"rt.textWidth();",
       "parameters":
       [
 			
@@ -1580,7 +1662,7 @@
       "name":"isVisible",
       "example":"",
       "description":"Returns false if the alpha value of this object is &lt;= 0, else true",
-      "syntax":"isVisible();",
+      "syntax":"rt.isVisible();",
       "parameters":
       [
 		
@@ -1601,7 +1683,7 @@
       "name":"wordOffset",
       "example":"",
       "description":"Returns the pixel x-offset for the word at 'wordIdx'",
-      "syntax":"wordOffset(wordIdx);",
+      "syntax":"rt.wordOffset(wordIdx);",
       "parameters":
       [
 			{ 
@@ -1626,7 +1708,7 @@
       "name":"fadeIn",
       "example":"",
       "description":"Fades in current text over <code>seconds</code> starting at <code>startTime</code>. <br/>Interpolates from the current color {r,g,b,a} to {r,g,b,255}.",
-      "syntax":"fadeIn(seconds, delay, callback);",
+      "syntax":"rt.fadeIn(seconds, delay, callback);",
       "parameters":
       [
 			{ 
@@ -1658,7 +1740,7 @@
       "name":"fadeOut",
       "example":"",
       "description":"Fades out current text over <code>seconds</code> starting at <code>startTime</code>. <br/>Interpolates from the current color {r,g,b,a} to {r,g,b,255}.",
-      "syntax":"fadeOut(seconds)<br/>fadeOut(seconds, delay);<br/>fadeOut(seconds, delay, callback);<br/>fadeOut(seconds, delay, callback, destroyOnComplete);",
+      "syntax":"rt.fadeOut(seconds)<br/>fadeOut(seconds, delay);<br/>rt.fadeOut(seconds, delay, callback);<br/>rt.fadeOut(seconds, delay, callback, destroyOnComplete);",
       "parameters":
       [
 			{ 
@@ -1695,7 +1777,7 @@
       "name":"moveTo",
       "example":"",
       "description":"Move to new x,y position over 'seconds'<br/><br/>Note: uses the current <code>motionType</code> for this object, starting at 'delay' seconds in the future",
-      "syntax":"moveTo(newX, newY, seconds, delay);",
+      "syntax":"rt.moveTo(newX, newY, seconds, delay);",
       "parameters":
       [
 			{ 
@@ -1731,7 +1813,7 @@
       "name":"colorTo",
       "example":"",
       "description":"Transitions to 'color' (rgba) over 'seconds' starting at 'delay' seconds in the future",
-      "syntax":"colorTo(colors)<br/>colorTo(colorArr, seconds);<br/>colorTo(colorArr, seconds, delay);<br/>colorTo(colorArr, seconds, delay, callback);",
+      "syntax":"rt.colorTo(colors)<br/>rt.colorTo(colorArr, seconds);<br/>rt.colorTo(colorArr, seconds, delay);<br/>rt.colorTo(colorArr, seconds, delay, callback);",
       "parameters":
       [
 			{ 
@@ -1767,7 +1849,7 @@
       "name":"rotateTo",
       "example":"",
       "description":"Rotates to 'radians' over 'seconds' starting at 'delay' seconds in the future",
-      "syntax":"rotateTo(angleInRadians)<br/>rotateTo(angleInRadians, seconds);<br/>rotateTo(angleInRadians, seconds, delay);<br/>rotateTo(angleInRadians, seconds, delay, callback);",
+      "syntax":"rt.rotateTo(angleInRadians)<br/>rt.rotateTo(angleInRadians, seconds);<br/>rt.rotateTo(angleInRadians, seconds, delay);<br/>rt.rotateTo(angleInRadians, seconds, delay, callback);",
       "parameters":
       [
 			{ 
@@ -1805,7 +1887,7 @@
       "name":"scaleTo",
       "example":"",
       "description":"Scales to 'theScale' over 'seconds' starting at 'delay' seconds in the future",
-      "syntax":"scaleTo(theScale)<br/>scaleTo(theScale, seconds);<br/>scaleTo(theScale, seconds, delay);<br/>scaleTo(theScale, seconds, delay, callback);",
+      "syntax":"rt.scaleTo(theScale)<br/>rt.scaleTo(theScale, seconds);<br/>rt.scaleTo(theScale, seconds, delay);<br/>rt.scaleTo(theScale, seconds, delay, callback);",
       "parameters":
       [
 			{ 
@@ -1842,7 +1924,7 @@
       "name":"stopBehavior",
       "example":"",
       "description":"Removes the specified text behavior for the object ",
-      "syntax":"stopBehavior(id);",
+      "syntax":"rt.stopBehavior(id);",
       "parameters":
       [
 			{ 
@@ -1867,7 +1949,7 @@
       "name":"stopBehaviors",
       "example":"",
       "description":"Removes all text behaviors for the object",
-      "syntax":"stopBehaviors();",
+      "syntax":"rt.stopBehaviors();",
       "parameters":
       [
 			
@@ -1889,7 +1971,7 @@
       "name":"textTo",
       "example":"",
       "description":"Fades out the current text and fades in the <code>newText</code> over <code>seconds</code>",
-      "syntax":"textTo(newText)<br/>textTo(newText, seconds);<br/>textTo(newText, seconds, startTime);<br/>textTo(newText, seconds, endAlpha, function callback);",
+      "syntax":"rt.textTo(newText)<br/>rt.textTo(newText, seconds);<br/>rt.textTo(newText, seconds, startTime);<br/>textTo(newText, seconds, endAlpha, function callback);",
       "parameters":
       [
 			{ 

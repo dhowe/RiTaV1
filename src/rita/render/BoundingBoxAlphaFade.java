@@ -13,8 +13,8 @@ public class BoundingBoxAlphaFade extends InterpolatingBehavior
   
   public BoundingBoxAlphaFade(RiText rt, float newAlpha, float startTime, float duration) {
     super(rt, startTime, duration);    
-    float[] fill = rt.boundingBoxFill();
-    float[] stroke = rt.boundingBoxStroke();
+    float[] fill = rt.boundingFill();
+    float[] stroke = rt.boundingStroke();
     this.interpolater = new RiInterpolater2D(new float[] { fill[3], stroke[3] }, 
       new float[] { newAlpha, newAlpha }, toOffsetMs(startTime), toMs(duration));
     //System.out.println("BoundingBoxAlphaFade("+rt+", ["+fill[3]+","+stroke[3] +"], ["+newAlpha+","+newAlpha+"], "+startTime+", "+duration+")");
@@ -22,22 +22,22 @@ public class BoundingBoxAlphaFade extends InterpolatingBehavior
   }
   
   public void getStartValueFromParent(RiText parent, Interpolater interp) {
-    float[] bbf = rt.boundingBoxFill();
-    float[] bbs = rt.boundingBoxStroke();
+    float[] bbf = rt.boundingFill();
+    float[] bbs = rt.boundingStroke();
     interp.setStart(new float[]{ bbf[3], bbs[3] });
   }  
   
   public void updateParentValues(RiText rt, float[] values) 
   {
     //fill
-    float[] bbf = rt.boundingBoxFill();
+    float[] bbf = rt.boundingFill();
     bbf[3] = values[0];
-    rt.boundingBoxFill(bbf);
+    rt.boundingFill(bbf);
     
     //stroke
-    float[] bbs = rt.boundingBoxStroke();
+    float[] bbs = rt.boundingStroke();
     //bbs[3] = values[0];
-    rt.boundingBoxStroke(bbs);
+    rt.boundingStroke(bbs);
   }
 
 }// end

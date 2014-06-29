@@ -221,8 +221,8 @@ public class RiText implements RiTextIF
     this.motionType = defaults.motionType;
     this.boundingBoxVisible = defaults.showBounds;
     this.bbStrokeWeight = defaults.boundingStrokeWeight;
-    this.boundingBoxStroke(defaults.boundingStroke);
-    this.boundingBoxFill(defaults.boundingFill);
+    this.boundingStroke(defaults.boundingStroke);
+    this.boundingFill(defaults.boundingFill);
     //this.fontSize = defaults.fontSize;
   }
 
@@ -374,7 +374,7 @@ public class RiText implements RiTextIF
     return (pApplet != null) ? pApplet.height / 2 : -1;
   }
 
-  public float boundingBoxStrokeWeight()
+  public float boundingStrokeWeight()
   {
     return bbStrokeWeight;
   }
@@ -482,7 +482,7 @@ public class RiText implements RiTextIF
    *          blue component (0-255)
 
    */
-  public RiTextIF boundingBoxFill(float r, float g, float b/*, float alpha*/)
+  public RiTextIF boundingFill(float r, float g, float b/*, float alpha*/)
   {
     this.bbFillR = r;
     this.bbFillG = g;
@@ -496,7 +496,7 @@ public class RiText implements RiTextIF
    * Set the current boundingBoxFill color for this object, applicable only when
    * <code>showBoundingBox(true)</code> has been called.
    */
-  public RiTextIF boundingBoxFill(float[] color)
+  public RiTextIF boundingFill(float[] color)
   {
     bbFillR = color[0];
     bbFillG = color[1];
@@ -512,19 +512,19 @@ public class RiText implements RiTextIF
 
   }
 
-  public RiTextIF boundingBoxFill(float gray)
+  public RiTextIF boundingFill(float gray)
   {
-    return this.boundingBoxFill(gray, gray, gray);
+    return this.boundingFill(gray, gray, gray);
   }
 
-/*  public RiTextIF boundingBoxFill(float gray, float alpha)
+/*  public RiTextIF boundingFill(float gray, float alpha)
   {
-    return this.boundingBoxFill(gray, gray, gray, alpha);
+    return this.boundingFill(gray, gray, gray, alpha);
   }*/
   
-/*  public RiTextIF boundingBoxFill(float r, float g, float b) { 
+/*  public RiTextIF boundingFill(float r, float g, float b) { 
      return
-     this.boundingBoxFill(r, g, b, 255); 
+     this.boundingFill(r, g, b, 255); 
   }
 */
   /**
@@ -540,7 +540,7 @@ public class RiText implements RiTextIF
    * @param alpha
    *          transparency (0-255)
    */
-  public RiTextIF boundingBoxStroke(float r, float g, float b/* , float alpha */)
+  public RiTextIF boundingStroke(float r, float g, float b/* , float alpha */)
   {
     this.bbStrokeR = r;
     this.bbStrokeG = g;
@@ -549,19 +549,19 @@ public class RiText implements RiTextIF
     return this;
   }
 
-  public RiTextIF boundingBoxStroke(float gray)
+  public RiTextIF boundingStroke(float gray)
   {
-    return this.boundingBoxStroke(gray, gray, gray);
+    return this.boundingStroke(gray, gray, gray);
   }
 
   /*
-   * public RiTextIF boundingBoxStroke(float gray, float alpha) { return
-   * this.boundingBoxStroke(gray, gray, gray, alpha); }
+   * public RiTextIF boundingStroke(float gray, float alpha) { return
+   * this.boundingStroke(gray, gray, gray, alpha); }
    */
 
   /*
-   * public RiTextIF boundingBoxStroke(float r, float g, float b) { return
-   * this.boundingBoxStroke(r, g, b, 255); }
+   * public RiTextIF boundingStroke(float r, float g, float b) { return
+   * this.boundingStroke(r, g, b, 255); }
    */
 
   /**
@@ -575,7 +575,7 @@ public class RiText implements RiTextIF
   /**
    * Returns the current bounding box fill color (r,g,b) for this object
    */
-  public float[] boundingBoxFill()
+  public float[] boundingFill()
   { // yuck
     return new float[] { bbFillR, bbFillG, bbFillB };
   }
@@ -584,7 +584,7 @@ public class RiText implements RiTextIF
    * Returns the current bounding box stroke color for this object
    * 
    */
-  public float[] boundingBoxStroke()
+  public float[] boundingStroke()
   { // yuck
     return new float[] { bbStrokeR, bbStrokeG, bbStrokeB/*, fillA*/ };
   }
@@ -593,7 +593,7 @@ public class RiText implements RiTextIF
    * Set the current boundingBoxStroke color for this object, applicable only
    * when <code>showBoundingBox(true)</code> has been called.
    */
-  public RiTextIF boundingBoxStroke(float[] color)
+  public RiTextIF boundingStroke(float[] color)
   {
     bbStrokeR = color[0];
     bbStrokeG = color[1];
@@ -1472,7 +1472,7 @@ public class RiText implements RiTextIF
   /**
    * Set the current boundingBox stroke-weight for this object
    */
-  public RiTextIF boundingBoxStrokeWeight(float r)
+  public RiTextIF boundingStrokeWeight(float r)
   {
     this.bbStrokeWeight = r;
     return this;
