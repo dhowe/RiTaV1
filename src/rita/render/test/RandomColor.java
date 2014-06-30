@@ -4,7 +4,7 @@ import processing.core.PApplet;
 import rita.RiTa;
 import rita.RiText;
 
-public class RadomColor extends PApplet
+public class RandomColor extends PApplet
 {
 	RiText rt1,rt2,rt3,rt4;
 	public void setup()

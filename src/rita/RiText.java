@@ -261,10 +261,10 @@ public class RiText implements RiTextIF
 
   public static final PFont defaultFont(PApplet p) 
   {
-    return defaultFont(p, defaults.fontSize);
+    return _defaultFont(p, defaults.fontSize);
   }
   
-  protected static final PFont defaultFont(PApplet p, float size)
+  protected static final PFont _defaultFont(PApplet p, float size)
   {
     PFont pf = defaults.font;
 
