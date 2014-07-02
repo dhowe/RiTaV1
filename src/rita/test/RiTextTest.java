@@ -24,40 +24,40 @@ public class RiTextTest
     features.analyze();
     features.features();
     ok(features);
-    /*
-     * equal(features.phonemes, "dh-ax l-ae-g-ih-n d-r-ae-g-ax-n");
-     * equal(features.syllables, "dh-ax l-ae/g-ih-n d-r-ae-g/ax-n");
-     * equal(features.stresses, "0 1/1 1/0");
-     */
+
+     equal(features.get(RiTa.PHONEMES), "dh-ax l-ae-g-ih-n d-r-ae-g-ax-n");
+     equal(features.get(RiTa.SYLLABLES), "dh-ax l-ae/g-ih-n d-r-ae-g/ax-n");
+     equal(features.get(RiTa.STRESSES), "0 1/1 1/0");
+     
 
     features = new RiText(null, "123");
     features.analyze();
     features.features();
     ok(features);
-    /*
-     * equal(features.phonemes, "w-ah-n-t-uw-th-r-iy");
-     * equal(features.syllables, "w-ah-n/t-uw/th-r-iy");
-     * equal(features.stresses, "0/0/0");
-     */
-    features = new RiText(null, "123");
+    
+    equal(features.get(RiTa.PHONEMES), "w-ah-n-t-uw-th-r-iy");
+    equal(features.get(RiTa.SYLLABLES), "w-ah-n/t-uw/th-r-iy");
+    equal(features.get(RiTa.STRESSES), "0/0/0");
+    
+    features = new RiText(null, "seven and 7"); 
     features.analyze();
     features.features();
     ok(features);
-    /*
-     * equal(features.phonemes, "w-ah-n-t-uw-th-r-iy");
-     * equal(features.syllables, "w-ah-n/t-uw/th-r-iy");
-     * equal(features.stresses, "0/0/0");
-     */
+    
+    equal(features.get(RiTa.PHONEMES), "w-ah-n-t-uw-th-r-iy"); //TODO check answer
+    equal(features.get(RiTa.SYLLABLES), "w-ah-n/t-uw/th-r-iy");
+    equal(features.get(RiTa.STRESSES), "0/0/0");
+    
 
     features = new RiText(null, "1 2 7");
     features.analyze();
     features.features();
     ok(features);
-    /*
-     * equal(features.phonemes, "w-ah-n t-uw s-eh-v-ax-n");
-     * equal(features.syllables, "w-ah-n t-uw s-eh/v-ax-n");
-     * equal(features.stresses, "0 0 1/0");
-     */
+    
+    equal(features.get(RiTa.PHONEMES), "w-ah-n t-uw s-eh-v-ax-n");
+    equal(features.get(RiTa.SYLLABLES), "w-ah-n t-uw s-eh/v-ax-n");
+    equal(features.get(RiTa.STRESSES), "0 0 1/0");
+    
   }
 
   @Test
@@ -160,7 +160,7 @@ public class RiTextTest
   }
 
   @Test
-  public void testGet() // TODO
+  public void testGet() // test on analyze()
   {
     RiText rs = new RiText(null, "The laggin dragon");
     rs.analyze();
