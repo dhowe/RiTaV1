@@ -45,16 +45,17 @@ public class RiStringTest implements Constants
   public void testSet()
   {
     RiString rs = new RiString("Mom & Dad");
-    rs.set("Id", "1000"); // TODO: test that this does not create default
-                          // features
+    rs.set("Id", "1000"); 
     equal(rs.get("Id"), "1000");
-    ok(rs.get(RiTa.PHONEMES) != null);
+    
+    ok(rs.features().get(RiTa.PHONEMES)==null); // this should NOT create default features
+    
+    ok(rs.get(RiTa.PHONEMES) != null); // this should create default features
 
     Map features = rs.features();
     ok(features.get(RiTa.PHONEMES) != null);
 
-    rs.text("Dad & Mom"); // reset all original features, but not those set() by
-                          // user
+    rs.text("Dad & Mom"); // reset all original features, but not those set() by user
 
     equal(features.get(RiTa.PHONEMES), null); // OK: has been reset
     equal(rs.get("Id"), "1000"); // OK: has not been reset
@@ -248,6 +249,8 @@ public class RiStringTest implements Constants
   @Test
   public void testFeatures()
   {
+    // TODO: this is not testing anything... redo
+    
     RiString rs = new RiString("Returns the array of words.").analyze();
     Map m = rs.features();
 

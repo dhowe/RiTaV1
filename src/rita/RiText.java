@@ -755,7 +755,7 @@ public class RiText implements RiTextIF
   /**
    * Returns a field for field copy of this object
    */
-  public RiTextIF copy()
+  public RiText copy()
   {
     return copy(this);
   }
@@ -2260,7 +2260,7 @@ public class RiText implements RiTextIF
    */
   protected static RiText copy(RiText toCopy)
   {
-    RiText rt = new RiText(toCopy.getPApplet());
+    RiText rt = new RiText(toCopy.pApplet);
     rt.font = toCopy.font;
     rt.fontFamily = toCopy.fontFamily;
     rt.fontSizeAdjustment = toCopy.fontSizeAdjustment;

@@ -63,7 +63,7 @@ toUpperCase()			X DONT NEED
 trim()					X DONT NEED
 wordAt()				X
 wordCount()				X
-wordOffset()			WordsLetteresLines.java		
+wordOffset()			WordsLettersLines.java		
 words()					X
 			
 RiText.defaults			On Every java		

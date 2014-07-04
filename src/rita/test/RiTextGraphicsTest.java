@@ -66,10 +66,10 @@ public class RiTextGraphicsTest // TODO: how to run these on JS tests?
 
   public static void main(String[] args)
   {
-    String clz = WordsLettersLines.class.getName();
+    String clz = CreateLinesAndLayoutWithBreaks.class.getName();
     PixelCompare pc = new PixelCompare(PATH);
-    pc.generateRefImage(clz);
-    //pc.visualDiff(clz);
+    //pc.generateRefImage(clz);
+    pc.visualDiff(clz);
   }
 
 }
