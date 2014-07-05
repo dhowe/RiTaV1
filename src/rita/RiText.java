@@ -384,7 +384,7 @@ public class RiText implements RiTextIF
   /**
    * Sets the text fill color according to a single hex number.
    */
-  public RiTextIF fillHex(int hexColor)
+  public RiText fillHex(int hexColor)
   {
     this.fill(unhex(hexColor));
     return this;
@@ -413,7 +413,7 @@ public class RiText implements RiTextIF
    * @param a
    *          alpha component (0-255)
    */
-  public RiTextIF fill(float r, float g, float b, float alpha)
+  public RiText fill(float r, float g, float b, float alpha)
   {
     this.fillR = r;
     this.fillG = g;
@@ -423,7 +423,7 @@ public class RiText implements RiTextIF
     return this;
   }
 
-  public RiTextIF fill(float g)
+  public RiText fill(float g)
   {
     this.fillR = g;
     this.fillG = g;
@@ -432,12 +432,12 @@ public class RiText implements RiTextIF
     return this;
   }
 
-  public RiTextIF fill(float g, float a)
+  public RiText fill(float g, float a)
   {
     return this.fill(g, g, g, a);
   }
 
-  public RiTextIF fill(float r, float g, float b)
+  public RiText fill(float r, float g, float b)
   {
     this.fillR = r;
     this.fillG = g;
@@ -448,7 +448,7 @@ public class RiText implements RiTextIF
   /**
    * Set the text color for this object (r,g,b,a) from 0-255
    */
-  public RiTextIF fill(float[] color)
+  public RiText fill(float[] color)
   {
     float r = color[0], g = 0, b = 0, a = fillA;
     switch (color.length)
@@ -482,7 +482,7 @@ public class RiText implements RiTextIF
    *          blue component (0-255)
 
    */
-  public RiTextIF boundingFill(float r, float g, float b/*, float alpha*/)
+  public RiText boundingFill(float r, float g, float b/*, float alpha*/)
   {
     this.bbFillR = r;
     this.bbFillG = g;
@@ -496,7 +496,7 @@ public class RiText implements RiTextIF
    * Set the current boundingBoxFill color for this object, applicable only when
    * <code>showBoundingBox(true)</code> has been called.
    */
-  public RiTextIF boundingFill(float[] color)
+  public RiText boundingFill(float[] color)
   {
     bbFillR = color[0];
     bbFillG = color[1];
@@ -512,17 +512,17 @@ public class RiText implements RiTextIF
 
   }
 
-  public RiTextIF boundingFill(float gray)
+  public RiText boundingFill(float gray)
   {
     return this.boundingFill(gray, gray, gray);
   }
 
-/*  public RiTextIF boundingFill(float gray, float alpha)
+/*  public RiText boundingFill(float gray, float alpha)
   {
     return this.boundingFill(gray, gray, gray, alpha);
   }*/
   
-/*  public RiTextIF boundingFill(float r, float g, float b) { 
+/*  public RiText boundingFill(float r, float g, float b) { 
      return
      this.boundingFill(r, g, b, 255); 
   }
@@ -540,7 +540,7 @@ public class RiText implements RiTextIF
    * @param alpha
    *          transparency (0-255)
    */
-  public RiTextIF boundingStroke(float r, float g, float b/* , float alpha */)
+  public RiText boundingStroke(float r, float g, float b/* , float alpha */)
   {
     this.bbStrokeR = r;
     this.bbStrokeG = g;
@@ -549,18 +549,18 @@ public class RiText implements RiTextIF
     return this;
   }
 
-  public RiTextIF boundingStroke(float gray)
+  public RiText boundingStroke(float gray)
   {
     return this.boundingStroke(gray, gray, gray);
   }
 
   /*
-   * public RiTextIF boundingStroke(float gray, float alpha) { return
+   * public RiText boundingStroke(float gray, float alpha) { return
    * this.boundingStroke(gray, gray, gray, alpha); }
    */
 
   /*
-   * public RiTextIF boundingStroke(float r, float g, float b) { return
+   * public RiText boundingStroke(float r, float g, float b) { return
    * this.boundingStroke(r, g, b, 255); }
    */
 
@@ -593,7 +593,7 @@ public class RiText implements RiTextIF
    * Set the current boundingBoxStroke color for this object, applicable only
    * when <code>showBoundingBox(true)</code> has been called.
    */
-  public RiTextIF boundingStroke(float[] color)
+  public RiText boundingStroke(float[] color)
   {
     bbStrokeR = color[0];
     bbStrokeG = color[1];
@@ -611,7 +611,7 @@ public class RiText implements RiTextIF
    * 
    * @param alpha
    */
-  public RiTextIF alpha(float alpha)
+  public RiText alpha(float alpha)
   {
     this.fillA = alpha;
     return this;
@@ -639,7 +639,7 @@ public class RiText implements RiTextIF
   /**
    * Draw the RiText object at current x,y,color,font,alignment, etc.
    */
-  public RiTextIF draw()
+  public RiText draw()
   {
     this.update();
     this.render(getPApplet().g);
@@ -650,7 +650,7 @@ public class RiText implements RiTextIF
    * Draw the RiText object at current x,y,color,font,alignment, etc. on the
    * specified PGraphics object
    */
-  public RiTextIF draw(PGraphics p)
+  public RiText draw(PGraphics p)
   {
     PGraphics pg = p != null ? p : getPApplet().g;
     this.update();
@@ -761,7 +761,7 @@ public class RiText implements RiTextIF
   }
 
   /**
-   * public RiTextIF mouseEvent(MouseEvent e) { float mx = e.getX(); float my =
+   * public RiText mouseEvent(MouseEvent e) { float mx = e.getX(); float my =
    * e.getY();
    * 
    * switch (e.getAction()) { case MouseEvent.PRESS: if (mouseDraggable &&
@@ -847,7 +847,7 @@ public class RiText implements RiTextIF
    * 
    * @param mtype
    */
-  public RiTextIF motionType(int mtype)
+  public RiText motionType(int mtype)
   {
     this.motionType = mtype;
     return this;
@@ -1472,7 +1472,7 @@ public class RiText implements RiTextIF
   /**
    * Set the current boundingBox stroke-weight for this object
    */
-  public RiTextIF boundingStrokeWeight(float r)
+  public RiText boundingStrokeWeight(float r)
   {
     this.bbStrokeWeight = r;
     return this;
@@ -1489,7 +1489,7 @@ public class RiText implements RiTextIF
   /**
    * Sets the current text to this String
    */
-  public RiTextIF text(String _text)
+  public RiText text(String _text)
   {
     if (this.text == null)
       this.text = new RiString(_text);
@@ -1499,14 +1499,14 @@ public class RiText implements RiTextIF
   }
 
   /**
-   * Sets boolean flag to show or hide the object public RiTextIF
+   * Sets boolean flag to show or hide the object public RiText
    * visible(boolean visible) { this.hidden = !visible; return this; }
    */
 
   /**
    * Sets the current text to the character
    */
-  public RiTextIF text(char ch)
+  public RiText text(char ch)
   {
     return this.text(Character.toString(ch));
   }
@@ -1608,7 +1608,7 @@ public class RiText implements RiTextIF
   /**
    * Sets the position for the current RiText
    */
-  public RiTextIF position(float px, float py)
+  public RiText position(float px, float py)
   {
     this.x = px;
     this.y = py;
@@ -1619,7 +1619,7 @@ public class RiText implements RiTextIF
    * Sets the 3d position for the current RiText
    */
   @SuppressWarnings("hiding")
-  public RiTextIF position(float x, float y, float z)
+  public RiText position(float x, float y, float z)
   {
     this.x = x;
     this.y = y;
@@ -1669,7 +1669,7 @@ public class RiText implements RiTextIF
    * @param align
    *          (RiTa.CENTER, RiTa.RIGHT, RiTa.LEFT[default])
    */
-  public RiTextIF textAlign(int align)
+  public RiText textAlign(int align)
   {
     this.textMode(align);
     return this;
@@ -2022,7 +2022,7 @@ public class RiText implements RiTextIF
   /**
    * Rotate the object via affine transform. This is same as rotateZ, but for 2D
    */
-  public RiTextIF rotate(float rotate)
+  public RiText rotate(float rotate)
   {
     this.rotateZ = rotate;
     return this;
@@ -2055,7 +2055,7 @@ public class RiText implements RiTextIF
   /**
    * Sets the x-rotation for the object
    */
-  public RiTextIF rotateX(float rotate)
+  public RiText rotateX(float rotate)
   {
     this.rotateX = rotate;
     return this;
@@ -2064,7 +2064,7 @@ public class RiText implements RiTextIF
   /**
    * Sets the y-rotation for the object
    */
-  public RiTextIF rotateY(float rotate)
+  public RiText rotateY(float rotate)
   {
     this.rotateY = rotate;
     return this;
@@ -2074,7 +2074,7 @@ public class RiText implements RiTextIF
    * Sets the z-rotation for the object
    * 
    */
-  public RiTextIF rotateZ(float rotate)
+  public RiText rotateZ(float rotate)
   {
     this.rotateZ = rotate;
     return this;
@@ -2083,7 +2083,7 @@ public class RiText implements RiTextIF
   /**
    * Sets the x-scale for the object
    */
-  public RiTextIF scaleX(float scale)
+  public RiText scaleX(float scale)
   {
     this.scaleX = scale;
     return this;
@@ -2092,7 +2092,7 @@ public class RiText implements RiTextIF
   /**
    * Sets the y-scale for the object
    */
-  public RiTextIF scaleY(float scale)
+  public RiText scaleY(float scale)
   {
     this.scaleY = scale;
     return this;
@@ -2101,7 +2101,7 @@ public class RiText implements RiTextIF
   /**
    * Sets the z-scale for the object
    */
-  public RiTextIF scaleZ(float scale)
+  public RiText scaleZ(float scale)
   {
     this.scaleZ = scale;
     return this;
@@ -2110,7 +2110,7 @@ public class RiText implements RiTextIF
   /**
    * Uniformly scales the object on all dimensions (x,y,z)
    */
-  public RiTextIF scale(float scale)
+  public RiText scale(float scale)
   {
     scaleX = scaleY = scaleZ = scale;
     return this;
@@ -2119,7 +2119,7 @@ public class RiText implements RiTextIF
   /**
    *  Scales the object on dimensions (x,y)
    */
-  public RiTextIF scale(float sX, float sY)
+  public RiText scale(float sX, float sY)
   {
     scale(new float[] { sX, sY});
     return this;
@@ -2130,7 +2130,7 @@ public class RiText implements RiTextIF
    * 
    * @exclude
    */
-  public RiTextIF scale(float sX, float sY, float sZ)
+  public RiText scale(float sX, float sY, float sZ)
   {
     scale(new float[] { sX, sY, sZ });
     return this;
@@ -2139,7 +2139,7 @@ public class RiText implements RiTextIF
   /**
    * Scales the object on either 2 or 3 dimensions (x,y,[z])
    */
-  public RiTextIF scale(float[] scales)
+  public RiText scale(float[] scales)
   {
     if (scales.length < 2)
       throw new RiTaException("scale(float[]) requires at least 2 values!");
@@ -2171,7 +2171,7 @@ public class RiText implements RiTextIF
    * specified 'idx' is less than xero, or beyond the length of the current
    * text, there will be no effect.
    */
-  public RiTextIF removeChar(int idx)
+  public RiText removeChar(int idx)
   {
     text.removeChar(idx);
     return this;
@@ -2184,7 +2184,7 @@ public class RiText implements RiTextIF
    * If the specified 'idx' is less than zero, or beyond the length of the
    * current text, there will be no effect.
    */
-  public RiTextIF replaceChar(int idx, char replaceWith)
+  public RiText replaceChar(int idx, char replaceWith)
   {
     text.replaceChar(idx, replaceWith);
     return this;
@@ -2195,7 +2195,7 @@ public class RiText implements RiTextIF
    * is less than xero, or beyond the length of the current text, there will be
    * no effect.
    */
-  public RiTextIF replaceChar(int idx, String replaceWith)
+  public RiText replaceChar(int idx, String replaceWith)
   {
     text.replaceChar(idx, replaceWith);
     return this;
@@ -2206,7 +2206,7 @@ public class RiText implements RiTextIF
    * specified 'idx' is less than zero, or beyond the length of the current
    * text, there will be no effect.
    */
-  public RiTextIF insertChar(int idx, char toInsert)
+  public RiText insertChar(int idx, char toInsert)
   {
     text.insertChar(idx, toInsert);
     return this;
@@ -2310,7 +2310,7 @@ public class RiText implements RiTextIF
     return rt;
   }
 
-  public RiTextIF showBounds(boolean b)
+  public RiText showBounds(boolean b)
   {
     this.boundingBoxVisible = b;
     return this;
@@ -2424,13 +2424,13 @@ public class RiText implements RiTextIF
     return random(diff) + low;
   }
 
-  public RiTextIF stopBehavior(int id)
+  public RiText stopBehavior(int id)
   {
     RiTextBehavior.getBehaviorById(id).stop();
     return this;
   }
 
-  public RiTextIF stopBehaviors()
+  public RiText stopBehaviors()
   {
     if (behaviors != null)
     {
@@ -2478,7 +2478,7 @@ public class RiText implements RiTextIF
     return this;
   }
 
-  public RiTextIF rotate(float rx, float ry, float rz)
+  public RiText rotate(float rx, float ry, float rz)
   {
     this.rotateX = rx;
     this.rotateY = ry;
@@ -2491,19 +2491,19 @@ public class RiText implements RiTextIF
     return new float[] { this.rotateZ, this.rotateY, this.rotateZ };
   }
 
-  public RiTextIF analyze()
+  public RiText analyze()
   {
     text.analyze();
     return this;
   }
 
-  public RiTextIF concat(String cs)
+  public RiText concat(String cs)
   {
     text.concat(cs);
     return this;
   }
 
-  public RiTextIF concat(RiString cs)
+  public RiText concat(RiString cs)
   {
     text.concat(cs);
     return this;
@@ -2546,7 +2546,7 @@ public class RiText implements RiTextIF
     return text.lastIndexOf(s);
   }
 
-  public RiTextIF insertWord(int wordIdx, String newWord)
+  public RiText insertWord(int wordIdx, String newWord)
   {
     text.insertWord(wordIdx, newWord);
     return this;
@@ -2572,25 +2572,25 @@ public class RiText implements RiTextIF
     return text.posAt(wordIdx, useWordNetTags);
   }
 
-  public RiTextIF replaceWord(int wordIdx, String newWord)
+  public RiText replaceWord(int wordIdx, String newWord)
   {
     text.replaceWord(wordIdx, newWord);
     return this;
   }
 
-  public RiTextIF replaceFirst(String regex, String replacement)
+  public RiText replaceFirst(String regex, String replacement)
   {
     text.replaceFirst(regex, replacement);
     return this;
   }
 
-  public RiTextIF replaceLast(String regex, String replacement)
+  public RiText replaceLast(String regex, String replacement)
   {
     text.replaceLast(regex, replacement);
     return this;
   }
 
-  public RiTextIF replaceAll(String regex, String replacement)
+  public RiText replaceAll(String regex, String replacement)
   {
     text.replaceAll(regex, replacement);
     return this;
@@ -2681,19 +2681,19 @@ public class RiText implements RiTextIF
    * public char[] toCharArray() { return text.toCharArray(); }
    */
 
-  public RiTextIF toLowerCase()
+  public RiText toLowerCase()
   {
     text.toLowerCase();
     return this;
   }
 
-  public RiTextIF toUpperCase()
+  public RiText toUpperCase()
   {
     text.toUpperCase();
     return this;
   }
 
-  public RiTextIF trim()
+  public RiText trim()
   {
     text.trim();
     return this;
@@ -2724,20 +2724,20 @@ public class RiText implements RiTextIF
     return text.match(s, flags);
   }
 
-  public RiTextIF removeWord(int idx)
+  public RiText removeWord(int idx)
   {
     text.removeWord(idx);
     return this;
   }
 
-  public RiTextIF concat(RiText cs)
+  public RiText concat(RiText cs)
   {
     text.concat(cs.text);
     return this;
   }
 
   // only for interface
-  public RiTextIF concat(RiTextIF cs)
+  public RiText concat(RiTextIF cs)
   {
     text.concat(cs.text());
     return this;
@@ -3053,7 +3053,7 @@ public class RiText implements RiTextIF
   ////////////////////////////////// Font-nonsense //////////////////////////////////
   
 
-  public RiTextIF fontSize(float sz)
+  public RiText fontSize(float sz)
   {
     verifyFont();
     
@@ -3068,7 +3068,7 @@ public class RiText implements RiTextIF
     return this;
   } 
   
-  public RiTextIF font(String name, float size)
+  public RiText font(String name, float size)
   {
 //System.out.println("RiText.font("+name+","+size+")");
     return this.font(name).fontSize(size);
@@ -3093,7 +3093,7 @@ public class RiText implements RiTextIF
     return name;
   }
     
-  public RiTextIF font(Object pf)
+  public RiText font(Object pf)
   {
     this.fontSizeAdjustment = 0;
     if (pf instanceof String)
@@ -3146,12 +3146,12 @@ public class RiText implements RiTextIF
     this.fontSizeAdjustment = fsize; // hack
   }
 
-  protected RiTextIF assignFont(PFont pf) {
+  protected RiText assignFont(PFont pf) {
     
     return this.assignFont(pf, null);
   }
   
-  protected RiTextIF assignFont(PFont pf, String fname)
+  protected RiText assignFont(PFont pf, String fname)
   {   
     this.font = pf;
     this.fontFamily = computeFontName(fname);
