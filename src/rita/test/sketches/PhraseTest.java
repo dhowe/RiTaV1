@@ -25,7 +25,7 @@ public class PhraseTest extends PApplet
       this.translation = trans;
     }
         
-    public RiTextIF draw()
+    public RiText draw()
     {  
       super.draw();
       child.draw();
@@ -37,7 +37,7 @@ public class PhraseTest extends PApplet
       return super.contains(mx, my) || child.contains(mx, my);
     }
     
-    public RiTextIF alpha(float alpha)
+    public RiText alpha(float alpha)
     {
       if (child != null)
         child.alpha(alpha);
