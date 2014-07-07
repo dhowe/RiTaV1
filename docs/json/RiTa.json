@@ -87,6 +87,30 @@
 	  "note":""
 
    },
+      {
+      "name": "RiTa.isStopWord",
+      "example":"",
+      "description":"",
+      "syntax":"RiTa.isStopWord(StopWord);",
+      "parameters":[
+         {
+            "type":"String",
+            "desc":"reset stop-words"
+         }
+
+      ],
+      "returns":[
+         {
+            "type":"boolean",
+            "desc":""
+         }
+
+      ],
+      "related":"",
+      "platform":"Java / Javascript",
+     "note":""
+
+   },
    {
       "name": "RiTa.env",
       "example":"",

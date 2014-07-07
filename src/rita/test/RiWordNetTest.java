@@ -1203,7 +1203,7 @@ public class RiWordNetTest
 		w.ignoreCompoundWords(false);
 		w.ignoreUpperCaseWords(false);
 
-		String[] expected = { "sportswear", "athletic wear", "activewear" }; //TODO  the answer has included itself "activewear"
+		String[] expected = { "sportswear", "athletic wear", "activewear" }; 
 		String[] result = w.getSynset(94292941);
 		//println(w.getSenseIds("activewear", "n"));
 		//printArr(result);
@@ -1215,8 +1215,8 @@ public class RiWordNetTest
 		int[] a = w.getSenseIds("medicare", "n");	
 		//println(a); // 91090933
 		String[] result3 = w.getSynset(91090933);
-		//println(w.getSenseIds("activewear", "n"));
-		//printArr(result3);
+		//println(w.getSenseIds("medicare", "n"));
+		printArr(result3);
 		setEqual(expected, result);
 		//assertTrue(Arrays.asList(expected).containsAll(Arrays.asList(result)));
 
@@ -2016,7 +2016,7 @@ public class RiWordNetTest
 			equal(true, w.exists("abc"));
 			equal(true, w.exists("wait"));
 			equal(false, w.exists("tesxx"));
-			equal(true, w.exists("health insurance")); //TODO should be true: need to add to docs
+			equal(true, w.exists("health insurance")); //TODO need to add to docs
 
 			equal(false, w.exists("123"));
 			equal(false, w.exists("#$%^&*()"));
@@ -2295,6 +2295,41 @@ public class RiWordNetTest
 		float expected = (float) 0.2;
 		float result = w.getDistance("table", "chair", "n");
 		equal(expected, result);
+		
+		float expected2 = (float) 0.3;
+		float result2 = w.getDistance("wood", "chair", "n");
+		//println(w.getDistance("wood", "chair", "n"));
+		equal(expected2, result2);
+		
+		float expected3 = (float) 0.4;
+		float result3 = w.getDistance("bird", "chair", "n");
+		//println(w.getDistance("bird", "chair", "n"));
+		equal(expected3, result3);
+		
+		float expected4 = (float) 0.7777778;
+		float result4 = w.getDistance("health insurance", "chair", "n");
+		//println(w.getDistance("health insurance", "chair", "n"));
+		equal(expected4, result4);
+		
+		float expected5 = (float) 0.75;
+		float result5 = w.getDistance("health insurance", "bird", "n");
+		//println(w.getDistance("health insurance", "bird", "n"));
+		equal(expected5, result5);
+		
+		float expected6 = (float) 0.9285714;
+		float result6 = w.getDistance("health insurance", "human", "n");
+		//println(w.getDistance("health insurance", "human", "n"));
+		equal(expected6, result6);
+		
+		float expected7 = (float) 0.75;
+		float result7 = w.getDistance("health insurance", "health", "n");
+		//println(w.getDistance("health insurance", "health", "n"));
+		equal(expected7, result7);
+		
+		float expected8 = (float) 1.0;
+		float result8 = w.getDistance("notevenaword", "human", "n");
+		println(w.getDistance("notevenaword", "human", "n"));
+		equal(expected8, result8);
 	}
 
 	@Test

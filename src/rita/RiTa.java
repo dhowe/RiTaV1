@@ -596,13 +596,13 @@ public class RiTa implements Constants
     if (rt != null) rt.stop();
   } 
   
-  public static boolean isStopWord(String s) { // NIAPI
+  public static boolean isStopWord(String s) { 
     if (stopWords == null) {
       stopWords = new HashSet();
       stopWords.addAll(Arrays.asList(RiTa.STOP_WORDS));
     }
     return (stopWords.contains(s.toUpperCase()));
-  } static Set stopWords; // TODO: add to API? (let user reset stop-words)
+  } static Set stopWords; 
   
   
   public static void pauseTimer(int id, boolean b) {
