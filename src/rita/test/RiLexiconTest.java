@@ -24,7 +24,7 @@ public class RiLexiconTest
 	}
 
 	@Test
-	public void testAddWord()
+	public void testAddWordStringStringString()
 	{
 		RiLexicon lex = new RiLexicon();
 
@@ -86,7 +86,7 @@ public class RiLexiconTest
 
 
 	@Test
-	public void testContainsWord()
+	public void testContainsWordString()
 	{
 		RiLexicon lex = new RiLexicon();
 
@@ -111,10 +111,20 @@ public class RiLexiconTest
 
 
 	@Test
-	public void testAlliterations()
+	public void testAlliterationsString()
 	{
 		RiLexicon lex = new RiLexicon(); 
-		String[] result = lex.alliterations("cat");
+		String[] result = lex.alliterations("accidentally");
+		for(int i=0; i<result.length; i++){
+			//System.out.println(result[i]);
+		}
+		ok(result.length > 1000);
+
+		lex = new RiLexicon(); 
+		result = lex.alliterations("apples");
+		for(int i=0; i<result.length; i++){
+			//System.out.println(result[i]);
+		}
 		ok(result.length > 1000);
 
 		result = new String[] {};
@@ -144,7 +154,7 @@ public class RiLexiconTest
 	}
 
 	@Test
-	public void testAlliterationsInt()
+	public void testAlliterationsStringInt()
 	{
 		RiLexicon lex = new RiLexicon();
 		String[] result = lex.alliterations("dog", 16);
@@ -186,6 +196,14 @@ public class RiLexiconTest
 		lex.containsWord("hello");
 	}
 
+
+	@Test
+	public void testLexicalDataMap()
+	{
+		//TODO
+	}
+	
+	
 	@Test
 	public void testRandomWord()
 	{
@@ -274,7 +292,7 @@ public class RiLexiconTest
 	}
 
 	@Test
-	public void testRhymes()
+	public void testRhymesString()
 	{
 		RiLexicon lex = new RiLexicon();
 
@@ -338,7 +356,7 @@ public class RiLexiconTest
 		for (int i = 0; i < result.length; i++)
 			result[i].matches("^.*ee.*$");
 
-/*	System.out.println(result[0]);
+		/*	System.out.println(result[0]);
 		System.out.println(result[1]);
 		System.out.println(result[2]);
 		System.out.println(result2[0]);
@@ -388,11 +406,18 @@ public class RiLexiconTest
 		ok(diff);
 
 	}
+	
+	@Test
+	public void testWordsBoolean()
+	{
+
+		//TODO
+	}
 
 
 
 	@Test
-	public void testIsAdverb()
+	public void testIsAdverbString()
 	{
 		RiLexicon lex = new RiLexicon();
 
@@ -454,7 +479,7 @@ public class RiLexiconTest
 	}
 
 	@Test
-	public void testIsNoun()
+	public void testIsNounString()
 	{
 		RiLexicon lex = new RiLexicon();
 		ok(lex.isNoun("swim"));
@@ -515,7 +540,7 @@ public class RiLexiconTest
 	}
 
 	@Test
-	public void testIsVerb()
+	public void testIsVerbString()
 	{
 		RiLexicon lex = new RiLexicon();
 
@@ -583,7 +608,7 @@ public class RiLexiconTest
 	}
 
 	@Test
-	public void testIsAdjective()
+	public void testIsAdjectiveString()
 	{
 		RiLexicon lex = new RiLexicon();
 
@@ -641,7 +666,7 @@ public class RiLexiconTest
 	}
 
 	@Test
-	public void testIsAlliteration()
+	public void testIsAlliterationStringString()
 	{
 		RiLexicon lex = new RiLexicon();
 
@@ -669,7 +694,7 @@ public class RiLexiconTest
 	}
 
 	@Test
-	public void testGetRawPhones()
+	public void testGetRawPhonesStringBoolean()
 	{
 		RiLexicon lex = new RiLexicon();
 
@@ -690,7 +715,7 @@ public class RiLexiconTest
 	}
 
 	@Test
-	public void testIsRhyme()
+	public void testIsRhymeStringString()
 	{
 		// TODO: check all these
 		RiLexicon lex = new RiLexicon();
@@ -706,23 +731,42 @@ public class RiLexiconTest
 		ok(lex.isRhyme("sieve", "give"));
 
 
-		ok(!lex.isRhyme("solo", "yoyo")); // yoyo is null
-		ok(!lex.isRhyme("yoyo", "jojo"));  // both null
+		ok(!lex.isRhyme("solo", "yoyo")); 
+		ok(!lex.isRhyme("yoyo", "jojo")); 
 	}
 
 	@Test
-	public void testIsRhymeBoolean()
+	public void testIsRhymeStringStringBoolean()
 	{
 		// TODO: check all these (more tests)
 		RiLexicon lex = new RiLexicon();
 
-		ok(!lex.isRhyme("solo", "yoyo", false)); // yoyo is null
-		ok(!lex.isRhyme("yoyo", "jojo", false));  // both null
-		ok(lex.isRhyme("yoyo", "jojo", true));  // both null
+		ok(!lex.isRhyme("solo", "yoyo", false)); 
+		ok(!lex.isRhyme("yoyo", "jojo", false));  
+		ok(lex.isRhyme("yoyo", "jojo", true)); 
+
+		ok(lex.isRhyme("solo", "tomorrow",true)); 
+
+		ok(lex.isRhyme("tomorrow", "solo",true)); 
+		ok(!lex.isRhyme("apple", "polo",true)); 
+		ok(!lex.isRhyme("this", "these",false));
+
+		ok(lex.isRhyme("solo", "tomorrow",true));
+		ok(lex.isRhyme("cat", "hat",true));
+		ok(lex.isRhyme("yellow", "mellow",false));
+		ok(lex.isRhyme("toy", "boy",true));
+		ok(lex.isRhyme("toy", "boy",false));
+		ok(lex.isRhyme("sieve", "give",true));
+		ok(lex.isRhyme("toy", "soy",true));
+		ok(!lex.isRhyme("sieve", "mellow",false));  
+		ok(!lex.isRhyme("sieve", "mellow",true));  
+		ok(lex.isRhyme("yellow", "wellow",true));   //TODO need some example for correct use of LTS engine
+
+
 	}
 
 	@Test
-	public void testRemoveWord()
+	public void testRemoveWordString()
 	{
 		RiLexicon lex = new RiLexicon();
 		int size1 = lex.size();
@@ -756,11 +800,8 @@ public class RiLexiconTest
 
 
 	@Test
-	public void testSimilarByLetter()
+	public void testSimilarByLetterString()
 	{
-		// similarByLetter(String input)  //I
-
-		// TODO: test other parameter combos
 
 		RiLexicon lex = new RiLexicon();
 		String[] result = lex.similarByLetter("banana");
@@ -791,32 +832,84 @@ public class RiLexiconTest
 		answer = new String[] {};
 		deepEqual(answer, result);
 
+
+		/* FOR ABOVE
+		 * in RitaJS result = new String[]{}; result = lex.similarByLetter("banana",
+		 * 1, true); answer = new String[]{ "cabana" }; deepEqual(result, answer);
+		 * 
+		 * result = new String[]{}; result = lex.similarByLetter("banana", 1,
+		 * false); answer = new String[]{ "banal", "bonanza", "cabana", "lantana",
+		 * "manna", "wanna" }; deepEqual(result, answer);
+		 */
+
+
+
+
+
 	}
-	/* FOR ABOVE
-	 * in RitaJS result = new String[]{}; result = lex.similarByLetter("banana",
-	 * 1, true); answer = new String[]{ "cabana" }; deepEqual(result, answer);
-	 * 
-	 * result = new String[]{}; result = lex.similarByLetter("banana", 1,
-	 * false); answer = new String[]{ "banal", "bonanza", "cabana", "lantana",
-	 * "manna", "wanna" }; deepEqual(result, answer);
-	 */
-
-	/*
-	 * result = new String[]{}; result = lex.similarByLetter("ice", 1); answer =
-	 * new String[]{ "ace", "dice", "iced", "icy", "ire", "lice", "mice",
-	 * "nice", "rice", "vice" }; deepEqual(result, answer);
-	 * 
-	 * result = new String[]{}; result = lex.similarByLetter("ice", 2, true);
-	 * ok(result.length > 10);
-	 * 
-	 * result = new String[]{}; result = lex.similarByLetter("ice", 0, true);
-	 * answer = new String[]{ "ace", "icy", "ire" }; deepEqual(result, answer);
-	 */
-
+	
 	@Test
-	public void testSimilarBySound()
+	public void testSimilarByLetterStringInt()
+	{
+		RiLexicon lex = new RiLexicon();
+		
+		
+		String[] result = new String[]{}; 
+		result = lex.similarByLetter("happier", 1); 
+		String[] answer = new String[]{"hardier","rapier","happily","hipper","hopper","dapper","handier","hippie","hamper","happiest","happen"};  
+		for(int i=0;i<result.length;i++){
+			//System.out.println(result[i]);
+		}
+		deepEqual(result, answer);
+		
+
+		result = new String[]{}; 
+		result = lex.similarByLetter("ice", 1); 
+		answer =new String[]{ "mice","ire","dice","rice","icy","vice","lice","nice","iced","ace"}; 
+		//for(int i=0;i<result.length;i++){
+		//	System.out.println(result[i]);
+	//	}
+		deepEqual(result, answer);
+
+
+	}
+	
+	@Test
+	public void testSimilarByLetterStringIntBoolean()
+	{
+		RiLexicon lex = new RiLexicon();
+		String[] result = new String[]{}; 
+		result = lex.similarByLetter("ice", 2, true);
+		ok(result.length > 10);
+
+		result = new String[]{}; 
+		result = lex.similarByLetter("ice", 0, true);
+		String[] answer = new String[]{  "ire","icy","ace" }; 
+		for(int i=0;i<result.length;i++){
+			//System.out.println(result[i]);
+		}
+		deepEqual(result, answer);
+		
+		result = new String[]{}; 
+		result = lex.similarByLetter("happier", 1, false); 
+		answer =new String[]{"hardier","rapier","happily","hipper","hopper","dapper","handier","hippie","hamper","happiest","happen"}; 
+		for(int i=0;i<result.length;i++){
+		//	System.out.println(result[i]);
+		}
+		deepEqual(result, answer);
+
+		result = new String[]{}; 
+		result = lex.similarByLetter("happier", 1, true); 
+		answer =new String[]{"hardier","happily","handier"}; 
+		for(int i=0;i<result.length;i++){
+			//System.out.println(result[i]);
+		}
+		deepEqual(result, answer);
+	}
+	
+	@Test
+	public void testSimilarBySoundString()
 	{    
-		// TODO: test other parameter combos
 
 		RiLexicon lex = new RiLexicon();
 
@@ -845,10 +938,66 @@ public class RiLexiconTest
 		result = lex.similarBySound("");
 		answer = new String[] {};
 		deepEqual(result, answer);
+		
+		
+	
 	}
 
 	@Test
-	public void testSimilarBySoundAndLetter()
+	public void testSimilarBySoundStringInt()
+	{
+		RiLexicon lex = new RiLexicon();
+		
+		String[] result = lex.similarBySound("happy",1);
+		String[] answer = new String[] { "hippie","happier" };
+		for(int i=0;i<result.length;i++){
+			//System.out.println(result[i]);
+		}
+		deepEqual(result, answer);
+		
+		result = lex.similarBySound("happy",0);
+		answer = new String[] { "hippie","happier" };
+		for(int i=0;i<result.length;i++){
+			//System.out.println(result[i]);
+		}
+		deepEqual(result, answer);
+		
+		result = lex.similarBySound("happy",2);
+		answer = new String[] { "hippie","happier" };
+	
+		ok(result.length > 10);
+		
+		result = lex.similarBySound("try",0);
+		answer = new String[] { "tie","tried","trite","tree","tries","pry","dry","tribe","true",
+				"tripe","cry","wry","tray","fry","rye" };
+	
+		for(int i=0;i<result.length;i++){
+			System.out.println(result[i]);
+		}
+		deepEqual(result, answer);
+		
+		result = lex.similarBySound("try",1);
+		answer = new String[] { "tie","tried","trite","tree","tries","pry","dry","tribe","true",
+				"tripe","cry","wry","tray","fry","rye" };
+	
+		for(int i=0;i<result.length;i++){
+			//System.out.println(result[i]);
+		}
+		deepEqual(result, answer);
+		
+		result = lex.similarBySound("try",2);
+		answer = new String[] { "tie","tried","trite","tree","tries","pry","dry","tribe","true",
+				"tripe","cry","wry","tray","fry","rye" };
+	
+		for(int i=0;i<result.length;i++){
+			//System.out.println(result[i]);
+		}
+		ok(result.length > 30);
+	}
+	
+	
+	@Test
+	public void testSimilarBySoundAndLetterString()
 	{
 		RiLexicon lex = new RiLexicon();
 
@@ -884,7 +1033,7 @@ public class RiLexiconTest
 	}
 
 	@Test
-	public void testSubstrings()
+	public void testSubstringsString()
 	{
 		RiLexicon lex = new RiLexicon(); // only 1 per test needed
 
@@ -895,60 +1044,37 @@ public class RiLexiconTest
 		String[] answer = { "sand", "thou" };
 		deepEqual(result, answer);
 
-		result = lex.substrings("thousand", 4); // min-length=4
-		answer = new String[] { "sand", "thou" };
-		deepEqual(result, answer);
 
-		result = lex.substrings("thousand", 5); // min-length=5
-		answer = new String[] {  };
-		deepEqual(result, answer);
 
 
 		String[] result2 = lex.substrings("headache");
-/*		for(int i=0; i<result2.length; i++){
+		/*		for(int i=0; i<result2.length; i++){
 			//System.out.println(result2[i]);
 		}*/
 		String[] answer2 = { "ache", "head" };
 		deepEqual(result2, answer2);
 
-		result2 = lex.substrings("headache", 3); // min-length=4
-		answer2 = new String[] { "ache", "head" };;
-		deepEqual(result2, answer2);
-
-		result2 = lex.substrings("headache", 5); // min-length=5
-		answer2 = new String[] {  };
-		deepEqual(result2, answer2);
 
 
 
 		String[] result3 = lex.substrings("exhibition");
-/*		for(int i=0; i<result3.length; i++){
+		/*		for(int i=0; i<result3.length; i++){
 			//System.out.println(result3[i]);
 		}*/
 		String[] answer3 = { "exhibit"};
 		deepEqual(result3, answer3);
 
-		result3 = lex.substrings("exhibition", 3); 
-		answer3 = new String[] {"ion","bit","exhibit"};
-/*		for(int i=0; i<result3.length; i++){
-			//System.out.println(result3[i]);
-		}*/
-		deepEqual(result3, answer3);
-
-		result3 = lex.substrings("exhibition", 5); 
-		answer3 = new String[]{ "exhibit"};
-		deepEqual(result3, answer3);
 
 
 		String[] result4 = lex.substrings("hell");
-/*		for(int i=0; i<result4.length; i++){
+		/*		for(int i=0; i<result4.length; i++){
 			System.out.println(result4[i]);
 		}*/
 		String[] answer4 = { };
 		deepEqual(result4, answer4);
 
 		String[] result5 = lex.substrings("hi");
-/*		for(int i=0; i<result5.length; i++){
+		/*		for(int i=0; i<result5.length; i++){
 			System.out.println(result5[i]);
 		}*/
 		String[] answer5 = { };
@@ -958,9 +1084,48 @@ public class RiLexiconTest
 		deepEqual(result,new String[0]);
 
 	}
+	
+	
+	@Test
+	public void testSubstringsStringInt()
+	{
+		RiLexicon lex = new RiLexicon(); // only 1 per test needed
+		
+		String[] result = lex.substrings("thousand", 4); // min-length=4
+		String[] answer = new String[] { "sand", "thou" };
+		deepEqual(result, answer);
+
+		result = lex.substrings("thousand", 5); // min-length=5
+		answer = new String[] {  };
+		deepEqual(result, answer);
+		
+		
+		String[] result2 = lex.substrings("headache", 3); // min-length=4
+		String[] answer2 = new String[] { "ache", "head" };;
+		deepEqual(result2, answer2);
+
+		result2 = lex.substrings("headache", 5); // min-length=5
+		answer2 = new String[] {  };
+		deepEqual(result2, answer2);
+
+		
+		
+		String[]result3 = lex.substrings("exhibition", 3); 
+		String[] answer3 = new String[] {"ion","bit","exhibit"};
+		/*		for(int i=0; i<result3.length; i++){
+			//System.out.println(result3[i]);
+		}*/
+		deepEqual(result3, answer3);
+
+		result3 = lex.substrings("exhibition", 5); 
+		answer3 = new String[]{ "exhibit"};
+		deepEqual(result3, answer3);
+
+	
+	}
 
 	@Test
-	public void testSuperstrings()
+	public void testSuperstringsString()
 	{
 		// superstringsByLetter(String input)
 

@@ -414,7 +414,7 @@
 			},
 			{ 
 			"type": "boolean", 
-			"desc": "whether to return only words that match the length of the input word (optional, default=true)" 
+			"desc": "whether to return only words that match the length of the input word (optional, default=false)" 
 			}
 	  ],
 	  "returns":

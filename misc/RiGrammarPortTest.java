@@ -550,7 +550,7 @@ public class RiGrammarPortTest
     ok(rule.equals("&#8220;hello!&#8221;"));
     res = rg.expand();
     // System.out.println(res);
-    ok(res.equals("“hello!”"));
+    ok(res.equals("���hello!���"));
 
     s = "{ \"<start>\": \"&lt;start&gt;\" }";
     rg = new RiGrammar(s);
