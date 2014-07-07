@@ -10,7 +10,7 @@ import rita.RiLexicon;
 public class RiLexiconClearTest
 {
   @Test
-  public void testAddWord()
+  public void testAddWordStringStringString()
   {
     RiLexicon lex = new RiLexicon();
     
@@ -35,7 +35,7 @@ public class RiLexiconClearTest
   }
 
   @Test
-  public void testRemoveWord()
+  public void testRemoveWordString()
   {
     RiLexicon lex = new RiLexicon();
 

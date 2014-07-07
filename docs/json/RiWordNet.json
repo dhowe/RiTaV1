@@ -1258,7 +1258,7 @@
 	"variable": false,
 	"name": "exists",
 	"example": "",
-	"description": "Checks the existence of a word in the ontology",
+	"description": "Checks the existence of a word in the ontology. It is independent from ignoreCompoundWords()",
 	"syntax":"exists(word);",
 	"parameters": [{
 		"type": "String",

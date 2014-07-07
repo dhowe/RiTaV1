@@ -230,7 +230,7 @@ public class RiWordNetTest
 		ok(w.exists("health"));
 
 		ok(w.exists("medicare"));
-		ok(w.exists("health insurance")); //TODO need to document that it is independent from (ignoreCompoundWords)
+		ok(w.exists("health insurance")); 
 		ok(!w.exists("health ignorance"));
 		ok(!w.exists("health XXX"));
 
@@ -1974,7 +1974,6 @@ public class RiWordNetTest
     setEqual(w.getStems("terrible","a"), new String[]{"terrible"});
     
     expected = w.getStems("terribl","a");
-    //println(expected);
     setEqual(expected, EMPTY);
     setEqual(w.getStems("terrible","z"), EMPTY);
 	}
@@ -2016,7 +2015,7 @@ public class RiWordNetTest
 			equal(true, w.exists("abc"));
 			equal(true, w.exists("wait"));
 			equal(false, w.exists("tesxx"));
-			equal(true, w.exists("health insurance")); //TODO need to add to docs
+			equal(true, w.exists("health insurance")); 
 
 			equal(false, w.exists("123"));
 			equal(false, w.exists("#$%^&*()"));
@@ -2290,7 +2289,7 @@ public class RiWordNetTest
 	}
 
 	@Test
-	public void testGetDistance() //TODO more tests
+	public void testGetDistance()
 	{
 		float expected = (float) 0.2;
 		float result = w.getDistance("table", "chair", "n");
