@@ -200,7 +200,15 @@ public class RiLexiconTest
 	@Test
 	public void testLexicalDataMap()
 	{
-		//TODO
+		
+		Map obj = new HashMap();
+		obj.put("wonderfullyy", new String[] { "w-ah1-n-d er-f ax-l iy", "rb" });
+		RiLexicon lex = new RiLexicon(obj);
+		
+		Map result = lex.lexicalData();
+		ok(lex.containsWord("wonderfullyy"));
+		equal("w-ah1-n-d er-f ax-l iy|rb",(String) result.get("wonderfullyy"));
+		ok(!lex.containsWord("wonderful"));
 	}
 	
 	
@@ -410,8 +418,17 @@ public class RiLexiconTest
 	@Test
 	public void testWordsBoolean()
 	{
-
-		//TODO
+		/*
+		RiLexicon lex = new RiLexicon();
+		String[] result = lex.words(true);
+		for (int i = 0; i < 20; i++){
+		System.out.println(result[i]);
+	}
+		
+		result = lex.words(false);
+		for (int i = 0; i < 20; i++){
+		//println(result[i]);
+		}*/
 	}
 
 
