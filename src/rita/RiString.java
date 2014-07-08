@@ -196,6 +196,16 @@ public class RiString implements FeaturedIF, Constants
     return delegate.indexOf(s);
   }
 
+  public int indexOf(String s, int startIdx)
+  {
+    return delegate.indexOf(s, startIdx);
+  }
+  
+  public int lastIndexOf(String s, int startIdx)
+  {
+    return delegate.indexOf(s, startIdx);
+  }
+    
   public int lastIndexOf(String s)
   {
     return delegate.lastIndexOf(s);
