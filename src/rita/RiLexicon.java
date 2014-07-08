@@ -272,26 +272,22 @@ public class RiLexicon implements Constants
     }
   }
 
-  /**
-   *  Returns the set of words in the lexicon (including those from user-addenda)
-   *  in random order
-   */
   public String[] words()
   {
     return SetOp.toStringArray(lexicalData().keySet(), true);
   }
-  
-  /** 
-   * Returns the set of words in the lexicon 
-   * that match the supplied regular expression in random order. 
-   * For example, getWords("ee"); returns 661 words with 2 or more consecutive e's,
-   * while getWords("ee.*ee"); returns exactly 2: 'freewheeling' and 'squeegee'.
-   */
+
   public String[] words(String regex)
   {
     return words(regex, false);
   }
+  
 
+  public String[] words(boolean ordered)
+  {
+    return SetOp.toStringArray(lexicalData().keySet(), ordered);
+  }
+  
  /**
   * Returns the set of words in the lexicon
   * that match the supplied regular expression in random order. 
