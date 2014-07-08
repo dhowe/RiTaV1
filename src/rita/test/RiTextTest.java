@@ -998,8 +998,13 @@ public class RiTextTest
 
     rs = new RiText(null, "     Start at first character.    "); // spaces/tabs
     equal(rs.trim().text(), "Start at first character.");
+    
+    rs = new RiText(null, "Start at first character.\t"); //\t
+    equal(rs.trim().text(), "Start at first character.");
+    
+    rs = new RiText(null, "\t\t\tStart at first character.\t"); //\t
+    equal(rs.trim().text(), "Start at first character.");
 
-    // TODO: add tests for 'hard' tabs
     // no error checks needed
   }
 
@@ -1102,7 +1107,8 @@ public class RiTextTest
 
     rs = new RiText(null, "abc!");
     result = rs.match("r?or?");
-    deepEqual(result, new String[] {}); // TODO regular expression
+    deepEqual(result, new String[] {}); // +
+    TODO regular expression
 
     // TODO: case-insensitive tests?
     rs = new RiText(null, "The rain in SPAIN stays mainly in the plain");
