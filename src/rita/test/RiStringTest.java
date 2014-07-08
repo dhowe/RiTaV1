@@ -249,98 +249,24 @@ public class RiStringTest implements Constants
   @Test
   public void testFeatures()
   {
-    // TODO: this is not testing anything... redo
-    
-    RiString rs = new RiString("Returns the array of words.").analyze();
-    Map m = rs.features();
-
-    ok(m != null);
-
-    ok(m.containsKey(RiTa.PHONEMES));
-    ok(m.containsKey(RiTa.SYLLABLES));
-    ok(m.containsKey(RiTa.STRESSES));
-
-    String ph = rs.get(RiTa.PHONEMES);
-    String sy = rs.get(RiTa.SYLLABLES);
-    String st = rs.get(RiTa.STRESSES);
-
-    equal(ph, m.get(RiTa.PHONEMES));
-    /*
-     * System.out.println("PHONEMES:"+ph);
-     * System.out.println("SYLLABLES :"+m.get(RiTa.SYLLABLES));
-     */
-    equal(sy, m.get(RiTa.SYLLABLES));
-    equal(st, m.get(RiTa.STRESSES));
-
-    // --------------------------------------------------------------
-
-    rs = new RiString("123").analyze();
-    m = rs.features();
-
-    ok(m != null);
-
-    ok(m.containsKey(RiTa.PHONEMES));
-    ok(m.containsKey(RiTa.SYLLABLES));
-    ok(m.containsKey(RiTa.STRESSES));
-
-    ph = rs.get(RiTa.PHONEMES);
-    sy = rs.get(RiTa.SYLLABLES);
-    st = rs.get(RiTa.STRESSES);
-
-    equal(ph, m.get(RiTa.PHONEMES));
-    equal(sy, m.get(RiTa.SYLLABLES));
-    equal(st, m.get(RiTa.STRESSES));
-
-    rs = new RiString("1 2 3").analyze();
-    m = rs.features();
-
-    ok(m != null);
-
-    ok(m.containsKey(RiTa.PHONEMES));
-    ok(m.containsKey(RiTa.SYLLABLES));
-    ok(m.containsKey(RiTa.STRESSES));
-
-    ph = rs.get(RiTa.PHONEMES);
-    sy = rs.get(RiTa.SYLLABLES);
-    st = rs.get(RiTa.STRESSES);
-
-    equal(ph, m.get(RiTa.PHONEMES));
-    equal(sy, m.get(RiTa.SYLLABLES));
-    equal(st, m.get(RiTa.STRESSES));
-
-    rs = new RiString("123.").analyze();
-    m = rs.features();
-
-    ok(m != null);
-
-    ok(m.containsKey(RiTa.PHONEMES));
-    ok(m.containsKey(RiTa.SYLLABLES));
-    ok(m.containsKey(RiTa.STRESSES));
-
-    ph = rs.get(RiTa.PHONEMES);
-    sy = rs.get(RiTa.SYLLABLES);
-    st = rs.get(RiTa.STRESSES);
-
-    equal(ph, m.get(RiTa.PHONEMES));
-    equal(sy, m.get(RiTa.SYLLABLES));
-    equal(st, m.get(RiTa.STRESSES));
-
-    rs = new RiString(".").analyze();
-    m = rs.features();
-
-    ok(m != null);
-
-    ok(m.containsKey(RiTa.PHONEMES));
-    ok(m.containsKey(RiTa.SYLLABLES));
-    ok(m.containsKey(RiTa.STRESSES));
-
-    ph = rs.get(RiTa.PHONEMES);
-    sy = rs.get(RiTa.SYLLABLES);
-    st = rs.get(RiTa.STRESSES);
-
-    equal(ph, m.get(RiTa.PHONEMES));
-    equal(sy, m.get(RiTa.SYLLABLES));
-    equal(st, m.get(RiTa.STRESSES));
+	  RiString rs = new RiString("Returns the array of words.").analyze();
+	  Map features = rs.features();
+	    ok(features);
+	    ok(features.containsKey(RiTa.TEXT));
+	//  ok(features.containsKey(RiTa.MUTABLE));
+	    ok(features.containsKey(RiTa.SYLLABLES));
+	    ok(features.containsKey(RiTa.PHONEMES));
+	    ok(features.containsKey(RiTa.STRESSES));
+	    ok(features.containsKey(RiTa.TOKENS));
+	    ok(features.containsKey(RiTa.POS));
+	    ok(rs.get(RiTa.SYLLABLES));
+	    ok(rs.get(RiTa.PHONEMES));
+	    ok(rs.get(RiTa.STRESSES));
+	    ok(rs.get(RiTa.TEXT));
+	//  ok(rs.get(RiTa.MUTABLE));
+	    ok(rs.get(RiTa.TOKENS));
+	    ok(rs.get(RiTa.POS));
+	  
 
   }
 
