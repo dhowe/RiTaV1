@@ -387,17 +387,14 @@ public class RiStringTest implements Constants
     result = rs.indexOf(",");
     equal(result, -1);
 
-    /*
-     * rs = new
-     * RiString("Returns the array of words. Returns the array of words.");
-     * result = rs.indexOf("a", 13); equal(result, 15);
-     * 
-     * rs = new RiString();
-     * RiString("Returns the array of words. Returns the array of words?");
-     * result = rs.indexOf("array", 1); equal(result, 40); //TODO 2 parameters
-     * not implemeted yet
-     */
-    // extra / wrong parameter test
+/*      rs = new RiString("Returns the array of words. Returns the array of words.");
+      result = rs.indexOf("a", 13); 
+      equal(result, 15);
+      
+      rs = new RiString("Returns the array of words. Returns the array of words?");
+      result = rs.indexOf("array", 1); 
+      equal(result, 40); 
+  */
 
     rs = new RiString("Returns the array of words. Returns the array of words.");
     result = rs.indexOf("");
@@ -1197,6 +1194,15 @@ public class RiStringTest implements Constants
       equal(result[i], answer[i]);
     // deepEqual(result, answer); // TODO: deepEquals seems to be broken for
     // char[]
+    
+ 
+    rs = new RiString("h5i5 5%^&*() tab space	");
+    result = rs.toCharArray();
+    answer = new char[]{ 'h','5','i','5',' ','5','%','^','&','*','(',')',' ','t','a','b',' ','s','p','a','c','e','	'};
+    for (int i = 0; i < result.length; i++)
+      equal(result[i], answer[i]);
+    
+    
   }
 
   @Test
@@ -1229,7 +1235,6 @@ public class RiStringTest implements Constants
   }
 
   @Test
-  // TODO: retuns String(in docs) or RiString??
   public void testTrim()
   {
     RiString rs = null;
