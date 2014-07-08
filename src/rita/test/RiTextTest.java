@@ -1107,8 +1107,8 @@ public class RiTextTest
 
     rs = new RiText(null, "abc!");
     result = rs.match("r?or?");
-    deepEqual(result, new String[] {}); // +
-    TODO regular expression
+    deepEqual(result, new String[] {}); 
+    // TODO regular expression
 
     // TODO: case-insensitive tests?
     rs = new RiText(null, "The rain in SPAIN stays mainly in the plain");
