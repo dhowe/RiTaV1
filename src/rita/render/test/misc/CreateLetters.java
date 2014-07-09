@@ -42,7 +42,7 @@ public class CreateLetters extends PApplet {
 	public void mouseReleased() {
 
 		RiText.disposeAll();
-		RiTextIF[] rts = RiText.createLetters(this, txt, x, y, w, h);
+		RiText[] rts = RiText.createLetters(this, txt, x, y, w, h);
 		for (int i = 0; i < rts.length; i++) {
 			rts[i].fill(RiText.randomColor());
 		}

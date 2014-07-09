@@ -1,13 +1,14 @@
 package rita;
 
+import java.util.List;
 import java.util.Map;
 
-public interface RiTextIF
+public interface RiTextIF extends rita.support.Constants
 {
-  public RiText draw();
-  public RiText copy();   
-  public RiText stopBehavior(int id); 
-  public RiText stopBehaviors(); 
+  public RiTextIF draw();
+  public RiTextIF copy();   
+  public RiTextIF stopBehavior(int id); 
+  public RiTextIF stopBehaviors(); 
   
   public float[] boundingBox();
   public float[] center(); 
@@ -16,8 +17,8 @@ public interface RiTextIF
   
   public boolean contains(String s); 
   public float distanceTo(float x, float y); 
-  public RiText[] splitLetters(); 
-  public RiText[] splitWords(); 
+  public RiTextIF[] splitLetters(); 
+  public RiTextIF[] splitWords(); 
 
   public float textHeight(); 
   public float textAscent(); 
@@ -27,88 +28,87 @@ public interface RiTextIF
   public int fadeIn(float seconds, float delay); 
   public int fadeOut(float seconds, float delay,  boolean destroyOnComplete); 
   public int moveTo(float newX, float newY, float seconds, float delay); 
-  public int colorTo(float[] colors, float seconds, float delay, int type); 
+  public int colorTo(float[] colors, float seconds, float delay, EventType _type); 
   public int rotateTo(float angleInRadians, float seconds, float delay); 
   public int scaleTo(float theScale, float seconds, float delay); 
   public int textTo(String newText, float seconds);
   
   // Setters / Getters
   
-  public PFont font(); // ???
-  public RiText font(String name, float size);
-  public RiText fontSize(float f); 
+  public RiTextIF font(String name, float size);
+  public RiTextIF fontSize(float f); 
   public float fontSize(); 
   
-  public RiText align(int i);
+  public RiTextIF align(int i);
   public int align();
   
-  public RiText alpha(float a); 
+  public RiTextIF alpha(float a); 
   public float alpha(); 
   
-  public RiText rotate(float r);
-  public RiText rotate(float rx, float ry, float rz);
+  public RiTextIF rotate(float r);
+  public RiTextIF rotate(float rx, float ry, float rz);
   public float[] rotate(); 
   
-  public RiText scale(float s);
-  public RiText scale(float x, float y, float z);
+  public RiTextIF scale(float s);
+  public RiTextIF scale(float x, float y, float z);
   public float[] scale(); 
   
-  public RiText color(float r, float g, float b, float a);
-  public RiText color(float[] color);
-  public float[] color(); 
+  public RiTextIF fill(float r, float g, float b, float a);
+  public RiTextIF fill(float r, float g, float b);
+  public RiTextIF fill(float g, float a);
+  public RiTextIF fill(float g);
+  public RiTextIF fill(float[] color);
+  public float[] fill(); 
   
-  public RiText text(String s); 
+  public RiTextIF text(String s); 
   public String text(); 
    
   public boolean isVisible();
   
-  public RiText showBoundingBox(boolean b); 
-  public boolean showBoundingBox(); 
+  public RiTextIF showBounds(boolean b); 
+  public boolean showBounds(); 
   
-  public RiText motionType(int type); 
+  public RiTextIF motionType(int type); 
   public int motionType();
   
-  public RiText position(float x, float y); 
-  public RiText position(float x, float y, float z); 
+  public RiTextIF position(float x, float y); 
+  public RiTextIF position(float x, float y, float z); 
   public float[] position(); 
   
   // from RiString =====================
   
-  RiText replaceFirst(String regex, String t);
-  RiText replaceLast(String regex, String t);
-  RiText replaceAll(String regex, String t);
-  //RiText[] split(String regex);
+  RiTextIF replaceFirst(String regex, String t);
+  RiTextIF replaceLast(String regex, String t);
+  RiTextIF replaceAll(String regex, String t);
+  //RiTextIF[] split(String regex);
   
   boolean startsWith(String cs);
   boolean endsWith(String cs); 
   boolean equalsIgnoreCase(String cs);
 
-  
   // these return 'this'
-  RiText trim();
-  RiText toLowerCase();
-  RiText toUpperCase();
+  RiTextIF trim();
+  RiTextIF toLowerCase();
+  RiTextIF toUpperCase();
   
-  RiText removeCharAt(int idx);
-  RiText insertCharAt(int idx, char c);
-  RiText replaceCharAt(int idx, String s);
+  RiTextIF removeChar(int idx);
+  RiTextIF insertChar(int idx, char c);
+  RiTextIF replaceChar(int idx, String s);
   
-  RiText removeWordAt(int wordIdx);
-  RiText insertWordAt(int wordIdx, String s);
-  RiText replaceWordAt(int wordIdx, String s);
+  RiTextIF removeWord(int wordIdx);
+  RiTextIF insertWord(int wordIdx, String s);
+  RiTextIF replaceWord(int wordIdx, String s);
   
   // java-style overrides
-  RiText concat(String cs);
-  RiText concat(RiText cs);
-  
-  // equivalent to js-style getter/setter
-  
+  RiTextIF concat(String cs);
+  RiTextIF concat(RiText cs);
+
   int indexOf(String s);  
-  RiText analyze();
-  char charAt(int idx);
+  RiTextIF analyze();
+  String charAt(int idx);
   String get(String s);
   Map features();
-  char[] toCharArray();
+  //char[] toCharArray();
   int lastIndexOf(String s);
   int length();
   int wordCount();
@@ -123,4 +123,25 @@ public interface RiTextIF
   String[] words();
   String[] match(String regex);
   
+  public List behaviors();
+  public boolean autodraw();
+  public float rotateZ();
+  
+  public float[] boundingFill();
+  public float[] boundingStroke();
+  public float boundingStrokeWeight();
+  
+  public RiTextIF boundingFill(float[] bbf);
+  public RiTextIF boundingStroke(float[] bbs);
+  public RiTextIF boundingStrokeWeight(float bbs);
+  
+  public RiTextIF scale(float[] values);
+  public RiTextIF rotateZ(float f);
+  public float x();
+  public float y();
+  
+  // ??
+  public Object font();
+  public RiTextIF font(Object pf);
+
 }

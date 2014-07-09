@@ -91,7 +91,7 @@ public class RiTextTest
   {
     RiText rs = new RiText(null, "The dog was white");
     String rs2 = "The dog was not white";
-    RiTextIF result = rs.concat(rs2);
+    RiText result = rs.concat(rs2);
     equal(result.text(), "The dog was whiteThe dog was not white");
 
     rs = new RiText(null, " The dog was white ");
@@ -275,7 +275,7 @@ public class RiTextTest
   {
     // check that these are ok ---------------
     RiText rs = new RiText(null, "Inserts at wordIdx and shifts each subsequent word accordingly.");
-    RiTextIF result = rs.insertWord(4, "then");
+    RiText result = rs.insertWord(4, "then");
     equal(result.text(), rs.text());
     
     // TODO: next: fix whitespace regex!!
@@ -1198,7 +1198,7 @@ public class RiTextTest
   {
     RiText rs = new RiText(null, "The dog was white");
     RiString rs2 = new RiString("The dog was not white");
-    RiTextIF result = rs.concat(rs2);
+    RiText result = rs.concat(rs2);
     //System.out.println(result);
     equal(result.text(), "The dog was whiteThe dog was not white");
 

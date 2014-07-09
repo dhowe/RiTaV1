@@ -21,7 +21,7 @@ import rita.support.*;
  * RiTa's text display object. Wraps an instance of RiString to provide utility
  * methods for typography and animation.
  */
-public class RiText implements RiTextIF
+public class RiText implements Constants //RiTextIF
 {
   public static Defaults defaults;
 
@@ -1227,7 +1227,7 @@ public class RiText implements RiTextIF
    * Call to remove a RiText from the current sketch (and from existence),
    * cleaning up whatever resources it may have held
    */
-  public static synchronized void dispose(RiTextIF rt)
+  public static synchronized void dispose(RiText rt)
   {
     if (rt != null)
     {
@@ -1273,7 +1273,7 @@ public class RiText implements RiTextIF
     dispose(instances);
   }
 
-  public static synchronized void dispose(RiTextIF[] c)
+  public static synchronized void dispose(RiText[] c)
   {
     if (c == null)
       return;
@@ -1859,15 +1859,15 @@ public class RiText implements RiTextIF
     return tmp;
   }
 
-  protected static void constrainLines(List<RiTextIF> ritexts, float y, float h, float leading)
+  protected static void constrainLines(List<RiText> ritexts, float y, float h, float leading)
   {
     float ascent = ritexts.get(0).textAscent();
     float descent = ritexts.get(0).textDescent();
     // System.out.println("RiText.constrainLines().ascent="+ascent+" descent="+descent+" leading="+leading);
     float maxY = y + h, currentY = y + ascent;
 
-    RiTextIF next = null;
-    Iterator<RiTextIF> it = ritexts.iterator();
+    RiText next = null;
+    Iterator<RiText> it = ritexts.iterator();
 
     // set y-pos for those that fit
     while (it.hasNext())
@@ -2737,13 +2737,6 @@ public class RiText implements RiTextIF
     return this;
   }
 
-  // only for interface
-  public RiText concat(RiTextIF cs)
-  {
-    text.concat(cs.text());
-    return this;
-  }
-
   // //// 12 methods for each
 
   // TODO: should take an optional array of RiTexts ?
@@ -2993,7 +2986,7 @@ public class RiText implements RiTextIF
     if (lines == null || lines.length < 1)
       return EMPTY_ARRAY;
 
-    List<RiTextIF> ritexts = new LinkedList<RiTextIF>();
+    List<RiText> ritexts = new LinkedList<RiText>();
 
     for (int i = 0; i < lines.length; i++)
       ritexts.add(new RiText(pApplet, lines[i], x + 1, y).font(font));
@@ -3003,12 +2996,12 @@ public class RiText implements RiTextIF
     return ritexts.toArray(EMPTY_ARRAY);
   }
 
-  private static List<RiTextIF> linesToWords(RiTextIF[] rlines)
+  private static List<RiText> linesToWords(RiText[] rlines)
   {
-    List<RiTextIF> result = new ArrayList();
+    List<RiText> result = new ArrayList();
     for (int i = 0; rlines != null && i < rlines.length; i++)
     {
-      RiTextIF[] rts = rlines[i].splitWords();
+      RiText[] rts = rlines[i].splitWords();
       PFont pf = (PFont) rts[0].font();
       for (int j = 0; j < rts.length; j++)
         result.add(rts[j].font(pf));
@@ -3017,12 +3010,12 @@ public class RiText implements RiTextIF
     return result;
   }
 
-  private static List<RiTextIF> linesToLetters(RiTextIF[] rlines)
+  private static List<RiText> linesToLetters(RiText[] rlines)
   {
-    List<RiTextIF> result = new ArrayList();
+    List<RiText> result = new ArrayList();
     for (int i = 0; rlines != null && i < rlines.length; i++)
     {
-      RiTextIF[] rts = rlines[i].splitLetters();
+      RiText[] rts = rlines[i].splitLetters();
       PFont pf = (PFont) rts[0].font();
       for (int j = 0; j < rts.length; j++)
         result.add(rts[j].font(pf));
