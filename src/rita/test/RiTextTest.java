@@ -1230,8 +1230,8 @@ public class RiTextTest
     equal(rt.text(), rt2.text());
     equal(rt.align(), rt2.align());
     
-    equal(rt.autodraw(), rt2.autodraw());
-    equal(rt.behaviors(), rt2.behaviors());
+    //equal(rt.autodraw(), rt2.autodraw()); not in API
+    equal(rt.behaviors, rt2.behaviors);
     equal(rt.charAt(3), rt2.charAt(3));
 
     deepEqual(rt.boundingBox(),rt2.boundingBox());
@@ -1252,8 +1252,8 @@ public class RiTextTest
     equal(rt.text(), rt2.text());
     equal(rt.align(), rt2.align());
     
-    equal(rt.autodraw(), rt2.autodraw());
-    equal(rt.behaviors(), rt2.behaviors());
+    //equal(rt.autodraw(), rt2.autodraw());
+    equal(rt.behaviors, rt2.behaviors);
     equal(rt.charAt(3), rt2.charAt(3));
 
     deepEqual(rt.boundingBox(),rt2.boundingBox());
@@ -1276,8 +1276,8 @@ public class RiTextTest
     equal(rt4.text(), rt3.text());
     equal(rt4.align(), rt3.align());
 
-    equal(rt4.autodraw(), rt3.autodraw());
-    equal(rt4.behaviors(), rt3.behaviors());
+    //equal(rt4.autodraw(), rt3.autodraw());
+    equal(rt4.behaviors, rt3.behaviors);
     equal(rt4.charAt(3), rt3.charAt(3));
 
     deepEqual(rt4.boundingBox(),rt3.boundingBox());

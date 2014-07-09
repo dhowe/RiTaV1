@@ -1629,9 +1629,8 @@ public class RiText implements Constants //RiTextIF
 
   /**
    * Returns a list of behaviors for the object.
-   * 
    */
-  public List behaviors()
+  List behaviorList()
   {
     return this.behaviors;
   }
@@ -1641,7 +1640,7 @@ public class RiText implements Constants //RiTextIF
    * type is generally one of (MOVE, FADE_IN, FADE_OUT, FADE_TO_TEXT, SCALE_TO,
    * etc.)
    */
-  public RiTextBehavior[] behaviorsByType(int type)
+  RiTextBehavior[] behaviorsByType(int type)
   {
     List l = RiTextBehavior.selectByType(behaviors, type);
     return (RiTextBehavior[]) l.toArray(new RiTextBehavior[l.size()]);
@@ -1650,7 +1649,7 @@ public class RiText implements Constants //RiTextIF
   /**
    * Returns the behavior corresponding to the specified 'id'.
    */
-  public static final RiTextBehavior behaviorById(int id)
+  static RiTextBehavior behaviorById(int id)
   {
     return RiTextBehavior.getBehaviorById(id);
   }
