@@ -11,11 +11,11 @@ public class PageLayout implements Constants
   public float paragraphIndent, paragraphLeading, textColor[];
   public boolean showPageNumbers, indentFirstParagraph;
   public int pageWidth, pageHeight, pageNo = 1;
-  public RiTextIF header, footer;
+  public RiText header, footer;
   public Rect textRectangle;
   
   protected Stack words;
-  protected RiTextIF lines[];
+  protected RiText lines[];
   protected PApplet _pApplet;
   
   public PageLayout(PApplet pApplet, int leftMargin, int topMargin, int rightMargin, int bottomMargin)
@@ -40,48 +40,48 @@ public class PageLayout implements Constants
     indentFirstParagraph = RiText.defaults.indentFirstParagraph;
   }
 
-  public RiTextIF[] layoutFromFile(String fileName)
+  public RiText[] layoutFromFile(String fileName)
   {
     PFont font = RiText.defaultFont(_pApplet);
     return layoutFromFile(font, fileName, font.getSize() * RiText.defaults.leadingFactor);
   }
   
-  public RiTextIF[] layoutFromFile(String fileName, float leading)
+  public RiText[] layoutFromFile(String fileName, float leading)
   {
     return layoutFromFile(RiText.defaultFont(_pApplet), fileName, leading);
   }
   
   /**
-   * Creates an array of RiTextIF, one per line from the text loaded from the
+   * Creates an array of RiText, one per line from the text loaded from the
    * specified 'fileName', and lays it out on the page according to the specified
    * font.
    */
-  public RiTextIF[] layoutFromFile(PFont pf, String fileName, float leading)
+  public RiText[] layoutFromFile(PFont pf, String fileName, float leading)
   {
     String txt = RiTa.loadString(fileName, _pApplet);
     return layout(pf, txt.replaceAll("[\\r\\n]", " "), leading);
   }
   
-  public RiTextIF[] layout(String text)
+  public RiText[] layout(String text)
   {
     PFont font = RiText.defaultFont(_pApplet);
     return layout(font, text, font.getSize() * RiText.defaults.leadingFactor);
   }
 
   /**
-   * Creates an array of RiTextIF, one per line from the input text
+   * Creates an array of RiText, one per line from the input text
    * and lays it out on the page.
    */
-  public RiTextIF[] layout(String text, float leading)
+  public RiText[] layout(String text, float leading)
   {
     return layout(RiText.defaultFont(_pApplet), text, leading);
   }
   
   /**
-   * Creates an array of RiTextIF, one per line from the input text
+   * Creates an array of RiText, one per line from the input text
    * and lays it out on the page.
    */
-  public RiTextIF[] layout(PFont pf, String text, float leading)
+  public RiText[] layout(PFont pf, String text, float leading)
   {
     //System.out.println("RiPageLayout.layout("+text/*.length()*/+")");
 
@@ -111,7 +111,7 @@ public class PageLayout implements Constants
     return lines;
   }
 
-  RiTextIF[] renderPage(PFont pf, float leading)
+  RiText[] renderPage(PFont pf, float leading)
   {
     if (words.isEmpty()) return RiText.EMPTY_ARRAY;
     
@@ -188,7 +188,7 @@ public class PageLayout implements Constants
         if (RiText._withinBoundsY(currentY, leading, maxY, descent, firstLine))
         {
           float yPos = firstLine ? currentY : currentY + leading; // or round?
-          RiTextIF rt = newRiTextLine(sb, pf, startX, yPos);
+          RiText rt = newRiTextLine(sb, pf, startX, yPos);
           rlines.add(rt);
           
           currentY = newParagraph ? rt.y() + paragraphLeading : rt.y();
@@ -221,7 +221,7 @@ public class PageLayout implements Constants
     else
       addToStack(sb.toString().split(SP)); // else save them for next time
 
-    return (RiTextIF[]) rlines.toArray(RiText.EMPTY_ARRAY);
+    return (RiText[]) rlines.toArray(RiText.EMPTY_ARRAY);
   }
 
   // add to word stack in reverse order
@@ -249,7 +249,7 @@ public class PageLayout implements Constants
     return sb.toString();
   }
   
-  RiTextIF newRiTextLine(StringBuilder sb, PFont pf, float xPos, float nextY)
+  RiText newRiTextLine(StringBuilder sb, PFont pf, float xPos, float nextY)
   {
     String s = EntityLookup.getInstance().unescape(sb.toString());
     
@@ -262,7 +262,7 @@ public class PageLayout implements Constants
     while (s != null && s.length() > 0 && s.endsWith(SP))
       s = s.substring(0, s.length() - 1);
     
-    RiTextIF rt = new RiText(this._pApplet, s, xPos, nextY, pf);
+    RiText rt = new RiText(this._pApplet, s, xPos, nextY, pf);
     if (textColor != null) rt.fill(textColor);
     
     sb.delete(0, sb.length()); // empty for reuse
@@ -289,7 +289,7 @@ public class PageLayout implements Constants
     rpl.footer = footer != null ? footer.copy() : null;
     if (lines != null)
     {
-      rpl.lines = new RiTextIF[lines.length];
+      rpl.lines = new RiText[lines.length];
       for (int i = 0; i < lines.length; i++)
         rpl.lines[i] = lines[i].copy();
     }
@@ -364,7 +364,7 @@ public class PageLayout implements Constants
     footer.align(RiTa.CENTER);
   }
 
-  public RiTextIF[] getLines()
+  public RiText[] getLines()
   {
     if (lines == null)
       throw new RiTaException("No text has been assigned to this layout(" + hashCode() + "), make sure to call render() or setLines() first!");

@@ -36,7 +36,7 @@ public class CreateWords extends PApplet {
 	public void mouseReleased() {
 	  
 		RiText.disposeAll();
-		RiTextIF[] rts = RiText.createWords(this, txt, x, y, w, h, 16);
+		RiText[] rts = RiText.createWords(this, txt, x, y, w, h, 16);
 		for (int i = 0; i < rts.length; i++)
 			rts[i].fill(RiText.randomColor());
 	}
