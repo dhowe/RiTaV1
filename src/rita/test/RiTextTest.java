@@ -1108,15 +1108,89 @@ public class RiTextTest
     rs = new RiText(null, "abc!");
     result = rs.match("r?or?");
     deepEqual(result, new String[] {}); 
-    // TODO regular expression
+    
+    rs = new RiText(null, "Letter !>D? hello 213331123");
+    result = rs.match("[A-Za-z]");
+  //  for(int i =0;i<result.length;i++){
+   // 	System.out.println(result[i]);
+   // }
+    deepEqual(result, new String[] { "L", "e", "t","t", "e", "r" ,"D","h","e","l","l","o"});
+    
+    rs = new RiText(null, "Letter !>D? hello 213331123");
+    result = rs.match("\\W");
+  //  for(int i =0;i<result.length;i++){
+  //  	System.out.println(result[i]);
+  //  }
+    deepEqual(result, new String[] { " ", "!", ">","?"," "," "});
+    
+    rs = new RiText(null, "Letter !>D? hello 213331123");
+    result = rs.match("[^0-9]");
+ //   for(int i =0;i<result.length;i++){
+ //   	System.out.println(result[i]);
+ //   }
+    deepEqual(result, new String[] { "L", "e", "t","t", "e", "r"," ","!",">","D","?" ," ","h","e","l","l","o"," "});
 
+    rs = new RiText(null, "!@#$%^&*()__+");
+    result = rs.match("X|Z");
+ //   for(int i =0;i<result.length;i++){
+ //   	System.out.println(result[i]);
+ //   }
+    deepEqual(result, new String[] { });
+
+    rs = new RiText(null, "!@#$%^&*()__+");
+    result = rs.match("!|Z");
+ //   for(int i =0;i<result.length;i++){
+ //   	System.out.println(result[i]);
+ //   }
+    deepEqual(result, new String[] { "!"});
+
+    
     // TODO: case-insensitive tests?
     rs = new RiText(null, "The rain in SPAIN stays mainly in the plain");
     result = rs.match("ain", Pattern.CASE_INSENSITIVE);
     deepEqual(result, new String[] { "ain", "AIN", "ain", "ain" });
+    
+    rs = new RiText(null, "The rain in SPAIN stays mainly in the plain");
+    result = rs.match("ain");
+    deepEqual(result, new String[] { "ain", "ain", "ain" });
+  //TODO not sure how to test these
+   /* rs = new RiText(null, "The rain in SPAIN stays mainly in the plain");
+    result = rs.match("i", Pattern.CANON_EQ); 
+       for(int i =0;i<result.length;i++){
+       	System.out.println(result[i]);
+       }
+    deepEqual(result, new String[] { "ain", "AIN", "ain", "ain" });
+    
+    rs = new RiText(null, "The rain in SPAIN stays mainly in the plain");
+    result = rs.match("ain", Pattern.COMMENTS);
+    for(int i =0;i<result.length;i++){
+       	System.out.println(result[i]);
+       }
+    deepEqual(result, new String[] { "ain", "AIN", "ain", "ain" });
+    
+    rs = new RiText(null, "The rain in SPAIN stays mainly in the plain");
+    result = rs.match("ain", Pattern.DOTALL);
+    deepEqual(result, new String[] { "ain", "AIN", "ain", "ain" });
+    
+    rs = new RiText(null, "The rain in SPAIN stays mainly in the plain");
+    result = rs.match("ain", Pattern.LITERAL);
+    deepEqual(result, new String[] { "ain", "AIN", "ain", "ain" });
+    
+    rs = new RiText(null, "The rain in SPAIN stays mainly in the plain");
+    result = rs.match("ain", Pattern.MULTILINE);
+    deepEqual(result, new String[] { "ain", "AIN", "ain", "ain" });
+    
+    rs = new RiText(null, "The rain in SPAIN stays mainly in the plain");
+    result = rs.match("ain", Pattern.UNICODE_CASE);
+    deepEqual(result, new String[] { "ain", "AIN", "ain", "ain" });
+    
+    rs = new RiText(null, "The rain in SPAIN stays mainly in the plain");
+    result = rs.match("ain", Pattern.UNIX_LINES);
+    deepEqual(result, new String[] { "ain", "AIN", "ain", "ain" });
+    
+   */	  // fail("needs more");
 
-	  // TODO: more tests? 
-	  // fail("needs more");
+
   }
 
   @Test
@@ -1154,9 +1228,62 @@ public class RiTextTest
     equal(rt.z, rt2.z);
     equal(rt.alpha(), rt2.alpha());
     equal(rt.text(), rt2.text());
-    equal(rt.showBounds(), rt2.showBounds());
+    equal(rt.align(), rt2.align());
+    
+    equal(rt.autodraw(), rt2.autodraw());
+    equal(rt.behaviors(), rt2.behaviors());
+    equal(rt.charAt(3), rt2.charAt(3));
+
+    deepEqual(rt.boundingBox(),rt2.boundingBox());
 
     deepEqual(rt.fill(), rt2.fill());
+    
+    
+    rt = new RiText(" space tabSpace	AbCd 1234 ", 5, 10);
+
+    rt.fill(101, 102, 103, 104);
+    rt.showBounds(true);
+
+    rt2 = rt.copy();
+    equal(rt.x, rt2.x);
+    equal(rt.y, rt2.y);
+    equal(rt.z, rt2.z);
+    equal(rt.alpha(), rt2.alpha());
+    equal(rt.text(), rt2.text());
+    equal(rt.align(), rt2.align());
+    
+    equal(rt.autodraw(), rt2.autodraw());
+    equal(rt.behaviors(), rt2.behaviors());
+    equal(rt.charAt(3), rt2.charAt(3));
+
+    deepEqual(rt.boundingBox(),rt2.boundingBox());
+
+    deepEqual(rt.fill(), rt2.fill());
+    
+    
+    
+    
+    RiText rt3 = new RiText("!@#$%^&*()_ GHFHJJJ hjhjjh", 15, 20);
+    
+    rt3.fill(1, 100, 23);
+    rt3.showBounds(false);
+
+    RiText rt4 = rt3.copy();
+    equal(rt4.x, rt3.x);
+    equal(rt4.y, rt3.y);
+    equal(rt4.z, rt3.z);
+    equal(rt4.alpha(), rt3.alpha());
+    equal(rt4.text(), rt3.text());
+    equal(rt4.align(), rt3.align());
+
+    equal(rt4.autodraw(), rt3.autodraw());
+    equal(rt4.behaviors(), rt3.behaviors());
+    equal(rt4.charAt(3), rt3.charAt(3));
+
+    deepEqual(rt4.boundingBox(),rt3.boundingBox());
+
+    deepEqual(rt4.fill(), rt3.fill());
+    
   }
 
 }
