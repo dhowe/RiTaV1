@@ -501,6 +501,45 @@ public class RiStringTest implements Constants
     rs = new RiString("abc!");
     result = rs.match("r?or?");
     deepEqual(result, new String[] {});
+    
+    
+    rs = new RiString("Letter !>D? hello 213331123");
+    result = rs.match("[A-Za-z]");
+  //  for(int i =0;i<result.length;i++){
+   // 	System.out.println(result[i]);
+   // }
+    deepEqual(result, new String[] { "L", "e", "t","t", "e", "r" ,"D","h","e","l","l","o"});
+    
+    rs = new RiString( "Letter !>D? hello 213331123");
+    result = rs.match("\\W");
+  //  for(int i =0;i<result.length;i++){
+  //  	System.out.println(result[i]);
+  //  }
+    deepEqual(result, new String[] { " ", "!", ">","?"," "," "});
+    
+    rs = new RiString( "Letter !>D? hello 213331123");
+    result = rs.match("[^0-9]");
+ //   for(int i =0;i<result.length;i++){
+ //   	System.out.println(result[i]);
+ //   }
+    deepEqual(result, new String[] { "L", "e", "t","t", "e", "r"," ","!",">","D","?" ," ","h","e","l","l","o"," "});
+
+    rs = new RiString( "!@#$%^&*()__+");
+    result = rs.match("X|Z");
+ //   for(int i =0;i<result.length;i++){
+ //   	System.out.println(result[i]);
+ //   }
+    deepEqual(result, new String[] { });
+
+    rs = new RiString( "!@#$%^&*()__+");
+    result = rs.match("!|Z");
+ //   for(int i =0;i<result.length;i++){
+ //   	System.out.println(result[i]);
+ //   }
+    deepEqual(result, new String[] { "!"});
+
+    
+    
 
     rs = new RiString("The rain in SPAIN stays mainly in the plain");
     result = rs.match("ain", Pattern.CASE_INSENSITIVE); // gi
@@ -1303,6 +1342,8 @@ public class RiStringTest implements Constants
     rs.set("myFeatureName", "myFeatureValue");
     rs2 = rs.copy();
     equal(rs.get("myFeatureName"), rs2.get("myFeatureName"));
+    
+
   }
 
   @Test
