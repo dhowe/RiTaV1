@@ -170,7 +170,7 @@ public class RiTextBehavior implements Constants
    * @exclude
    */
   public static void deleteAllFades(RiText rt) {
-    List bh = rt.behaviors();
+    List bh = rt.behaviors;
     if (bh == null) return;
     for (int i = 0; i < bh.size(); i++) {
       RiTextBehavior rtb = ((RiTextBehavior)bh.get(i));
@@ -306,7 +306,7 @@ public class RiTextBehavior implements Constants
     //System.out.println("RiTextBehavior.delete()");
     this.running = false;
     this.stop();  
-    List behaviors = rt.behaviors();
+    List behaviors = rt.behaviors;
     if (rt != null && behaviors != null)
       behaviors.remove(this);    
     instances.remove(this);    
