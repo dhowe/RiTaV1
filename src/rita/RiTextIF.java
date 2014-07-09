@@ -86,7 +86,6 @@ public interface RiTextIF extends rita.support.Constants
   boolean endsWith(String cs); 
   boolean equalsIgnoreCase(String cs);
 
-  
   // these return 'this'
   RiTextIF trim();
   RiTextIF toLowerCase();
@@ -103,9 +102,7 @@ public interface RiTextIF extends rita.support.Constants
   // java-style overrides
   RiTextIF concat(String cs);
   RiTextIF concat(RiTextIF cs);
-  
-  // equivalent to js-style getter/setter
-  
+
   int indexOf(String s);  
   RiTextIF analyze();
   String charAt(int idx);
@@ -126,9 +123,7 @@ public interface RiTextIF extends rita.support.Constants
   String[] words();
   String[] match(String regex);
   
-  // Note: these added for RiText refactor
   public List behaviors();
-  //public Object getPApplet();
   public boolean autodraw();
   public float rotateZ();
   

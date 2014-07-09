@@ -1461,6 +1461,7 @@ public class RiTa implements Constants
     for (int j = 0; j < l.length; j++)
       System.out.println(j + ") '" + l[j]+"'");
   }
+  
   public static void out(Object[] l)
   {
     if (l == null || l.length <1) {
@@ -1470,6 +1471,7 @@ public class RiTa implements Constants
     for (int j = 0; j < l.length; j++)
       System.out.println(j + ") '" + l[j]+"'");
   }
+  
   public static void out(Map l)
   {
     if (l == null || l.size() <1) {
@@ -1485,6 +1487,11 @@ public class RiTa implements Constants
   }
   public static void out(Object l)
   {
+    if (l instanceof Object[]) {
+      out((Object[])l);
+      return;
+    }
+      
     System.out.println(l);
   }
   

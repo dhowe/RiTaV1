@@ -2266,7 +2266,8 @@ public class RiText implements RiTextIF
     rt.fontSizeAdjustment = toCopy.fontSizeAdjustment;
 
     rt.behaviors = toCopy.behaviors; // deep or shallow?
-    rt.text = new RiString(toCopy.text.text());
+    //rt.text = new RiString(toCopy.text.text());
+    rt.text = toCopy.text.copy();
     rt.autodraw = toCopy.autodraw;
 
     rt.x = toCopy.x;
@@ -2298,15 +2299,15 @@ public class RiText implements RiTextIF
     rt.rotateX = toCopy.rotateX;
     rt.rotateY = toCopy.rotateY;
     rt.rotateZ = toCopy.rotateZ;
-
-    // add the features
-    Map m = toCopy.features();
-    Map features = rt.features();
+/*
+    // add the features , no, this happens in RiString
+    Map m = toCopy.features(), features = rt.features();
     for (Iterator it = m.keySet().iterator(); it.hasNext();)
     {
       CharSequence key = (CharSequence) it.next();
       features.put(key, m.get(key));
-    }
+    }*/
+    
     return rt;
   }
 

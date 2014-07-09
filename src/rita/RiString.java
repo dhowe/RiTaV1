@@ -572,7 +572,9 @@ public class RiString implements FeaturedIF, Constants
   public RiString copy()
   {
     RiString rs = new RiString(delegate);
+    
     if (features != null) {
+      
       Map<String, String> feats = features;
       rs.features = new HashMap<String, String>();
       for (Iterator it = feats.keySet().iterator(); it.hasNext();)
@@ -700,7 +702,7 @@ public class RiString implements FeaturedIF, Constants
           }
         }
         
-        //if (dbug)System.out.println('  onset='+join(',',onset)+'  coda='+join(',',coda));
+        //if (dbug)System.out.println("  onset="+join(",",onset)+"  coda="+join(",",coda));
         
         // Tack the coda onto the coda of the last syllable. Can't do it if this
         // is the first syllable.
@@ -769,7 +771,10 @@ public class RiString implements FeaturedIF, Constants
     for (Iterator it = syllables.iterator(); it.hasNext();i++)
       result[i] = (String[][]) it.next();
     
-    return RiString.stringify(result);
+    String retval = RiString.stringify(result);
+    
+    // hack to deal with bad output syllables like: 'g-ih-1-ng' or 'l-ow-1' 
+    return retval.replaceAll("-1[ -]", "1-").replaceAll("-1$", "1"); 
   }
   
   static String[] extend(String[] l1, String[] l2) { // python extend array
