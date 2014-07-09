@@ -679,8 +679,8 @@ public class JSONLexicon implements Constants
         System.out.println("[RiTa] Using letter-to-sound rules for: " + word);
       
       String[] phones = LetterToSound.getInstance().getPhones(word);
-      //System.out.println("phones="+RiTa.asList(phones));
-      if (phones != null && phones.length>0)
+      
+      if (phones != null && phones.length > 0)
         return RiString.syllabify(phones);
     }
 
@@ -690,15 +690,6 @@ public class JSONLexicon implements Constants
   public String getPosStr(String word)
   { 
     String data = lookupRaw(word);
-    /*if (word.equals("a")) {
-
-      if (data == null) {
-        System.out.println("JSONLexicon.getPosStr(a="+data+")");
-        System.out.println("JSONLexicon.getPosStr(bird="+lookupRaw("bird")+")");
-        System.out.println("JSONLexicon.getPosStr(zooms="+lookupRaw("zooms")+")");
-        throw new RuntimeException("null data: "+size());
-      }
-    }*/
     if (data == null) return E;
     return data.split(DATA_DELIM)[1];
   }

@@ -42,9 +42,9 @@ public class RiLexicon implements Constants
    */
   public RiLexicon(Object parent) // ignore parent
   {
-    this.lexImpl = JSONLexicon.getInstance(); 
+    this(null);
   }
-  
+
   /**
    * Constructs a (singleton) instance of the RiLexicon class.
    * <p> 
@@ -54,6 +54,13 @@ public class RiLexicon implements Constants
   public RiLexicon()
   {
     this(null);
+  }
+  
+  public RiLexicon(Map data) 
+  {
+    this.lexImpl = JSONLexicon.getInstance();
+    if (data != null)
+      this.lexImpl.setLexicalData(data);
   }
   
   public RiLexicon removeWord(String s)
@@ -88,19 +95,6 @@ public class RiLexicon implements Constants
     return lexicalData().get(word.toLowerCase()) != null;
   }
 
-  public String[] alliterations(String input)
-  {
-    return alliterations(input, MATCH_MIN_LENGTH);
-  }
-  
-  // TODO: make sure this method version is in RiTaJS
-  public String[] alliterations(String input, int minLength) {
-    
-    Set s = new HashSet();
-    alliterations(input, s, minLength);
-    return SetOp.toStringArray(s); 
-  }
-    
   /**
    * Returns true if the first stressed consonant of the two words match, else false. <P>
    * Note: returns true if wordA.equals(wordB) and false if either (or both) are null;
@@ -111,11 +105,25 @@ public class RiLexicon implements Constants
       
       if (wordB.equals(wordA)) return true;
       
-      String fcA = firstConsonant(firstStressedSyllable(wordA));      
-      String fcB = firstConsonant(firstStressedSyllable(wordB));
+      String fcA = firstConsonant(firstStressedSyllable(wordA, true));      
+      String fcB = firstConsonant(firstStressedSyllable(wordB, true));
       
       // System.out.println(fcA+" ?= "+fcB);
       if (fcA != null && fcB != null && fcA.equals(fcB)) 
+        return true;
+    }
+    return false;
+  }
+  
+  // NOTE: this is just an optimization of the above
+  boolean _isAlliteration(String firstConsOfFirstStressed, String wordB, boolean useLTS) {
+    
+    if (wordB != null && firstConsOfFirstStressed != null)  {
+      
+      String fcB = firstConsonant(firstStressedSyllable(wordB, useLTS));
+      
+      // System.out.println(fcA+" ?= "+fcB);
+      if (fcB != null && firstConsOfFirstStressed.equals(fcB)) 
         return true;
     }
     return false;
@@ -372,18 +380,22 @@ public class RiLexicon implements Constants
    */
   public boolean isRhyme(String wordA, String wordB, boolean useLTS) 
   {
-    //System.out.println("RiLexicon.isRhyme('"+wordA+"' ?= '"+wordB+"') ->");
+    boolean dbug = false;
+    
+    if (dbug)System.out.println("RiLexicon.isRhyme('"+wordA+"' ?= '"+wordB+"') ->");
     boolean result = false;
     
     if (wordA != null && wordB != null && !wordB.equalsIgnoreCase(wordA)) {
+      
         String lspA = lastStressedPhoneToEnd(wordA, useLTS);      
         String lspB = lastStressedPhoneToEnd(wordB, useLTS);  
-        //System.out.println("RiLexicon.isRhyme('"+lspA+"' ?= '"+lspB+"') ->");
+        
+        if (dbug)System.out.println("RiLexicon.isRhyme('"+lspA+"' ?= '"+lspB+"') ->");
         if (lspA != null && lspB != null && lspA.equals(lspB)) 
           result = true;
     }
 
-    //System.out.println("  "+result);
+    if (dbug)System.out.println("  "+result);
     return result;
   } 
 
@@ -634,7 +646,14 @@ public class RiLexicon implements Constants
 
   private String firstStressedSyllable(String word) 
   {
-    String raw = lexImpl.getRawPhones(word);
+    return firstStressedSyllable(word, false);
+  }
+  
+  private String firstStressedSyllable(String word, boolean useLTS) 
+  {
+    if (word.indexOf(' ')>-1) return null;
+    
+    String raw = lexImpl.getRawPhones(word, useLTS);
     //System.out.println(word + "-> raw='"+raw+"'");
     int idx = -1; 
     
@@ -642,6 +661,7 @@ public class RiLexicon implements Constants
       idx = raw.indexOf(STRESSED);
     else
       System.out.println("[WARN] No stress data for '"+word+"'");
+    
     //System.out.print("idx="+idx);
     
     if (idx < 0) return null; // no stresses
@@ -703,24 +723,47 @@ public class RiLexicon implements Constants
    */  
   private String lastStressedPhoneToEnd(String word, boolean useLTS) 
   {
+    boolean dbug = false;
+    
     String raw = lexImpl.getRawPhones(word, useLTS);
     if (raw == null) return null;
-    //System.out.print("'"+raw+"' -> ");
+    
+    if (dbug)System.out.print("'"+raw+"' -> ");
+    
     int idx = raw.lastIndexOf(STRESSED);
-    //System.out.print("idx="+idx);
+    
+    if (dbug)System.out.print("idx="+idx);
+    
     if (idx < 0) return null; 
+    
+    /*if (idx == raw.length()-1) { // edge case
+      
+      String[] syls = raw.split(SP);
+      return syls[syls.length-1];
+    }*/
+      
     char c = raw.charAt(--idx);
-    //System.out.print("\n  chk:"+idx+"="+c);
+    
+    if (dbug)System.out.print("\n  chk:"+idx+"="+c);
+    
     while (c != '-' && c != ' ') {
+      
       if (--idx < 0) {
-        //System.out.println(raw);
+        
+        if (dbug)System.out.println("\nres="+raw);
+        
         return raw; // single-stressed syllable
       }
-      //System.out.print("  chk:"+idx+"="+raw.charAt(idx));
+      
+      if (dbug)System.out.print("  chk:"+idx+"="+raw.charAt(idx));
+    
       c = raw.charAt(idx);      
     }    
+    
     String res = raw.substring(idx+1);
-    //System.out.println(res);
+    
+    if (dbug)System.out.println("\nres="+res);
+    
     return res;
   }
   
@@ -735,20 +778,49 @@ public class RiLexicon implements Constants
     return (full.indexOf(search) > -1);
   }
   
+  public String[] alliterations(String input)
+  {
+    return alliterations(input, MATCH_MIN_LENGTH);
+  }
+  
+  // TODO: make sure this method version is in RiTaJS
+  public String[] alliterations(String input, int minLength) {
+    
+    Set s = new HashSet();
+    alliterations(input, s, minLength);
+    return SetOp.toStringArray(s); 
+  }
+    
   private void alliterations(String input, Set result, int minLength) {
     
-    Map m = lexicalData();
-    for (Iterator it = m.keySet().iterator(); it.hasNext();) {
-      String cand = (String) it.next();
-      if (isAlliteration(input, cand))
-        addResult(input, result, cand, minLength);           
-    }  
+     alliterations(input, result, minLength, true); // Will use LTS for now
+  }
+  
+  private void alliterations(String input, Set result, int minLength, boolean useLTS) {
+    
+    String fC = firstConsonant(firstStressedSyllable(input, useLTS));
+    
+    if (input != null && (input.indexOf(' ') < 0) && fC != null) {
+      
+      Map m = lexicalData();
+      
+      for (Iterator it = m.keySet().iterator(); it.hasNext();) {
+        
+        String cand = (String) it.next();
+        
+        if (_isAlliteration(fC, cand, useLTS))
+          addResult(input, result, cand, minLength);           
+      }  
+    }
   }
   
   public static void main(String[] args)
   {
     RiLexicon rl = new RiLexicon();
-    System.out.println(rl.randomWord("VBZ"));
+    //System.out.println(rl.lastStressedPhoneToEnd("mellow",true));
+    System.out.println(rl.lastStressedPhoneToEnd("toy",true));
+    System.out.println(rl.lastStressedPhoneToEnd("boy",true));
+    System.out.println(rl.lastStressedPhoneToEnd("wellow",true));
     //System.out.println(rl.lexicalData().get("dry"));
   }
 

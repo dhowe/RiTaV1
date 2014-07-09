@@ -26,7 +26,11 @@ public class RiWordNetTest
 	// Each of these tests all 4 permutations of ignoreUpperCaseWords and ignoreCompundWords
 	//   and verifies the original search term is not present in the result.
 	/////////////////////////////////////////////////////////////////////////////////////////
-	  
+	
+	static {
+	  RiTa.SILENT = true;
+	}
+	
 	@Test
 	public void testGetSynonymsInt()
 	{
@@ -41,8 +45,6 @@ public class RiWordNetTest
 		String[] expected2 = { "paterfamilias", "old man", "clotheshorse", "widower", "father-figure", "greybeard", "fellow", "Esq", "shaver", "stiff", "stud", "he-man", "divorced man", "ironside", "unmarried man", "old boy", "beau", "gallant", "iron man", "bull", "ponce", "boyfriend", "bachelor", "Samson", "signor", "ex-husband", "bey", "young buck", "Methuselah", "Esquire", "sir", "ex-boyfriend", "strapper", "dandy", "galoot", "posseman", "boy", "buster", "Herr", "ex", "signore", "sheik", "sod", "Peter Pan", "philanderer", "wonder boy", "ironman", "bozo", "grass widower", "dude", "eunuch", "Monsieur", "gentleman", "father surrogate", "hunk", "signior", "ejaculator", "swell", "Tarzan", "babu", "bruiser", "geezer", "golden boy", "father figure", "middle-aged man", "womaniser", "womanizer", "fop", "Senhor", "patriarch", "macho-man", "widowman", "swain", "inamorato", "graybeard", "hombre", "cat", "fashion plate", "housefather", "adonis", "guy", "Hooray Henry", "baboo", "young man", "castrate", "white man" };
 		//printArr( w.getSynonyms(910172934));
 		setEqualMulti(expected2, "getSynonyms", 910172934); 
-
-
 	}
 
 	@Test

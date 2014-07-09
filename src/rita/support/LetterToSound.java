@@ -195,11 +195,9 @@ public class LetterToSound
       {
         throw new Error("Bad INDEX in file.");
       }
-      else
-      {
-        String c = tokenizer.nextToken();
-        letterIndex.put(c, index);
-      }
+
+      String c = tokenizer.nextToken();
+      letterIndex.put(c, index);
     }
     else if (type.equals(TOTAL))
     {
@@ -207,12 +205,7 @@ public class LetterToSound
     }
   }
 
-  /**
-   * Returns a list of all the phonemes used by the LTS rules.
-   * 
-   * @return a list of all the phonemes
-   */
-  private List findPhonemes()
+  private List findPhonemes() //  for documentation
   {
     Set set = new HashSet();
     for (int i = 0; i < stateMachine.length; i++)
@@ -385,9 +378,11 @@ public class LetterToSound
         stateIndex = ((DecisionState) currentState).getNextState(fval_buff);
         currentState = getState(stateIndex);
       }
-      ((FinalState) currentState).append((ArrayList) phoneList);
-    }
 
+      ((FinalState) currentState).append((ArrayList) phoneList);
+//RiTa.out("phoneList: "+phoneList);      
+    }
+    
     return (String[]) phoneList.toArray(new String[0]);
   }
 
@@ -623,10 +618,10 @@ public class LetterToSound
      * Appends the phone list for this state to the given <code>ArrayList</code>
      * .
      * 
-     * @param array
-     *          the array to append to
+     * @param al
+     *          the list to append to
      */
-    public void append(ArrayList array)
+    public void append(ArrayList al)
     {
       if (phoneList == null)
       {
@@ -636,7 +631,7 @@ public class LetterToSound
       {
         for (int i = 0; i < phoneList.length; i++)
         {
-          array.add(phoneList[i]);
+          al.add(phoneList[i]);
         }
       }
     }

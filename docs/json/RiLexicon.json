@@ -296,24 +296,24 @@
    {
       "name": "isAlliteration",
       "example":"",
-      "description":"Returns true if the two words are alliterations (iff the first stressed consonant of the two match)",
+      "description":"Returns true if the two words are alliterations (iff the first stressed consonant of the two match). Note: returns true if wordA.equals(wordB) and false if either (or both) are null.",
       "syntax":"isAlliteration(word1, word2);",
       "parameters":
       [
 			{ 
-			"type": "String", 
-			"desc": "the first word" 
+				"type": "String", 
+				"desc": "the first word" 
 			},
 			{ 
-			"type": "String", 
-			"desc": "the second word" 
+				"type": "String", 
+				"desc": "the second word" 
 			}
 	  ],
 	  "returns":
       [
 			{ 
-			"type": "boolean", 
-			"desc": "true if the first stressed consonant of the two words match" 
+				"type": "boolean", 
+				"desc": "true if the first stressed consonant of the two words match" 
 			}
 	  ],
       "related":"",
@@ -324,9 +324,6 @@
       "name": "isRhyme",
       "example":"",
       "description": "Returns true if the two words rhyme, that is, if their final stressed phoneme and all following phonemes are identical, else false.<br/><br/>Note: returns false if word1.equals(word2) or if either (or both) are null;<br/><br/>Note: at present doesn't use letter-to-sound engine if either word is not found in the lexicon, but instead just returns false.",
-      
-      "COMMENT.syntax":"isRhyme(String word1, String word2, boolean useLTS);",
-      
       "syntax":"isRhyme(word1, word2)<br>isRhyme(word1, word2, useLTS);",
       "parameters":
       [
