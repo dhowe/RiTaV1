@@ -15,7 +15,7 @@ public class WordsLettersLines extends PApplet
 	public void setup()
 	{
 
-		size(800, 400);
+		size(800, 600);
 		background(255);
 		RiText.defaultFontSize(32); 
 		RiText.defaults.showBounds = true;
@@ -72,6 +72,21 @@ public class WordsLettersLines extends PApplet
 		}
 
 		rect(400,356-rt5.textHeight(),rt5.textWidth(),rt5.textHeight());
+		
+ 
+		RiText rt6 = new RiText(this,txt2,100,500);
+		rt6.showBounds(true);
+			line(50,500,50, 500 -rt6.textAscent());
+			line(80,500,80, 500 +rt6.textDescent());
+		
+			
+			RiText rt7 = new RiText(this,txt,100,550);
+			rt7.showBounds(true);
+				line(50,550,50, 550 -rt7.textAscent());
+				line(80,550,80, 550 +rt7.textDescent());
+			
+
+		
 
 		fill(0);
 

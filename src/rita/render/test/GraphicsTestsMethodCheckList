@@ -52,8 +52,8 @@ split()					X DONT NEED
 startsWith()			X DONT NEED
 substring()				X DONT NEED
 substr()				X DONT NEED
-textAscent()			
-textDescent()			
+textAscent()			WordsLettersLines.java
+textDescent()			WordsLettersLines.java
 textTo()				ColorAndFade.java	
 textHeight()			WordsLetteresLines.java		
 textWidth()				WordsLetteresLines.java		
