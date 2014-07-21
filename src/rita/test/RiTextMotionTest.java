@@ -37,10 +37,10 @@ public class RiTextMotionTest // TODO: how to run these on JS tests?
 	}
 	
 	@Test
-	public void testTranslateTo()
+	public void testTranslateToAndBehaviors()
 	{
 		PixelCompare pc = new PixelCompare(PATH);
-		pc.assertEqual(TranslateTo.class.getName());
+		pc.assertEqual(TranslateToAndBehaviors.class.getName());
 
 	}
 	

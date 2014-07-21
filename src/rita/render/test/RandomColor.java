@@ -69,6 +69,8 @@ public class RandomColor extends PApplet
 		text(rand3,0,680);
 		text((rand3 < 5.5 && rand3 > 2.2 )+"",100,680);
 
+		
+		
 
 		RiText.drawAll();
 

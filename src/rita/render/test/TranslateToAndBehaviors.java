@@ -4,7 +4,7 @@ import processing.core.PApplet;
 import processing.core.PFont;
 import rita.*;
 
-public class TranslateTo extends PApplet
+public class TranslateToAndBehaviors extends PApplet
 {
 	RiText rt3;
 	RiText rt4;
@@ -13,6 +13,12 @@ public class TranslateTo extends PApplet
 	RiText rt7;
 	RiText rt8;
 	RiText rt9;
+	RiText rt10;
+	RiText rt11;
+	RiText rt12;
+	RiText rt13;
+	int behaviourID;
+	int behaviourID2;
 	int counter;
 	
   public void setup()
@@ -22,12 +28,12 @@ public class TranslateTo extends PApplet
     RiText.defaultFont("Georgia", 30);
 
     RiText rt1 = new RiText(this, "Move",750,750);
-    rt1.moveTo(200,50,2);
+    rt1.moveTo(200,100,2);
 
     rt3 = new RiText(this, "Move Delay2s");
     rt3.position(200, 250);
    
-    rt3.moveTo(550, 50, 2,2);
+    rt3.moveTo(350, 100, 2,2);
 
     rt4 = new RiText(this, "Rotate",100,300);
     rt4.rotate(50).fill(255,0,0);
@@ -56,6 +62,21 @@ public class TranslateTo extends PApplet
     rt10.fill(0,200,0);
     rt10.scaleTo(1.5f,2,2);
 
+    rt11 = new RiText(this, "Stop Behavior 100");
+    rt11.position(0, 20);
+   
+    behaviourID = rt11.moveTo(800, 20, 5);
+    
+    rt12 = new RiText(this, "Stop Behavior 300");
+    rt12.position(0, 20);
+   
+    behaviourID2 = rt12.moveTo(800, 20, 5);
+    
+    rt13 = new RiText(this, "Stop Behaviors");
+    rt13.position(0, 80);
+   
+    rt13.moveTo(800, 80, 5);
+
   }
 
   public void draw()
@@ -71,16 +92,26 @@ public class TranslateTo extends PApplet
     text(rt5.rotate()[0] + "",500,300+100);
     
     text(RiText.timer(this,3),50,50);
+    
+    int timer = RiText.timer(this,3);
+    text(timer,50,50);
+    
+    if(timer == 100){
+    	rt11.stopBehavior(behaviourID);
+    }
+    if(timer == 300){
+    	rt12.stopBehavior(behaviourID2);
+    }
+    if(timer == 400){
+    	rt13.stopBehaviors();
+    }
 
     RiText.drawAll();
     
 
   }
 
-  public void changeBg(){
-	  
-	  
-  }
+
   public void onRiTaEvent(RiTaEvent re) {
 
 	/*	if (re.type() == RiTa.MOVE_TO)
