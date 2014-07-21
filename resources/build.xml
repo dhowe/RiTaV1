@@ -129,6 +129,21 @@
 
 	</target>
 
+	<target name="make.docs" depends="compile-debug">  
+	    
+		<java classname="rita.docgen.DocGenerator" 
+		    fork="true"
+           	failonerror="true"
+           	maxmemory="512m">
+			<classpath>
+			    <path refid="classpath"/>
+			    <pathelement path="bin"/>
+			</classpath>
+			<arg value="www/reference/"/>
+      		<arg value="docs/"/>  
+      	</java>
+	</target>  
+	
 	<target name="_make.all">
 
 		<antcall target="run.tests" />
@@ -423,6 +438,7 @@ ${line}
         <available file="${processing.sketchbook}" type="dir" property="processing.present"/>
     </target>
 
+    <!--  failings -->
 	<target name="fetch.rita.js" depends="check.rita.js" if="rita.js.present">
 		<echo message="Fetching rita.js..." />
 		<copy file="${project.latest}/${project.js.name}" todir="${project.tmp}/${project.name}/library" />
