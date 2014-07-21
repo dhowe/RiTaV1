@@ -8,7 +8,6 @@ colorTo()				ColorAndFade.java
 concat()				X
 center()				BoundingBoxFeatures.java		
 charOffset()			WordsLetteresLines.java		
-clone()					REMOVE (should be copy())
 copy()					X
 contains()				BoundingBoxFeatures.java		
 distanceTo()			WordsLettersLines.java
@@ -28,10 +27,10 @@ lastIndexOf()			X DONT NEED
 length()				X DONT NEED
 match()					X DONT NEED
 motionType()			MotionTypes.java	
-moveTo()				TranslateTo.java	
+moveTo()				TranslateToAndBehaviors.java
 pos()					X
 posAt()					X
-position()				TranslateTo.java	
+position()				TranslateToAndBehaviors.java	
 removeChar()			X
 replaceChar()			X
 replaceFirst()			X
@@ -45,15 +44,15 @@ scaleTo()				TranslateTo.java
 showBounds()			BoundingBoxFeatures.java		
 splitLetters()			WordsLetteresLines.java		
 splitWords()			WordsLetteresLines.java		
-stopBehavior()			
-stopBehaviors()			
+stopBehavior()			TranslateToAndBehaviors.java
+stopBehaviors()			TranslateToAndBehaviors.java
 slice()					X DONT NEED
 split()					X DONT NEED
 startsWith()			X DONT NEED
 substring()				X DONT NEED
 substr()				X DONT NEED
-textAscent()			
-textDescent()			
+textAscent()			WordsLettersLines.java
+textDescent()			WordsLettersLines.java
 textTo()				ColorAndFade.java	
 textHeight()			WordsLetteresLines.java		
 textWidth()				WordsLetteresLines.java		
