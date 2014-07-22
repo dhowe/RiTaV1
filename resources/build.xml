@@ -144,10 +144,13 @@
       	</java>
 	</target>  
 	
+	<target name="make.lib">
+	</target>
+	
 	<target name="_make.all">
 
 		<antcall target="run.tests" />
-		<antcall target="_script.make-lib.sh" />
+		<antcall target="make.lib" />
 		<antcall target="clean" />
 		<antcall target="_script.make-node.sh" />
 	</target>
