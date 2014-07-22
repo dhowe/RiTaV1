@@ -37,17 +37,26 @@ public class RiTextGraphicsTest // TODO: how to run these on JS tests?
   }
 
   @Test
+  public void testCreateLinesAndLayoutWithBreaks()
+  {
+    PixelCompare pc = new PixelCompare(PATH);
+    pc.assertEqual(CreateLinesAndLayoutWithBreaks.class.getName());
+  }
+  
+  @Test
   public void testDefaultFontAndFontVlwTtf()
   {
     PixelCompare pc = new PixelCompare(PATH);
     pc.assertEqual(DefaultFontAndFontVlwTtf.class.getName());
   }
+  
 
+  
   @Test
-  public void testCreateLinesAndLayoutWithBreaks()
+  public void testDisposeAll()
   {
     PixelCompare pc = new PixelCompare(PATH);
-    pc.assertEqual(CreateLinesAndLayoutWithBreaks.class.getName());
+    pc.assertEqual(DisposeAll.class.getName());
   }
 
   @Test
@@ -66,7 +75,7 @@ public class RiTextGraphicsTest // TODO: how to run these on JS tests?
 
   public static void main(String[] args)
   {
-    String clz = WordsLettersLines.class.getName();
+    String clz = DisposeAll.class.getName();
     PixelCompare pc = new PixelCompare(PATH);
     pc.generateRefImage(clz);
     //pc.visualDiff(clz);
