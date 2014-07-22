@@ -50,8 +50,6 @@ public class RiTextGraphicsTest // TODO: how to run these on JS tests?
     pc.assertEqual(DefaultFontAndFontVlwTtf.class.getName());
   }
   
-
-  
   @Test
   public void testDisposeAll()
   {
