@@ -1145,7 +1145,7 @@ public class RiTextTest
     deepEqual(result, new String[] { "!"});
 
     
-    // TODO: case-insensitive tests?
+    //case-insensitive tests
     rs = new RiText(null, "The rain in SPAIN stays mainly in the plain");
     result = rs.match("ain", Pattern.CASE_INSENSITIVE);
     deepEqual(result, new String[] { "ain", "AIN", "ain", "ain" });
@@ -1188,7 +1188,7 @@ public class RiTextTest
     result = rs.match("ain", Pattern.UNIX_LINES);
     deepEqual(result, new String[] { "ain", "AIN", "ain", "ain" });
     
-   */	  // fail("needs more");
+   */  
 
 
   }
