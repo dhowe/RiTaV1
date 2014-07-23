@@ -53,10 +53,10 @@ public class DocGenerator extends PApplet
       pln("\nCWD: " + System.getProperty("user.dir"));
 
       OUTPUT_DIR = a[0];
-    
+      
       if (a.length > 1) 
         DATA_DIR = a[1];
-
+      
       pln("DATA: " + DATA_DIR);
       
       if (a.length > 2) { 
@@ -65,7 +65,7 @@ public class DocGenerator extends PApplet
       }
     }
 
-    htmlTemplate = DATA_DIR + "html/template.html";
+    htmlTemplate = DATA_DIR + "/html/template.html";
     
     for (int i = 0; i < CLASS_NAMES.length; i++)
     {
@@ -79,7 +79,7 @@ public class DocGenerator extends PApplet
 
   static void parseJSON(String shortName)
   {
-    String jsonFile = DATA_DIR + "json/" + shortName + ".json";
+    String jsonFile = DATA_DIR + "/json/" + shortName + ".json";
 
     pln("  DocFile : " + jsonFile);
 
@@ -212,7 +212,7 @@ public class DocGenerator extends PApplet
 
     String folder_methodName = tmp_methodName[idx].replaceAll("\\(\\)", "_");
     
-    String fname = OUTPUT_DIR + shortName+"/"+folder_methodName+"/index.html";
+    String fname = OUTPUT_DIR +"/"+ shortName+"/"+folder_methodName+"/index.html";
     
     lines = replaceArr(lines, "tmp_className", shortName);
     lines = replaceArr(lines, "tmp_methodName", tmp_methodName[idx]);

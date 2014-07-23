@@ -1,10 +1,11 @@
-<project name="RiTa" default="clean" basedir="../">
+<project name="RiTa" default="default" basedir="../">
 
 	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
 		<classpath><pathelement location="./libs/ant-contrib-1.0b3.jar"/></classpath>
 	</taskdef>
 
 	<property file="./resources/build.properties" />
+	<property name="path.to.gulp" value="/usr/local/bin/gulp"/>
 
 	<description>${ant.description}</description>
 
@@ -25,8 +26,11 @@
 	<property name="project.jar.support.name" value="${main.package}.support.jar"/>
 	<property name="project.src" location="src"/>
 	<property name="project.src.test" location="src/rita/test"/>
+	<property name="project.doc.in" location="docs/"/>
+	<property name="project.doc.out" location="www/reference/"/>
 	<property name="project.latest" location="latest"/>
 	<property name="project.tmp" location="tmp"/>
+	<property name="project.build" location="{$project.tmp}/build"/>
 	<property name="project.web" location="web"/>
 	<property name="project.data" location="data"/>
 	<!--property name="project.lib" location="lib"/-->
@@ -43,6 +47,7 @@
 	<property name="project.jsbuild.download" location="${project.jsbuild.www}/download"/-->
 	<property name="install.source" location="resources/install_instructions.txt"/>
 	<property name="license.source" location="resources/license.txt"/>
+	<property name="license.dest" location="${project.tmp}/${project.name}/LICENSE.txt"/>
 	<property name="props.src" location="resources/library.properties"/>
 	<property name="props.dst" location="${project.dist.version}/${project.name}/library.properties"/>
 	<property name="install.destination" location="${project.dist.version}/INSTALL.txt"/>
@@ -89,6 +94,44 @@
 	</target>
 
 	<target name="run.node.tests" depends="check.rita.js">
+			<if>
+		        <not><isset property="rita.js.present"/></not>
+		        <then>
+					<echo message="Skipping node tests..." />
+		        </then>
+		        <else>
+		   			<echo>${line}</echo>
+		   			<echo message="Calling 'gulp test.node' ..." />
+		   			<exec dir="${project.js}" resolveexecutable="false" executable="${path.to.gulp}" failonerror="true">
+						<arg line="test.node"/>
+					</exec>	  
+		   			<echo>${line}</echo>
+		   			<echo message="All node-tests passed." />
+		   			<echo>${line}</echo>
+		        </else>
+		    </if>	
+	</target>
+	
+	<target name="run.phantom.tests" depends="check.rita.js">
+			<if>
+		        <not><isset property="rita.js.present"/></not>
+		        <then>
+					<echo message="Skipping phantom tests..." />
+		        </then>
+		        <else>
+		   			<echo>${line}</echo>
+		   			<echo message="Calling 'gulp test' ..." />
+   					<exec dir="${project.js}" resolveexecutable="false" executable="${path.to.gulp}" failonerror="true">
+						<arg line="test"/>
+					</exec>	 
+		   			<echo>${line}</echo>
+		   			<echo message="All phantom-tests passed." />
+		   			<echo>${line}</echo>
+		        </else>
+		    </if>	
+	</target>
+	
+	<target name="run.node.tests.old" depends="check.rita.js">
 		   <if>
 		        <not><isset property="rita.js.present"/></not>
 		        <then>
@@ -129,7 +172,7 @@
 
 	</target>
 
-	<target name="make.docs" depends="compile-debug">  
+	<target name="make.docs">  
 	    
 		<java classname="rita.docgen.DocGenerator" 
 		    fork="true"
@@ -139,19 +182,32 @@
 			    <path refid="classpath"/>
 			    <pathelement path="bin"/>
 			</classpath>
-			<arg value="www/reference/"/>
-      		<arg value="docs/"/>  
+			<arg value="${project.doc.out}"/>
+      		<arg value="${project.doc.in}"/>  
       	</java>
+      	
 	</target>  
 	
-	<target name="make.lib">
+	<target name="make.lib" depends="clean">
+	    
+		<antcall target="generate.structure"/>"scripts/make-lib_tmp.sh"
+		<antcall target="parse.source" />
+		<antcall target="compile.prod"/>
+		<antcall target="make.js"/>
+		<antcall target="make.node"/>
+		<!-- antcall target="make.docs"/-->
+		<antcall target="copy.docs.to.build"/>
+	    <antcall target="copy.www.to.build"/>
+	    <antcall target="copy.license.to.build"/>
+
+	    <!-- cp -r $WWW_DIR $BUILD
+		cp -r $LICENSE $BUILD/www/ -->
 	</target>
 	
 	<target name="_make.all">
 
 		<antcall target="run.tests" />
 		<antcall target="make.lib" />
-		<antcall target="clean" />
 		<antcall target="_script.make-node.sh" />
 	</target>
 
@@ -191,6 +247,18 @@ ${line}
 		<echo message="Initializing..." />
 	</target>
 
+	<target name="make.node" depends="check.rita.js" if="rita.js.present">
+		<exec dir="${project.js}" resolveexecutable="false" executable="${path.to.gulp}" failonerror="true">
+			<arg line="build.node"/>
+		</exec>	    
+	</target>
+	
+	<target name="make.js" depends="check.rita.js" if="rita.js.present">
+		<exec dir="${project.js}" resolveexecutable="false" executable="${path.to.gulp}" failonerror="true">
+			<arg line="build"/>
+		</exec>	    
+	</target>
+   	    
 	<target name="_script.make-lib.sh" depends="check.rita.js" if="rita.js.present">
 		<echo>${line}</echo>
 		<echo message="Calling make-lib.sh ..." />
@@ -275,7 +343,7 @@ ${line}
 		<echo message="Building library ..." />
 		<antcall target="generate.structure"/>
 		<antcall target="parse.source" />
-		<antcall target="compile-debug" />
+		<antcall target="compile.debug" />
 		<antcall target="generate.jars"/>
 		<!--antcall target="generate.javadoc" /-->
 		<!--antcall target="copyToSketchbook"><param name="folder" value="libraries"/></antcall-->
@@ -296,7 +364,7 @@ ${line}
 		</copy>
 	</target>
 
-	<target name="compile-debug">
+	<target name="compile.debug">
 		<javac srcdir="${project.tmp}/${project.name}/src"
 			includeantruntime="false"
 			destdir="${project.bin}" 
@@ -308,9 +376,10 @@ ${line}
 		</javac>
 	</target>
 
-	<target name="compile-prod">
+	<target name="compile.prod">
 		<javac srcdir="${project.tmp}/${project.name}/src" 
 			excludes="**/test/**"
+			includeantruntime="false"			
 			destdir="${project.bin}" 
 			source="${java.target.version}" 
 			target="${java.target.version}">
@@ -387,8 +456,11 @@ ${line}
 	
 	<target name="generate.structure">
 
-		<mkdir dir="${project.bin}"/>
+
+		<!--  mkdir dir="${project.bin}"/-->
+		
 		<delete dir="${project.tmp}" />
+		
 		<mkdir dir="${project.tmp}" />
 		<mkdir dir="${project.tmp}/${project.name}" />
 		<mkdir dir="${project.tmp}/${project.name}/library" />
@@ -397,8 +469,6 @@ ${line}
 		<mkdir dir="${project.tmp}/${project.name}/css" />
 		<mkdir dir="${project.tmp}/${project.name}/src" />
 
-
-		
 		<antcall target="copy.examples.to.processing" />
 
 		<echo message="Copying ${project.examples} to ${project.tmp}/${project.name}/examples... " />
@@ -414,23 +484,40 @@ ${line}
 			</fileset>
 		</copy>
 
-		<copy todir="${project.tmp}/${project.name}/reference">
-			<fileset dir="www/reference"/>
-		</copy>
-
 		<copy todir="${project.tmp}/${project.name}/css">
 			<fileset dir="www/css/">
 				<include name="*.css"/>
 			</fileset>
 		</copy>
 
-		<zip destfile="${project.latest}/${project.name}-${project.version}-src.zip"
+		<antcall target="create.src.zip"/>
+	</target>
+
+	<target name="create.src.zip">
+	    <zip destfile="${project.latest}/${project.name}-${project.version}-src.zip"
   	       basedir="${project.tmp}/${project.name}/src"
   	       excludes="**/.DS_Store"
 		/>
-
 	</target>
-
+	
+	<target name="copy.docs.to.build" depends="make.docs">
+	    
+		<copy todir="${project.tmp}/${project.name}/reference">
+			<fileset dir="${project.doc.out}"/>
+		</copy> 
+	</target>
+	
+	<target name="copy.www.to.build">
+		<copy todir="${project.tmp}/${project.name}/www">
+			<fileset dir="www" excludes="**/misc/**"/>
+		</copy> 
+		<replaceregexp file="${project.tmp}/${project.name}/www/download/index.html" match="##version##" replace="${project.version}" flags="g" />
+	</target>
+	
+	<target name="copy.license.to.build">
+		<copy file="${license.source}" tofile="${license.dest}" />
+	</target>
+		
     <target name="check.rita.js">
 		<echo message="Checking for rita.js..." />
         <available file="${rita.js.file}" property="rita.js.present"/>
@@ -490,102 +577,6 @@ ${line}
 				<include name="rita/**/*.pde"/>
 			</fileset>
 		</javadoc>
-	</target>
-
-	<target name="generate.web" if="is.normal">
-
-		<mkdir dir="${project.dist.version}/web" />
-		<copy todir="${project.dist.version}/web/reference">
-			<fileset dir="${project.dist.version}/${project.name}/reference" />
-		</copy>
-
-		<copy todir="${project.dist.version}/web/examples">
-			<fileset dir="${project.dist.version}/${project.name}/examples" />
-		</copy>
-
-		<copy todir="${project.dist.version}/web">
-			<fileset dir="${project.web}" />
-		</copy>
-
-		<!--
-  				format the index.html file. 
-			  	regular expressions are used to parse the web index.html file. 
-			  	key words starting and ending with ## are replaced by values 
-			  	defined earlier in the beginning of this build file.
-	  	-->
-
-		<replaceregexp file="${project.dist.version}/web/index.html"
-  	                         match="##project.name##"
-  	                         replace="${project.name}"
-  	                         flags="g" />
-
-		<replaceregexp file="${project.dist.version}/web/index.html"
-							match="##author.name##"
-							replace="${author.name}"
-							flags="g" />
-
-		<replaceregexp file="${project.dist.version}/web/index.html"
-							match="##project.version##"
-							replace="${project.version}"
-							flags="g" />
-
-		<replaceregexp file="${project.dist.version}/web/index.html"
-							match="##author.url##"
-  							replace="${author.url}"
-							flags="g" />
-
-		<replaceregexp file="${project.dist.version}/web/index.html"
-  							match="##date##"
-  	  						replace="${date}"
-  	  						flags="g" />
-
-		<replaceregexp file="${project.dist.version}/web/index.html"
-  							match="##project.keywords##"
-  	  						replace="${project.keywords}"
-  	  						flags="g" />
-
-
-		<replaceregexp file="${project.dist.version}/web/index.html"
-  							match="##tested.platform##"
-  	  						replace="${tested.platform}"
-  	  						flags="g" />
-
-		<replaceregexp file="${project.dist.version}/web/index.html"
-  							match="##tested.processingversion##"
-  	  						replace="${tested.processingversion}"
-  	  						flags="g" />
-
-		<replaceregexp file="${project.dist.version}/web/index.html"
-  							match="##project.dependencies##"
-  	  						replace="${project.dependencies}"
-  	  						flags="g" />
-
-		<replaceregexp file="${project.dist.version}/web/index.html"
-  							match="##source.host##"
-  	  						replace="${source.host}"
-  	  						flags="g" />
-
-		<replaceregexp file="${project.dist.version}/web/index.html"
-  							match="##source.url##"
-  	  						replace="${source.url}"
-  	  						flags="g" />
-
-		<replaceregexp file="${project.dist.version}/web/index.html"
-  							match="##source.repository##"
-  	  						replace="${source.repository}"
-  	  						flags="g" />
-
-		<replaceregexp file="${project.dist.version}/web/index.html"
-  							match="##project.copyright##"
-  	  						replace="${project.copyright}"
-  	  						flags="g" />
-
-		<antcall target="processExamples" />
-
-		<replaceregexp file="${project.dist.version}/web/index.html"
-  	  							match="##project.examples##"
-  	  	  						replace=""
-  	  	  						flags="g" />
 	</target>
 
 	<target name="generate.install.library" if="is.normal">
@@ -663,9 +654,17 @@ ${line}
 	  	  			replace="&lt;li&gt;&lt;a href=&quot;examples/${exampleDir}/${exampleDir}.pde&quot;&gt;${exampleDir}&lt;/a&gt;&lt;/li&gt; \1"
 	  	  			flags="g" />
 	</target>
+	
+	<target name="clean">
 
-	<target name="clean" depends="make.java">
 		<delete dir="${project.tmp}"/>
+		<delete dir="${project.docs}"/>
+		<delete dir="${project.build}"/>
+
+	</target>
+				
+	<target name="default" depends="clean">
+
 		<echo>
 		
 ${line}
