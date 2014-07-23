@@ -170,8 +170,8 @@ public class RiGrammarTest
     rg = new RiGrammar(s);
     //ok("fails b/c of editor?");
     res = rg.expand();
-    //println(res+'=“hello!”');
-    ok(res.equals("“hello!”")); // fails bc of editor
+    //println(res+'=���hello!���');
+    ok(res.equals("���hello!���")); // fails bc of editor
 
     s = "{ \"<start>\": \"&lt;start&gt;\" }";
     rg = new RiGrammar(s);

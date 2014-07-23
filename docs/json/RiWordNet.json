@@ -1315,5 +1315,21 @@
 	"related": "",
 	"platform": "Java only",
 	"note": ""
-}]
+}
+{
+	"variable": true,
+	"name": "getBaseForm",
+	"example": "",
+	"description": "",
+	"syntax":"",
+	"parameters": [],
+	"returns": [],
+	"related": "",
+	"platform": "Java only",
+	"note": ""
+}, 
+
+
+
+]
 }

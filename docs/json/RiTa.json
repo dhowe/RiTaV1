@@ -839,6 +839,28 @@
       "related":"",
       "platform":"Java / Javascript",
 	  "note":"Does nothing in Java"
+   },
+   {
+        "hidden": false,
+      "name":"RiTa.isStopWord",
+      "example":"",
+      "description":"",
+      "syntax":"RiTa.isStopWord(word);",
+      "parameters":[
+         {
+            "type":"String",
+            "desc":""
+         }
+      ],
+      "returns":[
+         {
+            "type":"boolean",
+            "desc":""
+         }
+      ],
+      "related":"",
+      "platform":"Java / Javascript",
+     "note":""
    }
 ]
 }
