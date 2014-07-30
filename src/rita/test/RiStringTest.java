@@ -790,7 +790,25 @@ public class RiStringTest implements Constants
     rs = new RiString("Who are you?");
     rs.replaceLast("", "");
     equal(rs.text(), "Who are you?");
+    
+    rs = new RiString("The rain in SPAIN stays mainly in the plain");
+    rs.replaceLast("ain", "ane");
+    equal(rs.text(), "The rain in SPAIN stays mainly in the plane");
 
+    rs = new RiString("The rain in SPAIN stays mainly in the plain");
+    rs.replaceLast("ain", "ane");
+    equal(rs.text(), "The rain in SPAIN stays mainly in the plane");
+
+    rs = new RiString("Watch out for the rock!");
+    rs.replaceLast("r", "wood");
+    equal(rs.text(), "Watch out for the woodock!");
+
+    rs = new RiString("The rain in SPAIN stays mainly in the plain");
+    rs.replaceLast("in", "");
+    equal(rs.text(), "The rain in SPAIN stays mainly in the pla");
+
+    // regex
+    
     rs = new RiString("Who are you*");
     rs.replaceLast("\\*", "!");
     equal(rs.text(), "Who are you!");
@@ -807,23 +825,7 @@ public class RiStringTest implements Constants
     rs.replaceLast("u\\?", "?!");
     equal(rs.text(), "Who wuz yo?!");
 
-    // regex
 
-    rs = new RiString("The rain in SPAIN stays mainly in the plain");
-    rs.replaceLast("ain", "ane");
-    equal(rs.text(), "The rain in SPAIN stays mainly in the plane");
-
-    rs = new RiString("The rain in SPAIN stays mainly in the plain");
-    rs.replaceLast("ain", "ane");
-    equal(rs.text(), "The rain in SPAIN stays mainly in the plane");
-
-    rs = new RiString("Watch out for the rock!");
-    rs.replaceLast("r", "wood");
-    equal(rs.text(), "Watch out for the woodock!");
-
-    rs = new RiString("The rain in SPAIN stays mainly in the plain");
-    rs.replaceLast("in", "");
-    equal(rs.text(), "The rain in SPAIN stays mainly in the pla");
 
   }
 
