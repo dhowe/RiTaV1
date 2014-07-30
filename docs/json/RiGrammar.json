@@ -288,6 +288,42 @@
       "related":"",
       "platform":"Java / Javascript",
 	  "note":""
-   }
+   },
+   {
+      "name": "setGrammar",
+      "example":"",
+      "description":"",
+      "syntax":"setGrammar();",
+      "parameters":  [  ],
+	  "returns":
+      [
+			{ 
+			"type": "", 
+			"desc": "" 
+			}
+			
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "name": "getRule",
+      "example":"",
+      "description":"",
+      "syntax":"getRule();",
+      "parameters":  [  ],
+	  "returns":
+      [
+			{ 
+			"type": "", 
+			"desc": "" 
+			}
+			
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
 ]
 }

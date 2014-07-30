@@ -1022,24 +1022,36 @@
       "platform":"Java / Javascript",
 	  "note":""
    },
-   {
+
+ {
       "name":"boundingStroke",
       "example":"",
-      "description":"Set/gets the boundingStroke for this RiText",
-      "syntax":"rt.boundingStroke();<br/>rt.boundingStroke(value);",
+      "description":"Set/gets the boundingStroke color for this RiText",
+      "syntax":"rt.boundingStroke();<br/>rt.boundingStroke(r, b, a);<br/>rt.boundingStroke(rgbaArr);",
       "parameters":
       [
 			{ 
+			"type": "float OR float[]", 
+			"desc": "r" 
+			},
+			{ 
 			"type": "float", 
-			"desc": "(optional) input (0-255) " 
+			"desc": "g" 
+			},
+			{ 
+			"type": "float", 
+			"desc": "b" 
+			},
+			{ 
+			"type": "float", 
+			"desc": "a" 
 			}
-			
 	  ],
 	  "returns":
       [
 			{ 
-			"type": "RiText OR float", 
-			"desc": "either this RiText (for set) or the current boundingStroke value (for get)" 
+			"type": "RiText OR float[]", 
+			"desc": "either this RiText (for sets) or the current color object (for gets)" 
 			}
 			
 	  ],
@@ -1171,42 +1183,7 @@
       "platform":"Java / Javascript",
 	  "note":""
    },
-   {
-      "name":"boundingStroke",
-      "example":"",
-      "description":"Set/gets the boundingStroke color for this RiText",
-      "syntax":"rt.boundingStroke();<br/>rt.boundingStroke(r, b, a);<br/>rt.boundingStroke(rgbaArr);",
-      "parameters":
-      [
-			{ 
-			"type": "float OR float[]", 
-			"desc": "r" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "g" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "b" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "a" 
-			}
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "RiText OR float[]", 
-			"desc": "either this RiText (for sets) or the current color object (for gets)" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
+  
    {
       "name":"boundingStrokeWeight",
       "example":"",
