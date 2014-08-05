@@ -117,6 +117,7 @@ public class TranslateToAndBehaviors extends PApplet
     if(timer == 400){
     	rt13.stopBehaviors();
     }
+  
 
     RiText.drawAll();
     
