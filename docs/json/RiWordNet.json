@@ -44,7 +44,7 @@
             "variable": false,
             "name": "isVerb",
             "example": "",
-            "description": " ",
+            "description": "Returns true if 'word' is a verb.",
             "syntax": "isVerb(word);",
             "parameters": [
                 {
@@ -92,7 +92,7 @@
             "variable": false,
             "name": "isNoun",
             "example": "",
-            "description": "",
+            "description": "Returns true if 'word' is a noun.",
             "syntax": "isNoun(word);",
             "parameters": [
                 {
@@ -114,7 +114,7 @@
             "variable": false,
             "name": "isIgnoringUpperCaseWords",
             "example": "",
-            "description": "",
+            "description": "Returns true if current RiWordNet is ignoring uppercase words",
             "syntax": "isIgnoringUpperCaseWords();",
             "parameters": [],
             "returns": [
@@ -131,7 +131,7 @@
             "variable": false,
             "name": "isIgnoringCompoundWords",
             "example": "",
-            "description": "",
+            "description": "Returns true if current RiWordNet is ignoring lowercase words",
             "syntax": "isIgnoringCompoundWords();",
             "parameters": [],
             "returns": [
@@ -148,7 +148,7 @@
             "variable": false,
             "name": "isAdverb",
             "example": "",
-            "description": "",
+            "description": "Returns true if 'word' is an adverb.",
             "syntax": "isAdverb(word);",
             "parameters": [
                 {
@@ -170,7 +170,7 @@
             "variable": false,
             "name": "isAdjective",
             "example": "",
-            "description": "",
+            "description": "Returns true if 'word' is an adjective.",
             "syntax": "isAdjective(word);",
             "parameters": [
                 {
@@ -192,7 +192,7 @@
             "variable": false,
             "name": "ignoreUpperCaseWords",
             "example": "",
-            "description": "",
+            "description": "set RiWordNet to ignore uppercase words",
             "syntax": "ignoreUpperCaseWords(ignoreUpperCaseWords);",
             "parameters": [
                 {
@@ -209,7 +209,7 @@
             "variable": false,
             "name": "ignoreCompoundWords",
             "example": "",
-            "description": "",
+            "description": "set RiWordNet to ignore compound words",
             "syntax": "ignoreCompoundWords(ignoreCompoundWords);",
             "parameters": [
                 {
@@ -630,7 +630,7 @@
             "variable": false,
             "name": "getPos",
             "example": "",
-            "description": "",
+            "description": "gets the pos of the id or 'word'",
             "syntax": "getPos(id);<br/>getPos(word);",
             "parameters": [
                 {
@@ -1284,7 +1284,7 @@
             "variable": false,
             "name": "getAllSynonyms",
             "example": "",
-            "description": "",
+            "description": "Gets all the synonyms of the word by 'sendseID' or the 'word'.",
             "syntax": "getAllSynonyms(senseId);<br/>getAllSynonyms(senseId, maxResults);<br/>getAllSynonyms(word, posStr);<br/>getAllSynonyms(word, posStr, maxResults);",
             "parameters": [
                 {
@@ -1297,7 +1297,7 @@
                 },
                 {
                     "type": "String",
-                    "desc": "posStr"
+                    "desc": "(Optional) posStr"
                 },
                 {
                     "type": "int",
@@ -1700,10 +1700,24 @@
             "variable": true,
             "name": "getBaseForm",
             "example": "",
-            "description": "",
-            "syntax": "",
-            "parameters": [],
-            "returns": [],
+            "description": "Gets the base form of the word",
+            "syntax": "getBaseForm(word)<br/>getBaseForm(word,posStr)",
+            "parameters": [           
+                {
+                    "type": "String",
+                    "desc": "word"
+                },
+                {
+                    "type": "String",
+                    "desc": "(Optional) posStr"
+                }
+                ],
+            "returns": [
+            {
+                    "type": "String",
+                    "desc": ""
+                }
+            ],
             "related": "",
             "platform": "Java only",
             "note": ""
