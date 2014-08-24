@@ -9,7 +9,7 @@
 
 	<description>${ant.description}</description>
 
-	<property name="processing.sketchbook" location="/XXX"/> <!-- ${user.home}/Documents/Processing"/>  -->
+	<property name="processing.sketchbook" location="${user.home}/Documents/Processing"/>  
 	
 	<property name="line" value="------------------------------------------------------------------------------------------------" />
 
@@ -31,7 +31,6 @@
 	<property name="project.latest" location="latest"/>
 	<property name="project.tmp" location="tmp"/>
 	<property name="project.build" location="{$project.tmp}/build"/>
-	<property name="project.web" location="web"/>
 	<property name="project.data" location="data"/>
 	<!--property name="project.lib" location="lib"/-->
 	<property name="project.libs" location="libs"/>
@@ -59,10 +58,12 @@
 
     <!-- optional stuff for rita-js -->
 	<property name="project.js" location="RiTaLibraryJS"/>
+	<property name="js.build" location="${project.js}/build"/>
 	<property name="project.js.name" value="rita.js"/>
 	<property name="rita.js.scripts" location="${project.js}/scripts"/>
 	<property name="rita.js.src" location="${project.js}/src"/>
 	<property name="rita.js.file" location="${rita.js.src}/${project.js.name}"/>
+	<property name="rita.js.full" location="${rita.js.src}/${project.js.name}"/>
 
 	<!-- ********************** CLASSPATHS ********************** -->
 
@@ -190,18 +191,21 @@
 	
 	<target name="make.lib" depends="clean">
 	    
-		<antcall target="generate.structure"/>"scripts/make-lib_tmp.sh"
+		<antcall target="generate.structure"/>
 		<antcall target="parse.source" />
 		<antcall target="compile.prod"/>
 		<antcall target="make.js"/>
 		<antcall target="make.node"/>
+		
 		<!-- antcall target="make.docs"/-->
 		<antcall target="copy.docs.to.build"/>
 	    <antcall target="copy.www.to.build"/>
 	    <antcall target="copy.license.to.build"/>
+	    <antcall target="copy.js.to.p5"/>
+	    <antcall target="copy.js.to.examples.lib"/>
+	    
+	    <!--  next: copy needed js files to tmp/www/download -->
 
-	    <!-- cp -r $WWW_DIR $BUILD
-		cp -r $LICENSE $BUILD/www/ -->
 	</target>
 	
 	<target name="_make.all">
@@ -512,6 +516,22 @@ ${line}
 			<fileset dir="www" excludes="**/misc/**"/>
 		</copy> 
 		<replaceregexp file="${project.tmp}/${project.name}/www/download/index.html" match="##version##" replace="${project.version}" flags="g" />
+	</target>
+	
+	<target name="copy.js.to.p5" depends="check.rita.js,check.processing" if="rita.js.present">
+	    <if>
+	        <not><isset property="processing.present"/></not>
+	        <then>
+				<echo message="Skipping copy.js.to.p5 ..." />
+	        </then>
+	        <else>
+	   			<copy file="${js.build}/rita-${project.version}.min.js" tofile="${processing.library}/rita.js"/>		
+	        </else>
+	    </if>	
+	</target>
+	
+	<target name="copy.js.to.examples.lib" depends="check.rita.js" if="rita.js.present">
+		<copy file="${js.build}/rita-${project.version}.min.js" tofile="${project.examples}/rita.js"/>		
 	</target>
 	
 	<target name="copy.license.to.build">
