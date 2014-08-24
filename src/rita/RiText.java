@@ -1688,6 +1688,34 @@ public class RiText implements Constants //RiTextIF
     this.alignment = align;
   }
 
+  public static float[] boundingBox(RiText rt) // add-to-api?
+  {
+    return boundingBox(rt);
+  }
+  
+  /**
+   * Returns an array (x,y,w,h) representing the aggregate
+   * bounding box for all the ritexts in the array
+   */
+  public static float[] boundingBox(RiText[] rts) // add-to-api?
+  {
+    float minX=Float.MAX_VALUE, 
+      maxX=-Float.MAX_VALUE, 
+      minY=Float.MAX_VALUE, 
+      maxY=-Float.MAX_VALUE;
+      
+    for (int i = 0; i < rts.length; i++) {
+      
+      float[] bb = rts[i].boundingBox();
+      if (bb[0] < minX) minX = bb[0];
+      if (bb[1] < minY) minY = bb[1];
+      if (bb[0]+bb[2] > maxX) maxX = bb[0]+bb[2];
+      if (bb[1]+bb[3] > maxY) maxY = bb[1]+bb[3];
+    }
+    
+    return new float[] {minX, minY, maxX-minX, maxY-minY };
+  }
+  
   /**
    * Returns a rectangle representing the current screen position of the
    * bounding box
