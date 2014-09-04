@@ -21,7 +21,11 @@ import rita.*;
 
 public class GoogleDirect implements RiGooglerIF
 {
-  enum SearchType { SEARCH, BOOKS, IMAGE };
+  enum SearchType { SEARCH, BOOKS, IMAGE }
+
+  public static String GOOGLE_SEARCH = //"http://www.google.com/%TYPE%?hl=en&safe=off&q=%QUERY%&btnG=Google+Search";
+      "https://www.google.com.hk/%TYPE%?q=%QUERY%&ie=utf-8&oe=utf-8&aq=t&rls=org.mozilla:en-US:official&client=firefox-a&channel=sb&gfe_rd=cr&";
+  public static String GOOGLE_IMG_SEARCH = "https://www.google.com/search?q=%QUERY%&sa=X&hl=en&noj=1&biw=1394&bih=776&tbm=isch&tbas=0";
   
   protected SearchType type = SearchType.SEARCH;
   
@@ -37,6 +41,8 @@ public class GoogleDirect implements RiGooglerIF
   public GoogleDirect()
   {
     if (patResult == null) {
+      
+      // pre-compile patters
       patResult = new Pattern[RESULTS_PATS.length];
       for (int i = 0; i < patResult.length; i++)
       {
@@ -56,28 +62,35 @@ public class GoogleDirect implements RiGooglerIF
     
     this.type = SearchType.IMAGE;
     
-    final String linkPatt = "&imgurl=([^&]+)&";
+    final String linkPatt = "[&?]imgurl=([^&]+)&";
     final List links = new ArrayList();
+    
     try
     {
       customParse(query, new HTMLEditorKit.ParserCallback() // an inner class
       {
-        boolean inDiv, isLink;
+        boolean inDiv;
         
         public void handleStartTag(Tag t, MutableAttributeSet a, int pos) {
-          //System.out.println("found: "+t);
+          
           if (t == Tag.DIV) {
+            
             String clss = (String) a.getAttribute(Attribute.CLASS);
             inDiv = clss != null && clss.equals("rg_di");
           }
           if (inDiv && t == Tag.A) {
+            
             String address = (String) a.getAttribute(Attribute.HREF);
+            //System.out.println("found: "+address);
             String link = parseRef(address, linkPatt);
             links.add(link);
           }
         }
+        
         public void handleEndTag(Tag t, int pos) {
+          
           if (t == Tag.DIV) {
+            
             inDiv = false;
           }
         }
@@ -178,42 +191,68 @@ public class GoogleDirect implements RiGooglerIF
   
   public String fetch(String queryURL) // TODO: replace with loadString(URL);
   {
-    String line = E;
     BufferedReader in = null;
     try
     {
       URL url = new URL(queryURL);
       
-      if (dbugFetch) System.out.println("URL: " + queryURL);
+      if (dbugFetch);
+      System.out.println("URL: " + queryURL);
       
       HttpURLConnection conn = (HttpURLConnection) (url.openConnection());
       setRequestHeaders(conn);
-
-      numCalls ++;
-      try
-      {
-        in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-      }
-      catch (FileNotFoundException e)
-      {
-        throw new RiTaException("Google: page not found (404):\n" + queryURL);
-      }
-      catch (Exception e)
-      {
-        if (e != null) {
-          String message = e.getMessage();
-          if (message.startsWith(FORBIDDEN_503))
-            throw new RiTaException("Google request rejected(503) for:\n" + queryURL);
-        }
-        throw new RiTaException(e);
-      }
+      numCalls++;
       
-      StringBuffer sb = new StringBuffer();
-      if (in != null) {
-        while ((line = in.readLine()) != null)
-          sb.append(line + '\n');
+      conn = followRedirects(conn);
+ 
+      return getStream(queryURL, in, conn);
+    }
+    catch (Exception e)
+    {
+      if (e instanceof RiTaException) {
+        try
+        {
+          throw e;
+        }
+        catch (Exception e1)
+        {
+          e1.printStackTrace();
+        }
       }
-      return sb.toString();
+      if (!RiTa.SILENT)
+        System.err.println("EXCEPTION: " + e.getClass() + " query=" + queryURL);
+      
+      throw new RiTaException("query=" + queryURL, e);
+    }
+  }
+
+  private String getStream(String queryURL, BufferedReader in, HttpURLConnection conn)
+  {
+    StringBuffer sb = new StringBuffer();
+      
+    String line;
+    try
+    {
+      in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+    }
+    catch (FileNotFoundException e)
+    {
+      throw new RiTaException("Google: page not found (404):\n" + queryURL);
+    }
+    catch (Exception e)
+    {
+      if (e != null) {
+        String message = e.getMessage();
+        if (message.startsWith(FORBIDDEN_503))
+          throw new RiTaException("Google request rejected(503) for:\n" + queryURL);
+      }
+      throw new RiTaException(e);
+    }
+   
+    try
+    {
+      while ((line = in.readLine()) != null)
+          sb.append(line + '\n');
     }
     catch (Exception e)
     {
@@ -241,6 +280,45 @@ public class GoogleDirect implements RiGooglerIF
       catch (IOException e){}
       in = null;
     }
+    
+    return sb.toString();
+  }
+
+  private HttpURLConnection followRedirects(HttpURLConnection conn) throws IOException, MalformedURLException
+  {
+    boolean redirect = false;
+
+    // normally, 3xx is redirect
+    int status = conn.getResponseCode();
+    if (status != HttpURLConnection.HTTP_OK)
+    {
+      if (status == HttpURLConnection.HTTP_MOVED_TEMP
+          || status == HttpURLConnection.HTTP_MOVED_PERM
+          || status == HttpURLConnection.HTTP_SEE_OTHER)
+        redirect = true;
+    }
+    
+    if (dbugFetch) System.out.println("Response Code: " + status);
+    
+    if (redirect)
+    {
+      // get redirect url from "location" header field
+      String newUrl = conn.getHeaderField("Location");
+
+      // get the cookie if need, for login
+      String cookies = conn.getHeaderField("Set-Cookie");
+
+      // open the connnection again with new URL
+      URL url = new URL(newUrl);
+      conn = (HttpURLConnection)url.openConnection();
+      setRequestHeaders(conn);
+      numCalls++;
+
+      if (!RiTa.SILENT)
+        System.out.println("[INFO] Redirect("+status+") " + newUrl);
+    }
+    
+    return conn;
   }
 
   /** 
@@ -533,7 +611,7 @@ public class GoogleDirect implements RiGooglerIF
     return this.cookie(cStr);
   }
   
-  protected void setRequestHeaders(HttpURLConnection conn) 
+  protected HttpURLConnection setRequestHeaders(HttpURLConnection conn) 
   {
     conn.setRequestProperty("User-Agent", userAgent);
     conn.setRequestProperty("Accept-Language", "en-US,en;q=0.8");
@@ -541,12 +619,13 @@ public class GoogleDirect implements RiGooglerIF
     conn.setRequestProperty("Connection", "keep-alive");
     conn.setRequestProperty("Accept","text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
     conn.setRequestProperty("Cookie", cookie);
-    conn.setRequestProperty("DNT", "1");
+    
+    return conn;
   } 
   
   private List parseRefs(String html, String regex)
   {
-    Matcher matcher = Pattern.compile(regex,Pattern.CASE_INSENSITIVE).matcher(html);
+    Matcher matcher = Pattern.compile(regex, Pattern.CASE_INSENSITIVE).matcher(html);
 
     // Get all groups for this pattern
     List matches = new ArrayList();
@@ -563,21 +642,21 @@ public class GoogleDirect implements RiGooglerIF
     return matches;
   }
   
-  protected String parseRef(String html, String regex)
+  protected static String parseRef(String html, String regex)
   {
-    Matcher matcher = Pattern.compile(regex,Pattern.CASE_INSENSITIVE).matcher(html);
+    Matcher matcher = Pattern.compile(regex, Pattern.CASE_INSENSITIVE).matcher(html); // TODO: cache
     List matches = new ArrayList();
     if (matcher.find())
     {
       String url = matcher.group(1);
-      if (1==2) System.err.println("RAW(1): " + url);
+      //System.err.println("RAW(1): " + url);
       return decodeUrl(url);
     }
     
     return null;
   }
   
-  private String decodeUrl(String url)
+  private static String decodeUrl(String url)
   {
     if (url != null) {
       try
@@ -733,14 +812,18 @@ public class GoogleDirect implements RiGooglerIF
     
     query = query.replaceAll("\"", "%22").replaceAll(" ", "+");
     
-    String queryURL = "http://www.google.com/" + type.name().toLowerCase()
-    + "?hl=en&safe=off&q=" + query + "&btnG=Google+Search";
+    String queryURL = GOOGLE_SEARCH.replaceAll("%TYPE%", type.toString().toLowerCase());
   
     if (type == SearchType.IMAGE) { 
 
       //queryURL = "http://images.google.com/search?q="+query+"&num=30&hl=en&tbm=isch&sout=1&biw=1457&bih=1209";
-      queryURL = "http://www.google.com/search?hl=en&site=imghp&tbm=isch&source=hp&biw=1513&bih=819&q="+query+"&oq="+query;
+      queryURL = GOOGLE_IMG_SEARCH;
+      
+      // large, photo, b+w
+      //queryURL = "https://www.google.com/search?q=%QUERY%&hl=en&noj=1&tbs=isz:l,ic:gray,itp:photo&tbm=isch&source=lnt&sa=X";
     }
+    
+    queryURL = queryURL.replaceAll("%QUERY%", query);
     
     if (startIndex != 1) queryURL += "&start="+startIndex;
 
@@ -771,8 +854,9 @@ public class GoogleDirect implements RiGooglerIF
   {
     try
     {
-      String sq = makeQuery(query);
-      StringReader sr = new StringReader(fetch(sq));
+      String html = fetch(makeQuery(query));
+      //System.out.println(html);
+      StringReader sr = new StringReader(html);
       return this.customParse(sr, pcb);
     }
     catch (Exception e)
@@ -810,7 +894,7 @@ public class GoogleDirect implements RiGooglerIF
     " <b>1</b> - <b>(?:[0-9]|10)</b> of (?:about )?<b>([0-9,]+)</b>", "([0-9,]+) results?<" 
   };
 
-  public static void main(String[] args)
+  public static void testGetCompletions(String[] args)
   {
     String query = "The dog";
     GoogleDirect rg = new GoogleDirect();
@@ -819,6 +903,18 @@ public class GoogleDirect implements RiGooglerIF
     for (int i = 0; i < completions.length; i++)
     {
       System.out.println(completions[i]);
+    }
+  }
+  
+  public static void main(String[] args)
+  {
+    GoogleDirect rg = new GoogleDirect();
+    GOOGLE_IMG_SEARCH = "https://www.google.com/search?q=%QUERY%&hl=en&noj=1&tbs=isz:l,ic:gray,itp:photo&tbm=isch&source=lnt&sa=X";
+    String[] images = rg.getImageURLs("happiness");
+    System.out.println("Found: "+images.length);
+    for (int i = 0; i < images.length; i++)
+    {
+      System.out.println(i+") "+images[i]);
     }
   }
 }

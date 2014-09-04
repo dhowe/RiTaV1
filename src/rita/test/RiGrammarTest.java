@@ -13,7 +13,7 @@ import rita.*;
 
 public class RiGrammarTest
 { 
-  private static final boolean SILENT = true;
+  private static final boolean SILENT = false;
 
   // TODO: add tests that these exists(actually should be taken from JSON actually)
   String[] functions = { "addRule", "clone", "expand", "expandFrom", "expandWith", "getGrammar",
@@ -158,20 +158,14 @@ public class RiGrammarTest
     String s = "{ \"<start>\": \"hello &#124; name\" }";
     RiGrammar rg = new RiGrammar(s);
     String res = rg.expand();
-    //println(res); 
+    //println("res="+res);
     ok(res.equals("hello | name"));
 
     s = "{ \"<start>\": \"hello: name\" }";
     rg = new RiGrammar(s);
     res = rg.expand();
+    //println("res="+res);
     ok(res.equals("hello: name"));
-
-    s = "{ \"<start>\": \"&#8220;hello!&#8221;\" }";
-    rg = new RiGrammar(s);
-    //ok("fails b/c of editor?");
-    res = rg.expand();
-    //println(res+'=���hello!���');
-    ok(res.equals("���hello!���")); // fails bc of editor
 
     s = "{ \"<start>\": \"&lt;start&gt;\" }";
     rg = new RiGrammar(s);

@@ -66,8 +66,8 @@ wordOffset()			WordsLettersLines.java
 words()					X
 			
 RiText.defaults			On Every java		
-RiText.createLetters()	WordsLetteresLines.java		
-RiText.createWords()	WordsLetteresLines.java		
+RiText.createLetters()	WordsLettersLines.java		
+RiText.createWords()	WordsLettersLines.java		
 RiText.createLines()	CreateLinesAndLayoutWithBreaks.java		
 RiText.drawAll()		On Every java		
 RiText.dispose()		DefaultFontAndFontVlw.java		
