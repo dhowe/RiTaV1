@@ -15,7 +15,7 @@ public class BoundingBoxAndAlpha extends PApplet {
 		RiText.defaults.showBounds = true;
 		RiText.defaultFontSize(64);
     
-		new RiText("Default", 200,  100);
+		new RiText("Default", 200,  80);
 		new RiText("Center", 200, 200).align(CENTER);
 		new RiText("Right", 200, 300).align(RIGHT);
 		new RiText("Left", 200, 400).align(LEFT);

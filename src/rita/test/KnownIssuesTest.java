@@ -15,6 +15,17 @@ import rita.support.*;
 
 public class KnownIssuesTest implements Constants
 {
+      
+  @Test
+  public void testSpecialCharsInRiGramma()
+  {
+    String s = "{ \"<start>\": \"&#8220;hello!&#8221;\" }";
+    RiGrammar rg = new RiGrammar(s);
+    //ok("fails b/c of editor?");
+    String res = rg.expand();
+    ok(res.equals("���hello!���")); // fails bc of editor
+  }
+  
   @Test
   public void testTokenizing()
   {

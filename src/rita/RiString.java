@@ -356,11 +356,6 @@ public class RiString implements FeaturedIF, Constants
   {
     return text(this.delegate.replaceFirst(regex, replacement));
   }
-  
-  public RiString replaceLast(String regex, String replacement)
-  {
-    return text(delegate.replaceFirst("(?s)"+regex+"(?!.*?"+regex+")", replacement));
-  }
 
   public RiString replaceAll(String regex, String replacement)
   {

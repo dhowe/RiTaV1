@@ -73,9 +73,9 @@ public class RiTextGraphicsTest // TODO: how to run these on JS tests?
 
   public static void main(String[] args)
   {
-    String clz = DisposeAll.class.getName();
+    String clz = BoundingBoxAndAlpha.class.getName();
     PixelCompare pc = new PixelCompare(PATH);
-    pc.generateRefImage(clz);
+    //pc.generateRefImage(clz);
     //pc.visualDiff(clz);
   }
 

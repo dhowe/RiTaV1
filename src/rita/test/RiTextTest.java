@@ -591,47 +591,6 @@ public class RiTextTest
   }
 
   @Test
-  public void testReplaceLast()
-  {
-    RiText rs = new RiText(null, "Who are you?");
-    rs.replaceLast("e", "E");
-    equal(rs.text(), "Who arE you?");
-
-    rs = new RiText(null, "Who are you?");
-    rs.replaceLast("o", "O");
-    equal(rs.text(), "Who are yOu?");
-
-    rs = new RiText(null, "Who are you?");
-    rs.replaceLast("Who", "Where");
-    equal(rs.text(), "Where are you?");
-
-    rs = new RiText(null, "Who are you?");
-    rs.replaceLast("notExist", "Exist");
-    equal(rs.text(), "Who are you?");
-
-    rs = new RiText(null, "Who are you?");
-    rs.replaceLast("Who are", "Dare");
-    equal(rs.text(), "Dare you?");
-
-    rs = new RiText(null, "Who are you?");
-    rs.replaceLast("Who aRe", "Dare");
-    equal(rs.text(), "Who are you?");
-
-    rs = new RiText(null, "Who are you? Who are you?");
-    rs.replaceLast("Who are", "Dare");
-    equal(rs.text(), "Who are you? Dare you?");
-
-    rs = new RiText(null, "Who are you?");
-    rs.replaceLast("\\?", "!");
-    //System.out.println(rs);
-    equal(rs.text(), "Who are you!");
-
-    rs = new RiText(null, "Who are you?");
-    rs.replaceLast("", "");
-    equal(rs.text(), "Who are you?");
-  }
-
-  @Test
   public void testReplaceAll()
   {
     // replaceAll(regex, replacement);

@@ -2612,12 +2612,6 @@ public class RiText implements Constants //RiTextIF
     return this;
   }
 
-  public RiText replaceLast(String regex, String replacement)
-  {
-    text.replaceLast(regex, replacement);
-    return this;
-  }
-
   public RiText replaceAll(String regex, String replacement)
   {
     text.replaceAll(regex, replacement);

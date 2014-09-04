@@ -63,7 +63,6 @@
 			"type": "int", 
 			"desc": "" 
 			}
-			
 	  ],
       "related":"",
       "platform":"Java / Javascript",
@@ -514,30 +513,6 @@
 	  "note":""
    },
    {
-      "name":"match",
-      "example":"",
-      "description":"Searches for a match between a substring (or regular expression) and the contained string, and _returns the matches",
-      "syntax":"rt.match(regex);",
-      "parameters":
-      [
-			{ 
-			"type": "String", 
-			"desc": "regex Regular expression" 
-			}
-		
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "String[]", 
-			"desc": "strings matches or empty array if none are found" 
-			}
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
       "name":"pos",
       "example":"",
       "description":"Returns an array of part-of-speech tags (from the <a href='../../PennTags.html'>PENN tag set</a>), one per word, using RiTa.tokenize() and RiTa.getPosTags(), with tags from the <a href='../../PennTags.html'>PENN tag set</a>",
@@ -635,15 +610,38 @@
 	  "note":""
    },
    {
-      "name":"replaceFirst",
+      "name": "match",
       "example":"",
-      "description":"Replaces the first instance of 'regex' with 'replaceWith'",
-      "syntax":"rt.replaceFirst(regex, replaceWith);",
+      "description":"Searches for a match between a substring (or regular expression) and the contained string, and returns all matches. Regular expressions will be used if the 1st argument is a regular expression, otherwise only generic string-matching is used (special regex characaters are escaped)",
+      "syntax":"match(pattern);",
       "parameters":
       [
 			{ 
-			"type": "String", 
-			"desc": "regex the pattern" 
+			"type": "String or Object (the regex)",  
+			"desc": "regular expression" 
+			}
+	  ],
+	  "returns":
+      [
+			{ 
+			"type": "String[]", 
+			"desc": "string array of matches or empty array if none are found" 
+			}
+	  ],
+      "related":"",
+      "platform":"Java / Javascript",
+	  "note":""
+   },
+   {
+      "name": "replaceFirst",
+      "example":"",
+      "description":"Replaces the first instance of 'substitution' with 'replacement'. Regular expressions (non-global) will be used only if the 1st argument is a regular expression, otherwise only generic string-matching is used (special regex characaters are escaped)",
+      "syntax":"replaceFirst(substitution, replacement);",
+      "parameters":
+      [
+			{ 
+			"type": "String or Object (the regex pattern)",
+			"desc": "the pattern" 
 			},
 			{ 
 			"type": "String", 
@@ -662,41 +660,14 @@
 	  "note":""
    },
    {
-      "name":"replaceLast",
+      "name": "replaceAll",
       "example":"",
-      "description":"Replaces the last instance of 'regex' with 'replaceWith'",
-      "syntax":"rt.replaceLast(regex, replaceWith);",
+      "description":"Replaces each occurrence of 'substitution' with 'replacement'. Regular expressions will be used if the 1st argument is a regular expression, otherwise only generic string-matching is used (special regex characaters are escaped)",
+      "syntax":"replaceAll(substitution, replacement);",
       "parameters":
       [
 			{ 
-			"type": "String", 
-			"desc": "regex the pattern" 
-			},
-			{ 
-			"type": "String", 
-			"desc": "the replacement" 
-			}
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "RiText", 
-			"desc": "this RiText" 
-			}
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"replaceAll",
-      "example":"",
-      "description":"Replaces each substring matching the regular expression with the replacement.",
-      "syntax":"rt.replaceAll(regex, replaceWith);",
-      "parameters":
-      [
-			{ 
-			"type": "String", 
+			"type": "String or Object (the regex)", 
 			"desc": "the pattern to be matched" 
 			},
 			{ 
@@ -1509,8 +1480,6 @@
       "syntax":"rt.splitLetters();",
       "parameters":
       [
-			
-
 	  ],
 	  "returns":
       [
@@ -1527,12 +1496,12 @@
    {
       "name":"splitWords",
       "example":"",
-      "description":"Splits the object into an array of RiTexts, one per word tokenized with the supplied regex.",
+      "description":"Splits the object into an array of RiTexts, one per word tokenized with the supplied pattern. Regular expressions will be used if the 1st argument is a regular expression, otherwise only generic string-matching is used (special regex characaters are escaped)",
       "syntax":"rt.splitWords(regex);",
       "parameters":
       [
 			{ 
-			"type": "String", 
+			"type": "String or Object (the regex)",
 			"desc": "String or regex to split" 
 			}
 
