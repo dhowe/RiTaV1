@@ -17,8 +17,7 @@ import rita.*;
 import rita.support.Constants;
 
 /*
- * Kenny: Port all these tests over from RiTaJS
- * 
+ * TODO: Port all these tests over from RiTaJS [C]
  * For examples, see testAnalyze(),testCharAt(), and testTrim() below
  */
 public class RiStringTest implements Constants
@@ -38,7 +37,7 @@ public class RiStringTest implements Constants
   @Test
   public void testSubSequence()
   {
-    testSubstring(); // should be the same
+    testSubstring(); // OK, should be the same
   }
 
   @Test
@@ -77,8 +76,6 @@ public class RiStringTest implements Constants
     equal(numWords, features.get(PHONEMES).split(" ").length);
     equal(numWords, features.get(SYLLABLES).split(" ").length);
     equal(numWords, features.get(POS).split(" ").length);
-
-    // if (1==1) return;
 
     String txt = "The dog ran faster than the other dog.  But the other dog was prettier.";
     RiString rs = new RiString(txt);
@@ -483,7 +480,7 @@ public class RiStringTest implements Constants
   }
 
   @Test
-  public void testMatch()
+  public void testMatch() // TODO: check these results against JS [C]
   {
     RiString rs = new RiString("The rain in SPAIN stays mainly in the plain");
     String[] result = rs.match("ain");
@@ -694,7 +691,7 @@ public class RiStringTest implements Constants
   }
 
   @Test
-  public void testReplaceFirst()
+  public void testReplaceFirst() // TODO: check these results against JS [C] 
   {
     RiString rs = new RiString("Who are you?");
     rs.replaceFirst("e", "E");
@@ -727,12 +724,8 @@ public class RiStringTest implements Constants
     rs = new RiString("Who are you?");
     rs.replaceFirst("", "");
     equal(rs.text(), "Who are you?");
-  }
 
-  @Test
-  public void testReplaceFirstRegex()
-  {
-    RiString rs = new RiString("The rain in SPAIN stays mainly in the plain");
+    rs = new RiString("The rain in SPAIN stays mainly in the plain");
     rs.replaceFirst("ain", "ane");
     equal(rs.text(), "The rane in SPAIN stays mainly in the plain");
 
@@ -756,7 +749,7 @@ public class RiStringTest implements Constants
   }
 
   @Test
-  public void testReplaceAll()
+  public void testReplaceAll() // TODO: check these results against JS [C]
   {
     RiString rs = new RiString("Who are you? Who is he? Who is it?");
     equal(rs.replaceAll("e", "E").text(), "Who arE you? Who is hE? Who is it?");

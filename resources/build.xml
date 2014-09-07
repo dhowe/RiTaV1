@@ -30,16 +30,18 @@
 	<property name="project.doc.out" location="www/reference/"/>
 	<property name="project.latest" location="latest"/>
 	<property name="project.tmp" location="tmp"/>
+	
 	<property name="project.build" location="{$project.tmp}/build"/>
 	<property name="project.data" location="data"/>
 	<!--property name="project.lib" location="lib"/-->
 	<property name="project.libs" location="libs"/>
 	<property name="project.bin" location="bin"/>
-	<property name="project.bin.data" location="${project.bin}/data"/>
+	<property name="project.bin.data" location="${project.tmp}/${project.name}/bin/data"/>
 	<property name="project.examples" location="www/examples"/>
 	<property name="project.reference" location="reference"/>
 	<property name="project.dist" location="distribution"/>
 	<property name="project.dist.version" location="distribution/${project.name}-${project.version}"/>
+	<property name="project.website" location="${project.dist.version}/WWW-${project.version}"/>
 	<property name="project.download" location="${project.dist.version}/download"/>
 	<!--property name="project.jsbuild" location="${project.js}/build"/>
 	<property name="project.jsbuild.www" location="${project.jsbuild}/www"/>
@@ -70,9 +72,10 @@
 	<path id="classpath">
 		<fileset dir="${project.libs}" includes="**/*.jar" excludes="ant-contrib-*"/>
 	</path>
+	
 	<path id="test.classpath">
 		<fileset dir="${project.libs}" includes="**/*.jar" excludes="ant-contrib-*"/>
-		<pathelement path="${project.bin}" />
+		<pathelement path="bin" />
     	<pathelement path="${project.src}" />
     	<!--pathelement path="${project.src}" /-->
 	</path>
@@ -89,12 +92,12 @@
 				
 	<!-- ********************** TARGETS ********************** -->
     
-	<target name="run.tests">
-		<antcall target="run.java.tests" />
-		<antcall target="run.node.tests" />
+	<target name="test.all" description="run all java/js tests (js in node)">
+		<antcall target="test.java" />
+		<antcall target="test.node" />
 	</target>
 
-	<target name="run.node.tests" depends="check.rita.js">
+	<target name="test.node" depends="check.rita.js" description="run js(qunit) tests in node">
 			<if>
 		        <not><isset property="rita.js.present"/></not>
 		        <then>
@@ -113,7 +116,7 @@
 		    </if>	
 	</target>
 	
-	<target name="run.phantom.tests" depends="check.rita.js">
+	<target name="test.phantom" depends="check.rita.js" description="run js(qunit) tests in phantomJS">
 			<if>
 		        <not><isset property="rita.js.present"/></not>
 		        <then>
@@ -152,10 +155,10 @@
 		    </if>
 	</target>
 		
-	<target name="run.java.tests" depends="init">
+	<target name="test.java" description="runs all java (junit) tests">
 
 		<junit printsummary="yes" timeout="100000" haltonfailure="yes">
-
+		
 			<classpath><path refid="test.classpath"/></classpath>
 
 			<formatter type="plain" />
@@ -173,7 +176,7 @@
 
 	</target>
 
-	<target name="make.docs">  
+	<target name="make.docs" description="generates docs from json">  
 	    
 		<java classname="rita.docgen.DocGenerator" 
 		    fork="true"
@@ -188,29 +191,106 @@
       	</java>
       	
 	</target>  
+		
+	<target name="make.all" depends="clean, library.init" description="test, builds all resources">
+		
+	    <!-- echo message="Testing library..." />	    
+	    <antcall target="test.all"/-->
+	    
+		<echo message="Building library..." />
+		<echo message="Module: Java" />
+		
+		<antcall target="generate.structure"/>
+		<antcall target="source.doreplace" />
+		<antcall target="compile.prod" />
+		
+		<antcall target="generate.jars"/>
+		<antcall target="generate.docs"/>
+		
+		<antcall target="generate.distribution" />
+		
+		<echo message="Module: JavaScript" />
+				
+		<antcall target="make.js"/>
+		<antcall target="import.js.files"/>
+		
+		<antcall target="copy.www.to.build" />
+		<antcall target="generate.zip" />
+
+		<antcall target="create.www.pub" />	 	
+		<delete dir="${project.tmp}" />
+		
+			<!-- WORKING HERE: 
+			
+			 	- Add Publish task: scp /tmp/RiTa/WWW-Version.zip -> host, unzip
+			 	  
+			 	  + softlinking:
+			 		 ln -fs rita-1.0.67.js rita-latest.js
+ 					 ln -fs rita-1.0.67.min.js rita-latest.min.js
+					 ln -fs rita-1.0.67.micro.js rita-latest.micro.js
+					 ln -fs rita-1.0.67.microp5.js rita-latest.microp5.js
+					 ln -fs rita-1.0.67.jar rita-latest.jar
+				  
+				  + publish-node
+			-->
+			 	
+	</target>
+		
+	<target name="create.www.pub">
+		<move file="${project.tmp}/${project.name}/www" tofile="${project.website}" />
+		<zip destfile="${project.website}/../WWW-${project.version}.zip"
+  	       basedir="${project.website}"
+  	       excludes="**/.DS_Store"
+		/>
+		<symlink link="${project.dist}/Current" resource="${project.website}" overwrite="true"/>
+	</target>
 	
-	<target name="make.lib" depends="clean">
+	<target name="xmake.lib" depends="clean">
 	    
 		<antcall target="generate.structure"/>
-		<antcall target="parse.source" />
+		<antcall target="source.doreplace"/>
 		<antcall target="compile.prod"/>
+		
 		<antcall target="make.js"/>
 		<antcall target="make.node"/>
 		
 		<!-- antcall target="make.docs"/-->
-		<antcall target="copy.docs.to.build"/>
+		<antcall target="generate.docs"/>
 	    <antcall target="copy.www.to.build"/>
 	    <antcall target="copy.license.to.build"/>
-	    <antcall target="copy.js.to.p5"/>
+	    <!-- antcall target="copy.js.to.p5"/-->
 	    <antcall target="copy.js.to.examples.lib"/>
 	    
 	    <!--  next: copy needed js files to tmp/www/download -->
+	    <antcall target="import.js.files"/>
 
 	</target>
 	
+	<target name="import.js.files" depends="check.rita.js" if="rita.js.present">
+	 
+		<copy tofile="${project.dist.version}/${project.name}/library/rita.js" 
+		    file="${js.build}/rita-${project.version}.min.js"/>
+
+		<copy tofile="www/examples/lib/rita.js" 
+		    file="${js.build}/rita-${project.version}.min.js"/>
+	    				
+		<copy todir="${project.tmp}/${project.name}/www/download">
+			<fileset dir="${js.build}">
+				<include name="*.js"/>
+			</fileset>
+		</copy>
+		
+		<copy todir="${project.latest}">
+			<fileset dir="${js.build}">
+				<include name="*.js"/>
+			</fileset>
+		</copy>
+
+	</target>
+	    	
 	<target name="_make.all">
 
-		<antcall target="run.tests" />
+		<antcall target="test.all" />
 		<antcall target="make.lib" />
 		<antcall target="_script.make-node.sh" />
 	</target>
@@ -238,7 +318,7 @@
 	building ${project.name} ${project.version}
 ${line}
 	src path	${project.src}
-	bin path 	${project.bin}
+	bin path 	${project.tmp}/${project.name}/bin
 	sketchbook	${sketchbook.location}
 	java version	${java.version}
 	java target     ${java.target.version}
@@ -261,6 +341,7 @@ ${line}
 		<exec dir="${project.js}" resolveexecutable="false" executable="${path.to.gulp}" failonerror="true">
 			<arg line="build"/>
 		</exec>	    
+		<antcall target="make.node"/>
 	</target>
    	    
 	<target name="_script.make-lib.sh" depends="check.rita.js" if="rita.js.present">
@@ -343,20 +424,6 @@ ${line}
 		<echo>${line}</echo>
 	</target>
 
-	<target name="make.java" depends="library.init">
-		<echo message="Building library ..." />
-		<antcall target="generate.structure"/>
-		<antcall target="parse.source" />
-		<antcall target="compile.debug" />
-		<antcall target="generate.jars"/>
-		<!--antcall target="generate.javadoc" /-->
-		<!--antcall target="copyToSketchbook"><param name="folder" value="libraries"/></antcall-->
-		<antcall target="generate.distribution" />
-		<antcall target="generate.install.library" />
-		<antcall target="generate.install.props" />
-		<antcall target="generate.zip" />
-		<delete dir="${project.tmp}" />
-	</target>
 
 	<target name="copyToSketchbook">
 		<echo message="Copying files to the ${folder} folder in your sketchbook." />
@@ -371,7 +438,7 @@ ${line}
 	<target name="compile.debug">
 		<javac srcdir="${project.tmp}/${project.name}/src"
 			includeantruntime="false"
-			destdir="${project.bin}" 
+			destdir="${project.tmp}/${project.name}/bin" 
 			source="${java.target.version}" 
 			target="${java.target.version}"
 			debug="true">
@@ -380,11 +447,11 @@ ${line}
 		</javac>
 	</target>
 
-	<target name="compile.prod">
+	<target name="compile.prod"> 
 		<javac srcdir="${project.tmp}/${project.name}/src" 
 			excludes="**/test/**"
 			includeantruntime="false"			
-			destdir="${project.bin}" 
+			destdir="${project.tmp}/${project.name}/bin" 
 			source="${java.target.version}" 
 			target="${java.target.version}">
 			<classpath>
@@ -394,7 +461,7 @@ ${line}
 	</target>
 
 	<target name="generate.jar">
-		<jar jarfile="${project.tmp}/${project.name}/library/${project.jar.name}" basedir="${project.bin}">
+		<jar jarfile="${project.tmp}/${project.name}/library/${project.jar.name}" basedir="${project.tmp}/${project.name}/bin">
 			<exclude name="**/data/**" />
 			<exclude name="**/test/**" />
 			<exclude name="**/docgen/**" />
@@ -411,29 +478,33 @@ ${line}
 		
 	<target name="generate.jars">
 
-		<!-- full lib -->
-		<jar jarfile="${project.latest}/${main.package}-${project.version}.jar" basedir="${project.bin}">
+		<!-- full lib to latest -->
+		<jar jarfile="${project.latest}/${main.package}-${project.version}.jar" basedir="${project.tmp}/${project.name}/bin">
 			<exclude name="**/data/**" />
 			<exclude name="**/test/**" />
 			<exclude name="**/docgen/**" />
 		</jar>
 		
+		
 		<!-- rita pkg only -->
-		<jar jarfile="${project.tmp}/${project.name}/library/${project.jar.name}" basedir="${project.bin}">
+		<jar jarfile="${project.tmp}/${project.name}/library/${project.jar.name}" basedir="${project.tmp}/${project.name}/bin">
 			<include name="rita/*.*/" />
 			<include name="*.properties/" />
 			<exclude name="**/test/**" />
 		</jar>
 		
 		<!-- support pkg only -->
-		<jar jarfile="${project.tmp}/${project.name}/library/${project.jar.support.name}" basedir="${project.bin}">
+		<jar jarfile="${project.tmp}/${project.name}/library/${project.jar.support.name}" basedir="${project.tmp}/${project.name}/bin">
 			<exclude name="data/**" />
 			<exclude name="rita/*.*/" />
 			<exclude name="*.properties/" />
 			<exclude name="**/test/**" />
 			<exclude name="**/docgen/**" />
 		</jar>
+		
+		<!-- 
 		<antcall target="copy.rita.jars.to.processing" />
+		 -->
 	</target>
 
 	<target name="copy.rita.jars.to.processing" depends="check.processing" if="processing.present">
@@ -459,9 +530,6 @@ ${line}
 	</target>
 	
 	<target name="generate.structure">
-
-
-		<!--  mkdir dir="${project.bin}"/-->
 		
 		<delete dir="${project.tmp}" />
 		
@@ -472,10 +540,16 @@ ${line}
 		<mkdir dir="${project.tmp}/${project.name}/reference" />
 		<mkdir dir="${project.tmp}/${project.name}/css" />
 		<mkdir dir="${project.tmp}/${project.name}/src" />
+		<mkdir dir="${project.tmp}/${project.name}/bin" />
 
-		<antcall target="copy.examples.to.processing" />
+		<!-- antcall target="copy.examples.to.processing" / -->
 
-		<echo message="Copying ${project.examples} to ${project.tmp}/${project.name}/examples... " />
+		<copy todir="${project.tmp}/${project.name}/css">
+			<fileset dir="www/css/">
+				<include name="*.css"/>
+			</fileset>
+		</copy>
+		
 		<copy todir="${project.tmp}/${project.name}/examples">
 			<fileset refid="exampleFileSet"/>
 		</copy>
@@ -487,14 +561,8 @@ ${line}
 				<exclude name="**/docgen/**"/>
 			</fileset>
 		</copy>
-
-		<copy todir="${project.tmp}/${project.name}/css">
-			<fileset dir="www/css/">
-				<include name="*.css"/>
-			</fileset>
-		</copy>
-
 		<antcall target="create.src.zip"/>
+		 		
 	</target>
 
 	<target name="create.src.zip">
@@ -504,7 +572,7 @@ ${line}
 		/>
 	</target>
 	
-	<target name="copy.docs.to.build" depends="make.docs">
+	<target name="generate.docs" depends="make.docs">
 	    
 		<copy todir="${project.tmp}/${project.name}/reference">
 			<fileset dir="${project.doc.out}"/>
@@ -513,7 +581,7 @@ ${line}
 	
 	<target name="copy.www.to.build">
 		<copy todir="${project.tmp}/${project.name}/www">
-			<fileset dir="www" excludes="**/misc/**"/>
+			<fileset dir="www" excludes="**/misc/**, download/rita-*"/>
 		</copy> 
 		<replaceregexp file="${project.tmp}/${project.name}/www/download/index.html" match="##version##" replace="${project.version}" flags="g" />
 	</target>
@@ -548,14 +616,14 @@ ${line}
         <available file="${processing.sketchbook}" type="dir" property="processing.present"/>
     </target>
 
-    <!--  failings -->
+    <!--  failing -->
 	<target name="fetch.rita.js" depends="check.rita.js" if="rita.js.present">
 		<echo message="Fetching rita.js..." />
 		<copy file="${project.latest}/${project.js.name}" todir="${project.tmp}/${project.name}/library" />
 	</target>
 
     <!-- Add Version-info to RiTa.java      -->
-	<target name="parse.source" if="is.normal">
+	<target name="source.doreplace" if="is.normal">
 		<path id="src.contents">
 			<fileset dir="${project.tmp}/${project.name}/src/rita" includes="RiTa.java" />
 		</path>
@@ -566,11 +634,21 @@ ${line}
 
 
 	<target name="generate.distribution" if="is.normal">
-		<mkdir dir="${project.dist}"/>
+		<mkdir  dir="${project.dist}"/>
 		<delete dir="${project.dist.version}"/>
-		<mkdir dir="${project.dist.version}" />
-		<mkdir dir="${project.dist.version}/${project.name}" />
-		<move file="${project.tmp}/${project.name}" toDir="${project.dist.version}" />
+		<mkdir  dir="${project.dist.version}" />
+		<mkdir  dir="${project.dist.version}/${project.name}" />
+		<move  file="${project.tmp}/${project.name}" toDir="${project.dist.version}" />
+		
+		<delete dir="${project.dist.version}/${project.name}/bin"/>
+		
+		<antcall target="generate.install.library" />
+		<antcall target="generate.install.props" />
+		
+		<!-- full-lib.jar to  -->
+		<copy  tofile="${project.tmp}/${project.name}/www/download/${main.package}-${project.version}.jar" 
+		    file="${project.latest}/${main.package}-${project.version}.jar"/>
+		
 	</target>
 
 	<target name="generate.javadoc" if="is.normal">
@@ -628,7 +706,7 @@ ${line}
 
 		<echo message="Generating distributable zip..." />
 
-		<antcall target="fetch.rita.js" />
+		<!--  antcall target="fetch.rita.js" /-->
 
 		<move todir="${project.dist.version}/tmp/${project.name}-${project.version}/${project.name}">
 			<fileset dir="${project.dist.version}/${project.name}" />
@@ -641,19 +719,24 @@ ${line}
   	       excludes="**/.DS_Store"
 		/>
 
-		<move file="${project.dist.version}/${project.name}-${project.version}.zip" todir="${project.dist.version}/web/download" />
+		<!-- move file="${project.dist.version}/${project.name}-${project.version}.zip" todir="${project.dist.version}/web/download" />
+		
 		<move todir="${project.dist.version}">
 			<fileset dir="${project.dist.version}/web" />
-		</move>
+		</move -->
 
+		<copy file="${project.dist.version}/${project.name}-${project.version}.zip"
+		    tofile="${project.tmp}/${project.name}/www/download/${project.name}-${project.version}.zip" />
+		
 		<delete dir="${project.dist.version}/tmp" />
-
 	</target>
 
 	<target name="versionSourcefile">
 		<echo message="Updating version info in: ${file}" />
-		<replaceregexp file="${file}" match="##author##" replace="${author.name} ${author.url}" flags="g" />
+
 		<replaceregexp file="${file}" match="##version##" replace="${project.version}" flags="g" />
+
+		<replaceregexp file="${file}" match="##author##" replace="${author.name} ${author.url}" flags="g" />
 		<replaceregexp file="${file}" match="##date##" replace="${date}" flags="g" />
 		<replaceregexp file="${file}" match="##copyright##" replace="${project.copyright}" flags="g" />
 		<replaceregexp file="${file}" match="##name##" replace="${project.name}" flags="g" />
