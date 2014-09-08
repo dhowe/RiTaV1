@@ -841,7 +841,7 @@
 	  "note":"Does nothing in Java"
    },
    {
-        "hidden": false,
+	  "hidden": true,
       "name":"RiTa.isStopWord",
       "example":"",
       "description":"",
@@ -861,6 +861,6 @@
       "related":"",
       "platform":"Java / Javascript",
      "note":""
-   }
+   }   
 ]
 }
