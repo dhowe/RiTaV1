@@ -596,7 +596,7 @@ public class RiTa implements Constants
     if (rt != null) rt.stop();
   } 
   
-  public static boolean isStopWord(String s) { 
+  public static boolean isStopWord(String s) { // ADD to API??
     if (stopWords == null) {
       stopWords = new HashSet();
       stopWords.addAll(Arrays.asList(RiTa.STOP_WORDS));
