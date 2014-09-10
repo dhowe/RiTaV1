@@ -7,7 +7,7 @@
 
 RiTa is designed to be an easy-to-use toolkit for experiments in natural language and generative literature. It is implemented in Java and JavaScript (with a unified API for both) and optionally integrates with both Processing(JS) and NodeJS. It is free/libre and open-source according to the GPL license (http://www.gnu.org/licenses/gpl.txt). 
 
-Please see https://github.com/dhowe/RiTa/js for the JavaScript implementation of RiTa.  
+Please see https://github.com/dhowe/RiTaJS for the JavaScript implementation of RiTa.  
 
 #### About the project
 --------
