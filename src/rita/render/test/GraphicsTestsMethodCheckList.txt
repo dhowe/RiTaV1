@@ -1,0 +1,82 @@
+X= RiString Methods, no graphics test needed
+			
+alpha()					BoundingBoxAndAlpha.java		
+analyze()				X
+boundingBox()			BoundingBoxAndAlpha.java		
+charAt()				X
+colorTo()				ColorAndFade.java	
+concat()				X
+center()				BoundingBoxFeatures.java		
+charOffset()			WordsLetteresLines.java		
+copy()					X
+contains()				BoundingBoxFeatures.java		
+distanceTo()			WordsLettersLines.java
+draw()					DisposeAll.java
+endsWith()				X DONT NEED
+equals()				X DONT NEED
+equalsIgnoreCase()		X DONT NEED
+fadeIn()				ColorAndFade.java	
+fadeOut()				ColorAndFade.java	
+features()				X
+font()					DefaultFontAndFontVlw.java		
+fontSize()				DefaultFontAndFontVlw.java		
+indexOf()				X DONT NEED
+insertWord()			X
+isVisible()				ColorAndFade.java	
+lastIndexOf()			X DONT NEED
+length()				X DONT NEED
+match()					X DONT NEED
+motionType()			MotionTypes.java	
+moveTo()				TranslateToAndBehaviors.java
+pos()					X
+posAt()					X
+position()				TranslateToAndBehaviors.java	
+removeChar()			X
+replaceChar()			X
+replaceFirst()			X
+replaceLast()			X
+replaceAll()			X DONT NEED
+replaceWord()			X
+rotate()				TranslateTo.java	
+rotateTo()				TranslateTo.java	
+scale()					TranslateTo.java	
+scaleTo()				TranslateTo.java	
+showBounds()			BoundingBoxFeatures.java		
+splitLetters()			WordsLetteresLines.java		
+splitWords()			WordsLetteresLines.java		
+stopBehavior()			TranslateToAndBehaviors.java
+stopBehaviors()			TranslateToAndBehaviors.java
+slice()					X DONT NEED
+split()					X DONT NEED
+startsWith()			X DONT NEED
+substring()				X DONT NEED
+substr()				X DONT NEED
+textAscent()			WordsLettersLines.java
+textDescent()			WordsLettersLines.java
+textTo()				ColorAndFade.java	
+textHeight()			WordsLetteresLines.java		
+textWidth()				WordsLetteresLines.java		
+text()					X DONT NEED
+toLowerCase()			X DONT NEED
+toUpperCase()			X DONT NEED 
+trim()					X DONT NEED
+wordAt()				X
+wordCount()				X
+wordOffset()			WordsLettersLines.java		
+words()					X
+			
+RiText.defaults			On Every java		
+RiText.createLetters()	WordsLettersLines.java		
+RiText.createWords()	WordsLettersLines.java		
+RiText.createLines()	CreateLinesAndLayoutWithBreaks.java		
+RiText.drawAll()		On Every java		
+RiText.dispose()		DefaultFontAndFontVlw.java		
+RiText.disposeAll()		DisposeAll		
+RiText.defaultFill()	BoundingBoxAndAlpha.java		
+RiText.defaultFont()	DefaultFontAndFontVlw.java		
+RiText.showBounds()		BoundingBoxFeatures.java		
+RiText.randomColor()	RandomColor.java
+RiText.timer()			//Static tests? DONT NEED
+RiText.stopTimer()		//Static tests?	DONT NEED
+RiText.pauseTimer()		//Static tests?DONT NEED
+RiText.random()			RandomColor.java
