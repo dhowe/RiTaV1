@@ -233,7 +233,7 @@ public class RiTa implements Constants
   }
   
   /**
-   * Concatenates the array 'input' into a single String, spearated by 'delim'
+   * Concatenates the array 'input' into a single String, separated by 'delim'
    */
   public static String join(String[] input, char delim)
   {
@@ -335,6 +335,15 @@ public class RiTa implements Constants
     return PUNCT.matcher(s).matches();
   }  protected static Pattern PUNCT = null;
   
+  /**
+   * Returns true iff the character is punctuation 
+   * @return boolean
+   */
+  public static boolean isPunctuation(char s)   {
+    if (PUNCT == null)
+      PUNCT = Pattern.compile(ALL_PUNCT);
+    return PUNCT.matcher(Character.toString(s)).matches();
+  }
   
   public static float distance(float x1, float y1, float x2, float y2) { 
 		float dx = x1 - x2;
@@ -614,7 +623,7 @@ public class RiTa implements Constants
     RiTimer rt = RiTimer.findById(id);
     if (rt != null) rt.pauseFor(pauseFor);
   }
-
+  
   /**
    * Generates random numbers. Each time the <b>random()</b> function is
    * called, it returns an unexpected value within the specified range. If

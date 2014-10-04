@@ -2,6 +2,7 @@ package rita.support;
 
 import rita.RiTa;
 import rita.support.*;
+import sun.applet.Main;
 
 /**
  * @exclude
@@ -131,6 +132,11 @@ public class RiGoogler implements RiGooglerIF
   public String[] getResultText(String query)
   {
     return delegate.getResultText(query);
+  }
+  
+  public static void main(String[] args)
+  {
+    System.out.println(new RiGoogler().getCount("happiness"));
   }
   
 }

@@ -2371,6 +2371,11 @@ public class RiText implements Constants //RiTextIF
     return RiTa.timer(parent, period);
   }
 
+  public static final int timer(Object parent, float period, String callback)
+  {
+    return RiTa.timer(parent, period, callback);
+  }
+    
   public static final void stopTimer(int idx)
   {
     RiTa.stopTimer(idx);

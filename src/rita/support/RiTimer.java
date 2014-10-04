@@ -85,16 +85,18 @@ public class RiTimer implements Constants
     (internalTimer = new Timer(isDaemon)).schedule(new TimerTask() {
       public void run()
       {
-        new RiTaEvent(rt, EventType.Timer).fire(parent, callback);
+        new RiTaEvent(rt, EventType.Timer, id).fire(parent, callback);
       }
     }, (long) (Math.max(0, startOffset * 1000)), (long) (thePeriod * 1000));
   }
 
   public void stop() {
+    
     internalTimer.cancel();
   }
 
   public RiTimer pause(boolean b) {
+    
     if (b) {
       internalTimer.cancel();
     }
@@ -105,6 +107,7 @@ public class RiTimer implements Constants
   }
 
   public void pauseFor(float seconds) {
+    
     internalTimer.cancel();
     init(seconds, period);
   }
@@ -129,9 +132,10 @@ public class RiTimer implements Constants
   {
     RiTimer rt = new RiTimer(new Object() {
       public void onRiTaEvent(RiTaEvent rte) {
-        System.out.println(rte.source()+" :: "+System.currentTimeMillis());
+        System.out.println(rte.source()+" :: "+System.currentTimeMillis()+ " :: "+rte.data);
       }
     }, 1);
+    
     System.out.println(rt.id());
     RiTimer rt2 = new RiTimer(new Object() {
       public void dynFun() {
