@@ -4,7 +4,7 @@
 		run tests on completed library (especially for P5)
 		make snapshot of completed (correct) build structure
  -->
-<project name="RiTa" default="default" basedir="../">
+<project name="RiTa" basedir="../">
 
 	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
 		<classpath><pathelement location="./libs/ant-contrib-1.0b3.jar"/></classpath>
@@ -787,23 +787,22 @@ ${line}
 		<delete dir="${project.docs}"/>
 		<delete dir="${project.build}"/>
 
-	</target>
-
-	 	<target name="default" depends="clean">
+	</target>			
+	<target name="default" depends="clean">
 
 		<echo>
-		
 ${line}
 Name	${project.name} 
 Version	${project.version}
 Compiled	${project.compile}
 Sketchbook	${sketchbook.location}
+Version	${java.version}
+Version	${compiler}
 ${line}
 Done.
 ${line}	
 		</echo>
 		
-	</target>				
-
+	</target>
 </project>
 
