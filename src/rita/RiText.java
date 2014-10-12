@@ -2568,6 +2568,12 @@ public class RiText implements Constants //RiTextIF
   {
     return text.get(featureName);
   }
+  
+  public RiText set(String name, String value)
+  {
+    text.set(name, value);
+    return this;
+  }
 
   public int indexOf(String s)
   {
@@ -2827,7 +2833,7 @@ public class RiText implements Constants //RiTextIF
     PageLayout rp = new PageLayout(p, new Rect(x, y, w, h), p.width, p.height);
     rp.paragraphIndent = defaults.paragraphIndent;
 
-    return (RiText[]) rp.layout(pf, txt, lead);
+    return rp.layout(pf, txt, lead);
   }
 
   // arrays

@@ -4,12 +4,17 @@ import java.io.*;
 import java.util.*;
 
 import rita.wordnet.*;
+
 import rita.wordnet.jwnl.*;
 import rita.wordnet.jwnl.dictionary.*;
 import rita.wordnet.jwnl.dictionary.Dictionary;
+
 import rita.wordnet.jwnl.wndata.*;
 import rita.wordnet.jwnl.wndata.list.*;
-import rita.wordnet.jwnl.wndata.relationship.*;
+
+import rita.wordnet.jwnl.wndata.relationship.RelationshipList;
+import rita.wordnet.jwnl.wndata.relationship.RelationshipFinder;
+import rita.wordnet.jwnl.wndata.relationship.AsymmetricRelationship;
 
 public class RiWordNet
 {

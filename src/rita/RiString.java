@@ -10,8 +10,8 @@ public class RiString implements FeaturedIF, Constants
 {
   static { RiTa.init(); }
   
-  private String delegate;
-  private Map<String,String> features;
+  protected String delegate;
+  protected Map<String,String> features;
 
   public RiString(String string)
   {
@@ -43,16 +43,18 @@ public class RiString implements FeaturedIF, Constants
   {
     start = Math.min(start < 0  ? delegate.length() + start : start, length()-1);
     end = Math.min(end < 0  ? delegate.length() + end : end, length()-1);
+    
     if (end < start){
       int k = start;
       start = end; // swap
       end = k;
-    }
+    } 
+    
     return (String) delegate.subSequence(start, end);
   }
   
   public RiString analyze()
-  {
+  {  
     LetterToSound lts = LetterToSound.getInstance();
     JSONLexicon lex = JSONLexicon.getInstance();
 
@@ -112,6 +114,7 @@ public class RiString implements FeaturedIF, Constants
       else {
         
         // no phones, just use raw word (punct)
+         
         stresses += words[i];
       }
       
@@ -133,7 +136,6 @@ public class RiString implements FeaturedIF, Constants
     if (this.features == null)
       this.features = new HashMap();
     else {
-      // this.features.clear(); // NO: save users features if they exist
       clearFeatures();
     }
     
@@ -592,14 +594,16 @@ public class RiString implements FeaturedIF, Constants
   {
     if (features == null)
       initFeatureMap();
-    features.put(name, value); // yuck
+    
+    features.put(name, value); // clobber?
+    
     return this;
   }
 
   public void setFeature(String name, String value) {
+   
     this.set(name, value);
   }
-
 
   public RiString insertChar(int idx, char c)
   {

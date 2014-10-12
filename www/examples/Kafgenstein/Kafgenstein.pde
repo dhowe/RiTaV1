@@ -14,7 +14,7 @@ void setup()
   markov = new RiMarkov(4);  
   
   // load files into the model
-  markov.loadFrom(new String[] { "wittgenstein.txt", "kafka.txt" });    
+  markov.loadFrom(new String[] { "wittgenstein.txt", "kafka.txt" }, this);    
 }
 
 void draw()

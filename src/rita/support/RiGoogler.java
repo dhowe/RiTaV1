@@ -1,8 +1,6 @@
 package rita.support;
 
 import rita.RiTa;
-import rita.support.*;
-import sun.applet.Main;
 
 /**
  * @exclude

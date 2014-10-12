@@ -11,8 +11,6 @@ import java.util.*;
 import rita.wordnet.jwnl.JWNL;
 import rita.wordnet.jwnl.util.Resolvable;
 
-import com.sun.swing.internal.plaf.synth.resources.synth_zh_TW;
-
 /**
  * Instances of this class enumerate the possible WordNet pointer types,
  * and are used to label <code>PointerType</code>s. Each <code>PointerType</code>
