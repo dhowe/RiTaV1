@@ -178,8 +178,9 @@ public interface Constants extends EnglishConstants
   String PUNCT_CHARS = ALL_QUOTES+"~\",;:!?)([].#\"\\!@$%&}<>|+=-_\\/*{^"; // add quotes?
   String ALL_PUNCT =  "[\\p{Punct}"+ALL_QUOTES+"]+";
   String PUNCT_PATT = "^(?:[\\p{Punct}"+ALL_QUOTES+"]*)((?:.)|(?:[\\w ].*?[\\w ]))(?:[\\p{Punct}"+ALL_QUOTES+"]*)$";
-  String DATA_DELIM = "\\|", DEFAULT_LEXICON = "rita_dict.js";
-  String CMUDICT_LTS_TXT = "cmudict04_lts.txt";
+  String DATA_DELIM = "\\|";
+  String DEFAULT_LEXICON = "rita_dict.js";
+  String DEFAULT_LTS = "rita_lts.js";
   String DEFAULT_USER_ADDENDA_FILE = "rita_addenda.txt";
   String CMUDICT_COMMENT = "#";
   String LEXICON_DELIM = ":";

@@ -132,28 +132,7 @@ public class JSONLexicon implements Constants
 
   public void load() 
   {
-    if (dictionaryFile == null)
-      throw new RiTaException("No dictionary path specified!");
-
-/*    InputStream is = dictionaryFile.equals(DEFAULT_LEXICON)  ?
-      RiTa._openStream(RiLexicon.class, dictionaryFile) :
-      RiTa._openStream(null, dictionaryFile);      
-    if (is == null)
-      throw new RiTaException("Unable to load lexicon from: " + dictionaryFile);
-    */
-    
-    String data = USE_NIO ? readFileNIO(dictionaryFile) : readFile(dictionaryFile);
-    
-    if (data == null)
-      throw new RiTaException("Unable to load lexicon from: " + dictionaryFile);
-    
-    // clean out the JSON formatting
-    String[] lines = data.replaceAll("['\\[\\]]",E).replaceAll(",","|").split("\\|?\\n");
-    
-    //System.out.println("JSONLexiconImpl.lines="+lines.length);
-    //for (int i = 0; i < 5; i++)System.out.println("'"+lines[i]+"'");
-    //for (int i = lines.length-5; i < lines.length; i++)System.out.println("'"+lines[i]+"'");
-    
+    String[] lines = loadJSON(this.dictionaryFile);
     lexicalData = new LinkedHashMap<String,String>(MAP_SIZE);
     
     for (int i = 1; i < lines.length-1; i++) // ignore JSON prefix/suffix
@@ -170,6 +149,22 @@ public class JSONLexicon implements Constants
     loaded = true;
 
     if (!lazyLoadLTS) getLTSEngine();
+  }
+
+  public static String[] loadJSON(String file)
+  {
+    if (file == null)
+      throw new RiTaException("No dictionary path specified!");
+
+    String data = USE_NIO ? readFileNIO(file) : readFile(file);
+    
+    if (data == null)
+      throw new RiTaException("Unable to load lexicon from: " + file);
+    
+    // clean out the JSON formatting (TODO: optimize)
+    String clean = data.replaceAll("['\\[\\]]",E).replaceAll(",","|");
+    
+    return clean.split("\\|?\\n");
   }
   
   public static String readFile(String filename)
