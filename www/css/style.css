@@ -18,8 +18,12 @@
 	line-height: 20px;
 }
 
+.gallery_home_item p {
+  line-height: 11px;
+}
+
 .gallery_home_spacer {
-  line-height: 3px;
+  line-height: 2px !important;
 }
 
 .home-exhibition {
