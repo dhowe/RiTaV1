@@ -21,8 +21,6 @@ import rita.RiTaException;
  */
 public class LetterToSound
 {
-  private static String RULES = "cmudict04_lts.txt";
-
   static LetterToSound instance;
 
   public static LetterToSound getInstance()
@@ -121,7 +119,7 @@ public class LetterToSound
 
   private LetterToSound()
   {
-    InputStream is = LetterToSound.class.getResourceAsStream(RULES);
+    InputStream is = RiTa.class.getResourceAsStream(Constants.DEFAULT_LTS);
     try
     {
       if (is == null)
@@ -173,6 +171,7 @@ public class LetterToSound
    */
   protected void parseAndAdd(String line)
   {
+    line = line.replaceAll("(^'|',?)","");
     StringTokenizer tokenizer = new StringTokenizer(line, " ");
     String type = tokenizer.nextToken();
 

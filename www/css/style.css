@@ -18,13 +18,20 @@
 	line-height: 20px;
 }
 
-.gallery_home {
-    margin-top: 1px;
-    line-height: 14px;
+.gallery_home_spacer {
+  line-height: 3px;
 }
 
-.gallery_home_spacer {
-	line-height: 3px;
+.home-exhibition {
+	padding-top: 8px;
+	padding-right: 25px;
+	float: left;
+	width: 190px;
+	height: 600px;
+}
+
+.home-exhibition span a img {
+	border-radius: 0.5em;
 }
 
 /* The amount of CSS needed for the navbar is terrifying. I am sorry. -Kenny */
@@ -124,18 +131,6 @@ a:hover, a:focus {
 
 .page {
 	padding: 2em 0em 2em 2em;
-}
-
-.home-exhibition {
-	padding-top: 8px;
-	padding-right: 25px;
-	float: left;
-	width: 190px;
-	height: 600px; 
-}
-
-.home-exhibition span a img {
-	border-radius: 0.5em;
 }
 
 .sidebar {
@@ -341,4 +336,3 @@ a:hover, a:focus {
 .phones table {
 	border:1;
 }
-
