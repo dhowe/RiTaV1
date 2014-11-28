@@ -12,6 +12,7 @@ import rita.wordnet.jwnl.wndata.relationship.*;
 
 
 /**
+  Note: these relationships only hold for nouns and verbs 
   @invisible
   @author dhowe
   <p>See the accompanying documentation for license information 
@@ -185,8 +186,12 @@ public class WordnetDistance //extends SentenceDistance
 		return distance;
 	}
 	
-	public static void main(String[] args) {
-		RiWordNet c = new RiWordNet(null);
+	public static void main(String[] args) throws JWNLException {
+		RiWordNet c = new RiWordNet("/WordNet-3.1");
 		WordnetDistance wd = new WordnetDistance(c.getDictionary());
+		IndexWord iw1 = c.getDictionary().getIndexWord(POS.ADJECTIVE, "happy");
+		IndexWord iw2 = c.getDictionary().getIndexWord(POS.ADJECTIVE, "sad");
+		System.out.println(wd.getWordDistance(iw1, iw2));
+		//System.out.println(wd.getLemmaDistance("happy", "sad"));
 	}
 }

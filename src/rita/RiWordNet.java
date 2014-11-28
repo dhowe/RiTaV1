@@ -2582,7 +2582,7 @@ public class RiWordNet
   }
 
   /**
-   * Returns the min distance between any two senses for the 2 words in the
+   * Returns the min distance between any two senses for the 2 words (nouns or verbs only) in the
    * wordnet tree (result normalized to 0-1) with specified pos, or 1.0 if
    * either is not found.
    * <P>
@@ -2602,12 +2602,6 @@ public class RiWordNet
    */
   public float getDistance(String lemma1, String lemma2, String pos)
   {
-/*    if (lemma1 == null || (ignoreCompoundWords && lemma1.contains(" ")))
-      return 1;
-    
-    if (lemma2 == null ||(ignoreCompoundWords && lemma2.contains(" ")))
-      return 1;
-*/
     IndexWordSet WORDSET1, WORDSET2;
     IndexWord WORD1, WORD2;
 
