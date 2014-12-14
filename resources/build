@@ -4,6 +4,7 @@
 		run tests on completed library (especially for P5)
 		make snapshot of completed (correct) build structure
  -->
+ 
 <project name="RiTa" basedir="../">
 
 	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
@@ -766,9 +767,8 @@ ${line}
 		<replaceregexp file="${file}" match="##name##" replace="${project.name}" flags="g" />
 	</target>
 
-	<!-- parsing the examples folder -->
 	<target name="processExamples">
-		<dirset id="examples.contents" dir="${project.examples}" excludes="*/*"/>
+		<dirset id="examples.contents" dir="${project.examples}" excludes="*/*" />
 		<property name="examples.list" refid="examples.contents" />
 		<foreach list="${examples.list}" target="addExamples" param="exampleDir" delimiter=";" />
 	</target>
@@ -805,4 +805,3 @@ ${line}
 		
 	</target>
 </project>
-
