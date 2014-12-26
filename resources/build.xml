@@ -155,11 +155,24 @@
 			<test name="rita.test.RiGrammarTest" outfile="reports/rita.test.RiGrammarTest"></test>
 			<test name="rita.test.RiMarkovTest"  outfile="reports/rita.test.RiMarkovTest"></test>
 			<test name="rita.test.RiStringTest"  outfile="reports/rita.test.RiStringTest"></test>
-			<test name="rita.test.RiWordNetTest" outfile="reports/rita.test.RiWordNetTest"></test>
 			<!--test name="rita.test.RiWordNetIteratorsTest"  haltonfailure="no" outfile="reports/rita.test.RiWordNetTest"></test-->
 		</junit>
 
 	</target>	
+	
+    <target name="test.wordnet" description="runs all java tests">
+
+		<junit printsummary="yes" timeout="100000" haltonfailure="yes">
+		
+			<classpath><path refid="test.classpath"/></classpath>
+
+			<formatter type="plain" />
+			<formatter type="xml" />
+			
+			<test name="rita.test.RiWordNetTest" outfile="reports/rita.test.RiWordNetTest"></test>
+		</junit>
+
+	</target>
 	
 	<target name="info">
 

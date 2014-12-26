@@ -789,42 +789,42 @@ public class RiWordNetTest
 
 		String[] expected2 = { "the visit was especially wearing" };
 		String[] result2 = w.getAllExamples("wearing", "a");
-		//		//printArr(result2);
+		//printArr(result2);
 		setEqual(expected2, result2);
 
 		String[] expected3 = {};
 		String[] result3 = w.getAllExamples("wearing", "r");
-		//		//printArr(result3);
+		//printArr(result3);
 		setEqual(expected3, result3);
 
 		String[] expected4 = {};
 		String[] result4 = w.getAllExamples("wearing", "n");
-		//		//printArr(result4);
+		//printArr(result4);
 		setEqual(expected4, result4);
 
 		String[] expected5 = {};
 		String[] result5 = w.getAllExamples("wearing", "v");
-		//		//printArr(result5);
+		//printArr(result5);
 		setEqual(expected5, result5);
 
 		String[] expected6 = { "What should I wear today?", "He always wears a smile", "wear one's hair in a certain way", "She was wearing yellow that day" };
 		String[] result6 = w.getAllExamples("wear", "v");
-		//		//printArr(result6);
+		//printArr(result6);
 		setEqual(expected6, result6);
 
 		String[] expected7 = { "they shouted happily", "happily he was not injured" };
 		String[] result7 = w.getAllExamples("happily", "r");
-		//		//printArr(result7);
+		//printArr(result7);
 		setEqual(expected7, result7);
 
 		String[] expected8 = { "a fat land", "fatty food", "he hadn't remembered how fat she was", "fat tissue", "a nice fat job", "a fat rope" };
 		String[] result8 = w.getAllExamples("fat", "a");
-		//		//printArr(result8);
+		//printArr(result8);
 		setEqual(expected8, result8);
 
 		String[] expected9 = {};
 		String[] result9 = w.getAllExamples("fatttttt", "a");
-		//		//printArr(result9);
+		//printArr(result9);
 		setEqual(EMPTY, result9);
 		setEqual(EMPTY, w.getAllExamples("fatttttt", "u"));
 
@@ -841,42 +841,42 @@ public class RiWordNetTest
 
 		expected2 = new String[]{ "the visit was especially wearing" };
 		result2 = w.getAllExamples("wearing", "a");
-		//		//printArr(result2);
+		//printArr(result2);
 		setEqual(expected2, result2);
 
 		expected3 = new String[]{};
 		result3 = w.getAllExamples("wearing", "r");
-		//		//printArr(result3);
+		//printArr(result3);
 		setEqual(expected3, result3);
 
 		expected4 = new String[]{};
 		result4 = w.getAllExamples("wearing", "n");
-		//		//printArr(result4);
+		//printArr(result4);
 		setEqual(expected4, result4);
 
 		expected5 = new String[]{};
 		result5 = w.getAllExamples("wearing", "v");
-		//		//printArr(result5);
+		//printArr(result5);
 		setEqual(expected5, result5);
 
 		expected6 = new String[]{ "What should I wear today?", "He always wears a smile", "wear one's hair in a certain way", "She was wearing yellow that day" };
 		result6 = w.getAllExamples("wear", "v");
-		//		//printArr(result6);
+		//printArr(result6);
 		setEqual(expected6, result6);
 
 		expected7 = new String[]{ "they shouted happily", "happily he was not injured" };
 		result7 = w.getAllExamples("happily", "r");
-		//		//printArr(result7);
+		//printArr(result7);
 		setEqual(expected7, result7);
 
 		expected8 = new String[]{ "a fat land", "fatty food", "he hadn't remembered how fat she was", "fat tissue", "a nice fat job", "a fat rope" };
 		result8 = w.getAllExamples("fat", "a");
-		//		//printArr(result8);
+		//printArr(result8);
 		setEqual(expected8, result8);
 
 		expected9 = new String[]{};
 		result9 = w.getAllExamples("fatttttt", "a");
-		//		//printArr(result9);
+		//printArr(result9);
 		setEqual(expected9, result9);
 		setEqual(EMPTY, w.getAllExamples("fatttttt", "u"));
 
@@ -890,52 +890,52 @@ public class RiWordNetTest
 
 		String[] expected = { "wear", "habiliment", "vesture", "wearable", "article of clothing", "clothing" };
 		String[] result = w.getCommonParents("activewear", "beachwear", "n");
-		//		//printArr(result);
+		//printArr(result);
 		setEqual(expected, result);
 
 		String[] expected2 = { "hymenopterous insect", "hymenopter", "hymenopteron", "hymenopteran" };
 		String[] result2 = w.getCommonParents("bee", "ant", "n");
-		//		//printArr(result2);
+		//printArr(result2);
 		setEqual(expected2, result2);
 
 		String[] expected3 = { "physical entity" };
 		String[] result3 = w.getCommonParents("bee", "wood", "n");
-		//		//printArr(result3);
+		//printArr(result3);
 		setEqual(expected3, result3);
 
 		String[] expected4 = { "entity" };
 		String[] result4 = w.getCommonParents("bee", "run", "n");
-		//		//printArr(result4);
+		//printArr(result4);
 		setEqual(expected4, result4);
 
 		String[] expected5 = { };
 		String[] result5 = w.getCommonParents("beeesdasd", "run", "n");
-		//		//printArr(result5);
+		//printArr(result5);
 		setEqual(expected5, result5);
 
 		String[] expected6 = { };
 		String[] result6 = w.getCommonParents("beeesdasd", "runasdasdasd", "n");
-		//		//printArr(result6);
+		//printArr(result6);
 		setEqual(expected6, result6);
 
 		String[] expected7 = { };
 		String[] result7 = w.getCommonParents("flower", "runasdasdasd", "n");
-		//		//printArr(result7);
+		//printArr(result7);
 		setEqual(expected7, result7);
 
 		String[] expected8 = { };
 		String[] result8 = w.getCommonParents("flower", "happily", "v");
-		//		//printArr(result8);
+		//printArr(result8);
 		setEqual(expected8, result8);
 
 		String[] expected9 = { };
 		String[] result9 = w.getCommonParents("flower", "happily", "r");
-		//		//printArr(result9);
+		//printArr(result9);
 		setEqual(expected9, result9);
 
 		String[] expected10 = { };
 		String[] result10 = w.getCommonParents("flower", "happily", "a");
-		//		//printArr(result10);
+		//printArr(result10);
 		setEqual(expected10, result10);
 
 		String[] expected11 = { };
@@ -1076,54 +1076,54 @@ public class RiWordNetTest
 	public void testGetSynsetStringString()
 	{
 
-		//		//printArr(w.getSynset("medicare","n"));
+		//printArr(w.getSynset("medicare","n"));
 		String[] expected = {"Medicare"};
 		setEqualMulti(expected, "getSynset","medicare","n");
 
 		String[] expected4 = {};
-		//		//printArr(w.getSynset("Medicare","n"));
+		//printArr(w.getSynset("Medicare","n"));
 		setEqualMulti(expected4, "getSynset","Medicare","n");
 
 		String[] expected2 = {};
-		//		//printArr(w.getSynset("health insurance","n"));
+		//printArr(w.getSynset("health insurance","n"));
 		setEqualMulti(expected2, "getSynset","health insurance","n");
 
 		// assertTrue(Arrays.asList(expected).containsAll(Arrays.asList(result)));
 
 		String[] expected3 = { "athletic wear", "sportswear" };
-		//		//printArr(w.getSynset("activewear", "n"));
+		//printArr(w.getSynset("activewear", "n"));
 		setEqualMulti(expected3, "getSynset","activewear","n");
 
 		String[] expected5 = { };
-		//		//printArr(w.getSynset("activewear", "v"));
+		//printArr(w.getSynset("activewear", "v"));
 		setEqualMulti(expected5, "getSynset","activewear","v");
 
 		String[] expected6 = { };
-		//		//printArr(w.getSynset("activewear", "a"));
+		//printArr(w.getSynset("activewear", "a"));
 		setEqualMulti(expected6, "getSynset","activewear","a");
 
 		String[] expected7 = {  };
-		//		//printArr(w.getSynset("activewear", "r"));
+		//printArr(w.getSynset("activewear", "r"));
 		setEqualMulti(expected7, "getSynset","activewear","r");
 
 		String[] expected8 = { };
-		//		//printArr(w.getSynset("nosuchword", "n"));
+		//printArr(w.getSynset("nosuchword", "n"));
 		setEqualMulti(expected8, "getSynset","nosuchword","n");
 
 		String[] expected9 = { "lope", "jog" };
-		//		//printArr(w.getSynset("trot", "n"));
+		//printArr(w.getSynset("trot", "n"));
 		setEqualMulti(expected9, "getSynset","trot","n");		
 
 		String[] expected10 = { "ramble on", "ramble" };
-		//		//printArr(w.getSynset("jog", "v"));
+		//printArr(w.getSynset("jog", "v"));
 		setEqualMulti(expected10, "getSynset","jog","v");	
 
 		String[] expected11 = {};
-		//		//printArr(w.getSynset("pretty", "a"));
+		//printArr(w.getSynset("pretty", "a"));
 		setEqualMulti(expected11, "getSynset","pretty","a");
 
 		String[] expected12 = { "tardily", "easy", "slow" };
-		//		//printArr(w.getSynset("slowly", "r"));
+		//printArr(w.getSynset("slowly", "r"));
 		setEqualMulti(expected12, "getSynset","slowly","r");
 
 		setEqual(w.getSynset("nosuchword", "t"), EMPTY);
@@ -1218,7 +1218,7 @@ public class RiWordNetTest
 		//println(a); // 91090933
 		String[] result3 = w.getSynset(91090933);
 		//println(w.getSenseIds("medicare", "n"));
-		printArr(result3);
+		//printArr(result3);
 		setEqual(expected, result);
 		//assertTrue(Arrays.asList(expected).containsAll(Arrays.asList(result)));
 
@@ -1254,53 +1254,53 @@ public class RiWordNetTest
 
 
 		String[] expected = {"Medicare"};
-		//		//printArr(w.getAllSynsets("medicare","n"));
+		//printArr(w.getAllSynsets("medicare","n"));
 		setEqualMulti(expected, "getAllSynsets","medicare","n");
 
 		String[] expected4 = {};
-		//		//printArr(w.getAllSynsets("Medicare","n"));
+		//printArr(w.getAllSynsets("Medicare","n"));
 		setEqualMulti(expected4, "getAllSynsets","Medicare","n");
 
 		String[] expected2 = {};
-		//		//printArr(w.getAllSynsets("health insurance","n"));
+		//printArr(w.getAllSynsets("health insurance","n"));
 		setEqualMulti(expected2, "getAllSynsets","health insurance","n");
 
 		// assertTrue(Arrays.asList(expected).containsAll(Arrays.asList(result)));
 
 		String[] expected3 = { "athletic wear", "sportswear" };
-		//		//printArr(w.getAllSynsets("activewear", "n"));
+		//printArr(w.getAllSynsets("activewear", "n"));
 		setEqualMulti(expected3, "getAllSynsets","activewear","n");
 
 		String[] expected5 = { };
-		//		//printArr(w.getAllSynsets("activewear", "v"));
+		//printArr(w.getAllSynsets("activewear", "v"));
 		setEqualMulti(expected5, "getAllSynsets","activewear","v");
 
 		String[] expected6 = { };
-		//		//printArr(w.getAllSynsets("activewear", "a"));
+		//printArr(w.getAllSynsets("activewear", "a"));
 		setEqualMulti(expected6, "getAllSynsets","activewear","a");
 
 		String[] expected7 = {  };
-		//		//printArr(w.getAllSynsets("activewear", "r"));
+		//printArr(w.getAllSynsets("activewear", "r"));
 		setEqualMulti(expected7, "getAllSynsets","activewear","r");
 
 		String[] expected8 = { };
-		//		//printArr(w.getAllSynsets("nosuchword", "n"));
+		//printArr(w.getAllSynsets("nosuchword", "n"));
 		setEqualMulti(expected8, "getAllSynsets","nosuchword","n");
 
 		String[] expected9 = { "Trot", "Trotskyite", "crib", "pony", "Trotskyist", "lope", "jog" };
-		//		//printArr(w.getAllSynsets("trot", "n"));
+		//printArr(w.getAllSynsets("trot", "n"));
 		setEqualMulti(expected9, "getAllSynsets","trot","n");		
 
 		String[] expected10 ={ "even up", "ramble on", "trot", "ramble", "square up", "clip" };
-		//		//printArr(w.getAllSynsets("jog", "v"));
+		//printArr(w.getAllSynsets("jog", "v"));
 		setEqualMulti(expected10, "getAllSynsets","jog","v");	
 
 		String[] expected11 = {};
-		//		//printArr(w.getAllSynsets("pretty", "a"));
+		//printArr(w.getAllSynsets("pretty", "a"));
 		setEqualMulti(expected11, "getAllSynsets","pretty","a");
 
 		String[] expected12 = { "lento", "slow", "easy", "tardily"};
-		//		//printArr(w.getAllSynsets("slowly", "r"));
+		//printArr(w.getAllSynsets("slowly", "r"));
 		setEqualMulti(expected12, "getAllSynsets","slowly","r");
 
 		setEqualMulti(expected11, "getAllSynsets","nosuchword","t");
@@ -1473,32 +1473,32 @@ public class RiWordNetTest
 		w.ignoreUpperCaseWords(false);
 
 		String[] expected = {"day"};
-		//		//printArr(w.getAllAntonyms("night", "n"));
+		//printArr(w.getAllAntonyms("night", "n"));
 		setEqualMulti(expected,"getAllAntonyms","night", "n");
 		//assertTrue(Arrays.asList(expected).containsAll(Arrays.asList(result)));
 
 		String[] expected2 = {"night"};
-		//		//printArr(w.getAllAntonyms("day", "n"));
+		//printArr(w.getAllAntonyms("day", "n"));
 		setEqualMulti(expected2,"getAllAntonyms","day", "n");
 
 		String[] expected3 ={ "center", "right" };
-		//		//printArr(w.getAllAntonyms("left", "a"));
+		//printArr(w.getAllAntonyms("left", "a"));
 		setEqualMulti(expected3,"getAllAntonyms","left", "a");
 
 		String[] expected4 = { "incorrect", "wrong", "center", "left" };
-		//		//printArr(w.getAllAntonyms("right", "a"));
+		//printArr(w.getAllAntonyms("right", "a"));
 		setEqualMulti(expected4,"getAllAntonyms","right", "a");
 
 		String[] expected5 ={ "slowly" };
-		//		//printArr(w.getAllAntonyms("quickly", "r"));
+		//printArr(w.getAllAntonyms("quickly", "r"));
 		setEqualMulti(expected5,"getAllAntonyms","quickly", "r");
 
 		String[] expected6 = { "quickly"};
-		//		//printArr(w.getAllAntonyms("slowly", "r"));
+		//printArr(w.getAllAntonyms("slowly", "r"));
 		setEqualMulti(expected6,"getAllAntonyms","slowly", "r");
 
 		String[] expected7 = { };
-		//		//printArr(w.getAllAntonyms("slowly", "r"));
+		//printArr(w.getAllAntonyms("slowly", "r"));
 		setEqualMulti(expected7,"getAllAntonyms","nusuchword", "r");
 
 
@@ -1508,32 +1508,32 @@ public class RiWordNetTest
 		w.ignoreUpperCaseWords(true);
 
 		expected = new String[]{"day"};
-		//		//printArr(w.getAllAntonyms("night", "n"));
+		//printArr(w.getAllAntonyms("night", "n"));
 		setEqualMulti(expected,"getAllAntonyms","night", "n");
 		//assertTrue(Arrays.asList(expected).containsAll(Arrays.asList(result)));
 
 		expected2 = new String[]{"night"};
-		//		//printArr(w.getAllAntonyms("day", "n"));
+		//printArr(w.getAllAntonyms("day", "n"));
 		setEqualMulti(expected2,"getAllAntonyms","day", "n");
 
 		expected3 = new String[]{ "center", "right" };
-		//		//printArr(w.getAllAntonyms("left", "a"));
+		//printArr(w.getAllAntonyms("left", "a"));
 		setEqualMulti(expected3,"getAllAntonyms","left", "a");
 
 		expected4 = new String[]{ "incorrect", "wrong", "center", "left" };
-		//		//printArr(w.getAllAntonyms("right", "a"));
+		//printArr(w.getAllAntonyms("right", "a"));
 		setEqualMulti(expected4,"getAllAntonyms","right", "a");
 
 		expected5 = new String[]{ "slowly" };
-		//		//printArr(w.getAllAntonyms("quickly", "r"));
+		//printArr(w.getAllAntonyms("quickly", "r"));
 		setEqualMulti(expected5,"getAllAntonyms","quickly", "r");
 
 		expected6 = new String[]{ "quickly"};
-		//		//printArr(w.getAllAntonyms("slowly", "r"));
+		//printArr(w.getAllAntonyms("slowly", "r"));
 		setEqualMulti(expected6,"getAllAntonyms","slowly", "r");
 
 		expected7 = new String[] { };
-		//		//printArr(w.getAllAntonyms("slowly", "r"));
+		//printArr(w.getAllAntonyms("slowly", "r"));
 		setEqualMulti(expected7,"getAllAntonyms","nusuchword", "r");
 
 		w.getAllAntonyms("slowly", "j");
@@ -1551,20 +1551,20 @@ public class RiWordNetTest
 		String[] expected = { "time period", "period", "period of time" };
 		String[] result = w.getHypernyms(915192074);
 		//println(w.getSenseIds("night", "n"));
-		//		//printArr(result);
+		//printArr(result);
 		setEqual(expected, result);
 		//assertTrue(Arrays.asList(expected).containsAll(Arrays.asList(result)));
 
 		String[] expected2 = { "period", "period of time", "time period" };
 		String[] result2 = w.getHypernyms(915190004);
 		//		//println(w.getSenseIds("day", "n"));
-		//		//printArr(result2);
+		//printArr(result2);
 		setEqual(expected2, result2);
 
 		String[] expected3 = {  };
 		String[] result3 = w.getHypernyms(72038342);
 		//		//println(w.getSenseIds("left", "a"));
-		//		//printArr(result3);
+		//printArr(result3);
 		setEqual(expected3, result3);
 
 
@@ -1577,20 +1577,20 @@ public class RiWordNetTest
 		expected = new String[]{ "period" };
 		result = w.getHypernyms(915192074);
 		//println(w.getSenseIds("night", "n"));
-		//		//printArr(result);
+		//printArr(result);
 		setEqual(expected, result);
 		//assertTrue(Arrays.asList(expected).containsAll(Arrays.asList(result)));
 
 		expected2 = new String[]{ "period" };
 		result2 = w.getHypernyms(915190004);
 		//		//println(w.getSenseIds("day", "n"));
-		//		//printArr(result2);
+		//printArr(result2);
 		setEqual(expected2, result2);
 
 		expected3 = new String[]{};
 		result3 = w.getHypernyms(72038342);
 		//		//println(w.getSenseIds("left", "a"));
-		//		//printArr(result3);
+		//printArr(result3);
 		setEqual(expected3, result3);
 
 		w.getHypernyms(62038342);
@@ -1668,7 +1668,7 @@ public class RiWordNetTest
 
 		String[] expected ={ "weeknight", "wedding night" };
 		String[] result = w.getHyponyms(915192074);
-		//		//printArr(w.getHyponyms(915192074));
+		//printArr(w.getHyponyms(915192074));
 		setEqual(expected, result);
 
 
@@ -1680,7 +1680,7 @@ public class RiWordNetTest
 
 		expected = new String[]{"weeknight"};
 		result = w.getHyponyms(915192074);
-		//		//printArr(w.getHyponyms(915192074));
+		//printArr(w.getHyponyms(915192074));
 		setEqual(expected, result);
 
 
@@ -1737,7 +1737,7 @@ public class RiWordNetTest
 
 		expected = new String[]{"weeknight"};
 		result = w.getHyponymTree(915192074);
-		//		//printArr(w.getHyponymTree(915192074));
+		//printArr(w.getHyponymTree(915192074));
 		setEqual(expected, result);
 
 		w.getHyponymTree(815192074);
@@ -2063,12 +2063,12 @@ public class RiWordNetTest
 
 			String[] expected2 = { "a", "n", "r" };
 			String[] result2 = w.getPos("deep");
-			//printArr(result2);
+		//printArr(result2);
 			deepEqual(expected2, result2);
 
 			String[] expected3 = {};
 			String[] result3 = w.getPos("noSuchWord");
-			//printArr(result3);
+		//printArr(result3);
 			deepEqual(expected3, result3);
 		}		
 
@@ -2329,7 +2329,7 @@ public class RiWordNetTest
 		
 		float expected8 = (float) 1.0;
 		float result8 = w.getDistance("notevenaword", "human", "n");
-		println(w.getDistance("notevenaword", "human", "n"));
+		//println(w.getDistance("notevenaword", "human", "n"));
 		equal(expected8, result8);
 	}
 
@@ -2341,19 +2341,19 @@ public class RiWordNetTest
 		setEqualMulti(expected,"getMeronyms","table","n");
 
 		String[] expected2 = {};
-//		printArr(w.getMeronyms("row", "n"));
+		//printArr(w.getMeronyms("row", "n"));
 		setEqualMulti(expected2,"getMeronyms","row","n");
 		
 		String[] expected3 = {};
-//		printArr(w.getMeronyms("table", "v"));
+		//printArr(w.getMeronyms("table", "v"));
 		setEqualMulti(expected3,"getMeronyms","table","v");
 		
 		String[] expected4 = { "duramen", "trunk", "crown", "burl", "bole", "tree stump", "tree branch", "limb", "treetop", "stump", "tree trunk", "heartwood", "sapwood" };
-//		printArr(w.getMeronyms("tree", "n"));
+		//printArr(w.getMeronyms("tree", "n"));
 		setEqualMulti(expected4,"getMeronyms","tree","n");
 		
 		String[] expected5 = {};
-//		printArr(w.getMeronyms("apple", "n"));
+		//printArr(w.getMeronyms("apple", "n"));
 		setEqualMulti(expected5,"getMeronyms","apple","n");
 		
 		setEqual(EMPTY,w.getMeronyms("table","j"));
@@ -2372,7 +2372,7 @@ public class RiWordNetTest
 
 		String[] expected2 = {};
 		int[] i2 = w.getSenseIds("table", "v");
-//		printArr(w.getMeronyms(i2[0]));
+		//printArr(w.getMeronyms(i2[0]));
 		setEqual(expected2, w.getMeronyms(i2[0]));
 		
 		String[] expected3 = { "limb", "crown", "bole", "heartwood", "stump", "treetop", "burl", "sapwood", "tree stump", "duramen", "tree branch", "tree trunk", "trunk" };
@@ -2382,12 +2382,12 @@ public class RiWordNetTest
 		
 		String[] expected4 = {};
 		int[] i4 = w.getSenseIds("apple", "n");
-//		printArr(w.getMeronyms(i4[0]));
+		//printArr(w.getMeronyms(i4[0]));
 		setEqual(expected4, w.getMeronyms(i4[0]));
 		
 		String[] expected5 = { "digestive system", "systema alimentarium", "cavity", "crotch", "systema digestorium", "systema respiratorium", "lymphatic system", "circulatory system", "cavum", "neck", "systema nervosum", "respiratory system", "cardiovascular system", "cervix", "fork", "nervous system", "body", "systema lymphaticum", "leg", "endocrine system", "gastrointestinal system", "articulatory system", "caput", "vascular system", "head", "body substance", "trunk", "arm", "pressure point", "torso", "sensory system", "bodily cavity", "musculoskeletal system" };
 		int[] i5 = w.getSenseIds("body", "n");
-//		printArr(w.getMeronyms(i5[0]));
+		//printArr(w.getMeronyms(i5[0]));
 		setEqual(expected5,w.getMeronyms(i5[0]));
 
 		setEqual(EMPTY,w.getMeronyms(88283156));
@@ -2404,19 +2404,19 @@ public class RiWordNetTest
 		setEqualMulti(expected,"getAllMeronyms","table","n");
 		
 		String[] expected2 = {};
-//		printArr(w.getAllMeronyms("table", "v"));
+		//printArr(w.getAllMeronyms("table", "v"));
 		setEqualMulti(expected2,"getAllMeronyms","table","v");
 		
 		String[] expected3 = { "duramen", "sapwood", "burl", "heartwood", "tree stump", "stump", "treetop", "tree branch", "trunk", "tree trunk", "limb", "crown", "bole" };
-//		printArr(w.getAllMeronyms("tree", "n"));
+		//printArr(w.getAllMeronyms("tree", "n"));
 		setEqualMulti(expected3,"getAllMeronyms","tree","n");
 		
 		String[] expected4 = {};
-//		printArr(w.getAllMeronyms("apple", "n"));
+		//printArr(w.getAllMeronyms("apple", "n"));
 		setEqualMulti(expected4,"getAllMeronyms","apple","n");
 		
 		String[] expected5 = { "systema lymphaticum", "systema nervosum", "cervix", "rear end", "dorsum", "leg", "nates", "bodily cavity", "body substance", "caput", "cavum", "serratus muscles", "gastrointestinal system", "buttock", "arm", "tooshie", "buttocks", "trunk", "respiratory system", "paunch", "ass", "sensory system", "crotch", "can", "seat", "arse", "cheek", "prat", "shoulder joint", "diaphragm", "butt", "head", "abdomen", "pressure point", "neck", "torso", "keister", "backside", "tush", "fundament", "circulatory system", "waist", "haunch", "derriere", "tail end", "cavity", "buns", "systema respiratorium", "digestive system", "bum", "shoulder", "cardiovascular system", "fanny", "musculoskeletal system", "stomach", "belly", "hip", "midsection", "side", "systema digestorium", "spare tire", "endocrine system", "vascular system", "midriff", "middle", "chest", "waistline", "nervous system", "articulatory system", "back", "systema alimentarium", "hind end", "thorax", "hindquarters", "loins", "rump", "love handle", "bottom", "articulatio humeri", "venter", "stern", "lymphatic system", "behind", "tail", "pectus", "rear", "posterior", "fork", "serratus" };
-//		printArr(w.getAllMeronyms("body", "n"));
+		//printArr(w.getAllMeronyms("body", "n"));
 		setEqualMulti(expected5,"getAllMeronyms","body","n");
 	
 		setEqual(EMPTY,w.getAllMeronyms("table","j"));
@@ -2433,16 +2433,16 @@ public class RiWordNetTest
 		
 		
 		String[] expected2 = { "Malus", "genus Malus" };
-//		printArr(w.getHolonyms("apple tree", "n"));
+		//printArr(w.getHolonyms("apple tree", "n"));
 		setEqualMulti(expected2,"getHolonyms","apple tree","n");
 		
 		
 		String[] expected3 = { "woods", "forest", "wood" };
-//		printArr(w.getHolonyms("tree", "n"));
+		//printArr(w.getHolonyms("tree", "n"));
 		setEqualMulti(expected3,"getHolonyms","tree","n");
 		
 		String[] expected4 = { };
-//		printArr(w.getHolonyms("tree", "v"));
+		//printArr(w.getHolonyms("tree", "v"));
 		setEqualMulti(expected4,"getHolonyms","tree","v");
 		
 		setEqual(EMPTY,w.getHolonyms("table", "j"));
@@ -2457,27 +2457,27 @@ public class RiWordNetTest
 	{
 		String[] expected = {};
 		String[] result = w.getHolonyms(98283156);
-//		printArr(result);
+		//printArr(result);
 		setEqual(expected, result);
 
 		String[] expected2 = {};
 		int[] i2 = w.getSenseIds("table", "v");
-//		printArr(w.getHolonyms(i2[0]));
+		//printArr(w.getHolonyms(i2[0]));
 		setEqual(expected2, w.getHolonyms(i2[0]));
 		
 		String[] expected3 = { "forest", "woods", "wood" };
 		int[] i3 = w.getSenseIds("tree", "n");
-//		printArr(w.getHolonyms(i3[0]));	
+		//printArr(w.getHolonyms(i3[0]));	
 		setEqual(expected3, w.getHolonyms(i3[0]));
 		
 		String[] expected4 = { "apple", "orchard apple tree", "Malus pumila" };
 		int[] i4 = w.getSenseIds("apple", "n");
-//		printArr(w.getHolonyms(i4[0]));
+		//printArr(w.getHolonyms(i4[0]));
 		setEqual(expected4, w.getHolonyms(i4[0]));
 		
 		String[] expected5 = { };
 		int[] i5 = w.getSenseIds("body", "n");
-//		printArr(w.getHolonyms(i5[0]));
+		//printArr(w.getHolonyms(i5[0]));
 		setEqual(expected5,w.getHolonyms(i5[0]));
 
 		setEqual(EMPTY,w.getHolonyms(88283156));
@@ -2493,21 +2493,21 @@ public class RiWordNetTest
 		w.ignoreUpperCaseWords(false);
 		w.ignoreCompoundWords(false);
 		String[] expected = { "homo", "human", "weaponry", "body", "organic structure", "garment", "armchair", "man", "arms", "implements of war", "human being", "weapons system", "munition" };
-//		printArr(w.getAllHolonyms("arm", "n"));
+		//printArr(w.getAllHolonyms("arm", "n"));
 		setEqualMulti(expected,"getAllHolonyms","arm","n");
 		
 		
 		String[] expected2 = { "Malus", "genus Malus" };
-//		printArr(w.getAllHolonyms("apple tree", "n"));
+		//printArr(w.getAllHolonyms("apple tree", "n"));
 		setEqualMulti(expected2,"getAllHolonyms","apple tree","n");
 		
 		
 		String[] expected3 = { "woods", "forest", "wood" };
-//		printArr(w.getAllHolonyms("tree", "n"));
+		//printArr(w.getAllHolonyms("tree", "n"));
 		setEqualMulti(expected3,"getAllHolonyms","tree","n");
 		
 		String[] expected4 = { };
-//		printArr(w.getAllHolonyms("tree", "v"));
+		//printArr(w.getAllHolonyms("tree", "v"));
 		setEqualMulti(expected4,"getAllHolonyms","tree","v");
 		
 		setEqual(w.getAllHolonyms("arm", "j"), EMPTY);
@@ -2527,20 +2527,20 @@ public class RiWordNetTest
 		String[] expected = { "hindlimb", "cubitus", "hind limb", "forelimb", "crus", "flipper", "leg", "forearm", "thigh" };
 		String[] result = w.getCoordinates("arm", "n");
 		//println(w.getSenseIds("arm", "n"));
-//		printArr(result);
+		//printArr(result);
 		setEqualMulti(expected,"getCoordinates","arm","n");
 
 		String[] expected2 = { "coco plum tree", "jackfruit", "Brazilian guava", "pomegranate tree", "Achras zapota", "Averrhoa carambola", "icaco", "Litchi chinensis", "lungen", "cocoa plum", "cherry tree", "pulassan", "Japanese medlar", "pawpaw", "pomegranate", "ginep", "Artocarpus heterophyllus", "mammee tree", "avocado tree", "Artocarpus altilis", "rose-apple tree", "genipa", "Psidium guineense", "loquat", "Eriobotrya japonica", "apricot tree", "coco plum", "mulberry tree", "jaboticaba", "mamey", "lichee", "Japanese plum", "longan", "longanberry", "Prunus persica", "pitanga", "loquat tree", "hog plum", "avocado", "mangosteen", "plum tree", "jambosa", "nectarine tree", "durian tree", "purple strawberry guava", "carambola tree", "Eugenia jambos", "rambutan", "Nephelium litchi", "mamoncillo", "marang tree", "guava bush", "jaboticaba tree", "mango", "Grias cauliflora", "mombin tree", "sapodilla tree", "cherry", "quince bush", "Eugenia corynantha", "mammee apple", "jocote", "Punica granatum", "true guava", "durion", "custard apple", "canistel", "persimmon tree", "marang", "mangosteen tree", "olive tree", "Myrciaria cauliflora", "akee tree", "Nephelium mutabile", "rambotan", "yellow mombin tree", "plumcot tree", "anchovy pear", "Garcinia mangostana", "pulasan tree", "melon tree", "Prunus persica nectarina", "Pouteria campechiana nervosa", "Spanish lime", "mustard tree", "Artocarpus odoratissima", "Pyrus communis", "yellow mombin", "guava", "Psidium littorale", "rambutan tree", "Psidium littorale longipes", "Spondias purpurea", "apricot", "Irvingia gabonensis", "Euphorbia litchi", "Psidium guajava", "litchi", "caimito", "peach tree", "breadfruit", "mombin", "plumcot", "sapodilla", "akee", "Melicocca bijuga", "Manilkara zapota", "mulberry", "Salvadora persica", "nectarine", "quince", "Mammea americana", "medlar", "durian", "Mangifera indica", "toothbrush tree", "papaya", "jackfruit tree", "citrus tree", "papaya tree", "Blighia sapida", "cattley guava", "strawberry guava", "pear", "Psidium cattleianum", "Chrysophyllum cainito", "mammee", "Spanish lime tree", "Melicocca bijugatus", "Artocarpus communis", "Nephelium lappaceum", "wild mango", "yellow cattley guava", "wild mango tree", "Cydonia oblonga", "star apple", "bilimbi", "Nephelium longana", "plum", "litchi tree", "medlar tree", "Surinam cherry", "breadfruit tree", "carambola", "sour cherry", "mango tree", "canistel tree", "Eugenia uniflora", "Mespilus germanica", "Persea Americana", "almond tree", "Spondias mombin", "Durio zibethinus", "anchovy pear tree", "rose apple", "Averrhoa bilimbi", "Dimocarpus longan", "papaia", "Chrysobalanus icaco", "peach", "honey berry", "genip", "pulasan", "pear tree", "custard apple tree", "citrus", "Carica papaya", "persimmon", "dika" };
-//		printArr(w.getCoordinates("apple tree", "n"));
+		//printArr(w.getCoordinates("apple tree", "n"));
 		setEqualMulti(expected2,"getCoordinates","apple tree","n");
 		
 		
 		String[] expected3 = { "aralia", "traveller's tree", "Pipturus argenteus", "sweet clover", "bignoniad", "Queensland grass-cloth plant", "false indigo", "arborescent plant", "bugbane", "bush", "lespedeza", "milk-vetch", "lignosae", "gesneriad", "milk vetch", "nightshade", "traveler's tree", "ravenala", "melilot", "Ravenala madagascariensis", "shrub", "bramble", "combretum", "figwort", "melilotus", "lupin", "bush clover", "wild indigo", "lupine" };
-//		printArr(w.getCoordinates("tree", "n"));
+		//printArr(w.getCoordinates("tree", "n"));
 		setEqualMulti(expected3,"getCoordinates","tree","n");
 		
 		String[] expected4 = { "pull over", "navigate", "dock", "corner", "helm", "starboard", "sheer", "stand out", "conn", "park", "pilot", "crab", "channel" };
-//		printArr(w.getCoordinates("tree", "v"));
+		//printArr(w.getCoordinates("tree", "v"));
 		setEqualMulti(expected4,"getCoordinates","tree","v");
 
 
@@ -2553,27 +2553,27 @@ public class RiWordNetTest
 	{
 		String[] expected = { "matrix", "panoply", "bank", "tabular array", "column", "table", "row", "spectrum" };
 		String[] result = w.getCoordinates(98283156);
-		printArr(result);
+		//printArr(result);
 		setEqual(expected, result);
 
 		String[] expected2 = { "drag one's heels", "defer", "hesitate", "shelve", "shillyshally", "drag one's feet", "table", "dilly-dally", "postpone", "pause", "stall", "prorogue", "set back", "procrastinate", "hold over", "remit", "dillydally", "put over", "put off" };
 		int[] i2 = w.getSenseIds("table", "v");
-		printArr(w.getCoordinates(i2[0]));
+		//printArr(w.getCoordinates(i2[0]));
 		setEqual(expected2, w.getCoordinates(i2[0]));
 		
 		String[] expected3 = { "bush clover", "nightshade", "aralia", "false indigo", "wild indigo", "milk vetch", "bugbane", "lignosae", "lupine", "traveler's tree", "shrub", "milk-vetch", "arborescent plant", "lupin", "bush", "Pipturus argenteus", "bignoniad", "tree", "combretum", "melilot", "traveller's tree", "Queensland grass-cloth plant", "figwort", "ravenala", "melilotus", "Ravenala madagascariensis", "lespedeza", "sweet clover", "gesneriad", "bramble" };
 		int[] i3 = w.getSenseIds("tree", "n");
-		printArr(w.getCoordinates(i3[0]));	
+		//printArr(w.getCoordinates(i3[0]));	
 		setEqual(expected3, w.getCoordinates(i3[0]));
 		
 		String[] expected4 = { "elderberry", "plumcot", "cherry", "medlar", "custard apple", "monstera", "river pear", "quince", "kitambilla", "papaya", "clingstone", "nectarine", "akee", "genipap fruit", "lichi", "sorb apple", "jak", "pear", "pulasan", "Spanish lime", "star fruit", "rambotan", "carambola", "ugli fruit", "sorb", "quandong", "citrous fruit", "cling", "sapodilla plum", "alligator pear", "avocado", "prickly pear", "pomegranate", "wild plum", "date", "pitahaya", "garambulla", "carissa plum", "marmalade plum", "litchi", "Chinese jujube", "loquat", "windfall", "ketembilla", "lychee", "blade apple", "sapodilla", "genipap", "eggfruit", "sapote", "tamarind", "dried fruit", "passion fruit", "ananas", "papaw", "canistel", "fig", "Japanese plum", "sour gourd", "plum", "lanseh", "kai apple", "durian", "dragon's eye", "ugli", "sapota", "melon", "citrus", "pulassan", "grape", "marang", "Barbados gooseberry", "apple", "pineapple", "mamey", "ackee", "peach", "lansa", "apricot", "lanset", "litchee", "pawpaw", "banana", "native peach", "Chinese date", "pineapple guava", "mangosteen", "mammee", "natal plum", "icaco", "anchovy pear", "mango", "jujube", "leechee", "avocado pear", "coco plum", "kiwi fruit", "mammee apple", "kitembilla", "hog plum", "longanberry", "monkey bread", "quandang", "jaboticaba", "rambutan", "freestone", "mombin", "breadfruit", "jackfruit", "tamarindo", "cocoa plum", "citrus fruit", "kiwi", "litchi nut", "aguacate", "yellow mombin", "Chinese gooseberry", "rose apple", "feijoa", "jack", "guava", "quantong", "lansat", "genip", "lichee", "tangelo", "ceriman", "berry" };
 		int[] i4 = w.getSenseIds("apple", "n");
-		printArr(w.getCoordinates(i4[0]));
+		//printArr(w.getCoordinates(i4[0]));
 		setEqual(expected4, w.getCoordinates(i4[0]));
 		
 		String[] expected5 = { "mechanism", "constellation", "nest", "natural covering", "creation", "cover", "plant structure", "cocoon", "dead body", "celestial body", "universe", "consolidation", "organic structure", "blackbody", "carpet", "heavenly body", "full radiator", "stone", "body", "tangle", "rock", "extraterrestrial object", "asterism", "estraterrestrial body", "existence", "radiator", "black body", "world", "macrocosm", "plant part", "cosmos", "covering", "sample" };
 		int[] i5 = w.getSenseIds("body", "n");
-		printArr(w.getCoordinates(i5[0]));
+		//printArr(w.getCoordinates(i5[0]));
 		setEqual(expected5,w.getCoordinates(i5[0]));
 
 		setEqual(EMPTY,w.getCoordinates(88283156));
@@ -2596,20 +2596,20 @@ public class RiWordNetTest
 		
 
 		String[] expected3 ={ "cosy", "tracer", "lap covering", "back", "plotter", "drip mould", "spike", "cauterant", "lobe", "measuring device", "patch", "skirt", "medical dressing", "sleeve", "section", "prong", "forearm", "boss", "extractor", "measuring system", "drip", "whip", "forelimb", "crus", "head", "medical instrument", "bedding", "flipper", "bedclothes", "department", "tea cozy", "limb", "fluke", "slipcover", "thigh", "branch", "surveying instrument", "cozy", "hind limb", "sonograph", "havelock", "seat", "engine", "knob", "weapon", "knee", "burr", "reed organ", "tea cosy", "rim", "analyser", "bosom", "tenon", "brim", "organ", "drip mold", "overhang", "hindlimb", "lap", "burial garment", "eyepatch", "cornice", "flange", "drafting instrument", "bed clothing", "instrument of execution", "cleat", "flue", "weapon system", "lug", "shoulder", "surveyor's instrument", "leg", "cubitus", "cautery", "antimacassar", "tooth", "blindfold", "optical instrument", "navigational instrument", "subdivision", "measuring instrument", "scientific instrument", "analyzer", "harmonium", "instrument of punishment", "elbow", "dressing" };
-//		printArr(w.getAllCoordinates("arm", "n"));
+		//printArr(w.getAllCoordinates("arm", "n"));
 		setEqualMulti(expected3,"getAllCoordinates","arm","n");
 
 		String[] expected4 = { "coco plum tree", "jackfruit", "Brazilian guava", "pomegranate tree", "Achras zapota", "Averrhoa carambola", "icaco", "Litchi chinensis", "lungen", "cocoa plum", "cherry tree", "pulassan", "Japanese medlar", "pawpaw", "pomegranate", "ginep", "Artocarpus heterophyllus", "mammee tree", "avocado tree", "Artocarpus altilis", "rose-apple tree", "genipa", "Psidium guineense", "loquat", "Eriobotrya japonica", "apricot tree", "coco plum", "mulberry tree", "jaboticaba", "mamey", "lichee", "Japanese plum", "longan", "longanberry", "Prunus persica", "pitanga", "loquat tree", "hog plum", "avocado", "mangosteen", "plum tree", "jambosa", "nectarine tree", "durian tree", "purple strawberry guava", "carambola tree", "Eugenia jambos", "rambutan", "Nephelium litchi", "mamoncillo", "marang tree", "guava bush", "jaboticaba tree", "mango", "Grias cauliflora", "mombin tree", "sapodilla tree", "cherry", "quince bush", "Eugenia corynantha", "mammee apple", "jocote", "Punica granatum", "true guava", "durion", "custard apple", "canistel", "persimmon tree", "marang", "mangosteen tree", "olive tree", "Myrciaria cauliflora", "akee tree", "Nephelium mutabile", "rambotan", "yellow mombin tree", "plumcot tree", "anchovy pear", "Garcinia mangostana", "pulasan tree", "melon tree", "Prunus persica nectarina", "Pouteria campechiana nervosa", "Spanish lime", "mustard tree", "Artocarpus odoratissima", "Pyrus communis", "yellow mombin", "guava", "Psidium littorale", "rambutan tree", "Psidium littorale longipes", "Spondias purpurea", "apricot", "Irvingia gabonensis", "Euphorbia litchi", "Psidium guajava", "litchi", "caimito", "peach tree", "breadfruit", "mombin", "plumcot", "sapodilla", "akee", "Melicocca bijuga", "Manilkara zapota", "mulberry", "Salvadora persica", "nectarine", "quince", "Mammea americana", "medlar", "durian", "Mangifera indica", "toothbrush tree", "papaya", "jackfruit tree", "citrus tree", "papaya tree", "Blighia sapida", "cattley guava", "strawberry guava", "pear", "Psidium cattleianum", "Chrysophyllum cainito", "mammee", "Spanish lime tree", "Melicocca bijugatus", "Artocarpus communis", "Nephelium lappaceum", "wild mango", "yellow cattley guava", "wild mango tree", "Cydonia oblonga", "star apple", "bilimbi", "Nephelium longana", "plum", "litchi tree", "medlar tree", "Surinam cherry", "breadfruit tree", "carambola", "sour cherry", "mango tree", "canistel tree", "Eugenia uniflora", "Mespilus germanica", "Persea Americana", "almond tree", "Spondias mombin", "Durio zibethinus", "anchovy pear tree", "rose apple", "Averrhoa bilimbi", "Dimocarpus longan", "papaia", "Chrysobalanus icaco", "peach", "honey berry", "genip", "pulasan", "pear tree", "custard apple tree", "citrus", "Carica papaya", "persimmon", "dika" };
-//		printArr(w.getAllCoordinates("apple tree", "n"));
+		//printArr(w.getAllCoordinates("apple tree", "n"));
 		setEqualMulti(expected4,"getAllCoordinates","apple tree","n");
 		
 		
 		String[] expected5 = { "figure of eight", "nightshade", "traveler's tree", "oblong", "bush clover", "bugbane", "conic section", "bramble", "melilot", "figwort", "melilotus", "semicircle", "lupin", "combretum", "arborescent plant", "Queensland grass-cloth plant", "ellipsoid", "sector", "lupine", "ravenala", "milk vetch", "shrub", "Pipturus argenteus", "paraboloid", "polygonal shape", "heart", "figure eight", "bignoniad", "star", "lespedeza", "sweet clover", "figure 8", "wild indigo", "tree diagram", "false indigo", "traveller's tree", "hemicycle", "lignosae", "conic", "gesneriad", "Ravenala madagascariensis", "polygon", "milk-vetch", "aralia", "bush" };
-//		printArr(w.getAllCoordinates("tree", "n"));
+		//printArr(w.getAllCoordinates("tree", "n"));
 		setEqualMulti(expected5,"getAllCoordinates","tree","n");
 		
 		String[] expected6 = { "checkrow", "quest", "bed", "channel", "afforest", "puddle", "pilot", "starboard", "root", "pull over", "hound", "replant", "navigate", "sheer", "dock", "run down", "helm", "shoetree", "forest", "conn", "crab", "stand out", "park", "dibble", "hunt", "corner", "trace" };
-//		printArr(w.getAllCoordinates("tree", "v"));
+		//printArr(w.getAllCoordinates("tree", "v"));
 		setEqualMulti(expected6,"getAllCoordinates","tree","v");
 		
 		setEqual(EMPTY,w.getAllCoordinates("live", "j"));
@@ -2649,17 +2649,17 @@ public class RiWordNetTest
 		
 		String[] expected2 ={ "give way", "decease", "pop off", "pass", "die", "pass away", "give-up the ghost", "exit", "go bad", "buy the farm", "drop dead", "conk", "choke", "break down", "give out", "cash in one's chips", "break", "go", "perish", "conk out", "fail", "croak", "kick the bucket", "snuff it", "expire" };
 		int[] i2 = w.getSenseIds("die", "v");
-//		printArr(w.getVerbGroup(i2[0]));
+		//printArr(w.getVerbGroup(i2[0]));
 		setEqual(expected2, w.getVerbGroup(i2[0]));
 		
 		String[] expected3 = { "dice", "die" };
 		int[] i3 = w.getSenseIds("die", "n");
-//		printArr(w.getVerbGroup(i3[0]));
+		//printArr(w.getVerbGroup(i3[0]));
 		setEqual(expected3, w.getVerbGroup(i3[0]));
 		
 		String[] expected4 = { "live", "go", "subsist", "survive", "hold up", "exist", "hold out", "live on", "last", "endure", "be" };
 		int[] i4 = w.getSenseIds("survive", "v");
-//		printArr(w.getVerbGroup(i4[0]));
+		//printArr(w.getVerbGroup(i4[0]));
 		setEqual(expected4, w.getVerbGroup(i4[0]));
 
 		setEqual(EMPTY,w.getVerbGroup(72655932));
@@ -2674,19 +2674,19 @@ public class RiWordNetTest
 		setEqualMulti(expected,"getAllVerbGroups","live","v");
 		
 		String[] expected2 = { "become flat","break","break down","buy the farm","cash in one's chips","choke","conk","conk out","croak","decease","die out","drop dead","exit","expire","fail","give out","give way","give-up the ghost","go","go bad","kick the bucket","pall","pass","pass away","perish","pop off","snuff it", };
-//		printArr(w.getAllVerbGroups("die", "v"));
+		//printArr(w.getAllVerbGroups("die", "v"));
 		setEqualMulti(expected2,"getAllVerbGroups","die","v");
 		
 		String[] expected3 = { "dice" };
-//		printArr(w.getAllVerbGroups("die", "n"));
+		//printArr(w.getAllVerbGroups("die", "n"));
 		setEqualMulti(expected3,"getAllVerbGroups","die","n");
 		
 		String[] expected4 = { "come through", "subsist", "live on", "make it", "outlive", "pull through", "hold out", "pull round", "live", "last", "be", "hold up", "exist", "go", "endure", "outlast" };
-//		printArr(w.getAllVerbGroups("survive", "v"));
+		//printArr(w.getAllVerbGroups("survive", "v"));
 		setEqualMulti(expected4,"getAllVerbGroups","survive","v");
 		
 		String[] expected5 = { };
-//		printArr(w.getAllVerbGroups("survive", "r"));
+		//printArr(w.getAllVerbGroups("survive", "r"));
 		setEqualMulti(expected5,"getAllVerbGroups","survive","r");
 
 		setEqual(EMPTY,w.getAllVerbGroups("happily", "j"));
@@ -2701,19 +2701,19 @@ public class RiWordNetTest
 		setEqualMulti(expected,"getDerivedTerms","happily","r");
 		
 		String[] expected2 = {  };
-//		printArr(w.getDerivedTerms("die", "v"));
+		//printArr(w.getDerivedTerms("die", "v"));
 		setEqualMulti(expected2,"getDerivedTerms","die","v");
 		
 		String[] expected3 = {};
-//		printArr(w.getDerivedTerms("die", "n"));
+		//printArr(w.getDerivedTerms("die", "n"));
 		setEqualMulti(expected3,"getDerivedTerms","die","n");
 		
 		String[] expected4 = { "dead", "lifeless" };
-//		printArr(w.getDerivedTerms("deadly", "r"));
+		//printArr(w.getDerivedTerms("deadly", "r"));
 		setEqualMulti(expected4,"getDerivedTerms","deadly","r");
 		
 		String[] expected5 = { };
-//		printArr(w.getDerivedTerms("survive", "r"));
+		//printArr(w.getDerivedTerms("survive", "r"));
 		setEqualMulti(expected5,"getDerivedTerms","survive","r");
 
 		setEqual(EMPTY,w.getDerivedTerms("happily", "j"));
@@ -2732,22 +2732,22 @@ public class RiWordNetTest
 		
 		String[] expected2 = { "dead", "lifeless" };
 		int[] i2 = w.getSenseIds("deadly", "r");
-//		printArr(w.getDerivedTerms(i2[0]));
+		//printArr(w.getDerivedTerms(i2[0]));
 		setEqual(expected2, w.getDerivedTerms(i2[0]));
 		
 		String[] expected3 = { "sudden", "abrupt" };
 		int[] i3 = w.getSenseIds("dead", "r");
-//		printArr(w.getDerivedTerms(i3[0]));
+		//printArr(w.getDerivedTerms(i3[0]));
 		setEqual(expected3, w.getDerivedTerms(i3[0]));
 		
 		String[] expected4 = {};
 		int[] i4 = w.getSenseIds("dead", "n");
-//		printArr(w.getDerivedTerms(i4[0]));
+		//printArr(w.getDerivedTerms(i4[0]));
 		setEqual(expected4, w.getDerivedTerms(i4[0]));
 		
 		String[] expected5 = { "unexpected" };;
 		int[] i5 = w.getSenseIds("unexpectedly", "r");
-//		printArr(w.getDerivedTerms(i5[0]));
+		//printArr(w.getDerivedTerms(i5[0]));
 		setEqual(expected5, w.getDerivedTerms(i5[0]));
 		
 		setEqual(EMPTY, w.getDerivedTerms(550835));
@@ -2766,19 +2766,19 @@ public class RiWordNetTest
 		
 		
 		String[] expected2 = {  };
-//		printArr(w.getAllDerivedTerms("die", "v"));
+		//printArr(w.getAllDerivedTerms("die", "v"));
 		setEqualMulti(expected2,"getAllDerivedTerms","die","v");
 		
 		String[] expected3 = {};
-//		printArr(w.getAllDerivedTerms("die", "n"));
+		//printArr(w.getAllDerivedTerms("die", "n"));
 		setEqualMulti(expected3,"getAllDerivedTerms","die","n");
 		
 		String[] expected4 = { "dead", "lifeless" };
-//		printArr(w.getAllDerivedTerms("deadly", "r"));
+		//printArr(w.getAllDerivedTerms("deadly", "r"));
 		setEqualMulti(expected4,"getAllDerivedTerms","deadly","r");
 		
 		String[] expected5 = { };
-//		printArr(w.getAllDerivedTerms("survive", "r"));
+		//printArr(w.getAllDerivedTerms("survive", "r"));
 		setEqualMulti(expected5,"getAllDerivedTerms","survive","r");
 		
 		setEqual(EMPTY,w.getAllDerivedTerms("happily", "j"));
@@ -2796,19 +2796,19 @@ public class RiWordNetTest
 		setEqualMulti(expected,"getAlsoSees","happy","a");
 		
 		String[] expected2 = { "die down", "die off", "die out" };
-//		printArr(w.getAlsoSees("die", "v"));
+		//printArr(w.getAlsoSees("die", "v"));
 		setEqualMulti(expected2,"getAlsoSees","die","v");
 		
 		String[] expected3 = {};
-//		printArr(w.getAlsoSees("die", "n"));
+		//printArr(w.getAlsoSees("die", "n"));
 		setEqualMulti(expected3,"getAlsoSees","die","n");
 		
 		String[] expected4 = {};
-//		printArr(w.getAlsoSees("deadly", "r"));
+		//printArr(w.getAlsoSees("deadly", "r"));
 		setEqualMulti(expected4,"getAlsoSees","deadly","r");
 		
 		String[] expected5 = { "cheerful" };
-//		printArr(w.getAlsoSees("glad", "a"));
+		//printArr(w.getAlsoSees("glad", "a"));
 		setEqualMulti(expected5,"getAlsoSees","glad","a");
 		
 		setEqual(EMPTY,w.getAlsoSees("happily", "j"));
@@ -2826,12 +2826,12 @@ public class RiWordNetTest
 		
 		String[] expected2 = {"cheerful"};
 		int[] i2= w.getSenseIds("glad", "a");
-//		printArr(w.getAlsoSees(i2[0]));
+		//printArr(w.getAlsoSees(i2[0]));
 		setEqual(expected2, w.getAlsoSees(i2[0]));
 		
 		String[] expected3 = { "happy", "glad" };
 		int[] i3= w.getSenseIds("cheerful", "a");
-//		printArr(w.getAlsoSees(i3[0]));
+		//printArr(w.getAlsoSees(i3[0]));
 		setEqual(expected3, w.getAlsoSees(i3[0]));
 
 		setEqual(EMPTY,w.getAlsoSees(61151786));
@@ -2849,23 +2849,23 @@ public class RiWordNetTest
 		setEqualMulti(expected,"getAllAlsoSees","happy","a");
 
 		String[] expected2 = { "die down", "die off", "die out" };
-//		printArr(w.getAllAlsoSees("die", "v"));
+		//printArr(w.getAllAlsoSees("die", "v"));
 		setEqualMulti(expected2,"getAllAlsoSees","die","v");
 		
 		String[] expected3 = {};
-//		printArr(w.getAllAlsoSees("die", "n"));
+		//printArr(w.getAllAlsoSees("die", "n"));
 		setEqualMulti(expected3,"getAllAlsoSees","die","n");
 		
 		String[] expected4 = {};
-//		printArr(w.getAllAlsoSees("deadly", "r"));
+		//printArr(w.getAllAlsoSees("deadly", "r"));
 		setEqualMulti(expected4,"getAllAlsoSees","deadly","r");
 		
 		String[] expected5 = { "cheerful" };
-//		printArr(w.getAllAlsoSees("glad", "a"));
+		//printArr(w.getAllAlsoSees("glad", "a"));
 		setEqualMulti(expected5,"getAllAlsoSees","glad","a");
 		
 		String[] expected6 ={ "happy", "glad" };
-//		printArr(w.getAllAlsoSees("cheerful", "a"));
+		//printArr(w.getAllAlsoSees("cheerful", "a"));
 		setEqualMulti(expected6,"getAllAlsoSees","cheerful","a");
 		
 		setEqual(EMPTY,w.getAllAlsoSees("happy", "j"));
@@ -2883,20 +2883,20 @@ public class RiWordNetTest
 		setEqualMulti(expected,"getNominalizations","happy","a");
 	
     String[] expected2 = {};
-    //printArr(w.getNominalizations("happy", "n"));
+		//printArr(w.getNominalizations("happy", "n"));
 		setEqualMulti(expected2,"getNominalizations","happy","n");
 		
 		String[] expected3 = {};
-    //printArr(result = w.getNominalizations("happy", "v"));
+		//printArr(result = w.getNominalizations("happy", "v"));
 		setEqualMulti(expected3,"getNominalizations","happy","v");
 		
 		String[] expected4 = {};
-    //printArr(w.getNominalizations("happy", "r"));
+		//printArr(w.getNominalizations("happy", "r"));
 		setEqualMulti(expected4,"getNominalizations","happy","r");
 
 		
 		String[] expected5 = {};
-    //printArr(w.getNominalizations("door", "n"));
+		//printArr(w.getNominalizations("door", "n"));
 		setEqualMulti(expected5,"getNominalizations","door","n");
 		
 		String[] expected6 = { "necessitous", "necessitate", "essential", "require", "requisite" };
@@ -2922,27 +2922,27 @@ public class RiWordNetTest
 		String[] expected3 = { "coolness" };
 		String[] result3 = w.getNominalizations(72540350);
     //println(w.getSenseIds("cool", "a"));
-    //printArr(w.getNominalizations(72540350));
+		//printArr(w.getNominalizations(72540350));
 		setEqual(expected3, result3);
 		
 		
 		String[] expected4 = { "chill", "cool", "coolant", "cooler", "chilling", "cooling" };
 		String[] result4 = w.getNominalizations(8371065);
     //println(w.getSenseIds("cool", "v"));
-    //printArr(w.getNominalizations(8371065));
+		//printArr(w.getNominalizations(8371065));
 		setEqual(expected4, result4);
 		
 		String[] expected5 = { "cool" };
 		String[] result5 = w.getNominalizations(95023185);
     //println(w.getSenseIds("cool", "n"));
-    //printArr(w.getNominalizations(95023185));
+		//printArr(w.getNominalizations(95023185));
 		setEqual(expected5, result5);
 		
 		
 		String[] expected6 = {};
 		String[] result6 = w.getNominalizations(72540775);
 ////println(w.getSenseIds("air-cooled", "a"));
-    //printArr(w.getNominalizations(72540775));
+		//printArr(w.getNominalizations(72540775));
 		setEqual(expected6, result6);
 		
 		
@@ -2969,20 +2969,20 @@ public class RiWordNetTest
 		expected4 =  new String[]{ "chill", "cool", "coolant", "cooler", "chilling", "cooling" };
 		result4 = w.getNominalizations(8371065);
     //println(w.getSenseIds("cool", "v"));
-    //printArr(w.getNominalizations(8371065));
+		//printArr(w.getNominalizations(8371065));
 		setEqual(expected4, result4);
 		
 		expected5 =  new String[] { "cool" };
 		result5 = w.getNominalizations(95023185);
     //print(w.getSenseIds("cool", "n"));
-    //printArr(w.getNominalizations(95023185));
+		//printArr(w.getNominalizations(95023185));
 		setEqual(expected5, result5);
 		
 		
 		expected6 =  new String[]{};
 		result6 = w.getNominalizations(72540775);
     //println(w.getSenseIds("air-cooled", "a"));
-    //printArr(w.getNominalizations(72540775));
+		//printArr(w.getNominalizations(72540775));
 		setEqual(expected6, result6);
 		
 			
@@ -3002,20 +3002,20 @@ public class RiWordNetTest
 		setEqualMulti(expected,"getAllNominalizations","happy","a");
 	
 		String[] expected2 = {};
-    //printArr(w.getAllNominalizations("happy", "n"));
+		//printArr(w.getAllNominalizations("happy", "n"));
 		setEqualMulti(expected2,"getAllNominalizations","happy","n");
 		
 		String[] expected3 = {};
-    //printArr(result = w.getAllNominalizations("happy", "v"));
+		//printArr(result = w.getAllNominalizations("happy", "v"));
 		setEqualMulti(expected3,"getAllNominalizations","happy","v");
 		
 		String[] expected4 = {};
-    //printArr(w.getAllNominalizations("happy", "r"));
+		//printArr(w.getAllNominalizations("happy", "r"));
 		setEqualMulti(expected4,"getAllNominalizations","happy","r");
 
 		
 		String[] expected5 = {};
-    //printArr(w.getAllNominalizations("door", "n"));
+		//printArr(w.getAllNominalizations("door", "n"));
 		setEqualMulti(expected5,"getAllNominalizations","door","n");
 		
 		String[] expected6 = { "necessitous", "necessitate", "essential", "require", "requisite" };
@@ -3030,33 +3030,33 @@ public class RiWordNetTest
 	public void testGetSimilarStringString()
 	{
 		String[] expected = { "golden", "blissful", "blessed", "prosperous", "bright", "riant", "halcyon", "laughing" };
-    //printArr(w.getSimilar("happy","a"));
+		//printArr(w.getSimilar("happy","a"));
 		setEqualMulti(expected,"getSimilar","happy","a");
 
 		String[] expected2 = {};
-    //printArr(w.getSimilar("happy","n"));
+		//printArr(w.getSimilar("happy","n"));
 		setEqualMulti(expected2,"getSimilar","happy","n");
 
 		String[] expected3 = { "air-cooled", "precooled", "caller", "water-cooled", "air-conditioned" };
-    //printArr(w.getSimilar("cool","a"));
+		//printArr(w.getSimilar("cool","a"));
 		setEqualMulti(expected3,"getSimilar","cool","a");
 
 		String[] expected4 = {};
-    //printArr(w.getSimilar("cool","v"));
+		//printArr(w.getSimilar("cool","v"));
 		setEqualMulti(expected4,"getSimilar","cool","v");
 
 
 		String[] expected5 = {};
-    //printArr(w.getSimilar("cool","n"));
+		//printArr(w.getSimilar("cool","n"));
 		setEqualMulti(expected5,"getSimilar","cool","n");
 
 
 		String[] expected6 = {};
-    //printArr(w.getSimilar("cool","r"));
+		//printArr(w.getSimilar("cool","r"));
 		setEqualMulti(expected6,"getSimilar","cool","r");
 
 		String[] expected7 = { "cool"};
-    //printArr(w.getSimilar("air-cooled","a"));
+		//printArr(w.getSimilar("air-cooled","a"));
 		setEqualMulti(expected7,"getSimilar","air-cooled","a");
 
 		setEqual(new String[]{},w.getSimilar("nosuchword", "a"));
@@ -3088,20 +3088,20 @@ public class RiWordNetTest
 		String[] expected4 = {};
 		String[] result4 = w.getSimilar(8371065);
     //println(w.getSenseIds("cool", "v"));
-    //printArr(w.getSimilar(8371065));
+		//printArr(w.getSimilar(8371065));
 		setEqual(expected4, result4);
 		
 		String[] expected5 = {};
 		String[] result5 = w.getSimilar(95023185);
     //println(w.getSenseIds("cool", "n"));
-    //printArr(w.getSimilar(95023185));
+		//printArr(w.getSimilar(95023185));
 		setEqual(expected5, result5);
 		
 		
 		String[] expected6 = {"cool" };
 		String[] result6 = w.getSimilar(72540775);
     //println(w.getSenseIds("air-cooled", "a"));
-    //printArr(w.getSimilar(72540775));
+		//printArr(w.getSimilar(72540775));
 		setEqual(expected6, result6);
 		
 		
@@ -3127,20 +3127,20 @@ public class RiWordNetTest
 		expected4 =  new String[]{};
 		result4 = w.getSimilar(8371065);
     //println(w.getSenseIds("cool", "v"));
-    //printArr(w.getSimilar(8371065));
+		//printArr(w.getSimilar(8371065));
 		setEqual(expected4, result4);
 		
 		expected5 =  new String[]{};
 		result5 = w.getSimilar(95023185);
     //println(w.getSenseIds("cool", "n"));
-    //printArr(w.getSimilar(95023185));
+		//printArr(w.getSimilar(95023185));
 		setEqual(expected5, result5);
 		
 		
 		expected6 =  new String[]{"cool" };
 		result6 = w.getSimilar(72540775);
     //println(w.getSenseIds("air-cooled", "a"));
-    //printArr(w.getSimilar(72540775));
+		//printArr(w.getSimilar(72540775));
 		setEqual(expected6, result6);
 		
 		
