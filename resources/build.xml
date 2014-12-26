@@ -140,7 +140,7 @@
 
 	</target>
 	
-	<target name="test.java" description="runs all java tests">
+	<target name="test-java" description="runs all java tests">
 
 		<junit printsummary="yes" timeout="100000" haltonfailure="yes">
 		
@@ -160,7 +160,7 @@
 
 	</target>	
 	
-    <target name="test.wordnet" description="runs all java tests">
+    <target name="test-wordnet" description="runs all java tests">
 
 		<junit printsummary="yes" timeout="100000" haltonfailure="yes">
 		
