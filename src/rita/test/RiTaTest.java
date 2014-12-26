@@ -18,6 +18,8 @@ import rita.support.Constants.StemmerType;
 
 public class RiTaTest
 {  
+  private static final boolean TEST_LOCAL_LOADS = false;
+  
   @Test
   public void testStart()
   {
@@ -36,6 +38,10 @@ public class RiTaTest
   @Test
   public void loadString_AbsFile()
   {
+    if (!TEST_LOCAL_LOADS) {
+      ok("skipping local loads");
+      return;
+    }
     String s = RiTa.loadString("/Library/WebServer/Documents/testfiles/kafka.txt");
     ok(s != null && s.length() > 100000);
   }
@@ -43,6 +49,10 @@ public class RiTaTest
   @Test
   public void loadString_Url()
   {
+    if (!TEST_LOCAL_LOADS) {
+      ok("skipping local loads");
+      return;
+    }
     String s = RiTa.loadString("http://localhost/testfiles/kafka.txt");
     ok(s != null && s.length() > 100000);
   }
@@ -50,6 +60,10 @@ public class RiTaTest
   @Test
   public void loadString_FileAsUrl()
   {
+    if (!TEST_LOCAL_LOADS) {
+      ok("skipping local loads");
+      return;
+    }
     URL url = null;
     try
     {
@@ -82,6 +96,10 @@ public class RiTaTest
   @Test
   public void loadString_UrlStrMulti()
   {
+    if (!TEST_LOCAL_LOADS) {
+      ok("skipping local loads");
+      return;
+    }
     String[] files = {  
         "http://localhost/testfiles/sentence1.json",
         "http://localhost/testfiles/sentence2.json" 
@@ -93,6 +111,10 @@ public class RiTaTest
   @Test
   public void loadString_UrlMulti()
   {
+    if (!TEST_LOCAL_LOADS) {
+      ok("skipping local loads");
+      return;
+    }
     URL[] urls = null;
     
     try {
@@ -108,6 +130,10 @@ public class RiTaTest
   @Test
   public void loadUrl()
   {
+    if (!TEST_LOCAL_LOADS) {
+      ok("skipping local loads");
+      return;
+    }
     URL url = null;
     try
     {
