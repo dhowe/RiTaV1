@@ -1,5 +1,5 @@
 <!-- NEXT: "generate.docs" -->
-<project name="RiTa" default="info" basedir="../">
+<project name="RiTa" default="test" basedir="../">
 
     <property file="resources/build.properties" />
     
@@ -139,7 +139,9 @@
 
 	</target>
 	
-	<target name="test-java" description="runs all java tests" depends="compile">
+	<target name="test-java" description="alias to 'test'" depends="test"></target>
+	
+	<target name="test" description="runs all java tests" depends="compile">
 
 		<junit printsummary="yes" timeout="100000" haltonfailure="yes">
 		
