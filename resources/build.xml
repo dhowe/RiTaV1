@@ -20,7 +20,6 @@
     	<pathelement path="${project.src}"/>
 	</path>
 	
-	
 	<fileset id="exampleFileSet" dir="${project.examples}">
 			<exclude name="**/*README*"/>
 			<exclude name="**/*.html"/>
@@ -140,7 +139,7 @@
 
 	</target>
 	
-	<target name="test-java" description="runs all java tests">
+	<target name="test-java" description="runs all java tests" depends="compile">
 
 		<junit printsummary="yes" timeout="100000" haltonfailure="yes">
 		
@@ -160,7 +159,7 @@
 
 	</target>	
 	
-    <target name="test-wordnet" description="runs all java tests">
+    <target name="test-wordnet" description="runs all wordnet tests" depends="info">
 
 		<junit printsummary="yes" timeout="100000" haltonfailure="yes">
 		
@@ -178,12 +177,11 @@
 
 		<echo>
 ${line}
-Name	${project.name} 
-Version	${project.version}
-Compiled	${project.compile}
-Sketchbook	${sketchbook.location}
-Version	${java.version}
-Version	${compiler}
+Name:	${project.name} 
+Version:	${project.version}
+Sketchbook:	${sketchbook.location}
+Ant.Java.Version:	${ant.java.version}
+Java.Version:	${java.version}
 ${line}
 Done.
 ${line}	

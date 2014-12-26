@@ -1,13 +1,16 @@
 package rita.test;
 
 
-import org.junit.Test;
-
-import rita.RiTa;
-import rita.RiTaEvent;
-import static rita.support.Constants.EventType.*;
+import static rita.support.Constants.EventType.FadeIn;
+import static rita.support.Constants.EventType.FadeOut;
+import static rita.support.Constants.EventType.TextEntered;
+import static rita.support.Constants.EventType.Timer;
 import static rita.support.QUnitStubs.equal;
 import static rita.support.QUnitStubs.ok;
+
+import org.junit.Test;
+
+import rita.RiTaEvent;
 
 public class RiTaEventTest
 {

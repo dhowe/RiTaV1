@@ -13,7 +13,8 @@ import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 
-import rita.*;
+import rita.RiString;
+import rita.RiTa;
 import rita.support.Constants;
 
 /*
