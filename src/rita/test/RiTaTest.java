@@ -13,8 +13,6 @@ import org.junit.Test;
 
 import processing.core.PApplet;
 import rita.*;
-import rita.support.Constants;
-import rita.support.Constants.StemmerType;
 
 public class RiTaTest
 {  

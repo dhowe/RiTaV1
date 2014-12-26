@@ -1,12 +1,11 @@
 package rita.test;
 
 import static org.junit.Assert.fail;
-import static rita.support.QUnitStubs.*;
+import static rita.support.QUnitStubs.equal;
+import static rita.support.QUnitStubs.ok;
+import static rita.support.QUnitStubs.println;
 
-import java.util.Iterator;
-import java.util.List;
-
-import org.junit.*;
+import org.junit.Test;
 
 import rita.support.GoogleDirect;
 

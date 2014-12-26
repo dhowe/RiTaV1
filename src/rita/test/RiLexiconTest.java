@@ -4,7 +4,8 @@ import static rita.support.QUnitStubs.deepEqual;
 import static rita.support.QUnitStubs.equal;
 import static rita.support.QUnitStubs.ok;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.Test;
 
