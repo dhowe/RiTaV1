@@ -10,10 +10,10 @@ import rita.json.*;
 
 public class DocGenerator extends PApplet
 {
-  static final String VERSION = "0.13";
+  static final String VERSION = "0.14";
   static final boolean OUTPUT_HTML =  false;
   
-  static String DATA_DIR = "RiTaLibraryJS/docs/";
+  static String DATA_DIR = "docs";
   static String OUTPUT_DIR = "/tmp/";
  
   static int numOfMethods, numOfparameters, numOfreturns;
@@ -349,8 +349,8 @@ public class DocGenerator extends PApplet
      
     //
     if (args.length==0)
-      //go(new String[] {OUTPUT_DIR,DATA_DIR}); // ALL
-      go(new String[] {OUTPUT_DIR,DATA_DIR,"RiWordNet"}); // ONE
+      go(new String[] {OUTPUT_DIR,DATA_DIR}); // ALL
+      //go(new String[] {OUTPUT_DIR,DATA_DIR,"RiWordNet"}); // ONE
     else
       go(args);
   }
