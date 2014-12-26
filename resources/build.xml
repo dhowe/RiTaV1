@@ -1,0 +1,807 @@
+<!--  
+	TODO:
+		make sure WordNet properties files get into proper places
+		run tests on completed library (especially for P5)
+		make snapshot of completed (correct) build structure
+ -->
+ 
+<project name="RiTa" basedir="../">
+
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
+		<classpath><pathelement location="./libs/ant-contrib-1.0b3.jar"/></classpath>
+	</taskdef>
+
+	<property file="./resources/build.properties" />
+	<property name="path.to.gulp" value="/usr/local/bin/gulp"/>
+
+	<description>${ant.description}</description>
+
+	<property name="processing.sketchbook" location="${user.home}/Documents/Processing"/>  
+	
+	<property name="line" value="------------------------------------------------------------------------------------------------" />
+
+	<condition property="is.normal">
+		<equals arg1="${project.compile}" arg2="normal" />
+	</condition>
+
+	<!--property environment="env"/-->
+	<property name="main.package" value="rita"/>
+	<property name="reports.tests" value="reports"/>
+	<property name="path.to.node" value="/usr/local/bin"/>
+	<property name="project.jar.name" value="${main.package}.jar"/>
+	<property name="project.jar.full.name" value="${main.package}.full.jar"/>
+	<property name="project.jar.support.name" value="${main.package}.support.jar"/>
+	<property name="project.src" location="src"/>
+	<property name="project.src.test" location="src/rita/test"/>
+	<property name="project.doc.in" location="docs/"/>
+	<property name="project.doc.out" location="www/reference/"/>
+	<property name="project.latest" location="latest"/>
+	<property name="project.tmp" location="tmp"/>
+	
+	<property name="project.build" location="{$project.tmp}/build"/>
+	<property name="project.data" location="data"/>
+	<!--property name="project.lib" location="lib"/-->
+	<property name="project.libs" location="libs"/>
+	<property name="project.bin" location="bin"/>
+	<property name="project.bin.data" location="${project.tmp}/${project.name}/bin/data"/>
+	<property name="project.examples" location="www/examples"/>
+	<property name="project.reference" location="reference"/>
+	<property name="project.dist" location="dist"/>
+	<property name="project.dist.version" location="dist/${project.name}-${project.version}"/>
+	<property name="project.website" location="${project.dist.version}/web/"/>
+	<property name="dist.web.zip" location="${project.website}/../web-${project.version}.zip"/>
+	<property name="dist.download" location="${project.dist.version}/web/download"/>
+	<!--property name="project.jsbuild" location="${project.js}/build"/>
+	<property name="project.jsbuild.www" location="${project.jsbuild}/www"/>
+	<property name="project.jsbuild.download" location="${project.jsbuild.www}/download"/-->
+	<property name="install.source" location="resources/install_instructions.txt"/>
+	<property name="license.source" location="resources/license.txt"/>
+	<property name="license.dest" location="${project.tmp}/${project.name}/LICENSE.txt"/>
+	<property name="props.src" location="resources/library.properties"/>
+	<property name="props.dst" location="${project.dist.version}/${project.name}/library.properties"/>
+	<property name="install.destination" location="${project.dist.version}/INSTALL.txt"/>
+	<property name="license.destination" location="${project.dist.version}/RiTa/LICENSE.txt"/>
+	
+	<property name="processing.lib.rita" location="${processing.sketchbook}/libraries/RiTa"/>
+	<property name="processing.library" location="${processing.lib.rita}/library"/>
+	<property name="processing.examples" location="${processing.lib.rita}/examples"/>
+
+    <!-- optional stuff for rita-js -->
+	<property name="project.js" location="RiTaLibraryJS"/>
+	<property name="js.build" location="${project.js}/dist"/>
+	<property name="project.js.name" value="rita.js"/>
+	<property name="rita.js.scripts" location="${project.js}/scripts"/>
+	<property name="rita.js.src" location="${project.js}/src"/>
+	<property name="rita.js.file" location="${rita.js.src}/${project.js.name}"/>
+	<property name="rita.js.full" location="${rita.js.src}/${project.js.name}"/>
+
+	<!-- ********************** CLASSPATHS ********************** -->
+
+	<path id="classpath">
+		<fileset dir="${project.libs}" includes="**/*.jar" excludes="ant-contrib-*"/>
+	</path>
+	
+	<path id="test.classpath">
+		<fileset dir="${project.libs}" includes="**/*.jar" excludes="ant-contrib-*"/>
+		<pathelement path="bin" />
+    	<pathelement path="${project.src}" />
+    	<!--pathelement path="${project.src}" /-->
+	</path>
+
+    <!-- get the source compile classpath in a printable form -->
+    <pathconvert pathsep="${line.separator}|   |-- "
+                 property="echo.classpath"
+                 refid="classpath">
+    </pathconvert>
+    <pathconvert pathsep="${line.separator}|   |-- "
+                 property="echo.test.classpath"
+                 refid="test.classpath">
+    </pathconvert>
+				
+	<!-- ********************** TARGETS ********************** -->
+	   
+	<target name="test.all" description="run all java/js tests (js in node)">
+		<antcall target="test.java" />
+		<antcall target="test.node" />
+	</target>
+
+	<target name="test.node" depends="check.rita.js" description="run js(qunit) tests in node">
+			<if>
+		        <not><isset property="rita.js.present"/></not>
+		        <then>
+					<echo message="Skipping node tests..." />
+		        </then>
+		        <else>
+		   			<echo>${line}</echo>
+		   			<echo message="Calling 'gulp test.node' ..." />
+		   			<exec dir="${project.js}" resolveexecutable="false" executable="${path.to.gulp}" failonerror="true">
+						<arg line="test.node"/>
+					</exec>	  
+		   			<echo>${line}</echo>
+		   			<echo message="All node-tests passed." />
+		   			<echo>${line}</echo>
+		        </else>
+		    </if>	
+	</target>
+	
+	<target name="test.phantom" depends="check.rita.js" description="run js(qunit) tests in phantomJS">
+			<if>
+		        <not><isset property="rita.js.present"/></not>
+		        <then>
+					<echo message="Skipping phantom tests..." />
+		        </then>
+		        <else>
+		   			<echo>${line}</echo>
+		   			<echo message="Calling 'gulp test' ..." />
+   					<exec dir="${project.js}" resolveexecutable="false" executable="${path.to.gulp}" failonerror="true">
+						<arg line="test"/>
+					</exec>	 
+		   			<echo>${line}</echo>
+		   			<echo message="All phantom-tests passed." />
+		   			<echo>${line}</echo>
+		        </else>
+		    </if>	
+	</target>
+	
+	<target name="run.node.tests.old" depends="check.rita.js">
+		   <if>
+		        <not><isset property="rita.js.present"/></not>
+		        <then>
+					<echo message="Skipping javascript tests..." />
+		        </then>
+		        <else>
+		   			<echo>${line}</echo>
+		   			<echo message="Calling run-node-tests.sh ..." />
+		   			<exec dir="${rita.js.scripts}" resolveexecutable="true" output="/dev/null" 
+		   	            executable="run-node-tests.sh" failonerror="true" failifexecutionfails="true" logError="true">
+		   				<env key="PATH" value="${env.PATH}:${path.to.node}" />
+		   			</exec>
+		   			<echo>${line}</echo>
+		   			<echo message="All node-tests passed." />
+		   			<echo>${line}</echo>
+		        </else>
+		    </if>
+	</target>
+		
+	<target name="test.java" description="runs all java (junit) tests">
+
+		<junit printsummary="yes" timeout="100000" haltonfailure="yes">
+		
+			<classpath><path refid="test.classpath"/></classpath>
+
+			<formatter type="plain" />
+			<formatter type="xml" />
+	
+			<test name="rita.test.RiLexiconTest" outfile="reports/rita.test.RiLexiconTest"></test>
+			<test name="rita.test.RiTaTest"      outfile="reports/rita.test.RiTaTest"></test>
+			<test name="rita.test.RiGrammarTest" outfile="reports/rita.test.RiGrammarTest"></test>
+			<test name="rita.test.RiMarkovTest"  outfile="reports/rita.test.RiMarkovTest"></test>
+			<test name="rita.test.RiStringTest"  outfile="reports/rita.test.RiStringTest"></test>
+			<test name="rita.test.RiTaEventTest" outfile="reports/rita.test.RiTaEventTest"></test>
+			<test name="rita.test.RiWordNetTest" outfile="reports/rita.test.RiWordNetTest"></test>
+			<!--test name="rita.test.RiWordNetIteratorsTest"  haltonfailure="no" outfile="reports/rita.test.RiWordNetTest"></test-->
+		</junit>
+
+	</target>
+
+	<target name="make.docs" description="generates docs from json">  
+	    
+		<java classname="rita.docgen.DocGenerator" 
+		    fork="true"
+           	failonerror="true"
+           	maxmemory="512m">
+			<classpath>
+			    <path refid="classpath"/>
+			    <pathelement path="bin"/>
+			</classpath>
+			<arg value="${project.doc.out}"/>
+      		<arg value="${project.doc.in}"/>  
+      	</java>
+      	
+	</target>  
+		
+	<target name="make.all" depends="clean, library.init, make.js" description="test, builds all resources">
+		
+	    <!-- echo message="Testing library..." />	    
+	    <antcall target="test.all"/-->
+	    
+		<echo message="Building library..." />
+		<echo message="Module: Java" />
+		
+		<antcall target="generate.structure"/>
+		<antcall target="source.doreplace" />
+		<antcall target="compile.prod" />
+		
+		<antcall target="generate.jars"/>
+		<antcall target="generate.docs"/>
+		
+		<antcall target="generate.distribution" />
+		
+		<echo message="Module: JavaScript" />
+				
+		<antcall target="import.js.files"/>
+		
+		<antcall target="copy.www.to.build" />
+		<antcall target="generate.zip" />
+		
+		
+
+
+<antcall target="create.www.pub" />	 	
+<delete dir="${project.tmp}" />
+	
+			<!-- WORKING HERE: 
+			
+			 	- Add Publish task: scp /tmp/RiTa/WWW-Version.zip -> host, unzip
+			 	  
+			 	  + softlinking:
+			 		 ln -fs rita-1.0.67.js rita-latest.js
+ 					 ln -fs rita-1.0.67.min.js rita-latest.min.js
+					 ln -fs rita-1.0.67.micro.js rita-latest.micro.js
+					 ln -fs rita-1.0.67.microp5.js rita-latest.microp5.js
+					 
+					 ln -fs rita-1.0.67.jar rita-latest.jar
+					 ln -fs RiTa-1.0.67.zip RiTa-latest.zip
+				  
+				  + publish-node package, call npm update
+				  + update library.properties -> $RED/www/rita/rita.txt
+				  + do Git tagging for bower ?
+				  + publish web directory: /RiTa/dist/Current
+			-->
+			 	
+	</target>
+	
+	<target name="make.symlinks"  description="">
+		<symlink link="${dist.download}/rita-latest.jar" resource="${dist.download}/rita-${project.version}.jar" overwrite="true"/>
+		<symlink link="${dist.download}/RiTa-latest.zip" resource="${dist.download}/RiTa-${project.version}.zip" overwrite="true"/>
+		
+		<symlink link="${dist.download}/rita-latest.js" resource="${dist.download}/rita-${project.version}.js" overwrite="true"/>
+		<symlink link="${dist.download}/rita-latest.min.js" resource="${dist.download}/rita-${project.version}.min.js" overwrite="true"/>
+		<symlink link="${dist.download}/rita-latest.micro.js" resource="${dist.download}/rita-${project.version}.micro.js" overwrite="true"/>
+		<symlink link="${dist.download}/rita-latest.microP5.js" resource="${dist.download}/rita-${project.version}.microP5.js" overwrite="true"/>
+	</target>	
+	
+	<target name="create.www.pub">
+		<move file="${project.tmp}/${project.name}/www" tofile="${project.website}" />
+		<antcall target="make.symlinks" />
+		<zip destfile="${dist.web.zip}"
+  	       basedir="${project.website}"
+  	       excludes="**/.DS_Store"
+		/>
+		<symlink link="${project.dist}/Current" resource="${project.website}" overwrite="true"/>
+	</target>
+	
+	<target name="xmake.lib" depends="clean">
+	    
+		<antcall target="generate.structure"/>
+		<antcall target="source.doreplace"/>
+		<antcall target="compile.prod"/>
+		
+		<antcall target="make.js"/>
+		<antcall target="make.node"/>
+		
+		<!-- antcall target="make.docs"/-->
+		<antcall target="generate.docs"/>
+	    <antcall target="copy.www.to.build"/>
+	    <antcall target="copy.license.to.build"/>
+	    <!-- antcall target="copy.js.to.p5"/-->
+	    <antcall target="copy.js.to.examples.lib"/>
+	    
+	    <!--  next: copy needed js files to tmp/www/download -->
+	    <antcall target="import.js.files"/>
+
+	</target>
+	
+	<target name="import.js.files" depends="check.rita.js" if="rita.js.present">
+	 
+		<copy tofile="${project.dist.version}/${project.name}/library/rita.js" 
+		    file="${js.build}/rita-${project.version}.min.js"/>
+
+		<copy tofile="www/examples/lib/rita.js" 
+		    file="${js.build}/rita-${project.version}.min.js"/>
+	    				
+		<copy todir="${project.tmp}/${project.name}/www/download">
+			<fileset dir="${js.build}">
+				<include name="*.js"/>
+			</fileset>
+		</copy>
+		
+		<copy todir="${project.latest}"> <!-- TODO: remove latest, just use $buildir/Current ? --> 
+			<fileset dir="${js.build}">
+				<include name="*.js"/>
+			</fileset>
+		</copy>
+
+	</target>
+	    	
+	<target name="old._make.all">
+
+		<antcall target="test.all" />
+		<antcall target="make.lib" />
+		<antcall target="_script.make-node.sh" />
+	</target>
+
+	<target name="_make.and.pub.local">
+		<antcall target="_make.all" />
+		<antcall target="_publish.local" />
+	</target>
+
+	<target name="_publish.local">
+		<antcall target="_script.pub.local" />
+	</target>
+
+	<target name="_publish.rednoise">
+		<antcall target="_script.pub.rednoise" />
+	</target>
+
+	<!-- Create the time stamp -->
+	<tstamp>
+		<format property="date" pattern="MM/dd/yyyy" offset="0" unit="hour"/>
+	</tstamp>
+
+	<target name="init">
+		<echo>${line}
+	building ${project.name} ${project.version}
+${line}
+	src path	${project.src}
+	bin path 	${project.tmp}/${project.name}/bin
+	sketchbook	${sketchbook.location}
+	java version	${java.version}
+	java target     ${java.target.version}
+${line}
+		</echo>
+
+	</target>
+
+	<target name="library.init" depends="init">
+		<echo message="Initializing..." />
+	</target>
+
+	<target name="make.node" depends="check.rita.js" if="rita.js.present">
+		<exec dir="${project.js}" resolveexecutable="false" executable="${path.to.gulp}" failonerror="true">
+			<arg line="build.node"/>
+		</exec>	    
+	</target>
+	
+	<target name="make.js" depends="check.rita.js" if="rita.js.present" description="calls gulp to build js (including node)">
+		<exec dir="${project.js}" resolveexecutable="false" executable="${path.to.gulp}" failonerror="true">
+			<arg line="build"/>
+		</exec>	    
+	</target>
+   	    
+	<target name="_script.make-lib.sh" depends="check.rita.js" if="rita.js.present">
+		<echo>${line}</echo>
+		<echo message="Calling make-lib.sh ..." />
+		<exec dir="${rita.js.scripts}" resolveexecutable="true" executable="make-lib.sh" failonerror="true">
+			<arg line="${project.version}"/>
+		</exec>
+		<echo>${line}</echo>
+	</target>
+
+	<target name="_script.make-node.sh" depends="check.rita.js" if="rita.js.present">
+		<echo>${line}</echo>
+		<echo message="Calling make-node.sh ..." />
+		<exec dir="${rita.js.scripts}" resolveexecutable="true" executable="make-node.sh" failonerror="true">
+			<env key="PATH" value="${env.PATH}:${path.to.node}" />
+			<arg line="${project.version}"/>
+		</exec>
+		<echo>${line}</echo>
+	</target>
+
+	<target name="publish.pkgs" depends="check.rita.js" if="rita.js.present">
+		<antcall target="_publish.node" />
+		<antcall target="_publish.bower" />
+	</target>
+
+	<target name="_publish.node" depends="check.rita.js" if="rita.js.present">
+		<echo>${line}</echo>
+		<echo message="Calling make-node.sh ${project.version} -p ..." />
+		<exec dir="${rita.js.scripts}" resolveexecutable="true" executable="make-node.sh" failonerror="true">
+			<arg line="${project.version}"/>
+			<arg line="-p"/>
+		</exec>
+		<echo>${line}</echo>
+	</target>
+	
+	<target name="_publish.bower" depends="check.rita.js" if="rita.js.present">
+		<echo>${line}</echo>
+		<echo>Nothing to do for Bower!!</echo>
+		<!--echo message="Calling make-bower.sh ${project.version} -p ..." />
+		<exec dir="${rita.js.scripts}" resolveexecutable="true" executable="make-node.sh" failonerror="true">
+			<arg line="${project.version}"/>
+			<arg line="-p"/>
+		</exec-->
+		<echo>${line}</echo>
+	</target>
+
+	<target name="_publish.node.force" depends="check.rita.js" if="rita.js.present">
+		<echo>${line}</echo>
+		<echo message="Calling make-node.sh ${project.version} -p -f ..." />
+		<exec dir="${rita.js.scripts}" resolveexecutable="true" executable="make-node.sh" failonerror="true">
+			<arg line="${project.version}"/>
+			<arg line="-p"/>
+			<arg line="-f"/>
+		</exec>
+		<echo>${line}</echo>
+	</target>
+
+	<target name="_script.pub.local" depends="check.rita.js" if="rita.js.present">
+		<echo>${line}</echo>
+		<echo message="Calling pub-lib.sh ${project.version} ..." />
+		<exec 
+	    	dir="${rita.js.scripts}" resolveexecutable="true" resultproperty="return.code"
+	    	executable="pub-lib.sh" failonerror="true">
+			<arg line="${project.version}"/>
+		</exec>
+		<echo>${line}</echo>
+	</target>
+
+
+	<target name="_script.pub.rednoise" depends="check.rita.js" if="rita.js.present">
+		<echo>${line}</echo>
+		<echo message="Calling pub-lib.sh ${project.version} -r ..." />
+		<exec 
+	    	dir="${rita.js.scripts}" resolveexecutable="true" resultproperty="return.code"
+	    	executable="pub-lib.sh" failonerror="true">
+			<arg line="${project.version}"/>
+			<arg line="-r"/>
+		</exec>
+		<echo>${line}</echo>
+	</target>
+
+
+	<target name="copyToSketchbook">
+		<echo message="Copying files to the ${folder} folder in your sketchbook." />
+		<!-- copy the jar file to processing's sketchbook libraries folder -->
+		<delete dir="${sketchbook.location}/${folder}/${project.name}" />
+		<mkdir dir="${sketchbook.location}/${folder}/${project.name}" />
+		<copy todir="${sketchbook.location}/${folder}/${project.name}">
+			<fileset dir="${project.tmp}/${project.name}" />
+		</copy>
+	</target>
+
+	<target name="compile.debug">
+		<javac srcdir="${project.tmp}/${project.name}/src"
+			includeantruntime="false"
+			destdir="${project.tmp}/${project.name}/bin" 
+			source="${java.target.version}" 
+			target="${java.target.version}"
+			debug="true">
+            <!-- CHANGED: debug="true" debuglevel="lines, vars, source"-->
+			<classpath><path refid="classpath"/></classpath>
+		</javac>
+	</target>
+
+	<target name="compile.prod"> 
+		<javac srcdir="${project.tmp}/${project.name}/src" 
+			excludes="**/test/**"
+			includeantruntime="false"			
+			destdir="${project.tmp}/${project.name}/bin" 
+			source="${java.target.version}" 
+			target="${java.target.version}">
+			<classpath>
+				<path refid="classpath" />
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="generate.jar"> <!-- NOT USED -->
+		<jar jarfile="${project.tmp}/${project.name}/library/${project.jar.name}" basedir="${project.tmp}/${project.name}/bin">
+			<exclude name="**/data/**" />
+			<exclude name="**/test/**" />
+			<exclude name="**/docgen/**" />
+		</jar>
+		<!--copy tofile="${project.jsbuild.download}/${main.package}-${project.version}.jar" file="${project.tmp}/${project.name}/${folder}/${project.jar.name}"/-->
+		<copy tofile="${project.latest}/${main.package}-${project.version}.jar" file="${project.tmp}/${project.name}/library/${project.jar.name}"/>
+		<antcall target="copy.rita.jar.to.processing" />
+	</target>
+	
+	<target name="copy.rita.jar.to.processing" depends="check.processing" if="processing.present">
+		<!--echo message="Copying ${project.examples} to ${processing.examples}... " /-->
+		<copy tofile="${processing.library}/rita.jar" file="${project.tmp}/${project.name}/library/${project.jar.name}"/>
+	</target>
+		
+	<target name="generate.jars">
+
+		<!-- full lib to latest -->
+		<jar jarfile="${project.latest}/${main.package}-${project.version}.jar" basedir="${project.tmp}/${project.name}/bin">
+			<exclude name="**/data/**" />
+			<exclude name="**/test/**" />
+			<exclude name="**/docgen/**" />
+		</jar>
+		
+		
+		<!-- rita pkg only -->
+		<jar jarfile="${project.tmp}/${project.name}/library/${project.jar.name}" basedir="${project.tmp}/${project.name}/bin">
+			<include name="rita/*.*/" />
+			<include name="*.properties/" />
+			<exclude name="**/test/**" />
+		</jar>
+		
+		<!-- support pkg only -->
+		<jar jarfile="${project.tmp}/${project.name}/library/${project.jar.support.name}" basedir="${project.tmp}/${project.name}/bin">
+			<exclude name="data/**" />
+			<exclude name="rita/*.*/" />
+			<exclude name="*.properties/" />
+			<exclude name="**/test/**" />
+			<exclude name="**/docgen/**" />
+		</jar>
+		
+		<!-- 
+		<antcall target="copy.rita.jars.to.processing" />
+		 -->
+	</target>
+
+	<target name="copy.rita.jars.to.processing" depends="check.processing" if="processing.present">
+			
+			<copy tofile="${processing.library}/rita.jar" file="${project.tmp}/${project.name}/library/${project.jar.name}"/>
+			<copy tofile="${processing.library}/rita.support.jar" file="${project.tmp}/${project.name}/library/${project.jar.support.name}"/>
+	</target>
+
+	<fileset id="exampleFileSet" dir="${project.examples}">
+			<exclude name="**/*README*"/>
+			<exclude name="**/*.html"/>
+			<exclude name="**/*.properties"/>
+			<exclude name="**/*.xml"/>
+			<exclude name="**/web-export/**"/>
+			<exclude name="**/lib/**"/>
+	</fileset>
+		
+	<target name="copy.examples.to.processing" depends="check.processing" if="processing.present">
+		<echo message="Copying ${project.examples} to ${processing.examples}... " />
+		<copy todir="${processing.examples}">
+			<fileset refid="exampleFileSet"/>
+		</copy>
+	</target>
+	
+	<target name="generate.structure">
+		
+		<delete dir="${project.tmp}" />
+		
+		<mkdir dir="${project.tmp}" />
+		<mkdir dir="${project.tmp}/${project.name}" />
+		<mkdir dir="${project.tmp}/${project.name}/library" />
+		<mkdir dir="${project.tmp}/${project.name}/examples" />
+		<mkdir dir="${project.tmp}/${project.name}/reference" />
+		<mkdir dir="${project.tmp}/${project.name}/css" />
+		<mkdir dir="${project.tmp}/${project.name}/src" />
+		<mkdir dir="${project.tmp}/${project.name}/bin" />
+
+		<!-- antcall target="copy.examples.to.processing" / -->
+
+		<copy todir="${project.tmp}/${project.name}/css">
+			<fileset dir="www/css/">
+				<include name="*.css"/>
+			</fileset>
+		</copy>
+		
+		<copy todir="${project.tmp}/${project.name}/examples">
+			<fileset refid="exampleFileSet"/>
+		</copy>
+
+		<copy todir="${project.tmp}/${project.name}/src">
+			<fileset dir="${project.src}">
+				<exclude name="rita/test/sketches/**"/>
+				<exclude name="**/data/**"/>
+				<exclude name="**/docgen/**"/>
+			</fileset>
+		</copy>
+		<antcall target="create.src.zip"/>
+		 		
+	</target>
+
+	<target name="create.src.zip">
+	    <zip destfile="${project.latest}/${project.name}-${project.version}-src.zip"
+  	       basedir="${project.tmp}/${project.name}/src"
+  	       excludes="**/.DS_Store"
+		/>
+	</target>
+	
+	<target name="generate.docs" depends="make.docs">
+	    
+		<copy todir="${project.tmp}/${project.name}/reference">
+			<fileset dir="${project.doc.out}"/>
+		</copy> 
+	</target>
+	
+	<target name="copy.www.to.build">
+		<copy todir="${project.tmp}/${project.name}/www">
+			<fileset dir="www" excludes="**/misc/**, download/rita-*"/>
+		</copy> 
+		<replaceregexp file="${project.tmp}/${project.name}/www/download/index.html" match="##version##" replace="${project.version}" flags="g" />
+	</target>
+	
+	<target name="copy.js.to.p5" depends="check.rita.js,check.processing" if="rita.js.present">
+	    <if>
+	        <not><isset property="processing.present"/></not>
+	        <then>
+				<echo message="Skipping copy.js.to.p5 ..." />
+	        </then>
+	        <else>
+	   			<copy file="${js.build}/rita-${project.version}.min.js" tofile="${processing.library}/rita.js"/>		
+	        </else>
+	    </if>	
+	</target>
+	
+	<target name="copy.js.to.examples.lib" depends="check.rita.js" if="rita.js.present">
+		<copy file="${js.build}/rita-${project.version}.min.js" tofile="${project.examples}/rita.js"/>		
+	</target>
+	
+	<target name="copy.license.to.build">
+		<copy file="${license.source}" tofile="${license.dest}" />
+	</target>
+		
+    <target name="check.rita.js">
+		<echo message="Checking for rita.js..." />
+        <available file="${rita.js.file}" property="rita.js.present"/>
+    </target>
+    
+    <target name="check.processing">
+		<echo message="Checking for Processing..." />
+        <available file="${processing.sketchbook}" type="dir" property="processing.present"/>
+    </target>
+
+    <!--  failing -->
+	<target name="fetch.rita.js" depends="check.rita.js" if="rita.js.present">
+		<echo message="Fetching rita.js..." />
+		<copy file="${project.latest}/${project.js.name}" todir="${project.tmp}/${project.name}/library" />
+	</target>
+
+    <!-- Add Version-info to RiTa.java      -->
+	<target name="source.doreplace" if="is.normal">
+		<path id="src.contents">
+			<fileset dir="${project.tmp}/${project.name}/src/rita" includes="RiTa.java" />
+		</path>
+		<property name="src.list" refid="src.contents"/>
+		<foreach list="${src.list}" param="file" target="versionSourcefile" delimiter=":">
+		</foreach>
+	</target>
+
+
+	<target name="generate.distribution" if="is.normal">
+		<mkdir  dir="${project.dist}"/>
+		<delete dir="${project.dist.version}"/>
+		<mkdir  dir="${project.dist.version}" />
+		<mkdir  dir="${project.dist.version}/${project.name}" />
+		<move  file="${project.tmp}/${project.name}" toDir="${project.dist.version}" />
+		
+		<delete dir="${project.dist.version}/${project.name}/bin"/>
+		
+		<antcall target="generate.install.library" />
+		<antcall target="generate.install.props" />
+		
+		<!-- full-lib.jar to  -->
+		<copy  tofile="${project.tmp}/${project.name}/www/download/${main.package}-${project.version}.jar" 
+		    file="${project.latest}/${main.package}-${project.version}.jar"/>
+		
+	</target>
+
+	<target name="generate.javadoc" if="is.normal">
+
+		<!-- MODIFIED BY DCH -->
+
+		<javadoc bottom="processing library ${project.name} by ${author.name}. ${project.copyright}"
+				destdir="${project.tmp}/${project.name}/reference" 
+				stylesheetfile="resources/stylesheet.css" 
+				doctitle="Javadocs: ${project.name}" 
+				windowtitle="Javadocs: ${project.name}"
+				public="true" version="false" verbose="false">
+			<classpath><path refid="classpath"/></classpath>
+			<link href="${javadoc.java.href}" />
+			<link href="${javadoc.processing.href}" />
+			<taglet name="ExampleTaglet" path="resources/code" />
+			<!--doclet name="ExcludeDoclet" path="resources/code" >
+               <param name="-output" value="${project.tmp}/${project.name}/reference"/>
+            </doclet-->
+			<fileset dir="${project.tmp}/${project.name}/src/" defaultexcludes="yes">
+				<!-- add packages to be added to reference. src or src/rita? -->
+				<include name="test/*.java"/>
+				<include name="rita/**/*.java"/>
+				<include name="rita/**/*.pde"/>
+			</fileset>
+		</javadoc>
+	</target>
+
+	<target name="generate.install.library" if="is.normal">
+		<echo message="Copying ${install.source}, ${license.source} ... " />
+		<echo message="  to ${project.dist.version} ... " />
+
+		<copy file="${install.source}" tofile="${install.destination}" />
+		<copy file="${license.source}" tofile="${license.destination}" />
+		<!--replaceregexp file="${install.destination}" match="##name##" replace="${project.name}" flags="g" />
+		<replaceregexp file="${install.destination}" match="##folder##" replace="libraries" flags="g" /-->
+	</target>
+
+	<target name="generate.install.props" if="is.normal">
+
+		<echo message="Copying ${props.src} to ${props.dst} ..." />
+		<copy file="${props.src}" tofile="${props.dst}" />
+		<replaceregexp file="${props.dst}" match="##version##" replace="${project.version}" flags="g" />
+		<replaceregexp file="${props.dst}" match="##versionnum##" replace="${project.version.num}" flags="g" />
+		
+		<copy file="${props.dst}" tofile="${project.latest}/${project.name}.txt" />
+
+		<!-- add the license file as well  *** NOT SURE WHAT THIS IS DOING?
+		<echo message="Copying ${license.destination} to ${project.dist.version}/${project.name}/LICENSE.txt ..." />
+				<move file="${license.destination}" tofile="${project.dist.version}/${project.name}/LICENSE.txt" />
+        -->
+	</target>
+
+	<target name="generate.zip" if="is.normal">
+
+		<echo message="Generating distributable zip..." />
+
+		<!--  antcall target="fetch.rita.js" /-->
+
+		<move todir="${project.dist.version}/tmp/${project.name}-${project.version}/${project.name}">
+			<fileset dir="${project.dist.version}/${project.name}" />
+		</move>
+
+		<move file="${install.destination}" tofile="${project.dist.version}/tmp/${project.name}-${project.version}/INSTALL.txt" />
+		
+		<zip destfile="${project.dist.version}/${project.name}-${project.version}.zip"
+			       basedir="${project.dist.version}/tmp/${project.name}-${project.version}"
+			       excludes="**/.DS_Store"/>
+
+		<!-- move file="${project.dist.version}/${project.name}-${project.version}.zip" todir="${project.dist.version}/web/download" />
+		
+		<move todir="${project.dist.version}">
+			<fileset dir="${project.dist.version}/web" />
+		</move -->
+
+		<copy file="${project.dist.version}/${project.name}-${project.version}.zip"
+		    tofile="${project.tmp}/${project.name}/www/download/${project.name}-${project.version}.zip" />
+		
+		<delete dir="${project.dist.version}/tmp" />
+
+	</target>
+
+	<target name="versionSourcefile">
+		<echo message="Updating version info in: ${file}" />
+
+		<replaceregexp file="${file}" match="##version##" replace="${project.version}" flags="g" />
+
+		<replaceregexp file="${file}" match="##author##" replace="${author.name} ${author.url}" flags="g" />
+		<replaceregexp file="${file}" match="##date##" replace="${date}" flags="g" />
+		<replaceregexp file="${file}" match="##copyright##" replace="${project.copyright}" flags="g" />
+		<replaceregexp file="${file}" match="##name##" replace="${project.name}" flags="g" />
+	</target>
+
+	<target name="processExamples">
+		<dirset id="examples.contents" dir="${project.examples}" excludes="*/*" />
+		<property name="examples.list" refid="examples.contents" />
+		<foreach list="${examples.list}" target="addExamples" param="exampleDir" delimiter=";" />
+	</target>
+
+	<target name="addExamples">
+		<echo message="adding example ${exampleDir}" />
+		<replaceregexp file="${project.dist.version}/web/index.html"
+	  				match="(##project.examples##)"
+	  	  			replace="&lt;li&gt;&lt;a href=&quot;examples/${exampleDir}/${exampleDir}.pde&quot;&gt;${exampleDir}&lt;/a&gt;&lt;/li&gt; \1"
+	  	  			flags="g" />
+	</target>
+	
+	<target name="clean">
+
+		<delete dir="${project.tmp}"/>
+		<delete dir="${project.docs}"/>
+		<delete dir="${project.build}"/>
+
+	</target>			
+	<target name="default" depends="clean">
+
+		<echo>
+${line}
+Name	${project.name} 
+Version	${project.version}
+Compiled	${project.compile}
+Sketchbook	${sketchbook.location}
+Version	${java.version}
+Version	${compiler}
+${line}
+Done.
+${line}	
+		</echo>
+		
+	</target>
+</project>
