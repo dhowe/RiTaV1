@@ -1476,7 +1476,7 @@
    {
       "name":"splitLetters",
       "example":"",
-      "description":"Splits the object into an array of RiTexts, one per letter.",
+      "description":"Splits the object into an array of RiTexts, one per letter, maintaining the x and y position of each. Note: In most cases the original RiText should be disposed manually to avoid text a doubling effect (via RiText.dispose(originalRiText)).",
       "syntax":"rt.splitLetters();",
       "parameters":
       [
@@ -1496,8 +1496,8 @@
    {
       "name":"splitWords",
       "example":"",
-      "description":"Splits the object into an array of RiTexts, one per word tokenized with the supplied pattern. Regular expressions will be used if the 1st argument is a regular expression, otherwise only generic string-matching is used (special regex characaters are escaped)",
-      "syntax":"rt.splitWords(regex);",
+      "description":"Splits the current object into an array of RiTexts, one per word, maintaining the x and y position of each. Note: In most cases the original RiText should be disposed manually to avoid text a doubling effect (via RiText.dispose(originalRiText)).",
+      "syntax":"rt.splitWords();",
       "parameters":
       [
 			{ 
