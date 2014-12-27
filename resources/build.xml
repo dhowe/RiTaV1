@@ -5,7 +5,6 @@
     
 	<property name="project.tmp" location="tmp"/>
 	<property name="project.src" location="src"/>
-	<property name="project.bin" location="bin"/>
 	<property name="project.dist" location="dist"/>
 	<property name="project.libs" location="libs"/>
 	<property name="project.examples" location="www/examples"/>
@@ -16,9 +15,9 @@
 	
 	<path id="test.classpath">
 		<fileset dir="${project.libs}" includes="**/*.jar" excludes="ant-contrib-*"/>
-		<pathelement path="bin" />
+		<pathelement path="${project.tmp}/${project.name}/bin"/>
+		<pathelement path="${project.tmp}/${project.name}/src"/>
     	<pathelement path="${project.libs}"/>
-    	<pathelement path="${project.src}"/>
 	</path>
 	
 	<fileset id="exampleFileSet" dir="${project.examples}">
@@ -32,9 +31,11 @@
 	
 	<property name="line" value="------------------------------------------------------------------------------------------------" />
 	
-	<target name="compile" depends="create.structure" > 
+	<!--  excludes="**/test/**"-->
+	<target name="compile" depends="create.structure" >
+	     
 		<javac srcdir="${project.src}"
-			excludes="**/test/**"
+		    excludes="**/test/sketches/**"
 			destdir="${project.tmp}/${project.name}/bin" 
 			source="${java.target.version}" 
 			target="${java.target.version}"
@@ -44,7 +45,7 @@
 				<path refid="classpath" />
 			</classpath>
 		</javac>
-		
+
 	</target>
 	
 	<target name="generate.jars" depends="compile">
@@ -109,6 +110,7 @@
 		<mkdir dir="${project.tmp}/${project.name}/css" />
 		<mkdir dir="${project.tmp}/${project.name}/src" />
 		<mkdir dir="${project.tmp}/${project.name}/bin" />
+		<mkdir dir="${project.tmp}/${project.name}/bin/data" />
 
 		<copy todir="${project.tmp}/${project.name}/css">
 			<fileset dir="www/css/">
@@ -126,6 +128,10 @@
 				<exclude name="**/data/**"/>
 				<exclude name="**/docgen/**"/>
 			</fileset>
+		</copy>
+		
+		<copy todir="${project.tmp}/${project.name}/bin/data">
+			<fileset dir="${project.src}/data"/>
 		</copy>
 		
 		<!--  antcall target="create.src.zip"/-->
@@ -152,12 +158,11 @@
 			<formatter type="xml" />
 			
 			<test name="rita.test.RiTaEventTest" outfile="reports/rita.test.RiTaEventTest"></test>
-			<test name="rita.test.RiLexiconTest" outfile="reports/rita.test.RiLexiconTest"></test>
 			<test name="rita.test.RiTaTest"      outfile="reports/rita.test.RiTaTest"></test>
+			<test name="rita.test.RiLexiconTest" outfile="reports/rita.test.RiLexiconTest"></test>
 			<test name="rita.test.RiGrammarTest" outfile="reports/rita.test.RiGrammarTest"></test>
 			<test name="rita.test.RiMarkovTest"  outfile="reports/rita.test.RiMarkovTest"></test>
 			<test name="rita.test.RiStringTest"  outfile="reports/rita.test.RiStringTest"></test>
-			<!--test name="rita.test.RiWordNetIteratorsTest"  haltonfailure="no" outfile="reports/rita.test.RiWordNetTest"></test-->
 		</junit>
 
 	</target>	
@@ -172,6 +177,8 @@
 			<formatter type="xml" />
 			
 			<test name="rita.test.RiWordNetTest" outfile="reports/rita.test.RiWordNetTest"></test>
+			<!--test name="rita.test.RiWordNetIteratorsTest"  haltonfailure="no" outfile="reports/rita.test.RiWordNetTest"></test-->
+
 		</junit>
 
 	</target>
