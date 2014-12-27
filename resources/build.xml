@@ -17,6 +17,7 @@
 	<path id="test.classpath">
 		<fileset dir="${project.libs}" includes="**/*.jar" excludes="ant-contrib-*"/>
 		<pathelement path="bin" />
+    	<pathelement path="${project.libs}"/>
     	<pathelement path="${project.src}"/>
 	</path>
 	
