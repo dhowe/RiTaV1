@@ -190,7 +190,6 @@ ${line}
 Name:	${project.name} 
 Version:	${project.version}
 Sketchbook:	${sketchbook.location}
-Ant.Java.Version:	${ant.java.version}
 Java.Version:	${java.version}
 ${line}
 Done.
