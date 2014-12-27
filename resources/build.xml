@@ -158,11 +158,11 @@
 			<formatter type="xml" />
 			
 			<test name="rita.test.RiTaEventTest" outfile="reports/rita.test.RiTaEventTest"></test>
+			<test name="rita.test.RiStringTest"  outfile="reports/rita.test.RiStringTest"></test>
 			<test name="rita.test.RiTaTest"      outfile="reports/rita.test.RiTaTest"></test>
 			<test name="rita.test.RiLexiconTest" outfile="reports/rita.test.RiLexiconTest"></test>
 			<test name="rita.test.RiGrammarTest" outfile="reports/rita.test.RiGrammarTest"></test>
 			<test name="rita.test.RiMarkovTest"  outfile="reports/rita.test.RiMarkovTest"></test>
-			<test name="rita.test.RiStringTest"  outfile="reports/rita.test.RiStringTest"></test>
 		</junit>
 
 	</target>	
