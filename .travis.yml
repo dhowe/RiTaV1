@@ -1,4 +1,4 @@
 language: java
 before_script: "cd resources"
 script: "ant"
-after_failure: "cat api-changes.txt;cat build.xml"
+after_failure: "cat api-changes.txt"
