@@ -1,4 +1,4 @@
 language: java
 before_script: "cd resources"
-script: "ant -v"
+script: "ant"
 after_script: "ls ../reports"
