@@ -1,4 +1,4 @@
 language: java
 before_script: "cd resources"
 script: "ant"
-after_script: "cat ../reports/rita.test.RiTaTest.txt"
+after_script: "cat api-changes.txt"
