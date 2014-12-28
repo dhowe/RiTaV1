@@ -162,9 +162,8 @@
 		
 			<classpath><path refid="test.classpath"/></classpath>
 
-			<formatter type="plain" />
-			<formatter type="xml" />
-			
+			<formatter usefile="false" type="plain"/>
+
 			<test name="rita.test.RiTaEventTest" outfile="reports/rita.test.RiTaEventTest"></test>
 			<test name="rita.test.RiStringTest"  outfile="reports/rita.test.RiStringTest"></test>
 			<test name="rita.test.RiTaTest"      outfile="reports/rita.test.RiTaTest"></test>
