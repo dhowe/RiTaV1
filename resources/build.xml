@@ -29,7 +29,7 @@
 			<exclude name="**/lib/**"/>
 	</fileset>
 	
-	<property name="line" value="------------------------------------------------------------------------------------------------" />
+	<property name="line" value="-----------------------------------------------------------------------" />
 	
 	<!--  excludes="**/test/**"-->
 	<target name="compile" depends="create.structure" >
@@ -146,7 +146,15 @@
 
 	</target>
 	
-	<target name="test-java" description="alias to 'test'" depends="test"></target>
+	<target name="test-one" description="one" depends="info">
+
+		<junit printsummary="yes" timeout="100000" haltonfailure="yes">
+			<formatter usefile="false" type="plain"/>
+			<classpath><path refid="test.classpath"/></classpath>
+			<test name="rita.test.RiTaTest"      outfile="reports/rita.test.RiTaTest"></test>
+		</junit>
+
+	</target>
 	
 	<target name="test" description="runs all java tests" depends="compile">
 
