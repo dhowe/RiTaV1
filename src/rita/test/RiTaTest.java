@@ -17,7 +17,7 @@ import rita.*;
 public class RiTaTest
 {  
   private static final boolean TEST_LOCAL_LOADS = false;
-  
+/*  
   @Test
   public void testStart()
   {
@@ -25,7 +25,7 @@ public class RiTaTest
     RiTa.start(this);
     RiTa.start(new PApplet());
   }
-    
+    */
   @Test
   public void loadString_RelFile()
   {
