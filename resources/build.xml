@@ -10,11 +10,11 @@
 	<property name="project.examples" location="www/examples"/>
 	
 	<path id="classpath">
-		<fileset dir="${project.libs}" includes="**/*.jar" excludes="ant-contrib-*"/>
+		<fileset dir="${project.libs}" includes="**/*.jar" excludes=""/>
 	</path>
 	
 	<path id="test.classpath">
-		<fileset dir="${project.libs}" includes="**/*.jar" excludes="ant-contrib-*"/>
+		<fileset dir="${project.libs}" includes="**/*.jar" excludes="core.jar"/>
 		<pathelement path="${project.tmp}/${project.name}/bin"/>
 		<pathelement path="${project.tmp}/${project.name}/src"/>
     	<pathelement path="${project.libs}"/>
@@ -177,11 +177,10 @@
     <target name="test-wordnet" description="runs all wordnet tests" depends="info">
 
 		<junit printsummary="yes" timeout="100000" haltonfailure="yes">
-		
-			<classpath><path refid="test.classpath"/></classpath>
 
-			<formatter type="plain" />
-			<formatter type="xml" />
+			<formatter usefile="false" type="plain"/>
+
+			<classpath><path refid="test.classpath"/></classpath>
 			
 			<test name="rita.test.RiWordNetTest" outfile="reports/rita.test.RiWordNetTest"></test>
 			<!--test name="rita.test.RiWordNetIteratorsTest"  haltonfailure="no" outfile="reports/rita.test.RiWordNetTest"></test-->
@@ -196,7 +195,6 @@
 ${line}
 Name:	${project.name} 
 Version:	${project.version}
-Sketchbook:	${sketchbook.location}
 Java.Version:	${java.version}
 ${line}
 Done.
