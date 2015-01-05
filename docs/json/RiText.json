@@ -13,7 +13,7 @@
 	  "returns":
       [
       		{ 
-			"type": "int", 
+			"type": "float", 
 			"desc": "" 
 			}
 			
@@ -31,7 +31,7 @@
       "parameters":
       [
 			{ 
-			"type": "int", 
+			"type": "float", 
 			"desc": "" 
 			}
 			
@@ -60,7 +60,7 @@
 	  "returns":
       [
       		{ 
-			"type": "int", 
+			"type": "float", 
 			"desc": "" 
 			}
 	  ],
