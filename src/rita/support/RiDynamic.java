@@ -12,9 +12,9 @@ import rita.RiTaException;
  * 
  * Example:
  * <pre>Class pclass = Class.forName("processing.core.PApplet");
-        if (pclass.isInstance(parent)) {
+        if (pclass.isInstance(duck)) {
           
-          PAppletIF p = (PAppletIF)RiDynamic.cast(parent, PAppletIF.class);
+          PAppletIF p = (PAppletIF)RiDynamic.cast(duck, PAppletIF.class);
           p.loadStrings(fileName);
         }
  *</pre>

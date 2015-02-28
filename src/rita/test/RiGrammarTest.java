@@ -4,24 +4,40 @@ import static rita.support.QUnitStubs.equal;
 import static rita.support.QUnitStubs.ok;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.junit.Test;
 
 import rita.*;
+import rita.support.YAMLParser;
+
+// TODO: should NOT load lexicon
 
 public class RiGrammarTest
 { 
-  private static final boolean SILENT = false;
+  private static final boolean SILENT = true;
+  private static boolean WITHOUT_YAML = false;
 
-  // TODO: add tests that these exists(actually should be taken from JSON actually)
-  String[] functions = { "addRule", "clone", "expand", "expandFrom", "expandWith", "getGrammar",
-      "getRule", "getRules", "hasRule", "print", "removeRule", "reset", "load", "loaded", "loadFrom"  
-  };
+  static String sentenceGrammarJSON = "{ \"<start>\" : \"<noun_phrase> <verb_phrase>\", \"<noun_phrase>\" : \"<determiner> <noun>\", \"<verb_phrase>\" : \"<verb> | <verb> <noun_phrase> [.1]\", \"<determiner>\" : \"a [.1] | the\", \"<noun>\" : \"woman | man\", \"<verb>\" : \"shoots\" }";
+  static String sentenceGrammarYAML = "<start> : <noun_phrase> <verb_phrase>\n<noun_phrase>: <determiner> <noun>\n<verb_phrase> : <verb> | <verb> <noun_phrase> [.1]\n<noun>: woman | man\n<determiner>: a [.1] | the\n<verb>: shoots";
+  static String sentenceGrammarYAML2 = "<start> : <noun_phrase> <verb_phrase>\n<noun_phrase>: <determiner> <noun>\n<verb_phrase> : \n  - <verb> \n  - <verb> <noun_phrase> [.1]\n<noun>: \n  - woman\n  - man\n<determiner>: \n  - a [.1] \n  - the\n<verb>: shoots";
 
-  String sentenceGrammar = "{ \"<start>\" : \"<noun_phrase> <verb_phrase>\", \"<noun_phrase>\" : \"<determiner> <noun>\", \"<verb_phrase>\" : \"<verb> | <verb> <noun_phrase> [.1]\", \"<determiner>\" : \"a [.1] | the\", \"<noun>\" : \"woman | man\", \"<verb>\" : \"shoots\" }";
+  static String[] sentenceGrammars = { sentenceGrammarJSON, sentenceGrammarYAML, sentenceGrammarYAML2 };
+  static String[] sentenceGrammarFiles = { "sentence1.json", "sentence2.json", "sentence1.yaml", "sentence2.yaml" };
+  static String[] haikuGrammarFiles = { "haikuGrammar.json", "haikuGrammar2.json", "haikuGrammar.yaml", "haikuGrammar2.yaml" };
 
+  static {
+    
+    if (WITHOUT_YAML) {
+      YAMLParser.SNAKEYAML = null;
+      sentenceGrammars = new String[]{ sentenceGrammarJSON };
+      sentenceGrammarFiles = new String[]{ "sentence1.json", "sentence2.json" };
+      haikuGrammarFiles = new String[]{ "haikuGrammar.json", "haikuGrammar2.json" };
+    }
+  }
+  
   @Test
   public void testRiGrammar()
   {
@@ -32,60 +48,72 @@ public class RiGrammarTest
   @Test
   public void testRiGrammar2()
   {
-    RiGrammar rg = new RiGrammar(sentenceGrammar);
-    ok(!rg.hasRule("<verb"));
-    rg.hasRule("<verb");
-    for (int i = 0; i < 100; i++)
+    for (int j = 0; j < sentenceGrammars.length; j++)
     {
-      rg.expandFrom("<verb_phrase>");  
-    }    
+      RiGrammar rg = new RiGrammar(sentenceGrammars[j]);
+      ok(!rg.hasRule("<verb"));
+      rg.hasRule("<verb");
+      for (int i = 0; i < 100; i++)
+        rg.expandFrom("<verb_phrase>");
+    }
   }
   
   @Test
   public void testSetGrammar()
   {
-    RiGrammar rg = new RiGrammar();
-    rg.load(sentenceGrammar);
-    ok(!rg.hasRule("<verb"));
-    rg.hasRule("<verb");
-    for (int i = 0; i < 100; i++)
+    for (int j = 0; j < sentenceGrammars.length; j++)
     {
-      rg.expandFrom("<verb_phrase>");  
-    }    
+      RiGrammar rg = new RiGrammar();
+      rg.load(sentenceGrammars[j]);
+      ok(!rg.hasRule("<verb"));
+      rg.hasRule("<verb");
+      for (int i = 0; i < 100; i++)
+      {
+        rg.expandFrom("<verb_phrase>");  
+      }    
+    }
   }
   
   @Test
   public void testRiGrammarString()
   {
-    RiGrammar rg = new RiGrammar(sentenceGrammar);
-    ok(rg.hasRule("<verb>"));
-    ok(rg.hasRule("<noun>"));
-    ok(!rg.hasRule("adadf"));
+    for (int j = 0; j < sentenceGrammars.length; j++)
+    {
+      RiGrammar rg = new RiGrammar(sentenceGrammars[j]);
+      ok(rg.hasRule("<verb>"));
+      ok(rg.hasRule("<noun>"));
+      ok(!rg.hasRule("adadf"));
+    }
   }
   
   @Test
   public void testExpand()
   {
-    RiGrammar rg = new RiGrammar();
-    rg.load(RiTa.loadString("sentence1.json",null));
-    for (int i = 0; i <100; i++)
-      ok(rg.expand());
+    for (int j = 0; j < sentenceGrammarFiles.length; j++)
+    {
+      RiGrammar rg = new RiGrammar();
+      rg.load(RiTa.loadString(sentenceGrammarFiles[j], null));
+      for (int i = 0; i < 10; i++)
+        ok(rg.expand());
+    }
+
+    for (int j = 0; j < sentenceGrammars.length; j++)
+    {
+      RiGrammar rg = new RiGrammar(sentenceGrammars[j]);    
+      for (int i = 0; i <10; i++)
+        ok(rg.expand());
+    }
     
-    rg = new RiGrammar();
-    rg.load(RiTa.loadString("sentence2.json",null));
-    for (int i = 0; i <100; i++)
-      ok(rg.expand());
+    for (int j = 0; j < haikuGrammarFiles.length; j++)
+    {
+      RiGrammar rg = new RiGrammar();
+      rg.load(RiTa.loadString(haikuGrammarFiles[j], null));    
+      for (int i = 0; i <10; i++)
+        ok(rg.expand());
+    }
     
-    rg = new RiGrammar(sentenceGrammar);
-    //rg.setGrammar();
-    for (int i = 0; i <100; i++)
-      ok(rg.expand());
-    
-    rg.reset();
-  
+    RiGrammar rg = new RiGrammar();   
     rg.addRule("<start>", "pet");
-    //rg.print();
-    //println("Expand: '" + rg.expand() + "'");
     equal(rg.expand(), "pet");
   
     rg.addRule("<start>", "pet", 1);
@@ -96,9 +124,10 @@ public class RiGrammarTest
     rg.reset();
     rg.addRule("<start>", "<pet>", 1);
     rg.addRule("<pet>", "dog", 1);
-    //println("Expand: " + rg.expand());
     equal(rg.expand(), "dog");
   
+    /////////////////////////////////////////////////////////////////
+    
     rg.reset();
     rg.addRule("<start>", "<rule1>", 1);
     rg.addRule("<rule1>", "cat", .4f);
@@ -121,7 +150,32 @@ public class RiGrammarTest
         found3 = true;
     }
     ok(found1 && found2 && found3); // found all
+
+    /////////////////////////////////////////////////////////////////
+    
+    rg.reset();
+    rg.addRule("<start>", "<rule1>", 1);
+    rg.addRule("<rule1>", "cat | dog | boy");
+    ok(rg.hasRule("<rule1>"));
   
+    found1 = false; found2 = false; found3 = false;
+    for (int i = 0; i < 100; i++)
+    {
+      String res = rg.expand();
+      
+      ok(res.equals("cat") || res.equals("dog") || res.equals("boy"));
+      
+      if (res.equals("cat"))
+        found1 = true;
+      else if (res.equals("dog"))
+        found2 = true;
+      else if (res.equals("boy"))
+        found3 = true;
+    }
+    ok(found1 && found2 && found3); // found all
+    
+    /////////////////////////////////////////////////////////////////
+    
     rg.reset();
     rg.addRule("<start>", "pet", 1);
     equal(rg.expand(), "pet");
@@ -150,46 +204,67 @@ public class RiGrammarTest
     ok(d < 90); // d + ""
     ok(c > 10); // g + ""
     ok(c < 50); // g + ""
+
   }
   
   @Test
   public void testSpecialChars() {
 
-    String s = "{ \"<start>\": \"hello &#124; name\" }";
-    RiGrammar rg = new RiGrammar(s);
-    String res = rg.expand();
-    //println("res="+res);
-    ok(res.equals("hello | name"));
-
-    s = "{ \"<start>\": \"hello: name\" }";
-    rg = new RiGrammar(s);
-    res = rg.expand();
-    //println("res="+res);
-    ok(res.equals("hello: name"));
-
-    s = "{ \"<start>\": \"&lt;start&gt;\" }";
-    rg = new RiGrammar(s);
-    res = rg.expand();
-    //println(res);
-    ok(res.equals("<start>"));
+    RiGrammar rg; String res;
+    int len = WITHOUT_YAML ? 1 : 2; // tmp-hack 
     
-    s = "{ \"<start>\": \"I don&#96;t want it.\" }";
-    rg = new RiGrammar(s);
-    res = rg.expand();
-  //println(res);
-    ok(res.equals("I don`t want it."));
-    
-    s = "{ \"<start>\": \"&#39;I really don&#39;t&#39;\" }";
-    rg = new RiGrammar(s);
-    res = rg.expand();
-    ok(res.equals("'I really don't'"));
-
-    s = "{ \"<start>\": \"hello | name\" }";
-    rg = new RiGrammar(s);
-    for (int i = 0; i < 10; i++)
+    String[] s = new String[] { "{ \"<start>\": \"hello &#124; name\" }", "<start> : hello &#124; name" };
+    for (int j = 0; j < len; j++)
     {
+      rg = new RiGrammar(s[j]);
       res = rg.expand();
-      ok(res.equals("hello") || res.equals("name"));
+      ok(res.equals("hello | name"));
+    }
+
+    s = new String[] { "{ \"<start>\": \"hello: name\" }", "<start> : \"hello: name\"" };
+    for (int j = 0; j < len; j++)
+    {
+      rg = new RiGrammar(s[j]);
+      res = rg.expand();
+      // println("res="+res);
+      ok(res.equals("hello: name"));
+    }
+    
+    s = new String[] { "{ \"<start>\": \"&lt;start&gt;\" }", "<start>: \"&lt;start&gt;\"" };
+    for (int j = 0; j < len; j++)
+    {
+      rg = new RiGrammar(s[j]);
+      res = rg.expand();
+      // println(res);
+      ok(res.equals("<start>"));
+    }
+
+    s = new String[] { "{ \"<start>\": \"I don&#96;t want it.\" }", "<start>: I don&#96;t want it." };
+    for (int j = 0; j < len; j++)
+    {
+      rg = new RiGrammar(s[j]);
+      res = rg.expand();
+      // println(res);
+      ok(res.equals("I don`t want it."));
+    }
+
+    s = new String[] { "{ \"<start>\": \"&#39;I really don&#39;t&#39;\" }", "<start>: \"&#39;I really don&#39;t&#39;\"" };
+    for (int j = 0; j < len; j++)
+    {
+      rg = new RiGrammar(s[j]);
+      res = rg.expand();
+      ok(res.equals("'I really don't'"));
+    }
+
+    s = new String[] { "{ \"<start>\": \"hello | name\" }", "<start> : hello | name"};
+    for (int j = 0; j < len; j++)
+    {
+      rg = new RiGrammar(s[j]);
+      for (int i = 0; i < 10; i++)
+      {
+        res = rg.expand();
+        ok(res.equals("hello") || res.equals("name"));
+      }
     }
   }
     
@@ -351,68 +426,51 @@ public class RiGrammarTest
       println("'" + res[i] + "'");
     res = splice01(res);
     equal(res, new String[] { "", "`hello();`", " there `you();`" });
-
   }
 
 
   @Test
   public void testLoadFrom()
   {
-    RiGrammar g = new RiGrammar();
-    g.loadFrom("sentence1.json");
-    ok(!g.hasRule("{")); // empty
-    ok(g.hasRule("<start>"));
+    for (int j = 0; j < sentenceGrammarFiles.length; j++)
+    {
+      RiGrammar rg = new RiGrammar();
+      rg.loadFrom(sentenceGrammarFiles[j]);
+      ok(!rg.hasRule("{")); // empty
+      ok(rg.hasRule("<start>"));
+    }
     
-    g = new RiGrammar();
-    g.loadFrom("sentence2.json");
-    ok(!g.hasRule("{")); // empty
-    ok(g.hasRule("<start>"));
-
-    RiGrammar rg = new RiGrammar(); 
-    rg.loadFrom("haikuGrammar.json");
-    
-    //rg.print();
-    ok(!rg.hasRule("")); // empty
-    ok(!rg.hasRule("{")); // empty
-    ok(rg.hasRule("<start>"));
-    ok(rg.hasRule("<5-line>"));
-
-    ok(!rg.hasRule("{")); // empty
-    ok(rg.hasRule("<start>"));
-    ok(rg.hasRule("<5-line>"));
-  }
+    for (int j = 0; j < haikuGrammarFiles.length; j++)
+    {
+      RiGrammar rg = new RiGrammar(); 
+      rg.loadFrom(haikuGrammarFiles[j]);
+      
+      //rg.print();
+      ok(!rg.hasRule("")); // empty
+      ok(!rg.hasRule("{")); // empty
+      ok(rg.hasRule("<start>"));
+      ok(rg.hasRule("<5-line>"));
   
-  /*
-  @Test
-  public void testLoadFromFileStringObject(){
-    RiGrammar g = new RiGrammar();
-    g.setGrammar(RiTa.loadString("sentence1.json", "expandShim", this);
-    ok(!g.hasRule("{")); // empty
-    ok(g.hasRule("<start>"));
+      ok(!rg.hasRule("{")); // empty
+      ok(rg.hasRule("<start>"));
+      ok(rg.hasRule("<5-line>"));
+    }
   }
-  public String expandShim(){ }
-  */
 
   @Test
   public void testExpandFromFile()
   {
-    RiGrammar g = new RiGrammar();
-    g.load(RiTa.loadString("sentence1.json"));
-    ok(g.hasRule("<start>"));
-    for (int i = 0; i < 10; i++)
+    for (int j = 0; j < sentenceGrammarFiles.length; j++)
     {
-      String res = g.expand();
-      ok(res);
-    }
-    
-    g = new RiGrammar();
-    g.load(RiTa.loadString("sentence2.json"));
-    ok(g.hasRule("<start>"));
-    for (int i = 0; i < 10; i++)
-    {
-      String res = g.expand();
-      //println("'"+res+"'");
-      ok(res);
+      RiGrammar rg = new RiGrammar();
+
+      rg.load(RiTa.loadString(sentenceGrammarFiles[j]));
+      ok(rg.hasRule("<start>"));
+      for (int i = 0; i < 10; i++)
+      {
+        String res = rg.expand();
+        ok(res);
+      }
     }
   }
 
@@ -432,6 +490,7 @@ public class RiGrammarTest
     for (int i = 0; i < 100; i++)
     {
       String res = rg.expandFrom("<bird>");
+      println(i+": "+res);
       ok(res.equals("hawk") || res.equals("crow"));
     }
     
@@ -443,11 +502,26 @@ public class RiGrammarTest
       ok(e);
     }
   }
+  
+  @Test
+  public void testMultilinesYAML()
+  {
+    for (int j = 0; j < sentenceGrammarFiles.length; j++)
+    {
+      if (sentenceGrammarFiles[j].endsWith(".yaml"))
+      {
+        RiGrammar rg = new RiGrammar();
+        rg.load(RiTa.loadString(sentenceGrammarFiles[j], null));
+        equal(rg.expandFrom("<multiline>"),"This is my very long string that wraps three lines");
+      }
+    }
+  }
+
+  // TODO: Implement this or remove from API
 
   /*@Test
   public void testExpandWith()
   {
-    // TODO: Implement this or remove from API
 
     RiGrammar rg = new RiGrammar();
 
@@ -493,13 +567,16 @@ public class RiGrammarTest
 
   @Test
   public void testGetGrammar()
-  {  
-    RiGrammar rg = new RiGrammar(sentenceGrammar);
-    String s = rg.getGrammar();
-    String e = "<start>\n  '<noun_phrase> <verb_phrase>' [1.0]\n<determiner>\n  'a' [0.1]\n  'the' [1.0]\n<noun_phrase>\n  '<determiner> <noun>' [1.0]\n<verb_phrase>\n  '<verb> <noun_phrase>' [0.1]\n  '<verb>' [1.0]\n<noun>\n  'woman' [1.0]\n  'man' [1.0]\n<verb>\n  'shoots' [1.0]";
-    //println(s);println();println(e);
-    equal(s, e);
+  {
+    for (int j = 0; j < sentenceGrammars.length; j++)
+    {
+      RiGrammar rg = new RiGrammar(sentenceGrammars[j]);
 
+      String s = rg.getGrammar();
+      String e = "<start>\n  '<noun_phrase> <verb_phrase>' [1.0]\n<determiner>\n  'a' [0.1]\n  'the' [1.0]\n<noun_phrase>\n  '<determiner> <noun>' [1.0]\n<verb_phrase>\n  '<verb> <noun_phrase>' [0.1]\n  '<verb>' [1.0]\n<noun>\n  'woman' [1.0]\n  'man' [1.0]\n<verb>\n  'shoots' [1.0]";
+      // println(s);println();println(e);
+      equal(s, e);
+    }
   }
                
   @Test
@@ -509,18 +586,14 @@ public class RiGrammarTest
     rg.addRule("<rule1>", "<pet>");
     ok(rg.hasRule("<rule1>"));
 
-    rg = new RiGrammar(); 
-    rg.load(RiTa.loadString("haikuGrammar.json",null));
-    //rg.print();
-    ok(!rg.hasRule("")); // empty
-    ok(rg.hasRule("<start>"));
-    ok(rg.hasRule("<5-line>"));
-
-/*    (rg = new RiGrammar()).setGrammarFromFile("haikuGrammar.g");
-    //rg.print();
-    ok(!rg.hasRule("{")); // empty
-    ok(rg.hasRule("<start>"));
-    ok(rg.hasRule("<5-line>"));*/
+    for (int j = 0; j < haikuGrammarFiles.length; j++)
+    {
+      rg = new RiGrammar(); 
+      rg.load(RiTa.loadString(haikuGrammarFiles[j],null));
+      ok(!rg.hasRule("")); // empty
+      ok(rg.hasRule("<start>"));
+      ok(rg.hasRule("<5-line>"));
+    }
   }
 
   @Test
@@ -538,11 +611,8 @@ public class RiGrammarTest
     rg.addRule("<start>", "<dog>", .3f);
     ok(rg.hasRule("<start>"));
 
-    RiGrammar[] g = {
-        new RiGrammar(sentenceGrammar), 
-        new RiGrammar().load(RiTa.loadString("sentence1.json",null)),
-        new RiGrammar().load(RiTa.loadString("sentence2.json",null))
-    };
+    RiGrammar[] g = createGrammarArray();
+
     for (int i = 0; i < g.length; i++)
     {
       ok(g[i].addRule("<noun_phrase2>", "np2", .5f));
@@ -553,17 +623,16 @@ public class RiGrammarTest
   @Test
   public void testRemoveRule()
   {
-    RiGrammar rg = new RiGrammar(sentenceGrammar);
-    //rg.setGrammar();
-    ok(rg.hasRule("<noun>"));
-    rg.removeRule("<noun>");
-    ok(!rg.hasRule("<noun>"));
-    
-    RiGrammar[] g = {
-        new RiGrammar(sentenceGrammar) , 
-        new RiGrammar().load(RiTa.loadString("sentence1.json",null)),
-        new RiGrammar().load(RiTa.loadString("sentence2.json",null))
-    };
+    for (int j = 0; j < sentenceGrammars.length; j++)
+    {
+      RiGrammar rg = new RiGrammar(sentenceGrammars[j]);
+      ok(rg.hasRule("<noun>"));
+      rg.removeRule("<noun>");
+      ok(!rg.hasRule("<noun>"));
+    }
+
+    RiGrammar[] g = createGrammarArray();
+
     for (int i = 0; i < g.length; i++)
     {
       ok(g[i].removeRule("<noun_phrase>"));
@@ -603,17 +672,15 @@ public class RiGrammarTest
   @Test
   public void testReset()
   {
-    RiGrammar rg = new RiGrammar(sentenceGrammar);
-    //rg.setGrammar();
-    ok(rg.hasRule("<noun>"));
-    rg.reset();
-    ok(!rg.hasRule("<noun>"));
+    for (int j = 0; j < sentenceGrammars.length; j++)
+    {
+       RiGrammar rg = new RiGrammar(sentenceGrammars[j]);
+        ok(rg.hasRule("<noun>"));
+        rg.reset();
+        ok(!rg.hasRule("<noun>"));
+    }
     
-    RiGrammar[] g = {
-        (new RiGrammar(sentenceGrammar)), 
-        new RiGrammar().load(RiTa.loadString("sentence1.json",null)),
-        new RiGrammar().load(RiTa.loadString("sentence2.json",null))
-    };
+    RiGrammar[] g = createGrammarArray();
     for (int i = 0; i < g.length; i++)
     {
       //g[i].print();
@@ -622,7 +689,16 @@ public class RiGrammarTest
       ok(!g[i].hasRule("<noun_phrase>"));
     }
   }
-  
+
+  private RiGrammar[] createGrammarArray()
+  {
+    ArrayList al = new ArrayList();
+    for (int i = 0; i < sentenceGrammars.length; i++)
+      al.add(new RiGrammar(sentenceGrammars[i]));
+    for (int i = 0; i < sentenceGrammarFiles.length; i++)
+      al.add(new RiGrammar().load(RiTa.loadString(sentenceGrammarFiles[i],null)));
+    return (RiGrammar[]) al.toArray(new RiGrammar[0]);
+  }
 
   //@Test
   public void testExecPattern()
@@ -632,21 +708,33 @@ public class RiGrammarTest
         "\"<rule>\": \"<another> | `doit('dog')` | dog\"",
         "\"<rule>\": \"<another> | `doit('<noun>')` | dog\"",
     };
-    //println(s);
-    //Pattern p = Pattern.compile("(.*?)`[^`]+`(.*$)");
     Pattern p = Pattern.compile("(.*?)`([^`]+?\\([^\\)]*\\))`(.*)");
     for (int j = 0; j < s.length; j++)
     {
       Matcher matcher = p.matcher(s[j]);
       boolean matchFound = matcher.find();
       for (int i = 0; i <= matcher.groupCount(); i++)
-      {
         println(i+") "+matcher.group(i));
-      }
       println();
       ok(matchFound);
     }
 
+    s = new String[] { 
+        "<rule>: <another> | `doit()` | dog",
+        "<rule>: <another> | `doit('dog')` | dog",
+        "<rule>: <another> | `doit('<noun>')` | dog",
+    };
+    //println(s);
+    p = Pattern.compile("(.*?)`([^`]+?\\([^\\)]*\\))`(.*)");
+    for (int j = 0; j < s.length; j++)
+    {
+      Matcher matcher = p.matcher(s[j]);
+      boolean matchFound = matcher.find();
+      for (int i = 0; i <= matcher.groupCount(); i++)
+        println(i+") "+matcher.group(i));
+      println();
+      ok(matchFound);
+    }
   }
 
 
@@ -718,7 +806,7 @@ public class RiGrammarTest
   }
   
   @Test
-  public void testExec1() { // throw Exception for now
+  public void testExec1() {
     
     RiGrammar rg = new RiGrammar();
     rg.execDisabled = false;
@@ -736,7 +824,7 @@ public class RiGrammarTest
 
       String res = rg.expand(this);
       //println(i+") "+res);
-      ok(res!=null && res.length()>0 && res.indexOf("adj()")<0);
+      ok(res!=null && res.length()>0 && res.indexOf("(")<0 && res.indexOf(")")<0);
     }
     
   } String temp() { return Math.random() < .5 ? "hot" : "cold"; }
@@ -777,7 +865,7 @@ public class RiGrammarTest
     for (int i = 0; i < 10; i++) {
 
       String res = rg.expandFrom("<start>", this);
-      ok(res!=null && res.length()>0);
+      ok(res!=null && res.length()>0&& res.indexOf("(")<0 && res.indexOf(")")<0);
       ok(Float.parseFloat(res));
     }
     
@@ -786,7 +874,7 @@ public class RiGrammarTest
     for (int i = 0; i < 10; i++) {
 
       String res = rg.expandFrom("<start>", this);
-      ok(res!=null && res.length()>0 && res.indexOf("adj(")<0);
+      ok(res!=null && res.length()>0 && res.indexOf("(")<0 && res.indexOf(")")<0);
     }
     
     rg.reset();
@@ -794,7 +882,7 @@ public class RiGrammarTest
     for (int i = 0; i < 10; i++) {
 
       String res = rg.expandFrom("<start>", this);
-      ok(res!=null && res.length()>0);
+      ok(res!=null && res.length()>0 && res.indexOf("(")<0 && res.indexOf(")")<0);
       ok(Float.parseFloat(res)); 
     }
     
@@ -846,12 +934,52 @@ public class RiGrammarTest
     {
       rg.load(tests[i]);
       String s = rg.expand();
-      ok(s != null && s.length()>0);
-      //println("s="+s);
+      ok(s != null && s.length()>0 && s.indexOf("(")<0 && s.indexOf(")")<0);
+      //println("the word is "+s);
+    }
+    
+    String[] tests2 = {
+        "<start>: the word is `rw(2)`", 
+        "<start>: the word is `rw(2.0)`", 
+
+        "<start>: the word is `rw(vbz)`", 
+        "<start>: the word is `rw(vbz)`",
+        
+        "<start>: the word is `rw('vbz')`", 
+        "<start>: the word is `rw('vbz')`",
+        
+        "<start>: the word is `rw(\"vbz\")`", 
+        "<start>: the word is `rw(\"vbz\")`",
+        
+        "{ <start>: the word is `rw(2)` }", 
+        "{ <start>: the word is `rw(2.0)` }", 
+
+        "{ <start>: the word is `rw(vbz)` }", 
+        "{ <start>: the word is `rw(vbz)` }",
+        
+        "{ <start>: the word is `rw('vbz')` }", 
+        "{ <start>: the word is `rw('vbz')` }",
+        
+        "{ <start>: the word is `rw(\"vbz\")` }", 
+        "{ <start>: the word is `rw(\"vbz\")` }",
+    };
+    
+    println();
+    
+    rg = new RiGrammar(this);
+    rg.execDisabled = false;
+    
+    for (int i = 0; i < tests2.length; i++)
+    {
+      rg.load(tests2[i]);
+      String s = rg.expand();
+      println(s);
+      ok(s != null && s.length()>0 && s.indexOf("(")<0 && s.indexOf(")")<0);
     }
   }
   
   // callbacks
+  String rw(String pos) { return new RiLexicon().randomWord(pos, 2); }
   String rw(String pos, int n) { return new RiLexicon().randomWord(pos, n); }
   String rw(int n)  { return new RiLexicon().randomWord(n); }
   String rw(String pos, float n)  { return new RiLexicon().randomWord(pos, (int) n);  }
@@ -874,5 +1002,10 @@ public class RiGrammarTest
       res[i] = o[i+1];
     }
     return res;
+  }
+  
+  public static void main(String[] args)
+  {
+    new RiGrammarTest().testRiGrammar2();
   }
 }
