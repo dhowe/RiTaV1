@@ -1,0 +1,12 @@
+--- 
+<determiner>: a [.1] | the
+#I am a comment
+<noun>: woman | man
+<noun_phrase>: <determiner> <noun>
+<start>: <noun_phrase> <verb_phrase>
+<verb>: shoots
+<verb_phrase>: <verb> | <verb> <noun_phrase> [.1]
+<multiline>: >
+  This is
+  my very long string
+  that wraps three lines

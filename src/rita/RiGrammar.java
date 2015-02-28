@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import rita.json.*;
 import rita.render.RiGrammarEditor;
+import rita.support.YAMLParser;
 
 public class RiGrammar
 {
@@ -17,12 +18,15 @@ public class RiGrammar
   static final Pattern PROB_PATT = Pattern.compile("(.*[^\\s])\\s*\\[([0-9.]+)\\](.*)");
   static final Pattern EXEC_PATT = Pattern.compile("(.*?)(`[^`]+?\\(.*?\\);?`)(.*)");
 
+  public YAMLParser yamlParser;
   public Map<String, Map<String, Float>> _rules;
   public Object grammarUrl, parent;
   public Pattern probabilityPattern;
   public RiGrammarEditor editor;
   public boolean execDisabled;
   public int maxIterations = 1000;
+
+  static boolean yamlWarning;
 
   public RiGrammar()
   {
@@ -45,7 +49,23 @@ public class RiGrammar
   {
     if (pApplet != null)
       this.parent = pApplet;
+    
     this._rules = new HashMap<String, Map<String, Float>>();
+    
+    try
+    {
+      this.yamlParser = new YAMLParser();
+    }
+    catch (RiTaException e)
+    {
+      // no YamlParser, just warn once...
+      if (!RiTa.SILENT && !yamlWarning) { 
+        
+        System.out.println("[WARN] No YAML parser found. If you want to use YAML grammars, include snakeyaml-X.YZ.jar (from https://code.google.com/p/snakeyaml/) in your classpath.");
+        yamlWarning = true;
+      }
+    }
+    
     if (grammarAsString != null)
       this.load(grammarAsString);
   }
@@ -158,10 +178,14 @@ public class RiGrammar
     if (grammarRulesAsString == null || grammarRulesAsString.length()<1)
       throw new RiTaException("RiGrammar: no grammar rules found!");
     
-    try
+    if (yamlParser != null) {
+      
+       return load(yamlParser.yamlToJSON(grammarRulesAsString));
+    }
+
+    try // otherwise trying parsing as simple JSON
     {
-      JSONObject json = new JSONObject(grammarRulesAsString);
-      return load(json);
+      return load(new JSONObject(grammarRulesAsString));
     }
     catch (JSONException e)
     {
@@ -171,38 +195,8 @@ public class RiGrammar
     }
   }
   
-  // TODO: keep this, and get rid of the other?
-  public RiGrammar load(processing.data.JSONObject json) {
-
-      Iterator keys = json.keyIterator();
-
-      while (keys.hasNext())
-      {
-        String key = (String) keys.next();
-        Object o = json.getString(key);
-
-        String ruleStr = "";
-        
-        if (o instanceof JSONArray)
-        {
-          processing.data.JSONArray jarr = json.getJSONArray(key);
-          for (int i = 0; i < jarr.size(); i++) 
-            ruleStr += jarr.getString(i) + "|";
-        }
-        else if (o instanceof String)
-        {
-          ruleStr = ((String) o);
-        }
-        else
-        {
-          throw new RiTaException("Unexpected type: " + o.getClass());
-        }
-
-        addRule(key, ruleStr);
-      }
-      
-      return this;
-  }
+  // NOTE: this method is implemented in earlier versions (not currently used)
+  // public RiGrammar load(processing.data.JSONObject json);
   
   public RiGrammar load(JSONObject json) 
   {
@@ -733,8 +727,9 @@ public class RiGrammar
   public static void main(String[] args)
   {
     RiGrammar rg = new RiGrammar("{\"a\" : \"b\"}");
-    //rg.loadFile("haikuGrammar.json", null);
-    rg.openEditor();
+    rg.loadFrom("haikuGrammar.yaml");
+    System.out.println(rg.expand());
+    //rg.openEditor();
     
     if (1==0) {
       rg.load(RiTa.loadString("haikuGrammar.json", null));

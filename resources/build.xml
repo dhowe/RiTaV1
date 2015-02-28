@@ -151,7 +151,7 @@
 		<junit printsummary="yes" timeout="100000" haltonfailure="yes">
 			<formatter usefile="false" type="plain"/>
 			<classpath><path refid="test.classpath"/></classpath>
-			<test name="rita.test.RiTaTest"      outfile="reports/rita.test.RiTaTest"></test>
+			<test name="rita.test.RiGrammarTest"      outfile="reports/rita.test.RiGrammarTest"></test>
 		</junit>
 
 	</target>
