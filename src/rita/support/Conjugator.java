@@ -44,17 +44,15 @@ public class Conjugator implements Constants
   private static final String VERBAL_PREFIX = "((be|with|pre|un|over|re|mis|under|out|up|fore|for|counter|co|sub)(-?))";
 
   private Map ruleMap;
-  private boolean realiseAuxiliary;
   private boolean perfect, progressive, passive, allowsTense, interrogative;   
   private int tense=PRESENT_TENSE, person=FIRST_PERSON, number=SINGULAR;
-  private String particle, head="", modal; // modal, eg "must"
+  private String particle, modal; // modal, eg "must"
   private int form = NORMAL; // other forms??  GERUND, INFINITIVE
   private Matcher matcher;
 
   public Conjugator() {
 
     allowsTense = true;
-    realiseAuxiliary = true;       
     matcher = Pattern.compile(ANY_STEM).matcher("");
     this.createRuleMap();
   }
@@ -150,9 +148,8 @@ public class Conjugator implements Constants
           default:
             return ""; // makes java happy -- not needed
         }
-      else
+      
         return render("are");
-
     } 
     else
       return render(baseForm);
@@ -979,21 +976,7 @@ public class Conjugator implements Constants
       tense = PRESENT_TENSE;
   } 
 */
-	
-  /**
-   * Conjugates the current head verb based on the state of the conjugator
-   * @see #setVerb(String)
-   * @see #setNumber(int)
-   * @see #setPerson(int)
-   * @see #setTense(int)
-   * @see #setPassive(boolean)
-   * @see #setProgressive(boolean)
-   * @see #setPerfect(boolean)
-   */
-  public String conjugate() {
-    return conjugate(head);
-  }
-  
+
   public Conjugator handleArgs(Map args)
   {
     if (args == null || args.size() < 1) return this;
@@ -1037,9 +1020,9 @@ public class Conjugator implements Constants
    * @see #setProgressive(boolean)
    * @see #setPerfect(boolean)
    */
-	public String conjugate(String verb) {
+	public String conjugate(String theVerb) {
 	  
-	  if (verb == null || verb.length()<1)
+	  if (theVerb == null || theVerb.length()<1)
 	    throw new RiTaException("Make sure to set" +
 	     " the head verb before calling conjugate()");
 	  
@@ -1067,10 +1050,11 @@ public class Conjugator implements Constants
     }
 
     // start off with main verb
-    String frontVG = verb;
+    String frontVG = checkVerb(theVerb);
 
     // passive
     if (passive) {      
+      
       String pp = getPastParticiple(frontVG);
       conjStack.push(pp);
       frontVG = "be"; //conjugate
@@ -1078,17 +1062,20 @@ public class Conjugator implements Constants
 
     // progressive
     if (progressive) {
+      
       conjStack.push(getPresentParticiple(frontVG));
       frontVG = "be"; //conjugate
     }
 
     // perfect
     if (perfect || modalPast) {
+      
       conjStack.push(getPastParticiple(frontVG));
       frontVG = "have";
     }
 
     if (actualModal != null) {
+      
       conjStack.push(getBaseForm(frontVG));
       frontVG = null;
     }
@@ -1100,12 +1087,11 @@ public class Conjugator implements Constants
         conjStack.push(getPresentParticiple(frontVG));
       }
       /// when could this happen, examples???
-      else if (!allowsTense || (interrogative && !isCopular(verb) && conjStack.isEmpty())) {
+      else if (!allowsTense || (interrogative && !frontVG.equals("be") && conjStack.isEmpty())) {
         conjStack.push(getBaseForm(frontVG));
       }
       else {        
         String verbForm = getVerbForm(getBaseForm(frontVG), tense, person, number);
-        
         conjStack.push(verbForm);
       }
     }
@@ -1121,20 +1107,19 @@ public class Conjugator implements Constants
     return s.trim();
   }
 	
-	private String getVerbForm(String verb, int tense, int person, int number) {
-	  switch (tense) {
+	private String getVerbForm(String theVerb, int theTense, int thePerson, int theNumber) {
+	  switch (theTense) {
 	   case PRESENT_TENSE:
-       return getPresent(verb, person, number);
+       return getPresent(theVerb, thePerson, theNumber);
      case PAST_TENSE:
-       return getPast(verb, person, number);
+       return getPast(theVerb, thePerson, theNumber);
      default:
-       return getBaseForm(verb);
+       return getBaseForm(theVerb);
 	  }
 	}
-	// TODO:  (then add getters/setters)
 	
-	public String getPast(String verb, int pers, int numb) {
-    if (verb.equalsIgnoreCase("be")) {
+	public String getPast(String theVerb, int pers, int numb) {
+    if (theVerb.equalsIgnoreCase("be")) {
       switch (numb) {
         case SINGULAR:
           switch (pers) {
@@ -1148,7 +1133,7 @@ public class Conjugator implements Constants
           return render("were");
       }
     }
-    return getPast(verb);
+    return getPast(theVerb);
   }
   
   // --------------------------------
@@ -1169,28 +1154,18 @@ public class Conjugator implements Constants
     return apply(getRule(PAST_PARTICIPLE_RULE), v);
   }
 
-  private String isAuxiliary(String verb) {
-    if (1==1) throw new RuntimeException("unimplemented!");
-    return null;
-  }
-  
-  private boolean isCopular(String verb) {
-    return head.equals("be");
-  }
-
-  /**
-   * Sets the verb to be conjugated
-   */
-  public void setVerb(String verb) {
-    this.head = verb.toLowerCase();
-    if (head.equalsIgnoreCase("am")
-      || head.equalsIgnoreCase("are") 
-      || head.equalsIgnoreCase("is")
-      || head.equalsIgnoreCase("was")
-      || head.equalsIgnoreCase("were")) 
+  private String checkVerb(String theVerb)
+  {
+    theVerb = theVerb.toLowerCase();
+    if (theVerb.equalsIgnoreCase("am")
+      || theVerb.equalsIgnoreCase("are") 
+      || theVerb.equalsIgnoreCase("is")
+      || theVerb.equalsIgnoreCase("was")
+      || theVerb.equalsIgnoreCase("were")) 
     {
-      this.head = "be";
+      theVerb = "be";
     }
+    return theVerb;
   }
   
   public String toString() {   
@@ -1253,9 +1228,8 @@ public class Conjugator implements Constants
    */
   public String getTense() {
     for (int i = 0; i < tenses.length; i++)
-      if (tenses[i].equals(tense)) {         
+      if (tenses[i].equals(tense))         
         return tenses[i].name;
-      }
     throw new RiTaException("Invalid state: tense="+tense);
   }
   
@@ -1265,9 +1239,8 @@ public class Conjugator implements Constants
    */
   public String getPerson() {
     for (int i = 0; i < persons.length; i++)
-      if (persons[i].equals(person)) {         
+      if (persons[i].equals(person))         
         return persons[i].name;
-      }
     throw new RiTaException("Invalid state: person="+person);
   }
   
@@ -1405,28 +1378,22 @@ public class Conjugator implements Constants
   }
   
   /**
-   * Returns the current verb
-   */
-  public String getVerb() {
-    return head;
-  }
-     
-  /**
    * Returns all unique possible conjugations of the specified verb
-   */
-  public void conjugateAll(String verb, Set result) {
-    String[] tmp = conjugateAll(verb);
+
+  public void conjugateAll(String theVerb, Set result) {
+    String[] tmp = conjugateAll(theVerb);
     for (int i = 0; i < tmp.length; i++) {
       result.add(tmp[i]);
     }
-  }
+  }   */
   
   /**
    * Returns all possible conjugations of the specified verb (may contain duplicates)
-   */
-  public String[] conjugateAll(String verb) {
+
+  public String[] conjugateAll(String theVerb) {
+    
     List tmp =  new ArrayList();
-    this.setVerb(verb);
+    this.setVerb(theVerb);
     for (int i = 0; i < tenses.length; i++) {
       setTense(tenses[i].val);
       for (int j = 0; j < numbers.length; j++) {
@@ -1448,7 +1415,7 @@ public class Conjugator implements Constants
       }
     }
     return RiTa.strArr(tmp);
-  }
+  }   */
   
   public static void main(String[] args) 
   {

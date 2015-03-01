@@ -90,8 +90,6 @@
 .navbar ul li a:hover span, .navbar ul li a:focus span {
 	position: relative;
 	color: #00a7fd;
-	padding-bottom: 1em;
-	bottom: 1em;
 }
 
 .navbar ul a.selected {
