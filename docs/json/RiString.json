@@ -369,7 +369,7 @@
 	{
       "name": "match",
       "example":"",
-      "description":"Searches for a match between a substring (or regular expression) and the contained string, and returns all matches. Regular expressions will be used if the 1st argument is a regular expression, otherwise only generic string-matching is used (special regex characaters are escaped)",
+      "description":"Tells whether the string matches the given regular expression, and if so, returns all matches.",
       "syntax":"match(pattern);",
       "parameters":
       [

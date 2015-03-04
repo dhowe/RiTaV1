@@ -346,8 +346,8 @@ public class DocGenerator extends PApplet
   public static void main(String[] args)
   {
     // argument should be 'output/'
-     
-    //
+    args = new String[]{"/Users/dhowe/Documents/eclipse-workspace/RiTa/www/reference/"};
+    
     if (args.length==0)
       go(new String[] {OUTPUT_DIR,DATA_DIR}); // ALL
       //go(new String[] {OUTPUT_DIR,DATA_DIR,"RiWordNet"}); // ONE
