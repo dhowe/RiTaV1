@@ -13,16 +13,15 @@ public class DocGenerator extends PApplet
   static final String VERSION = "0.14";
   static final boolean OUTPUT_HTML =  false;
   
-  static String DATA_DIR = "docs";
-  static String OUTPUT_DIR = "/tmp/";
+  static String DATA_DIR = "docs", OUTPUT_DIR = "/tmp/";
  
   static int numOfMethods, numOfparameters, numOfreturns;
 
-  static String[] lines, tmp_methodName, tmp_example, tmp_description, tmp_syntax,
-      tmp_parameterType, tmp_parameterDesc, tmp_parameters, tmp_return, tmp_returnType,
-      tmp_returnDesc, tmp_returns, tmp_related, tmp_platform, tmp_note, tmp_parameter;
+  static String[] lines, methodName, example, description, syntax,
+      parameterType, parameterDesc, parameters, theReturn, returnType,
+      returnDesc, returns, related, thePlatform, note, parameter;
 
-  static boolean[] tmp_hidden, tmp_isVariable;
+  static boolean[] hidden, isVariable;
 
   static String htmlTemplate;
   
@@ -74,7 +73,8 @@ public class DocGenerator extends PApplet
       parseJSON(CLASS_NAMES[i]);
     }
 
-    pln("\nDONE: files written to " + OUTPUT_DIR);
+    pln("\nDONE: files written to " + OUTPUT_DIR + 
+        "  (from " + System.getProperty("user.dir")+")");
   }
 
   static void parseJSON(String shortName)
@@ -107,56 +107,56 @@ public class DocGenerator extends PApplet
 
         JSONObject entry = items.getJSONObject(j);
 
-        tmp_hidden[j] = false;
+        hidden[j] = false;
         if (entry.has("hidden"))
-          tmp_hidden[j] = entry.getBoolean("hidden");
+          hidden[j] = entry.getBoolean("hidden");
         
-        tmp_isVariable[j] = false;
+        isVariable[j] = false;
         if (entry.has("variable"))
-          tmp_isVariable[j] = entry.getBoolean("variable");
+          isVariable[j] = entry.getBoolean("variable");
         
-        tmp_methodName[j] = entry.getString("name");
-        pln("    " + tmp_methodName[j]);
+        methodName[j] = entry.getString("name");
+        pln("    " + methodName[j]);
         
-        tmp_example[j] = "";
+        example[j] = "";
         if (entry.has("example"))
-          tmp_example[j] = entry.getString("example");
+          example[j] = entry.getString("example");
 
-        tmp_description[j] = entry.getString("description");
-        tmp_syntax[j] = entry.getString("syntax");
+        description[j] = entry.getString("description");
+        syntax[j] = entry.getString("syntax");
 
         JSONArray parametersJSON = entry.getJSONArray("parameters");
         numOfparameters = parametersJSON.length();
-        tmp_parameter = new String[numOfparameters];
-        tmp_parameterType = new String[numOfparameters];
-        tmp_parameterDesc = new String[numOfparameters];
+        parameter = new String[numOfparameters];
+        parameterType = new String[numOfparameters];
+        parameterDesc = new String[numOfparameters];
         for (int k = 0; k < numOfparameters; k++)
         {
           JSONObject parametersJSONEntry = parametersJSON.getJSONObject(k);
-          tmp_parameterType[k] = parametersJSONEntry.getString("type");
-          tmp_parameterDesc[k] = parametersJSONEntry.getString("desc");
+          parameterType[k] = parametersJSONEntry.getString("type");
+          parameterDesc[k] = parametersJSONEntry.getString("desc");
         }
 
         JSONArray returnsJSON = entry.getJSONArray("returns");
         numOfreturns = returnsJSON.length();
-        tmp_return = new String[numOfreturns];
-        tmp_returnType = new String[numOfreturns];
-        tmp_returnDesc = new String[numOfreturns];
+        theReturn = new String[numOfreturns];
+        returnType = new String[numOfreturns];
+        returnDesc = new String[numOfreturns];
         for (int k = 0; k < numOfreturns; k++)
         {
 
           JSONObject returnsJSONEntry = returnsJSON.getJSONObject(k);
-          tmp_returnType[k] = returnsJSONEntry.getString("type");
-          tmp_returnDesc[k] = returnsJSONEntry.getString("desc");
+          returnType[k] = returnsJSONEntry.getString("type");
+          returnDesc[k] = returnsJSONEntry.getString("desc");
 
         }
-        tmp_related[j] = entry.getString("related");
-        tmp_platform[j] = entry.getString("platform");
-        tmp_note[j] = entry.getString("note");
+        related[j] = entry.getString("related");
+        thePlatform[j] = entry.getString("platform");
+        note[j] = entry.getString("note");
 
         template(j, shortName);
         
-        plnHTML(shortName, tmp_methodName[j], tmp_isVariable[j]);
+        plnHTML(shortName, methodName[j], isVariable[j]);
       }
     } 
     catch (JSONException e)
@@ -169,17 +169,17 @@ public class DocGenerator extends PApplet
   // ----------------------------------------------------------------------
   static void initArrays()
   {
-    tmp_methodName = new String[numOfMethods];
-    tmp_example = new String[numOfMethods];
-    tmp_description = new String[numOfMethods];
-    tmp_syntax = new String[numOfMethods];
-    tmp_parameters = new String[numOfMethods];
-    tmp_returns = new String[numOfMethods];
-    tmp_related = new String[numOfMethods];
-    tmp_platform = new String[numOfMethods];
-    tmp_note = new String[numOfMethods];
-    tmp_hidden = new boolean[numOfMethods];
-    tmp_isVariable = new boolean[numOfMethods];
+    methodName = new String[numOfMethods];
+    example = new String[numOfMethods];
+    description = new String[numOfMethods];
+    syntax = new String[numOfMethods];
+    parameters = new String[numOfMethods];
+    returns = new String[numOfMethods];
+    related = new String[numOfMethods];
+    thePlatform = new String[numOfMethods];
+    note = new String[numOfMethods];
+    hidden = new boolean[numOfMethods];
+    isVariable = new boolean[numOfMethods];
   }
 
   static public PrintWriter createWriter(File file)
@@ -208,26 +208,26 @@ public class DocGenerator extends PApplet
 
   static void template(int idx, String shortName)
   {
-    if (tmp_hidden[idx]) return;
+    if (hidden[idx]) return;
 
-    String folder_methodName = tmp_methodName[idx].replaceAll("\\(\\)", "_");
+    String folder_methodName = methodName[idx].replaceAll("\\(\\)", "_");
     
     String fname = OUTPUT_DIR +"/"+ shortName+"/"+folder_methodName+"/index.html";
     
     lines = replaceArr(lines, "tmp_className", shortName);
-    lines = replaceArr(lines, "tmp_methodName", tmp_methodName[idx]);
-    lines = replaceArr(lines, "tmp_description", tmp_description[idx]);
-    lines = replaceArr(lines, "tmp_platform", tmp_platform[idx]);
+    lines = replaceArr(lines, "tmp_methodName", methodName[idx]);
+    lines = replaceArr(lines, "tmp_description", description[idx]);
+    lines = replaceArr(lines, "tmp_platform", thePlatform[idx]);
       
-    handleOptionalTag("example", tmp_example[idx]);
-    handleOptionalTag("syntax", tmp_syntax[idx]);
-    handleOptionalTag("related", tmp_related[idx]);
-    handleOptionalTag("note", tmp_note[idx]);
+    handleOptionalTag("example", example[idx]);
+    handleOptionalTag("syntax", syntax[idx]);
+    handleOptionalTag("related", related[idx]);
+    handleOptionalTag("note", note[idx]);
     
-    handleParameters(tmp_parameters[idx]);
-    handleReturns(tmp_returns[idx]);
+    handleParameters(parameters[idx]);
+    handleReturns(returns[idx]);
     
-    if (tmp_isVariable[idx])
+    if (isVariable[idx])
       lines = replaceArr(lines,"<th scope=\"row\">Returns</th>","<th scope=\"row\">Type</th>");
     
     writeFile(fname, lines);
@@ -258,14 +258,14 @@ public class DocGenerator extends PApplet
       {
         for (int k = 0; k < numOfparameters; k++)
         {
-          tmp_parameter[k] = "<tr class=''><th width='25%' scope='row' class=nobold>" + tmp_parameterType[k]
-              + "</th><td width='75%'>" + tmp_parameterDesc[k] + "</td></tr>";
+          parameter[k] = "<tr class=''><th width='25%' scope='row' class=nobold>" + parameterType[k]
+              + "</th><td width='75%'>" + parameterDesc[k] + "</td></tr>";
           
           data = data == null ? "" : data; 
-          data += tmp_parameter[k];
+          data += parameter[k];
         }
         
-        if (tmp_parameters != null)
+        if (parameters != null)
           lines[i] = lines[i].replaceAll("tmp_parameters", data);
       }
     }
@@ -274,7 +274,7 @@ public class DocGenerator extends PApplet
 
   private static void handleReturns(String data)
   {
-    if (tmp_returnType.length==0 || tmp_returnType[0].length() == 0)
+    if (returnType.length==0 || returnType[0].length() == 0)
     {
       lines = replaceArr(lines, "tmp_returns", "void");
       return;
@@ -288,14 +288,14 @@ public class DocGenerator extends PApplet
       {
         for (int k = 0; k < numOfreturns; k++)
         {
-          tmp_return[k] = "<tr class=''><th width='25%' scope='row' class=nobold>" + tmp_returnType[k]
-              + "</th><td width='75%'>" + tmp_returnDesc[k] + "</td></tr>";
+          theReturn[k] = "<tr class=''><th width='25%' scope='row' class=nobold>" + returnType[k]
+              + "</th><td width='75%'>" + returnDesc[k] + "</td></tr>";
           
           data = data == null ? "" : data; 
-          data += tmp_return[k];
+          data += theReturn[k];
         }
         
-        if (tmp_returns != null)
+        if (returns != null)
           lines[i] = lines[i].replaceAll("tmp_returns", data);
       }
     }    
@@ -345,8 +345,8 @@ public class DocGenerator extends PApplet
 
   public static void main(String[] args)
   {
-    // argument should be 'output/'
-    args = new String[]{"/Users/dhowe/Documents/eclipse-workspace/RiTa/www/reference/"};
+
+    args = new String[]{"www/reference/"};
     
     if (args.length==0)
       go(new String[] {OUTPUT_DIR,DATA_DIR}); // ALL
