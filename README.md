@@ -44,7 +44,11 @@ If you don't feel like coding but still want to contribute, please send a twitte
 
 5. Press Next and select 'Import existing projects' to finish.
 
-6. To run tests: navigate to the 'resources' directory, right click on 'build.xml', then select 'Run as' > 'Ant Build' to compile the project and run the tests in JUnit.
+6. To run the tests: 
+
+   a. Navigate to the RiTa/resources directory and right-click on 'build.xml'
+   
+   b. Select 'Run as' > 'Ant Build' to compile and run the tests in JUnit.
 
 7. To build the project:
 
@@ -52,11 +56,9 @@ If you don't feel like coding but still want to contribute, please send a twitte
    
    b. Click the '+' button to add a buildfile, and navigate to RiTa/resources/build.xml
    
-   c. Click to expand the 'RiTa' menu and reveal the various task
+   c. Click to expand the 'RiTa' menu and reveal the various tasks, then double-click 'build'
    
-   d. Double-click 'build'
-   
-   e. When the build is complete, project resources can be found in RiTa/dist 
+   d. When the build is complete, project resources can be found in RiTa/dist 
 
 8. Work on an existing [issue](https://github.com/dhowe/RiTa/issues?q=is%3Aopen+is%3Aissue), then [submit a pull request...](https://help.github.com/articles/creating-a-pull-request)
 
