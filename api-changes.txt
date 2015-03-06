@@ -1,7 +1,7 @@
 For changes to the API:
 
 // SRC
-RiTa/src -> Java Function
+/RiTa/src -> Java Function
 /RiTa/RiTaLibraryJS/src -> JS Function
 
 // DOCS

@@ -1,9 +1,8 @@
-<!-- NEXT: "generate.docs" -->
+
 <project name="RiTa" default="test" basedir="../">
 
     <property file="resources/build.properties" />
     
-	<property name="project.tmp" location="tmp"/>
 	<property name="project.src" location="src"/>
 	<property name="project.dist" location="dist"/>
 	<property name="project.libs" location="libs"/>
@@ -15,8 +14,8 @@
 	
 	<path id="test.classpath">
 		<fileset dir="${project.libs}" includes="**/*.jar" excludes="core.jar"/>
-		<pathelement path="${project.tmp}/${project.name}/bin"/>
-		<pathelement path="${project.tmp}/${project.name}/src"/>
+		<pathelement path="${project.dist}/${project.name}/bin"/>
+		<pathelement path="${project.dist}/${project.name}/src"/>
     	<pathelement path="${project.libs}"/>
 	</path>
 	
@@ -36,93 +35,107 @@
 	     
 		<javac srcdir="${project.src}"
 		    excludes="**/test/sketches/**"
-			destdir="${project.tmp}/${project.name}/bin" 
+			destdir="${project.dist}/${project.name}/bin" 
 			source="${java.target.version}" 
 			target="${java.target.version}"
 			includeantruntime="false"
 			debug="true">
-			<classpath>
-				<path refid="classpath" />
-			</classpath>
+			<classpath refid="classpath" />
 		</javac>
 
 	</target>
 	
+	<target name="create.reference" depends="compile">
+		<java classname="rita.docgen.DocGenerator" fork="true" dir="${basedir}">		    
+			<arg value="www/reference/" />
+			<classpath refid="test.classpath"/>
+		</java>
+	</target>
+	
+	<target name="build" depends="test, generate.jars, create.reference">
+		<copy todir="${project.dist}/${project.name}/reference">
+			<fileset dir="www/reference"/>
+		</copy>
+	    <delete dir="${project.dist}/${project.name}/bin"/>
+	</target>
+		
 	<target name="generate.jars" depends="compile">
 	    
 	    <!--  copy all non-class files manually -->
-		<copy todir="${project.tmp}/${project.name}/bin/rita/wordnet">
+	    
+		<copy todir="${project.dist}/${project.name}/bin/rita/wordnet">
 			<fileset dir="${project.src}/rita/wordnet">
 				<include name="*.xml"/>
 				<include name="*.txt"/>
 			</fileset>
 		</copy>
-		<copy todir="${project.tmp}/${project.name}/bin/rita">
+		<copy todir="${project.dist}/${project.name}/bin/rita">
 			<fileset dir="${project.src}/rita/">
 				<include name="*.js"/>
 				<include name="*.gif"/>
 			</fileset>
 		</copy>	
-		<copy todir="${project.tmp}/${project.name}/bin">
+		<copy todir="${project.dist}/${project.name}/bin">
 			<fileset dir="${project.src}">
 				<include name="*.properties"/>
 			</fileset>
 		</copy>
-
+		
+		<!--  YAML lib for Processing -->
+		<copy file="${project.libs}/snakeyaml-1.15.jar" tofile="${project.dist}/${project.name}/library/snakeyaml-1.15.jar"/>
 		
 		<!-- full lib to latest -->
-		<jar jarfile="${project.tmp}/rita-${project.version}.jar" basedir="${project.tmp}/${project.name}/bin">
+		<jar jarfile="${project.dist}/rita-${project.version}.jar" basedir="${project.dist}/${project.name}/bin">
 			<exclude name="**/data/**" />
 			<exclude name="**/test/**" />
 			<exclude name="**/docgen/**" />
 		</jar>
-		
-		
+				
 		<!-- rita pkg only -->
-		<jar jarfile="${project.tmp}/${project.name}/library/rita.jar" basedir="${project.tmp}/${project.name}/bin">
+		<jar jarfile="${project.dist}/${project.name}/library/rita.jar" basedir="${project.dist}/${project.name}/bin">
 			<include name="rita/*.*/" />
 			<include name="*.properties/" />
 			<exclude name="**/test/**" />
 		</jar>
 		
-		
 		<!-- support pkg only -->
-		<jar jarfile="${project.tmp}/${project.name}/library/rita.support.jar" basedir="${project.tmp}/${project.name}/bin">
+		<jar jarfile="${project.dist}/${project.name}/library/rita.support.jar" basedir="${project.dist}/${project.name}/bin">
 			<exclude name="data/**" />
 			<exclude name="rita/*.*/" />
 			<exclude name="*.properties/" />
 			<exclude name="**/test/**" />
 			<exclude name="**/docgen/**" />
 		</jar>
-		
+			 
 		<!-- 
 		<antcall target="copy.rita.jars.to.processing" />
 		 -->
+		 
 	</target>
 	
 	<target name="create.structure" description="" depends="clean">
 				
-		<mkdir dir="${project.tmp}" />
-		<mkdir dir="${project.tmp}/${project.name}" />
-		<mkdir dir="${project.tmp}/${project.name}/library" />
-		<mkdir dir="${project.tmp}/${project.name}/examples" />
-		<mkdir dir="${project.tmp}/${project.name}/reference" />
-		<mkdir dir="${project.tmp}/${project.name}/css" />
-		<mkdir dir="${project.tmp}/${project.name}/src" />
-		<mkdir dir="${project.tmp}/${project.name}/bin" />
-		<mkdir dir="${project.tmp}/${project.name}/bin/data" />
+		<mkdir dir="${project.dist}" />
+		<mkdir dir="${project.dist}/${project.name}" />
+		<mkdir dir="${project.dist}/${project.name}/library" />
+		<mkdir dir="${project.dist}/${project.name}/examples" />
+		<mkdir dir="${project.dist}/${project.name}/reference" />
+		<mkdir dir="${project.dist}/${project.name}/css" />
+		<mkdir dir="${project.dist}/${project.name}/src" />
+		<mkdir dir="${project.dist}/${project.name}/bin" />
+		<mkdir dir="${project.dist}/${project.name}/bin/data" />
 
-		<copy todir="${project.tmp}/${project.name}/css">
+		<copy todir="${project.dist}/${project.name}/css">
 			<fileset dir="www/css/">
 				<include name="*.css"/>
 			</fileset>
 		</copy>
 		
-		<copy todir="${project.tmp}/${project.name}/examples">
+		<copy todir="${project.dist}/${project.name}/examples">
 			<fileset refid="exampleFileSet"/>
 		</copy>
 
-		<copy todir="${project.tmp}/${project.name}/src">
+		<copy todir="${project.dist}/${project.name}/src">
 			<fileset dir="${project.src}">
 				<exclude name="rita/test/sketches/**"/>
 				<exclude name="**/data/**"/>
@@ -130,7 +143,7 @@
 			</fileset>
 		</copy>
 		
-		<copy todir="${project.tmp}/${project.name}/bin/data">
+		<copy todir="${project.dist}/${project.name}/bin/data">
 			<fileset dir="${project.src}/data"/>
 		</copy>
 		
@@ -140,7 +153,7 @@
 
 	<target name="clean" depends="info">
 
-		<delete dir="${project.tmp}"/>
+		<delete dir="${project.dist}"/>
 		<!-- delete dir="${project.docs}"/>
 		<delete dir="${project.build}"/-->
 
@@ -190,17 +203,13 @@
 	</target>
 	
 	<target name="info">
-
 		<echo>
 ${line}
 Name:	${project.name} 
 Version:	${project.version}
 Java.Version:	${java.version}
 ${line}
-Done.
-${line}	
-		</echo>
-		
+		</echo>		
 	</target>				
 	
 </project>
