@@ -38,7 +38,7 @@ If you don't feel like coding but still want to contribute, please send a twitte
 
 3. In the 'Import Window' select 'Git' > 'Projects from Git', then press Next.
 
-3. Select 'Clone URI' > then Next and copy and paste the 'HTTPS clone URL'  ([https://github.com/dhowe/RiTa.git](https://github.com/dhowe/RiTa.git)) from RiTa's Github page into the URI field.
+3. Select 'Clone URI' > then Next and copy and paste the 'HTTPS clone URL'     [https://github.com/dhowe/RiTa.git](https://github.com/dhowe/RiTa.git)  from RiTa's Github page into the URI field.
 
 4. Press Next to proceed with the default master branch or (optionally) configure the project directory.
 
