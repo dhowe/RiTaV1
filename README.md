@@ -28,6 +28,7 @@ Please! We are looking for more coders to help out... Just press *Fork* at the t
 
 If you don't feel like coding but still want to contribute, please send a twitter message to @RiTaSoftware.
 
+
 #### Development Setup (in Eclipse)
 --------
 
@@ -35,16 +36,17 @@ If you don't feel like coding but still want to contribute, please send a twitte
 
 2. In the Eclipse menu, select 'File' > 'Import...'
 
-3. In the 'Import Window' select 'Git' > 'Projects from Git' and press 'Next'.
+3. In the 'Import Window' select 'Git' > 'Projects from Git', then press Next.
 
 3. Select 'Clone URI' > then Next and copy and paste the 'HTTPS clone URL'  ([https://github.com/dhowe/RiTa.git](https://github.com/dhowe/RiTa.git)) from RiTa's Github page into the URI field.
 
-4. Press Next to proceed with the default master branch and (optionally) configure the project directory in the next page.
+4. Press Next to proceed with the default master branch or (optionally) configure the project directory.
 
-5. Press Next and 'Import Existing Projects' to finish.
+5. Press Next and select 'Import existing projects' to finish.
 
-6. In the new project, navigate to the 'resources' directory, right click on 'build.xml', then select 'Run as' > 'Ant Build' to run the tests in JUnit.
+6. In the new project, navigate to the 'resources' directory, right click on 'build.xml', then select 'Run as' > 'Ant Build' to compile the project and run the tests in JUnit.
 
 7. Work on an existing [issue](https://github.com/dhowe/RiTa/issues?q=is%3Aopen+is%3Aissue), then [submit a pull request...](https://help.github.com/articles/creating-a-pull-request)
 
-
+ 
+ 
