@@ -49,9 +49,13 @@ If you don't feel like coding but still want to contribute, please send a twitte
 7. To build the project:
 
    a. In the Eclipse menu, select 'Window' > 'Show View' -> 'Ant
-   b. Click the '+' button to add a buildfile, and navigate to RiTa/resources/build.xml 
+   
+   b. Click the '+' button to add a buildfile, and navigate to RiTa/resources/build.xml
+   
    c. Click to expand the 'RiTa' menu and reveal the various task
+   
    d. Double-click 'build'
+   
    e. When the build is complete, project resources can be found in RiTa/dist 
 
 8. Work on an existing [issue](https://github.com/dhowe/RiTa/issues?q=is%3Aopen+is%3Aissue), then [submit a pull request...](https://help.github.com/articles/creating-a-pull-request)
