@@ -24,8 +24,27 @@ Please see https://github.com/dhowe/RiTaJS for the JavaScript implementation of 
 
 #### Can I contribute?
 --------
-Please! We are looking for more coders to help out... Just press *Fork* at the top of this page and get started. 
+Please! We are looking for more coders to help out... Just press *Fork* at the top of this page and get started, or follow the instructions below... 
 
 If you don't feel like coding but still want to contribute, please send a twitter message to @RiTaSoftware.
+
+#### Development Setup (in Eclipse)
+--------
+
+1. Download and install [Eclipse for Java.](https://www.eclipse.org/downloads/)
+
+2. In the Eclipse menu, select 'File' > 'Import...'
+
+3. In the 'Import Window' select 'Git' > 'Projects from Git' and press 'Next'.
+
+3. Select 'Clone URI' > then Next and copy and paste the 'HTTPS clone URL'  ([https://github.com/dhowe/RiTa.git](https://github.com/dhowe/RiTa.git)) from RiTa's Github page into the URI field.
+
+4. Press Next to proceed with the default master branch and (optionally) configure the project directory in the next page.
+
+5. Press Next and 'Import Existing Projects' to finish.
+
+6. In the new project, navigate to the 'resources' directory, right click on 'build.xml', then select 'Run as' > 'Ant Build' to run the tests in JUnit.
+
+7. Work on an existing [issue](https://github.com/dhowe/RiTa/issues?q=is%3Aopen+is%3Aissue), then [submit a pull request...](https://help.github.com/articles/creating-a-pull-request)
 
 
