@@ -105,23 +105,6 @@ public class PosTagger implements Constants
       tags[i] = toWordNet(tags[i]);
     return tags;
   }
-    
-  /**
-   * Tags a single word with a part-of-speech from the Penn tagset, 
-   * then returns the corresponding part-of-speech for WordNet from the set
-   * { "n" (noun), "v"(verb), "a"(adj), "r"(adverb), "-"(other) } as a String. 
-   * @see #tagForWordNet(String[])
-   */
-  public String tagWordForWordNet(String word)
-  {     
-    if (word.indexOf(' ') >= 0)
-      throw new RiTaException("Expecting a single word"
-        + " (with no spaces), but found: '"+word+"'");
-    String[] tags = tag(new String[]{ word });
-    if (tags==null || tags.length != 1 || tags[0]==null || tags[0].length()<1)
-      return E;
-    return toWordNet(tags[0]);
-  }
   
   /**
    * Converts a part-of-speech String from the Penn tagset to the corresponding part-of-speech 

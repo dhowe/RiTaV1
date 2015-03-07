@@ -1574,6 +1574,27 @@
             "platform": "Java only",
             "note": ""
         },
+		{
+	      "name": "posToWordNet",
+	      "example":"",
+	      "description":"Converts a part-of-speech tag from the (<a href='../../PennTags.html'>PENN tag set</a>) to the simplified WordNet scheme, consisting of the following 5 tags: 'n' (noun), 'v' (verb), 'a' (adj), 'r' (adverb), and '-'(other).",
+	      "syntax":"RiTa.posToWordNet(pennPosTag);",
+	      "parameters":[
+	         {
+	            "type":"String",
+	            "desc":"the (PENN) pos tag to convert"
+	         }
+	      ],
+	      "returns":[
+	         {
+	            "type":"String",
+	            "desc":"the simplified WordNet tag"
+	         }
+	      ],
+	      "related":"",
+	      "platform":"Java only",
+		  "note":""
+	    },
         {
             "variable": false,
             "name": "getAllAntonyms",
@@ -1630,7 +1651,7 @@
             "variable": false,
             "name": "exists",
             "example": "",
-            "description": "Checks the existence of a word in the ontology. It is independent from ignoreCompoundWords()",
+            "description": "Checks the existence of a word in the ontology. It is independent of ignoreCompoundWords()",
             "syntax": "exists(word);",
             "parameters": [
                 {
@@ -1641,6 +1662,33 @@
             "returns": [
                 {
                     "type": "boolean",
+                    "desc": ""
+                }
+            ],
+            "related": "",
+            "platform": "Java only",
+            "note": ""
+        },
+        {
+		    "hidden": "true",
+            "variable": false,
+            "name": "getBaseForm",
+            "example": "",
+            "description": "Gets the base form of the word",
+            "syntax": "getBaseForm(word)<br/>getBaseForm(word,posStr)",
+            "parameters": [           
+                {
+                    "type": "String",
+                    "desc": "word"
+                },
+                {
+                    "type": "String",
+                    "desc": "(Optional) posStr"
+                }
+                ],
+            "returns": [
+            {
+                    "type": "String",
                     "desc": ""
                 }
             ],
@@ -1692,32 +1740,6 @@
             "syntax": "getSynonyms(word, RiWordNet.ADJ);",
             "parameters": [],
             "returns": [],
-            "related": "",
-            "platform": "Java only",
-            "note": ""
-        },
-        {
-            "variable": true,
-            "name": "getBaseForm",
-            "example": "",
-            "description": "Gets the base form of the word",
-            "syntax": "getBaseForm(word)<br/>getBaseForm(word,posStr)",
-            "parameters": [           
-                {
-                    "type": "String",
-                    "desc": "word"
-                },
-                {
-                    "type": "String",
-                    "desc": "(Optional) posStr"
-                }
-                ],
-            "returns": [
-            {
-                    "type": "String",
-                    "desc": ""
-                }
-            ],
             "related": "",
             "platform": "Java only",
             "note": ""

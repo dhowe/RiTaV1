@@ -3,18 +3,14 @@ package rita;
 import java.io.*;
 import java.util.*;
 
+import rita.support.RiPos;
 import rita.wordnet.*;
-
 import rita.wordnet.jwnl.*;
 import rita.wordnet.jwnl.dictionary.*;
 import rita.wordnet.jwnl.dictionary.Dictionary;
-
 import rita.wordnet.jwnl.wndata.*;
 import rita.wordnet.jwnl.wndata.list.*;
-
-import rita.wordnet.jwnl.wndata.relationship.RelationshipList;
-import rita.wordnet.jwnl.wndata.relationship.RelationshipFinder;
-import rita.wordnet.jwnl.wndata.relationship.AsymmetricRelationship;
+import rita.wordnet.jwnl.wndata.relationship.*;
 
 public class RiWordNet
 {
@@ -2203,6 +2199,11 @@ public class RiWordNet
     throw new RiWordNetError("no pos for word: " + word);
   }
 
+  public String posToWordNet(String pos)
+  { 
+    return RiPos.posToWordNet(pos);
+  }
+  
   private IndexWord[] getIndexWords(String word)
   {
     // IndexWord[] all = null;

@@ -3,7 +3,8 @@
 
     <property file="resources/build.properties" />
     
-	<property name="project.src" location="src"/>
+	<property name="project.src"  location="src"/>
+	<property name="project.bin"  location="bin"/>
 	<property name="project.dist" location="dist"/>
 	<property name="project.libs" location="libs"/>
 	<property name="project.examples" location="www/examples"/>
@@ -12,6 +13,13 @@
 		<fileset dir="${project.libs}" includes="**/*.jar" excludes=""/>
 	</path>
 	
+	<path id="quick.classpath">
+		<fileset dir="${project.libs}" includes="**/*.jar"/>
+		<pathelement path="${project.bin}"/>
+		<pathelement path="${project.src}"/>
+    	<pathelement path="${project.libs}"/>
+	</path>
+		
 	<path id="test.classpath">
 		<fileset dir="${project.libs}" includes="**/*.jar" excludes="core.jar"/>
 		<pathelement path="${project.dist}/${project.name}/bin"/>
@@ -49,6 +57,13 @@
 		<java classname="rita.docgen.DocGenerator" fork="true" dir="${basedir}">		    
 			<arg value="www/reference/" />
 			<classpath refid="test.classpath"/>
+		</java>
+	</target>
+	
+	<target name="_quickref">
+		<java classname="rita.docgen.DocGenerator" fork="true" dir="${basedir}">		    
+			<arg value="www/reference/" />
+			<classpath refid="quick.classpath"/>
 		</java>
 	</target>
 	

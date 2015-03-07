@@ -119,13 +119,13 @@
    {
       "name": "load",
       "example":"",
-      "description":"Loads a grammar from a String or JSON object",
+      "description":"Loads a grammar from a String or YAML/JSON object",
       "syntax":"load(grammarRules);",
       "parameters":
       [
       		{ 
 			"type": "String or Object", 
-			"desc": "a String or (JSON) Object representationof the grammar" 
+			"desc": "a String or (YAML/JSON) Object representation of the grammar" 
 			}
 	  ],
       "returns":
@@ -181,7 +181,7 @@
 			}
 	  ],
       "related":"",
-      "platform":"Delegates to RiTa.loadString() to load. To check if the object has finished loading, check RiGrammar.ready(). Alternatively, one can use the &lt;script src=...&gt; tag to include the JSON grammar file in an html page (probably a better option).",
+      "platform":"Delegates to RiTa.loadString() to load. To check if the object has finished loading, check RiGrammar.ready(). Alternatively, one can use the &lt;script src=...&gt; tag to include the YAML/JSON grammar file in an html page (probably a better option).",
 	  "note":""
    },
    {

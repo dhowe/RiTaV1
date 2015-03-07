@@ -1,5 +1,5 @@
 {
-    "<start>" : "<noun_phrase> <verb_phrase>",
+    "<start>" : "<noun_phrase> <verb_phrase>.",
     "<noun_phrase>" : "<determiner> <noun>",
     "<determiner>" : "a [0.1] | the",
     "<verb_phrase>" : "<verb> | <verb> <noun_phrase> [0.1]",

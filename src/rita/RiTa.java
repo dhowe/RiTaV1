@@ -69,12 +69,18 @@ public class RiTa implements Constants
   public static String[] getPosTags(String[] words, boolean useWordnetTags) { 
     
     return useWordnetTags ? 
-        PosTagger.getInstance().tagForWordNet(words) : PosTagger.getInstance().tag(words); 
+        PosTagger.getInstance().tagForWordNet(words)
+        : PosTagger.getInstance().tag(words);
   }
   
   public static String[] getPosTags(String s, boolean useWordnetTags) { 
 
     return getPosTags(tokenize(s), useWordnetTags);
+  }
+  
+  public Map features(String text)
+  {
+    return new RiString(text).features();
   }
   
   public static int env() {
@@ -565,7 +571,6 @@ public class RiTa implements Constants
     
     return true;
   }
-  
   
   /**
    * Returns a randomly ordered array
@@ -1240,6 +1245,7 @@ public class RiTa implements Constants
   }
   
   static class RiTaLoaderSource { // stub to match JS object
+    
     public String[] urls;
     public String name = "RiTaLoader";
     public RiTaLoaderSource(String[] u) {

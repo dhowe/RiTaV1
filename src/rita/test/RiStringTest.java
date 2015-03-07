@@ -17,10 +17,6 @@ import rita.RiString;
 import rita.RiTa;
 import rita.support.Constants;
 
-/*
- * TODO: Port all these tests over from RiTaJS [C]
- * For examples, see testAnalyze(),testCharAt(), and testTrim() below
- */
 public class RiStringTest implements Constants
 {
   @Test
@@ -248,24 +244,20 @@ public class RiStringTest implements Constants
   public void testFeatures()
   {
 	  RiString rs = new RiString("Returns the array of words.").analyze();
-	  Map features = rs.features();
-	    ok(features);
-	    ok(features.containsKey(RiTa.TEXT));
-	//  ok(features.containsKey(RiTa.MUTABLE));
-	    ok(features.containsKey(RiTa.SYLLABLES));
-	    ok(features.containsKey(RiTa.PHONEMES));
-	    ok(features.containsKey(RiTa.STRESSES));
-	    ok(features.containsKey(RiTa.TOKENS));
-	    ok(features.containsKey(RiTa.POS));
-	    ok(rs.get(RiTa.SYLLABLES));
-	    ok(rs.get(RiTa.PHONEMES));
-	    ok(rs.get(RiTa.STRESSES));
-	    ok(rs.get(RiTa.TEXT));
-	//  ok(rs.get(RiTa.MUTABLE));
-	    ok(rs.get(RiTa.TOKENS));
-	    ok(rs.get(RiTa.POS));
-	  
-
+	  Map<String,String> features = rs.features();
+    ok(features);
+    ok(features.containsKey(RiTa.TEXT));
+    ok(features.containsKey(RiTa.SYLLABLES));
+    ok(features.containsKey(RiTa.PHONEMES));
+    ok(features.containsKey(RiTa.STRESSES));
+    ok(features.containsKey(RiTa.TOKENS));
+    ok(features.containsKey(RiTa.POS));
+    ok(rs.get(RiTa.SYLLABLES));
+    ok(rs.get(RiTa.PHONEMES));
+    ok(rs.get(RiTa.STRESSES));
+    ok(rs.get(RiTa.TEXT));
+    ok(rs.get(RiTa.TOKENS));
+    ok(rs.get(RiTa.POS));
   }
 
   @Test
@@ -326,7 +318,7 @@ public class RiStringTest implements Constants
   }
 
   @Test
-  public void testInsertWordAt()
+  public void testInsertWord()
   {
     RiString rs = new RiString("Inserts at wordIdx and shifts each subsequent word accordingly.");
     rs.insertWord(4, "then");
@@ -621,7 +613,7 @@ public class RiStringTest implements Constants
   }
 
   @Test
-  public void testRemoveCharAt()
+  public void testRemoveChar()
   {
     RiString rs = new RiString("The dog was white");
     rs.removeChar(1);
@@ -655,7 +647,7 @@ public class RiStringTest implements Constants
   }
 
   @Test
-  public void testReplaceCharAt()
+  public void testReplaceChar()
   {
     RiString rs = new RiString("Who are you?");
     rs.replaceChar(2, "");
@@ -781,7 +773,7 @@ public class RiStringTest implements Constants
   }
 
   @Test
-  public void testReplaceWordAt()
+  public void testReplaceWord()
   {
     RiString rs = new RiString("Who are you?");
     rs.replaceWord(2, ""); // nice! this too...

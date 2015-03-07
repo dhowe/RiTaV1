@@ -89,16 +89,10 @@ public class RiGrammar
   public RiGrammar loadFrom(String file)
   {
     this.grammarUrl = file;
-    
-    if (parent == null)
-      return load(_loadString(file));
-    
-    return load(RiTa.loadString(file, parent));
-  }
-  
-  static String _loadString(String fileName)
-  {
-    return RiTa.loadString(fileName, "RiGrammar.loadFrom");
+
+    return load(parent == null ? 
+        RiTa.loadString(file, "RiGrammar.loadFrom")
+        : RiTa.loadString(file, parent));
   }
 
   public RiGrammar loadFrom(URL url)
@@ -190,8 +184,8 @@ public class RiGrammar
     catch (JSONException e)
     {
       throw new RiTaException
-        ("Grammar appears to be invalid JSON, please check it!"
-            + "(http://jsonlint.com/)\n\n"+ grammarRulesAsString +"\n", e);
+        ("Grammar appears to be invalid YAML/JSON, please check it!"
+            + "(http://yamllint.com/)\n\n"+ grammarRulesAsString +"\n", e);
     }
   }
   

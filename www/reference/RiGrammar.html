@@ -53,65 +53,77 @@
 <!-- ============================== class title ============================ -->
 
 								<h2 class="classTitle">RiGrammar</h2></br>
-			<p>&nbsp;</p>
 <!-- ============================== class summary ========================== -->
 
 <table cellpadding="0" cellspacing="0" border="0" class="ref-item">
 		<tr class="">
 			      <th scope="row"<br>Description</th>
 			      <!-- DESCRIPTION  -->
-			      <td><span class="description">A probabilistic context-free grammar with literary extensions for text-generation.</span></td>
+			      <td><p><span class="description">A probabilistic context-free grammar with literary extensions for text-generation</span></td>
 		</tr>
 		<tr class="">
           <th scope="row">Examples</th>
           <td></br>
           	<div class="example"> 
 			    
-	     <pre class="margin"> 
-rg = new RiGrammar(jsonStringOrObject);
-
-result = rg.expand();
-		</pre>
+<pre class="margin"> 
+rg = new RiGrammar(stringOrObject);
+result = rg.expand();</pre>
 		
-RiTa grammars are valid JSON-formatted strings as follows:
+RiTa grammars are valid <a href="http://json.org" target="new">JSON</a> or 
+<a href="http://keleshev.com/yaml-quick-introduction" target="new">YAML</a> formatted strings (or objects), as follows<p>
 <pre>
 { 	   
-	"&lt;start&gt;": "&lt;rule1&gt; | &lt;rule2&gt; | &lt;rule3&gt;",
+  "&lt;start&gt;": [ "&lt;rule1&gt;", "&lt;rule2&gt;", "&lt;rule3&gt;" ],
 
-	"&lt;rule2&gt;": "terminal1 | terminal2 | &lt;rule1&gt;",
-		
-	...
+  "&lt;rule2&gt;": [ "terminal1", "terminal2", "&lt;rule1&gt;" ],
+  ...
 }
 </pre>
-OR
-<br/>&nbsp;
+OR (in YAML, where quotes are generally not needed)<p>
 <pre>
-{ 	   
-	"&lt;start&gt;": [ "&lt;rule1&gt;", "&lt;rule2&gt;", "&lt;rule3&gt;" ],
+&lt;start&gt;: [ &lt;rule1&gt;, &lt;rule2&gt;, &lt;rule3&gt; ]
 
-	"&lt;rule2&gt;": [ "terminal1", "terminal2", "&lt;rule1&gt;" ],
-		
-	...
-}
+&lt;rule2&gt;: [ terminal1, terminal2, &lt;rule1&gt; ]
+...
+</pre>
+OR (again, in YAML)<p>
+<pre>
+&lt;start&gt;: 
+  - &lt;rule1&gt;
+  - &lt;multiline&gt;
+
+&lt;rule1&gt;:
+  - terminal string 1
+  - terminal string 2
+  
+&lt;multiline&gt;: >
+  This is
+  a long string
+  that wraps three lines
+...
 </pre>
   
-<li>If you're not sure whether your grammar is valid JSON, you can check it at <a href='http://jsonlint.com/'> jsonlint.com</a><br/>&nbsp;
+<li><a href="http://keleshev.com/yaml-quick-introduction" target="new">YAML</a> is a human-friendly superset of JSON, 
+which is often more convenient to use if you're writing your grammar as a String. 
+If you're working in JavaScript, you can alternatively just pass a JavaScript/JSON object instead. 
+And if you're not sure whether your grammar is valid YAML or JSON, you can check it at 
+<a href='http://yamllint.com/' target="new"> yamllint.com</a> or <a target="new" href='http://jsonlint.com/'> jsonlint.com</a>.<br/>&nbsp;
 	
 <li>Commonly used methods:</li>
 <br/>
 <ul>
 
-<li><code>expand()</code> begins at the &lt;start&gt; state and 
+<li><a href="RiGrammar/expand/" target="new">expand()</a> begins at the &lt;start&gt; state and 
 generates a string of terminals from the grammar.<p>
 	
-<li><code>expandFrom(String)</code> begins with the argument
-String (which can consist of both non-terminals and terminals,) 
-and expands from there.
+<li><a href="RiGrammar/expandFrom/" target="new">expandFrom(String)</a> begins with the argument
+in String (which can consist of both non-terminals and terminals), and expands from there.
 <br> 
 <p>
 	<br>
-Notice that <code>expand()</code> is simply
-a convenient version of <code>expandFrom("&lt;start&gt;");</code>.</p>
+Notice that <a href="RiGrammar/expand/" target="new">expand()</a> is simply
+a convenient version of <a href="RiGrammar/expandFrom/" target="new">expandFrom("&lt;start&gt;");</a>.</p>
 	
 <!--li><code>expandWith(String, String)</code> takes 2 String arguments, the 1st 
 (a terminal) is guaranteed to be substituted for the 2nd (a non-terminal). Once this 
@@ -128,33 +140,32 @@ by the terminal "hello". -->
 
 <li>A RiGrammar object will assign (by default) equal weights to all choices in a rule. 
 One can adjust the weights by adding 'multipliers' as follows: (in the rule below,
-'terminal1' will be chosen twice as often as the 2 other choices.
-<pre>   
-"&lt;rule2&gt;": "terminal1 [2] | terminal2 | &lt;rule1&gt;" 
+'terminal1' will be chosen twice as often as the 2 other choices.<p>
+
+<pre>&lt;rule2&gt;: terminal1 [2] | terminal2 | &lt;rule1&gt; 
 </pre>
 
 <li>The RiGrammar object supports callbacks, from your grammar, back into your code.
 To generate a callback, add the method call in your grammar, surrounded by back-ticks, as follows:
-
-<pre>       
-"&lt;rule2&gt;": "The cat ran after the `pluralize('cat')` | The \
-	 &lt;noun&gt; ran after the `pluralize(&lt;noun&gt;)`" 
+<p>
+<pre>&lt;rule2&gt;:
+  - The cat ran after the `randomNoun()` 
+  - The cat ran after the `pluralize('cat')`
+  - The &lt;noun&gt; ran after the `pluralize(&lt;noun&gt;)` 
 </pre>
 
 <p>
-Then call <em>myGrammar.expand(callee)</em>, where callee is the (optional) object on which to execute the method.
+Then call <a href="RiGrammar/expand/" target="new">expand(callee)</a>, where callee is the (optional) object on which to execute the method.
 If no object is supplied (e.g., in JavaScript) then the function is called in the current scope. 
 </p><p>
 Any number of arguments may be passed in a callback, but for each call,
 there must be a corresponding method in the object that gets the callback , e.g.,
 </p>
-<pre>
-function pluralize(theString) {
+<pre>function pluralize(theString) {
    ...
 }
-
 </pre>
-Note: this mechanism is not yet implemented in NodeJS (see <a href="https://github.com/dhowe/RiTaJS/issues/9">#9</a>)...
+Note: this mechanism is not yet implemented in NodeJS (see <a href="https://github.com/dhowe/RiTaJS/issues/9">Issue #9</a>)...<p>
 
             </div></td>
         </tr> 
@@ -164,53 +175,63 @@ Note: this mechanism is not yet implemented in NodeJS (see <a href="https://gith
 		  <!-- SYNTAX  -->
 		  <td>
 <pre>
-// Initialize a RiGrammar object with no grammar data.
+// Initialize an empty RiGrammar object.
+
 rg = new RiGrammar(); 
 	
-	OR
-     
-// Specify a grammar in JSON format.
-rg = RiGrammar(myJSONGrammar)
+	
+// Or specify a grammar as a YAML/JSON string.
 
-	OR
+rg = RiGrammar("&lt;start&gt;: [ &lt;rule&gt;, terminal ] ...");
 
-// Load a JSON grammar from a file 	
+
+// Or specify a grammar in a YAML/JSON object.
+
+rg = RiGrammar(myJsObject);
+
+
+// Or load a YAML/JSON grammar from a file 	
+
 rg = new RiGrammar();
-rg.loadFrom("file.json");
+rg.loadFrom("grammar.yaml");
 
-      	OR
       	
-// Load a JSON grammar from a URL	
+// Or load a YAML/JSON grammar from a URL	
+
 rg = new RiGrammar();
-rg.loadFrom("http://www.theserver.org/file.json");
+rg.loadFrom("http://www.theserver.org/path/grammar.json");
+
 </pre>
 </td>
         </tr>
+        
 	    <tr class="">
 	      <th scope="row">Parameters</th>
 	      <td><table cellpadding="0" cellspacing="0" border="0" class="sub-table">
 		    <tr class="">
 	          <!-- PARAMETERS  -->
 	          <th width="25%" scope="row" class="nobold">&nbsp; String or Object</th>
-	          <td width="75%">the (JSON) grammar</td>
+	          <td width="75%">the YAML or JSON grammar</td>
             </tr>
 	        </table></td>
         </tr>
+        
 	   	<tr class="">
 	      <th scope="row">Platform</th>
 	      <!-- SYNTAX  -->
 	      <td>Java / Javascript</td>
         </tr>
+        
 		<tr class='Note' style='display:none'>
 	      <th scope="row">Note</th>
 	      <!-- SYNTAX  -->
 	      <td></td>
         </tr>
         
-        				<tr class="">
-					<th scope="row"></th>
-					<td></td>
-				</tr>
+		<tr class="">
+			<th scope="row"></th>
+			<td></td>
+		</tr>
 						
 	      </table>
       		
