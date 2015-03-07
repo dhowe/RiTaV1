@@ -120,19 +120,6 @@ public class BrillPosTagger implements Constants
     return (String[])result.toArray(tmp);
   }
   
-  public boolean isVerb(String pos) {
-    return RiPos.in(pos, RiPos.PENN_VERBS);
-  }
-  public boolean isNoun(String pos) {
-    return RiPos.in(pos, RiPos.PENN_NOUNS);
-  }
-  public boolean isAdverb(String pos) {
-    return RiPos.in(pos,RiPos.PENN_ADV);
-  }
-  public boolean isAdjective(String pos) {
-    return RiPos.in(pos, RiPos.PENN_ADJ);
-  }
-  
   /**
    * Returns the part(s)-of-speech from the Penn tagset for a single word
    * @param word String
@@ -153,19 +140,13 @@ public class BrillPosTagger implements Constants
   /**
    * Tags the word (as usual) with a part-of-speech from the Penn tagset, 
    * then returns the corresponding part-of-speech for WordNet from the
-   * set { 'n', 'v', 'a', 'r' } as a String. 
+   * set { 'n', 'v', 'a', 'r', '-'} as a String. 
    * @param word
    * @see #tag
    */
   public String tagForWordNet(String word)
   { 
-    String pos = tag(word);
-    if (pos==null || pos.length()<1) return null;        
-    if (pos.equals("n") || isNoun(pos))      return "n";
-    if (pos.equals("v") || isVerb(pos))      return "v";
-    if (pos.equals("r") || isAdverb(pos))    return "r";
-    if (pos.equals("a") || isAdjective(pos)) return "a";    
-    return null; 
+    return RiPos.posToWordNet(tag(word));
   } 
   
   /**

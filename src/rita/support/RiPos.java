@@ -148,20 +148,9 @@ public class RiPos
     this.examples = examples;
     this.type = type;
   }  
-
   
-  /** 
-   * Returns true if <code>pos</code> exists in the group <code>choices</code>
-   */
-  public static boolean in(String pos, RiPos[] choices)
-  {
-    for (int i = 0; i < choices.length; i++) 
-      if (pos.equals(choices[i].toString()))
-        return true;
-    return false;
-  }  
-    
   public static RiPos fromWordnet(String label) {
+    
     for (Iterator iter = WORDNET_TAGS.iterator(); iter.hasNext();) {
       RiPos pos = (RiPos) iter.next();
       //System.out.println(pos);
@@ -169,6 +158,23 @@ public class RiPos
         return pos;
     }
     return null;
+  }
+  
+  public static String posToWordNet(String pos)
+  {
+    if (pos == null || pos.length() < 1)
+      return null;
+    
+    if (pos.equals("n") || isNoun(pos))
+      return "n";
+    if (pos.equals("v") || isVerb(pos))
+      return "v";
+    if (pos.equals("r") || isAdverb(pos))
+      return "r";
+    if (pos.equals("a") || isAdj(pos))
+      return "a";
+    
+    return "-";
   }
 
   // getter methods       ================================

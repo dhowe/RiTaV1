@@ -20,9 +20,9 @@ public class RiGrammarTest
   private static final boolean SILENT = true;
   private static boolean WITHOUT_YAML = false;
 
-  static String sentenceGrammarJSON = "{ \"<start>\" : \"<noun_phrase> <verb_phrase>\", \"<noun_phrase>\" : \"<determiner> <noun>\", \"<verb_phrase>\" : \"<verb> | <verb> <noun_phrase> [.1]\", \"<determiner>\" : \"a [.1] | the\", \"<noun>\" : \"woman | man\", \"<verb>\" : \"shoots\" }";
-  static String sentenceGrammarYAML = "<start> : <noun_phrase> <verb_phrase>\n<noun_phrase>: <determiner> <noun>\n<verb_phrase> : <verb> | <verb> <noun_phrase> [.1]\n<noun>: woman | man\n<determiner>: a [.1] | the\n<verb>: shoots";
-  static String sentenceGrammarYAML2 = "<start> : <noun_phrase> <verb_phrase>\n<noun_phrase>: <determiner> <noun>\n<verb_phrase> : \n  - <verb> \n  - <verb> <noun_phrase> [.1]\n<noun>: \n  - woman\n  - man\n<determiner>: \n  - a [.1] \n  - the\n<verb>: shoots";
+  static String sentenceGrammarJSON = "{ \"<start>\" : \"<noun_phrase> <verb_phrase>.\", \"<noun_phrase>\" : \"<determiner> <noun>\", \"<verb_phrase>\" : \"<verb> | <verb> <noun_phrase> [.1]\", \"<determiner>\" : \"a [.1] | the\", \"<noun>\" : \"woman | man\", \"<verb>\" : \"shoots\" }";
+  static String sentenceGrammarYAML = "<start> : <noun_phrase> <verb_phrase>.\n<noun_phrase>: <determiner> <noun>\n<verb_phrase> : <verb> | <verb> <noun_phrase> [.1]\n<noun>: woman | man\n<determiner>: a [.1] | the\n<verb>: shoots";
+  static String sentenceGrammarYAML2 = "<start> : <noun_phrase> <verb_phrase>.\n<noun_phrase>: <determiner> <noun>\n<verb_phrase> : \n  - <verb> \n  - <verb> <noun_phrase> [.1]\n<noun>: \n  - woman\n  - man\n<determiner>: \n  - a [.1] \n  - the\n<verb>: shoots";
 
   static String[] sentenceGrammars = { sentenceGrammarJSON, sentenceGrammarYAML, sentenceGrammarYAML2 };
   static String[] sentenceGrammarFiles = { "sentence1.json", "sentence2.json", "sentence1.yaml", "sentence2.yaml" };
@@ -31,6 +31,7 @@ public class RiGrammarTest
   static {
     
     if (WITHOUT_YAML) {
+      
       YAMLParser.SNAKEYAML = null;
       sentenceGrammars = new String[]{ sentenceGrammarJSON };
       sentenceGrammarFiles = new String[]{ "sentence1.json", "sentence2.json" };
@@ -89,6 +90,30 @@ public class RiGrammarTest
   @Test
   public void testExpand()
   {
+    
+    String gr = "<start>: <rule1>\n<rule1>: cat [.4] | dog [.6] | boy [.2]";
+    RiGrammar rg1 = new RiGrammar(gr);
+    ok(rg1.hasRule("<rule1>"));
+  
+    int c1 = 0, c2 = 0, c3 = 0;
+    for (int i = 0; i < 100; i++)
+    {
+      String res = rg1.expand();
+      
+      ok(res.equals("cat") || res.equals("dog") || res.equals("boy"));
+      
+      if (res.equals("cat"))
+        c1++;
+      else if (res.equals("dog"))
+        c2++;
+      else if (res.equals("boy"))
+        c3++;
+    }
+    ok(c1>0 && c2>0 && c3>0); // found all
+
+    //System.out.println(c1+", "+c2+", "+c3);
+    /////////////////////////////////////////////////////////////////
+
     for (int j = 0; j < sentenceGrammarFiles.length; j++)
     {
       RiGrammar rg = new RiGrammar();
@@ -149,7 +174,9 @@ public class RiGrammarTest
       else if (res.equals("boy"))
         found3 = true;
     }
+    
     ok(found1 && found2 && found3); // found all
+
 
     /////////////////////////////////////////////////////////////////
     
@@ -573,7 +600,7 @@ public class RiGrammarTest
       RiGrammar rg = new RiGrammar(sentenceGrammars[j]);
 
       String s = rg.getGrammar();
-      String e = "<start>\n  '<noun_phrase> <verb_phrase>' [1.0]\n<determiner>\n  'a' [0.1]\n  'the' [1.0]\n<noun_phrase>\n  '<determiner> <noun>' [1.0]\n<verb_phrase>\n  '<verb> <noun_phrase>' [0.1]\n  '<verb>' [1.0]\n<noun>\n  'woman' [1.0]\n  'man' [1.0]\n<verb>\n  'shoots' [1.0]";
+      String e = "<start>\n  '<noun_phrase> <verb_phrase>.' [1.0]\n<determiner>\n  'a' [0.1]\n  'the' [1.0]\n<noun_phrase>\n  '<determiner> <noun>' [1.0]\n<verb_phrase>\n  '<verb> <noun_phrase>' [0.1]\n  '<verb>' [1.0]\n<noun>\n  'woman' [1.0]\n  'man' [1.0]\n<verb>\n  'shoots' [1.0]";
       // println(s);println();println(e);
       equal(s, e);
     }

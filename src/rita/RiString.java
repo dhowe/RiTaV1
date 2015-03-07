@@ -134,7 +134,7 @@ public class RiString implements FeaturedIF, Constants
   void initFeatureMap()
   {
     if (this.features == null)
-      this.features = new HashMap();
+      this.features = new HashMap<String,String>();
     else {
       clearFeatures();
     }
@@ -185,7 +185,7 @@ public class RiString implements FeaturedIF, Constants
     return s;
   }
 
-  public Map features()
+  public Map<String,String> features()
   {
     if (features == null)
       this.analyze(); 
