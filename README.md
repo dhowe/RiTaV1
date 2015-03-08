@@ -18,7 +18,6 @@ Please see https://github.com/dhowe/RiTaJS for the JavaScript implementation of 
 * Maintainers:      See included AUTHORS file for contributor list
 * Web Site:         https://rednoise.org/rita
 * Documentation:    https://rednoise.org/rita/reference
-* Examples:         https://rednoise.org/rita/examples/
 * Github Repo:      https://github.com/dhowe/RiTa/
 * Bug Tracker:      https://github.com/dhowe/RiTa/issues
 
