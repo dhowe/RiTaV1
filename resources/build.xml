@@ -1,47 +1,50 @@
 
 <project name="RiTa" default="test" basedir="../">
 
-    <property file="resources/build.properties" />
-    
+	<property file="resources/build.properties" />
+
 	<property name="project.src"  location="src"/>
 	<property name="project.bin"  location="bin"/>
 	<property name="project.dist" location="dist"/>
 	<property name="project.libs" location="libs"/>
 	<property name="project.examples" location="www/examples"/>
-	
+	<property name="p5.sketchbook" location="${user.home}/Documents/Processing"/>
+	<property name="p5.libraries" location="${p5.sketchbook}/libraries/"/>
+
+
 	<path id="classpath">
 		<fileset dir="${project.libs}" includes="**/*.jar" excludes=""/>
 	</path>
-	
-	<path id="quick.classpath">
+
+	<path id="quickref.classpath">
 		<fileset dir="${project.libs}" includes="**/*.jar"/>
 		<pathelement path="${project.bin}"/>
 		<pathelement path="${project.src}"/>
-    	<pathelement path="${project.libs}"/>
 	</path>
-		
+
 	<path id="test.classpath">
 		<fileset dir="${project.libs}" includes="**/*.jar" excludes="core.jar"/>
 		<pathelement path="${project.dist}/${project.name}/bin"/>
 		<pathelement path="${project.dist}/${project.name}/src"/>
-    	<pathelement path="${project.libs}"/>
 	</path>
-	
+
 	<fileset id="exampleFileSet" dir="${project.examples}">
-			<exclude name="**/*README*"/>
-			<exclude name="**/*.html"/>
-			<exclude name="**/*.properties"/>
-			<exclude name="**/*.xml"/>
-			<exclude name="**/web-export/**"/>
-			<exclude name="**/lib/**"/>
+		<exclude name="**/*README*"/>
+		<exclude name="**/*.html"/>
+		<exclude name="**/*.properties"/>
+		<exclude name="**/*.xml"/>
+		<exclude name="**/web-export/**"/>
+		<exclude name="**/lib/**"/>
 	</fileset>
-	
+
 	<property name="line" value="-----------------------------------------------------------------------" />
-	
-	<!--  excludes="**/test/**"-->
+
 	<target name="compile" depends="create.structure" >
-	     
-		<javac srcdir="${project.src}"
+
+		<!-- Replaces version tag in RiTa.java -->
+		<replace file="${project.dist}/${project.name}/src/rita/RiTa.java" token="##version##" value="${project.version}"/>
+
+		<javac srcdir="${project.dist}/${project.name}/src"
 		    excludes="**/test/sketches/**"
 			destdir="${project.dist}/${project.name}/bin" 
 			source="${java.target.version}" 
@@ -52,32 +55,45 @@
 		</javac>
 
 	</target>
-	
+
 	<target name="create.reference" depends="compile">
-		<java classname="rita.docgen.DocGenerator" fork="true" dir="${basedir}">		    
+		<java classname="rita.docgen.DocGenerator" fork="true" dir="${basedir}">
 			<arg value="www/reference/" />
 			<classpath refid="test.classpath"/>
 		</java>
 	</target>
-	
+
 	<target name="_quickref">
-		<java classname="rita.docgen.DocGenerator" fork="true" dir="${basedir}">		    
+		<!-- dev: generates reference from current src/bin -->
+		<java classname="rita.docgen.DocGenerator" fork="true" dir="${basedir}">
 			<arg value="www/reference/" />
-			<classpath refid="quick.classpath"/>
+			<classpath refid="quickref.classpath"/>
 		</java>
 	</target>
-	
+
 	<target name="build" depends="test, generate.jars, create.reference">
 		<copy todir="${project.dist}/${project.name}/reference">
 			<fileset dir="www/reference"/>
 		</copy>
-	    <delete dir="${project.dist}/${project.name}/bin"/>
+		<delete dir="${project.dist}/${project.name}/bin"/>
+		<antcall target="generate.zip" />
 	</target>
+
+	<target name="generate.zip">
+
+		<zip destfile="${project.dist}/RiTa-${project.version}.zip"
+  	       basedir="${project.dist}/"
+  	       excludes="**/.DS_Store, *.jar, *.zip"
+		/>
 		
+		<!--symlink link="${project.dist}/Current" resource="${project.website}" overwrite="true"/-->
+		
+	</target>
+
 	<target name="generate.jars" depends="compile">
-	    
-	    <!--  copy all non-class files manually -->
-	    
+
+		<!--  copy all non-class files manually -->
+
 		<copy todir="${project.dist}/${project.name}/bin/rita/wordnet">
 			<fileset dir="${project.src}/rita/wordnet">
 				<include name="*.xml"/>
@@ -89,30 +105,30 @@
 				<include name="*.js"/>
 				<include name="*.gif"/>
 			</fileset>
-		</copy>	
+		</copy>
 		<copy todir="${project.dist}/${project.name}/bin">
 			<fileset dir="${project.src}">
 				<include name="*.properties"/>
 			</fileset>
 		</copy>
-		
+
 		<!--  YAML lib for Processing -->
 		<copy file="${project.libs}/snakeyaml-1.15.jar" tofile="${project.dist}/${project.name}/library/snakeyaml-1.15.jar"/>
-		
+
 		<!-- full lib to latest -->
 		<jar jarfile="${project.dist}/rita-${project.version}.jar" basedir="${project.dist}/${project.name}/bin">
 			<exclude name="**/data/**" />
 			<exclude name="**/test/**" />
 			<exclude name="**/docgen/**" />
 		</jar>
-				
+
 		<!-- rita pkg only -->
 		<jar jarfile="${project.dist}/${project.name}/library/rita.jar" basedir="${project.dist}/${project.name}/bin">
 			<include name="rita/*.*/" />
 			<include name="*.properties/" />
 			<exclude name="**/test/**" />
 		</jar>
-		
+
 		<!-- support pkg only -->
 		<jar jarfile="${project.dist}/${project.name}/library/rita.support.jar" basedir="${project.dist}/${project.name}/bin">
 			<exclude name="data/**" />
@@ -121,15 +137,20 @@
 			<exclude name="**/test/**" />
 			<exclude name="**/docgen/**" />
 		</jar>
-			 
-		<!-- 
-		<antcall target="copy.rita.jars.to.processing" />
-		 -->
-		 
+		
 	</target>
 	
+	<target name="_jars.to.p5" description="" depends="clean">
+		
+		<!-- dev: copies generated jars to local processing install -->
+
+		<copy todir="${p5.libraries}/${project.name}/library">
+			<fileset dir="${project.dist}/${project.name}/library"/>
+		</copy>
+	</target>
+
 	<target name="create.structure" description="" depends="clean">
-				
+
 		<mkdir dir="${project.dist}" />
 		<mkdir dir="${project.dist}/${project.name}" />
 		<mkdir dir="${project.dist}/${project.name}/library" />
@@ -145,7 +166,7 @@
 				<include name="*.css"/>
 			</fileset>
 		</copy>
-		
+
 		<copy todir="${project.dist}/${project.name}/examples">
 			<fileset refid="exampleFileSet"/>
 		</copy>
@@ -154,17 +175,16 @@
 			<fileset dir="${project.src}">
 				<exclude name="rita/test/sketches/**"/>
 				<exclude name="**/data/**"/>
-				<exclude name="**/docgen/**"/>
 			</fileset>
 		</copy>
-		
+
 		<copy todir="${project.dist}/${project.name}/bin/data">
 			<fileset dir="${project.src}/data"/>
 		</copy>
-		
+
 		<!--  antcall target="create.src.zip"/-->
-		 		
-	</target>	
+
+	</target>
 
 	<target name="clean" depends="info">
 
@@ -173,50 +193,64 @@
 		<delete dir="${project.build}"/-->
 
 	</target>
-	
+
 	<target name="test-one" description="one" depends="info">
 
 		<junit printsummary="yes" timeout="100000" haltonfailure="yes">
 			<formatter usefile="false" type="plain"/>
-			<classpath><path refid="test.classpath"/></classpath>
-			<test name="rita.test.RiGrammarTest"      outfile="reports/rita.test.RiGrammarTest"></test>
+			<classpath>
+				<path refid="test.classpath"/>
+			</classpath>
+			<test name="rita.test.RiGrammarTest"      outfile="reports/rita.test.RiGrammarTest">
+			</test>
 		</junit>
 
 	</target>
-	
+
 	<target name="test" description="runs all java tests" depends="compile">
 
 		<junit printsummary="yes" timeout="100000" haltonfailure="yes">
-		
-			<classpath><path refid="test.classpath"/></classpath>
+
+			<classpath>
+				<path refid="test.classpath"/>
+			</classpath>
 
 			<formatter usefile="false" type="plain"/>
 
-			<test name="rita.test.RiTaEventTest" outfile="reports/rita.test.RiTaEventTest"></test>
-			<test name="rita.test.RiStringTest"  outfile="reports/rita.test.RiStringTest"></test>
-			<test name="rita.test.RiTaTest"      outfile="reports/rita.test.RiTaTest"></test>
-			<test name="rita.test.RiLexiconTest" outfile="reports/rita.test.RiLexiconTest"></test>
-			<test name="rita.test.RiGrammarTest" outfile="reports/rita.test.RiGrammarTest"></test>
-			<test name="rita.test.RiMarkovTest"  outfile="reports/rita.test.RiMarkovTest"></test>
+			<test name="rita.test.RiTaEventTest" outfile="reports/rita.test.RiTaEventTest">
+			</test>
+			<test name="rita.test.RiStringTest"  outfile="reports/rita.test.RiStringTest">
+			</test>
+			<test name="rita.test.RiTaTest"      outfile="reports/rita.test.RiTaTest">
+			</test>
+			<test name="rita.test.RiLexiconTest" outfile="reports/rita.test.RiLexiconTest">
+			</test>
+			<test name="rita.test.RiGrammarTest" outfile="reports/rita.test.RiGrammarTest">
+			</test>
+			<test name="rita.test.RiMarkovTest"  outfile="reports/rita.test.RiMarkovTest">
+			</test>
 		</junit>
 
-	</target>	
-	
-    <target name="test-wordnet" description="runs all wordnet tests" depends="info">
+	</target>
+
+	<target name="test-wordnet" description="runs all wordnet tests" depends="info">
 
 		<junit printsummary="yes" timeout="100000" haltonfailure="yes">
 
 			<formatter usefile="false" type="plain"/>
 
-			<classpath><path refid="test.classpath"/></classpath>
-			
-			<test name="rita.test.RiWordNetTest" outfile="reports/rita.test.RiWordNetTest"></test>
+			<classpath>
+				<path refid="test.classpath"/>
+			</classpath>
+
+			<test name="rita.test.RiWordNetTest" outfile="reports/rita.test.RiWordNetTest">
+			</test>
 			<!--test name="rita.test.RiWordNetIteratorsTest"  haltonfailure="no" outfile="reports/rita.test.RiWordNetTest"></test-->
 
 		</junit>
 
 	</target>
-	
+
 	<target name="info">
 		<echo>
 ${line}
@@ -224,7 +258,7 @@ Name:	${project.name}
 Version:	${project.version}
 Java.Version:	${java.version}
 ${line}
-		</echo>		
-	</target>				
-	
+		</echo>
+	</target>
+
 </project>

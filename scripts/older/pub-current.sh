@@ -1,5 +1,5 @@
 #!/bin/sh
-# same as pub-zip-only, but doesn't link the zip on rednoise
+# same as pub-zip-and-link, but doesn't link the zip on rednoise
 
 if [ $# != 1 ]
 then

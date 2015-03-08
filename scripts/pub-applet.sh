@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# packages and publishes a sketch @ rednoise/~www/sketches
+# packages and publishes a sketch @ $SERVER/~www/sketches
 # assumes the sketch is in $SKETCHBOOK, as defined below
 
 if [ $# != 1 ]
@@ -17,6 +17,7 @@ then
 fi
 
 TMP_DIR=/tmp
+SERVER=${RED}
 SKETCH_NAME=$1
 SKETCHBOOK=~/Documents/Processing/$SKETCH_NAME/applet
 #SKETCHBOOK=~/Documents/eclipse-workspace/$SKETCH_NAME/applet
@@ -41,7 +42,7 @@ jar tf $ZIP_FILE
 
 echo moving $ZIP_FILE
 
-cat $ZIP_FILE | ssh dhowe@${RED} "(cd /Library/WebServer/Documents/sketches; tar xf -; /bin/rm -rf $ZIP_FILE; chmod -R 775 $SKETCH_NAME; )"
+cat $ZIP_FILE | ssh ${USER}@${SERVER} "(cd /Library/WebServer/Documents/sketches; tar xf -; /bin/rm -rf $ZIP_FILE; chmod -R 775 $SKETCH_NAME; )"
 
 echo cleaning up...
 
@@ -50,6 +51,6 @@ mv -f $ZIP_FILE ~/.Trash
 
 cd -
 
-echo Published to ${RED}/sketches/$SKETCH_NAME
+echo Published to ${SERVER}/sketches/$SKETCH_NAME
 
 exit
