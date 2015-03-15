@@ -191,7 +191,83 @@ public class RiStringTest implements Constants
 
     rs = new RiString("");
     result = rs.endsWith("");
-    ok(result);
+	ok(result);
+  }
+
+  @Test
+  public void testEqualsObject() 
+  {
+	RiString rs = new RiString("closed");
+	RiString rs2 = new RiString("closed");
+	boolean result = rs.equals(rs2);
+	ok(result);
+
+	rs = new RiString("closed");
+	rs2 = new RiString("Closed");
+	result = rs.equals(rs2);
+	ok(!result);
+
+	rs = new RiString("clOsed");
+	rs2 = new RiString("closed");
+	result = rs.equals(rs2);
+	ok(!result);
+
+	rs = new RiString("There is a cat.");
+	rs2 = new RiString("There is a cat.");
+	result = rs.equals(rs2);
+	ok(result);
+
+	rs = new RiString("There is a cat.");
+	rs2 = new RiString("There is a cat. ");
+	result = rs.equals(rs2);
+	ok(!result);
+
+	rs = new RiString("There is a cat.");
+	rs2 = new RiString("There is a cat");
+	result = rs.equals(rs2);
+	ok(!result);
+
+	rs = new RiString("There is a cat.");
+	rs2 = new RiString("");
+	result = rs.equals(rs2);
+	ok(!result);
+
+	rs = new RiString("");
+	rs2 = new RiString("");
+	result = rs.equals(rs2);
+	ok(result);
+  }
+
+  @Test
+  public void testEqualsString() 
+  {
+	RiString rs = new RiString("closed");
+	boolean result = rs.equals("closed");
+	ok(result);
+
+	rs = new RiString("closed");
+	result = rs.equals("Closed");
+	ok(!result);
+
+	rs = new RiString("clOsed");
+	result = rs.equals("closed");
+	ok(!result);
+
+	rs = new RiString("There is a cat.");
+	result = rs.equals("There is a cat.");
+	ok(result);
+
+	rs = new RiString("There is a cat.");
+	result = rs.equals("There is a cat. ");
+	ok(!result);
+
+	rs = new RiString("There is a cat.");
+	result = rs.equals("There is a cat");
+	ok(!result);
+
+	rs = new RiString("There is a cat.");
+	result = rs.equals("");
+	ok(!result);
   }
 
   @Test
