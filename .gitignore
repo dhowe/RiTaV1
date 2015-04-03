@@ -1,15 +1,12 @@
 tmp
-bin/**
 .DS_STORE
 **/.DS_STORE
 readme.html
 TODO.txt
 /bin
 /RiTaLibraryJS
+/RiTaJS
 tasks.txt
-/distribution
-/selenium-java-2.42.2.zip
-/RiTaLibraryJS-Jul152014.zip
 /latest
 /website
 /web-pub
