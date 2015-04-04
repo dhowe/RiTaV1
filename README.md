@@ -12,14 +12,13 @@ Please see https://github.com/dhowe/RiTaJS for the JavaScript implementation of 
 
 #### About the project
 --------
-* Original Author:  Daniel C. Howe (https://rednoise.org/~dhowe)
+* Author:         Daniel C. Howe (https://rednoise.org/~dhowe)
 * Related:			RiTaJS -> https://github.com/dhowe/RiTaJS
-* License:			GPL (see included LICENSE file for full license)
-* Maintainers:      See included AUTHORS file for contributor list
-* Web Site:         https://rednoise.org/rita
-* Documentation:    https://rednoise.org/rita/reference
-* Github Repo:      https://github.com/dhowe/RiTa/
-* Bug Tracker:      https://github.com/dhowe/RiTa/issues
+* License:			GPL (see included [LICENSE](https://github.com/dhowe/RiTa/blob/master/LICENSE) file for full license)
+* Web Site:       https://rednoise.org/rita
+* Reference:      https://rednoise.org/rita/reference
+* Github Repo:    https://github.com/dhowe/RiTa/
+* Bug Tracker:    https://github.com/dhowe/RiTa/issues
 
 #### Can I contribute?
 --------
@@ -46,17 +45,13 @@ If you don't feel like coding but still want to contribute, please send a twitte
 6. To run the tests: 
 
    a. Navigate to the RiTa/resources directory and right-click on 'build.xml'
-   
    b. Select 'Run as' > 'Ant Build' to compile and run the tests in JUnit.
 
 7. To build the project:
 
    a. In the Eclipse menu, select 'Window' > 'Show View' -> 'Ant
-   
    b. Click the '+' button to add a buildfile, and navigate to RiTa/resources/build.xml
-   
    c. Click to expand the 'RiTa' menu and reveal the various tasks, then double-click 'build'
-   
    d. When the build is complete, project resources can be found in RiTa/dist 
 
 8. Work on an existing [issue](https://github.com/dhowe/RiTa/issues?q=is%3Aopen+is%3Aissue), then [submit a pull request...](https://help.github.com/articles/creating-a-pull-request)
