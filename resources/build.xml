@@ -201,7 +201,7 @@
 			<classpath>
 				<path refid="test.classpath"/>
 			</classpath>
-			<test name="rita.test.RiGrammarTest"      outfile="reports/rita.test.RiGrammarTest">
+			<test name="rita.test.RiLexiconTest"      outfile="reports/rita.test.RiGrammarTest">
 			</test>
 		</junit>
 

@@ -124,7 +124,7 @@ public interface EnglishConstants
    *   (see http://mpii.de/yago-naga/javatools).
    * @exclude
    */
-  Set<String> categorySE_SES= new FinalSet<String>(
+  FinalSet<String> categorySE_SES= new FinalSet<String>(
    "nurses",
    "cruises"
   );
@@ -132,7 +132,7 @@ public interface EnglishConstants
   /** 
    * Words that do not have a distinct plural form (like "atlas" etc.)
    */
-  Set<String> category00=new FinalSet<String>(
+  FinalSet<String>category00=new FinalSet<String>(
    "alias",
    "asbestos",
    "atlas",
@@ -185,7 +185,7 @@ public interface EnglishConstants
    *   (see http://mpii.de/yago-naga/javatools).
    * @exclude
    */
-  Set<String> categoryUM_A=new FinalSet<String>(
+  FinalSet<String>categoryUM_A=new FinalSet<String>(
     "addenda",
     "agenda",
     "aquaria",
@@ -235,7 +235,7 @@ public interface EnglishConstants
    *   (see http://mpii.de/yago-naga/javatools).
    * @exclude
    */
-  Set<String> categoryON_A=new FinalSet<String>(
+  FinalSet<String>categoryON_A=new FinalSet<String>(
     "aphelia",
     "asyndeta",
     "automata", 
@@ -255,7 +255,7 @@ public interface EnglishConstants
    *   (see http://mpii.de/yago-naga/javatools).
    * @exclude 
    */
-  Set<String> categoryO_I=new FinalSet<String>(
+  FinalSet<String>categoryO_I=new FinalSet<String>(
    "alti",
    "bassi",
    "canti",
@@ -275,7 +275,7 @@ public interface EnglishConstants
    *   (see http://mpii.de/yago-naga/javatools).
    * @exclude
    */
-  Set<String> categoryUS_I=new FinalSet<String>(
+  FinalSet<String>categoryUS_I=new FinalSet<String>(
    "alumni",
    "bacilli",
    "cacti",
@@ -306,7 +306,7 @@ public interface EnglishConstants
    *   (see http://mpii.de/yago-naga/javatools).
    * @exclude
    */
-  Set<String> categoryIX_ICES=new FinalSet<String>(
+  FinalSet<String>categoryIX_ICES=new FinalSet<String>(
     "appendices",
     "cervices"
   );
@@ -318,7 +318,7 @@ public interface EnglishConstants
    *   (see http://mpii.de/yago-naga/javatools).
    * @exclude
    */
-  Set<String> categoryIS_ES=new FinalSet<String>(
+  FinalSet<String>categoryIS_ES=new FinalSet<String>(
     // plus everybody ending in theses
     "analyses",
     "axes",
@@ -334,7 +334,7 @@ public interface EnglishConstants
   );
 
   /** Words that change from "-oe" to "-oes" (like "toe" etc.), listed in their plural forms*/
-  Set<String> categoryOE_OES=new FinalSet<String>(
+  FinalSet<String>categoryOE_OES=new FinalSet<String>(
     "aloes",
     "backhoes",
     "beroes",
@@ -374,7 +374,7 @@ public interface EnglishConstants
   );
 
   /** Words that change from "-ex" to "-ices" (like "index" etc.), listed in their plural forms*/
-  Set<String> categoryEX_ICES=new FinalSet<String>(
+  FinalSet<String>categoryEX_ICES=new FinalSet<String>(
     "apices",
     "codices",
     "cortices",
@@ -389,7 +389,7 @@ public interface EnglishConstants
   );
 
   /** Words that change from "-u" to "-us" (like "emu" etc.), listed in their plural forms*/
-  Set<String> categoryU_US=new FinalSet<String>(
+  FinalSet<String>categoryU_US=new FinalSet<String>(
    "apercus",
    "barbus",
    "cornus",
@@ -414,7 +414,7 @@ public interface EnglishConstants
   );
 
   /** Words that change from "-sse" to "-sses" (like "finesse" etc.), listed in their plural forms*/
-  Set<String> categorySSE_SSES=new FinalSet<String>(
+  FinalSet<String>categorySSE_SSES=new FinalSet<String>(
     //plus those ending in mousse
     "bouillabaisses",
     "coulisses",
@@ -440,7 +440,7 @@ public interface EnglishConstants
   );
 
   /** Words that change from "-che" to "-ches" (like "brioche" etc.), listed in their plural forms*/
-  Set<String> categoryCHE_CHES=new FinalSet<String>(
+  FinalSet<String>categoryCHE_CHES=new FinalSet<String>(
     "adrenarches",
     "attaches",
     "avalanches",
@@ -482,7 +482,7 @@ public interface EnglishConstants
   );
 
   /** Words that end with "-ics" and do not exist as nouns without the 's' (like "aerobics" etc.)*/
-  Set<String> categoryICS=new FinalSet<String>(
+  FinalSet<String>categoryICS=new FinalSet<String>(
     "aerobatics",
     "aerobics",
     "aerodynamics",
@@ -630,7 +630,7 @@ public interface EnglishConstants
   );
 
   /** Words that change from "-ie" to "-ies" (like "auntie" etc.), listed in their plural forms*/
-  Set<String> categoryIE_IES = new FinalSet<String>(
+  FinalSet<String>categoryIE_IES = new FinalSet<String>(
     "aeries",
     "anomies",
     "aunties",
@@ -821,7 +821,7 @@ public interface EnglishConstants
    * Borrowed from the PlingStemmer stemmer implementation 
    * @exclude 
    */
-  Set<String> SINGULAR_AND_PLURAL = new FinalSet<String>(
+  FinalSet<String>SINGULAR_AND_PLURAL = new FinalSet<String>(
         "acoustics",        
         "aesthetics",
         "aquatics",

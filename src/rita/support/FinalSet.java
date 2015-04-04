@@ -20,9 +20,11 @@ Example:
    --> b
 </PRE>
 */
-public class FinalSet<T extends Comparable> extends AbstractList<T> implements Set<T>{
+public class FinalSet<T extends Comparable> extends AbstractList<T> {
+	
   /** Holds the data, must be sorted */
-  public T[] data;  
+  public T[] data;
+  
   /** Constructs a FinalSet from an array, clones and sorts the array if indicated. */
   @SuppressWarnings("unchecked")
   public FinalSet(boolean clone,T... a) {

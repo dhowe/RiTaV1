@@ -15,6 +15,7 @@ import rita.RiTa;
 public class RiLexiconTest
 { 
 	static {
+		System.out.println(System.getProperty("java.version"));
 		RiLexicon.SILENCE_LTS = true;
 	}
 

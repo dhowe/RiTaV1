@@ -72,7 +72,12 @@
 			      <p>
 Provides support for access to the WordNet ontological database. <b>Note that WordNet data files are no longer supplied 
 as part of the installation.</b> Please download the version (3.x is recommended) for your platform
-<a href="http://wordnet.princeton.edu/wordnet/download/current-version/" target=_blank>here</a>.  
+<a href="http://wordnet.princeton.edu/wordnet/download/current-version/" target=_blank>here</a>. 
+The examples below assume the following installation structure (linux/unix/osx):</p><p>
+	 &nbsp; &nbsp;/path/to/WordNet3.1 <br>
+	 &nbsp; &nbsp;/path/to/WordNet3.1/dict/<br>
+	 &nbsp; &nbsp;/path/to/WordNet3.1/dict/data.noun<br>
+	 &nbsp; &nbsp;...
  </p>
   <p>
  For more info on the meaning of various WordNet concepts (synset, sense,
@@ -82,13 +87,13 @@ as part of the installation.</b> Please download the version (3.x is recommended
  Construct a RiWordNet object like so:
  
  <pre>
-   RiWordNet wordnet = new RiWordNet(&quot;/WordNet3.1&quot;);
+   RiWordNet wordnet = new RiWordNet(&quot;/path/to/WordNet3.1&quot;);
  </pre>
  
  or, on Windows:
  
  <pre> 
-   RiWordNet wordnet = new RiWordNet(&quot;c:\\WordNet3.0&quot;);
+   RiWordNet wordnet = new RiWordNet(&quot;c:\\path\\to\\WordNet3.0&quot;);
  </pre>
  
  Generally three methods are provided for each relation type. Using hypernyms as an example:
