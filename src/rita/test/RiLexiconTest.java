@@ -1075,6 +1075,10 @@ public class RiLexiconTest
 	{
 		RiLexicon lex = new RiLexicon(); // only 1 per test needed
 
+		String[] result2 = lex.substrings("headache");
+		String[] answer2 = { "ache", "head" };
+		deepEqual(result2, answer2);
+		
 		String[] result = lex.substrings("goxgle"); 
 		ok(result.length==0);
 
@@ -1082,26 +1086,13 @@ public class RiLexiconTest
 		String[] answer = { "sand", "thou" };
 		deepEqual(result, answer);
 
-		String[] result2 = lex.substrings("headache");
-		/*		for(int i=0; i<result2.length; i++){
-			//System.out.println(result2[i]);
-		}*/
-		String[] answer2 = { "ache", "head" };
-		deepEqual(result2, answer2);
 
 		String[] result3 = lex.substrings("exhibition");
-		/*		for(int i=0; i<result3.length; i++){
-			//System.out.println(result3[i]);
-		}*/
 		String[] answer3 = { "exhibit"};
 		deepEqual(result3, answer3);
 
 
-
 		String[] result4 = lex.substrings("hell");
-		/*		for(int i=0; i<result4.length; i++){
-			System.out.println(result4[i]);
-		}*/
 		String[] answer4 = { };
 		deepEqual(result4, answer4);
 
