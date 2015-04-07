@@ -1,8 +1,19 @@
 package rita;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.regex.Pattern;
 
-import rita.support.*;
+import rita.support.Constants;
+import rita.support.JSONLexicon;
+import rita.support.MinEditDist;
+import rita.support.Phoneme;
+import rita.support.PosTagger;
+import rita.support.SetOp;
 
 /**
  * RiLexicon represents the core 'dictionary' (or lexicon) for the RiTa tools. 
@@ -282,7 +293,7 @@ public class RiLexicon implements Constants
 
   public String[] words()
   {
-    return SetOp.toStringArray(lexicalData().keySet(), true);
+    return this.words(false);
   }
 
   public String[] words(String regex)
@@ -290,17 +301,16 @@ public class RiLexicon implements Constants
     return words(regex, false);
   }
   
-
-  public String[] words(boolean ordered)
+  public String[] words(boolean shuffled)
   {
-    return SetOp.toStringArray(lexicalData().keySet(), ordered);
+    return SetOp.toStringArray(lexicalData().keySet(), shuffled);
   }
   
  /**
   * Returns the set of words in the lexicon
-  * that match the supplied regular expression in random order. 
-  * For example, getWords("ee"); returns 661 words with 2 or more consecutive e's,
-  * while getWords("ee.*ee"); returns exactly 2: 'freewheeling' and 'squeegee'.
+  * that match the supplied regular expression. 
+  * For example, lex.words("ee"); returns 661 words with 2 or more consecutive e's,
+  * while lex.words("ee.*ee"); returns exactly 2: 'freewheeling' and 'squeegee'.
   * 
   * @param sorted Sorted alphabetically when true
   */
@@ -308,8 +318,13 @@ public class RiLexicon implements Constants
   {
     if (!regex.startsWith(DOT_STAR)) regex = DOT_STAR+regex;
     if (!regex.endsWith(DOT_STAR)) regex = regex+DOT_STAR;
+    return this.words(Pattern.compile(regex), sorted);
+  }
+  
+  public String[] words(Pattern regex, boolean sorted)
+  {
     Set words = lexImpl.getWords(regex);
-    String[] s = (String[]) words.toArray(new String[words.size()]);
+    String[] s = (String[]) words.toArray(EMPTY);
     if (!sorted) RiTa.shuffle(s);
     return s;
   }

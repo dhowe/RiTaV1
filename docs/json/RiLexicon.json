@@ -154,7 +154,7 @@
    {
       "name": "rhymes",
       "example":"",
-      "description":"Two words rhyme aer considered as rhyming if their final stressed vowel and all following phonemes are identical",
+      "description":"Two words rhyme are considered as rhyming if their final stressed vowel and all following phonemes are identical",
       "syntax":"rhymes(word);",
       "parameters":
       [
@@ -178,7 +178,7 @@
       "name": "words",
       "example":"",
       "description":"Returns the array of all words in the lexicon or those matching a specific regex. <br/>If specified, the order of the result array is randomized before return.",
-      "syntax":"words()<br/>words(regex);<br/>words(ordered);<br/>words(regex, ordered);",
+      "syntax":"words()<br/>words(regex);<br/>words(shuffled);<br/>words(regex, shuffled);",
       "parameters":
       [
 			{ 
@@ -187,7 +187,7 @@
 			},
 			{ 
 			"type": "boolean", 
-			"desc": "In sorted order when true (default=false)" 
+			"desc": "In randomized order when true (default=false)" 
 			}
 	  ],
 	  "returns":
@@ -204,7 +204,7 @@
    {
       "name": "isAdverb",
       "example":"",
-      "description":"Returns true if the word haa an adverb form. That is, if any of its possible parts of speech are any variant of an adverb in the PENN part-of-speech tag set (e.g. rb, rbr, rbs)",
+      "description":"Returns true if the word has an adverb form. That is, if any of its possible parts of speech are any variant of an adverb in the PENN part-of-speech tag set (e.g. rb, rbr, rbs)",
       "syntax":"isAdverb(word);",
       "parameters":
       [

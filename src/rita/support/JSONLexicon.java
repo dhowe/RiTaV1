@@ -453,15 +453,19 @@ public class JSONLexicon implements Constants
   {
     return lexicalData.keySet();
   }
-
-  public Set<String> getWords(String regex)
+//
+//  public Set<String> getWords(String regex)
+//  {
+//    return getWords(Pattern.compile(regex));
+//  }
+  
+  public Set<String> getWords(Pattern regex)
   {
-    Set s = new TreeSet();
-    Pattern p = Pattern.compile(regex);
+    Set<String> s = new TreeSet<String>();
     for (Iterator<String> iter = iterator(); iter.hasNext();)
     {
       String str = iter.next();
-      if (p.matcher(str).matches())
+      if (regex.matcher(str).matches())
         s.add(str);
     }
     return s;
@@ -476,7 +480,7 @@ public class JSONLexicon implements Constants
       throw new RiTaException("Pos '" + pos + "' is not a known part-of-speech tag." 
           + " Check the list at http://rednoise.org/rita/reference/PennTags.html");
     
-    Set s = new TreeSet();
+    Set<String> s = new TreeSet<String>();
     String posSpc = pos + " ";
     for (Iterator<String> iter = iterator(); iter.hasNext();)
     {

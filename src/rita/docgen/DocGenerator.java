@@ -347,7 +347,7 @@ public class DocGenerator extends PApplet
   public static void main(String[] args)
   {
 
-    //args = new String[]{ "www/reference/" };
+    args = new String[]{ "www/reference/" };
     
     if (args.length==0)
       go(new String[] { OUTPUT_DIR, DATA_DIR}); // ALL
