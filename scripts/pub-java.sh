@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# assumes rita zip/jar have already been created in ../dist
+
 if [ $# != 1 ]
 then
   echo
