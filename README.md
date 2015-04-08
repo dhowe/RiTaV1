@@ -20,6 +20,22 @@ Please see https://github.com/dhowe/RiTaJS for the JavaScript implementation of 
 * Github Repo:    https://github.com/dhowe/RiTa/
 * Bug Tracker:    https://github.com/dhowe/RiTa/issues
 
+#### A Simple Example
+--------
+
+```java
+import rita.*;
+
+public class SimpleExample {
+  
+  public static void main(String[] args) {
+    
+    RiString rs = new RiString("The elephant took a bite!");
+    System.out.println(rs.features());
+  }
+}
+```
+
 #### Can I contribute?
 --------
 Please! We are looking for more coders to help out... Just press *Fork* at the top of this page and get started, or follow the instructions below... 
