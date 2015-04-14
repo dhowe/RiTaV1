@@ -31,9 +31,9 @@
         <ul>
           <li><a href="../index.html"><span>home</span></a></li>
           <li><a href="../download/index.html"><span>download</span></a></li>
-		  <li><a href="../quickstart/index.html"><span>quick start</span></a></li>
+		  <li><a href="../quickstart/index.html" class="selected"><span>quick start</span></a></li>
           <li><a href="../reference/index.html"><span>reference</span></a></li>
-		  <li><a href="../examples/index.html" class="selected"><span>examples</span></a></li>
+		  <li><a href="../examples/index.html"><span>examples</span></a></li>
           <!--li><a href="../tutorial/index.html"><span>tutorial</span></a></li-->
 		  <li><a href="../gallery/index.html"><span>gallery</span></a></li>
           <li><script type="text/javascript">InsertMailToTag("daniel", "rednoise.org");</script></li>
@@ -44,62 +44,25 @@
       <div class="page row">
       
         <div class="span11" height=500>
-        	<h2>Examples</h2><br/>&nbsp;<br/>
-
-<table>
-
-<tr>
-<td width=5>&nbsp;</td><td><a href="ASimpleOne/">ASimpleOne</a>&nbsp;&nbsp;<a href="ASimpleOne/ASimpleOne.pde">(source)</a></td><td width=15>&nbsp;</td><td class=desc> Super simple text display
-</td>
-</tr>
-
-
-<tr>
-<td width=5>&nbsp;</td><td><a href="BoundingBoxes/">BoundingBoxes</a>&nbsp;&nbsp;<a href="BoundingBoxes/BoundingBoxes.pde">(source)</a></td><td width=15>&nbsp;</td><td class=desc> Bounding boxes & alignment options
-</td>
-</tr>
-
-<tr>
-<td width=5>&nbsp;</td><td><a href="HaikuGrammar/">HaikuGrammar</a>&nbsp;&nbsp;<a href="HaikuGrammar/HaikuGrammar.pde">(source)</a></td><td width=15>&nbsp;</td><td class=desc> A simplified Haiku with RiGrammar 
-</td>
-</tr>
-
-<tr>
-<td width=5>&nbsp;</td><td><a href="Kafgenstein/">Kafgenstein</a>&nbsp;&nbsp;<a href="Kafgenstein/Kafgenstein.pde">(source)</a></td><td width=15>&nbsp;</td><td class=desc> A RiMarkov example w' Kafka & Wittgenstein
-</td>
-</tr>
-
-<tr>
-<td width=5>&nbsp;</td><td><a href="LetterGrid/">LetterGrid</a>&nbsp;&nbsp;<a href="LetterGrid/LetterGrid.pde">(source)</a></td><td width=15>&nbsp;</td><td class=desc> Processing's letter-grid example
-</td>
-</tr>
-
-<tr>
-<td width=5>&nbsp;</td><td><a href="TextLayout/">TextLayout</a>&nbsp;&nbsp;<a href="TextLayout/TextLayout.pde">(source)</a></td><td width=15>&nbsp;</td><td class=desc> Simple layout of a page of text 
-</td
-></tr>
-
-<tr>
-<td width=5>&nbsp;</td><td><a href="TextMotion/">TextMotion</a>&nbsp;&nbsp;<a href="TextMotion/TextMotion.pde">(source)</a></td><td width=15>&nbsp;</td><td class=desc>RiTexts in motion with moveTo()
-</td>
-</tr>
-
-<tr>
-<td width=5>&nbsp;</td><td><a href="WordsLettersLines/">WordsLettersLines</a>&nbsp;&nbsp;<a href="WordsLettersLines/WordsLettersLines.pde">(source)</a></td><td width=15>&nbsp;</td><td class=desc>Create RiTexts by line, word, or letter
-</td>
-</tr>
-
-<tr>
-<td width=5>&nbsp;</td><td><!--a href="RandomSyns/RandomSyns.pde"-->RandomSynonyms<!--/a-->&nbsp;&nbsp;<a href="RandomSyns/RandomSyns.pde">(source)</a></td><td width=15>&nbsp;</td><td class=desc>Generate lists of synonyms with RiWordNet
-</td>
-</tr>
-
-<tr>
-<td width=5>&nbsp;</td><td><!--a href="ReplaceableWriting/ReplaceableWriting.pde"-->ReplaceableWriting<!--/a-->&nbsp;&nbsp;<a href="ReplaceableWriting/ReplaceableWriting.pde">(source)</a></td><td width=15>&nbsp;</td><td class=desc>Real-time word replacement with RiWordNet
-</td>
-</tr>
-
-</table>
+        	<h2>Quick Start</h2>
+        	<p><br>
+        	  <strong>Install (Java)</strong></p>
+        	<ul>
+            	<li>standalone program (use main): <a href="https://github.com/dhowe/RiTa#a-simple-example" target="_blank">https://github.com/dhowe/RiTa#a-simple-example</a></li>
+        		<li>library in Processing: <a href="https://github.com/dhowe/RiTa#in-processing" target="_blank">https://github.com/dhowe/RiTa#in-processing</a></li>
+        		<li>library in Processing on Android: <a href="https://github.com/dhowe/RiTa#in-processing-on-android" target="_blank">https://github.com/dhowe/RiTa#in-processing-on-android</a></li>
+        		<li>library in Android (standalone-app): <a href="https://github.com/dhowe/RiTa#in-android" target="_blank">https://github.com/dhowe/RiTa#in-android</a></li>
+            </ul>
+        	<p><strong>Install (Javascript)</strong></p>
+            <ul>
+        		<li>on node (from npm): <a href="https://www.npmjs.com/package/rita" target="_blank">https://www.npmjs.com/package/rita</a></li>
+        		<li>on node (from github): <a href="https://github.com/dhowe/RiTaJS#with-nodejs" target="_blank">https://github.com/dhowe/RiTajs#with-nodejs</a></li>
+        		<li>browser: <a href="https://github.com/dhowe/RiTaJS#a-simple-sketch" target="_blank">https://github.com/dhowe/RiTaJS#a-simple-sketch</a></li>
+        		<li>browser with browserify: <a href="https://github.com/dhowe/RiTaJS#browserify" target="_blank">https://github.com/dhowe/RiTaJS#browserify</a></li>
+        		<li>browser with bower: <a href="https://github.com/dhowe/RiTaJS#bower" target="_blank">https://github.com/dhowe/RiTaJS#bower</a></li>
+        		<li>browser with p5.js: <a href="https://github.com/dhowe/RiTaJS#p5js" target="_blank">https://github.com/dhowe/RiTaJS#p5js</a></li>
+        		<li>browser with ProcessingJS: <a href="https://github.com/dhowe/RiTaJS#ProcessingJS" target="_blank">https://github.com/dhowe/RiTaJS#ProcessingJS</a></li>
+            </ul>
 
         </div>
           
