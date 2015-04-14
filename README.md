@@ -52,6 +52,7 @@ Or, see the 'Development Setup' instructions below...
 In Processing
 --------
 To install:
+
 1. Open Processing and select 'Sketch' menu > 'Import Library...' > 'Add Library...'
 2. Search in the keyword file 'Rita' and then install it
 
@@ -64,6 +65,17 @@ new RiText(this, "SIMPLE").draw();
 
 In Processing on Android
 --------
+To install:
+
+1. From the Processing Apps UI, 'Menu' > 'Tools' > 'Import Library' > 'Manage Libraries'
+2. Inside the 'Library Manager', 'Menu' > either choose 'Get Libraries' to download the ['RiTa-latest.zip'](https://rednoise.org/rita/download/RiTa-latest.zip) through browsers and then 'Install Compressed Library' to manually locate and install the zip file of the RiTa library
+
+To run:
+```
+import rita.*;
+
+println(RiTa.tokenize("The elephant took a bite!"));
+```
 
 #### Can I contribute?
 --------
