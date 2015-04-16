@@ -24,7 +24,9 @@ Please see https://github.com/dhowe/RiTaJS for the JavaScript implementation of 
 --------
 To install:
 
-1. create a new project and with paste the following code into a new class, SimpleExample.java
+1. Create a new Java project in eclipse (or your favorite IDE)
+2. Download [rita-latest.jar](http://rednoise.org/rita/download/rita-latest.jar) and add it to the build path for your project. In eclipse: 'Project' > 'Properties' > 'Java Build Path' > 'Libraries' > 'Add External JARs...'
+3. Create new class, SimpleExample.java, with the following code:
 ```Java
 import rita.*;
 
@@ -37,7 +39,6 @@ public class SimpleExample {
   }
 }
 ```
-2. download [rita-latest.jar](http://rednoise.org/rita/download/rita-latest.jar) and add it to the build path for your project: 'Project' > 'Properties' > 'Java Build Path' > 'Libraries' > 'Add External JARs...'
 
 In Processing
 --------
@@ -46,19 +47,18 @@ To install:
 1. Open Processing and select 'Sketch' menu > 'Import Library...' > 'Add Library...'
 2. Search for 'RiTa' and then install it
 
-Create a test sketch as follows (and/or see the included example):
+Create a simple test sketch as follows (and/or see the included examples):
 ```
 import rita.*;
 
 println(RiTa.tokenize("The elephant took a bite!"));
 ```
 
-In Processing on Android
+In Processing (Android-mode)
 --------
-To install:
-
-1. From the Processing Apps UI, 'Menu' > 'Tools' > 'Import Library' > 'Manage Libraries'
-2. Inside the 'Library Manager', 'Menu' > either choose 'Get Libraries' to download the ['RiTa-latest.zip'](https://rednoise.org/rita/download/RiTa-latest.zip) through browsers and then 'Install Compressed Library' to manually locate and install the zip file of the RiTa library
+1. Follow these [instructions](https://github.com/processing/processing-android/wiki#Instructions) to setup your environment
+2. To add RiTa to your Processing project, select  'Menu' > 'Tools' > 'Import Library' > 'Manage Libraries'
+3. Find RiTa inside the 'Library Manager', via 'Menu' > 'Get Libraries' or simply  download ['RiTa-latest.zip'](https://rednoise.org/rita/download/RiTa-latest.zip) then select 'Install Compressed Library' to manually install the zip file.
 
 To run:
 ```
