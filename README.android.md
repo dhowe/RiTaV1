@@ -19,16 +19,18 @@ About the project
 
 In android
 --------
-<h6>Android Studio:</h6>
+<h6>Android Studio</h6>
+
+To install:
 
 1. 'Start a new Android Studio project' with Application name 'Rita Example' and Company Domain 'example.com' and select 'Blank Activity' and then finsih
 2. in the project window (alt + 1 / cmd + 1) 'manifests', 'java' and 'res' packges can be seen under 'app'
 3. right click on 'java' and create a new 'Package' called 'libs', drag the [rita-latest.jar](http://rednoise.org/rita/download/rita-latest.jar) inside
 4. when prompted check 'Search for references' and select 'Unlock files'
 5. right click on the jar file > 'Add As Library...'
-6. Add 'import rita.*;' to the java file and ready to go
+6. Add 'import rita.*;' to the java file 
 
-To run tests:
+To run:
 
 copy and paste the following code to 'MainActivity.java'
 ```
@@ -57,7 +59,6 @@ public class MainActivity extends ActionBarActivity {
         t.setText( Arrays.toString(a) );
     }
 }
-
 ```
 
 #### Can I contribute?
