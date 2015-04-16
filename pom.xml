@@ -4,11 +4,11 @@
 
     <groupId>rita.wordnet</groupId>
     <artifactId>rita.wordnet</artifactId>
-    <version>1.0.64</version>
+    <version>1.0.91</version>
     <packaging>jar</packaging>
 
     <name>RiTa</name>
-    <url>http://www.rednoise.org/rita/wordnet-old/documentation/index.htm</url>
+    <url>http://www.rednoise.org/rita</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
