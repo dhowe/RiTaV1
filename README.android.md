@@ -19,13 +19,46 @@ About the project
 
 In android
 --------
-To install: 
- 
- 
-To run tests: 
+<h6>Android Studio:</h6>
+
+1. 'Start a new Android Studio project' with Application name 'Rita Example' and Company Domain 'example.com' and select 'Blank Activity' and then finsih
+2. in the project window (alt + 1 / cmd + 1) 'manifests', 'java' and 'res' packges can be seen under 'app'
+3. right click on 'java' and create a new 'Package' called 'libs', drag the [rita-latest.jar](http://rednoise.org/rita/download/rita-latest.jar) inside
+4. when prompted check 'Search for references' and select 'Unlock files'
+5. right click on the jar file > 'Add As Library...'
+6. Add 'import rita.*;' to the java file and ready to go
+
+To run tests:
+
+copy and paste the following code to 'MainActivity.java'
+```
+package com.example.ritaexample;
+
+import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
+import android.widget.TextView;
+
+import java.util.Arrays;
+
+import rita.*;
 
 
-Or, see the 'Development Setup' instructions below...
+public class MainActivity extends ActionBarActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        String [] a = RiTa.tokenize("The cat ate the stinky cheese.");
+
+        TextView t = (TextView) findViewById(R.id.textView);
+
+        t.setText( Arrays.toString(a) );
+    }
+}
+
+```
 
 #### Can I contribute?
 --------
