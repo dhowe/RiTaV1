@@ -20,7 +20,9 @@ Please see https://github.com/dhowe/RiTaJS for the JavaScript implementation of 
 * Github Repo:    https://github.com/dhowe/RiTa/
 * Bug Tracker:    https://github.com/dhowe/RiTa/issues
 
-<p>
+&nbsp;
+
+&nbsp;
 
 
 #### A Simple Example (Java)
