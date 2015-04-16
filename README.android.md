@@ -63,7 +63,9 @@ To run:
 </RelativeLayout>
 ```
 6.add [RiTa.jar](http://rednoise.org/rita/download/rita-latest.jar) into the libs folder of RitaExample project
+
 7.When prompted select 'Copy File' then right click on it select 'Build Path' > 'Add to Build Path'
+
 8.replace the code of 'MainActivity.java' with the following
 ```java
 package com.example.ritaexample;
