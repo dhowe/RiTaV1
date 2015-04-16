@@ -23,6 +23,7 @@ Please see https://github.com/dhowe/RiTaJS for the JavaScript implementation of 
 #### A Simple Example
 --------
 To install:
+
 1. create a new project called 'SimpleExample' and paste the following code to the class
 ```Java
 import rita.*;
