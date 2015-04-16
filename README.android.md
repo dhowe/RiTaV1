@@ -33,7 +33,7 @@ To install:
 To run:
 
 copy and paste the following code to 'MainActivity.java'
-```
+```java
 package com.example.ritaexample;
 
 import android.support.v7.app.ActionBarActivity;
