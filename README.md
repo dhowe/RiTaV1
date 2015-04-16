@@ -40,7 +40,7 @@ public class SimpleExample {
 }
 ```
 
-In Processing
+#### In Processing
 --------
 To install:
 
@@ -54,7 +54,7 @@ import rita.*;
 println(RiTa.tokenize("The elephant took a bite!"));
 ```
 
-In Processing (Android-mode)
+#### In Processing (Android-mode)
 --------
 1. Follow these [instructions](https://github.com/processing/processing-android/wiki#Instructions) to setup your environment
 2. To add RiTa to your Processing project, select  'Menu' > 'Tools' > 'Import Library' > 'Manage Libraries'
