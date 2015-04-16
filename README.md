@@ -20,6 +20,8 @@ Please see https://github.com/dhowe/RiTaJS for the JavaScript implementation of 
 * Github Repo:    https://github.com/dhowe/RiTa/
 * Bug Tracker:    https://github.com/dhowe/RiTa/issues
 
+
+
 #### A Simple Example
 --------
 To install:
@@ -60,7 +62,7 @@ println(RiTa.tokenize("The elephant took a bite!"));
 2. To add RiTa to your Processing project, select  'Menu' > 'Tools' > 'Import Library' > 'Manage Libraries'
 3. Find RiTa inside the 'Library Manager', via 'Menu' > 'Get Libraries' or simply  download ['RiTa-latest.zip'](https://rednoise.org/rita/download/RiTa-latest.zip) then select 'Install Compressed Library' to manually install the zip file.
 
-To run:
+Create a simple test sketch as follows:
 ```
 import rita.*;
 
