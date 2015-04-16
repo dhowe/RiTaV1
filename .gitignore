@@ -11,3 +11,5 @@ tasks.txt
 /website
 /web-pub
 /dist
+target
+hs_err_pid*
