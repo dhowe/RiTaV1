@@ -24,7 +24,7 @@ Please see https://github.com/dhowe/RiTaJS for the JavaScript implementation of 
 --------
 To install:
 
-1. create a new project called 'SimpleExample' and paste the following code to the class
+1. create a new project and with paste the following code into a new class, SimpleExample.java
 ```Java
 import rita.*;
 
@@ -37,31 +37,20 @@ public class SimpleExample {
   }
 }
 ```
-2. download and extract [RiTa-latest.zip](https://rednoise.org/rita/download/RiTa-latest.zip)
-2. in project's 'Properties' > 'Java Build Path' > 'Libraries' > 'Add External JARs...' add the files from the extracted's file: 'library' > all *.jars
-
-In Android
---------
-To install:
-
-
-To run tests:
-
-
-Or, see the 'Development Setup' instructions below...
+2. download [rita-latest.jar](http://rednoise.org/rita/download/rita-latest.jar) and add it to the build path for your project: 'Project' > 'Properties' > 'Java Build Path' > 'Libraries' > 'Add External JARs...'
 
 In Processing
 --------
 To install:
 
 1. Open Processing and select 'Sketch' menu > 'Import Library...' > 'Add Library...'
-2. Search in the keyword file 'Rita' and then install it
+2. Search for 'RiTa' and then install it
 
-To run:
+Create a test sketch as follows (and/or see the included example):
 ```
 import rita.*;
 
-new RiText(this, "SIMPLE").draw();
+println(RiTa.tokenize("The elephant took a bite!"));
 ```
 
 In Processing on Android
