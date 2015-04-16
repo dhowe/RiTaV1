@@ -21,14 +21,17 @@ Please see https://github.com/dhowe/RiTaJS for the JavaScript implementation of 
 * Bug Tracker:    https://github.com/dhowe/RiTa/issues
 
 
+           
+           
 
-#### A Simple Example
+
+
+#### A Simple Example (Java)
 --------
-To install:
 
-1. Create a new Java project in eclipse (or your favorite IDE)
-2. Download [rita-latest.jar](http://rednoise.org/rita/download/rita-latest.jar) and add it to the build path for your project. In eclipse: 'Project' > 'Properties' > 'Java Build Path' > 'Libraries' > 'Add External JARs...'
-3. Create new class, SimpleExample.java, with the following code:
+1. Create a new Java project in Eclipse (or your IDE of choice)
+2. Download [rita-latest.jar](http://rednoise.org/rita/download/rita-latest.jar) and add it to the build path for the project. In eclipse: 'Project' > 'Properties' > 'Java Build Path' > 'Libraries' > 'Add External JARs...'
+3. Create and run a new class, SimpleExample.java, with the following code:
 ```Java
 import rita.*;
 
