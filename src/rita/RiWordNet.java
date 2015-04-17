@@ -3487,11 +3487,10 @@ public class RiWordNet
 
   public static void main(String[] args)
   {
-    /*
     String result = "No WordNet in JS";
     if (RiTa.env() == RiTa.JAVA)
     {
-      RiWordNet w = new RiWordNet("/Users/cyrussuen/Documents/eclipse-workspace/WordNet3.1/dict");
+      RiWordNet w = new RiWordNet("/WordNet-3.1");
       String[] s = w.getAllSynsets("dog", "n");
       System.out.println(Arrays.asList(s));
       result = s == null ? null : RiTa.asList(s).toString();
@@ -3504,13 +3503,6 @@ public class RiWordNet
       }
     }
     System.out.println(result);
-    */
-    
-    RiWordNet w = new RiWordNet("/Users/cyrussuen/Documents/eclipse-workspace/WordNet3.1/dict");
-
-    String aVG = w.getRandomWord("r");
-    System.out.println(aVG);
-    
   }
 
 }
