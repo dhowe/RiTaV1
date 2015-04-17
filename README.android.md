@@ -140,5 +140,5 @@ public class MainActivity extends ActionBarActivity {
 
 #### Can I contribute?
 --------
-Please! We are looking for more coders to help out... Just press *Fork* at the top of this github page and get started, or follow the 'Development Setup' instructions on this [page](https://github.com/dhowe/RiTa) page... 
+Please! We are looking for more coders to help out... Just press *Fork* at the top of this github page and get started, or follow the 'Development Setup' instructions at the bottom of [this page](https://github.com/dhowe/RiTa)... 
 
