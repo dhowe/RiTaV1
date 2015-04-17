@@ -803,7 +803,7 @@ public class RiTaTest
     txt = new String[] { "@#", "$%", "&*", "()" };
     result = RiTa.getSyllables(txt);
     answer = "@ # $ % & * ( )";
-    System.out.println(result);
+    //System.out.println(result);
     equal(result, answer);
 
     txt = new String[] { "" };
@@ -974,12 +974,12 @@ public class RiTaTest
     deepEqual(result, answer);
     
     result = RiTa.getPosTags("testing", false);
-    System.out.println(Arrays.asList(result));
+    //System.out.println(Arrays.asList(result));
     answer = new String[] { "vbg" };
     deepEqual(result, answer);
     
     result = RiTa.getPosTags("testy", false);
-    System.out.println(Arrays.asList(result));
+    //System.out.println(Arrays.asList(result));
     answer = new String[] { "jj" };
     deepEqual(result, answer);
 
@@ -1141,7 +1141,7 @@ public class RiTaTest
   @Test
   public void testConjugate()
   {
-    Map args = new HashMap();
+    Map<String, Comparable> args = new HashMap<String, Comparable>();
     args.put("tense", RiTa.PAST_TENSE);
     args.put("number", RiTa.SINGULAR);
     args.put("person", RiTa.FIRST_PERSON);
@@ -1149,7 +1149,7 @@ public class RiTaTest
     String c = RiTa.conjugate("swim", args);    
     equal(c, "swam"); // I swam
 
-    args = new HashMap();
+    args = new HashMap<String, Comparable>();
     args.put("tense", RiTa.PRESENT_TENSE);
     args.put("number", RiTa.SINGULAR);
     args.put("person", RiTa.THIRD_PERSON);
@@ -1162,7 +1162,7 @@ public class RiTaTest
       equal(c, a[i]);
     }
 
-    args = new HashMap();
+    args = new HashMap<String, Comparable>();
     args.put("tense", RiTa.PRESENT_TENSE);
     args.put("number", RiTa.SINGULAR);
     args.put("person", RiTa.THIRD_PERSON);
@@ -1175,7 +1175,7 @@ public class RiTaTest
       equal(c, a[i]);
     }
 
-    args = new HashMap();
+    args = new HashMap<String, Comparable>();
     args.put("tense", RiTa.PAST_TENSE);
     args.put("number", RiTa.SINGULAR);
     args.put("person", RiTa.FIRST_PERSON);
@@ -1206,7 +1206,7 @@ public class RiTaTest
 
     equal("swum", RiTa.getPastParticiple("swim"));
 
-    args = new HashMap();
+    args = new HashMap<String, Comparable>();
     args.put("tense", RiTa.PAST_TENSE);
     args.put("number", RiTa.PLURAL);
     args.put("person", RiTa.SECOND_PERSON);
@@ -1220,7 +1220,7 @@ public class RiTaTest
       equal(c, a[i]);
     }
 
-    args = new HashMap();
+    args = new HashMap<String, Comparable>();
     args.put("tense", RiTa.FUTURE_TENSE);
     args.put("number", RiTa.PLURAL);
     args.put("person", RiTa.SECOND_PERSON);
@@ -1235,7 +1235,7 @@ public class RiTaTest
       equal(c, a[i]);
     }
 
-    args = new HashMap();
+    args = new HashMap<String, Comparable>();
     args.put("tense", RiTa.PAST_TENSE);
     args.put("number", RiTa.SINGULAR);
     args.put("person", RiTa.THIRD_PERSON);
@@ -1248,7 +1248,7 @@ public class RiTaTest
       equal(c, a[i]);
     }
 
-    args = new HashMap();
+    args = new HashMap<String, Comparable>();
     args.put("tense", RiTa.PAST_TENSE);
     args.put("number", RiTa.SINGULAR);
     args.put("person", RiTa.THIRD_PERSON);
@@ -1262,7 +1262,7 @@ public class RiTaTest
       equal(c, a[i]);
     }
 
-    args = new HashMap();
+    args = new HashMap<String, Comparable>();
     args.put("tense", RiTa.PAST_TENSE);
     args.put("number", RiTa.SINGULAR);
     args.put("person", RiTa.THIRD_PERSON);
@@ -1281,7 +1281,7 @@ public class RiTaTest
 
     s = new String[] { "swim", "need", "open",  };
 
-    args = new HashMap();
+    args = new HashMap<String, Comparable>();
     args.put("tense", RiTa.PRESENT_TENSE);
     args.put("number", RiTa.SINGULAR);
     args.put("person", RiTa.THIRD_PERSON);
@@ -1296,7 +1296,7 @@ public class RiTaTest
       equal(c, a[i]);
     }
 
-    args = new HashMap();
+    args = new HashMap<String, Comparable>();
     args.put("tense", RiTa.PRESENT_TENSE);
     args.put("number", RiTa.SINGULAR);
     args.put("person", RiTa.THIRD_PERSON);
@@ -1311,7 +1311,7 @@ public class RiTaTest
       equal(c, a[i]);
     }
 
-    args = new HashMap();
+    args = new HashMap<String, Comparable>();
     args.put("tense", RiTa.PAST_TENSE);
     args.put("number", RiTa.PLURAL);
     args.put("person", RiTa.SECOND_PERSON);
@@ -1656,6 +1656,56 @@ public class RiTaTest
     ok(answer >= 1);
     answer2 = RiTa.random(0, 0);
     ok(answer2 < 5);
+  }
+
+  @Test
+  public void testRandomItemList()
+  {
+    String[] toks = RiTa.tokenize("The boy, dressed in red, ate an apple.!?");
+    for (int i = 0; i < toks.length * 2; i++) {
+      ok(Arrays.asList(toks).contains(RiTa.randomItem(Arrays.asList(toks))));
+    }
+    
+    toks = RiTa.tokenize("The boy, dressed in red, ate an apple.!?");
+    for (int i = 0; i < toks.length * 2; i++) {
+      ok(Arrays.asList(toks).contains(RiTa.randomItem(Arrays.asList(toks))));
+    }
+  }
+
+  @Test
+  public void testRandomItemCollection()
+  {
+    String[] toks = RiTa.tokenize("The boy, dressed in red, ate an apple.!?");
+    Collection<String> collection = new ArrayList<String>();
+    for (int i = 0; i < toks.length; i++) {
+      collection.add(toks[i]);
+    }
+    for (int i = 0; i < toks.length * 2; i++) {
+      ok(Arrays.asList(toks).contains(RiTa.randomItem(collection)));
+    }
+    
+    toks = RiTa.tokenize("The quick brown fox jumps over the lazy dog.");
+    collection = new ArrayList<String>();
+    for (int i = 0; i < toks.length; i++) {
+      collection.add(toks[i]);
+    }
+    for (int i = 0; i < toks.length * 2; i++) {
+      ok(Arrays.asList(toks).contains(RiTa.randomItem(collection)));
+    }
+  }
+
+  @Test
+  public void testRandomItemObjectArray()
+  {
+    String[] toks = RiTa.tokenize("The boy, dressed in red, ate an apple.!?");
+    for (int i = 0; i < toks.length * 2; i++) {
+      ok(Arrays.asList(toks).contains(RiTa.randomItem(toks)));
+    }
+
+    toks = RiTa.tokenize("The quick brown fox jumps over the lazy dog.");
+    for (int i = 0; i < toks.length * 2; i++) {
+      ok(Arrays.asList(toks).contains(RiTa.randomItem(toks)));
+    }
   }
 
   @Test

@@ -392,7 +392,6 @@ public class RiTa implements Constants
     return sb.toString();
   }
   
-  
   /** Delegates to the default sentence-parser to split <code>text</code> into sentences */
   public static String[] splitSentences(String text) {
     return Splitter.getInstance().splitSentences(text);
@@ -426,7 +425,6 @@ public class RiTa implements Constants
     int rand = (int)(Math.random()*list.size());
     return list.get(rand);
   }
-
   
   /**
    * Returns a random element from an array (NAPI)
@@ -1536,8 +1534,6 @@ public class RiTa implements Constants
     for (int i = 0; i < toks.length; i++)
     {
       System.out.println(toks[i]+" -> "+isPunctuation(toks[i])+"");
-    }
+    } 
   }
-
-
 }
