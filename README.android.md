@@ -19,7 +19,7 @@ About the project
 
 In android
 --------
-<h5>Eclipse with ADT Plugin</h5>
+#### Eclipse with ADT Plugin
 
 To install:
 
