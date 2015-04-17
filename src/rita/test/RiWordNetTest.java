@@ -3188,6 +3188,32 @@ public class RiWordNetTest
 	}
 
 	@Test
+	public void testPosToWordNet()
+	{
+		w.ignoreCompoundWords(false);
+		
+	  	String[] expected = new String[] {"crippled", "gamey", "mettlesome", "gritty", "halt", "spunky", "spirited", "gimpy", "halting", "gamy", "lame"};		
+	  	String[] result = w.getAllVerbGroups("game", "a");
+		setEqual(expected, result);
+		
+	  	expected = new String[] {"hot", "lively", "alive", "unrecorded", "springy", "bouncy", "resilient" };
+		result = w.getAllVerbGroups("live", "a");
+		setEqual(expected, result);
+		
+		expected = new String[] {"go", "last", "experience", "exist", "live on", "inhabit", "endure", "be", "populate", "subsist", "survive", "dwell", "know", "hold up", "hold out"};
+		result = w.getAllVerbGroups("live", "v");
+		setEqual(expected, result);
+		
+		expected = new String[] {};
+		result = w.getAllVerbGroups("happy", "v");
+		setEqual(expected, result);
+		
+		expected = new String[] {"felicitous", "glad", "well-chosen"};
+		result = w.getAllVerbGroups("happy", "a");
+		setEqual(expected, result);
+	}
+
+	@Test
 	public void testIgnoreCompoundWords()
 	{
 		w.ignoreCompoundWords(true);
@@ -3446,7 +3472,7 @@ public class RiWordNetTest
 
 		SILENT = false;
 		long ts = System.currentTimeMillis();
-		w = new RiWordNet("/WordNet-3.1");
+		w = new RiWordNet("/Users/cyrussuen/Documents/eclipse-workspace/WordNet3.1/dict");
 		if (preloadFilters) {
 			String[] pos = {"n","a","r","v",};
 			for (int i = 0; i < pos.length; i++)
@@ -3457,6 +3483,6 @@ public class RiWordNetTest
 
 	public static void main(String[] args)
 	{  
-		println(new RiWordNet("/WordNet-3.1").ignoreCompoundWords(false).getSynset("medicare", "n"));
+		println(new RiWordNet("/Users/cyrussuen/Documents/eclipse-workspace/WordNet3.1/dict").ignoreCompoundWords(false).getSynset("medicare", "n"));
 	}
 }
