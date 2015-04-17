@@ -94,7 +94,9 @@ public class MainActivity extends Activity {
 ```
 9.Right click on RitaExample > 'Run As' > 'Android Application'
 
-<h5>Android Studio</h5>
+&nbsp;
+
+#### With Android Studio 
 
 To install:
 
