@@ -11,7 +11,7 @@ RiTa is designed to be an easy-to-use toolkit for experiments in natural languag
 About the project
 --------
 * Author:   [Daniel C. Howe](http://rednoise.org/daniel)
-* License: 			 GPL (see included [LICENSE](https://github.com/dhowe/RiTa/blob/master/LICENSE) file for full license)
+* License:  GPL (see included [LICENSE](https://github.com/dhowe/RiTa/blob/master/LICENSE) file)
 * Web Site:          [https://rednoise.org/rita](http://rednoise.org/rita)
 * Github Repo:       [https://github.com/dhowe/RiTa](https://github.com/dhowe/RiTa)
 * Bug Tracker:       [https://github.com/dhowe/RiTa/issues](https://github.com/dhowe/RiTa/issues)
@@ -19,7 +19,7 @@ About the project
 
 In android
 --------
-<h6>Eclipse with ADT Plugin</h6>
+<h5>Eclipse with ADT Plugin</h5>
 
 To install:
 
@@ -94,7 +94,7 @@ public class MainActivity extends Activity {
 ```
 9.Right click on RitaExample > 'Run As' > 'Android Application'
 
-<h6>Android Studio</h6>
+<h5>Android Studio</h5>
 
 To install:
 
