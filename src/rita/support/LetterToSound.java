@@ -119,6 +119,11 @@ public class LetterToSound
 
   private LetterToSound()
   {
+    loadLTS();
+  }
+
+  protected void loadLTS() {
+    
     InputStream is = RiTa.class.getResourceAsStream(Constants.DEFAULT_LTS);
     try
     {
