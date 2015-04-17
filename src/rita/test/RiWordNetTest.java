@@ -3188,6 +3188,58 @@ public class RiWordNetTest
 	}
 
 	@Test
+	public void testGetAllVerbGroupsStringString()
+	{
+		w.ignoreCompoundWords(false);
+		
+	  	String[] expected = new String[] {"crippled", "gamey", "mettlesome", "gritty", "halt", "spunky", "spirited", "gimpy", "halting", "gamy", "lame"};		
+	  	String[] result = w.getAllVerbGroups("game", "a");
+		setEqual(expected, result);
+		
+	  	expected = new String[] {"hot", "lively", "alive", "unrecorded", "springy", "bouncy", "resilient" };
+		result = w.getAllVerbGroups("live", "a");
+		setEqual(expected, result);
+		
+		expected = new String[] {"go", "last", "experience", "exist", "live on", "inhabit", "endure", "be", "populate", "subsist", "survive", "dwell", "know", "hold up", "hold out"};
+		result = w.getAllVerbGroups("live", "v");
+		setEqual(expected, result);
+		
+		expected = new String[] {};
+		result = w.getAllVerbGroups("happy", "v");
+		setEqual(expected, result);
+		
+		expected = new String[] {"felicitous", "glad", "well-chosen"};
+		result = w.getAllVerbGroups("happy", "a");
+		setEqual(expected, result);
+	}
+	
+	@Test
+	public void testPosToWordNetString()
+	{
+	  	// rp particle as adverb
+	  	String [] expectNoun = new String[] {"nn", "nns", "nnp", "nnps"};
+	  	String [] expectAdjective = new String[] {"jj", "jjr", "jjs"};
+	  	String [] expectVerb = new String[] {"vb", "vbd", "vbg", "vbn", "vbp", "vbz"};
+	  	String [] expectAdverb = new String[] {"rb", "rbr", "rbs", "wrb"};
+	  	String [] expectOther = new String[] {"cc", "cd", "dt", "ex", "fw", "in", "ls", "md", "pdt", "pos", "prp", "prp$", "rp", "sym", "to", "uh", "wdt", "wp", "wp$"};
+
+	  	for (int i = 0; i < expectNoun.length; i++)
+	  	  	equal(w.posToWordNet(expectNoun[i]), "n");
+	  	
+	  	for (int i = 0; i < expectAdjective.length; i++)
+	  	  	equal(w.posToWordNet(expectAdjective[i]), "a");
+	  	
+	  	for (int i = 0; i < expectVerb.length; i++)
+	  	  	equal(w.posToWordNet(expectVerb[i]), "v");
+	  	
+	  	for (int i = 0; i < expectAdverb.length; i++)
+	  	  	equal(w.posToWordNet(expectAdverb[i]), "r");
+	  	
+	  	for (int i = 0; i < expectOther.length; i++)
+	  	  	equal(w.posToWordNet(expectOther[i]), "-");
+	}
+
+	@Test
 	public void testIgnoreCompoundWords()
 	{
 		w.ignoreCompoundWords(true);
@@ -3442,11 +3494,14 @@ public class RiWordNetTest
 
 	static RiWordNet w;
 	static boolean preloadFilters;
+	
+	// to test, add path of '/WordNet-3.1' to variable pathWordnet
+  	static String pathWordNet = "/WordNet-3.1";
+  	
 	static { 
-
 		SILENT = false;
 		long ts = System.currentTimeMillis();
-		w = new RiWordNet("/WordNet-3.1");
+		w = new RiWordNet(pathWordNet);
 		if (preloadFilters) {
 			String[] pos = {"n","a","r","v",};
 			for (int i = 0; i < pos.length; i++)
@@ -3457,6 +3512,6 @@ public class RiWordNetTest
 
 	public static void main(String[] args)
 	{  
-		println(new RiWordNet("/WordNet-3.1").ignoreCompoundWords(false).getSynset("medicare", "n"));
+		println(new RiWordNet(pathWordNet).ignoreCompoundWords(false).getSynset("medicare", "n"));
 	}
 }
