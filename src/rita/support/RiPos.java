@@ -81,7 +81,7 @@ public class RiPos
   public static final RiPos[] PENN_NOUNS = { PENN_NN,PENN_NNS,PENN_NNP,PENN_NNPS };
   public static final RiPos[] PENN_VERBS = { PENN_VB,PENN_VBD,PENN_VBG,PENN_VBN,PENN_VBP,PENN_VBZ };
   public static final RiPos[] PENN_ADJ   = { PENN_JJ,PENN_JJR,PENN_JJS };
-  public static final RiPos[] PENN_ADV   = { PENN_RB,PENN_RBR,PENN_RBS,PENN_RP }; 
+  public static final RiPos[] PENN_ADV   = { PENN_RB,PENN_RBR,PENN_RBS,PENN_WRB }; 
 
   private static final List WORDNET_TAGS = Collections.unmodifiableList
     (Arrays.asList( new RiPos[] { N, V, R, A } ));
