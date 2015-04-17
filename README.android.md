@@ -140,21 +140,5 @@ public class MainActivity extends ActionBarActivity {
 
 #### Can I contribute?
 --------
-Please! We are looking for more coders to help out... Just press *Fork* at the top of this github page and get started, or follow the instructions below... 
+Please! We are looking for more coders to help out... Just press *Fork* at the top of this github page and get started, or follow the 'Development Setup' instructions on this [page](https://github.com/dhowe/RiTa) page... 
 
-#### Development Setup
---------
-- Download and install [npm](https://www.npmjs.org/). The easiest way to do this is to just install [node](http://nodejs.org/). 
-
-- [Fork and clone](https://help.github.com/articles/fork-a-repo) this library. 
-
-    - First, login to github and fork the project
-
-    - Then, from a terminal/shell: 
-  ```bash
-  $ git clone https://github.com/dhowe/RiTa.git
-  ```
-
-...
-
-- Work on an existing [issue](https://github.com/dhowe/RiTa/issues?q=is%3Aopen+is%3Aissue+label%3Aandroid), then [submit a pull request...](https://help.github.com/articles/creating-a-pull-request)
