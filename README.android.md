@@ -92,7 +92,7 @@ To install:
 
 6. Add 'import rita.*;' to the top of your .java file 
 
-To test with a simple example, copy and paste the following code into MainActivity.java:
+7. To test a simple example, replace the code of 'MainActivity.java' with the following:
 	```java
 	package com.example.ritaexample;
 	
