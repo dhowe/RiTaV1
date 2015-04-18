@@ -139,7 +139,7 @@
 		
 	</target>
 	
-	<target name="_jars.to.p5" description="" depends="clean">
+	<target name="_jars.to.p5" description="">
 		
 		<!-- dev: copies generated jars to local processing install -->
 
