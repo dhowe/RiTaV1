@@ -1,10 +1,5 @@
-[![Build Status](https://travis-ci.org/dhowe/RiTa.svg?branch=master)](https://travis-ci.org/dhowe/RiTa)
 
-## RiTa: the generative language toolkit (for android)
-
-<a href="http://rednoise.org/rita"><img height=80 src="http://rednoise.org/rita/img/RiTa-logo3.png"/></a>
-
-### [The RiTa website](http://rednoise.org/rita)
+## RiTa: the generative language toolkit
 
 Installation in Android
 --------
@@ -59,12 +54,11 @@ To run:
 ```java
 package com.example.ritaexample;
 
-import java.util.Arrays;
-
-import rita.RiTa;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import rita.*;
 
 public class MainActivity extends Activity {
 
@@ -77,7 +71,7 @@ public class MainActivity extends Activity {
 
         TextView t = (TextView) findViewById(R.id.textView);
 
-        t.setText( Arrays.toString(a) );
+        t.setText( java.util.Arrays.toString(a) );
 	}
 }
 ```
