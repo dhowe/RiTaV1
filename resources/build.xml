@@ -11,7 +11,6 @@
 	<property name="p5.sketchbook" location="${user.home}/Documents/Processing"/>
 	<property name="p5.libraries" location="${p5.sketchbook}/libraries/"/>
 
-
 	<path id="classpath">
 		<fileset dir="${project.libs}" includes="**/*.jar" excludes=""/>
 	</path>
