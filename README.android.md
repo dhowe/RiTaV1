@@ -93,34 +93,31 @@ To install:
 6. Add 'import rita.*;' to the top of your .java file 
 
 To test with a simple example, copy and paste the following code into MainActivity.java:
-
 	```java
-	
 	package com.example.ritaexample;
 	
-	import android.support.v7.app.ActionBarActivity;
+	import android.app.Activity;
 	import android.os.Bundle;
 	import android.widget.TextView;
 	
 	import rita.*;
 	
-	public class MainActivity extends ActionBarActivity {
+	public class MainActivity extends Activity {
 	
-	    @Override
-	    protected void onCreate(Bundle savedInstanceState) {
-	    
-	        super.onCreate(savedInstanceState);
-	        setContentView(R.layout.activity_main);
-	
+		@Override
+		protected void onCreate(Bundle savedInstanceState) {
+		
+			super.onCreate(savedInstanceState);
+			setContentView(R.layout.activity_main);
+			
 	        String [] a = RiTa.tokenize("The cat ate the stinky cheese.");
 	
 	        TextView t = (TextView) findViewById(R.id.textView);
 	
 	        t.setText( java.util.Arrays.toString(a) );
-	    }
+		}
 	}
 	```
-
 #### Can I contribute?
 --------
 Please! We are looking for more coders to help out... Just press *Fork* at the top of this github page and get started, or follow the 'Development Setup' instructions at the bottom of [this page](https://github.com/dhowe/RiTa)... 
