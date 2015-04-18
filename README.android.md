@@ -6,18 +6,7 @@
 
 ### [The RiTa website](http://rednoise.org/rita)
 
-RiTa is designed to be an easy-to-use toolkit for experiments in natural language and generative literature. It is implemented in Java and JavaScript (with a unified API for bothl). It is free/libre and open-source according to the GPL license.
-
-About the project
---------
-* Author:   [Daniel C. Howe](http://rednoise.org/daniel)
-* License:  GPL (see included [LICENSE](https://github.com/dhowe/RiTa/blob/master/LICENSE) file)
-* Web Site:          [https://rednoise.org/rita](http://rednoise.org/rita)
-* Github Repo:       [https://github.com/dhowe/RiTa](https://github.com/dhowe/RiTa)
-* Bug Tracker:       [https://github.com/dhowe/RiTa/issues](https://github.com/dhowe/RiTa/issues)
-* Reference:    [https://rednoise.org/rita/reference](http://rednoise.org/rita/reference))
-
-In android
+Installation in Android
 --------
 #### Eclipse with ADT Plugin
 
@@ -117,10 +106,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import java.util.Arrays;
-
 import rita.*;
-
 
 public class MainActivity extends ActionBarActivity {
 
@@ -133,7 +119,7 @@ public class MainActivity extends ActionBarActivity {
 
         TextView t = (TextView) findViewById(R.id.textView);
 
-        t.setText( Arrays.toString(a) );
+        t.setText( java.util.Arrays.toString(a) );
     }
 }
 ```
