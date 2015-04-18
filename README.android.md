@@ -72,7 +72,7 @@
 		}
 	}
 	```
-9.Right click on RitaExample and select 'Run As' > 'Android Application'
+9. Right click on RitaExample and select 'Run As' > 'Android Application'
 
 &nbsp;
 
@@ -80,7 +80,7 @@
 
 To install:
 
-1. 'Start a new Android Studio project' with application name 'Rita Example' and dompany domain 'example.com', select 'Blank Activity' and then finish
+1. Start a new Android Studio project with application name 'Rita Example' and dompany domain 'example.com', select 'Blank Activity' and then finish
 
 2. In the project window 'manifests', 'java' and 'res' packges can be seen under 'app'
 
@@ -93,6 +93,7 @@ To install:
 6. Add 'import rita.*;' to the top of your .java file 
 
 To test with a simple example, copy and paste the following code to 'MainActivity.java'
+
 	```java
 	package com.example.ritaexample;
 	
