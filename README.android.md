@@ -47,31 +47,31 @@
 7. When prompted select 'Copy File' then right click on it select 'Build Path' > 'Add to Build Path'
 
 8. To test a simple example, replace the code of 'MainActivity.java' with the following:
-```java
-package com.example.ritaexample;
-
-import android.app.Activity;
-import android.os.Bundle;
-import android.widget.TextView;
-
-import rita.*;
-
-public class MainActivity extends Activity {
-
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	```java
+	package com.example.ritaexample;
 	
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+	import android.app.Activity;
+	import android.os.Bundle;
+	import android.widget.TextView;
+	
+	import rita.*;
+	
+	public class MainActivity extends Activity {
+	
+		@Override
+		protected void onCreate(Bundle savedInstanceState) {
 		
-        String [] a = RiTa.tokenize("The cat ate the stinky cheese.");
-
-        TextView t = (TextView) findViewById(R.id.textView);
-
-        t.setText( java.util.Arrays.toString(a) );
+			super.onCreate(savedInstanceState);
+			setContentView(R.layout.activity_main);
+			
+	        String [] a = RiTa.tokenize("The cat ate the stinky cheese.");
+	
+	        TextView t = (TextView) findViewById(R.id.textView);
+	
+	        t.setText( java.util.Arrays.toString(a) );
+		}
 	}
-}
-```
+	```
 9.Right click on RitaExample and select 'Run As' > 'Android Application'
 
 &nbsp;
@@ -93,31 +93,31 @@ To install:
 6. Add 'import rita.*;' to the top of your .java file 
 
 To test with a simple example, copy and paste the following code to 'MainActivity.java'
-```java
-package com.example.ritaexample;
-
-import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
-import android.widget.TextView;
-
-import rita.*;
-
-public class MainActivity extends ActionBarActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-    
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        String [] a = RiTa.tokenize("The cat ate the stinky cheese.");
-
-        TextView t = (TextView) findViewById(R.id.textView);
-
-        t.setText( java.util.Arrays.toString(a) );
-    }
-}
-```
+	```java
+	package com.example.ritaexample;
+	
+	import android.support.v7.app.ActionBarActivity;
+	import android.os.Bundle;
+	import android.widget.TextView;
+	
+	import rita.*;
+	
+	public class MainActivity extends ActionBarActivity {
+	
+	    @Override
+	    protected void onCreate(Bundle savedInstanceState) {
+	    
+	        super.onCreate(savedInstanceState);
+	        setContentView(R.layout.activity_main);
+	
+	        String [] a = RiTa.tokenize("The cat ate the stinky cheese.");
+	
+	        TextView t = (TextView) findViewById(R.id.textView);
+	
+	        t.setText( java.util.Arrays.toString(a) );
+	    }
+	}
+	```
 
 #### Can I contribute?
 --------
