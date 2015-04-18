@@ -9,36 +9,35 @@ Installation in Android
 2. Name Application Name 'Rita Example' and select 'API 15' as the Minimum Required SDK
 3. Keep pressing 'Next' and select 'Blank Activity' when prompted and finish
 4. Edit 'activity_main.xml' and select 'activity_main.xml' at the bottom (next to 'Graphical Layout' tab)
-5. Replace it with the following code
-```xml
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.ritaexample.MainActivity" >
-
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
-        android:layout_marginLeft="94dp"
-        android:layout_marginTop="86dp"
-        android:layout_toRightOf="@+id/textView" >
-    </RelativeLayout>
-
-</RelativeLayout>
-```
-
+5. Replace it with the following code:
+	```xml
+	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    xmlns:tools="http://schemas.android.com/tools"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:paddingBottom="@dimen/activity_vertical_margin"
+	    android:paddingLeft="@dimen/activity_horizontal_margin"
+	    android:paddingRight="@dimen/activity_horizontal_margin"
+	    android:paddingTop="@dimen/activity_vertical_margin"
+	    tools:context="com.example.ritaexample.MainActivity" >
+	
+	    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:id="@+id/textView"
+	        android:layout_centerVertical="true"
+	        android:layout_centerHorizontal="true" />
+	
+	    <RelativeLayout
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/textView"
+	        android:layout_marginLeft="94dp"
+	        android:layout_marginTop="86dp"
+	        android:layout_toRightOf="@+id/textView" >
+	    </RelativeLayout>
+	
+	</RelativeLayout>
+	```
 6. Download and drag [RiTa.jar](http://rednoise.org/rita/download/rita-latest.jar) into the libs folder of RitaExample project
 
 7. When prompted select 'Copy File' then right click on it select 'Build Path' > 'Add to Build Path'
