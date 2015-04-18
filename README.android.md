@@ -5,18 +5,10 @@ Installation in Android
 --------
 #### Eclipse with ADT Plugin
 
-To install:
-
-1. Download and drag [RiTa.jar](http://rednoise.org/rita/download/rita-latest.jar) into the libs folder of an existing project
-2. When prompted select 'Copy File' then right click on it select 'Build Path' > 'Add to Build Path'
-3. include 'import rita.RiTa;' at the head session of the java file
-
-To run:
-
 1. In Eclipse select 'File' > 'New' > 'Project...' > 'Android' > 'Android Application Project'
 2. Name Application Name 'Rita Example' and select 'API 15' as the Minimum Required SDK
 3. Keep pressing 'Next' and select 'Blank Activity' when prompted and finish
-4. Edit 'activity_main.xml' and select its 'activity_main.xml' at the bottom of the window (next to 'Graphical Layout' tab)
+4. Edit 'activity_main.xml' and select 'activity_main.xml' at the bottom (next to 'Graphical Layout' tab)
 5. Replace it with the following code
 ```xml
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -46,11 +38,12 @@ To run:
 
 </RelativeLayout>
 ```
-6.add [RiTa.jar](http://rednoise.org/rita/download/rita-latest.jar) into the libs folder of RitaExample project
 
-7.When prompted select 'Copy File' then right click on it select 'Build Path' > 'Add to Build Path'
+6. Download and drag [RiTa.jar](http://rednoise.org/rita/download/rita-latest.jar) into the libs folder of RitaExample project
 
-8.replace the code of 'MainActivity.java' with the following
+7. When prompted select 'Copy File' then right click on it select 'Build Path' > 'Add to Build Path'
+
+8. Replace the code of 'MainActivity.java' with the following
 ```java
 package com.example.ritaexample;
 
@@ -64,6 +57,7 @@ public class MainActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+	
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
@@ -75,7 +69,7 @@ public class MainActivity extends Activity {
 	}
 }
 ```
-9.Right click on RitaExample > 'Run As' > 'Android Application'
+9.Right click on RitaExample and select 'Run As' > 'Android Application'
 
 &nbsp;
 
@@ -83,12 +77,12 @@ public class MainActivity extends Activity {
 
 To install:
 
-1. 'Start a new Android Studio project' with Application name 'Rita Example' and Company Domain 'example.com' and select 'Blank Activity' and then finsih
-2. in the project window (alt + 1 / cmd + 1) 'manifests', 'java' and 'res' packges can be seen under 'app'
-3. right click on 'java' and create a new 'Package' called 'libs', drag the [rita-latest.jar](http://rednoise.org/rita/download/rita-latest.jar) inside
-4. when prompted check 'Search for references' and select 'Unlock files'
-5. right click on the jar file > 'Add As Library...'
-6. Add 'import rita.*;' to the java file 
+1. 'Start a new Android Studio project' with application name 'Rita Example' and dompany domain 'example.com', select 'Blank Activity' and then finish
+2. In the project window 'manifests', 'java' and 'res' packges can be seen under 'app'
+3. Right click on 'java' and create a new package called 'libs', dragging the [rita-latest.jar](http://rednoise.org/rita/download/rita-latest.jar) inside
+4. When prompted check 'Search for references' and select 'Unlock files'
+5. Right-click on the jar file > 'Add As Library...'
+6. Add 'import rita.*;' to the top of your .java file 
 
 To run:
 
@@ -106,6 +100,7 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+    
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
