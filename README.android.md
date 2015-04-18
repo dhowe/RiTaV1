@@ -1,14 +1,18 @@
 
 ## RiTa: the generative language toolkit
 
-Installation in Android
+### Installation in Android
 --------
 #### Eclipse with ADT Plugin
 
 1. In Eclipse select 'File' > 'New' > 'Project...' > 'Android' > 'Android Application Project'
+
 2. Name Application Name 'Rita Example' and select 'API 15' as the Minimum Required SDK
+
 3. Keep pressing 'Next' and select 'Blank Activity' when prompted and finish
+
 4. Edit 'activity_main.xml' and select 'activity_main.xml' at the bottom (next to 'Graphical Layout' tab)
+
 5. Replace it with the following code:
 	```xml
 	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -42,7 +46,7 @@ Installation in Android
 
 7. When prompted select 'Copy File' then right click on it select 'Build Path' > 'Add to Build Path'
 
-8. Replace the code of 'MainActivity.java' with the following
+8. To test a simple example, replace the code of 'MainActivity.java' with the following:
 ```java
 package com.example.ritaexample;
 
@@ -77,15 +81,18 @@ public class MainActivity extends Activity {
 To install:
 
 1. 'Start a new Android Studio project' with application name 'Rita Example' and dompany domain 'example.com', select 'Blank Activity' and then finish
+
 2. In the project window 'manifests', 'java' and 'res' packges can be seen under 'app'
+
 3. Right click on 'java' and create a new package called 'libs', dragging the [rita-latest.jar](http://rednoise.org/rita/download/rita-latest.jar) inside
+
 4. When prompted check 'Search for references' and select 'Unlock files'
+
 5. Right-click on the jar file > 'Add As Library...'
+
 6. Add 'import rita.*;' to the top of your .java file 
 
-To run:
-
-copy and paste the following code to 'MainActivity.java'
+To test with a simple example, copy and paste the following code to 'MainActivity.java'
 ```java
 package com.example.ritaexample;
 
