@@ -93,7 +93,9 @@ To install:
 6. Add 'import rita.*;' to the top of your .java file 
 
 To test with a simple example, copy and paste the following code into MainActivity.java:
+
 	```java
+	
 	package com.example.ritaexample;
 	
 	import android.support.v7.app.ActionBarActivity;
