@@ -75,6 +75,11 @@ Please! We are looking for more coders to help out... Just press *Fork* at the t
 
 If you don't feel like coding but still want to contribute, please send a twitter message to @RiTaSoftware.
 
+#### Development Setup (in Eclipse Maven)
+--------
+
+1. in Eclipse > Package Explorer, right click on pom.xml from the project
+2. select > 'Run As' > '5 Maven Install'
 
 #### Development Setup (in Eclipse)
 --------
