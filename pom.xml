@@ -62,6 +62,7 @@
                     <excludes>
                         <exclude>${project.basedir}/src/rita/test/sketches/*</exclude>
                     </excludes>
+                    <skipTests>true</skipTests>
                 </configuration>
                 <dependencies>
                     <dependency>
