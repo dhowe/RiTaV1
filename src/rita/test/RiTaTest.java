@@ -9,6 +9,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import processing.core.PApplet;
@@ -18,11 +19,16 @@ public class RiTaTest
 {  
   public static final boolean REMOTE_TESTING = true;
   
+  @Before
+  public void initialize() {
+    RiTa.USE_LEXICON = true;
+  }
  
   @Test
   public void testStart()
   {
     if (REMOTE_TESTING) {
+      
       ok("skip for remote testing");
       return;
     }
@@ -668,6 +674,32 @@ public class RiTaTest
     answer = "";
     equal(result, answer);
   }
+  
+  @Test
+  public void testGetPhonemesStringArrayLTS() // TODO: outputs generall do not match (see KnownIssues)
+  {
+    RiTa.USE_LEXICON = false;
+    
+    String[] input = { "The" };
+    String result = RiTa.getPhonemes(input);
+    String answer = "dh-ax";
+    equal(result, answer);
+
+    input = new String[] { "The." };
+    result = RiTa.getPhonemes(input);
+    answer = "dh-ax .";
+    equal(result, answer);
+    
+    input = new String[] { "the" };
+    result = RiTa.getPhonemes(input);
+    answer = "dh-ax";
+    equal(result, answer);
+    
+    input = new String[] { "" };
+    result = RiTa.getPhonemes(input);
+    answer = "";
+    equal(result, answer);
+  }
 
   @Test
   public void testGetStressesString()
@@ -754,13 +786,13 @@ public class RiTaTest
 
     txt = "The Laggin Dragon";
     result = RiTa.getSyllables(txt);
-    answer = "dh-ax l-ae/g-ih-n d-r-ae-g/ax-n";
+    answer = "dh-ax l-ae/g-ih-n d-r-ae-g/aa-n";
     equal(result, answer);
     
     txt = "the laggin dragon";
     result = RiTa.getSyllables(txt);
     //System.out.println(result);
-    answer = "dh-ax l-ae/g-ih-n d-r-ae-g/ax-n";
+    answer = "dh-ax l-ae/g-ih-n d-r-ae-g/aa-n";
     equal(result, answer);
 
     result = RiTa.getSyllables("@#$%&*()");
@@ -791,13 +823,13 @@ public class RiTaTest
     txt = new String[] { "The", "Laggin", "Dragon" };
     result = RiTa.getSyllables(txt);
     //System.out.println(result);
-    answer = "dh-ax l-ae/g-ih-n d-r-ae-g/ax-n";
+    answer = "dh-ax l-ae/g-ih-n d-r-ae-g/aa-n";
     equal(result, answer);
     
     txt = new String[] { "the", "laggin", "dragon" };
     result = RiTa.getSyllables(txt);
     //System.out.println(result);
-    answer = "dh-ax l-ae/g-ih-n d-r-ae-g/ax-n";
+    answer = "dh-ax l-ae/g-ih-n d-r-ae-g/aa-n";
     equal(result, answer);
 
     txt = new String[] { "@#", "$%", "&*", "()" };
@@ -1042,7 +1074,6 @@ public class RiTaTest
   @Test
   public void testGetPosTagsString()
   {
-
     String[] result = RiTa.getPosTags("asfaasd");
     String[] answer = new String[] { "nn" };
     //System.out.println(RiTa.asList(result));
@@ -1055,6 +1086,16 @@ public class RiTaTest
 
     result = RiTa.getPosTags("There is a cat.");
     answer = new String[] { "ex", "vbz", "dt", "nn", "." };
+    //System.out.println(RiTa.asList(result));
+    deepEqual(result, answer); // TODO check result
+    
+    result = RiTa.getPosTags("I am a boy.");
+    answer = new String[] { "prp", "vbp", "dt", "nn", "." };
+    //System.out.println(RiTa.asList(result));
+    deepEqual(result, answer); // TODO check result
+    
+    result = RiTa.getPosTags("He is a boy.");
+    answer = new String[] { "prp", "vbz", "dt", "nn", "." };
     //System.out.println(RiTa.asList(result));
     deepEqual(result, answer); // TODO check result
 

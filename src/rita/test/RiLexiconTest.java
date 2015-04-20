@@ -693,6 +693,7 @@ public class RiLexiconTest {
 
   @Test
   public void testIsRhymeStringStringBoolean() {
+    
     // TODO: check all these (more tests)
     RiLexicon lex = new RiLexicon();
 
@@ -717,8 +718,9 @@ public class RiLexiconTest {
     ok(!lex.isRhyme("sieve", "mellow", true));
 
     ok(lex.isRhyme("toy", "hoy", true));
-    // ok(lex.isRhyme("yellow", "wellow",true)); //TODO: need some example for
-    // correct use of LTS engin
+    // ok(lex.isRhyme("yellow", "wellow",true)); 
+    
+    //TODO: need example for correct use of LTS engine
   }
 
   @Test
@@ -861,19 +863,17 @@ public class RiLexiconTest {
 
     RiLexicon lex = new RiLexicon();
 
-    String[] result = lex.similarBySound("tornado");
-    String[] answer = { "torpedo" };
+    String[] result = lex.similarBySound("worngword");
+    String[] answer =  { "wayward", "wormwood", "watchword" };
     deepEqual(result, answer);
 
+    result = lex.similarBySound("tornado");
+    answer = new String[] { "torpedo" };
+    deepEqual(result, answer);
+    
     result = lex.similarBySound("try");
-
     answer = new String[] { "tie", "tried", "trite", "tree", "tries", "pry",
 	"dry", "tribe", "true", "tripe", "cry", "wry", "tray", "fry", "rye" };
-    deepEqual(result, answer);
-
-    result = lex.similarBySound("worngword");
-    answer = new String[] { "wayward", "winged", "wormwood", "watchword" };
-    // System.out.println(RiTa.asList(result));
     deepEqual(result, answer);
 
     result = lex.similarBySound("happy");
@@ -891,6 +891,7 @@ public class RiLexiconTest {
 
   @Test
   public void testSimilarBySoundStringInt() {
+    
     RiLexicon lex = new RiLexicon();
 
     String[] result = lex.similarBySound("happy", 1);
@@ -948,6 +949,10 @@ public class RiLexiconTest {
     String[] answer = new String[] { "pry", "dry", "wry", "tray", "fry", "cry" };
     deepEqual(result, answer);
 
+    result = lex.similarBySoundAndLetter("worngword");
+    answer = new String[] { "wormwood" };
+    deepEqual(result, answer);
+    
     result = lex.similarBySoundAndLetter("daddy");
     answer = new String[] { "dandy" };
     deepEqual(result, answer);
@@ -959,11 +964,7 @@ public class RiLexiconTest {
     result = lex.similarBySoundAndLetter("tornado");
     answer = new String[] { "torpedo" };
     deepEqual(result, answer);
-
-    result = lex.similarBySoundAndLetter("worngword");
-    answer = new String[] { "wormwood" };
-    deepEqual(result, answer);
-
+    
     result = lex.similarBySoundAndLetter("");
     deepEqual(result, new String[0]);
   }

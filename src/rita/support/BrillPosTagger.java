@@ -80,6 +80,9 @@ public class BrillPosTagger implements Constants
   static final boolean DBUG = false;
   
   static final Pattern number = Pattern.compile("[0-9\\.][0-9\\.]*");
+
+  private static final String[] NOUN = { "nn" };
+  private static final String[] NOUNP = { "nn", "nns" };
   
   private static JSONLexicon lexicon;
   private static BrillPosTagger instance;
@@ -93,6 +96,9 @@ public class BrillPosTagger implements Constants
   private BrillPosTagger() {
     
       lexicon = JSONLexicon.getInstance();
+      if (lexicon == null && !RiTa.SILENT)
+	System.err.println("RiTa lexicon appears to be missing! " +
+	    "Part-of-speech tagging (at least) will be inaccurate");
   }
   
   public String[] tagFile(String fileName) {
@@ -106,7 +112,7 @@ public class BrillPosTagger implements Constants
    */
   public String[] tagFile(String fileName, Object pApplet) {
     
-    List result = new ArrayList();
+    List<String> result = new ArrayList<String>();
     String text = RiTa.loadString(fileName, pApplet);
     
     String[] sents = RiTa.splitSentences(text);
@@ -150,11 +156,10 @@ public class BrillPosTagger implements Constants
   } 
   
   /**
-   * Returns an array of parts-of-speech from the Penn tagset
-   * each corresponding to one word of input.
+   * Adds the parts-of-speech from the Penn tagset to the result List.
    * @param words String[]
    */
-  public void tag(String[] words, List result)
+  protected void tag(String[] words, List<String> result)
   {
     //System.out.println("BrillPosTagger.tag("+Util.asList(words)+")");
     String[] tmp = tag(words);    
@@ -177,9 +182,15 @@ public class BrillPosTagger implements Constants
     for (int i = 0, size = words.length; i < size; i++)
     {
       String word = words[i];
+      
       if (word.length() < 1) {
         result[i] = E;
-        choices[i] = null;
+        continue;
+      }
+      
+      if (word.length() == 1) {
+        
+	result[i] = handleSingleLetter(word);
         continue;
       }
       
@@ -188,18 +199,15 @@ public class BrillPosTagger implements Constants
       if (DBUG) System.out.println(words[i]+" -> "+RiTa.asList(data)+" "+data.length);
       
       if (data == null || data.length == 0) {
-        if (word.length() == 1) {
-          result[i] = Character.isDigit(word.charAt(0)) ? "cd" : word;             
-        }
-        else
-          result[i] = "nn";
-        choices[i] = null;
+        
+	//choices[i] = word.endsWith("s") ? NOUNP : NOUN;
+	result[i] = word.endsWith("s") ? "nns" : "nn";
       }
       else {
+	
         result[i] = data[0];
         choices[i] = data;
       }
-      
     }
     
     // adjust pos according to transformation rules
@@ -208,11 +216,32 @@ public class BrillPosTagger implements Constants
     return result;
   }
 
+  protected String handleSingleLetter(String word) {
+    
+    String result = word;
+    
+    char c = word.charAt(0);
+    if (c == 'a' || c == 'A')
+      result = "dt";
+    else if (c == 'I')
+      result = "prp";
+    else if (Character.isDigit(c))
+      result = "cd";
+    
+    //System.out.println("handleSingleLetter("+word+") :: "+result);
+    
+    return result;
+  }
+
   public String[] lookup(String word)
   {
+    if (lexicon == null) return null;
+    
     String[] posArr = lexicon.getPosArr(word);
+    
     if (DBUG) 
       System.out.println("BrillPosTagger.lookup("+word+") -> "+RiTa.asList(posArr));
+    
     return posArr;
   }
   
@@ -227,7 +256,6 @@ public class BrillPosTagger implements Constants
     for (int i = 0; i < words.length; i++)
     {
       if (DBUG) System.out.println(i+") preTransform: "+words[i]+" -> "+result[i]);
-      //if (i>0) System.out.println("previous="+result[i-1]);
       
       // transform 1: DT, {VBD | VBP | VB} --> DT, NN
       if (i > 0 && result[i - 1].equals("dt"))
@@ -305,8 +333,8 @@ public class BrillPosTagger implements Constants
         if (DBUG) System.out.println(" -> "+result[i]);
       }
       
-      // transform 10 (dch): convert common nouns to proper nouns when they start w' a capital (?and are not a sentence start?)
-      if (/*i > 0 && */result[i].startsWith("nn") && Character.isUpperCase(words[i].charAt(0))) {
+      // transform 10 (dch): convert common nouns to proper nouns when they start w' a capital (and are not a sentence start)
+      if (/*i > 0 &&*/ result[i].startsWith("nn") && Character.isUpperCase(words[i].charAt(0))) {
         
         if (DBUG)
           System.out.print("[INFO] Custom tagged '"+words[i]+"', "+result[i]);
@@ -415,8 +443,8 @@ public class BrillPosTagger implements Constants
     
   static String[] tests = {
     
-     "I run to school.",                "nn vb to nn .",
-     "I went for a run.",               "nn vbd in dt nn .",
+     "I run to school.",                "prp vb to nn .",
+     "I went for a run.",               "prp vbd in dt nn .",
      //"Red is a beautiful color",      "nn vbz dt jj nn",   // fails!
      "The little boy jumps quickly over the great fence and dances happily.",
                                         "dt jj nn vbz rb in dt jj nn cc vbz rb .",
@@ -426,20 +454,20 @@ public class BrillPosTagger implements Constants
      "The little boy jumps",            "dt jj nn vbz",      
      "The little boy jumps wildly",     "dt jj nn vbz rb",   
      "The little boy jumps rope",       "dt jj nn vbz nn",      
-     "I woke up early that morning",    "nn vbd in rb in nn",      
+     "I woke up early that morning",    "prp vbd in rb in nn",      
   };
   
   public static void main(String[] args)
   {
     BrillPosTagger ft = new BrillPosTagger();
-    System.out.println(ft.tag("shitty"));
+    System.out.println(ft.tag("I"));
+    tests();
+    
     if (1==1) return;
     System.out.println(ft.tag("bronchitis"));
     System.out.println(ft.tag("cleanliness"));
     System.out.println(ft.tag("orderliness"));
     
-    
-
     System.out.println(RiTa.asList(ft.tag("is it nourishing".split(" "))));
     System.out.println(ft.tag("gets"));
     if (1==1) return;

@@ -5,6 +5,7 @@ import static rita.support.QUnitStubs.equal;
 import static rita.support.QUnitStubs.notEqual;
 import static rita.support.QUnitStubs.ok;
 
+import java.util.Arrays;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -19,6 +20,11 @@ import rita.support.Constants;
 
 public class RiStringTest implements Constants
 {
+  static { 
+    //RiTa.USE_LEXICON = false;
+    RiTa.SILENT_LTS = true; //UNCOMMENT TO TEST WITHOUT LEXICON, USING ONLY LTS
+  }
+  
   @Test
   public void testRiStringObjectCharSequence()
   {
@@ -48,7 +54,7 @@ public class RiStringTest implements Constants
     
     ok(rs.get(RiTa.PHONEMES) != null); // this should create default features
 
-    Map features = rs.features();
+    Map<String, String> features = rs.features();
     ok(features.get(RiTa.PHONEMES) != null);
 
     rs.text("Dad & Mom"); // reset all original features, but not those set() by user
@@ -60,19 +66,24 @@ public class RiStringTest implements Constants
   @Test
   public void testAnalyze()
   {
-    Map<String, String> features = new RiString("Mom & Dad, waiting for the car, ate a steak.").analyze().features();
+    Map<String, String> features = new RiString
+	("Mom & Dad, waiting for the car, ate a steak.")
+    	.analyze().features();
 
     ok(features);
-    // System.out.println(features);
-    equal(features.get(PHONEMES), "m-aa-m & d-ae-d , w-ey-t-ih-ng f-ao-r dh-ax k-aa-r , ey-t ey s-t-ey-k .");
-    equal(features.get(SYLLABLES), "m-aa-m & d-ae-d , w-ey-t/ih-ng f-ao-r dh-ax k-aa-r , ey-t ey s-t-ey-k .");
-    equal(features.get(STRESSES), "1 & 1 , 1/0 1 0 1 , 1 1 1 .");
-
+    
     int numWords = features.get(TOKENS).split(" ").length;
     equal(numWords, features.get(STRESSES).split(" ").length);
     equal(numWords, features.get(PHONEMES).split(" ").length);
     equal(numWords, features.get(SYLLABLES).split(" ").length);
     equal(numWords, features.get(POS).split(" ").length);
+    
+    if (!RiTa.USE_LEXICON) return; // Not using lexicon, further tests should fail
+      
+    // System.out.println(features);
+    equal(features.get(PHONEMES), "m-aa-m & d-ae-d , w-ey-t-ih-ng f-ao-r dh-ax k-aa-r , ey-t ey s-t-ey-k .");
+    equal(features.get(SYLLABLES), "m-aa-m & d-ae-d , w-ey-t/ih-ng f-ao-r dh-ax k-aa-r , ey-t ey s-t-ey-k .");
+    equal(features.get(STRESSES), "1 & 1 , 1/0 1 0 1 , 1 1 1 .");
 
     String txt = "The dog ran faster than the other dog.  But the other dog was prettier.";
     RiString rs = new RiString(txt);
@@ -91,8 +102,8 @@ public class RiStringTest implements Constants
     features = ri.features();
     ok(features);
 
-    equal(features.get(PHONEMES), "dh-ax l-ae-g-ih-n d-r-ae-g-ax-n");
-    equal(features.get(SYLLABLES), "dh-ax l-ae/g-ih-n d-r-ae-g/ax-n");
+    equal(features.get(PHONEMES), "dh-ax l-ae-g-ih-n d-r-ae-g-aa-n");
+    equal(features.get(SYLLABLES), "dh-ax l-ae/g-ih-n d-r-ae-g/aa-n");
     equal(features.get(STRESSES), "0 1/1 1/0");
 
     features = new RiString("dog").analyze().features();
@@ -307,10 +318,19 @@ public class RiStringTest implements Constants
     String ph = rs.get(RiTa.PHONEMES); // TODO
     String sy = rs.get(RiTa.SYLLABLES);
     String st = rs.get(RiTa.STRESSES);
+    
+    ok(ph);
+    ok(sy);
+    ok(st);
+    
+    if (!RiTa.USE_LEXICON) return; // Not using lexicon, further tests should fail
+
     // System.out.println(ph);
-    equal(ph, "dh-ax l-ae-g-ih-n d-r-ae-g-ax-n");
-    equal(sy, "dh-ax l-ae/g-ih-n d-r-ae-g/ax-n");
+    equal(ph, "dh-ax l-ae-g-ih-n d-r-ae-g-aa-n");
+    
+    equal(sy, "dh-ax l-ae/g-ih-n d-r-ae-g/aa-n");
     // in RITAJS equal(sy, "dh-ax l-ae/g-ih-n d-r-ae-g/ax-n");
+    
     equal(st, "0 1/1 1/0");
 
     // fail("Needs more"); refer to tests in analyze()
@@ -319,8 +339,8 @@ public class RiStringTest implements Constants
   @Test
   public void testFeatures()
   {
-	  RiString rs = new RiString("Returns the array of words.").analyze();
-	  Map<String,String> features = rs.features();
+    RiString rs = new RiString("Returns the array of words.").analyze();
+    Map<String, String> features = rs.features();
     ok(features);
     ok(features.containsKey(RiTa.TEXT));
     ok(features.containsKey(RiTa.SYLLABLES));
@@ -615,48 +635,46 @@ public class RiStringTest implements Constants
   @Test
   public void testPos()
   {
-    RiString rs = new RiString("asdfaasd");
+    RiString rs = new RiString("clothes");
     String[] result = rs.pos();
-    String[] answer = new String[] { "nn" };
+    String[] answer = new String[] { "nns" };    
+    deepEqual(answer, result);
+      
+    rs = new RiString("asdfaasd");
+    result = rs.pos();
+    answer = new String[] { "nn" };
     // System.out.println(RiTa.asList(result));
-    deepEqual(result, answer);
-
+    deepEqual(answer, result);
+    
     rs = new RiString("cat");
     result = rs.pos();
     // System.out.println(RiTa.asList(result));
     answer = new String[] { "nn" };
-    deepEqual(result, answer);
-
-    rs = new RiString("clothes");
-    result = rs.pos();
-    answer = new String[] { "nns" };
-    // System.out.println(RiTa.asList(result));
-
-    deepEqual(result, answer);
+    deepEqual(answer, result);
+    
+    if (!RiTa.USE_LEXICON) return; // Not using lexicon, further tests should fail
 
     rs = new RiString("There is a cat.");
-    // System.out.println(rs.features());
     result = rs.pos();
     answer = new String[] { "ex", "vbz", "dt", "nn", "." };
-    // System.out.println(RiTa.asList(result));
-    if (false && !result[2].equals("dt"))
+    
+    if (1==0)
     {
       System.out.println("==========================");
-      System.out.println(RiTa.asList(result));
-      System.out.println(rs.features());
-      System.out.println(rs.pos());
+      System.out.println(RiTa.asList(answer));
+      System.out.println(Arrays.asList(rs.pos()));
       System.out.println("==========================");
     }
-    deepEqual(result, answer);
-
+    deepEqual(answer, result);
+    
     rs = new RiString("The boy, dressed in red, ate an apple.");
     result = rs.pos();
 
-    answer = new String[] { "dt", "nn", ",", "vbn", "in", "jj", ",", "vbd", "dt", "nn",
-        "." };
+    answer = new String[] { "dt", "nn", ",", "vbn", "in",
+	"jj", ",", "vbd", "dt", "nn", "." };
     // System.out.println(RiTa.asList(result));
 
-    deepEqual(result, answer);
+    deepEqual(answer, result);
   }
 
   @Test
@@ -670,6 +688,10 @@ public class RiStringTest implements Constants
     rs = new RiString("There is a cat.");
     result = rs.posAt(3);
     equal("nn", result);
+    
+    rs = new RiString("There is a cat.");
+    result = rs.posAt(2);
+    equal("dt", result);
 
     // out of range test
 
@@ -1215,7 +1237,7 @@ public class RiStringTest implements Constants
     equal(result, "Returns");
 
     result = rs.wordAt(-5);
-    // System.out.println("result="+result);
+    //System.out.println("result="+result);
     equal(result, "using");
 
     result = rs.wordAt(1);
@@ -1235,7 +1257,7 @@ public class RiStringTest implements Constants
     equal(result, "");
 
     result = rs.wordAt(-5);
-    // System.out.println("result="+result);
+    //System.out.println("result="+result);
     equal(result, "");
   }
 
@@ -1262,7 +1284,7 @@ public class RiStringTest implements Constants
 
     rs = new RiString("");
     result = rs.wordCount();
-    // System.out.println("wordcount: "+result);
+    //System.out.println("wordcount: "+result);
     equal(result, 0);
   }
 
@@ -1332,8 +1354,6 @@ public class RiStringTest implements Constants
     rs.set("myFeatureName", "myFeatureValue");
     rs2 = rs.copy();
     equal(rs.get("myFeatureName"), rs2.get("myFeatureName"));
-    
-
   }
 
   @Test
@@ -1347,10 +1367,10 @@ public class RiStringTest implements Constants
     equal(RiString.stringify(data), out);
   }
 
+  
   @Test
   public void testSyllabifyString()
   {
-
     String test = "ao2-r-g-ah0-n-ah0-z-ey1-sh-ah0-n-z";
     String expected = "ao2-r g-ah0 n-ah0 z-ey1 sh-ah0-n-z";
     String result = RiString.syllabify(test);
@@ -1360,10 +1380,15 @@ public class RiStringTest implements Constants
   @Test
   public void testSyllabifyArray()
   {
-
     String[] test = "ao2-r-g-ah0-n-ah0-z-ey1-sh-ah0-n-z".split("-");
     String expected = "ao2-r g-ah0 n-ah0 z-ey1 sh-ah0-n-z";
     String result = RiString.syllabify(test);
+    deepEqual(result, expected);
+    
+    test = "m-aa1-m".split("-");
+    //System.out.println(Arrays.asList(test));
+    expected = "m-aa1-m";
+    result = RiString.syllabify(test);
     deepEqual(result, expected);
   }
 

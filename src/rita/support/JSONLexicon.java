@@ -51,6 +51,7 @@ public class JSONLexicon implements Constants
    */
   public static JSONLexicon getInstance()
   {    
+    if (!RiTa.USE_LEXICON) return null;
     return getInstance(DEFAULT_LEXICON);
   }
 
@@ -75,7 +76,9 @@ public class JSONLexicon implements Constants
       }
       catch (Throwable e)
       {
-        throw new RiTaException(e);
+	System.out.println(e.getMessage());
+	return null;
+        //throw new RiTaException(e);
       }
     }
     return instance;
@@ -319,42 +322,24 @@ public class JSONLexicon implements Constants
    */
   public String[] getPhonemeArr(String word, boolean useLTS)
   {
+    String s = null;
     Map<String,String> m = getFeatures(word);
 
     if (m != null) // check the lexicon first
-    { 
-      String s = m.get(PHONEMES);
-      if (s != null)
-        return s.split(PHONEME_BOUNDARY);
-    }
+      s = m.get(PHONEMES);
     
-    return useLTS ? getLTSEngine().getPhones(word, null) : null;
-  }
+    if (s == null && useLTS)
+	s = stripStressesAndSyllables(getLTSEngine().getPhones(word));
   
-  /**
-   * Gets a phone list (+ stresses) for a word from a given lexicon. If a phone
-   * list cannot be found, returns <code>null</code>.
-   * 
-   * @return the list of phones for word or <code>null</code>
-   */
-  protected String[] getPhones(String word, boolean useLTS)
-  {
-    // System.out.println("RiTaLexicon.getPhones("+word+") -> "+lookupRaw(word));
-    String raw = lookupRaw(word);
-    if (raw != null)
-    {
-      String[] o = raw.split(DATA_DELIM);
-      if (o.length != 2)
-        throw new RiTaException("Invalid lexicon entry: " + raw);
-      return o[0].trim().split(PHONE_DELIM); 
-    }
-
-    return useLTS ? getLTSEngine().getPhones(word, null) : null;
+    //s = s.replaceAll(" ", PHONEME_BOUNDARY);
+    
+    //System.out.println(s);
+    
+    return (s != null) ? s.split(PHONEME_BOUNDARY) : null;
   }
 
-  String[] stripStresses(String[] phonesAndStresses)
+  String[] stripStresses(String[] phonesAndStresses) // not used
   {
-    // String phonesOnly = "";
     // System.out.println("RiTaLexicon.stripStresses("+RiTa.asList(phonesAndStresses)+")");
     for (int i = 0; i < phonesAndStresses.length; i++)
     {
@@ -369,15 +354,17 @@ public class JSONLexicon implements Constants
     return phonesAndStresses;
   }
 
-  String stripStresses(String phonesAndStresses)
+  String stripStressesAndSyllables(String phonesAndStresses)
   {
+    char pb = PHONEME_BOUNDARY.charAt(0);
     StringBuilder phonesOnly = new StringBuilder();
-    // System.out.println("RiTaLexicon.stripStresses("+RiTa.asList(phonesAndStresses)+")");
-    for (int i = 0; i < phonesAndStresses.length(); i++)
-    {
+
+    for (int i = 0; i < phonesAndStresses.length(); i++) {
       char c = phonesAndStresses.charAt(i);
-      if (c != STRESSED)
-        phonesOnly.append(c);
+      if (c == ' ')
+	phonesOnly.append(pb);
+      else if (c != STRESSED)
+	phonesOnly.append(c);
     }
     return phonesOnly.toString();
   }
@@ -677,10 +664,9 @@ public class JSONLexicon implements Constants
       if (!RiTa.SILENT && !RiLexicon.SILENCE_LTS) 
         System.out.println("[RiTa] Using letter-to-sound rules for: " + word);
       
-      String[] phones = LetterToSound.getInstance().getPhones(word);
-      
-      if (phones != null && phones.length > 0)
-        return RiString.syllabify(phones);
+      String phones = LetterToSound.getInstance().getPhones(word);
+      if (phones != null && phones.length() > 0)
+        return phones;
     }
 
     return data == null ? E : data.split(DATA_DELIM)[0].trim();

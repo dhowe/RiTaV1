@@ -1,5 +1,6 @@
 package rita;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -140,7 +141,7 @@ public class RiLexicon implements Constants
     return false;
   }
   
-  public Map lexicalData()
+  public Map<String, String> lexicalData()
   {
     return lexImpl.getLexicalData();
   }
@@ -478,14 +479,13 @@ public class RiLexicon implements Constants
     return minVal;
   }
 
-  int similarBySound(String input, Set result, int minDist)
+  int similarBySound(String input, Set<String> result, int minDist)
   { 
     if (result == null) 
       throw new IllegalArgumentException("Null Arg: result[Collection](3)");
 
     if (input == null || input.length() < 1) return -1;
 
-    int idx = 0;
     int minVal = Integer.MAX_VALUE;
     String[] targetPhones = lexImpl.getPhonemeArr(input, true);
 
@@ -495,22 +495,24 @@ public class RiLexicon implements Constants
     if (minEditDist == null)
       minEditDist = new MinEditDist();        
     
-//System.out.println("TARGET: "+RiTa.asList(targetPhones));
+    // System.out.println("TARGET: "+RiTa.asList(targetPhones));
     
-    for (Iterator i = lexImpl.iterator(); i.hasNext(); idx++)
+    for (Iterator<String> i = lexImpl.iterator(); i.hasNext();)
     {
       String candidate = (String)i.next();
       String[] phones = lexImpl.getPhonemeArr(candidate, false);
-      
-//System.out.println("TEST: "+RiTa.asList(targetPhones));
-      
+            
       int med = minEditDist.computeRaw(phones, targetPhones);  
 
       if (med == 0) continue; // same phones     
       
       // found something even closer
       if(med >= minDist && med < minVal) {
+	
         if (checkResult(input, result, candidate, 3)) {
+          
+          //System.out.println("BEST: "+candidate + " "+med + " "+Arrays.asList(phones));
+          
           minVal = med;
           result.clear();
           result.add(candidate);
@@ -518,6 +520,9 @@ public class RiLexicon implements Constants
       }  
       // we have another best to add
       else if (med == minVal) {
+	
+	//System.out.println("TIED: "+candidate + " "+med + " "+Arrays.asList(phones));
+
         addResult(input, result,  candidate, 3);
       }
     }
@@ -532,7 +537,7 @@ public class RiLexicon implements Constants
    */
   public String[] similarBySound(String input)
   {
-    Set result = new HashSet();   
+    Set<String> result = new HashSet<String>();   
     similarBySound(input, result, 1);
     return SetOp.toStringArray(result); 
   }
@@ -817,11 +822,11 @@ public class RiLexicon implements Constants
     
     if (input != null && (input.indexOf(' ') < 0) && fC != null) {
       
-      Map m = lexicalData();
+      Map<String, String> m = lexicalData();
       
-      for (Iterator it = m.keySet().iterator(); it.hasNext();) {
+      for (Iterator<String> it = m.keySet().iterator(); it.hasNext();) {
         
-        String cand = (String) it.next();
+        String cand = it.next();
         
         if (_isAlliteration(fC, cand, useLTS))
           addResult(input, result, cand, minLength);           

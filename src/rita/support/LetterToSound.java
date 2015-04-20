@@ -10,6 +10,7 @@ package rita.support;
 import java.io.*;
 import java.util.*;
 
+import rita.RiString;
 import rita.RiTa;
 import rita.RiTaException;
 
@@ -22,7 +23,7 @@ import rita.RiTaException;
 public class LetterToSound
 {
   static LetterToSound instance;
-
+  
   public static LetterToSound getInstance()
   {
     if (instance == null)
@@ -324,14 +325,15 @@ public class LetterToSound
       full_buff[full_buff.length - i - 1] = '0';
     }
     full_buff[full_buff.length - WINDOW_SIZE] = '#';
+    
     return full_buff;
   }
 
-  public String[] getPhones(String word)
-  {
-    return getPhones(word, null);
+  static Map<String,String> cache = new HashMap<String, String>();
+  static {
+    cache.put("the", "dh-ax");
   }
-
+  
   /**
    * Calculates the phone list for a given word. If a phone list cannot be
    * determined, <code>null</code> is returned. This particular implementation
@@ -339,100 +341,63 @@ public class LetterToSound
    * 
    * @param word
    *          the word to find
-   * @param partOfSpeech
-   *          the part of speech.
    * 
    * @return the list of phones for word or <code>null</code>
    */
-  public String[] getPhones(String word, String partOfSpeech)
+  public String getPhones(String word)
   {
-    if (RiTa.PRINT_LTS_INFO && !RiTa.SILENT)
-      System.out.println("[INFO] Using LTS for '" + word + "'");
-
-    List phoneList = new ArrayList();
-    State currentState;
-    Integer startIndex;
-    int stateIndex;
-    char c;
-
-    // Create "000#word#000"
-    char[] full_buff = getFullBuff(word);
-
-    // For each character in the word, create a WINDOW_SIZE
-    // context on each size of the character, and then ask the
-    // state machine what's next. Its magic
-    for (int pos = 0; pos < word.length(); pos++)
-    {
-      for (int i = 0; i < WINDOW_SIZE; i++)
+    String result = cache.get(word); // check cache
+    if (result == null) {
+    
+      if (RiTa.PRINT_LTS_INFO && !RiTa.SILENT)
+        System.out.println("[INFO] Using LTS for '" + word + "'");
+  
+      List<String> phoneList = new ArrayList<String>();
+      State currentState;
+      Integer startIndex;
+      int stateIndex;
+      char c;
+  
+      // Create "000#word#000"
+      char[] full_buff = getFullBuff(word);
+  
+      // For each character in the word, create a WINDOW_SIZE
+      // context on each size of the character, and then ask the
+      // state machine what's next. Its magic
+      for (int pos = 0; pos < word.length(); pos++)
       {
-        fval_buff[i] = full_buff[pos + i];
-        fval_buff[i + WINDOW_SIZE] = full_buff[i + pos + 1 + WINDOW_SIZE];
-      }
-      c = word.charAt(pos);
-      startIndex = (Integer) letterIndex.get(Character.toString(c));
-      if (startIndex == null)
-      {
-        continue;
-      }
-
-      stateIndex = startIndex.intValue();
-      currentState = getState(stateIndex);
-      while (!(currentState instanceof FinalState))
-      {
-        stateIndex = ((DecisionState) currentState).getNextState(fval_buff);
+        for (int i = 0; i < WINDOW_SIZE; i++)
+        {
+          fval_buff[i] = full_buff[pos + i];
+          fval_buff[i + WINDOW_SIZE] = full_buff[i + pos + 1 + WINDOW_SIZE];
+        }
+        c = word.charAt(pos);
+        startIndex = (Integer) letterIndex.get(Character.toString(c));
+        if (startIndex == null)
+        {
+          continue;
+        }
+  
+        stateIndex = startIndex.intValue();
         currentState = getState(stateIndex);
+        while (!(currentState instanceof FinalState))
+        {
+          stateIndex = ((DecisionState) currentState).getNextState(fval_buff);
+          currentState = getState(stateIndex);
+        }
+  
+        ((FinalState) currentState).append((ArrayList<String>) phoneList);
+        //RiTa.out("phoneList: "+phoneList);      
       }
-
-      ((FinalState) currentState).append((ArrayList) phoneList);
-//RiTa.out("phoneList: "+phoneList);      
+      
+      result = RiString.syllabify(phoneList.toArray(new String[0]));
+      cache.put(word, result);
     }
     
-    return (String[]) phoneList.toArray(new String[0]);
+    return result; 
   }
 
-  /**
-   * Compares this LTS to another for debugging purposes.
-   * 
-   * @param other
-   *          the other LTS to compare to
-   * 
-   * @return <code>true</code> if these are equivalent
-   */
-  public boolean compare(LetterToSound other)
-  {
-
-    // compare letter index table
-    //
-    for (Iterator i = letterIndex.keySet().iterator(); i.hasNext();)
-    {
-      String key = (String) i.next();
-      Integer thisIndex = (Integer) letterIndex.get(key);
-      Integer otherIndex = (Integer) other.letterIndex.get(key);
-      if (!thisIndex.equals(otherIndex))
-      {
-        if (RiTa.PRINT_LTS_INFO)
-          System.err.println("[WARN] LTSengine -> Bad index: " + key);
-        return false;
-      }
-    }
-
-    // compare states
-    //
-    for (int i = 0; i < stateMachine.length; i++)
-    {
-      State state = getState(i);
-      State otherState = other.getState(i);
-      if (!state.compare(otherState))
-      {
-        if (RiTa.PRINT_LTS_INFO)
-          System.err.println("[WARN] LTSengine -> Bad state: " + i);
-        return false;
-      }
-    }
-
-    return true;
-  }
-
+  
   /**
    * A marker interface for the states in the LTS state machine.
    * 
@@ -724,9 +689,9 @@ public class LetterToSound
   public static void main(String[] args)
   {
     LetterToSound text = LetterToSound.getInstance();
-    System.out.println(Arrays.asList(text.getPhones("laggin", "n")));
-    System.out.println(Arrays.asList(text.getPhones("dragon", "n")));
-    System.out.println(Arrays.asList(text.getPhones("hello", "n")));
+    System.out.println(Arrays.asList(text.getPhones("laggin")));
+    System.out.println(Arrays.asList(text.getPhones("dragon")));
+    System.out.println(Arrays.asList(text.getPhones("hello")));
     // System.out.println(Arrays.asList(text.getPhones("antelope", "n")));
   }
 }

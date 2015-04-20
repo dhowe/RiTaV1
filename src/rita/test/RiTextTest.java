@@ -24,8 +24,8 @@ public class RiTextTest
     rt.features();
     ok(rt.features());
 
-    equal(rt.get(RiTa.PHONEMES), "dh-ax l-ae-g-ih-n d-r-ae-g-ax-n");
-    equal(rt.get(RiTa.SYLLABLES), "dh-ax l-ae/g-ih-n d-r-ae-g/ax-n");
+    equal(rt.get(RiTa.PHONEMES), "dh-ax l-ae-g-ih-n d-r-ae-g-aa-n");
+    equal(rt.get(RiTa.SYLLABLES), "dh-ax l-ae/g-ih-n d-r-ae-g/aa-n");
     equal(rt.get(RiTa.STRESSES), "0 1/1 1/0");
 
     rt = new RiText(null, "123");
@@ -174,8 +174,8 @@ public class RiTextTest
 //      System.out.println("Get PHONEMES :"+ph);
 //      System.out.println("Get SYLLABLES :"+sy);
 //      System.out.println("Get STRESSES :"+st);
-      equal(ph,"dh-ax l-ae-g-ih-n d-r-ae-g-ax-n");
-      equal(sy,"dh-ax l-ae/g-ih-n d-r-ae-g/ax-n"); 
+      equal(ph,"dh-ax l-ae-g-ih-n d-r-ae-g-aa-n");
+      equal(sy,"dh-ax l-ae/g-ih-n d-r-ae-g/aa-n"); 
       equal(st, "0 1/1 1/0");
   }
 

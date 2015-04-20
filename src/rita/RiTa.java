@@ -22,6 +22,8 @@ public class RiTa implements Constants
   public static Object context = null; // generally a PApplet
   
   private static boolean INITD = false;
+  
+  public static boolean USE_LEXICON = true;
    
   /** Stops all RiTa output to the console */
   public static boolean SILENT = false;
@@ -725,12 +727,6 @@ public class RiTa implements Constants
     
     return EntityLookup.getInstance().unescape(s);
   }
-    
-  /*
-   * Only relevant in the javascript version of RiTa
-   */
-  @SuppressWarnings("unused")
-  public static void p5Compatible(boolean b) {/* no-op */} 
   
   //////// HELPERS //////////////////////////////////////////////////////////
   
@@ -738,7 +734,7 @@ public class RiTa implements Constants
   public static String[] strArr(Collection l)
   {
     if (l == null || l.size()==0) return RiTa.EMPTY;
-    return (String[])l.toArray(new String[l.size()]);
+    return (String[])l.toArray(new String[0]);
   }
   
   public static Object invoke(Object callee, String methodName, Class[] argTypes, Object[] args)
