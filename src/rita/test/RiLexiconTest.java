@@ -976,6 +976,28 @@ public class RiLexiconTest {
   }
 
   @Test
+  public void testReload() {
+    RiLexicon lex = new RiLexicon();
+    int originalSize = lex.size();
+    
+    ok(lex.containsWord("are"));
+    lex.removeWord("are");
+    int removeOneWordSize = lex.size();
+    lex.reload();
+    ok(lex.size() > removeOneWordSize);
+	
+    ok(lex.containsWord("cat"));
+    lex.removeWord("cat");
+    ok(lex.containsWord("are"));
+    lex.removeWord("are");
+	
+    int removeTwoWordSize = lex.size();
+    ok(removeTwoWordSize < removeOneWordSize);
+    lex.reload();
+    ok(lex.size() == originalSize);
+  }
+
+  @Test
   public void testSubstringsString() {
     RiLexicon lex = new RiLexicon(); // only 1 per test needed
 
