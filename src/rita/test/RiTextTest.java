@@ -1,6 +1,5 @@
 package rita.test;
 
-import static org.junit.Assert.*;
 import static rita.support.QUnitStubs.deepEqual;
 import static rita.support.QUnitStubs.equal;
 import static rita.support.QUnitStubs.notEqual;
@@ -11,7 +10,9 @@ import java.util.regex.Pattern;
 
 import org.junit.Test;
 
-import rita.*;
+import rita.RiString;
+import rita.RiTa;
+import rita.RiText;
 
 public class RiTextTest
 { 

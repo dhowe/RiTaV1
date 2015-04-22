@@ -1,4 +1,4 @@
-package rita.test;
+package rita.render.test;
 
 import static org.junit.Assert.assertTrue;
 

@@ -1,4 +1,4 @@
-package rita.test;
+package rita.render.test;
 
 import org.junit.After;
 import org.junit.Test;

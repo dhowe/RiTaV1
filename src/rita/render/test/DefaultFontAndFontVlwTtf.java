@@ -1,7 +1,6 @@
 package rita.render.test;
 
 import rita.RiText;
-import rita.test.PixelCompare;
 
 // TODO: add warning message to JS code about vlw files...
 public class DefaultFontAndFontVlwTtf extends processing.core.PApplet

@@ -2,7 +2,6 @@ package rita.render.test;
 
 import processing.core.PApplet;
 import rita.RiText;
-import rita.test.PixelCompare;
 
 public class WordsLettersLines extends PApplet
 {

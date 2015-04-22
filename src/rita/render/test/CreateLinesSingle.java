@@ -3,7 +3,6 @@ package rita.render.test;
 import processing.core.PApplet;
 import processing.core.PFont;
 import rita.*;
-import rita.test.PixelCompare;
 
 public class CreateLinesSingle extends PApplet {
 	    

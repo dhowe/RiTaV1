@@ -2,7 +2,7 @@ package rita.render.test.misc;
 
 import processing.core.PApplet;
 import rita.RiText;
-import rita.test.PixelCompare;
+import rita.render.test.PixelCompare;
 
 public class TextLayout extends PApplet
 {
