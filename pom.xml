@@ -59,9 +59,7 @@
                 <version>2.18.1</version>
                 <configuration>
                     <argLine>-Xmx512M</argLine>
-                    <excludes>
-                        <exclude>${project.basedir}/src/rita/test/sketches/*</exclude>
-                    </excludes>
+                    <!--excludes><exclude></exclude></excludes-->
                     <skipTests>true</skipTests>
                 </configuration>
                 <dependencies>
@@ -79,21 +77,15 @@
                 <configuration>
                     <source>1.5</source>
                     <target>1.5</target>
-                    <excludes>
-                        <exclude>rita/test/sketches/*.java</exclude>
-                    </excludes>
-                    <test-excludes>
-                        <exclude>rita/test/sketches/*.java</exclude>
-                    </test-excludes>	
+                    <!--excludes><exclude></exclude></excludes>
+                    <test-excludes><exclude></exclude></test-excludes-->	
                 </configuration>
                 <executions>
                     <execution>
                         <id>default-testCompile</id>
                         <phase>test-compile</phase>
                         <configuration>
-                            <testExcludes>
-                                <exclude>rita/test/sketches/*.java</exclude>
-                            </testExcludes>
+                            <!--test-excludes><exclude></exclude></test-excludes-->	
                         </configuration> 
                         <goals>
                             <goal>testCompile</goal>

@@ -5,13 +5,13 @@ import rita.support.*;
 import static rita.support.Constants.EventType.*;
 
 // fades fill and stroke of bounding box
-public class BoundingBoxAlphaFade extends InterpolatingBehavior
+public class BBAlphaFade extends InterpolatingBehavior
 {
-  public BoundingBoxAlphaFade(RiText rt, float newAlpha, float duration) {
+  public BBAlphaFade(RiText rt, float newAlpha, float duration) {
     this(rt, newAlpha, 0, duration);
   }
   
-  public BoundingBoxAlphaFade(RiText rt, float newAlpha, float startTime, float duration) {
+  public BBAlphaFade(RiText rt, float newAlpha, float startTime, float duration) {
     super(rt, startTime, duration);    
     float[] fill = rt.boundingFill();
     float[] stroke = rt.boundingStroke();

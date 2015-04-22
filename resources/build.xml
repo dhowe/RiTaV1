@@ -253,8 +253,8 @@
 	<target name="info">
 		<echo>
 ${line}
-Name:	${project.name} 
-Version:	${project.version}
+Name:		${project.name} 
+Version:		${project.version}
 Java.Version:	${java.version}
 ${line}
 		</echo>
