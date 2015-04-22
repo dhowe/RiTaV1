@@ -51,6 +51,11 @@
         <sourceDirectory>${project.basedir}/src</sourceDirectory>
         <scriptSourceDirectory>src/main/scripts</scriptSourceDirectory>
         <testSourceDirectory>${project.basedir}/src/</testSourceDirectory>
+        <resources>
+            <resource>
+                <directory>src</directory>
+            </resource>
+        </resources>
 
         <plugins>
             <plugin>
