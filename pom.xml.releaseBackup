@@ -1,0 +1,127 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.rednoise</groupId>
+    <artifactId>rita</artifactId>
+    <version>1.0.91-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>RiTa</name>
+    <description>RiTa is designed to be an easy-to-use toolkit for experiments in natural language and generative literature. It is implemented in Java and JavaScript (with a unified API for both). It is free/libre and open-source according to the GPL license.</description>
+    <url>http://www.rednoise.org/rita</url>
+
+    <licenses>
+        <license>
+            <name>GPLv3 License</name>
+            <url>https://www.gnu.org/licenses/gpl-3.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Daniel C Howe</name>
+            <email>daniel@rednoise.org</email>
+            <organization>rednoise</organization>
+            <organizationUrl>https://github.com/dhowe</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git@github.com:dhowe/rita.git</connection>
+        <developerConnection>scm:git:git@github.com:dhowe/rita.git</developerConnection>
+        <url>git@github.com:dhowe/rita.git</url>
+    </scm>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.processing</groupId>
+            <artifactId>core</artifactId>
+            <version>2.2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>1.15</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <!--
+            NOTE: This will only work if the src/ tree and it's test classes
+            are segregated, i.e. maintain a src/ and test/ tree side by side.
+            However, making the scope test will mean that the classes that are
+            marked as 'test' classes in the same tree (src/) will NOT compile.
+            <scope>test</scope>
+            -->
+        </dependency>
+
+    </dependencies>
+
+    <build>
+
+        <directory>${project.basedir}/target</directory>
+        <outputDirectory>${project.build.directory}/classes</outputDirectory>
+        <finalName>${project.artifactId}-${project.version}</finalName>
+        <testOutputDirectory>${project.build.directory}/test-classes</testOutputDirectory>
+        <sourceDirectory>${project.basedir}/src</sourceDirectory>
+        <scriptSourceDirectory>src/main/scripts</scriptSourceDirectory>
+        <testSourceDirectory>${project.basedir}/src/</testSourceDirectory>
+
+        <resources>
+            <resource>
+                <directory>src</directory>
+            </resource>
+        </resources>
+
+        <plugins>
+        
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.18.1</version>
+                <configuration>
+                    <argLine>-Xmx512M</argLine>
+                	<skipTests>true</skipTests>
+            	</configuration>
+            	<dependencies>
+                	<dependency>
+                    	<groupId>org.apache.maven.surefire</groupId>
+                    	<artifactId>surefire-junit4</artifactId>
+                    	<version>2.18.1</version>
+                	</dependency>
+           		</dependencies>
+        	</plugin>
+
+        	<plugin>
+            	<groupId>org.apache.maven.plugins</groupId>
+            	<artifactId>maven-compiler-plugin</artifactId>
+            	<version>2.0.2</version>
+            	<configuration>
+                	<source>1.5</source>
+                	<target>1.5</target>
+            	</configuration>
+            	<executions>
+                	<execution>
+                    	<id>default-testCompile</id>
+                    	<phase>test-compile</phase>
+               			<goals>
+                    		<goal>testCompile</goal>
+                		</goals>
+            		</execution> 
+        		</executions>
+    		</plugin>
+		
+		</plugins>
+		
+	</build>
+</project>
+
