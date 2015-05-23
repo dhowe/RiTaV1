@@ -17,7 +17,6 @@ import rita.support.YAMLParser;
 
 public class RiGrammarTest
 { 
-  private static final boolean SILENT = true;
   private static boolean WITHOUT_YAML = false;
 
   static String sentenceGrammarJSON = "{ \"<start>\" : \"<noun_phrase> <verb_phrase>.\", \"<noun_phrase>\" : \"<determiner> <noun>\", \"<verb_phrase>\" : \"<verb> | <verb> <noun_phrase> [.1]\", \"<determiner>\" : \"a [.1] | the\", \"<noun>\" : \"woman | man\", \"<verb>\" : \"shoots\" }";
@@ -29,6 +28,8 @@ public class RiGrammarTest
   static String[] haikuGrammarFiles = { "haikuGrammar.json", "haikuGrammar2.json", "haikuGrammar.yaml", "haikuGrammar2.yaml" };
 
   static {
+    
+    RiTa.SILENT = true;
     
     if (WITHOUT_YAML) {
       
@@ -1013,7 +1014,7 @@ public class RiGrammarTest
 
   void println(String string)
   {
-    if (!SILENT) System.out.println(string);
+    if (!RiTa.SILENT) System.out.println(string);
   }
   
   // helpers

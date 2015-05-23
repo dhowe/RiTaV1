@@ -73,6 +73,7 @@ public class JSONLexicon implements Constants
         if (!RiTa.SILENT)
           System.out.println("[INFO] Loaded " + instance.size() + 
             "(" + addenda + ") lexicon in " + (System.currentTimeMillis()-start)+" ms");
+              //"from "+pathToLexicon);
       }
       catch (Throwable e)
       {

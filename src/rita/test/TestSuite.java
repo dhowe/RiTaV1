@@ -9,12 +9,12 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses( {
   RiLexiconTest.class,
   RiStringTest.class,
-  RiTextTest.class,
+  /*RiTextTest.class,
   RiTaTest.class,
   RiMarkovTest.class,
   RiGrammarTest.class,
   RiTaEventTest.class,
-  RiWordNetTest.class,
+  RiWordNetTest.class,*/
   //RiWordNetIteratorsTest.class, // TOO SLOW! 
   //KnownIssuesTest.class, 
 })

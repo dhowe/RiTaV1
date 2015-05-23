@@ -239,7 +239,7 @@ public class BrillPosTagger implements Constants
     
     String[] posArr = lexicon.getPosArr(word);
     
-    if (DBUG) 
+    if (DBUG)
       System.out.println("BrillPosTagger.lookup("+word+") -> "+RiTa.asList(posArr));
     
     return posArr;

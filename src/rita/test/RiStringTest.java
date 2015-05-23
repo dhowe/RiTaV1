@@ -14,29 +14,17 @@ import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 
-import rita.RiString;
-import rita.RiTa;
+import rita.*;
 import rita.support.Constants;
 
 public class RiStringTest implements Constants
 {
   static { 
-    //RiTa.USE_LEXICON = false;
+    //RiTa.USE_LEXICON = false;	
+    RiTa.SILENT = true;
     RiTa.SILENT_LTS = true; //UNCOMMENT TO TEST WITHOUT LEXICON, USING ONLY LTS
   }
   
-  @Test
-  public void testRiStringObjectCharSequence()
-  {
-    ok(new RiString("hello"));
-  }
-
-  @Test
-  public void testRiStringCharSequence()
-  {
-    ok(new RiString("hello"));
-  }
-
   @Test
   public void testSubSequence()
   {

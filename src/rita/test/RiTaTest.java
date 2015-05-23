@@ -21,6 +21,7 @@ public class RiTaTest
   
   @Before
   public void initialize() {
+    RiTa.SILENT = true;
     RiTa.USE_LEXICON = true;
   }
  

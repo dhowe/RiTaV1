@@ -430,8 +430,9 @@ public class RiMarkov implements Constants
 
   protected void onGenerationIncomplete(int tries, int successes)
   {
-    System.err.println("\n[WARN] RiMarkov failed to complete after " + tries
-        + " tries\n       Giving up after " + successes + " successful generations...\n");
+    if (!RiTa.SILENT)
+      System.err.println("\n[WARN] RiMarkov failed to complete after " + tries
+	  + " tries\n       Giving up after " + successes + " successful generations...\n");
   }
 
   // Methods -------------------------------------------------------
@@ -528,7 +529,8 @@ if (rawText.length() < 10)
       if (sentenceStarts.size() > 0)
         return this;
       
-      System.err.println("[WARN] No sentences found, parsing as tokens");
+      if (!RiTa.SILENT)
+	System.err.println("[WARN] No sentences found, parsing as tokens");
     }
     
     return loadTokens(RiTa.tokenize(rawText, regex), multiplier);
