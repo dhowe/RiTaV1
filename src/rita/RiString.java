@@ -877,7 +877,6 @@ public class RiString implements FeaturedIF, Constants, Comparable<RiString> {
       rs.features.clear();
   }
 
-  @Override
   public int compareTo(RiString o) {
 
     return delegate.compareTo(o.delegate);
