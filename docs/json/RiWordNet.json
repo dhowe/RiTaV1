@@ -131,7 +131,7 @@
             "variable": false,
             "name": "isIgnoringCompoundWords",
             "example": "",
-            "description": "Returns true if current RiWordNet is ignoring lowercase words",
+            "description": "Returns true if current RiWordNet is ignoring compound words",
             "syntax": "isIgnoringCompoundWords();",
             "parameters": [],
             "returns": [
@@ -192,7 +192,7 @@
             "variable": false,
             "name": "ignoreUpperCaseWords",
             "example": "",
-            "description": "set RiWordNet to ignore uppercase words",
+            "description": "Set RiWordNet to ignore uppercase words",
             "syntax": "ignoreUpperCaseWords(ignoreUpperCaseWords);",
             "parameters": [
                 {
@@ -209,7 +209,7 @@
             "variable": false,
             "name": "ignoreCompoundWords",
             "example": "",
-            "description": "set RiWordNet to ignore compound words",
+            "description": "Set RiWordNet to ignore compound words",
             "syntax": "ignoreCompoundWords(ignoreCompoundWords);",
             "parameters": [
                 {
@@ -630,7 +630,7 @@
             "variable": false,
             "name": "getPos",
             "example": "",
-            "description": "gets the pos of the id or 'word'",
+            "description": "Returns the part of speech of the id or 'word'",
             "syntax": "getPos(id);<br/>getPos(word);",
             "parameters": [
                 {
@@ -1284,7 +1284,7 @@
             "variable": false,
             "name": "getAllSynonyms",
             "example": "",
-            "description": "Gets all the synonyms of the word by 'sendseID' or the 'word'.",
+            "description": "Returns all the synonyms of the word by 'senseID' or the 'word'.",
             "syntax": "getAllSynonyms(senseId);<br/>getAllSynonyms(senseId, maxResults);<br/>getAllSynonyms(word, posStr);<br/>getAllSynonyms(word, posStr, maxResults);",
             "parameters": [
                 {
@@ -1674,7 +1674,7 @@
             "variable": false,
             "name": "getBaseForm",
             "example": "",
-            "description": "Gets the base form of the word",
+            "description": "Returns the base form of the word",
             "syntax": "getBaseForm(word)<br/>getBaseForm(word,posStr)",
             "parameters": [           
                 {
