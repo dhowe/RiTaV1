@@ -1,2423 +1,1846 @@
 {
-    "class": "rita.RiText",
-    "fields": [
-	{
-	  "variable":true,
-      "name":"x",
-      "example":"",
-      "description":"x-position of the object",
-      "syntax":"rt.x",
-      "parameters":
-      [
-	  ],
-	  "returns":
-      [
-      		{ 
-			"type": "float", 
-			"desc": "" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-   	  "variable":true,
-      "name":"y",
-      "example":"",
-      "description":"y-position (the baseline of the text)",
-      "syntax":"",
-      "parameters":
-      [
-			{ 
-			"type": "float", 
-			"desc": "" 
-			}
-			
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "", 
-			"desc": "" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "variable":true,
-      "name":"z",
-      "example":"",
-      "description":"z-position (used only in 3d)",
-      "syntax":"",
-      "parameters":
-      [
-	  ],
-	  "returns":
-      [
-      		{ 
-			"type": "float", 
-			"desc": "" 
-			}
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },	
-   
-   {
-	  "variable":true,
-      "name":"defaults.scaleX",
-      "example":"",
-      "description":"The default x-scale for all newly created RiTexts",
-      "syntax":"",
-      "parameters":
-      [
-	  ],
-	  "returns":
-      [
-      		{ 
-			"type": "float", 
-			"desc": "the scale (initial value = 1)" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-	  "variable":true,
-      "name":"defaults.scaleY",
-      "example":"",
-      "description":"The default y-scale for all newly created RiTexts",
-      "syntax":"",
-      "parameters":
-      [
-	  ],
-	  "returns":
-      [
-      		{ 
-			"type": "float", 
-			"desc": "the scale (initial value = 1)" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-      {
-	  "variable":true,
-      "name":"defaults.scaleZ",
-      "example":"",
-      "description":"The default z-scale for all newly created RiTexts",
-      "syntax":"",
-      "parameters":
-      [
-	  ],
-	  "returns":
-      [
-      		{ 
-			"type": "float", 
-			"desc": "the scale (initial value = 0)" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-	  "variable":true,
-      "name":"defaults.fill",
-      "example":"",
-      "description":"The default fill for all newly created RiTexts",
-      "syntax":"",
-      "parameters":
-      [
-	  ],
-	  "returns":
-      [
-      		{ 
-			"type": "float[]", 
-			"desc": "the fill (initial value = [0,0,0,255])" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-	  "variable":true,
-      "name":"defaults.rotateX",
-      "example":"",
-      "description":"The default x-rotation for all newly created RiTexts",
-      "syntax":"",
-      "parameters":
-      [
-	  ],
-	  "returns":
-      [
-      		{ 
-			"type": "float", 
-			"desc": "the scale (initial value = 1)" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-	  "variable":true,
-      "name":"defaults.rotateY",
-      "example":"",
-      "description":"The default y-rotation for all newly created RiTexts",
-      "syntax":"",
-      "parameters":
-      [
-	  ],
-	  "returns":
-      [
-      		{ 
-			"type": "float", 
-			"desc": "the scale (initial value = 1)" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-	  "variable":true,
-      "name":"defaults.rotateZ",
-      "example":"",
-      "description":"The default z-rotation for all newly created RiTexts",
-      "syntax":"",
-      "parameters":
-      [
-	  ],
-	  "returns":
-      [
-      		{ 
-			"type": "float", 
-			"desc": "the scale (initial value = 0)" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-	  "variable":true,
-      "name":"defaults.alignment",
-      "example":"",
-      "description":"The default alignment for all newly created RiTexts",
-      "syntax":"",
-      "parameters":
-      [
-	  ],
-	  "returns":
-      [
-      		{ 
-			"type": "int", 
-			"desc": "Either LEFT, CENTER, or RIGHT (RiText.LEFT, RiText.CENTER, or RiText.RIGHT)" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-	  "variable":true,
-      "name":"defaults.motionType",
-      "example":"",
-      "description":"The default motionType for all newly created RiTexts",
-      "syntax":"",
-      "parameters":
-      [
-	  ],
-	  "returns":
-      [
-      		{ 
-			"type": "int", 
-			"desc": "One of LINEAR, EASE_IN, EASE_OUT, EASE_IN_OUT, EASE_IN_OUT_CUBIC, EASE_IN_CUBIC, EASE_OUT_CUBIC, EASE_IN_OUT_QUARTIC, EASE_IN_QUARTIC, EASE_OUT_QUARTIC, EASE_IN_OUT_SINE, EASE_IN_SINE, EASE_OUT_SINE, EASE_IN_OUT_EXPO, EASE_IN_EXPO, or EASE_OUT_EXPO" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"features",
-      "example":"theFeatures = myRiText.features();",
-      "description":"Returns the current set of features for the object, including <a target=_new href='../../PhonemeTags.html'>phonemes</a>, syllables, stresses, etc.",
-      "syntax":"features();",
-      "parameters":[],
-	  "returns":
-      [
-			{ 
-			"type": "Object", 
-			"desc": "Map (in Java), Object with key-value pairs (in JS)" 
-			}
-	  ],
-      "related":"RiText.analyze()<br>RiText.get",
-      "platform":"Java / Javascript",
-	  "note":""
-   	},
-	{
-      "name":"analyze",
-      "example":"myRiText.get(\"phonemes\");<br>myRiText.get(RiTa.PHONEMES);<br>myRiText.get(RiTa.SYLLABLES);",
-      "description":"Computes a set of features for the RiText, including <a target=_new href='../../PhonemeTags.html'>phonemes</a>, syllables, stresses, etc. To access any of these, use myRiText.get(featureName)",
-      "syntax":"rt.analyze(feature-type);",
-      "parameters":
-      [
-			
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "RiText", 
-			"desc": "this RiText" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"charAt",
-      "example":"",
-      "description":"Returns the character at the given 'index', or an empty string if none is found",
-      "syntax":"rt.charAt(index);",
-      "parameters":
-      [
-			{ 
-			"type": "int", 
-			"desc": "index of the character" 
-			}
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "String", 
-			"desc": "the character" 
-			}
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"concat",
-      "example":"",
-      "description":"Concatenates the text from another RiText at the end of this one",
-      "syntax":"rt.concat(riText);",
-      "parameters":
-      [
-			{ 
-			"type": "RiText", 
-			"desc": "the new RiText" 
-			}
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "RiText", 
-			"desc": "this RiText" 
-			}
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"endsWith",
-      "example":"",
-      "description":"Tests if this String ends with the specified suffix",
-      "syntax":"rt.endsWith(substr);",
-      "parameters":
-      [
-			{ 
-			"type": "String", 
-			"desc": "String the suffix" 
-			}
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "boolean", 
-			"desc": "true if the character sequence represented by the argument is a suffix of the character sequence represented by this object; false otherwise" 
-			}
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"equals",
-      "example":"",
-      "description":"Compares this RiText to the specified object. <br/>The result is true if and only if the argument is not null and is a String or RiText object that represents the same sequence of characters as this object.",
-      "syntax":"rt.equals(string);<br/>rt.equals(riText);",
-      "parameters":
-      [
-			{ 
-			"type": "String OR RiText", 
-			"desc": "String or RiText object to compare this RiText against" 
-			}
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "boolean", 
-			"desc": "true if the RiText are equal; false otherwise." 
-			}
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"equalsIgnoreCase",
-      "example":"",
-      "description":"Compares this RiText to another RiText, ignoring case considerations",
-      "syntax":"rt.equalsIgnoreCase(string);<br/>rt.equalsIgnoreCase(riText);",
-      "parameters":
-      [
-			{ 
-			"type": "String OR RiText", 
-			"desc": "String or RiText object to compare this RiText against" 
-			}
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "boolean", 
-			"desc": "true if the argument is not null and the Strings are equal, ignoring case; false otherwise" 
-			}
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"indexOf",
-      "example":"",
-      "description":"Returns the index within this string of the first occurrence of the specified character",
-      "syntax":"rt.indexOf(searchstring);<br/>rt.indexOf(searchstring, start);",
-      "parameters":
-      [
-			{ 
-			"type": "String OR RiText", 
-			"desc": "searchstring (required) or character to search for" 
-			},
-			{ 
-			"type": "int", 
-			"desc": "(Optional) The start position in the String to start the search. If omitted, the search starts from position 0" 
-			}
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "int", 
-			"desc": "the first index of the matching pattern or -1 if none are found" 
-			}
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
+  "class": "rita.RiText",
+  "fields": [{
+      "variable": true,
+      "name": "x",
+      "example": "",
+      "description": "x-position of the object",
+      "syntax": "rt.x",
+      "parameters": [],
+      "returns": [{
+          "type": "float",
+          "desc": ""
+        }
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "variable": true,
+      "name": "y",
+      "example": "",
+      "description": "y-position (the baseline of the text)",
+      "syntax": "",
+      "parameters": [{
+          "type": "float",
+          "desc": ""
+        }
+
+      ],
+      "returns": [{
+          "type": "",
+          "desc": ""
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "variable": true,
+      "name": "z",
+      "example": "",
+      "description": "z-position (used only in 3d)",
+      "syntax": "",
+      "parameters": [],
+      "returns": [{
+        "type": "float",
+        "desc": ""
+      }],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    },
+
     {
-      "name":"insertWord",
-      "example":"",
-      "description":"Inserts 'newWord' at 'wordIdx' and shifts each subsequent word accordingly.",
-      "syntax":"rt.insertWord(newWord, wordIdx);",
-      "parameters":
-      [
-			{ 
-			"type": "String", 
-			"desc": "" 
-			},
-			{ 
-			"type": "int", 
-			"desc": "" 
-			}		
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "RiText", 
-			"desc": "this RiText" 
-			}
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"lastIndexOf",
-      "example":"",
-      "description":"Returns the index within this String of the last occurrence of the specified character",
-      "syntax":"rt.lastIndexOf(searchstring);<br/>rt.lastIndexOf(searchstring, start);",
-      "parameters":
-      [
-			{ 
-			"type": "String OR RiText", 
-			"desc": "searchstring (Required) or character to search for" 
-			},
-			{ 
-			"type": "int", 
-			"desc": "(Optional) The start position in the String to start the search. If omitted, the search starts from position 0" 
-			}
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "int", 
-			"desc": "the last index of the matching pattern or -1 if none are found" 
-			}
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"length",
-      "example":"",
-      "description":"Returns the length of this String",
-      "syntax":"rt.length();",
-      "parameters":
-      [
-			
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "int", 
-			"desc": "the length of the String" 
-			}
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"pos",
-      "example":"",
-      "description":"Returns an array of part-of-speech tags (from the <a href='../../PennTags.html'>PENN tag set</a>), one per word, using RiTa.tokenize() and RiTa.getPosTags(), with tags from the <a href='../../PennTags.html'>PENN tag set</a>",
-      "syntax":"rt.pos();",
-      "parameters":
-      [
-			
-		
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "String[]", 
-			"desc": "strings of pos, one per word" 
-			}
-	  ],
-      "related":"<a href='../../PennTags.html'>the PENN tagset</a>",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"posAt",
-      "example":"",
-      "description":"Returns the part-of-speech tag (from the <a href='../../PennTags.html'>PENN tag set</a>) for the word at 'index', using RiTa.tokenize() and RiTa.getPosTags(), with tags from the <a href='../../PennTags.html'>PENN tag set</a>",
-      "syntax":"rt.posAt(index);",
-      "parameters":
-      [
-			{ 
-			"type": "int", 
-			"desc": "the word index" 
-			}
-		
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "String", 
-			"desc": "the pos" 
-			}
-	  ],
-      "related":"<a href='../../PennTags.html'>the PENN tagset</a>",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"removeChar",
-      "example":"",
-      "description":"Removes the character at the specified index",
-      "syntax":"rt.removeChar(index);",
-      "parameters":
-      [
-			{ 
-			"type": "int", 
-			"desc": "the index" 
-			}
-		
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "RiText", 
-			"desc": "this RiText" 
-			}
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"replaceChar",
-      "example":"",
-      "description":"Replaces the character at 'idx' with 'replaceWith'. <br/>If the specified 'idx' is less than zero, or beyond the length of the current text, there will be no effect",
-      "syntax":"rt.replaceChar(idx, replaceWith);",
-      "parameters":
-      [
-			{ 
-			"type": "int", 
-			"desc": "the character index" 
-			},
-			{ 
-			"type": "String", 
-			"desc": "the replacement" 
-			}
-		
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "RiText", 
-			"desc": "this RiText" 
-			}
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
+      "variable": true,
+      "name": "defaults.scaleX",
+      "example": "",
+      "description": "The default x-scale for all newly created RiTexts",
+      "syntax": "",
+      "parameters": [],
+      "returns": [{
+          "type": "float",
+          "desc": "the scale (initial value = 1)"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "variable": true,
+      "name": "defaults.scaleY",
+      "example": "",
+      "description": "The default y-scale for all newly created RiTexts",
+      "syntax": "",
+      "parameters": [],
+      "returns": [{
+          "type": "float",
+          "desc": "the scale (initial value = 1)"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "variable": true,
+      "name": "defaults.scaleZ",
+      "example": "",
+      "description": "The default z-scale for all newly created RiTexts",
+      "syntax": "",
+      "parameters": [],
+      "returns": [{
+          "type": "float",
+          "desc": "the scale (initial value = 0)"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "variable": true,
+      "name": "defaults.fill",
+      "example": "",
+      "description": "The default fill for all newly created RiTexts",
+      "syntax": "",
+      "parameters": [],
+      "returns": [{
+          "type": "float[]",
+          "desc": "the fill (initial value = [0,0,0,255])"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "variable": true,
+      "name": "defaults.rotateX",
+      "example": "",
+      "description": "The default x-rotation for all newly created RiTexts",
+      "syntax": "",
+      "parameters": [],
+      "returns": [{
+          "type": "float",
+          "desc": "the scale (initial value = 1)"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "variable": true,
+      "name": "defaults.rotateY",
+      "example": "",
+      "description": "The default y-rotation for all newly created RiTexts",
+      "syntax": "",
+      "parameters": [],
+      "returns": [{
+          "type": "float",
+          "desc": "the scale (initial value = 1)"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "variable": true,
+      "name": "defaults.rotateZ",
+      "example": "",
+      "description": "The default z-rotation for all newly created RiTexts",
+      "syntax": "",
+      "parameters": [],
+      "returns": [{
+          "type": "float",
+          "desc": "the scale (initial value = 0)"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "variable": true,
+      "name": "defaults.alignment",
+      "example": "",
+      "description": "The default alignment for all newly created RiTexts",
+      "syntax": "",
+      "parameters": [],
+      "returns": [{
+          "type": "int",
+          "desc": "Either LEFT, CENTER, or RIGHT (RiText.LEFT, RiText.CENTER, or RiText.RIGHT)"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "variable": true,
+      "name": "defaults.motionType",
+      "example": "",
+      "description": "The default motionType for all newly created RiTexts",
+      "syntax": "",
+      "parameters": [],
+      "returns": [{
+          "type": "int",
+          "desc": "One of LINEAR, EASE_IN, EASE_OUT, EASE_IN_OUT, EASE_IN_OUT_CUBIC, EASE_IN_CUBIC, EASE_OUT_CUBIC, EASE_IN_OUT_QUARTIC, EASE_IN_QUARTIC, EASE_OUT_QUARTIC, EASE_IN_OUT_SINE, EASE_IN_SINE, EASE_OUT_SINE, EASE_IN_OUT_EXPO, EASE_IN_EXPO, or EASE_OUT_EXPO"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "features",
+      "example": "theFeatures = myRiText.features();",
+      "description": "Returns the current set of features for the object, including <a target=_new href='../../PhonemeTags.html'>phonemes</a>, syllables, stresses, etc.",
+      "syntax": "features();",
+      "parameters": [],
+      "returns": [{
+        "type": "Object",
+        "desc": "Map (in Java), Object with key-value pairs (in JS)"
+      }],
+      "related": "RiText.analyze()<br>RiText.get",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "analyze",
+      "example": "myRiText.get(\"phonemes\");<br>myRiText.get(RiTa.PHONEMES);<br>myRiText.get(RiTa.SYLLABLES);",
+      "description": "Computes a set of features for the RiText, including <a target=_new href='../../PhonemeTags.html'>phonemes</a>, syllables, stresses, etc. To access any of these, use myRiText.get(featureName)",
+      "syntax": "rt.analyze(feature-type);",
+      "parameters": [
+
+      ],
+      "returns": [{
+          "type": "RiText",
+          "desc": "this RiText"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "charAt",
+      "example": "",
+      "description": "Returns the character at the given 'index', or an empty string if none is found",
+      "syntax": "rt.charAt(index);",
+      "parameters": [{
+        "type": "int",
+        "desc": "index of the character"
+      }],
+      "returns": [{
+        "type": "String",
+        "desc": "the character"
+      }],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "concat",
+      "example": "",
+      "description": "Concatenates the text from another RiText at the end of this one",
+      "syntax": "rt.concat(riText);",
+      "parameters": [{
+        "type": "RiText",
+        "desc": "the new RiText"
+      }],
+      "returns": [{
+        "type": "RiText",
+        "desc": "this RiText"
+      }],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "endsWith",
+      "example": "",
+      "description": "Tests if this String ends with the specified suffix",
+      "syntax": "rt.endsWith(substr);",
+      "parameters": [{
+        "type": "String",
+        "desc": "String the suffix"
+      }],
+      "returns": [{
+        "type": "boolean",
+        "desc": "true if the character sequence represented by the argument is a suffix of the character sequence represented by this object; false otherwise"
+      }],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "equals",
+      "example": "",
+      "description": "Compares this RiText to the specified object. <br/>The result is true if and only if the argument is not null and is a String or RiText object that represents the same sequence of characters as this object.",
+      "syntax": "rt.equals(string);<br/>rt.equals(riText);",
+      "parameters": [{
+        "type": "String OR RiText",
+        "desc": "String or RiText object to compare this RiText against"
+      }],
+      "returns": [{
+        "type": "boolean",
+        "desc": "true if the RiText are equal; false otherwise."
+      }],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "equalsIgnoreCase",
+      "example": "",
+      "description": "Compares this RiText to another RiText, ignoring case considerations",
+      "syntax": "rt.equalsIgnoreCase(string);<br/>rt.equalsIgnoreCase(riText);",
+      "parameters": [{
+        "type": "String OR RiText",
+        "desc": "String or RiText object to compare this RiText against"
+      }],
+      "returns": [{
+        "type": "boolean",
+        "desc": "true if the argument is not null and the Strings are equal, ignoring case; false otherwise"
+      }],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "indexOf",
+      "example": "",
+      "description": "Returns the index within this string of the first occurrence of the specified character",
+      "syntax": "rt.indexOf(searchstring);<br/>rt.indexOf(searchstring, start);",
+      "parameters": [{
+        "type": "String OR RiText",
+        "desc": "searchstring (required) or character to search for"
+      }, {
+        "type": "int",
+        "desc": "(Optional) The start position in the String to start the search. If omitted, the search starts from position 0"
+      }],
+      "returns": [{
+        "type": "int",
+        "desc": "the first index of the matching pattern or -1 if none are found"
+      }],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "insertWord",
+      "example": "",
+      "description": "Inserts 'newWord' at 'wordIdx' and shifts each subsequent word accordingly.",
+      "syntax": "rt.insertWord(newWord, wordIdx);",
+      "parameters": [{
+        "type": "String",
+        "desc": ""
+      }, {
+        "type": "int",
+        "desc": ""
+      }],
+      "returns": [{
+        "type": "RiText",
+        "desc": "this RiText"
+      }],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "lastIndexOf",
+      "example": "",
+      "description": "Returns the index within this String of the last occurrence of the specified character",
+      "syntax": "rt.lastIndexOf(searchstring);<br/>rt.lastIndexOf(searchstring, start);",
+      "parameters": [{
+        "type": "String OR RiText",
+        "desc": "searchstring (Required) or character to search for"
+      }, {
+        "type": "int",
+        "desc": "(Optional) The start position in the String to start the search. If omitted, the search starts from position 0"
+      }],
+      "returns": [{
+        "type": "int",
+        "desc": "the last index of the matching pattern or -1 if none are found"
+      }],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "length",
+      "example": "",
+      "description": "Returns the length of this String",
+      "syntax": "rt.length();",
+      "parameters": [
+
+      ],
+      "returns": [{
+        "type": "int",
+        "desc": "the length of the String"
+      }],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "pos",
+      "example": "",
+      "description": "Returns an array of part-of-speech tags (from the <a href='../../PennTags.html'>PENN tag set</a>), one per word, using RiTa.tokenize() and RiTa.getPosTags(), with tags from the <a href='../../PennTags.html'>PENN tag set</a>",
+      "syntax": "rt.pos();",
+      "parameters": [
+
+
+      ],
+      "returns": [{
+        "type": "String[]",
+        "desc": "strings of pos, one per word"
+      }],
+      "related": "<a href='../../PennTags.html'>the PENN tagset</a>",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "posAt",
+      "example": "",
+      "description": "Returns the part-of-speech tag (from the <a href='../../PennTags.html'>PENN tag set</a>) for the word at 'index', using RiTa.tokenize() and RiTa.getPosTags(), with tags from the <a href='../../PennTags.html'>PENN tag set</a>",
+      "syntax": "rt.posAt(index);",
+      "parameters": [{
+          "type": "int",
+          "desc": "the word index"
+        }
+
+      ],
+      "returns": [{
+        "type": "String",
+        "desc": "the pos"
+      }],
+      "related": "<a href='../../PennTags.html'>the PENN tagset</a>",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "removeChar",
+      "example": "",
+      "description": "Removes the character at the specified index",
+      "syntax": "rt.removeChar(index);",
+      "parameters": [{
+          "type": "int",
+          "desc": "the index"
+        }
+
+      ],
+      "returns": [{
+        "type": "RiText",
+        "desc": "this RiText"
+      }],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "replaceChar",
+      "example": "",
+      "description": "Replaces the character at 'idx' with 'replaceWith'. <br/>If the specified 'idx' is less than zero, or beyond the length of the current text, there will be no effect",
+      "syntax": "rt.replaceChar(idx, replaceWith);",
+      "parameters": [{
+          "type": "int",
+          "desc": "the character index"
+        }, {
+          "type": "String",
+          "desc": "the replacement"
+        }
+
+      ],
+      "returns": [{
+        "type": "RiText",
+        "desc": "this RiText"
+      }],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
       "name": "match",
-      "example":"",
-      "description":"Searches for a match between a substring (or regular expression) and the contained string, and returns all matches. Regular expressions will be used if the 1st argument is a regular expression, otherwise only generic string-matching is used (special regex characaters are escaped)",
-      "syntax":"match(pattern);",
-      "parameters":
-      [
-			{ 
-			"type": "String or Object (the regex)",  
-			"desc": "regular expression" 
-			}
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "String[]", 
-			"desc": "string array of matches or empty array if none are found" 
-			}
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
+      "example": "",
+      "description": "Searches for a match between a substring (or regular expression) and the contained string, and returns all matches. Regular expressions will be used if the 1st argument is a regular expression, otherwise only generic string-matching is used (special regex characaters are escaped)",
+      "syntax": "match(pattern);",
+      "parameters": [{
+        "type": "String or Object (the regex)",
+        "desc": "regular expression"
+      }],
+      "returns": [{
+        "type": "String[]",
+        "desc": "string array of matches or empty array if none are found"
+      }],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
       "name": "replaceFirst",
-      "example":"",
-      "description":"Replaces the first instance of 'substitution' with 'replacement'. Regular expressions (non-global) will be used only if the 1st argument is a regular expression, otherwise only generic string-matching is used (special regex characaters are escaped)",
-      "syntax":"replaceFirst(substitution, replacement);",
-      "parameters":
-      [
-			{ 
-			"type": "String or Object (the regex pattern)",
-			"desc": "the pattern" 
-			},
-			{ 
-			"type": "String", 
-			"desc": "the replacement" 
-			}
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "RiText", 
-			"desc": "this RiText" 
-			}
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
+      "example": "",
+      "description": "Replaces the first instance of 'substitution' with 'replacement'. Regular expressions (non-global) will be used only if the 1st argument is a regular expression, otherwise only generic string-matching is used (special regex characaters are escaped)",
+      "syntax": "replaceFirst(substitution, replacement);",
+      "parameters": [{
+        "type": "String or Object (the regex pattern)",
+        "desc": "the pattern"
+      }, {
+        "type": "String",
+        "desc": "the replacement"
+      }],
+      "returns": [{
+        "type": "RiText",
+        "desc": "this RiText"
+      }],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
       "name": "replaceAll",
-      "example":"",
-      "description":"Replaces each occurrence of 'substitution' with 'replacement'. Regular expressions will be used if the 1st argument is a regular expression, otherwise only generic string-matching is used (special regex characaters are escaped)",
-      "syntax":"replaceAll(substitution, replacement);",
-      "parameters":
-      [
-			{ 
-			"type": "String or Object (the regex)", 
-			"desc": "the pattern to be matched" 
-			},
-			{ 
-			"type": "String", 
-			"desc": "the replacement string" 
-			}
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "RiText", 
-			"desc": "this RiText" 
-			}
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"replaceWord",
-      "example":"",
-      "description":"Replaces the word at 'wordIdx' with 'newWord'",
-      "syntax":"rt.replaceWordAt(wordIdx, newWord);",
-      "parameters":
-      [
-			{ 
-			"type": "int", 
-			"desc": "the index" 
-			},
-			{ 
-			"type": "String", 
-			"desc": "the replacement" 
-			}
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "RiText", 
-			"desc": "this RiText" 
-			}
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"slice",
-      "example":"",
-      "description":"Extracts a part of a String from this RiText",
-      "syntax":"rt.slice(begin);<br/>slice(begin, end);",
-      "parameters":
-      [
-			{ 
-			"type": "int", 
-			"desc": "(Required) The index where to begin the extraction. First character is at index 0" 
-			},
-			{ 
-			"type": "int", 
-			"desc": "(Optional) Where to end the extraction. If omitted, slice() selects all characters from the begin position to the end of the String" 
-			}
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "String", 
-			"desc": "" 
-			}
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"startsWith",
-      "example":"",
-      "description":"Tests if this String starts with the specified prefix",
-      "syntax":"rt.startsWith(substr);",
-      "parameters":
-      [
-			{ 
-			"type": "String", 
-			"desc": "String the prefix" 
-			}
+      "example": "",
+      "description": "Replaces each occurrence of 'substitution' with 'replacement'. Regular expressions will be used if the 1st argument is a regular expression, otherwise only generic string-matching is used (special regex characaters are escaped)",
+      "syntax": "replaceAll(substitution, replacement);",
+      "parameters": [{
+        "type": "String or Object (the regex)",
+        "desc": "the pattern to be matched"
+      }, {
+        "type": "String",
+        "desc": "the replacement string"
+      }],
+      "returns": [{
+        "type": "RiText",
+        "desc": "this RiText"
+      }],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "replaceWord",
+      "example": "",
+      "description": "Replaces the word at 'wordIdx' with 'newWord'",
+      "syntax": "rt.replaceWordAt(wordIdx, newWord);",
+      "parameters": [{
+        "type": "int",
+        "desc": "the index"
+      }, {
+        "type": "String",
+        "desc": "the replacement"
+      }],
+      "returns": [{
+        "type": "RiText",
+        "desc": "this RiText"
+      }],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "slice",
+      "example": "",
+      "description": "Extracts a part of a String from this RiText",
+      "syntax": "rt.slice(begin);<br/>slice(begin, end);",
+      "parameters": [{
+        "type": "int",
+        "desc": "(Required) The index where to begin the extraction. First character is at index 0"
+      }, {
+        "type": "int",
+        "desc": "(Optional) Where to end the extraction. If omitted, slice() selects all characters from the begin position to the end of the String"
+      }],
+      "returns": [{
+        "type": "String",
+        "desc": ""
+      }],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "startsWith",
+      "example": "",
+      "description": "Tests if this String starts with the specified prefix",
+      "syntax": "rt.startsWith(substr);",
+      "parameters": [{
+          "type": "String",
+          "desc": "String the prefix"
+        }
 
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "boolean", 
-			"desc": "true if the character sequence represented by the argument is a prefix of the character sequence represented by this String; false otherwise. <br/>Note also that true will be returned if the argument is an empty String or is equal to this RiText object as determined by the equals() method." 
-			}
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"substring",
-      "example":"",
-      "description":"Extracts the characters from a String, between two specified indices, and sets the current text to be that String. ",
-      "syntax":"rt.substring(from);<br/>substring(from, to);",
-      "parameters":
-      [
-			{ 
-			"type": "int", 
-			"desc": "The index where to start the extraction. First character is at index 0" 
-			},
-			{ 
-			"type": "int", 
-			"desc": "(optional) The index where to stop the extraction. If omitted, it extracts the rest of the String" 
-			}
+      ],
+      "returns": [{
+        "type": "boolean",
+        "desc": "true if the character sequence represented by the argument is a prefix of the character sequence represented by this String; false otherwise. <br/>Note also that true will be returned if the argument is an empty String or is equal to this RiText object as determined by the equals() method."
+      }],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "substring",
+      "example": "",
+      "description": "Extracts the characters from a String, between two specified indices, and sets the current text to be that String. ",
+      "syntax": "rt.substring(from);<br/>substring(from, to);",
+      "parameters": [{
+          "type": "int",
+          "desc": "The index where to start the extraction. First character is at index 0"
+        }, {
+          "type": "int",
+          "desc": "(optional) The index where to stop the extraction. If omitted, it extracts the rest of the String"
+        }
 
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "String", 
-			"desc": "" 
-			}
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"substr",
-      "example":"",
-      "description":"Extracts the characters from this objects contained String, beginning at 'start' and continuing through the specified number of characters, and sets the current text to be that String. (from Javascript String)",
-      "syntax":"rt.substr(start);<br/>rt.substr(start, length);",
-      "parameters":
-      [
-			{ 
-			"type": "int", 
-			"desc": "The index where to start the extraction. First character is at index 0" 
-			},
-			{ 
-			"type": "int", 
-			"desc": "(optional) The index where to stop the extraction. If omitted, it extracts the rest of the String" 
-			}
+      ],
+      "returns": [{
+        "type": "String",
+        "desc": ""
+      }],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "substr",
+      "example": "",
+      "description": "Extracts the characters from this objects contained String, beginning at 'start' and continuing through the specified number of characters, and sets the current text to be that String. (from Javascript String)",
+      "syntax": "rt.substr(start);<br/>rt.substr(start, length);",
+      "parameters": [{
+          "type": "int",
+          "desc": "The index where to start the extraction. First character is at index 0"
+        }, {
+          "type": "int",
+          "desc": "(optional) The index where to stop the extraction. If omitted, it extracts the rest of the String"
+        }
 
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "String", 
-			"desc": "" 
-			}
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"text",
-      "example":"",
-      "description":"Gets/sets the text contained by this object",
-      "syntax":"rt.text();<br/>rt.text(theText);",
-      "parameters":
-      [
-			{ 
-			"type": "String", 
-			"desc": "text (optional)" 
-			}
+      ],
+      "returns": [{
+        "type": "String",
+        "desc": ""
+      }],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "text",
+      "example": "",
+      "description": "Gets/sets the text contained by this object",
+      "syntax": "rt.text();<br/>rt.text(theText);",
+      "parameters": [{
+          "type": "String",
+          "desc": "text (optional)"
+        }
 
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "String OR RiText", 
-			"desc": "the contained text (for sets) or this RiText (for gets)" 
-			}
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"toLowerCase",
-      "example":"",
-      "description":"Converts all of the characters in this RiText to lower case",
-      "syntax":"rt.toLowerCase();",
-      "parameters":
-      [
-			
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "RiText", 
-			"desc": "this RiText" 
-			}
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"toUpperCase",
-      "example":"",
-      "description":"Converts all of the characters in this RiText to upper case",
-      "syntax":"rt.toUpperCase();",
-      "parameters":
-      [
-			
+      ],
+      "returns": [{
+        "type": "String OR RiText",
+        "desc": "the contained text (for sets) or this RiText (for gets)"
+      }],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "toLowerCase",
+      "example": "",
+      "description": "Converts all of the characters in this RiText to lower case",
+      "syntax": "rt.toLowerCase();",
+      "parameters": [
 
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "RiText", 
-			"desc": "this RiText" 
-			}
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"trim",
-      "example":"",
-      "description":"Returns a copy of the String, with leading and trailing whitespace omitted.",
-      "syntax":"rt.trim();",
-      "parameters":
-      [
-			
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "RiText", 
-			"desc": "this RiText" 
-			}
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"wordAt",
-      "example":"",
-      "description":"Returns the word at 'index', according to RiTa.tokenize",
-      "syntax":"rt.wordAt(int index);",
-      "parameters":
-      [
-			{ 
-			"type": "int", 
-			"desc": "the word index" 
-			}
+      ],
+      "returns": [{
+        "type": "RiText",
+        "desc": "this RiText"
+      }],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "toUpperCase",
+      "example": "",
+      "description": "Converts all of the characters in this RiText to upper case",
+      "syntax": "rt.toUpperCase();",
+      "parameters": [
 
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "String", 
-			"desc": "this word" 
-			}
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"wordCount",
-      "example":"",
-      "description":"Returns the number of words in the object, according to RiTa.tokenize().",
-      "syntax":"rt.wordCount();",
-      "parameters":
-      [
-			
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "int", 
-			"desc": "number of words" 
-			}
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"words",
-      "example":"",
-      "description":"Returns the array of words in the object, via a call to RiTa.tokenize",
-      "syntax":"rt.words();",
-      "parameters":
-      [
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "String[]", 
-			"desc": "strings, one per word" 
-			}
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"alpha",
-      "example":"",
-      "description":"Set/gets the alpha (transparency) for this RiText",
-      "syntax":"rt.alpha();<br/>rt.alpha(value);",
-      "parameters":
-      [
-			{ 
-			"type": "float", 
-			"desc": "(optional) input (0-255) " 
-			}
-			
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "RiText OR float", 
-			"desc": "either this RiText (for set) or the current alpha value (for get)" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
 
- {
-      "name":"boundingStroke",
-      "example":"",
-      "description":"Set/gets the boundingStroke color for this RiText",
-      "syntax":"rt.boundingStroke();<br/>rt.boundingStroke(r, b, a);<br/>rt.boundingStroke(rgbaArr);",
-      "parameters":
-      [
-			{ 
-			"type": "float OR float[]", 
-			"desc": "r" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "g" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "b" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "a" 
-			}
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "RiText OR float[]", 
-			"desc": "either this RiText (for sets) or the current color object (for gets)" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"boundingBox",
-      "example":"",
-      "description":"Returns the screen bounding box for the current text",
-      "syntax":"rt.boundingBox();",
-      "parameters":
-      [
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "float[]", 
-			"desc": "[x,y,width,height]" 
-			}
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"center",
-      "example":"",
-      "description":"Returns the center point of the RiText as derived from its bounding box",
-      "syntax":"rt.center();",
-      "parameters":
-      [
-			
-			
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "float[]", 
-			"desc": "x,y" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"charOffset",
-      "example":"",
-      "description":"Returns the pixel x-offset for the character at 'charIdx'",
-      "syntax":"rt.charOffset(charIdx);",
-      "parameters":
-      [
-			{ 
-			"type": "int", 
-			"desc": "charIdx" 
-			}
-			
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "float", 
-			"desc": "the pixel offset" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"copy",
-      "example":"",
-      "description":"Creates and returns a field-for-field copy of this RiText",
-      "syntax":"rt.copy();",
-      "parameters":
-      [
-		
-			
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "RiText", 
-			"desc": "RiText" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"fill",
-      "example":"",
-      "description":"Set/gets the fill color for this RiText",
-      "syntax":"rt.fill();<br/>rt.fill(r, b, a);<br/>rt.fill(rgbaArr);",
-      "parameters":
-      [
-			{ 
-			"type": "float OR float[]", 
-			"desc": "r" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "g" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "b" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "a" 
-			}
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "RiText OR float[]", 
-			"desc": "either this RiText (for sets) or the current color object (for gets)" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-  
-   {
-      "name":"boundingStrokeWeight",
-      "example":"",
-      "description":"Set/gets the boundingStrokeWeight for this RiText",
-      "syntax":"rt.boundingStrokeWeight();<br/>rt.boundingStrokeWeight(r, b, a);<br/>rt.boundingStrokeWeight(rgbaArr);",
-      "parameters":
-      [
-			{ 
-			"type": "float", 
-			"desc": "stroke-weight" 
-			},
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "RiText OR float", 
-			"desc": "either this RiText (for sets) or the current stroke-weight (for gets)" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"contains",
-      "example":"",
-      "description":"Returns true if the bounding box for this RiText contains the point mx/my",
-      "syntax":"rt.contains(mx, my);",
-      "parameters":
-      [
-			{ 
-			"type": "float", 
-			"desc": "mx" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "my" 
-			}
+      ],
+      "returns": [{
+        "type": "RiText",
+        "desc": "this RiText"
+      }],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "trim",
+      "example": "",
+      "description": "Returns a copy of the String, with leading and trailing whitespace omitted.",
+      "syntax": "rt.trim();",
+      "parameters": [
 
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "boolean", 
-			"desc": "" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"distanceTo",
-      "example":"",
-      "description":"Returns the distance between the center points of this object and another RiText, or between this object's center and a point (x,y)",
-      "syntax":"rt.distanceTo(mx, my);<br>rt.distanceTo(anOtherRiText);",
-      "parameters":
-      [
-			{ 
-			"type": "float or RiText", 
-			"desc": "the other RiText or the X-position of the point " 
-			},
-			{ 
-			"type": "float", 
-			"desc": "the Y-position of the point (optional)" 
-			}
+      ],
+      "returns": [{
+        "type": "RiText",
+        "desc": "this RiText"
+      }],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "wordAt",
+      "example": "",
+      "description": "Returns the word at 'index', according to RiTa.tokenize",
+      "syntax": "rt.wordAt(int index);",
+      "parameters": [{
+          "type": "int",
+          "desc": "the word index"
+        }
 
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "float", 
-			"desc": "the distance from this RiText's center point" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"draw",
-      "example":"",
-      "description":"Draws the object to the screen",
-      "syntax":"rt.draw();",
-      "parameters":
-      [
-		
+      ],
+      "returns": [{
+        "type": "String",
+        "desc": "this word"
+      }],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "wordCount",
+      "example": "",
+      "description": "Returns the number of words in the object, according to RiTa.tokenize().",
+      "syntax": "rt.wordCount();",
+      "parameters": [
 
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "RiText", 
-			"desc": "this RiText" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"font",
-      "example":"",
-      "description":"Set/gets the font for this RiText",
-      "syntax":"rt.font();<br/>rt.font(pfont);<br/>rt.font(fontStr, fontSize);",
-      "parameters":
-      [
-			{ 
-			"type": "Object", 
-			"desc": "(optional) generally a PFont containing the font data OR" 
-			},
-			{ 
-			"type": "String", 
-			"desc": "font containing the font name AND" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "size (optional) containing the font size " 
-			}
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "RiText", 
-			"desc": "this RiText (set) or the current font (get)" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"align",
-      "example":"",
-      "description":"Sets/gets the alignment.",
-      "syntax":"rt.align();<br/>rt.align(RiTa.CENTER);",
-      "parameters":
-      [
-			{ 
-			"type": "int", 
-			"desc": "(optional) the alignment: RiTa.LEFT (default), RiTa.CENTER, or RiTa.RIGHT" 
-			}
+      ],
+      "returns": [{
+        "type": "int",
+        "desc": "number of words"
+      }],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "words",
+      "example": "",
+      "description": "Returns the array of words in the object, via a call to RiTa.tokenize",
+      "syntax": "rt.words();",
+      "parameters": [],
+      "returns": [{
+        "type": "String[]",
+        "desc": "strings, one per word"
+      }],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "alpha",
+      "example": "",
+      "description": "Set/gets the alpha (transparency) for this RiText",
+      "syntax": "rt.alpha();<br/>rt.alpha(value);",
+      "parameters": [{
+          "type": "float",
+          "desc": "(optional) input (0-255) "
+        }
 
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "RiText OR int", 
-			"desc": "either this RiText (for sets) or the current alignment (for gets)" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"fontSize",
-      "example":"",
-      "description":"Sets/gets the size of the current font. Note: this method only effects only scaleX/Y, not the font's internal properties",
-      "syntax":"rt.fontSize();<br/>rt.fontSize(sz);",
-      "parameters":
-      [
-			{ 
-			"type": "float", 
-			"desc": "(optional) font size" 
-			}
+      ],
+      "returns": [{
+          "type": "RiText OR float",
+          "desc": "either this RiText (for set) or the current alpha value (for get)"
+        }
 
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "RiText OR float", 
-			"desc": "either this RiText (for set) or the current font size (for get)" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"motionType",
-      "example":"",
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    },
+
+    {
+      "name": "boundingStroke",
+      "example": "",
+      "description": "Set/gets the boundingStroke color for this RiText",
+      "syntax": "rt.boundingStroke();<br/>rt.boundingStroke(r, b, a);<br/>rt.boundingStroke(rgbaArr);",
+      "parameters": [{
+        "type": "float OR float[]",
+        "desc": "r"
+      }, {
+        "type": "float",
+        "desc": "g"
+      }, {
+        "type": "float",
+        "desc": "b"
+      }, {
+        "type": "float",
+        "desc": "a"
+      }],
+      "returns": [{
+          "type": "RiText OR float[]",
+          "desc": "either this RiText (for sets) or the current color object (for gets)"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "boundingBox",
+      "example": "",
+      "description": "Returns the screen bounding box for the current text",
+      "syntax": "rt.boundingBox();",
+      "parameters": [],
+      "returns": [{
+        "type": "float[]",
+        "desc": "[x,y,width,height]"
+      }],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "center",
+      "example": "",
+      "description": "Returns the center point of the RiText as derived from its bounding box",
+      "syntax": "rt.center();",
+      "parameters": [
+
+
+      ],
+      "returns": [{
+          "type": "float[]",
+          "desc": "x,y"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "charOffset",
+      "example": "",
+      "description": "Returns the pixel x-offset for the character at 'charIdx'",
+      "syntax": "rt.charOffset(charIdx);",
+      "parameters": [{
+          "type": "int",
+          "desc": "charIdx"
+        }
+
+      ],
+      "returns": [{
+          "type": "float",
+          "desc": "the pixel offset"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "copy",
+      "example": "",
+      "description": "Creates and returns a field-for-field copy of this RiText",
+      "syntax": "rt.copy();",
+      "parameters": [
+
+
+      ],
+      "returns": [{
+          "type": "RiText",
+          "desc": "RiText"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "fill",
+      "example": "",
+      "description": "Set/gets the fill color for this RiText",
+      "syntax": "rt.fill();<br/>rt.fill(r, b, a);<br/>rt.fill(rgbaArr);",
+      "parameters": [{
+        "type": "float OR float[]",
+        "desc": "r"
+      }, {
+        "type": "float",
+        "desc": "g"
+      }, {
+        "type": "float",
+        "desc": "b"
+      }, {
+        "type": "float",
+        "desc": "a"
+      }],
+      "returns": [{
+          "type": "RiText OR float[]",
+          "desc": "either this RiText (for sets) or the current color object (for gets)"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    },
+
+    {
+      "name": "boundingStrokeWeight",
+      "example": "",
+      "description": "Set/gets the boundingStrokeWeight for this RiText",
+      "syntax": "rt.boundingStrokeWeight();<br/>rt.boundingStrokeWeight(r, b, a);<br/>rt.boundingStrokeWeight(rgbaArr);",
+      "parameters": [{
+        "type": "float",
+        "desc": "stroke-weight"
+      }, ],
+      "returns": [{
+          "type": "RiText OR float",
+          "desc": "either this RiText (for sets) or the current stroke-weight (for gets)"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "contains",
+      "example": "",
+      "description": "Returns true if the bounding box for this RiText contains the point mx/my",
+      "syntax": "rt.contains(mx, my);",
+      "parameters": [{
+          "type": "float",
+          "desc": "mx"
+        }, {
+          "type": "float",
+          "desc": "my"
+        }
+
+      ],
+      "returns": [{
+          "type": "boolean",
+          "desc": ""
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "distanceTo",
+      "example": "",
+      "description": "Returns the distance between the center points of this object and another RiText, or between this object's center and a point (x,y)",
+      "syntax": "rt.distanceTo(mx, my);<br>rt.distanceTo(anOtherRiText);",
+      "parameters": [{
+          "type": "float or RiText",
+          "desc": "the other RiText or the X-position of the point "
+        }, {
+          "type": "float",
+          "desc": "the Y-position of the point (optional)"
+        }
+
+      ],
+      "returns": [{
+          "type": "float",
+          "desc": "the distance from this RiText's center point"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "draw",
+      "example": "",
+      "description": "Draws the object to the screen",
+      "syntax": "rt.draw();",
+      "parameters": [
+
+
+      ],
+      "returns": [{
+          "type": "RiText",
+          "desc": "this RiText"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "font",
+      "example": "",
+      "description": "Set/gets the font for this RiText",
+      "syntax": "rt.font();<br/>rt.font(pfont);<br/>rt.font(fontStr, fontSize);",
+      "parameters": [{
+        "type": "Object",
+        "desc": "(optional) generally a PFont containing the font data OR"
+      }, {
+        "type": "String",
+        "desc": "font containing the font name AND"
+      }, {
+        "type": "float",
+        "desc": "size (optional) containing the font size "
+      }],
+      "returns": [{
+          "type": "RiText",
+          "desc": "this RiText (set) or the current font (get)"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "align",
+      "example": "",
+      "description": "Sets/gets the alignment.",
+      "syntax": "rt.align();<br/>rt.align(RiTa.CENTER);",
+      "parameters": [{
+          "type": "int",
+          "desc": "(optional) the alignment: RiTa.LEFT (default), RiTa.CENTER, or RiTa.RIGHT"
+        }
+
+      ],
+      "returns": [{
+          "type": "RiText OR int",
+          "desc": "either this RiText (for sets) or the current alignment (for gets)"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "fontSize",
+      "example": "",
+      "description": "Sets/gets the size of the current font. Note: this method only effects only scaleX/Y, not the font's internal properties",
+      "syntax": "rt.fontSize();<br/>rt.fontSize(sz);",
+      "parameters": [{
+          "type": "float",
+          "desc": "(optional) font size"
+        }
+
+      ],
+      "returns": [{
+          "type": "RiText OR float",
+          "desc": "either this RiText (for set) or the current font size (for get)"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "motionType",
+      "example": "",
       "description": "Sets/gets the animation <code>motionType</code> for this RiText<br/> according to one of the following functions:<br/><ul><li>RiText.LINEAR<li>RiText.EASE_IN<li>RiText.EASE_OUT<li>RiText.EASE_IN_OUT<li>RiText.EASE_IN_EXPO<li>RiText.EASE_OUT_EXPO<li>RiText.EASE_IN_OUT_EXPO<li>RiText.EASE_IN_SINE<li>RiText.EASE_OUT_SINE<li>RiText.EASE_IN_OUT_SINE<li>RiText.EASE_IN_CUBIC<li>RiText.EASE_OUT_CUBIC<li>RiText.EASE_IN_OUT_CUBIC<li>RiText.EASE_IN_QUARTIC<li>RiText.EASE_OUT_QUARTIC<li>RiText.EASE_IN_OUT_QUARTIC<li>RiText.EASE_IN_QUINTIC<li>RiText.EASE_OUT_QUINTIC<li>RiText.EASE_IN_OUT_QUINTIC<li>RiText.BACK_IN<li>RiText.BACK_OUT<li>RiText.BACK_IN_OUT<li>RiText.BOUNCE_IN<li>RiText.BOUNCE_OUT<li>RiText.BOUNCE_IN_OUT<li>RiText.CIRCULAR_IN<li>RiText.CIRCULAR_OUT<li>RiText.CIRCULAR_IN_OUT<li>RiText.ELASTIC_IN<li>RiText.ELASTIC_OUT<li>RiText.ELASTIC_IN_OUT</ul>",
-      "syntax":"rt.motionType();<br/>rt.motionType(motionType);<br/>rt.motionType(RiText.BOUNCE_IN_OUT);",
-      "parameters":
-      [
-			{ 
-			"type": "int", 
-			"desc": "(optional) motionType, One of LINEAR, EASE_IN, EASE_OUT, EASE_IN_OUT, EASE_IN_OUT_CUBIC, EASE_IN_CUBIC, EASE_OUT_CUBIC, EASE_IN_OUT_QUARTIC, EASE_IN_QUARTIC, EASE_OUT_QUARTIC, EASE_IN_OUT_SINE, EASE_IN_SINE, EASE_OUT_SINE, EASE_IN_OUT_EXPO, EASE_IN_EXPO, or EASE_OUT_EXPO" 
-			}
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "int OR RiText", 
-			"desc": "motionType or RiText (for gets)" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"position",
-      "example":"",
-      "description":"Set/gets the font for this RiText",
-      "syntax":"rt.position();<br/>rt.position(x y);",
-      "parameters":
-      [
-			{ 
-			"type": "float", 
-			"desc": "(optional) X coordinate" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "(optional) Y coordinate" 
-			}
+      "syntax": "rt.motionType();<br/>rt.motionType(motionType);<br/>rt.motionType(RiText.BOUNCE_IN_OUT);",
+      "parameters": [{
+        "type": "int",
+        "desc": "(optional) motionType, One of LINEAR, EASE_IN, EASE_OUT, EASE_IN_OUT, EASE_IN_OUT_CUBIC, EASE_IN_CUBIC, EASE_OUT_CUBIC, EASE_IN_OUT_QUARTIC, EASE_IN_QUARTIC, EASE_OUT_QUARTIC, EASE_IN_OUT_SINE, EASE_IN_SINE, EASE_OUT_SINE, EASE_IN_OUT_EXPO, EASE_IN_EXPO, or EASE_OUT_EXPO"
+      }],
+      "returns": [{
+          "type": "int OR RiText",
+          "desc": "motionType or RiText (for gets)"
+        }
 
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "RiText OR float[]", 
-			"desc": "either this RiText (for sets) or object {x, y} (for gets)" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"rotate",
-      "example":"",
-      "description":"Sets/gets the 2d rotation for this RiText",
-      "syntax":"rt.rotate();<br/>rt.rotate(rotateDegrees);",
-      "parameters":
-      [
-			{ 
-			"type": "float", 
-			"desc": "degree to rotate" 
-			}
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "position",
+      "example": "",
+      "description": "Set/gets the font for this RiText",
+      "syntax": "rt.position();<br/>rt.position(x y);",
+      "parameters": [{
+          "type": "float",
+          "desc": "(optional) X coordinate"
+        }, {
+          "type": "float",
+          "desc": "(optional) Y coordinate"
+        }
 
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "RiText OR float[]", 
-			"desc": "either this RiText (for sets) or the current degree of rotation (for gets)" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"scale",
-      "example":"",
-      "description":"Sets/gets the scale factor for this RiText (takes 0-2 arguments) ",
-      "syntax":"rt.scale();<br/>rt.scale(scaleX);<br/>rt.scale(scaleX, scaleY);",
-      "parameters":
-      [
-			{ 
-			"type": "float", 
-			"desc": "the ScaleX ratio" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "(optional) the ScaleY ratio" 
-			}
+      ],
+      "returns": [{
+          "type": "RiText OR float[]",
+          "desc": "either this RiText (for sets) or object {x, y} (for gets)"
+        }
 
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "RiText OR float[]", 
-			"desc": "either this RiText (for sets) or the current scales (for gets)" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"showBounds",
-      "example":"",
-      "description":"Set/gets the bounding box visibility for this RiText ",
-      "syntax":"rt.showBounds();<br/>rt.showBounds(trueOrFalse);",
-      "parameters":
-      [
-			{ 
-			"type": "boolean", 
-			"desc": "(optional) true or false " 
-			}
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "rotate",
+      "example": "",
+      "description": "Sets/gets the 2d rotation for this RiText",
+      "syntax": "rt.rotate();<br/>rt.rotate(rotateDegrees);",
+      "parameters": [{
+          "type": "float",
+          "desc": "degree to rotate"
+        }
 
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "RiText OR boolean", 
-			"desc": "this RiText (set) or the current boolean value (get)" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"splitLetters",
-      "example":"",
-      "description":"Splits the object into an array of RiTexts, one per letter, maintaining the x and y position of each. Note: In most cases the original RiText should be disposed manually to avoid text a doubling effect (via RiText.dispose(originalRiText)).",
-      "syntax":"rt.splitLetters();",
-      "parameters":
-      [
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "RiTexts[]", 
-			"desc": "RiTexts" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"splitWords",
-      "example":"",
-      "description":"Splits the current object into an array of RiTexts, one per word, maintaining the x and y position of each. Note: In most cases the original RiText should be disposed manually to avoid text a doubling effect (via RiText.dispose(originalRiText)).",
-      "syntax":"rt.splitWords();",
-      "parameters":
-      [
-			{ 
-			"type": "String or Object (the regex)",
-			"desc": "String or regex to split" 
-			}
+      ],
+      "returns": [{
+          "type": "RiText OR float[]",
+          "desc": "either this RiText (for sets) or the current degree of rotation (for gets)"
+        }
 
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "RiText[]", 
-			"desc": "RiTexts" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"textHeight",
-      "example":"",
-      "description":"Returns the current height of the text (derived from the bounding box)",
-      "syntax":"rt.textHeight();",
-      "parameters":
-      [
-			
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "float", 
-			"desc": "the current height of the text" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"textAscent",
-      "example":"",
-      "description":"Returns the ascent of the current font ",
-      "syntax":"rt.textAscent();",
-      "parameters":
-      [
-			
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "float", 
-			"desc": "the ascent of the current font" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"textDescent",
-      "example":"",
-      "description":"Returns the descent of the current font ",
-      "syntax":"rt.textDescent();",
-      "parameters":
-      [
-			
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "scale",
+      "example": "",
+      "description": "Sets/gets the scale factor for this RiText (takes 0-2 arguments) ",
+      "syntax": "rt.scale();<br/>rt.scale(scaleX);<br/>rt.scale(scaleX, scaleY);",
+      "parameters": [{
+          "type": "float",
+          "desc": "the ScaleX ratio"
+        }, {
+          "type": "float",
+          "desc": "(optional) the ScaleY ratio"
+        }
 
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "float", 
-			"desc": "the descent of the current font" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"textWidth",
-      "example":"",
-      "description":"Returns the current width of the text (derived from the bounding box)",
-      "syntax":"rt.textWidth();",
-      "parameters":
-      [
-			
+      ],
+      "returns": [{
+          "type": "RiText OR float[]",
+          "desc": "either this RiText (for sets) or the current scales (for gets)"
+        }
 
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "float", 
-			"desc": "the width of the text" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"isVisible",
-      "example":"",
-      "description":"Returns false if the alpha value of this object is &lt;= 0, else true",
-      "syntax":"rt.isVisible();",
-      "parameters":
-      [
-		
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "boolean", 
-			"desc": "false if the alpha value of this object is &lt;= 0" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"wordOffset",
-      "example":"",
-      "description":"Returns the pixel x-offset for the word at 'wordIdx'",
-      "syntax":"rt.wordOffset(wordIdx);",
-      "parameters":
-      [
-			{ 
-			"type": "int", 
-			"desc": "wordIdx" 
-			}
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "showBounds",
+      "example": "",
+      "description": "Set/gets the bounding box visibility for this RiText ",
+      "syntax": "rt.showBounds();<br/>rt.showBounds(trueOrFalse);",
+      "parameters": [{
+          "type": "boolean",
+          "desc": "(optional) true or false "
+        }
 
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "float", 
-			"desc": "the pixel x-offset" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"fadeIn",
-      "example":"",
-      "description":"Fades in current text over <code>seconds</code> starting at <code>startTime</code>. <br/>Interpolates from the current color {r,g,b,a} to {r,g,b,255}.",
-      "syntax":"rt.fadeIn(seconds, delay, callback);",
-      "parameters":
-      [
-			{ 
-			"type": "float", 
-			"desc": "time in future to start (seconds)" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "time for fade (seconds)" 
-			},
-			{ 
-			"type": "function", 
-			"desc": "optional callback for when the action has completed (by default, uses onRiTaEvent(re))" 
-			}
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "int", 
-			"desc": "the unique id for this behavior" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"fadeOut",
-      "example":"",
-      "description":"Fades out current text over <code>seconds</code> starting at <code>startTime</code>. <br/>Interpolates from the current color {r,g,b,a} to {r,g,b,255}.",
-      "syntax":"rt.fadeOut(seconds)<br/>fadeOut(seconds, delay);<br/>rt.fadeOut(seconds, delay, callback);<br/>rt.fadeOut(seconds, delay, callback, destroyOnComplete);",
-      "parameters":
-      [
-			{ 
-			"type": "float", 
-			"desc": "time for fade (seconds)" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "(optional, default=0),  # of seconds in the future that the fade will start  (seconds)" 
-			},
-			{ 
-			"type": "function", 
-			"desc": "the callback to be invoked when the behavior has completed (optional: default=onRiTaEvent(e))" 
-			},
-			{ 
-			"type": "boolean", 
-			"desc": "(optional, default=false), destroys the object when the behavior completes" 
-			}
+      ],
+      "returns": [{
+          "type": "RiText OR boolean",
+          "desc": "this RiText (set) or the current boolean value (get)"
+        }
 
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "int", 
-			"desc": "the unique id for this behavior" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"moveTo",
-      "example":"",
-      "description":"Move to new x,y position over 'seconds'<br/><br/>Note: uses the current <code>motionType</code> for this object, starting at 'delay' seconds in the future",
-      "syntax":"rt.moveTo(newX, newY, seconds, delay);",
-      "parameters":
-      [
-			{ 
-			"type": "float", 
-			"desc": "newX" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "newY" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "seconds" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "delay" 
-			}
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "int", 
-			"desc": "the unique id for this behavior" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"colorTo",
-      "example":"",
-      "description":"Transitions to 'color' (rgba) over 'seconds' starting at 'delay' seconds in the future",
-      "syntax":"rt.colorTo(colors)<br/>rt.colorTo(colorArr, seconds);<br/>rt.colorTo(colorArr, seconds, delay);<br/>rt.colorTo(colorArr, seconds, delay, callback);",
-      "parameters":
-      [
-			{ 
-			"type": "float[]", 
-			"desc": "colors (length 1-4)  r,g,b,a (0-255)" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "time for fade (optional, default=1 sec)" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "seconds (optional, default=0),  # of seconds in the future that the fade will start" 
-			},
-			{ 
-			"type": "function", 
-			"desc": "callback the callback to be invoked when the behavior has completed (optional: default=onRiTaEvent(e))" 
-			}
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "int", 
-			"desc": "the unique id for this behavior" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"rotateTo",
-      "example":"",
-      "description":"Rotates to 'radians' over 'seconds' starting at 'delay' seconds in the future",
-      "syntax":"rt.rotateTo(angleInRadians)<br/>rt.rotateTo(angleInRadians, seconds);<br/>rt.rotateTo(angleInRadians, seconds, delay);<br/>rt.rotateTo(angleInRadians, seconds, delay, callback);",
-      "parameters":
-      [
-			{ 
-			"type": "float", 
-			"desc": "angleInRadians" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "time for fade (optional, default=1)" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "seconds (optional, default=0),  # of seconds in the future that the fade will start " 
-			},
-			{ 
-			"type": "function", 
-			"desc": "callback the callback to be invoked when the behavior has completed (optional: default=onRiTaEvent(e))" 
-			}
-			
-			
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "int", 
-			"desc": "the unique id for this behavior" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"scaleTo",
-      "example":"",
-      "description":"Scales to 'theScale' over 'seconds' starting at 'delay' seconds in the future",
-      "syntax":"rt.scaleTo(theScale)<br/>rt.scaleTo(theScale, seconds);<br/>rt.scaleTo(theScale, seconds, delay);<br/>rt.scaleTo(theScale, seconds, delay, callback);",
-      "parameters":
-      [
-			{ 
-			"type": "float", 
-			"desc": "theScale" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "time for fade (optional, default=1)" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "seconds (optional, default=0),  # of seconds in the future that the fade will start " 
-			},
-			{ 
-			"type": "function", 
-			"desc": "callback the callback to be invoked when the behavior has completed (optional: default=onRiTaEvent(e))" 
-			}
-			
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "int", 
-			"desc": "the unique id for this behavior" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"stopBehavior",
-      "example":"",
-      "description":"Removes the specified text behavior for the object ",
-      "syntax":"rt.stopBehavior(id);",
-      "parameters":
-      [
-			{ 
-			"type": "int", 
-			"desc": "the behavior id" 
-			}
-			
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "RiText", 
-			"desc": "this RiText" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"stopBehaviors",
-      "example":"",
-      "description":"Removes all text behaviors for the object",
-      "syntax":"rt.stopBehaviors();",
-      "parameters":
-      [
-			
-			
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "RiText", 
-			"desc": "this RiText" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"textTo",
-      "example":"",
-      "description":"Fades out the current text and fades in the <code>newText</code> over <code>seconds</code>",
-      "syntax":"rt.textTo(newText)<br/>rt.textTo(newText, seconds);<br/>rt.textTo(newText, seconds, startTime);<br/>textTo(newText, seconds, endAlpha, function callback);",
-      "parameters":
-      [
-			{ 
-			"type": "String", 
-			"desc": "newText to be fade in" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "time for fade" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "(optional, default=255), the alpha to end on" 
-			},
-			{ 
-			"type": "function", 
-			"desc": "callback the callback to be invoked when the behavior has completed (optional: default=onRiTaEvent(e))" 
-			}
-			
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "int", 
-			"desc": "the unique id for this behavior" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"RiText.createLetters",
-      "example":"",
-	  "description":"Creates an array of RiTexts, laid out in lines within the bounding rectange(x,y,w,h), one RiText per letter, with spacing determined by the specified font and leading",
-	  "syntax":"RiText.createLetters(pApplet, text, x, y, w, h, font, leading);",
-      "parameters":
-      [
-      	    { 
-			"type": "PApplet", 
-			"desc": "the sketch itself or 'this' (optional in JavaScript)" 
-			},
-			{ 
-			"type": "String or String[]", 
-			"desc": "the text to layout (if an array, each array element will be a line in the layout)" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "x-position of layout rect" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "y-position of layout rect" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "width of layout rect (optional, defaults to right-most edge of sketch)" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "height of layout rect (optional, defaults to Number.MAX_VALUE)" 
-			},
-			{ 
-			"type": "Object", 
-			"desc": "the font to use (generally a PFont) for the layout (optional, defaults to RiText.defaults.font)" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "the leading to use for the layout (optional, defaults to RiText.defaults.leading)" 	
-			}
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "RiText[]", 
-			"desc": "The created RiTexts" 
-			}
-			
-	  ],
-      "related":"RiText.createLines(), RiText.createWords",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"RiText.createWords",
-      "example":"",
-	  "description":"Creates an array of RiTexts ,laid out in lines within the bounding rectange(x,y,w,h), one RiText per word, with spacing determined by the specified font and leading",      
-	  "syntax":"RiText.createWords(pApplet, text, x, y, w, h, font, leading);",
-      "parameters":
-      [
-      	    { 
-			"type": "PApplet", 
-			"desc": "the sketch itself or 'this' (optional in JavaScript)" 
-			},
-			{ 
-			"type": "String or String[]", 
-			"desc": "the text to layout (if an array, each array element will be a line in the layout)" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "x-position of layout rect" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "y-position of layout rect" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "width of layout rect (optional, defaults to right-most edge of sketch)" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "height of layout rect (optional, defaults to Number.MAX_VALUE)" 
-			},
-			{ 
-			"type": "Object", 
-			"desc": "the font to use (generally a PFont) for the layout (optional, defaults to RiText.defaults.font)" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "the leading to use for the layout (optional, defaults to RiText.defaults.leading)" 
-			}
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "RiText[]", 
-			"desc": "The created RiTexts" 
-			}
-			
-	  ],
-      "related":"RiText.createLines(), RiText.createLetters",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"RiText.createLines",
-      "example":"",
-      "description":"Creates an array of RiTexts ,laid out in lines within the bounding rectange(x,y,w,h), one RiText per line, with spacing determined by the specified font and leading",
-      "syntax":"RiText.createLines(pApplet, text, x, y, w, h, font, leading);",
-      "parameters":
-      [
-    		{ 
-			"type": "PApplet", 
-			"desc": "the sketch itself or 'this' (optional in JavaScript)" 
-			},
-			{ 
-			"type": "String or String[]", 
-			"desc": "the text to layout (if an array, each array element will be a line in the layout)" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "x-position of layout rect" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "y-position of layout rect" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "width of layout rect (optional, defaults to right-most edge of sketch)" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "height of layout rect (optional, defaults to Number.MAX_VALUE)" 
-			},
-			{ 
-			"type": "Object", 
-			"desc": "the font to use (generally a PFont) for the layout (optional, defaults to RiText.defaults.font)" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "the leading to use for the layout (optional, defaults to RiText.defaults.leading)" 
-			}
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "RiText[]", 
-			"desc": "The created RiTexts" 
-			}
-			
-	  ],
-      "related":"RiText.createWords(), RiText.createLetters",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"RiText.drawAll",
-      "example":"",
-      "description":"A convenience method to draw all existing RiText objects (with no argument) or an array of RiText objects (if supplied as an argument)",
-      "syntax":"RiText.drawAll();<br/>RiText.drawAll(riTextArray);",
-      "parameters":
-      [
-			{ 
-			"type": "RiText[]", 
-			"desc": "draws only the array if supplied (optional)" 
-			}
-			
-	  ],
-	  "returns":
-      [
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"RiText.dispose",
-      "example":"",
-      "description":"Deletes the RiText (or RiText[])  and all its associated resources.",
-      "syntax":"RiText.dispose(toDelete);",
-      "parameters":
-      [
-			{ 
-			"type": "RiText or RiText[]", 
-			"desc": "toDelete" 
-			}
-			
-	  ],
-	  "returns":
-      [
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"RiText.disposeAll",
-      "example":"",
-      "description":"Deletes all currently existing RiTexts.",
-      "syntax":"RiText.disposeAll",
-      "parameters":[],
-	  "returns": [],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"RiText.defaultFill",
-      "example":"",
-      "description":"Convenience method to set/get the default fill color",
-      "syntax":"RiText.defaultFill();<br/>RiText.defaultFill(r,g,b,a)<br>RiText.defaultFill(colorArr);",
-      "parameters":
-      [
-			{ 
-			"type": "float OR float[]", 
-			"desc": "red component or an array of values " 
-			},
-			{ 
-			"type": "float", 
-			"desc": "green component" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "blue component" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "alphs (transparency)" 
-			}
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "float[]", 
-			"desc": "the current default color" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"RiText.defaultFont",
-      "example":"",
-      "description":"Convenience method to set/get the default font",
-      "syntax":"RiText.defaultFont();<br/>RiText.defaultFont(font);<br/>RiText.defaultFont(fontName, fontSize);",
-      "parameters":
-      [
-			{ 
-			"type": "Object", 
-			"desc": "font (optional, for 'sets' only), generally a PFont" 
-			},
-			{ 
-			"type": "String", 
-			"desc": "the font name (optional, for 'sets' only)" 
-			},
-			{ 
-			"type": "int", 
-			"desc": "the font size (optional, for 'sets' only)" 
-			}
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "null OR font", 
-			"desc": "either null (for 'sets') or the current default font (for 'gets')" 
-			}	
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"RiText.defaultFontSize",
-      "example":"",
-      "description":"Convenience method to set/get the default font size",
-      "syntax":"RiText.defaultFontSize();<br/>RiText.defaultFontSize(fontsz);",
-      "parameters":
-      [
-			{ 
-			"type": "float", 
-			"desc": "fontsize (optional, for 'sets' only)" 
-			}
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "null OR float", 
-			"desc": "either null (for 'sets') or the current default font size (for 'gets')" 
-			}	
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },   
-   {
-      "name":"RiText.randomColor",
-      "example":"",
-      "description":"Returns a random color in which the 3 values for rgb (or rgba if 'includeAlpha' is true), are between min and max ",
-      "syntax":"RiText.randomColor(min, max, includeAlpha);",
-      "parameters":
-      [
-      		{ 
-			"type": "number", 
-			"desc": "min value" 
-			},
-			{ 
-			"type": "number", 
-			"desc": "max value" 
-			},
-			{ 
-			"type": "boolean", 
-			"desc": "true if includes alpha" 
-			}
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "number[]", 
-			"desc": "random color vals, either [r,g,b] or [r,g,b,a]" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },   
-   {
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "splitLetters",
+      "example": "",
+      "description": "Splits the object into an array of RiTexts, one per letter, maintaining the x and y position of each. Note: In most cases the original RiText should be disposed manually to avoid text a doubling effect (via RiText.dispose(originalRiText)).",
+      "syntax": "rt.splitLetters();",
+      "parameters": [],
+      "returns": [{
+          "type": "RiTexts[]",
+          "desc": "RiTexts"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "splitWords",
+      "example": "",
+      "description": "Splits the current object into an array of RiTexts, one per word, maintaining the x and y position of each. Note: In most cases the original RiText should be disposed manually to avoid text a doubling effect (via RiText.dispose(originalRiText)).",
+      "syntax": "rt.splitWords();",
+      "parameters": [{
+          "type": "String or Object (the regex)",
+          "desc": "String or regex to split"
+        }
+
+      ],
+      "returns": [{
+          "type": "RiText[]",
+          "desc": "RiTexts"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "textHeight",
+      "example": "",
+      "description": "Returns the current height of the text (derived from the bounding box)",
+      "syntax": "rt.textHeight();",
+      "parameters": [
+
+      ],
+      "returns": [{
+          "type": "float",
+          "desc": "the current height of the text"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "textAscent",
+      "example": "",
+      "description": "Returns the ascent of the current font ",
+      "syntax": "rt.textAscent();",
+      "parameters": [
+
+      ],
+      "returns": [{
+          "type": "float",
+          "desc": "the ascent of the current font"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "textDescent",
+      "example": "",
+      "description": "Returns the descent of the current font ",
+      "syntax": "rt.textDescent();",
+      "parameters": [
+
+
+      ],
+      "returns": [{
+          "type": "float",
+          "desc": "the descent of the current font"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "textWidth",
+      "example": "",
+      "description": "Returns the current width of the text (derived from the bounding box)",
+      "syntax": "rt.textWidth();",
+      "parameters": [
+
+
+      ],
+      "returns": [{
+          "type": "float",
+          "desc": "the width of the text"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "isVisible",
+      "example": "",
+      "description": "Returns false if the alpha value of this object is &lt;= 0, else true",
+      "syntax": "rt.isVisible();",
+      "parameters": [
+
+      ],
+      "returns": [{
+          "type": "boolean",
+          "desc": "false if the alpha value of this object is &lt;= 0"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "wordOffset",
+      "example": "",
+      "description": "Returns the pixel x-offset for the word at 'wordIdx'",
+      "syntax": "rt.wordOffset(wordIdx);",
+      "parameters": [{
+          "type": "int",
+          "desc": "wordIdx"
+        }
+
+      ],
+      "returns": [{
+          "type": "float",
+          "desc": "the pixel x-offset"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "fadeIn",
+      "example": "",
+      "description": "Fades in current text over <code>seconds</code> starting at <code>startTime</code>. <br/>Interpolates from the current color {r,g,b,a} to {r,g,b,255}.",
+      "syntax": "rt.fadeIn(seconds, delay, callback);",
+      "parameters": [{
+        "type": "float",
+        "desc": "time in future to start (seconds)"
+      }, {
+        "type": "float",
+        "desc": "time for fade (seconds)"
+      }, {
+        "type": "function",
+        "desc": "optional callback for when the action has completed (by default, uses onRiTaEvent(re))"
+      }],
+      "returns": [{
+          "type": "int",
+          "desc": "the unique id for this behavior"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "fadeOut",
+      "example": "",
+      "description": "Fades out current text over <code>seconds</code> starting at <code>startTime</code>. <br/>Interpolates from the current color {r,g,b,a} to {r,g,b,255}.",
+      "syntax": "rt.fadeOut(seconds)<br/>fadeOut(seconds, delay);<br/>rt.fadeOut(seconds, delay, callback);<br/>rt.fadeOut(seconds, delay, callback, destroyOnComplete);",
+      "parameters": [{
+          "type": "float",
+          "desc": "time for fade (seconds)"
+        }, {
+          "type": "float",
+          "desc": "(optional, default=0),  # of seconds in the future that the fade will start  (seconds)"
+        }, {
+          "type": "function",
+          "desc": "the callback to be invoked when the behavior has completed (optional: default=onRiTaEvent(e))"
+        }, {
+          "type": "boolean",
+          "desc": "(optional, default=false), destroys the object when the behavior completes"
+        }
+
+      ],
+      "returns": [{
+          "type": "int",
+          "desc": "the unique id for this behavior"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "moveTo",
+      "example": "",
+      "description": "Move to new x,y position over 'seconds'<br/><br/>Note: uses the current <code>motionType</code> for this object, starting at 'delay' seconds in the future",
+      "syntax": "rt.moveTo(newX, newY, seconds, delay);",
+      "parameters": [{
+        "type": "float",
+        "desc": "newX"
+      }, {
+        "type": "float",
+        "desc": "newY"
+      }, {
+        "type": "float",
+        "desc": "seconds"
+      }, {
+        "type": "float",
+        "desc": "delay"
+      }],
+      "returns": [{
+          "type": "int",
+          "desc": "the unique id for this behavior"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "colorTo",
+      "example": "",
+      "description": "Transitions to 'color' (rgba) over 'seconds' starting at 'delay' seconds in the future",
+      "syntax": "rt.colorTo(colors)<br/>rt.colorTo(colorArr, seconds);<br/>rt.colorTo(colorArr, seconds, delay);<br/>rt.colorTo(colorArr, seconds, delay, callback);",
+      "parameters": [{
+        "type": "float[]",
+        "desc": "colors (length 1-4)  r,g,b,a (0-255)"
+      }, {
+        "type": "float",
+        "desc": "time for fade (optional, default=1 sec)"
+      }, {
+        "type": "float",
+        "desc": "seconds (optional, default=0),  # of seconds in the future that the fade will start"
+      }, {
+        "type": "function",
+        "desc": "callback the callback to be invoked when the behavior has completed (optional: default=onRiTaEvent(e))"
+      }],
+      "returns": [{
+          "type": "int",
+          "desc": "the unique id for this behavior"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "rotateTo",
+      "example": "",
+      "description": "Rotates to 'radians' over 'seconds' starting at 'delay' seconds in the future",
+      "syntax": "rt.rotateTo(angleInRadians)<br/>rt.rotateTo(angleInRadians, seconds);<br/>rt.rotateTo(angleInRadians, seconds, delay);<br/>rt.rotateTo(angleInRadians, seconds, delay, callback);",
+      "parameters": [{
+          "type": "float",
+          "desc": "angleInRadians"
+        }, {
+          "type": "float",
+          "desc": "time for fade (optional, default=1)"
+        }, {
+          "type": "float",
+          "desc": "seconds (optional, default=0),  # of seconds in the future that the fade will start "
+        }, {
+          "type": "function",
+          "desc": "callback the callback to be invoked when the behavior has completed (optional: default=onRiTaEvent(e))"
+        }
+
+
+      ],
+      "returns": [{
+          "type": "int",
+          "desc": "the unique id for this behavior"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "scaleTo",
+      "example": "",
+      "description": "Scales to 'theScale' over 'seconds' starting at 'delay' seconds in the future",
+      "syntax": "rt.scaleTo(theScale)<br/>rt.scaleTo(theScale, seconds);<br/>rt.scaleTo(theScale, seconds, delay);<br/>rt.scaleTo(theScale, seconds, delay, callback);",
+      "parameters": [{
+          "type": "float",
+          "desc": "theScale"
+        }, {
+          "type": "float",
+          "desc": "time for fade (optional, default=1)"
+        }, {
+          "type": "float",
+          "desc": "seconds (optional, default=0),  # of seconds in the future that the fade will start "
+        }, {
+          "type": "function",
+          "desc": "callback the callback to be invoked when the behavior has completed (optional: default=onRiTaEvent(e))"
+        }
+
+      ],
+      "returns": [{
+          "type": "int",
+          "desc": "the unique id for this behavior"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "stopBehavior",
+      "example": "",
+      "description": "Removes the specified text behavior for the object ",
+      "syntax": "rt.stopBehavior(id);",
+      "parameters": [{
+          "type": "int",
+          "desc": "the behavior id"
+        }
+
+      ],
+      "returns": [{
+          "type": "RiText",
+          "desc": "this RiText"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "stopBehaviors",
+      "example": "",
+      "description": "Removes all text behaviors for the object",
+      "syntax": "rt.stopBehaviors();",
+      "parameters": [
+
+
+      ],
+      "returns": [{
+          "type": "RiText",
+          "desc": "this RiText"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "textTo",
+      "example": "",
+      "description": "Fades out the current text and fades in the <code>newText</code> over <code>seconds</code>",
+      "syntax": "rt.textTo(newText)<br/>rt.textTo(newText, seconds);<br/>rt.textTo(newText, seconds, startTime);<br/>textTo(newText, seconds, endAlpha, function callback);",
+      "parameters": [{
+          "type": "String",
+          "desc": "newText to be fade in"
+        }, {
+          "type": "float",
+          "desc": "time for fade"
+        }, {
+          "type": "float",
+          "desc": "(optional, default=255), the alpha to end on"
+        }, {
+          "type": "function",
+          "desc": "callback the callback to be invoked when the behavior has completed (optional: default=onRiTaEvent(e))"
+        }
+
+      ],
+      "returns": [{
+          "type": "int",
+          "desc": "the unique id for this behavior"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "RiText.createLetters",
+      "example": "",
+      "description": "Creates an array of RiTexts, laid out in lines within the bounding rectange(x,y,w,h), one RiText per letter, with spacing determined by the specified font and leading",
+      "syntax": "RiText.createLetters(pApplet, text, x, y, w, h, font, leading);",
+      "parameters": [{
+        "type": "PApplet",
+        "desc": "the sketch itself or 'this' (optional in JavaScript)"
+      }, {
+        "type": "String or String[]",
+        "desc": "the text to layout (if an array, each array element will be a line in the layout)"
+      }, {
+        "type": "float",
+        "desc": "x-position of layout rect"
+      }, {
+        "type": "float",
+        "desc": "y-position of layout rect"
+      }, {
+        "type": "float",
+        "desc": "width of layout rect (optional, defaults to right-most edge of sketch)"
+      }, {
+        "type": "float",
+        "desc": "height of layout rect (optional, defaults to Number.MAX_VALUE)"
+      }, {
+        "type": "Object",
+        "desc": "the font to use (generally a PFont) for the layout (optional, defaults to RiText.defaults.font)"
+      }, {
+        "type": "float",
+        "desc": "the leading to use for the layout (optional, defaults to RiText.defaults.leading)"
+      }],
+      "returns": [{
+          "type": "RiText[]",
+          "desc": "The created RiTexts"
+        }
+
+      ],
+      "related": "RiText.createLines(), RiText.createWords",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "RiText.createWords",
+      "example": "",
+      "description": "Creates an array of RiTexts ,laid out in lines within the bounding rectange(x,y,w,h), one RiText per word, with spacing determined by the specified font and leading",
+      "syntax": "RiText.createWords(pApplet, text, x, y, w, h, font, leading);",
+      "parameters": [{
+        "type": "PApplet",
+        "desc": "the sketch itself or 'this' (optional in JavaScript)"
+      }, {
+        "type": "String or String[]",
+        "desc": "the text to layout (if an array, each array element will be a line in the layout)"
+      }, {
+        "type": "float",
+        "desc": "x-position of layout rect"
+      }, {
+        "type": "float",
+        "desc": "y-position of layout rect"
+      }, {
+        "type": "float",
+        "desc": "width of layout rect (optional, defaults to right-most edge of sketch)"
+      }, {
+        "type": "float",
+        "desc": "height of layout rect (optional, defaults to Number.MAX_VALUE)"
+      }, {
+        "type": "Object",
+        "desc": "the font to use (generally a PFont) for the layout (optional, defaults to RiText.defaults.font)"
+      }, {
+        "type": "float",
+        "desc": "the leading to use for the layout (optional, defaults to RiText.defaults.leading)"
+      }],
+      "returns": [{
+          "type": "RiText[]",
+          "desc": "The created RiTexts"
+        }
+
+      ],
+      "related": "RiText.createLines(), RiText.createLetters",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "RiText.createLines",
+      "example": "",
+      "description": "Creates an array of RiTexts ,laid out in lines within the bounding rectange(x,y,w,h), one RiText per line, with spacing determined by the specified font and leading",
+      "syntax": "RiText.createLines(pApplet, text, x, y, w, h, font, leading);",
+      "parameters": [{
+        "type": "PApplet",
+        "desc": "the sketch itself or 'this' (optional in JavaScript)"
+      }, {
+        "type": "String or String[]",
+        "desc": "the text to layout (if an array, each array element will be a line in the layout)"
+      }, {
+        "type": "float",
+        "desc": "x-position of layout rect"
+      }, {
+        "type": "float",
+        "desc": "y-position of layout rect"
+      }, {
+        "type": "float",
+        "desc": "width of layout rect (optional, defaults to right-most edge of sketch)"
+      }, {
+        "type": "float",
+        "desc": "height of layout rect (optional, defaults to Number.MAX_VALUE)"
+      }, {
+        "type": "Object",
+        "desc": "the font to use (generally a PFont) for the layout (optional, defaults to RiText.defaults.font)"
+      }, {
+        "type": "float",
+        "desc": "the leading to use for the layout (optional, defaults to RiText.defaults.leading)"
+      }],
+      "returns": [{
+          "type": "RiText[]",
+          "desc": "The created RiTexts"
+        }
+
+      ],
+      "related": "RiText.createWords(), RiText.createLetters",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "RiText.drawAll",
+      "example": "",
+      "description": "A convenience method to draw all existing RiText objects (with no argument) or an array of RiText objects (if supplied as an argument)",
+      "syntax": "RiText.drawAll();<br/>RiText.drawAll(riTextArray);",
+      "parameters": [{
+          "type": "RiText[]",
+          "desc": "draws only the array if supplied (optional)"
+        }
+
+      ],
+      "returns": [
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "RiText.dispose",
+      "example": "",
+      "description": "Deletes the RiText (or RiText[])  and all its associated resources.",
+      "syntax": "RiText.dispose(toDelete);",
+      "parameters": [{
+          "type": "RiText or RiText[]",
+          "desc": "toDelete"
+        }
+
+      ],
+      "returns": [],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "RiText.disposeAll",
+      "example": "",
+      "description": "Deletes all currently existing RiTexts.",
+      "syntax": "RiText.disposeAll",
+      "parameters": [],
+      "returns": [],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "RiText.defaultFill",
+      "example": "",
+      "description": "Convenience method to set/get the default fill color",
+      "syntax": "RiText.defaultFill();<br/>RiText.defaultFill(r,g,b,a)<br>RiText.defaultFill(colorArr);",
+      "parameters": [{
+        "type": "float OR float[]",
+        "desc": "red component or an array of values "
+      }, {
+        "type": "float",
+        "desc": "green component"
+      }, {
+        "type": "float",
+        "desc": "blue component"
+      }, {
+        "type": "float",
+        "desc": "alphs (transparency)"
+      }],
+      "returns": [{
+          "type": "float[]",
+          "desc": "the current default color"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "RiText.defaultFont",
+      "example": "",
+      "description": "Convenience method to set/get the default font",
+      "syntax": "RiText.defaultFont();<br/>RiText.defaultFont(font);<br/>RiText.defaultFont(fontName, fontSize);",
+      "parameters": [{
+        "type": "Object",
+        "desc": "font (optional, for 'sets' only), generally a PFont"
+      }, {
+        "type": "String",
+        "desc": "the font name (optional, for 'sets' only)"
+      }, {
+        "type": "int",
+        "desc": "the font size (optional, for 'sets' only)"
+      }],
+      "returns": [{
+        "type": "null OR font",
+        "desc": "either null (for 'sets') or the current default font (for 'gets')"
+      }],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "RiText.defaultFontSize",
+      "example": "",
+      "description": "Convenience method to set/get the default font size",
+      "syntax": "RiText.defaultFontSize();<br/>RiText.defaultFontSize(fontsz);",
+      "parameters": [{
+        "type": "float",
+        "desc": "fontsize (optional, for 'sets' only)"
+      }],
+      "returns": [{
+        "type": "null OR float",
+        "desc": "either null (for 'sets') or the current default font size (for 'gets')"
+      }],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "RiText.randomColor",
+      "example": "",
+      "description": "Returns a random color in which the 3 values for rgb (or rgba if 'includeAlpha' is true), are between min and max ",
+      "syntax": "RiText.randomColor(min, max, includeAlpha);",
+      "parameters": [{
+        "type": "number",
+        "desc": "min value"
+      }, {
+        "type": "number",
+        "desc": "max value"
+      }, {
+        "type": "boolean",
+        "desc": "true if includes alpha"
+      }],
+      "returns": [{
+          "type": "number[]",
+          "desc": "random color vals, either [r,g,b] or [r,g,b,a]"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
       "name": "RiText.picked",
       "example": "var rts = RiText.getPicked(mx, my);<br/>if (rts.length) { <br/>  rts[0].doSomething();<br/>}",
       "description": "Returns all RiTexts that contain the point x,y or null if none do. <br/><br/>Note: this will return an array even if only one item is picked, therefore, you should generally use it as example",
-      "syntax":"RiText.picked(x, y);",
-      "parameters": [
-      		{ 
-			"type": "float", 
-			"desc": "x" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "y" 
-			}		
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "RiText[]", 
-			"desc": "one or more RiTexts containing the point, or an empty array if none do." 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"RiText.timer",
-      "example":"",
-      "description":"Starts a timer that calls 'onRiTaEvent()', or the specified callback (in JS), every 'period' seconds",
-      "syntax":"RiText.timer(parent, period);<br/>RiText.timer(parent, period, callback);",
-      "parameters":
-      [
-      	 {
-            "type":"Object",
-            "desc":"the parent object in which to find (optional in JS)"
-         },
-         {
-            "type":"float",
-            "desc":"period (in seconds)"
-         },
-         {
-            "type":"String OR Function ",
-            "desc":"callback function to be called every 'period' seconds<br>the function name String (in Java) or the function itself (in JS) "
-         }
-			
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "int", 
-			"desc": "the unique id for the timer" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	   "note":"The 'parent' object is optional in JS, and the optional callback is a function, rather than a String name"	
-     
-   },
-   {
-      "name":"RiText.stopTimer",
-      "example":"",
-      "description":"Stops a timer according to its unique id",
-      "syntax":"RiText.stopTimer(id);",
-      "parameters":
-      [
-      		{ 
-			"type": "int", 
-			"desc": "the unique id for the timer" 
-			}
+      "syntax": "RiText.picked(x, y);",
+      "parameters": [{
+        "type": "float",
+        "desc": "x"
+      }, {
+        "type": "float",
+        "desc": "y"
+      }],
+      "returns": [{
+          "type": "RiText[]",
+          "desc": "one or more RiTexts containing the point, or an empty array if none do."
+        }
 
-	  ],
-	  "returns":
-      [
-			
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"RiText.pauseTimer",
-      "example":"",
-      "description":"Pauses a timer according to its unique id (and assigns a new unique id)",
-      "syntax":"RiText.pauseTimer(id, pauseSec);",
-      "parameters":
-      [
-      		{ 
-			"type": "int", 
-			"desc": "the unique id for the timer" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "period (in seconds)" 
-			}
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "RiText.timer",
+      "example": "",
+      "description": "Starts a timer that calls 'onRiTaEvent()', or the specified callback (in JS), every 'period' seconds",
+      "syntax": "RiText.timer(parent, period);<br/>RiText.timer(parent, period, callback);",
+      "parameters": [{
+          "type": "Object",
+          "desc": "the parent object in which to find (optional in JS)"
+        }, {
+          "type": "float",
+          "desc": "period (in seconds)"
+        }, {
+          "type": "String OR Function ",
+          "desc": "callback function to be called every 'period' seconds<br>the function name String (in Java) or the function itself (in JS) "
+        }
 
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "int", 
-			"desc": "the new unique id for the timer" 
-			}
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   },
-   {
-      "name":"RiText.random",
-      "example":"",
-      "description":"Returns a random number between 'min' (default 0) and 'max'",
-      "syntax":"RiText.random",
-      "parameters":
-      [
-      		{ 
-			"type": "float", 
-			"desc": "the min value (optional, default=0)" 
-			},
-			{ 
-			"type": "float", 
-			"desc": "the max value (optional, default=1)" 
-			}      		
-	  ],
-	  "returns":
-      [
-			{ 
-			"type": "float", 
-			"desc": "a random number between 'min' (default 0) and 'max'" 
-			}
-			
-	  ],
-      "related":"",
-      "platform":"Java / Javascript",
-	  "note":""
-   }  
-]
+      ],
+      "returns": [{
+          "type": "int",
+          "desc": "the unique id for the timer"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": "The 'parent' object is optional in JS, and the optional callback is a function, rather than a String name"
+
+    }, {
+      "name": "RiText.stopTimer",
+      "example": "",
+      "description": "Stops a timer according to its unique id",
+      "syntax": "RiText.stopTimer(id);",
+      "parameters": [{
+          "type": "int",
+          "desc": "the unique id for the timer"
+        }
+
+      ],
+      "returns": [
+
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "RiText.pauseTimer",
+      "example": "",
+      "description": "Pauses a timer according to its unique id (and assigns a new unique id)",
+      "syntax": "RiText.pauseTimer(id, pauseSec);",
+      "parameters": [{
+          "type": "int",
+          "desc": "the unique id for the timer"
+        }, {
+          "type": "float",
+          "desc": "period (in seconds)"
+        }
+
+      ],
+      "returns": [{
+        "type": "int",
+        "desc": "the new unique id for the timer"
+      }],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }, {
+      "name": "RiText.random",
+      "example": "",
+      "description": "Returns a random number between 'min' (default 0) and 'max'",
+      "syntax": "RiText.random",
+      "parameters": [{
+        "type": "float",
+        "desc": "the min value (optional, default=0)"
+      }, {
+        "type": "float",
+        "desc": "the max value (optional, default=1)"
+      }],
+      "returns": [{
+          "type": "float",
+          "desc": "a random number between 'min' (default 0) and 'max'"
+        }
+
+      ],
+      "related": "",
+      "platform": "Java / Javascript",
+      "note": ""
+    }
+  ]
 }
