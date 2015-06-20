@@ -69,14 +69,14 @@ import rita.*;
 println(RiTa.tokenize("The elephant took a bite!"));
 ```
 
-
+<!--
 #### With Maven
 --------
 ##### Setting up Rita for Maven in Eclipse from GitHub
 1. Install [Eclipse IDE for Java Developers](https://eclipse.org/downloads/) 4.3 or newer
 2. In Eclipse, select File > Import... > Projects from Git > Clone URI > https://github.com/dhowe/RiTa.git (or the address of your fork)
 3. Right-click: RiTa project > Configure > Convert to Maven Project
-
+-->
 
 #### Can I contribute?
 --------
