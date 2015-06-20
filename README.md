@@ -69,6 +69,24 @@ import rita.*;
 println(RiTa.tokenize("The elephant took a bite!"));
 ```
 
+#### Setting up Maven
+--------
+##### Setting up Rita for Maven in Eclipse from GitHub
+1. Install [Eclipse IDE for Java Developers](https://eclipse.org/downloads/) 4.3 or newer
+2. In Eclipse, select File > Import... > Projects from Git > Clone URI > https://github.com/dhowe/RiTa.git (or the address of your fork)
+3. After that in the context menu of RiTa project > Configure > Convert to Maven Project
+
+Here's the instructions. What do you think?
+
+##### Setting up Rita for Maven in Eclipse from Git Clone
+1. In Terminal ```$ git clone https://github.com/dhowe/RiTa.git``` (or the address of your fork)
+2. Install [Eclipse IDE for Java Developers](https://eclipse.org/downloads/) 4.3 or newer
+3. In Eclipse, select File > Import... > Existing Maven Projects, select the RiTa directory from git clone as the Root Directory 
+
+##### Running Maven 
+In the context menu of RiTa project select Run As > Maven ...
+
+
 #### Can I contribute?
 --------
 Please! We are looking for more coders to help out... Just press *Fork* at the top of this page and get started, or follow the instructions below...
