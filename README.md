@@ -67,6 +67,7 @@ Create a simple test sketch as follows:
 import rita.*;
 
 println(RiTa.tokenize("The elephant took a bite!"));
+
 ```
 
 <!--
