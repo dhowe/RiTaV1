@@ -10,9 +10,10 @@ import rita.json.*;
 
 public class DocGenerator extends PApplet
 {
+  static final String OUTPUT_TYPE = "html";
+  
   static final String VERSION = "0.20";
   static final boolean OUTPUT_MARKUP =  false;
-  private static final String OUTPUT_TYPE = "html";
   
   static String DATA_DIR = "docs", OUTPUT_DIR = "/tmp/";
  
