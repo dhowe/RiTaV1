@@ -8,20 +8,29 @@
 		<link rel="stylesheet" href="../../../css/syntax.css" type="text/css" />
 		<link rel="stylesheet" href="../../../css/style.css" type="text/css" />
 		<link rel="shortcut icon" type="image/x-icon" href="http://rednoise.org/rita/rita.ico"/>
+
+		  <meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="css/normalize.css">
+		<link rel="stylesheet" href="css/main.css">
+		<script src="js/vendor/modernizr-2.6.2.min.js"></script>
+		<script language="javascript" src="js/highlight.js"></script>
 		<!-- <script src="../../../js/processing-min.js" type="text/javascript"></script> -->
 		<!--script type="text/javascript" src="../../../mailto.js"></script-->
 	</head>
 
 	<body>
-		<div id="header"></div>
-		<div class="container">
-			<div class="header">
-				<a href="../../../index.html"><img src="../../../img/RiTa-logo3.png" width="60" height="60"></a><a href="https://github.com/dhowe/RiTa/"> <img style="position:absolute; margin-left:723px; border: 0; z-index:999999999" src="../../../img/forkme.png" alt="Fork me on GitHub"> </a>
-			</div>
-			<span class="tagline">a software toolkit for generative literature</span>
-			<div class="navbar">
-			</div>
-			<div class="page row">
+		
+ <?php include("header.php"); ?>
+
+
+  
+<div class="gd-section pad-large"> 
+<div class="gd-center pad-large"> 
+<div class="row">
+  <div class="col1"></div>
+  <div class="col10">
+     <h3>Reference</h3>
+     <div class="page row">
 				
 				<div class="refbar span3">
 					<div id="index">
@@ -53,21 +62,21 @@
 							<th scope="row">Name</th>
 
 							<!-- METHOD NAME -->
-							<td><h3>getBaseForm</h3></td>
+							<td><h3>getAllHolonyms</h3></td>
 						</tr>
 
 						<tr class="">
 							<th scope="row">Description</th>
 
 							<!-- DESCRIPTION  -->
-							<td>Gets the base form of the word</td>
+							<td>Returns part-to-whole relationships for all sense of word/pos, or none if not found<br/>X is a meronym of Y if Y has X as a part.<br/>X is a holonym of Y if X has Y as a part. That is, if Y is a meronym of X. <br/>Holds between: nouns and nouns<br/>Returns part, member, and substance holonyms<br/>Example: arm -> [body, physical-structure, man, human...]</td>
 						</tr>
 						
 						<tr class='Syntax'>
 							<th scope="row">Syntax</th>
 
 							<!-- SYNTAX  -->
-							<td><pre>getBaseForm(word)<br/>getBaseForm(word,posStr)</pre></td>
+							<td><pre>getAllHolonyms(word, posStr);</pre></td>
 						</tr>
 
 						    
@@ -78,19 +87,19 @@
 							<!-- PARAMETERS  -->
 							
 							<table cellpadding="0" cellspacing="0" border="0" class="sub-table">
-								<tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>word</td></tr><tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>(Optional) posStr</td></tr>
+								<tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>word</td></tr><tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>posStr</td></tr>
 							</table></td>
 						</tr>
 
 
 						<tr class='Returns'>
-							<th scope="row">Type</th>
+							<th scope="row">Returns</th>
 							<td>
 								
 							<!-- RETURNS/TYPE (for variables)  -->
 
 							<table cellpadding="0" cellspacing="0" border="0" class="sub-table">
-								<tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'></td></tr>
+								<tr class=''><th width='25%' scope='row' class=nobold>java.lang.String[]</th><td width='75%'></td></tr>
 							</table></td>
 						</tr>
 
@@ -132,8 +141,19 @@
 					</table>
 				</div>
 			</div>
-		</div>
-		</div>
+  </div>
+    <div class="col1"></div>
+  
+</div>
+</div>
+    </div>
+
+
+
+
+<?php include("footer.php"); ?>
+			
+
 <!-- Piwik -->
 <script type="text/javascript">
   var _paq = _paq || [];
@@ -148,5 +168,11 @@
   })();
 </script>
 <!-- End Piwik Code -->
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
+<script src="js/plugins.js"></script>
+<script src="js/main.js"></script>
+
 	</body>
 </html>

@@ -10,8 +10,9 @@ import rita.json.*;
 
 public class DocGenerator extends PApplet
 {
-  static final String VERSION = "0.14";
-  static final boolean OUTPUT_HTML =  false;
+  static final String VERSION = "0.20";
+  static final boolean OUTPUT_MARKUP =  false;
+  private static final String OUTPUT_TYPE = "html";
   
   static String DATA_DIR = "docs", OUTPUT_DIR = "/tmp/";
  
@@ -23,7 +24,7 @@ public class DocGenerator extends PApplet
 
   static boolean[] hidden, isVariable;
 
-  static String htmlTemplate;
+  static String outputTemplate;
   
   static String[] CLASS_NAMES = { 
     "RiTa", "RiString","RiText","RiGrammar",
@@ -65,12 +66,12 @@ public class DocGenerator extends PApplet
       }
     }
 
-    htmlTemplate = DATA_DIR + "/html/template.html";
-    
+    outputTemplate = DATA_DIR + "/"+OUTPUT_TYPE+"/template."+OUTPUT_TYPE;
+        
     for (int i = 0; i < CLASS_NAMES.length; i++)
     {
       pln("\n******     " + CLASS_NAMES[i] + "     ******\n");
-      pln("  Template : " + htmlTemplate);
+      pln("  Template : " + outputTemplate);
       parseJSON(CLASS_NAMES[i]);
     }
 
@@ -104,7 +105,7 @@ public class DocGenerator extends PApplet
 
       for (int j = 0; j < numOfMethods; j++)
       {
-        lines = RiTa.loadStrings(htmlTemplate);
+        lines = RiTa.loadStrings(outputTemplate);
 
         JSONObject entry = items.getJSONObject(j);
 
@@ -157,7 +158,7 @@ public class DocGenerator extends PApplet
 
         template(j, shortName);
         
-        plnHTML(shortName, methodName[j], isVariable[j]);
+        plnMarkup(shortName, methodName[j], isVariable[j]);
       }
     } 
     catch (JSONException e)
@@ -213,7 +214,7 @@ public class DocGenerator extends PApplet
 
     String folder_methodName = methodName[idx].replaceAll("\\(\\)", "_");
     
-    String fname = OUTPUT_DIR +"/"+ shortName+"/"+folder_methodName+"/index.html";
+    String fname = OUTPUT_DIR +"/"+ shortName+"/"+folder_methodName+"/index."+OUTPUT_TYPE;
     
     lines = replaceArr(lines, "tmp_className", shortName);
     lines = replaceArr(lines, "tmp_methodName", methodName[idx]);
@@ -325,19 +326,16 @@ public class DocGenerator extends PApplet
 
   private static void pln(String s)
   {
-    if (!OUTPUT_HTML) System.out.println(s);
+    if (!OUTPUT_MARKUP) System.out.println(s);
   }
   
-  // <a href="RiText/fill_/index.html">fill()</a> 
-
-  private static void plnHTML(String classShortName, String field, boolean isVar)
+  private static void plnMarkup(String classShortName, String field, boolean isVar)
   {
-    if (OUTPUT_HTML) {
-      
+    if (OUTPUT_MARKUP) {
       field = field.replaceAll("\\(\\)", RiTa.E);
       StringBuilder sb =  new StringBuilder();
       sb.append("<a href=\""+classShortName+"/");
-      sb.append(field+"_/index.html\">"+field);
+      sb.append(field+"_/index."+OUTPUT_TYPE+"\">"+field);
       if (!isVar) sb.append("()");
       sb.append("</a>");
       System.out.println(sb.toString());
@@ -346,7 +344,6 @@ public class DocGenerator extends PApplet
 
   public static void main(String[] args)
   {
-
     args = new String[]{ "www/reference/" };
     
     if (args.length==0)
