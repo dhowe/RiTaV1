@@ -1310,19 +1310,19 @@
   }, {
     "name": "randomizeResults",
     "example": "myWordNet.randomizeResults(false); // as setter<br/>boolean val = myWordNet.randomizeResults(); // as getter",
-    "description": "Sets if the order of the result from WordNet to be random <br/> Returns a Boolean indicating the if it has been set to true",
-    "syntax": "randomizeResults(status) // as setter <br/>randomizeResults(); // as getter",
+    "description": "Sets/gets whether results from RiWordNet methods will be randomized (default=true)",
+    "syntax": "randomizeResults(value) // as setter <br/>randomizeResults(); // as getter",
     "parameters": [{
-      "type": "boolean",
-      "desc": "status"
+      "type": "boolean (optional)",
+      "desc": "the desired value"
     }],
     "returns": [{
-      "type": "boolean",
-      "desc": "(optional)"
+      "type": "boolean ",
+      "desc": "return true or false (as getter), or this RiWordNet object (as setter)"
     }],
     "related": "",
     "platform": "Java only",
-    "note": "This can be used as a setter or getter."
+    "note": "Can be used as a setter or getter"
   }, {
     "variable": true,
     "name": "RiWordNet.VERB",
