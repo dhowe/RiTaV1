@@ -118,7 +118,18 @@ The examples below assume the following installation structure (linux/unix/osx):
  
  <br/>&nbsp;<br/>
  <p>
- Note: Valid WordNet parts-of-speech include (noun="n",verb="v",adj="a", and
+ <em>Note</em>: The synet results you get from getAllSynsets() are in random order by default. 
+ The order can be set to be non-random which is the same as the one from WordNet database and
+ that same method can also be used to get the status of randomness: 
+ 
+ <pre>
+    wordnet.randomizeResults(false); // as setter
+	
+    boolean wordnet.randomizeResults(); // as getter
+ </pre>
+ 
+ <p>
+ <em>Note</em>: Valid WordNet parts-of-speech include (noun="n",verb="v",adj="a", and
  adverb="r"). <br>These can be specified either as a literal (e.g., "n") or using the constants:
  
  <pre>
