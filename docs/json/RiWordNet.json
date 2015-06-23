@@ -1308,6 +1308,22 @@
     "platform": "Java only",
     "note": ""
   }, {
+    "name": "randomizeResults",
+    "example": "myWordNet.randomizeResults(false); // as setter<br/>boolean val = myWordNet.randomizeResults(); // as getter",
+    "description": "Sets if the order of the result from WordNet to be random <br/> Returns a Boolean indicating the if it has been set to true",
+    "syntax": "randomizeResults(status) // as setter <br/>randomizeResults(); // as getter",
+    "parameters": [{
+      "type": "boolean",
+      "desc": "status"
+    }],
+    "returns": [{
+      "type": "boolean",
+      "desc": "(optional)"
+    }],
+    "related": "",
+    "platform": "Java only",
+    "note": "This can be used as a setter or getter."
+  }, {
     "variable": true,
     "name": "RiWordNet.VERB",
     "example": "",
