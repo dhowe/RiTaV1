@@ -347,48 +347,46 @@ public class RiTaTest
       //System.out.println("testSplitSentences :" + output[i] + "'");
     deepEqual(output, expected);
 
-    output = new String[] {};
     input = "\"The boy went fishing.\", he said. Then he went away.";
     expected = new String[] { "\"The boy went fishing.\", he said.", "Then he went away." };
     output = RiTa.splitSentences(input);
     deepEqual(output, expected);
 
-    expected = new String[] {};
-    output = new String[] {};
     input = "The dog";
     output = RiTa.splitSentences(input);
     expected = new String[] { input };
     deepEqual(output, expected);
 
-    expected = new String[] {};
-    output = new String[] {};
     input = "I guess the dog ate the baby.";
     output = RiTa.splitSentences(input);
     expected = new String[] { input };
     deepEqual(output, expected);
 
-    expected = new String[] {};
-    output = new String[] {};
     input = "Oh my god, the dog ate the baby!";
     output = RiTa.splitSentences(input);
     expected = new String[] { input };
     deepEqual(output, expected);
 
-    expected = new String[] {};
-    output = new String[] {};
     input = "Which dog ate the baby?";
     output = RiTa.splitSentences(input);
     expected = new String[] { input };
     deepEqual(output, expected);
 
-    expected = new String[] {};
-    output = new String[] {};
     input = "'Yes, it was a dog that ate the baby', he said.";
     output = RiTa.splitSentences(input);
     expected = new String[] { "\'Yes, it was a dog that ate the baby\', he said." };
     deepEqual(output, expected);
 
-    // always do these three
+    input = "-@.576";
+    output = RiTa.splitSentences(input);
+    expected = new String[] { "-@.576" };
+    deepEqual(output, expected);
+
+    input = "";
+    output = RiTa.splitSentences(input);
+    expected = new String[] {  };
+    deepEqual(output, expected);
+
     // deepEqual(RiTa.splitSentences(""), [""]);
 
   }
