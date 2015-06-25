@@ -65,14 +65,14 @@
 							<th scope="row">Description</th>
 
 							<!-- DESCRIPTION  -->
-							<td>Returns String[] of Synsets for unique id</td>
+							<td>Returns String[] of the words in the synset for the unique id or word/pos/sense-number. If only an id is supplied, the full synset for that id will be returned; if a word/pos/sense# is supplied, the synset for that sense will be returned; if no sense-number is supplied, the synset for the first sense will returned.</td>
 						</tr>
 						
 						<tr class='Syntax'>
 							<th scope="row">Syntax</th>
 
 							<!-- SYNTAX  -->
-							<td><pre>getSynset(id);<br/>getSynset(word, pos);<br/>getSynset(word, pos, includeOriginal);</pre></td>
+							<td><pre>getSynset(id);<br/>getSynset(word, pos);<br/>getSynset(word, pos, senseNumber);<br/>getSynset(word, pos, senseNumber, includeOriginal);<br/>getSynset(word, pos, includeOriginal);</pre></td>
 						</tr>
 
 						    
@@ -83,7 +83,7 @@
 							<!-- PARAMETERS  -->
 							
 							<table cellpadding="0" cellspacing="0" border="0" class="sub-table">
-								<tr class=''><th width='25%' scope='row' class=nobold>int</th><td width='75%'>(Optional) the unique id</td></tr><tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>(Optional) word</td></tr><tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>(Optional) the pos</td></tr><tr class=''><th width='25%' scope='row' class=nobold>boolean</th><td width='75%'>(Optional) includeOriginal</td></tr>
+								<tr class=''><th width='25%' scope='row' class=nobold>int</th><td width='75%'>(Optional) the unique id</td></tr><tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>(Optional) word</td></tr><tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>(Optional) the pos</td></tr><tr class=''><th width='25%' scope='row' class=nobold>int</th><td width='75%'>(Optional) the senseNumber</td></tr><tr class=''><th width='25%' scope='row' class=nobold>boolean</th><td width='75%'>(Optional) includeOriginal -- whether to include the original word in the result array (default=false)</td></tr>
 							</table></td>
 						</tr>
 

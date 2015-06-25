@@ -63,9 +63,9 @@ public class RiWordNet
   protected WordnetFilters filters;
   protected int maxCharsPerWord = 10;
 
+  protected boolean randomizeResults = false;
   protected boolean ignoreCompoundWords = false;
   protected boolean ignoreUpperCaseWords = false;
-  protected boolean randomizeResults = true;
 
   // -------------------- CONSTRUCTORS ----------------------------
 
@@ -1177,14 +1177,22 @@ public class RiWordNet
   {
     return getSynset(word, pos, false);
   }
+  
+  public String[] getSynset(String word, String pos, boolean includeOriginal) {
+    return this.getSynset(word, pos, 1, includeOriginal);
+  }
+  
+  public String[] getSynset(String word, String pos, int senseNum) {
+    return this.getSynset(word, pos, senseNum, false);
+  }
 
   /**
-   * Returns String[] of words in synset for first sense of <code>word</code>
+   * Returns String[] of words in synset for the specified sense # of <code>word</code>
    * with <code>pos</code>.
    */
-  public String[] getSynset(String word, String pos, boolean includeOriginal)
+  public String[] getSynset(String word, String pos, int senseNum, boolean includeOriginal)
   {
-    Synset syns = getSynsetAtIndex(word, pos, 1);
+    Synset syns = getSynsetAtIndex(word, pos, senseNum);
     
     if (syns == null || syns.getWordsSize() < 1)
       return EA;
@@ -1276,7 +1284,7 @@ public class RiWordNet
     
     return l;
   }
-
+  
   private Synset[] allSynsets(String word, String posStr) // returns null
   {
     POS pos = convertPos(posStr);
@@ -1308,14 +1316,14 @@ public class RiWordNet
 
   private Synset getSynsetAtIndex(String word, String posStr, int idx) // returns null
   {
-    if (idx < 1)
-      throw new IllegalArgumentException("Invalid index: " + idx);
-    
     IndexWord idw = lookupIndexWord(convertPos(posStr), word);
     
-    if (idw == null || idw.getSenseCount() < idx)
-      return null;
-    
+    if (idw == null) return null;
+
+    if (idx < 1 || idx > idw.getSenseCount())
+      throw new RiWordNetError("Bad sense #: "+idx+", expected # from 1-"+
+	  this.getSenseCount(word, posStr));
+
     try
     {
       return idw.getSense(idx);
@@ -3493,16 +3501,14 @@ public class RiWordNet
       RiWordNet w = new RiWordNet("/WordNet-3.1");
       String[] s = w.getAllSynsets("dog", "n");
       System.out.println(Arrays.asList(s));
-      result = s == null ? null : RiTa.asList(s).toString();
-      int i = 0;
-      for (Iterator it = w.iterator("n"); it.hasNext();i++)
-      {
-        if (i > 100) break;
-        System.out.println(it.next());
-        
+      int[] is = w.getSenseIds("dog", "n");
+      for (int i = 0; i < is.length; i++) {
+	System.out.println(i+"] "+is[i]);
       }
+      System.out.println(Arrays.asList(w.getSynset("dog", "n", 1)));
     }
-    System.out.println(result);
+    else
+      System.out.println(result);
   }
 
 }

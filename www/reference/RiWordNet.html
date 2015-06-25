@@ -112,7 +112,7 @@ The examples below assume the following installation structure (linux/unix/osx):
  
  <br/>
  You can also retrieve the entire tree of hyponyms (down to the leaves) for a
- specific sense of a word.
+ specific sense of a word, via getHypernymTree().
  
  <!-- ADD EXAMPLE: VariousHypernyms -->
  
@@ -135,19 +135,13 @@ NOTE:&nbsp; Methods returning a String[] will return a zero-length array when th
   rather than null (as in the original version of this library). 
 
  <p>
-NOTE:&nbsp; Methods returning a String[] will return results in <em>randomized</em> order. 
- To disable this behavior, call  <pre>wordnet.randomizeResults(false);  </pre>
  
- <!--em>NOTE:</em>&nbsp; Methods returning a String[] will no longer return results in <em>randomized</em> order. 
- To re-enable this behavior (as in earlier version of the library), call wordnet.randomizeResults(true);-->  
-  	
+<!--NOTE:&nbsp; Methods returning a String[] will return results in <em>randomized</em> order. 
+ To disable this behavior, call  <pre>wordnet.randomizeResults(false);  </pre>-->
  
-  
- <p>
- For more info on the meaning of various WordNet concepts (synset, sense,
- hypernym, etc), see <a href="http://wordnet.princeton.edu/wordnet/man/wngloss.7WN.html" target=_blank>this page</a>.
- 
- <p>
+NOTE:&nbsp; As of version 1.0.95, results are no longer returned in <em>randomized</em> order -- to re-enable this behavior, call wordnet.randomizeResults(true);  
+
+ <p><br>
  See the included documentation for license information (in the rita.wordnet pkg).
    
 			      </td>

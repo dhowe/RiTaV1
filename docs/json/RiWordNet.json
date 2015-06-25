@@ -222,8 +222,8 @@
     "variable": false,
     "name": "getSynset",
     "example": "",
-    "description": "Returns String[] of Synsets for unique id",
-    "syntax": "getSynset(id);<br/>getSynset(word, pos);<br/>getSynset(word, pos, includeOriginal);",
+    "description": "Returns String[] of the words in the synset for the unique id or word/pos/sense-number. If only an id is supplied, the full synset for that id will be returned; if a word/pos/sense# is supplied, the synset for that sense will be returned; if no sense-number is supplied, the synset for the first sense will returned.",
+    "syntax": "getSynset(id);<br/>getSynset(word, pos);<br/>getSynset(word, pos, senseNumber);<br/>getSynset(word, pos, senseNumber, includeOriginal);<br/>getSynset(word, pos, includeOriginal);",
     "parameters": [{
       "type": "int",
       "desc": "(Optional) the unique id"
@@ -233,9 +233,12 @@
     }, {
       "type": "String",
       "desc": "(Optional) the pos"
-    }, {
+    },  {
+      "type": "int",
+      "desc": "(Optional) the senseNumber"
+    },{
       "type": "boolean",
-      "desc": "(Optional) includeOriginal"
+      "desc": "(Optional) includeOriginal -- whether to include the original word in the result array (default=false)"
     }],
     "returns": [{
       "type": "java.lang.String[]",
@@ -244,7 +247,8 @@
     "related": "",
     "platform": "Java only",
     "note": ""
-  }, {
+  },
+  {
     "variable": false,
     "name": "getSynonyms",
     "example": "",
