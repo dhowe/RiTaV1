@@ -117,19 +117,9 @@ The examples below assume the following installation structure (linux/unix/osx):
  <!-- ADD EXAMPLE: VariousHypernyms -->
  
  <br/>&nbsp;<br/>
- <p>
- <em>Note</em>: The synet results you get from getAllSynsets() are in random order by default. 
- The order can be set to be non-random which is the same as the one from WordNet database and
- that same method can also be used to get the status of randomness: 
- 
- <pre>
-    wordnet.randomizeResults(false); // as setter
-	
-    boolean wordnet.randomizeResults(); // as getter
- </pre>
  
  <p>
- <em>Note</em>: Valid WordNet parts-of-speech include (noun="n",verb="v",adj="a", and
+ NOTE: Valid WordNet parts-of-speech include (noun="n",verb="v",adj="a", and
  adverb="r"). <br>These can be specified either as a literal (e.g., "n") or using the constants:
  
  <pre>
@@ -140,13 +130,17 @@ The examples below assume the following installation structure (linux/unix/osx):
  </pre>
  
  <p>
- <em>NOTE:</em>&nbsp; Methods returning a String[] will return a zero-length array when the query term
+NOTE:&nbsp; Methods returning a String[] will return a zero-length array when the query term
   is not found or there are no entries for the relation type being sought, 
   rather than null (as in the original version of this library). 
 
  <p>
- <em>NOTE:</em>&nbsp; Methods returning a String[] will return results in <em>randomized</em> order. 
- To disable this behavior, call wordnet.randomizeResults(false);  
+NOTE:&nbsp; Methods returning a String[] will return results in <em>randomized</em> order. 
+ To disable this behavior, call  <pre>wordnet.randomizeResults(false);  </pre>
+ 
+ <!--em>NOTE:</em>&nbsp; Methods returning a String[] will no longer return results in <em>randomized</em> order. 
+ To re-enable this behavior (as in earlier version of the library), call wordnet.randomizeResults(true);-->  
+  	
  
   
  <p>
