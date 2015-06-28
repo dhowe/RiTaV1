@@ -153,6 +153,7 @@
 		<mkdir dir="${project.dist}" />
 		<mkdir dir="${project.dist}/${project.name}" />
 		<mkdir dir="${project.dist}/${project.name}/library" />
+		<mkdir dir="${project.dist}/${project.name}/js" />
 		<mkdir dir="${project.dist}/${project.name}/examples" />
 		<mkdir dir="${project.dist}/${project.name}/reference" />
 		<mkdir dir="${project.dist}/${project.name}/css" />
