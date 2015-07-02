@@ -1423,30 +1423,15 @@ public class RiTaTest
     equal(RiTa.getPresentParticiple(""), "");
   }
 
+  // For correct results on Porter/Lancaster, see http://text-processing.com/demo/stem/
+
   @Test
   public void testStemString()
   {
-    equal(RiTa.stem("cakes"), "cake");
-
-    String[] tests = { "run", "runs", "running" };
-    for (int i = 0; i < tests.length; i++)
-    {
-      equal(RiTa.stem(tests[i]), "run");
-    }
-
-    equal(RiTa.stem("gases"), "gase");
-    equal(RiTa.stem("buses"), "buse");
-    equal(RiTa.stem("happiness"), "happi");
-    equal(RiTa.stem("terrible"), "terribl");
-
-    String test = "Stemming is funnier than a bummer";
-    String result = "Stem is funnier than a bummer";
-    //System.out.println("testStemString: " + RiTa.stem(test));
-    equal(RiTa.stem(test), result);
+    ok("tested in testStemStringString()");
   }
 
-  @Test
-  public void testStemStringInt()
+  public void testStemPorter()
   {
     String type = RiTa.PORTER;
 
@@ -1459,6 +1444,19 @@ public class RiTaTest
     {
       equal(RiTa.stem(tests[i]), "run");
     }
+    
+    tests = new String[]{ "hide", "hides", "hiding" };
+    for (int i = 0; i < tests.length; i++)
+    {
+      equal(RiTa.stem(tests[i]), "hide");
+    }
+
+    
+    tests = new String[]{ "take", "takes", "taking" };
+    for (int i = 0; i < tests.length; i++)
+    {
+      equal(RiTa.stem(tests[i]), "take");
+    }
 
     equal(RiTa.stem("gases"), "gase");
     equal(RiTa.stem("buses"), "buse");
@@ -1470,36 +1468,45 @@ public class RiTaTest
     //System.out.println("testStemString1: " + RiTa.stem(test));
 
     equal(RiTa.stem(test), result);
-    
-    // --------- Pling ---------------
+  }
+  
+  // For correct results on Porter/Lancaster, see http://text-processing.com/demo/stem/
+  @Test
+  public void testStemStringString()
+  {
+    // TODO: port over to JS (goal: remove Porter or Lancaster)
+    testStemPorter();
+    testStemLancaster();
+    testStemPling();
+  }
 
-    type = RiTa.PLING;
-
-    equal(RiTa.stem("cakes", type), "cake");
-
-    tests = new String[] {"run", "runs" };
-    for (int i = 0; i < tests.length; i++) {
-        equal(RiTa.stem(tests[i],type), "run");
-    }
-
-    equal(RiTa.stem("gases",type), "gas");
-    equal(RiTa.stem("buses",type), "bus");
-    equal(RiTa.stem("happiness",type), "happiness");
-    equal(RiTa.stem("terrible",type), "terrible");
-    
-    test = "Stemming is funnier than a bummer";
-    result = "Stemming is funnier than a bummer";
-    //System.out.println("testStemString2: " + RiTa.stem(test,type));
-    equal(RiTa.stem(test, type), result);
+  private void testStemLancaster() {
     
     // --------- Lancaster ---------------
     
-    type = RiTa.LANCASTER;
+    String type = RiTa.LANCASTER;
 
-
-    tests = new String[] {"run", "runs", "running" };
+    String[] tests = new String[] {"run", "runs", "running" };
     for (int i = 0; i < tests.length; i++) {
         equal(RiTa.stem(tests[i],type), "run");
+    }
+    
+    tests = new String[]{ "hide", "hides", "hiding" };
+    for (int i = 0; i < tests.length; i++)
+    {
+      equal(RiTa.stem(tests[i]), "hid");
+    }
+
+    tests = new String[]{ "take", "takes", "taking" };
+    for (int i = 0; i < tests.length; i++)
+    {
+      equal(RiTa.stem(tests[i]), "tak");
+    }
+    
+    tests = new String[]{ "become", "becomes", "becoming" };
+    for (int i = 0; i < tests.length; i++)
+    {
+      equal(RiTa.stem(tests[i]), "becom");
     }
     
     equal(RiTa.stem("gases",type), "gas");
@@ -1507,12 +1514,57 @@ public class RiTaTest
     equal(RiTa.stem("happiness",type), "happy");
     equal(RiTa.stem("terrible",type), "terr");
 
-    test = "Stemming is funnier than a bummer says the sushi loving computer";
-    result = "stem is funny than a bum say the sush lov comput";
+    String test = "Stemming is funnier than a bummer says the sushi loving computer";
+    String result = "stem is funny than a bum say the sush lov comput";
     //System.out.println("testStemString3: " + RiTa.stem(test));
 
     equal(RiTa.stem(test,type), result);
-    equal(RiTa.stem("cakes", type), "cak");
+    equal(RiTa.stem("cakes", type), "cak");    
+  }
+
+  private void testStemPling() {
+    
+    // TODO: find reference implementation and check tests are correct
+    
+    // --------- Pling ---------------
+
+    String type = RiTa.PLING;
+
+    equal(RiTa.stem("cakes", type), "cake");
+
+    String[] tests = new String[] {"run", "runs" };
+    for (int i = 0; i < tests.length; i++) {
+        equal(RiTa.stem(tests[i],type), "run");
+    }
+    
+    tests = new String[]{ "take", "takes", "taking" };
+    for (int i = 0; i < tests.length; i++)
+    {
+      equal(RiTa.stem(tests[i]), "take");
+    }
+    
+    tests = new String[]{ "hide", "hides", "hiding" };
+    for (int i = 0; i < tests.length; i++)
+    {
+      equal(RiTa.stem(tests[i]), "hide");
+    }
+
+    tests = new String[]{ "become", "becomes", "becoming" };
+    for (int i = 0; i < tests.length; i++)
+    {
+      equal(RiTa.stem(tests[i]), "become");
+    }
+    
+    equal(RiTa.stem("gases",type), "gas");
+    equal(RiTa.stem("buses",type), "bus");
+    equal(RiTa.stem("happiness",type), "happiness");
+    equal(RiTa.stem("terrible",type), "terrible");
+    
+    String test = "Stemming is funnier than a bummer";
+    String result = "Stemming is funnier than a bummer";
+    //System.out.println("testStemString2: " + RiTa.stem(test,type));
+    equal(RiTa.stem(test, type), result);
+    
   }
 
   @Test

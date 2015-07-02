@@ -15,9 +15,29 @@ import rita.support.*;
 
 public class KnownIssuesTest implements Constants
 {
+  
+  @Test
+  public void testPlingStemmerFails()
+  {
+    String type = RiTa.PLING;
+    
+    // TODO: add all failing tests
+  }
+  
+  @Test
+  public void testLancasterStemmerFails()
+  {
+    String type = RiTa.LANCASTER;
+  }
+  
+  @Test
+  public void testPorterStemmerFails()
+  {
+    String type = RiTa.PORTER;
+  }
       
   @Test
-  public void testSpecialCharsInRiGramma()
+  public void testSpecialCharsInRiGrammar()
   {
     String s = "{ \"<start>\": \"&#8220;hello!&#8221;\" }";
     RiGrammar rg = new RiGrammar(s);
