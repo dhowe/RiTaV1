@@ -1442,32 +1442,32 @@ public class RiTaTest
     String[] tests = { "run", "runs", "running" };
     for (int i = 0; i < tests.length; i++)
     {
-      equal(RiTa.stem(tests[i]), "run");
+      equal(RiTa.stem(tests[i],type), "run");
     }
     
     tests = new String[]{ "hide", "hides", "hiding" };
     for (int i = 0; i < tests.length; i++)
     {
-      equal(RiTa.stem(tests[i]), "hide");
+      equal(RiTa.stem(tests[i],type), "hide");
     }
 
     
     tests = new String[]{ "take", "takes", "taking" };
     for (int i = 0; i < tests.length; i++)
     {
-      equal(RiTa.stem(tests[i]), "take");
+      equal(RiTa.stem(tests[i],type), "take");
     }
 
-    equal(RiTa.stem("gases"), "gase");
-    equal(RiTa.stem("buses"), "buse");
-    equal(RiTa.stem("happiness"), "happi");
-    equal(RiTa.stem("terrible"), "terribl");
+    equal(RiTa.stem("gases",type), "gase");
+    equal(RiTa.stem("buses",type), "buse");
+    equal(RiTa.stem("happiness",type), "happi");
+    equal(RiTa.stem("joyful",type), "joy");
+    equal(RiTa.stem("terrible",type), "terribl");
 
     String test = "Stemming is funnier than a bummer";
     String result = "Stem is funnier than a bummer";
     //System.out.println("testStemString1: " + RiTa.stem(test));
-
-    equal(RiTa.stem(test), result);
+    equal(RiTa.stem(test,type), result);
   }
   
   // For correct results on Porter/Lancaster, see http://text-processing.com/demo/stem/
