@@ -1494,19 +1494,19 @@ public class RiTaTest
     tests = new String[]{ "hide", "hides", "hiding" };
     for (int i = 0; i < tests.length; i++)
     {
-      equal(RiTa.stem(tests[i]), "hid");
+      equal(RiTa.stem(tests[i],type), "hid");
     }
 
     tests = new String[]{ "take", "takes", "taking" };
     for (int i = 0; i < tests.length; i++)
     {
-      equal(RiTa.stem(tests[i]), "tak");
+      equal(RiTa.stem(tests[i],type), "tak");
     }
     
     tests = new String[]{ "become", "becomes", "becoming" };
     for (int i = 0; i < tests.length; i++)
     {
-      equal(RiTa.stem(tests[i]), "becom");
+      equal(RiTa.stem(tests[i],type), "becom");
     }
     
     equal(RiTa.stem("gases",type), "gas");
@@ -1524,36 +1524,31 @@ public class RiTaTest
 
   private void testStemPling() {
     
-    // TODO: find reference implementation and check tests are correct
-    
     // --------- Pling ---------------
 
     String type = RiTa.PLING;
 
     equal(RiTa.stem("cakes", type), "cake");
 
-    String[] tests = new String[] {"run", "runs" };
-    for (int i = 0; i < tests.length; i++) {
-        equal(RiTa.stem(tests[i],type), "run");
-    }
+    String[] tests = new String[] {"run", "runs", "running" };
+    equal(RiTa.stem(tests[0],type), "run");
+    equal(RiTa.stem(tests[1],type), "run");
+    equal(RiTa.stem(tests[2],type), "running");
     
     tests = new String[]{ "take", "takes", "taking" };
-    for (int i = 0; i < tests.length; i++)
-    {
-      equal(RiTa.stem(tests[i]), "take");
-    }
+    equal(RiTa.stem(tests[0],type), "take");
+    equal(RiTa.stem(tests[1],type), "take");
+    equal(RiTa.stem(tests[2],type), "taking");
     
     tests = new String[]{ "hide", "hides", "hiding" };
-    for (int i = 0; i < tests.length; i++)
-    {
-      equal(RiTa.stem(tests[i]), "hide");
-    }
+    equal(RiTa.stem(tests[0],type), "hide");
+    equal(RiTa.stem(tests[1],type), "hide");
+    equal(RiTa.stem(tests[2],type), "hiding");
 
     tests = new String[]{ "become", "becomes", "becoming" };
-    for (int i = 0; i < tests.length; i++)
-    {
-      equal(RiTa.stem(tests[i]), "become");
-    }
+    equal(RiTa.stem(tests[0],type), "become");
+    equal(RiTa.stem(tests[1],type), "become");
+    equal(RiTa.stem(tests[2],type), "becoming");
     
     equal(RiTa.stem("gases",type), "gas");
     equal(RiTa.stem("buses",type), "bus");
