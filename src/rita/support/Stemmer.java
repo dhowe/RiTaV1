@@ -85,7 +85,7 @@ public class Stemmer implements StemmerIF, Constants
       delegate = new PlingStemmer();
     }
     else if (stemmerType == Porter.ordinal()) {
-      delegate = new PorterStemmer();
+      delegate = new Porter2Stemmer();
     }
     else if (stemmerType == Lancaster.ordinal()) {
       delegate = new LancasterStemmer();
