@@ -13,63 +13,18 @@
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/main.css">
   <script src="js/vendor/modernizr-2.6.2.min.js"></script>
-  <script type="text/javascript" src="js/vendor/jquery-1.11.3.min.js"></script>
+  <script type="text/javascript" src="js/vendor/jquery-1.10.2.min.js"></script>
   <script language="javascript" src="js/highlight.js"></script>
-
-<script type="text/javascript">
-
-var V = '1.0.90';
-
-$(document).ready(function() {
-
-        var theHtml = '<h3>Downloads</h3><br/><b>RiTa library</b>&nbsp; &nbsp;(java, js, reference, examples, tutorial, src)<p/> ';
-
-        theHtml += '<a href="./RiTa-latest.zip">RiTa-'+V+'.zip</a><br/>&nbsp;<p/>';
-
-        theHtml += '<b>RiTa.js</b>&nbsp; &nbsp;(js-source only)<p/>'
-            + '<a href="./rita-latest.micro.js">rita-'+V+'.micro.js</a>&nbsp; &nbsp;(core-only, minimized)&nbsp; &nbsp; [100k]<br/>'
-            + '<a href="./rita-latest.js">rita-'+V+'.js</a>&nbsp; &nbsp;(complete: lexicon, LTS-rules)&nbsp; &nbsp; [1.8m]<br/>'
-            + '<a href="./rita-latest.min.js">rita-'+V+'.min.js</a>&nbsp; &nbsp;(complete, minimized)&nbsp; &nbsp; [1.6m]<p/><br/>'
-            + '<p><a href="./ritext-latest.min.js">ritext-'+V+'.min.js</a>&nbsp; &nbsp;(renderer -deprecated)&nbsp; &nbsp; [30k]<p/>';
-
-        theHtml += '&nbsp;<br/><b>RiTa.jar</b>&nbsp; &nbsp;(java-jar only)<p/> <a href="./rita-latest.jar">rita-'+V+'.jar</a><br/><p>';
-
-        theHtml += '&nbsp;</p><h3>Archived Versions</h3>'
-            + '<a href="http://rednoise.org/rita-archive/RiTa-1022.zip">RiTa-alpha.1022.zip</a><br/>'
-            + '<a href="http://rednoise.org/rita-archive/RiTa.Wordnet-034.zip">RiTa.Wordnet-034.zip</a><br/>&nbsp;<br/>';
-
-        theHtml += '<h3>WordNet-3.1 (osx/unix)</h3>'
-            + '<a href="http://rednoise.org/rita-archive/WordNet-3.1.zip">WordNet-3.1.zip</a><br/>&nbsp;<br/>'
-            + '<br/>&nbsp;<br/><br/>&nbsp;<br/><br/>&nbsp;<br/><br/>&nbsp;<br/><br/>&nbsp;<br/><br/>&nbsp;<br/><br/>&nbsp;<br/><br/>&nbsp;<br/>';
-
-        $("#version-div").html('<p>'+theHtml+'</p>');
-});
-
-</script>
 </head>
 <body>
 <!--[if lt IE 7]>
 <p class="browsehappy">You are using an <b>outdated</b> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
 
-
-
-
-
-
-
-
-
-
-
-<!-- 
-Add your site or application content here 
-  Download    Reference     Examples    Gallery    Contact
--->
 <?php include("header.php"); ?>
-  
-<div class="gd-section pad-large"> 
-<div class="gd-center pad-large"> 
+
+<div class="gd-section pad-large">
+<div class="gd-center pad-large">
 <div class="row">
   <div class="col1"></div>
   <div class="col10">
@@ -101,13 +56,13 @@ rita-latest.js
  </div></a>
 
  <a href="http://www.rednoise.org/rita/download/rita-full-latest.min.js">
-<div class="downloadbox mini"> 
+<div class="downloadbox mini">
 rita-full-latest.min.js
 <span>complete, minimized, 1.6m</span>
 </div></a>
 
   <a href="http://www.rednoise.org/rita/download/rita-full-1.0.95.js">
-<div class="downloadbox mini"> 
+<div class="downloadbox mini">
 rita-full-latest.js
 <span>complete, lexicon, LTS-rules, 1.9m</span>
 </div></a>
@@ -117,19 +72,19 @@ rita-full-latest.js
   <h4>JS-components</h4>
 
     <a href="http://www.rednoise.org/rita/download/rita_dict-1.0.95.js">
-<div class="downloadbox mini"> 
+<div class="downloadbox mini">
     rita_dict-latest.js
   <span>the lexicon, 1.3m</span> </div></a>
 
 
   <a href="http://www.rednoise.org/rita/download/rita_lts-latest.js">
-    <div class="downloadbox mini"> 
+    <div class="downloadbox mini">
     rita_lts-latest.js
 <span>letter-to-sound rules, 300k</span> </div></a>
 
 
   <a href="http://www.rednoise.org/rita/download/ritext-latest.min.js">
-    <div class="downloadbox mini"> 
+    <div class="downloadbox mini">
     ritext-latest.min.js
 <span>renderer, deprecated, 30k</span> </div></a>
 </div>
@@ -138,7 +93,7 @@ rita-full-latest.js
   <h4>RiTa.java<span>(java-jar only)</span></h4>
 
   <a href="http://www.rednoise.org/rita/download/rita-latest.jar">
-<div class="downloadbox mini"> 
+<div class="downloadbox mini">
     rita-latest.jar</div>
   </a>
 </div>
@@ -154,7 +109,7 @@ rita-full-latest.js
 
   </div>
     <div class="col1"></div>
-  
+
 </div>
 </div>
     </div>
@@ -162,8 +117,8 @@ rita-full-latest.js
 <?php include("footer.php"); ?>
 
 
-<!-- 
-End Site Content 
+<!--
+End Site Content
 -->
 
 
