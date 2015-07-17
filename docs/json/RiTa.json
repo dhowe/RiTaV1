@@ -251,7 +251,7 @@
     "name": "RiTa.tokenize",
     "example": "",
     "description": "Tokenizes the string (into words) according to Penn Treebank conventions<br/>See: <a href='http://www.cis.upenn.edu/~treebank/tokenization.html'>http://www.cis.upenn.edu/~treebank/tokenization.html</a>",
-    "syntax": "RiTa.tokenize(words);<br/>RiTa.tokenize(words, regex);",
+    "syntax": "RiTa.tokenize(text);<br/>RiTa.tokenize(text, regex);",
     "parameters": [{
       "type": "String",
       "desc": "the input"
@@ -269,7 +269,26 @@
     "platform": "Java / Javascript",
     "note": ""
 
-  }, {
+  },{
+    "name": "RiTa.untokenize",
+    "example": "",
+    "description": "Joins an array (of words and punctuation) into a String, according to Penn Treebank conventions<br/>See: <a href='http://www.cis.upenn.edu/~treebank/tokenization.html'>http://www.cis.upenn.edu/~treebank/tokenization.html</a>",
+    "syntax": "RiTa.untokenize(wordArray)",
+    "parameters": [{
+      "type": "String[]",
+      "desc": "the input"
+    }],
+    "returns": [{
+        "type": "String",
+        "desc": "in which the elements have been joined into a single string"
+      }
+
+    ],
+    "related": "",
+    "platform": "Java / Javascript",
+    "note": ""
+
+  },{
     "name": "RiTa.trim",
     "example": "",
     "description": "Removes blank space from either side of a string",
