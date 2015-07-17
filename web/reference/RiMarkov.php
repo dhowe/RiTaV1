@@ -16,9 +16,9 @@
 
 <?php include("../header.php"); ?>
 
-  
-<div class="gd-section pad-large"> 
-<div class="gd-center pad-large"> 
+
+<div class="gd-section pad-large">
+<div class="gd-center pad-large">
 <div class="row">
 				<div class="refbar span3">
 					<div id="index">
@@ -33,19 +33,19 @@
 						<!-- end publish.classesIndex -->
 					</div>
 				</div>
-				
+
 		        <div class="span12">
 
-		
+
 		<div class="reference row">
 		<div id="content">
-			
+
 <!-- ============================== class title ============================ -->
 			<h2 class="classTitle">
 				RiMarkov
 			</h2>
-<!-- ============================== class summary ========================== -->			
-			
+<!-- ============================== class summary ========================== -->
+
             <table cellpadding="0" cellspacing="0" border="0" class="ref-item">
 			   <tr class="">
 			      <th scope="row">Description</th>
@@ -53,18 +53,18 @@
 			      <td>
 			      	<p>
 				Performs text generation via Markov chains (aka n-grams)
-with options to process single characters, words, sentences, and 
+with options to process single characters, words, sentences, and
 arbitrary regular expressions.
-</p> 
+</p>
 <p>
-Provides a variety of methods specifically 
+Provides a variety of methods specifically
 designed for text-generation.
 </p>
 </td>
-		        </tr>   
+		        </tr>
 		<tr class="">
           <th scope="row">Examples</th>
-          <td><div class="example"> 
+          <td><div class="example">
 			    <!-- EXAMPLES  -->
 			    <!-- EXAMPLE IMAGE  -->
 			    <!-- <img src="../alpha_.gif" alt="example pic" /> -->
@@ -72,15 +72,15 @@ designed for text-generation.
 rm = new RiMarkov(3);
 
 rm.loadText(theText);
- 
+
 sentences = rm.generateSentences(10);
 
 for (int i = 0; i < sentences.length; i++) {
 	println(sentences[i]);
 }</pre>
             </div></td>
-        </tr> 
-			  
+        </tr>
+
 			    <tr class="">
 			      <th scope="row">Syntax</th>
 			      <!-- SYNTAX  -->
@@ -91,7 +91,7 @@ for (int i = 0; i < sentences.length; i++) {
 RiMarkov(int nFactor)
 
 
-// Also sets a flag determining whether the model will attempt to recognize 
+// Also sets a flag determining whether the model will attempt to recognize
 // and parse (English) sentences (default=true)
 
 RiMarkov(int nFactor, boolean recognizeSentences)
@@ -103,7 +103,7 @@ RiMarkov(int nFactor, boolean recognizeSentences, boolean allowDuplicates)
 
 </pre>
 		</tr>
-		        
+
 		 <tr class="">
 	      <th scope="row">Parameters</th>
 	      <td><table cellpadding="0" cellspacing="0" border="0" class="sub-table">
@@ -122,11 +122,11 @@ RiMarkov(int nFactor, boolean recognizeSentences, boolean allowDuplicates)
 	          <th width="25%" scope="row" class="nobold">&nbsp; boolean</th>
 	          <td width="75%">allowDuplicates</td>
             </tr>
-                			        
+
 	        </table>
 	        </td>
 		  </tr>
-                
+
 			    <tr class="">
 			      <th scope="row">Platform</th>
 			      <!-- SYNTAX  -->
@@ -137,16 +137,16 @@ RiMarkov(int nFactor, boolean recognizeSentences, boolean allowDuplicates)
 			      <!-- SYNTAX  -->
 			      <td></td>
 		        </tr>
-									
+
 						<tr class="">
 							<th scope="row"></th>
 							<td></td>
 						</tr>
-						
+
 								      </table>
 
  </div>
-</div> 
+</div>
 </div>
 </div>
     </div>
@@ -155,31 +155,9 @@ RiMarkov(int nFactor, boolean recognizeSentences, boolean allowDuplicates)
 
 
 <?php include("../footer.php"); ?>
-<!-- 
-End Site Content 
+<!--
+End Site Content
 -->
-
-
-
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="../js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
-<script src="../js/plugins.js"></script>
-<script src="../js/main.js"></script>
-
-<script type="text/javascript">
-  var _paq = _paq || [];
-  _paq.push(["trackPageView"]);
-  _paq.push(["enableLinkTracking"]);
-  (function() {
-    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://rednoise.org/al/piwik/";
-    _paq.push(["setTrackerUrl", u+"piwik.php"]);
-    _paq.push(["setSiteId", "1"]);
-    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
-    g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
-  })();
-</script>
-<!-- End Piwik Code -->
 
 </body>
 </html>

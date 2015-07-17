@@ -2,7 +2,7 @@
         "http://www.w3.o../xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 	<head>
-		<meta http-equiv="content-type" content="text/html; charset=utf-8" />	
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<title>RiLexicon</title>
 		<link rel="stylesheet" href="../css/normalize.css">
   <link rel="stylesheet" href="../css/main.css">
@@ -16,11 +16,11 @@
 
 <?php include("../header.php"); ?>
 
-  
-<div class="gd-section pad-large"> 
-<div class="gd-center pad-large"> 
+
+<div class="gd-section pad-large">
+<div class="gd-center pad-large">
 <div class="row">
-              		
+
 			<div class="refbar span3">
 					<div id="index">
 						<!-- begin publish.classesIndex -->
@@ -36,7 +36,7 @@
 				</div>
 		        <div class="span12">
 
-		
+
 		<div class="reference row">
 
 		<div id="content">
@@ -44,30 +44,30 @@
 			<h2 class="classTitle">
 				RiLexicon
 			</h2>
-<!-- ============================== class summary ========================== -->	
+<!-- ============================== class summary ========================== -->
 		  <table cellpadding="0" cellspacing="0" border="0" class="ref-item">
 				    <tr class="">
 			      <th scope="row">Description</th>
 			      <!-- DESCRIPTION  -->
-			      <td><p>The core 'dictionary' (or lexicon) for the RiTa tools.</p> 
+			      <td><p>The core 'dictionary' (or lexicon) for the RiTa tools.</p>
 						<p>
-						Contains ~40,000 words augmented with phonemic and syllabic data, as well as a list of valid parts-of-speech for each. 
+						Contains ~40,000 words augmented with phonemic and syllabic data, as well as a list of valid parts-of-speech for each.
 						The lexicon can be extended and/or customized for additional words, usages, or pronunciations.
-						<p> Also equipped with implementations of a variety of matching algorithms 
-						(min-edit-distance, soundex, anagrams, alliteration, rhymes, looks-like, etc.) 
+						<p> Also equipped with implementations of a variety of matching algorithms
+						(min-edit-distance, soundex, anagrams, alliteration, rhymes, looks-like, etc.)
 						based on combinations of letters, syllables, phonemes, and stresses.
-						<p> 
-						Note: If you wish to modify or customize the lexicon (e.g., add words, or change pronunciations) 
-						you can do so directly, by editing the included 'rita_dict.js' file, 
+						<p>
+						Note: If you wish to modify or customize the lexicon (e.g., add words, or change pronunciations)
+						you can do so directly, by editing the included 'rita_dict.js' file,
 						or programatically, via addWord() and removeWord().
 						<p>
 						Note: For performance, the data for RiLexicon is shared in a single location for ALL created instances
 					<br/>
 </p></td>
-		        </tr>		    
+		        </tr>
 		<tr class="">
           <th scope="row">Examples</th>
-          <td><div class="example"> 
+          <td><div class="example">
 			    <!-- EXAMPLES  -->
 			    <!-- EXAMPLE IMAGE  -->
 			    <!-- <img src="../alpha_.gif" alt="example pic" /> -->
@@ -79,7 +79,7 @@ similars = lexicon.similarBySound("cat");
 rhymes = lexicon.rhymes("cat");
 </pre>
             </div></td>
-        </tr> 
+        </tr>
 
 			    <tr class="">
 			      <th scope="row">Syntax</th>
@@ -109,7 +109,7 @@ rhymes = lexicon.rhymes("cat");
 							<th scope="row"></th>
 							<td></td>
 						</tr>
-						
+
 		      </table>
 
   </div>
@@ -122,31 +122,9 @@ rhymes = lexicon.rhymes("cat");
 
 
 <?php include("../footer.php"); ?>
-<!-- 
-End Site Content 
+<!--
+End Site Content
 -->
-
-
-
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="../js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
-<script src="../js/plugins.js"></script>
-<script src="../js/main.js"></script>
-
-<script type="text/javascript">
-  var _paq = _paq || [];
-  _paq.push(["trackPageView"]);
-  _paq.push(["enableLinkTracking"]);
-  (function() {
-    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://rednoise.org/al/piwik/";
-    _paq.push(["setTrackerUrl", u+"piwik.php"]);
-    _paq.push(["setSiteId", "1"]);
-    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
-    g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
-  })();
-</script>
-<!-- End Piwik Code -->
 
 </body>
 </html>

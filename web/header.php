@@ -24,37 +24,27 @@
     <a class="toggle-nav" href="#">&#9776;</a>
     <div class="gitwrap">
      <a href="https://github.com/dhowe/RiTa/"><img id="gitFork" style="" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
-     <script language="javascript">setPage()</script>
-     <script language="javascript">
+<script language="javascript">
 
-     function extractPageName(hrefString)
-{
+function extractPageName(hrefString) {
   var arr = hrefString.split('/');
   return  (arr.length<2) ? hrefString : arr[arr.length-2].toLowerCase() + arr[arr.length-1].toLowerCase();
 }
-
-function setActiveMenu(arr, crtPage)
-{
-  for (var i=0; i<arr.length; i++)
-  {
-    if(extractPageName(arr[i].href) == crtPage)
-    {
-      if (arr[i].parentNode.tagName != "DIV")
-      {
+function setActiveMenu(arr, crtPage) {
+  for (var i=0; i<arr.length; i++) {
+    if(extractPageName(arr[i].href) == crtPage) {
+      if (arr[i].parentNode.tagName != "DIV") {
         arr[i].className = "current";
         arr[i].parentNode.className = "current";
       }
     }
   }
 }
-
-function setPage()
-{
+(function() {
   hrefString = document.location.href ? document.location.href : document.location;
-
   if (document.getElementById("nav")!=null)
     setActiveMenu(document.getElementById("nav").getElementsByTagName("a"), extractPageName(hrefString));
-}
+})();
 
-     </script>
+</script>
   </nav>

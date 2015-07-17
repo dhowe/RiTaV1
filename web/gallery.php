@@ -30,14 +30,14 @@
 
 
 
-<!-- 
-Add your site or application content here 
+<!--
+Add your site or application content here
   Download    Reference     Examples    Gallery    Contact
 -->
 <?php include("header.php"); ?>
-  
-<div class="gd-section pad-top-large"> 
-<div class="gd-center pad-large"> 
+
+<div class="gd-section pad-top-large">
+<div class="gd-center pad-large">
 <div class="row">
   <div class="col1"></div>
   <div class="col10">
@@ -50,14 +50,14 @@ Add your site or application content here
         <p>by Office for Creative Research</p>
         <p class="gallery_home_spacer">&nbsp;</p>
       </span>
-      
+
     <span class="gallery_home_item gd-4 mgd-6 sgd-12">
       <a href="http://lab-lamp.scm.cityu.edu.hk/MemoryJS/" target="new"><img src="img/memory.gif" width="180"></a><br>
       <a href="http://lab-lamp.scm.cityu.edu.hk/MemoryJS/" target="new">Memoire Involontaire No. 1</a>
           <p>by A. Braxton Soderman</p>
       <p class="gallery_home_spacer">&nbsp;</p>
     </span>
-    
+
     <span class="gallery_home_item gd-4 mgd-6 sgd-12">
         <a href="http://www.angelaferraiolo.com/visual_grammars.html"><img src="img/visgram.jpg" width="180"></a>
         <a href="http://www.angelaferraiolo.com/visual_grammars.html"><br>Visual Grammars</a>
@@ -70,23 +70,23 @@ Add your site or application content here
       <a href="http://www.gamedefinitions.com/">Game Definitions</a>
       <p>by MolleIndustria</p>
       <p class="gallery_home_spacer">&nbsp;</p>
-    </span>   
-    
+    </span>
+
     <span class="gallery_home_item gd-4 mgd-6 sgd-12">
       <a href="https://rednoise.org/sketches/CornellsYoke"><img src="img/cornell.jpg" width="180"></a><br>
       <a href="https://rednoise.org/sketches/CornellsYoke">Cornell's Yoke Machine</a>
       <p>by Janalyn Guo</p>
       <p class="gallery_home_spacer">&nbsp;</p>
     </span>
-    
+
     <span class="gallery_home_item gd-4 mgd-6 sgd-12">
       <a href="http://rednoise.org/sketches/Shanshui/"><img src="img/shanshui.jpg" width="180"></a><br>
       <a href="http://rednoise.org/sketches/Shanshui/">Shan Shui</a>
       <p>by Chen Qianxun</p>
       <p class="gallery_home_spacer">&nbsp;</p>
     </span>
-  <!-- row3-->  
-    
+  <!-- row3-->
+
       <span class="gallery_home_item gd-4 mgd-6 sgd-12">
         <a href="http://fugitivetexts.net/godard/"><img src="img/godard.png" width="180"></a><br>
         <a href="http://fugitivetexts.net/godard/">The Godard Film Generator</a>
@@ -107,7 +107,7 @@ Add your site or application content here
         <p>by Mark Sample</p>
         <p class="gallery_spacer">&nbsp;</p>
       </span>
-  <!-- row4--> 
+  <!-- row4-->
       <span class="gallery_home_item gd-4 mgd-6 sgd-12">
         <a href="http://www.rednoise.org/rita/sketches/spinstate/"><img src="img/spin_state2.png" width="180"></a><br>
         <a href="http://www.rednoise.org/rita/sketches/spinstate/">SpinState</a>
@@ -135,7 +135,7 @@ Add your site or application content here
   </div>
   </div>
     <div class="col1"></div>
-  
+
 </div>
 </div>
     </div>
@@ -145,26 +145,9 @@ Add your site or application content here
 <?php include("footer.php"); ?>
 
 
-<!-- 
-End Site Content 
+<!--
+End Site Content
 -->
 
-
-
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
-<script src="js/plugins.js"></script>
-<script src="js/main.js"></script>
-
-<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-<script>
-  (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-    function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-  e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-  e.src='http://www.google-analytics.com/analytics.js';
-  r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-  ga('create','UA-XXXXX-X');ga('send','pageview');
-</script>
 </body>
 </html>

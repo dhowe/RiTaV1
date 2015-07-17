@@ -14,13 +14,10 @@
 </head>
 
 <body>
-
 <?php include("../header.php"); ?>
 
-
-  
-<div class="gd-section pad-large"> 
-<div class="gd-center pad-large"> 
+<div class="gd-section pad-large">
+<div class="gd-center pad-large">
 <div class="row">
         <div class="reference">
         <h3>Reference</h3>
@@ -93,9 +90,9 @@
                     <br>
         </div>
 
-      
 
-          
+
+
 
 
             </div>
@@ -169,11 +166,11 @@
                     <a href="RiString/words/index.php">words()</a>
                 </div>
 
-                 
 
-               
-            
-            
+
+
+
+
             </div>
             <!-- end span4ref -->
             <div class="gd-3">
@@ -203,8 +200,8 @@
                     <br>
                     <a href="RiGrammar/reset/index.php">reset()</a>
                     <br>
-                </div> 
-            
+                </div>
+
              <div class="category"> <a href="RiMarkov.php"><b>RiMarkov</b></a>
                     <a href="RiMarkov/generateSentences/index.php">generateSentences()</a>
                     <br>
@@ -237,7 +234,7 @@
                     <a href="RiMarkov/useSmoothing/index.php">useSmoothing()</a>
                 </div>
 
-                  
+
 
 </div>
             <div class="gd-3">
@@ -286,11 +283,11 @@
                     <br>
                     <a href="RiLexicon/words/index.php">words()</a>
                 </div>
-           
 
 
 
-             
+
+
                 <div class="category"><a href="RiTaEvent.php"><b>RiTaEvent</b></a>
 
                     <a href="RiTaEvent/data/index.php">data()</a>
@@ -306,15 +303,15 @@
                     <a href="RiWordNet.php">
                         <b>RiWordNet&nbsp;<span>(Java-only)</span></b></a>
 
-                   
+
                 </div>
-            
-            
+
+
                 <div class="category">
                     <a href="RiText.php">
                         <b>RiText&nbsp;<span>(deprecated)</span></b></a>
                 </div>
-            
+
 
             </div>
             <!-- end span4ref -->
@@ -323,7 +320,7 @@
         </div>
         <!-- end reference row -->
 
-    
+
 </div>
 </div>
     </div>
@@ -332,31 +329,9 @@
 
 
 <?php include("../footer.php"); ?>
-<!-- 
-End Site Content 
+<!--
+End Site Content
 -->
-
-
-
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="../js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
-<script src="../js/plugins.js"></script>
-<script src="../js/main.js"></script>
-
-<script type="text/javascript">
-  var _paq = _paq || [];
-  _paq.push(["trackPageView"]);
-  _paq.push(["enableLinkTracking"]);
-  (function() {
-    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://rednoise.org/al/piwik/";
-    _paq.push(["setTrackerUrl", u+"piwik.php"]);
-    _paq.push(["setSiteId", "1"]);
-    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
-    g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
-  })();
-</script>
-<!-- End Piwik Code -->
 
 </body>
 </html>

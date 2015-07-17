@@ -12,13 +12,13 @@
 </head>
 
 <body>
-	
+
  <?php include("../header.php"); ?>
 
 
-  
-<div class="gd-section pad-large"> 
-<div class="gd-center pad-large"> 
+
+<div class="gd-section pad-large">
+<div class="gd-center pad-large">
 <div class="row">
   <div class="col1"></div>
   <div class="col10">
@@ -28,22 +28,22 @@
 <br/>&nbsp;<br/>
 
 <table class="phones">
-  <tr bgcolor="#DFDFFF" align="none"> 
-  	<td width=90> 
+  <tr bgcolor="#DFDFFF" align="none">
+  	<td width=90>
     </td>
-    <td width=215> 
+    <td width=215>
       <div align="left" ><strong>TTS-Phoneme </strong></div>
     </td>
-    <td width=150> 
+    <td width=150>
       <div align="left"><strong>Example</strong></div>
     </td>
-    <td width=325> 
+    <td width=325>
       <div align="left"><strong>Translation</strong></div>
     </td>
 
   </tr>
 </table>
-  
+
 <pre>
 
           aa                    odd         	aa d
@@ -87,13 +87,13 @@
           zh                    seizure     	s iy zh er
 
 
-</pre>          
+</pre>
 <br/>&nbsp;<br/>
 <br/>&nbsp;<br/>
 
 </div>
 <div class="col1"></div>
-  
+
 </div>
 </div>
     </div>
@@ -102,17 +102,9 @@
 
 
 <?php include("../footer.php"); ?>
-<!-- 
-End Site Content 
+<!--
+End Site Content
 -->
-
-
-
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="../js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
-<script src="../js/plugins.js"></script>
-<script src="../js/main.js"></script>
 
 </body>
 </html>

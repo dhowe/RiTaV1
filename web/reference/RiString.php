@@ -16,9 +16,9 @@
 
 <?php include("../header.php"); ?>
 
-  
-<div class="gd-section pad-large"> 
-<div class="gd-center pad-large"> 
+
+<div class="gd-section pad-large">
+<div class="gd-center pad-large">
 <div class="row">
 				<div class="refbar span3">
 					<div id="index">
@@ -37,28 +37,28 @@
 				</div>
 		        <div class="span12">
 
-		
+
 		<div class="reference row">
-		
+
 		<div id="content">
 <!-- ============================== class title ============================ -->
 			<h2 class="classTitle">
 				RiString
 			</h2>
-<!-- ============================== class summary ========================== -->			
-			
+<!-- ============================== class summary ========================== -->
+
               <table cellpadding="0" cellspacing="0" border="0" class="ref-item">
 		        <tr class="">
 		      <th scope="row">Description</th>
 		      <!-- DESCRIPTION  -->
 		      <td>
-				<p>The basic text container object, implementing a variety of 
+				<p>The basic text container object, implementing a variety of
 additional additional functions for text-analysis and generation atop the native string object.
 </td>
 	        </tr>
 		<tr class="">
           <th scope="row">Examples</th>
-          <td><div class="example"> 
+          <td><div class="example">
 			    <!-- EXAMPLES  -->
 			    <!-- EXAMPLE IMAGE  -->
 			    <!-- <img src="../alpha_.gif" alt="example pic" /> -->
@@ -73,12 +73,12 @@ println(rs.get(RiTa.SYLLABLES));
 
 println(rs.get("syllables"));</pre>
             </div></td>
-        </tr> 
-			
+        </tr>
+
 			    <tr class="">
 			      <th scope="row">Syntax</th>
 			      <!-- SYNTAX  -->
-			      <td><pre>RiString(String s)</pre> 
+			      <td><pre>RiString(String s)</pre>
           </td>
 		        </tr>
 			    <tr class="">
@@ -91,7 +91,7 @@ println(rs.get("syllables"));</pre>
 		            </tr>
 			        </table></td>
 		        </tr>
-                
+
 			   	<tr class="">
 			      <th scope="row">Platform</th>
 			      <!-- SYNTAX  -->
@@ -102,15 +102,15 @@ println(rs.get("syllables"));</pre>
 			      <!-- SYNTAX  -->
 			      <td></td>
 		        </tr>
-		        
+
 		        <tr class="">
 							<th scope="row"></th>
 							<td></td>
 				</tr>
-						
+
 		      </table>
-            
-    
+
+
 
   </div>
 </div>
@@ -122,31 +122,9 @@ println(rs.get("syllables"));</pre>
 
 
 <?php include("../footer.php"); ?>
-<!-- 
-End Site Content 
+<!--
+End Site Content
 -->
-
-
-
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="../js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
-<script src="../js/plugins.js"></script>
-<script src="../js/main.js"></script>
-
-<script type="text/javascript">
-  var _paq = _paq || [];
-  _paq.push(["trackPageView"]);
-  _paq.push(["enableLinkTracking"]);
-  (function() {
-    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://rednoise.org/al/piwik/";
-    _paq.push(["setTrackerUrl", u+"piwik.php"]);
-    _paq.push(["setSiteId", "1"]);
-    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
-    g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
-  })();
-</script>
-<!-- End Piwik Code -->
 
 </body>
 </html>

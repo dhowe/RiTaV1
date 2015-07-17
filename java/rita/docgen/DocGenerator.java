@@ -217,6 +217,7 @@ public class DocGenerator extends PApplet
     
     String fname = OUTPUT_DIR +"/"+ shortName+"/"+folder_methodName+"/index."+OUTPUT_TYPE;
     
+    lines = replaceArr(lines, "tmp_ext", OUTPUT_TYPE);
     lines = replaceArr(lines, "tmp_className", shortName);
     lines = replaceArr(lines, "tmp_methodName", methodName[idx]);
     lines = replaceArr(lines, "tmp_description", description[idx]);

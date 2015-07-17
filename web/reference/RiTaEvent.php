@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.o../xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-	
+
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<title>RiTaEvent</title>
@@ -17,9 +17,9 @@
 
 <?php include("../header.php"); ?>
 
-  
-<div class="gd-section pad-large"> 
-<div class="gd-center pad-large"> 
+
+<div class="gd-section pad-large">
+<div class="gd-center pad-large">
 <div class="row">
 					<div class="refbar span3">
 					<div id="index">
@@ -38,20 +38,20 @@
 		        <div class="span12">
 
 		<div class="reference row">
-		
+
 
 <!-- ============================== classes index ============================ -->
 
-		
+
 		<div id="content">
 <!-- ============================== class title ============================ -->
 			<h2 class="classTitle">
 				RiTaEvent
 			</h2>
-			
+
 
 <!-- ============================== class summary ========================== -->
-			
+
 			<div class="span11">
 			  <table cellpadding="0" cellspacing="0" border="0" class="ref-item">
 			    <tr class="">
@@ -59,28 +59,28 @@
 			      <!-- DESCRIPTION  -->
 			      <td>A simple wrapper for event-based callbacks. One will generally encounter this object in an event-based callback (see example below). </td>
 		        </tr>
-		        
+
 				<tr class="">
 		          <th scope="row">Examples</th>
-		          <td><div class="example"> 
+		          <td><div class="example">
 			     	<pre class="margin">
 void setup() {
-  
+
   size(300,300);
-  
+
   new RiText(this, "hello").fadeOut(3.1);
-}		     	  
-  
+}
+
 void onRiTaEvent(RiTaEvent re) {
-	
+
   // called when 'myRiText' has finished fading out
-  
+
   println(re.source().alpha());
 }
 			     	</pre>
 		            </div></td>
-		        </tr> 
-			    
+		        </tr>
+
 			    <tr class="">
 			      <th scope="row">Syntax</th>
 			      <!-- SYNTAX  -->
@@ -118,11 +118,11 @@ void onRiTaEvent(RiTaEvent re) {
 
 		      </table>
 		  </div>
-			
-<!-- ============================== event details ========================= -->
-			     
 
-  
+<!-- ============================== event details ========================= -->
+
+
+
 </div>
 </div>
 </div>
@@ -132,31 +132,9 @@ void onRiTaEvent(RiTaEvent re) {
 
 
 <?php include("../footer.php"); ?>
-<!-- 
-End Site Content 
+<!--
+End Site Content
 -->
-
-
-
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="../js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
-<script src="../js/plugins.js"></script>
-<script src="../js/main.js"></script>
-
-<script type="text/javascript">
-  var _paq = _paq || [];
-  _paq.push(["trackPageView"]);
-  _paq.push(["enableLinkTracking"]);
-  (function() {
-    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://rednoise.org/al/piwik/";
-    _paq.push(["setTrackerUrl", u+"piwik.php"]);
-    _paq.push(["setSiteId", "1"]);
-    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
-    g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
-  })();
-</script>
-<!-- End Piwik Code -->
 
 </body>
 </html>

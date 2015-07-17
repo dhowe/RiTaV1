@@ -16,9 +16,9 @@
 
 <?php include("../header.php"); ?>
 
-  
-<div class="gd-section pad-large"> 
-<div class="gd-center pad-large"> 
+
+<div class="gd-section pad-large">
+<div class="gd-center pad-large">
 <div class="row">
 				<div class="refbar span3">
 					<div id="index">
@@ -34,23 +34,23 @@
 					</div>
 
 				</div>
-				
+
 		        <div class="span12">
 
-		
+
 		<div class="reference row">
-		
+
 
 <!-- ============================== classes index ============================ -->
 
-		
+
 		<div id="content">
 <!-- ============================== class title ============================ -->
-			<h2 class="classTitle">				
+			<h2 class="classTitle">
 				RiTa
 			</h2>
-<!-- ============================== class summary ========================== -->			
-			
+<!-- ============================== class summary ========================== -->
+
      <table cellpadding="0" cellspacing="0" border="0" class="ref-item">
 	    <tr class="">
 	      <th scope="row">Description</th>
@@ -60,7 +60,7 @@
         </tr>
 		<tr class="">
           <th scope="row">Examples</th>
-          <td><div class="example"> 
+          <td><div class="example">
 
 <pre class="margin">
 
@@ -72,13 +72,13 @@ tokens = RiTa.tokenize("The cat ate the stinky cheese.");
 </pre>
 		      </div>
 		   </td>
-        </tr> 
+        </tr>
 	    <tr class="" style='display:none'>
 	      <th scope="row" >Syntax</th>
 	      <!-- SYNTAX  -->
 	      <td><pre>RiTa()</pre></td>
         </tr>
-        
+
 	    <tr class="" style='display:none'>
 	      <th scope="row">Parameters</th>
 	      <td><table cellpadding="0" cellspacing="0" border="0" class="sub-table">
@@ -87,10 +87,10 @@ tokens = RiTa.tokenize("The cat ate the stinky cheese.");
 	          <th width="25%" scope="row">None</th>
 	          <td width="75%"></td>
             </tr>
-            	
+
 	        </table></td>
         </tr>
-        
+
 	   		   <tr class="">
 	      <th scope="row">Platform</th>
 	      <!-- Platform  -->
@@ -105,12 +105,12 @@ tokens = RiTa.tokenize("The cat ate the stinky cheese.");
 							<th scope="row"></th>
 							<td></td>
 						</tr>
-						
-						
-      </table>
-        
 
-  
+
+      </table>
+
+
+
 </div>
 </div>
 </div>
@@ -120,31 +120,9 @@ tokens = RiTa.tokenize("The cat ate the stinky cheese.");
 
 
 <?php include("../footer.php"); ?>
-<!-- 
-End Site Content 
+<!--
+End Site Content
 -->
-
-
-
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="../js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
-<script src="../js/plugins.js"></script>
-<script src="../js/main.js"></script>
-
-<script type="text/javascript">
-  var _paq = _paq || [];
-  _paq.push(["trackPageView"]);
-  _paq.push(["enableLinkTracking"]);
-  (function() {
-    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://rednoise.org/al/piwik/";
-    _paq.push(["setTrackerUrl", u+"piwik.php"]);
-    _paq.push(["setSiteId", "1"]);
-    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
-    g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
-  })();
-</script>
-<!-- End Piwik Code -->
 
 </body>
 </html>

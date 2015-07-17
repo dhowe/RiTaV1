@@ -16,11 +16,11 @@
 
 <?php include("../header.php"); ?>
 
-  
-<div class="gd-section pad-large"> 
-<div class="gd-center pad-large"> 
+
+<div class="gd-section pad-large">
+<div class="gd-center pad-large">
 <div class="row">
-              		
+
 				<div class="refbar span3">
 					<div id="index">
 						<!-- begin publish.classesIndex -->
@@ -41,73 +41,73 @@
 
 <!-- ============================== classes index ============================ -->
 
-		
+
 		<div id="content">
 <!-- ============================== class title ============================ -->
 			<h2 class="classTitle">
 				RiText
 			</h2>
-<!-- ============================== class summary ========================== -->			
-			
+<!-- ============================== class summary ========================== -->
+
 	<table cellpadding="0" cellspacing="0" border="0" class="ref-item">
 		<tr class="">
 	      <th scope="row">Description</th>
 	      <!-- DESCRIPTION  -->
 	      <td>
 			<p>
-			<span style="color:#c00000">Note: the RiText object has been deprecated and will no longer be developed</span>. 
+			<span style="color:#c00000">Note: the RiText object has been deprecated and will no longer be developed</span>.
 			For backwards compatibility, the RiText object (from v1.0) will continue to be included in the Java distribution of RiTa.
 			For JavaScript, you may manually included ritext.js, available on the download <a href="https://rednoise.org/rita/download">page</a>
 			See the RiText documentation<a href="#ritext-docs">here</a>.
 			</p>
 			<p>
 			Wraps an instance of RiString to provide utility methods for typography, text effects, animation, etc.
-			</p> 
+			</p>
 		   </td>
-		</tr>			    
+		</tr>
 		<tr class="">
           <th scope="row">Examples</th>
-          <td><div class="example"> 
+          <td><div class="example">
 			    <!-- EXAMPLES  -->
 			    <!-- <img src="../alpha_.gif" alt="example pic" /> -->
 	     <pre class="margin">
 import rita.*;
-     
+
 RiText rt;
 
 void setup() {
-	
+
    // start in the upper left corner
    rt = new RiText(this, "hello", 0, 10);
 
    // move to the lower right over 2 seconds
-   rt.moveTo(width-40, height, 2);    
+   rt.moveTo(width-40, height, 2);
 }
 
 void draw() {
-	
+
    // draw bg and RiText each frame
    background(255);
-   rt.draw(); 
+   rt.draw();
 }</pre>
             </div></td>
-        </tr> 
-			    
+        </tr>
+
 			    <tr class="">
 			      <th scope="row">Syntax</th>
 			      <!-- SYNTAX  -->
 			      <td><pre>
-			      	
-// Creates a new RiText object base-aligned at ('x', 'y') 
+
+// Creates a new RiText object base-aligned at ('x', 'y')
 // using the font object (optionally) specified by 'theFont'.
 
-RiText(PApplet pApplet, String text) 
+RiText(PApplet pApplet, String text)
 RiText(PApplet pApplet, String text, float x, float y)
-RiText(PApplet pApplet, String text, float x, float y, PFont theFont) 
+RiText(PApplet pApplet, String text, float x, float y, PFont theFont)
 
-Note: First argument (pApplet) is optional in JavaScript 
+Note: First argument (pApplet) is optional in JavaScript
 </pre></td>
-			      				      	
+
 		        </tr>
 			    <tr class="">
 			      <th scope="row">Parameters</th>
@@ -137,7 +137,7 @@ Note: First argument (pApplet) is optional in JavaScript
 			          <th width="25%" scope="row" class="nobold">&nbsp; PFont</th>
 			          <td width="75%">the font (optional)</td>
 		            </tr>
-                    
+
 			        </table></td>
 		        </tr>
 			   <tr class="">
@@ -158,12 +158,12 @@ Note: First argument (pApplet) is optional in JavaScript
 			      	<div class="category" style="line-height:16px; padding-top:20px;">
  	<p>
 		<a href="RiText/x/index.html">x</a>,<a href="RiText/y/index.html">y</a>,<a href="RiText/z/index.html">z</a><br>
-	
+
 	 	<span class="empty" style="line-height:16px; visibility:hidden"><br></span>
-	 	
+
 		<a href="RiText/align_/index.html">align()</a><br>
 		<a href="RiText/alpha_/index.html">alpha()</a><br>
-		
+
 		<a href="RiText/analyze_/index.html">analyze()</a><br>
 		<a href="RiText/boundingBox_/index.html">boundingBox()</a><br>
 		<a href="RiText/boundingBox_/index.html">boundingStroke()</a><br>
@@ -191,8 +191,8 @@ Note: First argument (pApplet) is optional in JavaScript
 		<a href="RiText/equalsIgnoreCase_/index.html">equalsIgnoreCase()</a><br>
 		<a href="RiText/fadeIn_/index.html">fadeIn()</a><br>
 		<a href="RiText/fadeOut_/index.html">fadeOut()</a><br>
-		<a href="RiText/features_/index.html">features()</a><br>	
-		<a href="RiText/fill_/index.html">fill()</a><br>		
+		<a href="RiText/features_/index.html">features()</a><br>
+		<a href="RiText/fill_/index.html">fill()</a><br>
 		<a href="RiText/font_/index.html">font()</a><br>
 		<a href="RiText/fontSize_/index.html">fontSize()</a><br>
 		<a href="RiText/indexOf_/index.html">indexOf()</a><br>
@@ -238,9 +238,9 @@ Note: First argument (pApplet) is optional in JavaScript
 		<a href="RiText/wordCount_/index.html">wordCount()</a><br>
 		<a href="RiText/wordOffset_/index.html">wordOffset()</a><br>
 		<a href="RiText/words_/index.html">words()</a>	<br>
-		
+
 		<br>
-		
+
 		<a href="RiText/RiText.createLetters_/index.html">RiText.createLetters()</a><br>
 		<a href="RiText/RiText.createLines_/index.html">RiText.createLines()</a><br>
 		<a href="RiText/RiText.createWords_/index.html">RiText.createWords()</a><br>
@@ -254,29 +254,29 @@ Note: First argument (pApplet) is optional in JavaScript
 		<a href="RiText/RiText.picked_/index.html">RiText.picked()</a> <br>
 		<a href="RiText/RiText.random_/index.html">RiText.random()</a><br>
 		<a href="RiText/RiText.randomColor_/index.html">RiText.randomColor()</a><br>
-		<a href="RiText/RiText.stopTimer_/index.html">RiText.stopTimer()</a><br> 
+		<a href="RiText/RiText.stopTimer_/index.html">RiText.stopTimer()</a><br>
 		<a href="RiText/RiText.timer_/index.html">RiText.timer()</a> <br>
 </p>
 	</div>
 			      </td>
 		        </tr>
-		        
+
 				<tr class="">
 					<th scope="row"></th>
 					<td></td>
 				</tr>
-						
+
 		      </table>
 
 			</div>
 	        </div>
-	       
+
 	      </div>
-		
+
 <!-- ============================== documentation ================================= -->
 
 <!-- ============================== footer ================================= -->
-	
+
 </div>
     </div>
 </div>
@@ -284,31 +284,9 @@ Note: First argument (pApplet) is optional in JavaScript
 
 
 <?php include("../footer.php"); ?>
-<!-- 
-End Site Content 
+<!--
+End Site Content
 -->
-
-
-
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="../js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
-<script src="../js/plugins.js"></script>
-<script src="../js/main.js"></script>
-
-<script type="text/javascript">
-  var _paq = _paq || [];
-  _paq.push(["trackPageView"]);
-  _paq.push(["enableLinkTracking"]);
-  (function() {
-    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://rednoise.org/al/piwik/";
-    _paq.push(["setTrackerUrl", u+"piwik.php"]);
-    _paq.push(["setSiteId", "1"]);
-    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
-    g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
-  })();
-</script>
-<!-- End Piwik Code -->
 
 </body>
 </html>
