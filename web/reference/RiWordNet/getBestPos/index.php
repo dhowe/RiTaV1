@@ -4,23 +4,34 @@
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<title>RiTa Reference</title>
-<link rel="stylesheet" href="../../../css/normalize.css">
-  <link rel="stylesheet" href="../../../css/main.css">
-    <link rel="stylesheet" href="../../../css/style.css" type="text/css" />
-    <link rel="stylesheet" href="../../../css/bootstrap.css" type="text/css" />
-  <script src="../../../js/vendor/modernizr-2.6.2.min.js"></script>
-  <script language="javascript" src="../../../js/highlight.js"></script>
+		<link rel="stylesheet" href="../../../css/bootstrap.css" type="text/css" />
+		<link rel="stylesheet" href="../../../css/syntax.css" type="text/css" />
+		<link rel="stylesheet" href="../../../css/style.css" type="text/css" />
+		<link rel="shortcut icon" type="image/x-icon" href="http://rednoise.org/rita/rita.ico"/>
+
+		  <meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="css/normalize.css">
+		<link rel="stylesheet" href="css/main.css">
+		<script src="js/vendor/modernizr-2.6.2.min.js"></script>
+		<script language="javascript" src="js/highlight.js"></script>
+		<!-- <script src="../../../js/processing-min.js" type="text/javascript"></script> -->
+		<!--script type="text/javascript" src="../../../mailto.js"></script-->
 	</head>
 
 	<body>
+		
+ <?php include("header.php"); ?>
 
-<?php include("../../../header.php"); ?>
 
   
 <div class="gd-section pad-large"> 
 <div class="gd-center pad-large"> 
 <div class="row">
-
+  <div class="col1"></div>
+  <div class="col10">
+     <h3>Reference</h3>
+     <div class="page row">
+				
 				<div class="refbar span3">
 					<div id="index">
 						<!-- begin publish.classesIndex -->
@@ -28,9 +39,10 @@
 						<ul class="classList" >
 							<br />
 							<li style="top:60px;left:50px">
-								<a href="../../index.php">Back to index</a>
+								<a href="../../index.html">Back to index</a>
 							</li>
 						</ul>
+						<hr />
 						<!-- end publish.classesIndex -->
 					</div>
 				</div>
@@ -43,7 +55,7 @@
 							<!-- ------------ METHODS PROPERTIES HERE ------------ -->
 
 							<!-- ClASS -->
-							<td><h3><a href="../../RiWordNet.php">RiWordNet</a></h3></td>
+							<td><h3><a href="../../RiWordNet.html">RiWordNet</a></h3></td>
 						</tr>
 						
 						<tr class="name-row">
@@ -130,25 +142,19 @@
 				</div>
 			</div>
   </div>
+    <div class="col1"></div>
   
 </div>
 </div>
     </div>
 
 
-<?php include("../../../footer.php"); ?>
-<!-- 
-End Site Content 
--->
 
 
+<?php include("footer.php"); ?>
+			
 
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="../../../js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
-<script src="../../../js/plugins.js"></script>
-<script src="../../../js/main.js"></script>
-
+<!-- Piwik -->
 <script type="text/javascript">
   var _paq = _paq || [];
   _paq.push(["trackPageView"]);
@@ -163,5 +169,10 @@ End Site Content
 </script>
 <!-- End Piwik Code -->
 
-</body>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
+<script src="js/plugins.js"></script>
+<script src="js/main.js"></script>
+
+	</body>
 </html>
