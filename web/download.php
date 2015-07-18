@@ -112,7 +112,9 @@ rita-full-latest.js
 
 </div>
 </div>
-    </div>
+</div>
+</div>
+</div>
 
 <?php include("footer.php"); ?>
 
