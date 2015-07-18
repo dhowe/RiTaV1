@@ -51,8 +51,9 @@ Add your site or application content here
 <a class="buttonlink" href="download.php"><span class="button">Download</span></a>
 </div>
   <video autoplay preload="auto" poster="video/snap.png" id="bigvid" loop>
-<source src="video/demo1.mp4.webm" type="video/webm">
+<source src="video/demo1.webm" type="video/webm">
 <source src="video/demo1.mp4" type="video/mp4">
+<source src="video/demo1.ogg" type="video/ogg">
 </video>
 </div>
 

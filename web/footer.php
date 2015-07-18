@@ -6,8 +6,7 @@
 <div class="gd-4 sgd-9 sfl">
   <div class="footercol">
   <h5>Donate</h5>
-  <iframe src="https://www.coinbase.com/buttons/583bdb779d2a040a8622b91c9f414d1a?code=583bdb779d2a040a8622b91c9f414d1a&amp;buttonStyle=custom_small&amp;referrer=rednoise.org" id="coinbase_button_iframe_583bdb779d2a040a8622b91c9f414d1a" name="coinbase_button_iframe_583bdb779d2a040a8622b91c9f414d1a" style="width: 158px; height: 48px; border: none; overflow: hidden;" scrolling="no" allowtransparency="true" frameborder="0"></iframe>
-<img src="" alt="">
+   <a class="coinbase-button" data-code="583bdb779d2a040a8622b91c9f414d1a" data-button-style="custom_small" href="https://www.coinbase.com/checkouts/583bdb779d2a040a8622b91c9f414d1a">Donate!</a><script src="https://www.coinbase.com/assets/button.js"></script>
 </div>
 </div>
 
