@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/main.css">
   <script src="js/vendor/modernizr-2.6.2.min.js"></script>
-  <script type="text/javascript" src="js/vendor/jquery-1.10.2.min.js"></script>
+  <script type="text/javascript" src="js/vendor/jquery-2.1.4.min.js"></script>
   <script language="javascript" src="js/highlight.js"></script>
 </head>
 <body>
@@ -112,7 +112,9 @@ rita-full-latest.js
 
 </div>
 </div>
-    </div>
+</div>
+</div>
+</div>
 
 <?php include("footer.php"); ?>
 
