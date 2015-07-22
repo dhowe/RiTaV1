@@ -1,8 +1,8 @@
 package rita.wordnet.jwnl.dictionary.morph;
 
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 import rita.wordnet.jwnl.JWNLRuntimeException;
 

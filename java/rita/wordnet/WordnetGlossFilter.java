@@ -1,10 +1,16 @@
 package rita.wordnet;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 import rita.RiWordNet;
 import rita.wordnet.jwnl.JWNLException;
-import rita.wordnet.jwnl.wndata.*;
+import rita.wordnet.jwnl.wndata.IndexWord;
+import rita.wordnet.jwnl.wndata.POS;
+import rita.wordnet.jwnl.wndata.Synset;
 
 
 /**

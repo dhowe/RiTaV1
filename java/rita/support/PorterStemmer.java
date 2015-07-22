@@ -16,7 +16,9 @@ package rita.support;
  * word can be provided a character at time (by calling add()), or at once
  * by calling one of the various stem(something) methods.
  */
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import rita.RiTa;
 

@@ -1,10 +1,18 @@
 package rita.render;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Stack;
 
-import processing.core.*;
-import rita.*;
-import rita.support.*;
+import processing.core.PApplet;
+import processing.core.PFont;
+import processing.core.PGraphics;
+import rita.RiTa;
+import rita.RiTaException;
+import rita.RiText;
+import rita.support.Constants;
+import rita.support.EntityLookup;
 
 public class PageLayout implements Constants
 { 

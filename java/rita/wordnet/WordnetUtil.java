@@ -2,15 +2,13 @@
 
 package rita.wordnet;
 
-import java.io.*;
-import java.net.MalformedURLException;
+import java.io.InputStream;
 import java.net.URL;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.zip.GZIPInputStream;
 
-import rita.RiWordNet;
 import rita.support.Constants;
 
 public abstract class WordnetUtil implements Constants

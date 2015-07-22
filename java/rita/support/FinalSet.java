@@ -1,5 +1,6 @@
 package rita.support;
-import java.util.*;
+import java.util.AbstractList;
+import java.util.Arrays;
 /** 
 This class is part of the Java Tools (see http://mpii.de/yago-naga/javatools).
 It is licensed under the Creative Commons Attribution License 

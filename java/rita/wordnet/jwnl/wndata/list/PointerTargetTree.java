@@ -6,7 +6,6 @@ package rita.wordnet.jwnl.wndata.list;
 
 
 import java.io.PrintStream;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;

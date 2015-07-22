@@ -1,7 +1,6 @@
 package rita.render;
 
-import rita.*;
-import rita.support.*;
+import rita.RiText;
 
 public class TextColorFade extends InterpolatingBehavior
 {

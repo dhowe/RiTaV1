@@ -1,6 +1,8 @@
 package rita.support;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 public interface EnglishConstants
 {   
@@ -95,24 +97,24 @@ public interface EnglishConstants
     "Why", "Who", "Will", 
   };
    
-  public static final String[] STOP_WORDS = { ".", ",", "THE", 
-    "AND", "A", "OF", "\"", "IN", "I", ":", "YOU", "IS", "TO",
-    "THAT", ")", "(", "IT", "FOR", "ON", "!", "HAVE", "WITH", "?",
-    "THIS", "BE", "...", "NOT", "ARE", "AS", "WAS", "BUT", "OR", "FROM",
-    "MY", "AT", "IF", "THEY", "YOUR", "ALL", "HE", "BY", "ONE",
-    "ME", "WHAT", "SO", "CAN", "WILL", "DO", "AN", "ABOUT", "WE", "JUST",
-    "WOULD", "THERE", "NO", "LIKE", "OUT", "HIS", "HAS", "UP", "MORE", "WHO",
-    "WHEN", "DON'T", "SOME", "HAD", "THEM", "ANY", "THEIR", "IT'S", "ONLY",
-    ";", "WHICH", "I'M", "BEEN", "OTHER", "WERE", "HOW", "THEN", "NOW",
-    "HER", "THAN", "SHE", "WELL", "ALSO", "US", "VERY", "BECAUSE",
-    "AM", "HERE", "COULD", "EVEN", "HIM", "INTO", "OUR", "MUCH",
-    "TOO", "DID", "SHOULD", "OVER", "WANT", "THESE", "MAY", "WHERE", "MOST",
-    "MANY", "THOSE", "DOES", "WHY", "PLEASE", "OFF", "GOING", "ITS", "I'VE",
-    "DOWN", "THAT'S", "CAN'T", "YOU'RE", "DIDN'T", "ANOTHER", "AROUND",
-    "MUST",  "FEW", "DOESN'T", "EVERY", "YES", "EACH", "MAYBE",
-    "I'LL", "AWAY", "DOING", "OH", "ELSE", "ISN'T", "HE'S", "THERE'S", "HI",
-    "WON'T", "OK", "THEY'RE", "YEAH", "MINE", "WE'RE", "WHAT'S", "SHALL",
-    "SHE'S", "HELLO", "OKAY", "HERE'S", "-", "LESS"
+  public static final String[] STOP_WORDS = { ".", ",", "the", 
+    "and", "a", "of", "\"", "in", "i", ":", "you", "is", "to",
+    "that", ")", "(", "it", "for", "on", "!", "have", "with", "?",
+    "this", "be", "...", "not", "are", "as", "was", "but", "or", "from",
+    "my", "at", "if", "they", "your", "all", "he", "by", "one",
+    "me", "what", "so", "can", "will", "do", "an", "about", "we", "just",
+    "would", "there", "no", "like", "out", "his", "has", "up", "more", "who",
+    "when", "don't", "some", "had", "them", "any", "their", "it's", "only",
+    ";", "which", "i'm", "been", "other", "were", "how", "then", "now",
+    "her", "than", "she", "well", "also", "us", "very", "because",
+    "am", "here", "could", "even", "him", "into", "our", "much",
+    "too", "did", "should", "over", "want", "these", "may", "where", "most",
+    "many", "those", "does", "why", "please", "off", "going", "its", "i've",
+    "down", "that's", "can't", "you're", "didn't", "another", "around",
+    "must",  "few", "doesn't", "every", "yes", "each", "maybe",
+    "i'll", "away", "doing", "oh", "else", "isn't", "he's", "there's", "hi",
+    "won't", "ok", "they're", "yeah", "mine", "we're", "what's", "shall",
+    "she's", "hello", "okay", "here's", "-", "less"
   };
   
   // Stemmer

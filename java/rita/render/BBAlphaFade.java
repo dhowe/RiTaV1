@@ -1,8 +1,7 @@
 package rita.render;
 
+import static rita.support.Constants.EventType.BoundingAlpha;
 import rita.RiText;
-import rita.support.*;
-import static rita.support.Constants.EventType.*;
 
 // fades fill and stroke of bounding box
 public class BBAlphaFade extends InterpolatingBehavior

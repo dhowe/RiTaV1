@@ -1,8 +1,8 @@
 package rita.wordnet.jwnl.dictionary.morph;
 
+import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
-import java.util.ArrayList;
 
 public class Util {
 	public static String getLemma(String[] tokens, BitSet bits, String delimiter) {

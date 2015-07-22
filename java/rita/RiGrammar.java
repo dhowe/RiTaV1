@@ -2,11 +2,18 @@ package rita;
 
 import java.io.PrintStream;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import rita.json.*;
+import rita.json.JSONArray;
+import rita.json.JSONException;
+import rita.json.JSONObject;
 import rita.render.RiGrammarEditor;
 import rita.support.YAMLParser;
 

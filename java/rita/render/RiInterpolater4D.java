@@ -1,7 +1,6 @@
-package rita.support;
+package rita.render;
 
 import rita.RiTa;
-import rita.render.RiInterpolater;
 
 /**
  * A 4d interpolater (e.g., for color, etc)

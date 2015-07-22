@@ -1,8 +1,7 @@
 package rita.render;
 
-import rita.*;
-import rita.support.*;
-import static rita.support.Constants.EventType.*;
+import static rita.support.Constants.EventType.Lerp;
+import rita.RiText;
 
 public class RiLerpBehavior extends InterpolatingBehavior
 {

@@ -1,10 +1,17 @@
 package rita.test;
 
 import static org.junit.Assert.assertEquals;
-import static rita.support.QUnitStubs.*;
+import static rita.support.QUnitStubs.deepEqual;
+import static rita.support.QUnitStubs.equal;
+import static rita.support.QUnitStubs.ok;
+import static rita.support.QUnitStubs.println;
+import static rita.support.QUnitStubs.setContains;
+import static rita.support.QUnitStubs.setEqual;
 
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;

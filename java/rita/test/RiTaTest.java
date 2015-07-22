@@ -7,13 +7,19 @@ import static rita.support.QUnitStubs.ok;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import processing.core.PApplet;
-import rita.*;
+import rita.RiTa;
+import rita.RiTaEvent;
+import rita.RiTaException;
 
 public class RiTaTest
 {  
@@ -1177,7 +1183,38 @@ public class RiTaTest
     answer = "";
     deepEqual(result, answer);
   }
-
+  
+  @Test
+  public void testConcordance()
+  {
+    Map<String, Integer> data = RiTa.concordance("The dog ate the cat");
+    equal(data.size(),5);
+    ok(data.get("the")==1);
+    ok(data.get("The")==1);
+    equal(data.get("THE"),null);
+    
+    Map<String, Comparable> args = new HashMap<String, Comparable>();
+    args.put("ignoreCase", false);
+    args.put("ignoreStopWords", false);
+    args.put("ignorePunctuation", false);
+    args.put("wordsToIgnore", null);
+    
+    data = RiTa.concordance("The dog ate the cat", args);
+    equal(data.size(),5);
+    ok(data.get("the")==1);
+    ok(data.get("The")==1);
+    equal(data.get("THE"),null);
+    
+    args.put("ignoreCase", true);
+    data = RiTa.concordance("The dog ate the cat", args);
+    equal(data.size(),4);
+    ok(data.get("the")==2);
+    equal(data.get("The"),null);
+    equal(data.get("THE"),null);
+    
+    // TODO: larger text, plus all combinations of options
+  }
+  
   @Test
   public void testConjugate()
   {
@@ -1860,7 +1897,36 @@ public class RiTaTest
     float answer2 = RiTa.random();
     ok(answer2 < 1);
   }
+  
+  /* TODO: these two are failing  
+   ****************************************************************
+  @Test
+  public void testMinEditDistanceString()
+  {
+    String str1 = "The dog", str2 = "The cat";
+    equal(RiTa.minEditDistance(str1, str2, false), 3);
+    equal(RiTa.minEditDistance(str1, str2, true), 3 / 7);
 
+    str1 = "The dog"; str2 = "";
+    equal(RiTa.minEditDistance(str1, str2, false), 7);
+    equal(RiTa.minEditDistance(str1, str2, true), 1);
+  }
+  
+  @Test
+  public void testMinEditDistanceArray()
+  {
+    String[] arr1 = {"The", "dog", "ate"},
+      arr2 = {"The", "cat", "ate"};
+    equal(RiTa.minEditDistance(arr1, arr2, false), 1);
+    equal(RiTa.minEditDistance(arr1, arr2, true), 1 / 3.0);
+
+    arr1 = new String[]{"The", "dog", "ate"};
+    arr2 = new String[0];
+    equal(RiTa.minEditDistance(arr1, arr2, false), 3);
+    equal(RiTa.minEditDistance(arr1, arr2, true), 1);
+  }
+  */
+  
   @Test
   public void testTimer() // failing in travis
   {

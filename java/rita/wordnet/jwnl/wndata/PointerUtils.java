@@ -7,9 +7,12 @@ package rita.wordnet.jwnl.wndata;
 
 import java.util.Iterator;
 
-import rita.wordnet.RiWordNetError;
 import rita.wordnet.jwnl.JWNLException;
-import rita.wordnet.jwnl.wndata.list.*;
+import rita.wordnet.jwnl.wndata.list.PointerTargetNode;
+import rita.wordnet.jwnl.wndata.list.PointerTargetNodeList;
+import rita.wordnet.jwnl.wndata.list.PointerTargetTree;
+import rita.wordnet.jwnl.wndata.list.PointerTargetTreeNode;
+import rita.wordnet.jwnl.wndata.list.PointerTargetTreeNodeList;
 
 /**
  * A singleton containing methods for performing various pointer operations.

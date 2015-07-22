@@ -57,7 +57,6 @@ public interface Constants extends EnglishConstants
   // ==== Tokenizer  ============= 
   
   int REGEX_TOKENIZER = 2;
-  int FREE_TTS_TOKENIZER = 3;
   int PENN_WORD_TOKENIZER = 4;
   
   // ==== Conjugator  ============ 

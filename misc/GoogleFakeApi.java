@@ -1,14 +1,6 @@
 package rita.support;
 
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.*;
-import java.util.regex.Pattern;
-
-
 import rita.RiTa;
-import rita.json.*;
 
 /**
  * To use this class, you will need an apiKey (from Google developers site) and a cxKey 

@@ -1,9 +1,7 @@
 package rita.render;
 
-import rita.*;
-import rita.support.Interpolater;
-import rita.support.RiInterpolater2D;
-import static rita.support.Constants.EventType.*;
+import static rita.support.Constants.EventType.MoveTo;
+import rita.RiText;
 
 public class TextMotion2D extends InterpolatingBehavior 
 {      

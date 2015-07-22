@@ -5,14 +5,21 @@
 package rita.wordnet.jwnl.dictionary;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.NoSuchElementException;
 
 import rita.RiTa;
 import rita.wordnet.jwnl.JWNLException;
 import rita.wordnet.jwnl.dictionary.file.DictionaryFileType;
 import rita.wordnet.jwnl.dictionary.file_manager.FileManager;
 import rita.wordnet.jwnl.util.factory.Param;
-import rita.wordnet.jwnl.wndata.*;
+import rita.wordnet.jwnl.wndata.DictionaryElementType;
+import rita.wordnet.jwnl.wndata.Exc;
+import rita.wordnet.jwnl.wndata.FileDictionaryElementFactory;
+import rita.wordnet.jwnl.wndata.IndexWord;
+import rita.wordnet.jwnl.wndata.POS;
+import rita.wordnet.jwnl.wndata.Synset;
 
 
 /**

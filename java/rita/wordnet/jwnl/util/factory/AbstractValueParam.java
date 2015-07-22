@@ -1,8 +1,8 @@
 package rita.wordnet.jwnl.util.factory;
 
 
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 import rita.wordnet.jwnl.JWNLException;
 

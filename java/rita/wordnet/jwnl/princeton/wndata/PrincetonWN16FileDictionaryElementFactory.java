@@ -8,7 +8,10 @@ package rita.wordnet.jwnl.princeton.wndata;
 import java.util.Map;
 
 import rita.wordnet.jwnl.JWNLException;
-import rita.wordnet.jwnl.wndata.*;
+import rita.wordnet.jwnl.wndata.Adjective;
+import rita.wordnet.jwnl.wndata.POS;
+import rita.wordnet.jwnl.wndata.Synset;
+import rita.wordnet.jwnl.wndata.Word;
 
 /** <code>FileDictionaryElementFactory</code> that produces elements for Princeton's release of WordNet v 1.6 */
 public class PrincetonWN16FileDictionaryElementFactory extends AbstractPrincetonFileDictionaryElementFactory {

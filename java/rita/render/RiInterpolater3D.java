@@ -1,7 +1,6 @@
-package rita.support;
+package rita.render;
 
 import rita.RiTa;
-import rita.render.RiInterpolater;
 
 public class RiInterpolater3D extends RiInterpolater2D
 {

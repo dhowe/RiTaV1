@@ -4,7 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rita.RiWordNet;
-import rita.wordnet.jawbone.*;
+import rita.wordnet.jawbone.AnagramFilter;
+import rita.wordnet.jawbone.ContainsFilter;
+import rita.wordnet.jawbone.EndsWithFilter;
+import rita.wordnet.jawbone.RegexFilter;
+import rita.wordnet.jawbone.SimilarFilter;
+import rita.wordnet.jawbone.SoundFilter;
+import rita.wordnet.jawbone.StartsWithFilter;
+import rita.wordnet.jawbone.TermFilter;
+import rita.wordnet.jawbone.WildcardFilter;
 
 // TODO: Need to document filters well in JSON (K)
 

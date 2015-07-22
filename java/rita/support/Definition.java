@@ -1,8 +1,13 @@
 package rita.support;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
-import rita.*;
+import rita.RiTa;
+import rita.RiTaException;
 
 public class Definition
 {

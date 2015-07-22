@@ -4,12 +4,24 @@
  */
 package rita.wordnet.jwnl.princeton.wndata;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.BitSet;
+import java.util.List;
+import java.util.StringTokenizer;
 
 import rita.RiTa;
-import rita.wordnet.jwnl.JWNLRuntimeException;
 import rita.wordnet.jwnl.util.TokenizerParser;
-import rita.wordnet.jwnl.wndata.*;
+import rita.wordnet.jwnl.wndata.Exc;
+import rita.wordnet.jwnl.wndata.FileDictionaryElementFactory;
+import rita.wordnet.jwnl.wndata.IndexWord;
+import rita.wordnet.jwnl.wndata.POS;
+import rita.wordnet.jwnl.wndata.Pointer;
+import rita.wordnet.jwnl.wndata.PointerTarget;
+import rita.wordnet.jwnl.wndata.PointerType;
+import rita.wordnet.jwnl.wndata.Synset;
+import rita.wordnet.jwnl.wndata.SynsetProxy;
+import rita.wordnet.jwnl.wndata.Verb;
+import rita.wordnet.jwnl.wndata.Word;
 
 /**
  * Java WordNet Library (JWNL)

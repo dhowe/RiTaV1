@@ -1,7 +1,9 @@
 package rita.support;
 
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
 
 
 /**
@@ -115,10 +117,10 @@ public class MinEditDist
    */ 
   public float computeAdjusted(String[] source, String[] target)
   {
-    System.out.println(Arrays.asList(source)+","+Arrays.asList(target));
-    System.out.println(computeRaw(source, target)+"/"+(float)(source.length + target.length));
+//  System.out.println(Arrays.asList(source)+","+Arrays.asList(target));
+//  System.out.println(computeRaw(source, target)+"/"+(float)(source.length + target.length));
 
-  	return  computeRaw(source, target) / (float) (source.length + target.length);
+    return  computeRaw(source, target) / (float) (source.length + target.length);
   }
   
   /**
@@ -130,14 +132,11 @@ public class MinEditDist
     return  compute(source, target);
   }
   
-  /**
+  /*
    * Computes min-edit-distance between 2 string arrays
    * where each array element either matches or does not
-   * @deprecated
-   * @see MinEditDist#computeAdjusted(java.lang.String[],java.lang.String[])
-   * @see MinEditDist#computeRaw(java.lang.String[],java.lang.String[])
    */ 
-  public int compute(String[] src, String[] target)
+  protected int compute(String[] src, String[] target)
   {
     //System.out.println(Arrays.asList(source)+" "+Arrays.asList(target));
     int matrix[][]; // matrix

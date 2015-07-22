@@ -32,6 +32,8 @@
                         <br>
                     </span>
 
+                    <a href="RiTa/RiTa.concordance/index.php">RiTa.concordance()</a>
+                    <br>
                     <a href="RiTa/RiTa.conjugate/index.php">RiTa.conjugate()</a>
                     <br>
                     <a href="RiTa/RiTa.distance/index.php">RiTa.distance()</a>
@@ -64,7 +66,11 @@
                     <br>
                     <a href="RiTa/RiTa.isW_Question/index.php">RiTa.isW_Question()</a>
                     <br>
+                    <a href="RiTa/RiTa.kwik/index.php">RiTa.kwik()</a>
+                    <br>
                     <a href="RiTa/RiTa.loadString/index.php">RiTa.loadString()</a>
+                    <br>
+                    <a href="RiTa/RiTa.minEditDistance/index.php">RiTa.minEditDistance()</a>
                     <br>
                     <a href="RiTa/RiTa.pluralize/index.php">RiTa.pluralize()</a>
                     <br>
@@ -83,8 +89,6 @@
                     <a href="RiTa/RiTa.stripPunctuation/index.php">RiTa.stripPunctuation()</a>
                     <br>
                     <a href="RiTa/RiTa.tokenize/index.php">RiTa.tokenize()</a>
-                    <br>
-                    <a href="RiTa/RiTa.trim/index.php">RiTa.trim()</a>
                     <br>
                     <a href="RiTa/RiTa.trimPunctuation/index.php">RiTa.trimPunctuation()</a>
                     <br>

@@ -1,15 +1,38 @@
 package rita;
 
-import static rita.support.Constants.EventType.*;
+import static rita.support.Constants.EventType.ColorTo;
+import static rita.support.Constants.EventType.FadeIn;
+import static rita.support.Constants.EventType.FadeOut;
+import static rita.support.Constants.EventType.Internal;
+import static rita.support.Constants.EventType.TextTo;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 import java.util.regex.Pattern;
 
-import processing.core.*;
-import rita.render.*;
-import rita.support.*;
+import processing.core.PApplet;
+import processing.core.PFont;
+import processing.core.PGraphics;
+import rita.render.Defaults;
+import rita.render.InterpolatingBehavior;
+import rita.render.PageLayout;
+import rita.render.Rect;
+import rita.render.RiTextBehavior;
+import rita.render.RotateZBehavior;
+import rita.render.ScaleBehavior;
+import rita.render.TextColorFade;
+import rita.render.TextMotion2D;
+import rita.render.TextMotion3D;
+import rita.support.BehaviorListener;
+import rita.support.Constants;
+import rita.support.Regex;
 
 // TODO: add version of bounding-box that is tight (based on actual chars in string)?
 // TODO: add vertical align option

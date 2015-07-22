@@ -2,10 +2,10 @@ package rita.wordnet.jwnl.dictionary.database;
 
 
 import java.sql.SQLException;
-import java.util.Map;
-import java.util.Random;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
 import rita.wordnet.jwnl.JWNLException;
 import rita.wordnet.jwnl.util.factory.Createable;

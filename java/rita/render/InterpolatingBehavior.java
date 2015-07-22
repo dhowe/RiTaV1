@@ -1,7 +1,6 @@
 package rita.render;
 
-import rita.*;
-import rita.support.Interpolater;
+import rita.RiText;
 
 public abstract class InterpolatingBehavior extends RiTextBehavior
 {

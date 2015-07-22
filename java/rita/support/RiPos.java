@@ -1,6 +1,9 @@
 package rita.support;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Enumerated types for various Part-of-Speech representations.

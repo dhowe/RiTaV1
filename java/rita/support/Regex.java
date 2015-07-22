@@ -1,9 +1,10 @@
 package rita.support;
 
-import java.util.*;
-import java.util.regex.*;
-
-import rita.RiTa;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * A utility class for regular expression matching.

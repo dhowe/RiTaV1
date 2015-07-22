@@ -3,7 +3,6 @@ package rita.wordnet.jawbone;
 import java.util.Arrays;
 
 import rita.RiTa;
-import rita.wordnet.RiFilter;
 
 /**
  * Provide a filter for search terms that only

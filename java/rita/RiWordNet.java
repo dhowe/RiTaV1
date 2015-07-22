@@ -1,16 +1,44 @@
 package rita;
 
-import java.io.*;
-import java.util.*;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Set;
+import java.util.TreeSet;
 
 import rita.support.RiPos;
-import rita.wordnet.*;
-import rita.wordnet.jwnl.*;
-import rita.wordnet.jwnl.dictionary.*;
+import rita.wordnet.RiWordNetError;
+import rita.wordnet.RiZipReader;
+import rita.wordnet.WordnetFilters;
+import rita.wordnet.WordnetUtil;
+import rita.wordnet.jwnl.JWNL;
+import rita.wordnet.jwnl.JWNLException;
+import rita.wordnet.jwnl.JWNLRuntimeException;
 import rita.wordnet.jwnl.dictionary.Dictionary;
-import rita.wordnet.jwnl.wndata.*;
-import rita.wordnet.jwnl.wndata.list.*;
-import rita.wordnet.jwnl.wndata.relationship.*;
+import rita.wordnet.jwnl.dictionary.JWNLPosException;
+import rita.wordnet.jwnl.dictionary.MorphologicalProcessor;
+import rita.wordnet.jwnl.wndata.IndexWord;
+import rita.wordnet.jwnl.wndata.IndexWordSet;
+import rita.wordnet.jwnl.wndata.POS;
+import rita.wordnet.jwnl.wndata.PointerTarget;
+import rita.wordnet.jwnl.wndata.PointerType;
+import rita.wordnet.jwnl.wndata.PointerUtils;
+import rita.wordnet.jwnl.wndata.Synset;
+import rita.wordnet.jwnl.wndata.Word;
+import rita.wordnet.jwnl.wndata.list.PointerTargetNode;
+import rita.wordnet.jwnl.wndata.list.PointerTargetNodeList;
+import rita.wordnet.jwnl.wndata.list.PointerTargetTree;
+import rita.wordnet.jwnl.wndata.relationship.AsymmetricRelationship;
+import rita.wordnet.jwnl.wndata.relationship.RelationshipFinder;
+import rita.wordnet.jwnl.wndata.relationship.RelationshipList;
 
 public class RiWordNet
 {

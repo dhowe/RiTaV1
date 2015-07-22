@@ -10,7 +10,9 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.io.StringWriter;
 
-import rita.wordnet.jwnl.wndata.*;
+import rita.wordnet.jwnl.wndata.PointerTarget;
+import rita.wordnet.jwnl.wndata.PointerType;
+import rita.wordnet.jwnl.wndata.Synset;
 import rita.wordnet.jwnl.wndata.list.PointerTargetNode;
 import rita.wordnet.jwnl.wndata.list.PointerTargetNodeList;
 

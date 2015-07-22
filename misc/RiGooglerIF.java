@@ -1,7 +1,5 @@
 package rita.support;
 
-import rita.support.Constants;
-import rita.support.GoogleDirect;
  
 public interface RiGooglerIF extends Constants
 {

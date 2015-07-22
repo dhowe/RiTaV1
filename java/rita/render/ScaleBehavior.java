@@ -1,8 +1,7 @@
 package rita.render;
 
+import static rita.support.Constants.EventType.ScaleTo;
 import rita.RiText;
-import rita.support.*;
-import static rita.support.Constants.EventType.*;
 
 public class ScaleBehavior extends InterpolatingBehavior
 {

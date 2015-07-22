@@ -1,9 +1,9 @@
 package rita.wordnet.jwnl.dictionary.morph;
 
 
-import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import rita.wordnet.jwnl.JWNLException;
 import rita.wordnet.jwnl.util.factory.ParamList;

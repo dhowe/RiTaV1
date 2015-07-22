@@ -1,7 +1,6 @@
 package rita.wordnet.jwnl.wndata;
 
 import rita.wordnet.jwnl.JWNLException;
-import rita.wordnet.jwnl.JWNLRuntimeException;
 
 /**
  * Proxy for a <code>Synset</code>. This class wraps a <code>Synset</code> that may be null at

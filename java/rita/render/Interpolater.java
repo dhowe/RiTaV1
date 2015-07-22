@@ -1,7 +1,6 @@
-package rita.support;
+package rita.render;
 
 import rita.RiTa;
-import rita.render.RiInterpolater;
 
 /**
  * Provides a variety of static interpolation methods each of which 

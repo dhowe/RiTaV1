@@ -6,9 +6,16 @@ import java.util.List;
 import rita.RiWordNet;
 import rita.wordnet.jwnl.JWNLException;
 import rita.wordnet.jwnl.dictionary.Dictionary;
-import rita.wordnet.jwnl.wndata.*;
+import rita.wordnet.jwnl.wndata.IndexWord;
+import rita.wordnet.jwnl.wndata.IndexWordSet;
+import rita.wordnet.jwnl.wndata.POS;
+import rita.wordnet.jwnl.wndata.PointerType;
+import rita.wordnet.jwnl.wndata.PointerUtils;
+import rita.wordnet.jwnl.wndata.Synset;
 import rita.wordnet.jwnl.wndata.list.PointerTargetNode;
-import rita.wordnet.jwnl.wndata.relationship.*;
+import rita.wordnet.jwnl.wndata.relationship.AsymmetricRelationship;
+import rita.wordnet.jwnl.wndata.relationship.RelationshipFinder;
+import rita.wordnet.jwnl.wndata.relationship.RelationshipList;
 
 
 /**

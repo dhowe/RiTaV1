@@ -4,7 +4,9 @@
  */
 package rita.wordnet.jwnl.util.cache;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * A fixed-capacity <code>Cache</code> that stores the most recently used elements. Once the cache reaches

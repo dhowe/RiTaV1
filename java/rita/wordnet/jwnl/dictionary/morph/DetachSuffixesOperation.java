@@ -1,12 +1,12 @@
 package rita.wordnet.jwnl.dictionary.morph;
 
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Iterator;
-import java.util.StringTokenizer;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
 
 import rita.wordnet.jwnl.JWNLException;
 import rita.wordnet.jwnl.util.factory.Param;

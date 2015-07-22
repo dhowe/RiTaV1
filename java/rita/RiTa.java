@@ -1,12 +1,45 @@
 package rita;
 
-import java.io.*;
-import java.lang.reflect.*;
-import java.net.*;
-import java.util.*;
-import java.util.regex.*;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.lang.reflect.Method;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import rita.support.*;
+import rita.support.Conjugator;
+import rita.support.Constants;
+import rita.support.EntityLookup;
+import rita.support.MinEditDist;
+import rita.support.PAppletIF;
+import rita.support.Pluralizer;
+import rita.support.PosTagger;
+import rita.support.Concorder;
+import rita.support.RiDynamic;
+import rita.support.RiTaEventListener;
+import rita.support.RiTimer;
+import rita.support.RiTokenizer;
+import rita.support.Splitter;
+import rita.support.Stemmer;
 
 /**
  * A set of static properties and utility functions for the package
@@ -1474,7 +1507,7 @@ public class RiTa implements Constants
   public static void out(Object[] l)
   {
     if (l == null || l.length <1) {
-      System.out.println("[]");
+      System.out.println("null");
       return;
     }
     for (int j = 0; j < l.length; j++)
@@ -1519,6 +1552,22 @@ public class RiTa implements Constants
     }.start();
   }
 
+  public static String[] kwik(String text, String word, int wordCount) {
+    return kwik(text, word, wordCount, null);
+  }
+  
+  public static String[] kwik(String text, String word, int wordCount, Map options) {
+    return new Concorder(text, options).kwik(word, wordCount);
+  }
+  
+  public static Map<String, Integer> concordance(String text, Map options) {
+    return new Concorder(text, options).concordance();
+  }
+  
+  public static Map<String, Integer> concordance(String text) {
+    return concordance(text, null);
+  }
+  
   public static void main(String[] args)
   {
     //RiTa.SILENT = true;
@@ -1531,5 +1580,23 @@ public class RiTa implements Constants
     {
       System.out.println(toks[i]+" -> "+isPunctuation(toks[i])+"");
     } 
+  }
+
+  public static float minEditDistance(String s1, String s2) {
+    return new MinEditDist().computeRaw(s1, s2);
+  }
+  
+  public static float minEditDistance(String[] s1, String[] s2) {
+    return new MinEditDist().computeRaw(s1, s2);
+  }
+  
+  public static float minEditDistance(String s1, String s2, boolean normalized) {
+    return (!normalized) ? new MinEditDist().computeRaw(s1, s2) :
+      new MinEditDist().computeAdjusted(s1, s2);
+  }
+  
+  public static float minEditDistance(String[] s1, String[] s2, boolean normalized) {
+    return (!normalized) ? new MinEditDist().computeRaw(s1, s2) :
+      new MinEditDist().computeAdjusted(s1, s2);
   }
 }

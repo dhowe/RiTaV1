@@ -6,14 +6,26 @@ package rita.wordnet.jwnl.dictionary.file_manager;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.*;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 import rita.RiTa;
 import rita.RiWordNet;
-import rita.wordnet.*;
+import rita.wordnet.RandomAccessByteArray;
+import rita.wordnet.RandomAccessIF;
+import rita.wordnet.RiZipReader;
+import rita.wordnet.WordnetDictionaryFile;
+import rita.wordnet.WordnetUtil;
 import rita.wordnet.jwnl.JWNLException;
 import rita.wordnet.jwnl.JWNLRuntimeException;
-import rita.wordnet.jwnl.dictionary.file.*;
+import rita.wordnet.jwnl.dictionary.file.DictionaryCatalog;
+import rita.wordnet.jwnl.dictionary.file.DictionaryCatalogSet;
+import rita.wordnet.jwnl.dictionary.file.DictionaryFile;
+import rita.wordnet.jwnl.dictionary.file.DictionaryFileType;
+import rita.wordnet.jwnl.dictionary.file.RandomAccessDictionaryFile;
 import rita.wordnet.jwnl.util.factory.Param;
 import rita.wordnet.jwnl.wndata.POS;
 

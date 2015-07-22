@@ -6,7 +6,13 @@ package rita.wordnet.jwnl.wndata;
 
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import rita.wordnet.jwnl.JWNL;
 import rita.wordnet.jwnl.util.Resolvable;

@@ -2,9 +2,13 @@
 
 package rita.support;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import rita.*;
+import rita.RiString;
+import rita.RiTa;
 
 
 /**

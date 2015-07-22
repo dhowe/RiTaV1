@@ -1,12 +1,17 @@
 package rita.docgen;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.zip.GZIPOutputStream;
 
 import processing.core.PApplet;
-import rita.*;
-import rita.json.*;
+import rita.RiTa;
+import rita.json.JSONArray;
+import rita.json.JSONException;
+import rita.json.JSONObject;
 
 public class DocGenerator extends PApplet
 {

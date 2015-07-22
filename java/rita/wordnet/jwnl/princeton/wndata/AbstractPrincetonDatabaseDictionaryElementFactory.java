@@ -8,7 +8,16 @@ import java.util.BitSet;
 import java.util.Iterator;
 import java.util.List;
 
-import rita.wordnet.jwnl.wndata.*;
+import rita.wordnet.jwnl.wndata.DatabaseDictionaryElementFactory;
+import rita.wordnet.jwnl.wndata.Exc;
+import rita.wordnet.jwnl.wndata.IndexWord;
+import rita.wordnet.jwnl.wndata.POS;
+import rita.wordnet.jwnl.wndata.Pointer;
+import rita.wordnet.jwnl.wndata.PointerType;
+import rita.wordnet.jwnl.wndata.Synset;
+import rita.wordnet.jwnl.wndata.SynsetProxy;
+import rita.wordnet.jwnl.wndata.Verb;
+import rita.wordnet.jwnl.wndata.Word;
 /**
  * Java WordNet Library (JWNL)
  * See the documentation for copyright information.

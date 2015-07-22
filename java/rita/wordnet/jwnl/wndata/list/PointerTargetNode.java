@@ -5,7 +5,10 @@
 package rita.wordnet.jwnl.wndata.list;
 
 import rita.wordnet.jwnl.JWNL;
-import rita.wordnet.jwnl.wndata.*;
+import rita.wordnet.jwnl.wndata.PointerTarget;
+import rita.wordnet.jwnl.wndata.PointerType;
+import rita.wordnet.jwnl.wndata.Synset;
+import rita.wordnet.jwnl.wndata.Word;
 
 /** A node in a <code>PointerTargetNodeList</code>. */
 public class PointerTargetNode implements Node {

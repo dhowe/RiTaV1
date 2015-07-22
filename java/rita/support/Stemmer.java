@@ -1,9 +1,12 @@
 package rita.support;
 
+import static rita.support.Constants.StemmerType.Lancaster;
+import static rita.support.Constants.StemmerType.Pling;
+import static rita.support.Constants.StemmerType.Porter;
+
 import java.text.DecimalFormat;
 
 import rita.RiTa;
-import static rita.support.Constants.StemmerType.*;
 import rita.RiTaException;
 
 // TODO: test with word-list (+stems) from here:

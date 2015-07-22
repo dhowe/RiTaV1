@@ -1,9 +1,14 @@
 package rita.support;
 
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
-import rita.*;
+import rita.RiTa;
+import rita.RiTaEvent;
 
 /**
  * A basic timer implementation to which one can pass

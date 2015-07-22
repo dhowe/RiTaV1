@@ -2,12 +2,9 @@ package rita.support;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-
-import rita.RiText;
 
 public class RuleList implements Constants
 {

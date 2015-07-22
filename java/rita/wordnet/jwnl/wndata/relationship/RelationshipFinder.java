@@ -1,11 +1,18 @@
 package rita.wordnet.jwnl.wndata.relationship;
 
 
-import java.util.*;
+import java.util.List;
 
 import rita.wordnet.jwnl.JWNLException;
-import rita.wordnet.jwnl.wndata.*;
-import rita.wordnet.jwnl.wndata.list.*;
+import rita.wordnet.jwnl.wndata.IndexWord;
+import rita.wordnet.jwnl.wndata.PointerType;
+import rita.wordnet.jwnl.wndata.PointerUtils;
+import rita.wordnet.jwnl.wndata.Synset;
+import rita.wordnet.jwnl.wndata.list.PointerTargetNode;
+import rita.wordnet.jwnl.wndata.list.PointerTargetNodeList;
+import rita.wordnet.jwnl.wndata.list.PointerTargetTree;
+import rita.wordnet.jwnl.wndata.list.PointerTargetTreeNode;
+import rita.wordnet.jwnl.wndata.list.PointerTargetTreeNodeList;
 
 public class RelationshipFinder {
 	private static final int DEFAULT_ASYMMETRIC_SEARCH_DEPTH = Integer.MAX_VALUE;

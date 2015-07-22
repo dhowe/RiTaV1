@@ -10,8 +10,9 @@ import java.util.Map;
 
 import rita.wordnet.jwnl.JWNLException;
 import rita.wordnet.jwnl.JWNLRuntimeException;
-import rita.wordnet.jwnl.dictionary.*;
-import rita.wordnet.jwnl.dictionary.morph.Operation;
+import rita.wordnet.jwnl.dictionary.Dictionary;
+import rita.wordnet.jwnl.dictionary.MorphologicalProcessor;
+import rita.wordnet.jwnl.dictionary.POSKey;
 import rita.wordnet.jwnl.util.cache.Cache;
 import rita.wordnet.jwnl.util.cache.LRUCache;
 import rita.wordnet.jwnl.util.factory.Param;

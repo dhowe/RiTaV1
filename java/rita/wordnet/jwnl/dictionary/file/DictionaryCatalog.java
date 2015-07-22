@@ -6,7 +6,9 @@ package rita.wordnet.jwnl.dictionary.file;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import rita.wordnet.jwnl.JWNLRuntimeException;
 import rita.wordnet.jwnl.wndata.POS;

@@ -4,8 +4,6 @@ package rita.support;
 
 import java.lang.reflect.Method;
 
-import rita.support.StemmerIF;
-
 /*
  * TODO: optomize -- remove dynamic invoations
  */

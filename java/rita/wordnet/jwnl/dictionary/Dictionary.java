@@ -9,7 +9,11 @@ import java.util.Iterator;
 import rita.RiWordNet;
 import rita.wordnet.jwnl.JWNLException;
 import rita.wordnet.jwnl.util.factory.Installable;
-import rita.wordnet.jwnl.wndata.*;
+import rita.wordnet.jwnl.wndata.Exc;
+import rita.wordnet.jwnl.wndata.IndexWord;
+import rita.wordnet.jwnl.wndata.IndexWordSet;
+import rita.wordnet.jwnl.wndata.POS;
+import rita.wordnet.jwnl.wndata.Synset;
 
 
 /**

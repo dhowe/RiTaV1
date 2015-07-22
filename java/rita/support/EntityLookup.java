@@ -1,6 +1,8 @@
 package rita.support;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Provides utilities to handle HTML and XML entities.

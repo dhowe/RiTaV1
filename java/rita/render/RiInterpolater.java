@@ -1,8 +1,8 @@
 package rita.render;
 
-import rita.*;
+import rita.RiTa;
+import rita.RiTaException;
 import rita.support.Constants;
-import rita.support.Interpolater;
 
 public class RiInterpolater extends Interpolater implements Constants
 {  

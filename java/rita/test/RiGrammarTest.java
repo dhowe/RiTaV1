@@ -3,14 +3,19 @@ package rita.test;
 import static rita.support.QUnitStubs.equal;
 import static rita.support.QUnitStubs.ok;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.junit.Test;
 
-import rita.*;
+import rita.RiGrammar;
+import rita.RiLexicon;
+import rita.RiTa;
+import rita.RiTaException;
 import rita.support.YAMLParser;
 
 // TODO: should NOT load lexicon

@@ -13,7 +13,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import rita.wordnet.jwnl.JWNLRuntimeException;
-import rita.wordnet.jwnl.dictionary.file.*;
+import rita.wordnet.jwnl.dictionary.file.DictionaryFile;
+import rita.wordnet.jwnl.dictionary.file.DictionaryFileType;
+import rita.wordnet.jwnl.dictionary.file.ObjectDictionaryFile;
 import rita.wordnet.jwnl.wndata.POS;
 
 /** <code>ObjectDictionaryFile</code> that accesses files names with the Princeton dictionary file naming convention. */

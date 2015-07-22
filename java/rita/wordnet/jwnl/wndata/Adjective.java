@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import rita.wordnet.jwnl.JWNL;
-import rita.wordnet.jwnl.JWNLRuntimeException;
 import rita.wordnet.jwnl.util.Resolvable;
 
 /**

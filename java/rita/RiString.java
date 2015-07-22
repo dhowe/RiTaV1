@@ -1,15 +1,25 @@
 package rita;
 
-import java.lang.reflect.Array;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import rita.support.*;
+import rita.support.Constants;
+import rita.support.FeaturedIF;
+import rita.support.JSONLexicon;
+import rita.support.LetterToSound;
+import rita.support.PosTagger;
 
 public class RiString implements FeaturedIF, Constants, Comparable<RiString> {
 
   static boolean DBUG_CACHED_FEATURES = false;
+  
   static List<String> trackedFeatures = Arrays.asList(new String[] { 
       "tokens", "stresses", "phonemes", "syllables", "pos", "text" });
 
@@ -19,6 +29,9 @@ public class RiString implements FeaturedIF, Constants, Comparable<RiString> {
 
   protected String delegate;
   protected Map<String, String> features;
+  
+  // convenience fields, in case we use this object for rendering
+  public int x,y,z;
 
   public RiString(String string) {
     this.delegate = string;

@@ -16,20 +16,6 @@
     "platform": "Java / Javascript",
     "note": ""
   }, {
-    "hidden": "true",
-    "name": "RiTa.start",
-    "example": "RiTa.start(this);",
-    "description": "Initializes the RiTa library for rendering visual output",
-    "syntax": "RiTa.start(context);",
-    "parameters": [{
-      "type": "Object",
-      "desc": "the current context, generally 'this'"
-    }],
-    "returns": [],
-    "related": "",
-    "platform": "Java-only (has no effect in JS)",
-    "note": "Only required when using RiTa's Java renderer (RiText, etc), or loading external resources from with the Processing IDE"
-  }, {
     "name": "RiTa.isAbbreviation",
     "example": "",
     "description": "Returns true if 'input' is an abbreviation",
@@ -288,28 +274,32 @@
     "platform": "Java / Javascript",
     "note": ""
 
-  },{
-    "name": "RiTa.trim",
+  },
+  {
+    "name": "RiTa.minEditDistance",
     "example": "",
-    "description": "Removes blank space from either side of a string",
-    "syntax": "RiTa.trim(input);",
+    "description": "Takes a pair of strings or string-arrays and returns the minimum edit distance between them (the number of additions, subtractions, or modifications it takes to go from one to the other)",
+    "syntax": "RiTa.minEditDistance(\"Hello\", \"Hell\"); // -> 1",
     "parameters": [{
-        "type": "String",
-        "desc": "the input string"
-      }
-
-    ],
+      "type": "String",
+      "desc": "str1"
+    }, {
+      "type": "String",
+      "desc": "str2"
+    }, {
+      "type": "boolean",
+      "desc": "normalize (optional) if true, normalizes the distance based on the length of the strings"
+    }],
     "returns": [{
-        "type": "String",
-        "desc": ""
+        "type": "int",
+        "desc": "the minimum-edit distance"
       }
-
     ],
     "related": "",
     "platform": "Java / Javascript",
-    "note": ""
-
-  }, {
+    "note": "See <a href=\"https://en.wikipedia.org/wiki/Edit_distance\">https://en.wikipedia.org/wiki/Edit_distance</a>"
+  },
+  {
     "name": "RiTa.distance",
     "example": "",
     "description": "Convenience method to get the distance between 2 points",
@@ -331,7 +321,6 @@
         "type": "float",
         "desc": "the distance"
       }
-
     ],
     "related": "",
     "platform": "Java / Javascript",
@@ -461,7 +450,58 @@
     "related": "",
     "platform": "Java / Javascript",
     "note": ""
-  }, {
+  }, 
+  {
+    "name": "RiTa.concordance",
+    "example": "// Java<br><br>Map args = new HashMap();<br>args.put(\"ignoreCase\", false);<br>args.put(\"ignoreStopWords\", true);<br><br>String c = RiTa.concordance(text, args);<br> <br> <br>// Javascript<br><br>var args = {<br>  ignoreCase: false,<br>  ignoreStopWords: true<br>};<br><br>var c = RiTa.concordance(text, args);<br> <br>",
+    "description": "Creates a concordance, a list of words with their frequency of occurence, from the given text and (optional) options",
+    "syntax": "RiTa.concordance(text, args);",
+    "parameters": [{
+        "type": "String",
+        "desc": "the text"
+      }, {
+        "type": "String",
+        "desc": "the word to lookup"
+      }, {
+        "type": "Object<br>(or Map in Java)",
+        "desc": "options (optional) the relevant options for the KWIK model:<br><br>{int} options.wordCount: <br># of words of context on either side of input word<br><br> {boolean} options.ignoreCase:<br> Ignore upper/lower case in the model <br><br> {boolean} options.ignoreStopWords: <br>Ignore words like 'the', 'and', 'a', 'of', etc, as specified in RiTa.STOP_WORDS<br><br> {boolean} options.ignorePunctuation:<br> Ignore punctuation tokens in the model<br><br> {String[]} options.wordsToIgnore:<br> A set of words (alternative stop-words, for example) to ignore.<br><br>"
+      }
+    ],
+    "returns": [{
+        "type": "Object<br>(or Map in Java)",
+        "desc": "the concordance"
+      }
+    ],
+    "related": "",
+    "platform": "Java / Javascript",
+    "note": "See <a href=\"https://en.wikipedia.org/wiki/Concordance_%28publishing%29\">https://en.wikipedia.org/wiki/Concordance_%28publishing%29</a>"
+  },
+  {
+    "name": "RiTa.kwik",
+    "example": "// Java<br><br>Map args = new HashMap();<br>args.put(\"ignoreCase\", false);<br>args.put(\"ignoreStopWords\", true);<br><br>String[] lines = RiTa.kwik(text, args);<br> <br> <br>// Javascript<br><br>var args = {<br>  ignoreCase: false,<br>  ignoreStopWords: true<br>};<br><br>var lines = RiTa.kwik(text, args);<br> <br>",
+    "description": "Creates a Key Word In Context (KIWC) model from a given text, a word to lookup, a wordCount and (optional) options",
+    "syntax": "RiTa.kwik(text, word, options);",
+    "parameters": [{
+        "type": "String",
+        "desc": "the text"
+      }, {
+        "type": "String",
+        "desc": "the word to lookup"
+      }, {
+        "type": "Object<br>(or Map in Java)",
+        "desc": "options (optional) the relevant options for the KWIK model:<br><br>{int} options.wordCount: <br># of words of context on either side of input word<br><br> {boolean} options.ignoreCase:<br> Ignore upper/lower case in the model <br><br> {boolean} options.ignoreStopWords: <br>Ignore words like 'the', 'and', 'a', 'of', etc, as specified in RiTa.STOP_WORDS<br><br> {boolean} options.ignorePunctuation:<br> Ignore punctuation tokens in the model<br><br> {String[]} options.wordsToIgnore:<br> A set of words (alternative stop-words, for example) to ignore.<br><br>"
+      }
+    ],
+    "returns": [{
+        "type": "String[]",
+        "desc": "all the occurrences of the keyword in the model, each with 'wordCount' words of context on either side"
+      }
+    ],
+    "related": "",
+    "platform": "Java / Javascript",
+    "note": "See <a href=\"https://en.wikipedia.org/wiki/Concordance_%28publishing%29\">https://en.wikipedia.org/wiki/Concordance_%28publishing%29</a>"
+  },
+  {
     "name": "RiTa.conjugate",
     "example": "// Java<br><br>Map args = new HashMap();<br>args.put(\"tense\", RiTa.PAST_TENSE);<br>args.put(\"number\", RiTa.SINGULAR);<br>args.put(\"person\", RiTa.FIRST_PERSON);<br><br>String c = RiTa.conjugate(\"swim\", args);<br> <br> <br>// Javascript<br><br>var args = {<br>  tense: RiTa.PRESENT_TENSE,<br>  number: RiTa.SINGULAR,<br>  person: RiTa.THIRD_PERSON<br>};<br><br>var c = RiTa.conjugate('swim', args);<br> <br>",
     "description": "Conjugates the 'verb' according to the specified options",

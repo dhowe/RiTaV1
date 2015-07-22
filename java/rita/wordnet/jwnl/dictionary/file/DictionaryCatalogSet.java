@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import rita.wordnet.WordnetDictionaryFile;
 import rita.wordnet.jwnl.wndata.POS;
 
 /**

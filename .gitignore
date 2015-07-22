@@ -14,3 +14,4 @@ tasks.txt
 /dist
 target
 hs_err_pid*
+/javascript/

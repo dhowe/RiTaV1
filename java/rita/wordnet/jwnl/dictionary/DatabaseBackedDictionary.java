@@ -11,7 +11,12 @@ import rita.wordnet.jwnl.JWNLException;
 import rita.wordnet.jwnl.dictionary.database.DatabaseManager;
 import rita.wordnet.jwnl.dictionary.database.Query;
 import rita.wordnet.jwnl.util.factory.Param;
-import rita.wordnet.jwnl.wndata.*;
+import rita.wordnet.jwnl.wndata.DatabaseDictionaryElementFactory;
+import rita.wordnet.jwnl.wndata.DictionaryElement;
+import rita.wordnet.jwnl.wndata.Exc;
+import rita.wordnet.jwnl.wndata.IndexWord;
+import rita.wordnet.jwnl.wndata.POS;
+import rita.wordnet.jwnl.wndata.Synset;
 
 public class DatabaseBackedDictionary extends AbstractCachingDictionary {
     /**

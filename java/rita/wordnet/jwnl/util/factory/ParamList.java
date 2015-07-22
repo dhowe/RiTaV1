@@ -1,9 +1,9 @@
 package rita.wordnet.jwnl.util.factory;
 
 
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import rita.wordnet.jwnl.JWNLException;
 

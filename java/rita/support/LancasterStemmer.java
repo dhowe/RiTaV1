@@ -6,11 +6,11 @@ package rita.support;
  comments:   The Paice/Husk Stemmer Translated from Pascal
  */
 
-import java.io.*;
-import java.util.StringTokenizer;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Vector;
 
-import rita.RiTa;
 import rita.RiTaException;
 
 public class LancasterStemmer implements StemmerIF

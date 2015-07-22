@@ -4,13 +4,25 @@
  */
 package rita.wordnet.jwnl.dictionary;
 
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Random;
 
 import rita.wordnet.jwnl.JWNLException;
 import rita.wordnet.jwnl.JWNLRuntimeException;
-import rita.wordnet.jwnl.dictionary.file.*;
+import rita.wordnet.jwnl.dictionary.file.DictionaryCatalog;
+import rita.wordnet.jwnl.dictionary.file.DictionaryCatalogSet;
+import rita.wordnet.jwnl.dictionary.file.DictionaryFile;
+import rita.wordnet.jwnl.dictionary.file.DictionaryFileType;
+import rita.wordnet.jwnl.dictionary.file.ObjectDictionaryFile;
 import rita.wordnet.jwnl.util.factory.Param;
-import rita.wordnet.jwnl.wndata.*;
+import rita.wordnet.jwnl.wndata.Exc;
+import rita.wordnet.jwnl.wndata.IndexWord;
+import rita.wordnet.jwnl.wndata.POS;
+import rita.wordnet.jwnl.wndata.Synset;
 
 
 /**

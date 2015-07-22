@@ -10,8 +10,14 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import rita.*;
-import rita.support.*;
+import rita.RiGrammar;
+import rita.RiLexicon;
+import rita.RiString;
+import rita.RiTa;
+import rita.RiWordNet;
+import rita.support.Constants;
+import rita.support.JSONLexicon;
+import rita.support.LetterToSound;
 
 public class KnownIssuesTest implements Constants
 {

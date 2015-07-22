@@ -4,7 +4,10 @@ package rita.wordnet.jwnl.princeton.wndata;
 import java.util.Map;
 
 import rita.wordnet.jwnl.JWNLException;
-import rita.wordnet.jwnl.wndata.*;
+import rita.wordnet.jwnl.wndata.Adjective;
+import rita.wordnet.jwnl.wndata.POS;
+import rita.wordnet.jwnl.wndata.Synset;
+import rita.wordnet.jwnl.wndata.Word;
 
 public class PrincetonWN16DatabaseDictionaryElementFactory extends AbstractPrincetonDatabaseDictionaryElementFactory {
 	public Object create(Map params) throws JWNLException {

@@ -1,11 +1,25 @@
 package rita.render;
 
-import java.lang.reflect.Method;
-import java.util.*;
+import static rita.support.Constants.EventType.BoundingAlpha;
+import static rita.support.Constants.EventType.ColorTo;
+import static rita.support.Constants.EventType.FadeIn;
+import static rita.support.Constants.EventType.FadeOut;
+import static rita.support.Constants.EventType.Internal;
+import static rita.support.Constants.EventType.TextTo;
+import static rita.support.Constants.EventType.Timer;
 
-import rita.*;
-import rita.support.*;
-import static rita.support.Constants.EventType.*;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
+import rita.RiTa;
+import rita.RiTaEvent;
+import rita.RiTaException;
+import rita.RiText;
+import rita.support.BehaviorListener;
+import rita.support.Constants;
 
 
 /**

@@ -1,9 +1,16 @@
 package rita.support;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
 
-import rita.*;
+import rita.RiTa;
+import rita.RiTaException;
 
 public class MacSpeechEngine { 
 

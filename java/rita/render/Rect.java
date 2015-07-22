@@ -1,4 +1,4 @@
-package rita.support;
+package rita.render;
 
 public class Rect 
 {  

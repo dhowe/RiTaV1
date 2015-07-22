@@ -1,9 +1,7 @@
 package rita.render;
 
 import static rita.support.Constants.EventType.RotateTo;
-
 import rita.RiText;
-import rita.support.Interpolater;
 
 public class RotateZBehavior extends InterpolatingBehavior
 {
