@@ -1551,13 +1551,19 @@ public class RiTa implements Constants
         }
     }.start();
   }
-
-  public static String[] kwik(String text, String word, int wordCount) {
-    return kwik(text, word, wordCount, null);
-  }
   
-  public static String[] kwik(String text, String word, int wordCount, Map options) {
-    return new Concorder(text, options).kwik(word, wordCount);
+  public static String[] kwik(String text, String word, Map options) {
+    
+    return new Concorder(text, options).kwik(word, extractWordCount(options));
+  }
+
+  private static int extractWordCount(Map options) {
+    int wordCount = 4;
+    if (options != null) {
+      Object wc = options.get("wordCount");
+      if (wc != null) wordCount = ((Integer)wc).intValue();
+    }
+    return wordCount;
   }
   
   public static Map<String, Integer> concordance(String text, Map options) {

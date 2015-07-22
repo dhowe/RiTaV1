@@ -1216,6 +1216,12 @@ public class RiTaTest
   }
   
   @Test
+  public void testKwik()
+  {
+    ok("TODO");
+  }
+  
+  @Test
   public void testConjugate()
   {
     Map<String, Comparable> args = new HashMap<String, Comparable>();
