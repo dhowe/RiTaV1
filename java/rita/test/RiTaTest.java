@@ -1903,19 +1903,17 @@ public class RiTaTest
     float answer2 = RiTa.random();
     ok(answer2 < 1);
   }
-  
-  /* TODO: these two are failing  
-   ****************************************************************
+   
   @Test
   public void testMinEditDistanceString()
   {
     String str1 = "The dog", str2 = "The cat";
     equal(RiTa.minEditDistance(str1, str2, false), 3);
-    equal(RiTa.minEditDistance(str1, str2, true), 3 / 7);
+    equal(RiTa.minEditDistance(str1, str2, true), (float) 3 / 7);
 
     str1 = "The dog"; str2 = "";
     equal(RiTa.minEditDistance(str1, str2, false), 7);
-    equal(RiTa.minEditDistance(str1, str2, true), 1);
+    equal(RiTa.minEditDistance(str1, str2, true), (float) 7 / 3.5);
   }
   
   @Test
@@ -1924,14 +1922,13 @@ public class RiTaTest
     String[] arr1 = {"The", "dog", "ate"},
       arr2 = {"The", "cat", "ate"};
     equal(RiTa.minEditDistance(arr1, arr2, false), 1);
-    equal(RiTa.minEditDistance(arr1, arr2, true), 1 / 3.0);
+    equal(RiTa.minEditDistance(arr1, arr2, true), (float) 1 / 3);
 
     arr1 = new String[]{"The", "dog", "ate"};
     arr2 = new String[0];
     equal(RiTa.minEditDistance(arr1, arr2, false), 3);
-    equal(RiTa.minEditDistance(arr1, arr2, true), 1);
+    equal(RiTa.minEditDistance(arr1, arr2, true), (float) 3 / 1.5);
   }
-  */
   
   @Test
   public void testTimer() // failing in travis
