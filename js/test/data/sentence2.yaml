@@ -1,0 +1,14 @@
+--- 
+<determiner>: 
+  - "a [0.1]"
+  - the
+<noun>: 
+  - woman
+  - man
+  # I am a comment
+<noun_phrase>: "<determiner> <noun>"
+<start>: "<noun_phrase> <verb_phrase>."
+<verb>: shoots
+<verb_phrase>: 
+  - <verb> <noun_phrase> [0.1]
+  - <verb>

@@ -1,0 +1,47 @@
+{
+  "name": "rita-reorg",
+  "version": "1.0.951",
+  "author": "Daniel C. Howe <daniel@rednoise.org>",
+  "description": "RiTa: A toolkit for natural language and computational literature",
+  "homepage": "http://rednoise.org/rita",
+  "main": "lib/rita.js",
+  "engines": {
+    "node": ">= 0.6"
+  },
+  "keywords": [
+    "nlp",
+    "natural language",
+    "language",
+    "writing",
+    "generative"
+  ],
+  "bugs": {
+    "mail": "daniel@rednoise.org",
+    "url": "https://github.com/dhowe/RiTa/issues"
+  },
+  "licenses": [
+    {
+      "type": "GPL",
+      "url": "http://www.opensource.org/licenses/GPL-3.0"
+    }
+  ],
+  "scripts": {
+    "test": "gulp test"
+  },
+  "dependencies": {},
+  "optionalDependencies": {
+    "yamljs": "^0.2.1"
+  },
+  "devDependencies": {
+    "argv": "0.0.2",
+    "browserify": "^11.0.0",
+    "del": "^1.2.0",
+    "gulp": "^3.9.0",
+    "gulp-mocha": "^2.1.3",
+    "gulp-util": "^3.0.6",
+    "qunit": "^0.7.6",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.2.3",
+    "yargs": "^3.15.0"
+  }
+}

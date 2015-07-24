@@ -1,0 +1,23 @@
+{
+  "boss": true,
+  "curly": true,
+  "trailing": true,
+  "devel": true,
+  "eqeqeq": true,
+  "eqnull": true,
+  "immed": true,
+  "latedef": "nofunc",
+  "newcap": false,
+  "noarg": true,
+  "quotmark": "single",
+  "undef": true,
+  "unused": "vars",
+  "maxlen": 80,
+  "browserify": true,
+  "browser": true,
+  "node": true,
+  "globals": {
+    "require": false,
+    "module": false,
+  }
+}
