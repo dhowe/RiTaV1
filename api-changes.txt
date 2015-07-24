@@ -2,12 +2,12 @@ For changes to the API:
 
 // SRC
 /RiTa/src -> Java Function
-/RiTa/RiTaLibraryJS/src -> JS Function
+/RiTaJS/src -> JS Function
 
 // DOCS
-/RiTa/www/reference/index.html
+/RiTa/web/reference/index.php
 /RiTa/docs/json/CLASS.json
 
 // TESTS
 /RiTa/src/rita/test/CLASSTest.java
-/RiTa/RiTaLibraryJS/test/CLASS-tests.js (test + function-test)
+/RiTaJS/test/CLASS-tests.js (test + function-test)

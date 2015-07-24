@@ -17,6 +17,7 @@ import rita.RiTa;
  */
 @SuppressWarnings("boxing")
 public class Concorder {
+  protected static KwicCache kwicCache;
 
   protected Map<String, Lookup> model;
   protected String[] wordsToIgnore = {};
@@ -27,80 +28,98 @@ public class Concorder {
   public Concorder(String text) {
     this(text, null);
   }
-  
+
   public Concorder(String[] text) {
     this(text, null);
   }
 
   /**
-   * @description
-   * Create a new RiConcorder object with text and an optional 'options' object.
-   * @param {String} text			The words from which to create the model
+   * @description Create a new RiConcorder object with text and an optional
+   *              'options' object.
+   * @param {String} text The words from which to create the model
    * @param {Object} options
-   * @param {int} options.wordCount		# of words of context on either side of input word
-   * @param {boolean} options.ignoreCase    	Ignore upper/lower case in the model 
-   * @param {boolean} options.ignoreStopWords 	Ignore words like "the", "and", "a", "of", etc, as specified in RiTa.STOP_WORDS
-   * @param {boolean} options.ignorePunctuation Ignore punctuation tokens in the model  
-   * @param {String[]} options.wordsToIgnore 	A set of words (alternative stop-words, for example) to ignore. 
-   */ 
+   * @param {int} options.wordCount # of words of context on either side of
+   *        input word
+   * @param {boolean} options.ignoreCase Ignore upper/lower case in the model
+   * @param {boolean} options.ignoreStopWords Ignore words like "the", "and",
+   *        "a", "of", etc, as specified in RiTa.STOP_WORDS
+   * @param {boolean} options.ignorePunctuation Ignore punctuation tokens in the
+   *        model
+   * @param {String[]} options.wordsToIgnore A set of words (alternative
+   *        stop-words, for example) to ignore.
+   */
   public Concorder(String text, Map<String, Object> options) {
-    
+
     this(tokenize(text), options);
   }
-  
+
   public Concorder(String text[], Map<String, Object> options) {
 
     this(Arrays.asList(text), options);
   }
-  
+
   protected Concorder(List<String> text, Map<String, Object> options) {
 
-    if (options != null) handleOptions(options);
+    if (options != null)
+      handleOptions(options);
 
     if (this.ignoreStopWords)
       this.wordsToIgnore = concat(this.wordsToIgnore, RiTa.STOP_WORDS);
-        
+
     this.words = text;
   }
-  
-  /////////////////////////////////Start-API//////////////////////////////////////
+
+  // ///////////////////////////////Start-API//////////////////////////////////////
   /**
    * Returns the # of occurences of <code>word</code> or 0 if the word does not
    * exist in the table.
    */
   public int count(String word) {
-    
+
     Lookup value = lookup(word);
     return value == null ? 0 : value.count();
   }
-  
+
   public Map<String, Integer> concordance() {
-    if (model == null) this.build();
+    if (model == null)
+      this.build();
     return sortData(model);
   }
-  
-  public String[] kwik(String word, int numWords) {
+
+  // A memoizing version of kwic(), rebuilds only when options or text changes
+  public static String[] cachedKwic(String text, String word, Map options) {
+
+    if (kwicCache == null || !kwicCache.matches(text, options)) {
+      kwicCache = new KwicCache(text, options);
+    }
+    return kwicCache.concorder.kwic(word, extractWordCount(options));
+  }
+
+  public String[] kwic(String word, int numWords) {
+
+    Lookup value = lookup(word);
     
-    Lookup value = lookup(word);    
+    if (value == null) return new String[0];
+    
     Integer[] idxs = value.indexes.toArray(new Integer[0]);
     String[] result = new String[idxs.length];
- 
+
     for (int i = 0; i < idxs.length; i++) {
-        List<String> sub = words.subList
-            (Math.max(0,idxs[i]-numWords), Math.min(words.size(), idxs[i]+numWords+1));
-	result[i] = RiTa.untokenize(sub.toArray(new String[0]));
+      List<String> sub = words.subList(Math.max(0, idxs[i] - numWords),
+	  Math.min(words.size(), idxs[i] + numWords + 1));
+      result[i] = RiTa.untokenize(sub.toArray(new String[0]));
     }
     return result;
   }
 
-///////////////////////////////End-API//////////////////////////////////////  
+  // /////////////////////////////End-API//////////////////////////////////////
 
   protected static List<String> tokenize(String text) {
     List<String> l = new ArrayList<String>();
     RiTokenizer.getInstance(RiTokenizer.PENN_WORD_TOKENIZER).tokenize(text, l);
     return l;
   }
-  
+
   protected void build() {
 
     long ts = System.currentTimeMillis();
@@ -109,10 +128,10 @@ public class Concorder {
     for (int j = 0; j < words.size(); j++) {
 
       String word = words.get(j);
-      
+
       if (ignorable(word))
 	continue;
-      
+
       Lookup lookup = lookup(word);
       if (lookup == null) {
 	lookup = new Lookup(word);
@@ -120,51 +139,46 @@ public class Concorder {
       }
       lookup.indexes.add(j);
     }
-    
-    //System.out.println("KWIC: "+(System.currentTimeMillis()-ts)+"ms");
+
+    System.out.println("KWIC: " + (System.currentTimeMillis() - ts) + "ms");
   }
-  
+
   protected void handleOptions(Map<String, Object> args) {
 
     Object ignorePunctuationOpt = args.get("ignorePunctuation");
-    this.ignorePunctuation = (ignorePunctuationOpt != null) ?
-	(Boolean) (ignorePunctuationOpt) : false;
+    this.ignorePunctuation = (ignorePunctuationOpt != null) ? (Boolean) (ignorePunctuationOpt)
+	: false;
 
     Object ignoreStopWordsOpt = args.get("ignoreStopWords");
-    this.ignoreStopWords = (ignoreStopWordsOpt != null) ? 
-	(Boolean) (ignoreStopWordsOpt) : false;
+    this.ignoreStopWords = (ignoreStopWordsOpt != null) ? (Boolean) (ignoreStopWordsOpt)
+	: false;
 
     Object ignoreCaseOpt = args.get("ignoreCase");
-    this.ignoreCase = (ignoreCaseOpt != null) ?
-	(Boolean) (ignoreCaseOpt) : false;
-	
+    this.ignoreCase = (ignoreCaseOpt != null) ? (Boolean) (ignoreCaseOpt)
+	: false;
+
     Object wordCountOpt = args.get("wordCount");
-    this.wordCount = (wordCountOpt != null) ? 
-	(Integer) (wordCountOpt) : 4;
+    this.wordCount = (wordCountOpt != null) ? (Integer) (wordCountOpt) : 4;
 
     Object wordsToIgnoreOpt = args.get("wordsToIgnore");
-    this.wordsToIgnore = (wordsToIgnoreOpt != null) ?
-	(String[]) (wordsToIgnoreOpt) : new String[0];
+    this.wordsToIgnore = (wordsToIgnoreOpt != null) ? (String[]) (wordsToIgnoreOpt)
+	: new String[0];
   }
-
-  // ========================= METHODS =============================
-
 
   protected boolean ignorable(String key) {
 
     if (ignorePunctuation && RiTa.isPunctuation(key))
-	return true;
-    
+      return true;
+
     for (int i = 0; i < wordsToIgnore.length; i++) {
 
       String word = wordsToIgnore[i];
-      
+
       if (ignoreCase) {
 
 	if (key.equalsIgnoreCase(word))
 	  return true;
-      } 
-      else { // check case
+      } else { // check case
 
 	if (key.equals(word))
 	  return true;
@@ -179,9 +193,10 @@ public class Concorder {
   }
 
   private Lookup lookup(String word) {
-    
+
     String key = compareKey(word);
-    if (model == null) this.build();
+    if (model == null)
+      this.build();
     return model.get(key);
   }
 
@@ -221,10 +236,10 @@ public class Concorder {
 
     return result;
   }
-  
+
   class Lookup implements Comparable<Lookup> {
     String word, key;
-    ArrayList<Integer> indexes = new ArrayList<Integer>(); 
+    ArrayList<Integer> indexes = new ArrayList<Integer>();
 
     public Lookup(String s) {
       word = s;
@@ -239,17 +254,46 @@ public class Concorder {
       return Integer.compare(this.count(), o.count());
     }
   }
-  
+
   static String[] concat(String[] a, String[] b) {
-    if (a == null) a = new String[0];
-    if (b == null) b = new String[0];
+    if (a == null)
+      a = new String[0];
+    if (b == null)
+      b = new String[0];
     int aLen = a.length, bLen = b.length;
-    String[] c = new String[aLen+bLen];
+    String[] c = new String[aLen + bLen];
     System.arraycopy(a, 0, c, 0, aLen);
     System.arraycopy(b, 0, c, aLen, bLen);
     return c;
- }
-  
+  }
+
+  private static int extractWordCount(Map options) {
+    int wordCount = 4;
+    if (options != null) {
+      Object wc = options.get("wordCount");
+      if (wc != null)
+	wordCount = ((Integer) wc).intValue();
+    }
+    return wordCount;
+  }
+
+  static class KwicCache {
+    Concorder concorder;
+    String text, options = "";
+
+    public KwicCache(String t, Map o) {
+      this.text = t;
+      if (o != null)
+	this.options = o.toString();
+      this.concorder = new Concorder(t, o);
+    }
+
+    public boolean matches(String t, Map o) {
+      String mopts = o != null ? o.toString() : "";
+      return this.text.equals(t) && this.options.equals(mopts);
+    }
+  }
+
   public static void main(String[] args) {
     Map o = new HashMap();
     o.put("ignoreCase", true);
@@ -257,7 +301,7 @@ public class Concorder {
     System.out.println(ric.concordance());
     System.out.println(ric.count("the"));
     System.out.println(ric.count("The"));
-    RiTa.out(ric.kwik("ate",3));
+    RiTa.out(ric.kwic("atex", 3));
     // System.out.println(ric.build(RiTa.loadString("kafka.txt")));
   }
 

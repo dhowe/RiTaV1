@@ -477,10 +477,10 @@
     "note": "See <a href=\"https://en.wikipedia.org/wiki/Concordance_%28publishing%29\">https://en.wikipedia.org/wiki/Concordance_%28publishing%29</a>"
   },
   {
-    "name": "RiTa.kwik",
-    "example": "// Java<br><br>Map args = new HashMap();<br>args.put(\"ignoreCase\", false);<br>args.put(\"ignoreStopWords\", true);<br><br>String[] lines = RiTa.kwik(text, args);<br> <br> <br>// Javascript<br><br>var args = {<br>  ignoreCase: false,<br>  ignoreStopWords: true<br>};<br><br>var lines = RiTa.kwik(text, args);<br> <br>",
-    "description": "Creates a Key Word In Context (KIWC) model from a given text, a word to lookup, a wordCount and (optional) options",
-    "syntax": "RiTa.kwik(text, word, options);",
+    "name": "RiTa.kwic",
+    "example": "// Java<br><br>Map args = new HashMap();<br>args.put(\"ignoreCase\", false);<br>args.put(\"ignoreStopWords\", true);<br><br>String[] lines = RiTa.kwic(text, args);<br> <br> <br>// Javascript<br><br>var args = {<br>  ignoreCase: false,<br>  ignoreStopWords: true<br>};<br><br>var lines = RiTa.kwic(text, args);<br> <br>",
+    "description": "Creates a Key-Word-In-Context (KWIC) model from a given text, a word to lookup, a wordCount and (optional) options",
+    "syntax": "RiTa.kwic(text, word, options);",
     "parameters": [{
         "type": "String",
         "desc": "the text"
@@ -489,7 +489,7 @@
         "desc": "the word to lookup"
       }, {
         "type": "Object<br>(or Map in Java)",
-        "desc": "options (optional) the relevant options for the KWIK model:<br><br>{int} options.wordCount: <br># of words of context on either side of input word<br><br> {boolean} options.ignoreCase:<br> Ignore upper/lower case in the model <br><br> {boolean} options.ignoreStopWords: <br>Ignore words like 'the', 'and', 'a', 'of', etc, as specified in RiTa.STOP_WORDS<br><br> {boolean} options.ignorePunctuation:<br> Ignore punctuation tokens in the model<br><br> {String[]} options.wordsToIgnore:<br> A set of words (alternative stop-words, for example) to ignore.<br><br>"
+        "desc": "options (optional) the relevant options for the KWIC model:<br><br>{int} options.wordCount: <br># of words/punctuation of context on either side of input word<br><br> {boolean} options.ignoreCase:<br> Ignore upper/lower case in the model <br><br> {boolean} options.ignoreStopWords: <br>Ignore words like 'the', 'and', 'a', 'of', etc, as specified in RiTa.STOP_WORDS<br><br> {boolean} options.ignorePunctuation:<br> Ignore punctuation tokens in the model<br><br> {String[]} options.wordsToIgnore:<br> A set of words (alternative stop-words, for example) to ignore.<br><br>"
       }
     ],
     "returns": [{

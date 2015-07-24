@@ -66,7 +66,7 @@
                     <br>
                     <a href="RiTa/RiTa.isW_Question/index.php">RiTa.isW_Question()</a>
                     <br>
-                    <a href="RiTa/RiTa.kwik/index.php">RiTa.kwik()</a>
+                    <a href="RiTa/RiTa.kwic/index.php">RiTa.kwic()</a>
                     <br>
                     <a href="RiTa/RiTa.loadString/index.php">RiTa.loadString()</a>
                     <br>
@@ -240,7 +240,7 @@
 
 
 
-</div>
+            </div>
             <div class="gd-3">
                  <div class="category"><a href="RiLexicon.php"><b>RiLexicon</b></a>
                     <a href="RiLexicon/addWord/index.php">addWord()</a>
@@ -288,19 +288,14 @@
                     <a href="RiLexicon/words/index.php">words()</a>
                 </div>
 
-
-
-
-
                 <div class="category"><a href="RiTaEvent.php"><b>RiTaEvent</b></a>
-
-                    <a href="RiTaEvent/data/index.php">data()</a>
-                    <br>
                     <a href="RiTaEvent/isType/index.php">isType()</a>
+                    <br>
+                    <!--a href="RiTaEvent/data/index.php">data()</a>
                     <br>
                     <a href="RiTaEvent/source/index.php">source()</a>
                     <br>
-                    <a href="RiTaEvent/type/index.php">type()</a>
+                    <a href="RiTaEvent/type/index.php">type()</a-->
                 </div>
 
                     <div class="category">

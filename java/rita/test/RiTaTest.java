@@ -1212,13 +1212,31 @@ public class RiTaTest
     equal(data.get("The"),null);
     equal(data.get("THE"),null);
     
-    // TODO: larger text, plus all combinations of options
+    args.put("ignoreCase", false);
+    args.put("ignorePunctuation", true);
+    args.put("ignoreStopWords", true);
+    String txt = RiTa.loadString("kafka.txt");
+    System.out.println(txt.length());
+    data = RiTa.concordance(txt,args);
+    ok(data.get("Gregor")==199);
+    ok(data.get("Gregor")>data.get("sister"));
+    // TODO: larger text, plus all combinations of options, plus sorting
   }
   
   @Test
-  public void testKwik()
+  public void testKwic()
   {
-    ok("TODO");
+    String s = "The dog ate the cat. The bear Ate the honey";
+    String[] lines = RiTa.kwic(s,"ate");
+    equal(lines.length,1);
+    //RiTa.out(lines);
+    Map m = new HashMap();
+    m.put("ignoreCase", true);
+    lines = RiTa.kwic(s,"ate",m);
+    //RiTa.out(lines);
+    equal(lines.length,2);
+    
+    // TODO: more tests with bigger text and diff. options
   }
   
   @Test

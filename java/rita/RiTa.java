@@ -1551,21 +1551,15 @@ public class RiTa implements Constants
         }
     }.start();
   }
+   
+  public static String[] kwic(String text, String word, Map options) {
+    return Concorder.cachedKwic(text, word, options);
+  }
   
-  public static String[] kwik(String text, String word, Map options) {
-    
-    return new Concorder(text, options).kwik(word, extractWordCount(options));
+  public static String[] kwic(String text, String word) {
+    return kwic(text, word, null);
   }
 
-  private static int extractWordCount(Map options) {
-    int wordCount = 4;
-    if (options != null) {
-      Object wc = options.get("wordCount");
-      if (wc != null) wordCount = ((Integer)wc).intValue();
-    }
-    return wordCount;
-  }
-  
   public static Map<String, Integer> concordance(String text, Map options) {
     return new Concorder(text, options).concordance();
   }
@@ -1574,20 +1568,6 @@ public class RiTa implements Constants
     return concordance(text, null);
   }
   
-  public static void main(String[] args)
-  {
-    //RiTa.SILENT = true;
-    String[] toks = tokenize("The boy, dressed in red, ate an apple.!?");
-    toks[0] = "@#$%^#$%^";
-    toks[1] = "can't";
-    toks[2] = "--";
-    toks[3] = "\"'`";
-    for (int i = 0; i < toks.length; i++)
-    {
-      System.out.println(toks[i]+" -> "+isPunctuation(toks[i])+"");
-    } 
-  }
-
   public static float minEditDistance(String s1, String s2) {
     return new MinEditDist().computeRaw(s1, s2);
   }
@@ -1605,4 +1585,5 @@ public class RiTa implements Constants
     return (!normalized) ? new MinEditDist().computeRaw(s1, s2) :
       new MinEditDist().computeAdjusted(s1, s2);
   }
+
 }
