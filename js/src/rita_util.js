@@ -18,6 +18,11 @@ var Util = {
     return true;
   },
 
+  last: function(word) { // last char of string
+    if (!word || !word.length) return E;
+    return word.charAt(word.length - 1);
+  },
+
   isNum: function(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
   },

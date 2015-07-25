@@ -5,9 +5,10 @@ var Util = require('./rita_util');
 
 var N = Util.N, S = Util.S, O = Util.O, A = Util.A, B = Util.B,
   R = Util.R, F = Util.F, is = Util.is, ok = Util.ok, get = Util.get,
-  strOk = Util.strOk, trim = Util.trim, SP = Util.SP, E = Util.E,
+  strOk = Util.strOk, trim = Util.trim, SP = Util.SP, E = Util.E, EA = [],
   startsWith = Util.startsWith, okeys = Util.okeys, inArray = Util.inArray,
-  err = Util.err, warn = Util.warn, log = Util.log;
+  err = Util.err, warn = Util.warn, log = Util.log, endsWith = Util.endsWith,
+  isNum = Util.isNum, last = Util.last;
 
 // for (var name in util) {
 //   module.exports[name] = util[name];

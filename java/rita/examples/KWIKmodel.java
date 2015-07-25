@@ -17,7 +17,6 @@ public class KWIKmodel extends PApplet {
     HashMap args = new HashMap();
     args.put("ignorePunctuation", true);
     args.put("ignoreStopWords", true);
-    args.put("storeSentences", true);
     args.put("wordCount", 5);
     display = RiTa.kwic(RiTa.loadString("kafka.txt"), word, args);
   }

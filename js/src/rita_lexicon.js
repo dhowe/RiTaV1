@@ -1,8 +1,18 @@
+var Util = require('./rita_util');
+
+var N = Util.N, S = Util.S, O = Util.O, A = Util.A, B = Util.B,
+  R = Util.R, F = Util.F, is = Util.is, ok = Util.ok, get = Util.get,
+  strOk = Util.strOk, trim = Util.trim, SP = Util.SP, E = Util.E, EA = [],
+  startsWith = Util.startsWith, okeys = Util.okeys, inArray = Util.inArray,
+  err = Util.err, warn = Util.warn, log = Util.log, endsWith = Util.endsWith,
+  isNum = Util.isNum, last = Util.last;
+
 var RiTa = require('./rita').RiTa;
 var RiLexicon = RiTa._makeClass();
 
 RiLexicon.data; // shared static
 RiLexicon.emittedWarning = false;
+RiLexicon.SILENCE_LTS = false;
 
 RiLexicon.prototype = {
 
@@ -404,13 +414,10 @@ RiLexicon.prototype = {
 
     if (!strOk(word)) return E;
 
-    var wordArr = RiTa.tokenize(word),
-      raw = [];
+    var wordArr = RiTa.tokenize(word), raw = [];
 
-    for (var i = 0; i < wordArr.length; i++) {
-
+    for (var i = 0; i < wordArr.length; i++)
       raw[i] = this._getRawPhones(wordArr[i]).replace(/\s/g, '/');
-    }
 
     return RiTa.untokenize(raw).replace(/1/g, E).trim();
   },
@@ -506,7 +513,7 @@ RiLexicon.prototype = {
     var phones, data = this._lookupRaw(word);
     useLTS = useLTS || false;
 
-    if (data && useLTS) {
+    if (data && useLTS && !RiTa.SILENT && !RiLexicon.SILENCE_LTS) {
       log("[RiTa] Using letter-to-sound rules for: " + word);
 
       phones = LetterToSound.getInstance().getPhones(word);
