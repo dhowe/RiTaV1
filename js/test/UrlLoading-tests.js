@@ -4,7 +4,7 @@
 var runtests = function() {
 
     var filePath = (typeof module != 'undefined' && module.exports) ?
-    "./test/data/" : "./data/", silentOrig;
+      "./test/data/" : "../data/", silentOrig;
 
     QUnit.module("UrlLoading", {
         setup : function() {

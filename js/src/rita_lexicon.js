@@ -1,4 +1,4 @@
-var Util = require('./rita_util');
+/*var Util = require('./rita_util');
 
 var N = Util.N, S = Util.S, O = Util.O, A = Util.A, B = Util.B,
   R = Util.R, F = Util.F, is = Util.is, ok = Util.ok, get = Util.get,
@@ -7,8 +7,8 @@ var N = Util.N, S = Util.S, O = Util.O, A = Util.A, B = Util.B,
   err = Util.err, warn = Util.warn, log = Util.log, endsWith = Util.endsWith,
   isNum = Util.isNum, last = Util.last;
 
-var RiTa = require('./rita').RiTa;
-var RiLexicon = RiTa._makeClass();
+var RiTa = require('./rita').RiTa;*/
+var RiLexicon = makeClass();
 
 RiLexicon.data; // shared static
 RiLexicon.emittedWarning = false;
@@ -652,4 +652,4 @@ RiLexicon.prototype = {
   }
 };
 
-module.exports = RiLexicon;
+//module.exports = RiLexicon;

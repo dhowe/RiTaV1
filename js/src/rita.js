@@ -1,14 +1,14 @@
 
 /*global console:0, Processing:0, window:0, document:0, _RiTa_DICT:0, _RiTa_LTS:0 */
 
-var Util = require('./rita_util');
+//var Util = require('./rita_util');
 
-var N = Util.N, S = Util.S, O = Util.O, A = Util.A, B = Util.B,
+/*var N = Util.N, S = Util.S, O = Util.O, A = Util.A, B = Util.B,
   R = Util.R, F = Util.F, is = Util.is, ok = Util.ok, get = Util.get,
   strOk = Util.strOk, trim = Util.trim, SP = Util.SP, E = Util.E, EA = [],
   startsWith = Util.startsWith, okeys = Util.okeys, inArray = Util.inArray,
   err = Util.err, warn = Util.warn, log = Util.log, endsWith = Util.endsWith,
-  isNum = Util.isNum, last = Util.last;
+  isNum = Util.isNum, last = Util.last;*/
 
 // for (var name in util) {
 //   module.exports[name] = util[name];
@@ -17,7 +17,6 @@ var N = Util.N, S = Util.S, O = Util.O, A = Util.A, B = Util.B,
 
 var RiTa = {
 
-  /* The current version of the RiTa tools */
   VERSION: '##version##',
 
   /* Use to disable loading of lexicon */
@@ -301,7 +300,6 @@ var RiTa = {
       words = words.replace(/'re /g, " 're ");
       words = words.replace(/'ve /g, " have ");
       words = words.replace(/n't /g, " not ");
-
       words = words.replace(/'LL /g, " 'LL ");
       words = words.replace(/'RE /g, " 'RE ");
       words = words.replace(/'VE /g, " 'VE ");
@@ -315,7 +313,7 @@ var RiTa = {
     // "Nicole I. Kidman" gets tokenized as "Nicole I . Kidman"
     words = words.replace(/ ([A-Z]) \\./g, " $1. ");
     words = words.replace(/\\s+/g, SP);
-    words = words.replace(/^\\s+/g);
+    words = words.replace(/^\\s+/g, E);
 
     return trim(words).split(/\s+/); // DCH: fixed bug here, 6/3/12
   },
@@ -593,11 +591,11 @@ var RiTa = {
     var s = '[�`~\"\/' + "\\'_\\-[\\]{}()*+!?%&.,\\\\^$|#@<>|+=;:]";
     var regex = new RegExp("^" + s + "+|" + s + "+$", 'g');
 
-    return (text === E) ? E : text.replace(regex);
+    return (text === E) ? E : text.replace(regex,E);
   },
 
   stripPunctuation: function(text) {
-    return (text === E) ? E : text.replace(PUNCTUATION_CLASS);
+    return (text === E) ? E : text.replace(PUNCTUATION_CLASS,E);
   },
 
   isPunctuation: function(text) {
@@ -615,7 +613,7 @@ var RiTa = {
   },
 
   chomp: function(txt) {
-    return txt.replace(/\s+$|^\s+/g);
+    return txt.replace(/\s+$|^\s+/g,E);
   },
 
   getPhonemes: function(words) {
@@ -699,7 +697,7 @@ for (var i = 0; i < RiTa._FEATURES.length; i++)
 // RiMarkov
 // ////////////////////////////////////////////////////////////
 
-var RiMarkov = RiTa._makeClass();
+var RiMarkov = makeClass();
 
 RiMarkov.MAX_GENERATION_ATTEMPTS = 1000;
 RiMarkov._SSRE = /"?[A-Z][a-z"',;`-]*/;
@@ -1335,7 +1333,7 @@ var RiWordNet = function() { // stub
 // RiString
 ////////////////////////////////////////////////////////////////
 
-var RiString = RiTa._makeClass();
+var RiString = makeClass();
 
 RiString.phones = {
 
@@ -1598,8 +1596,8 @@ RiString.prototype = {
         }
       }
 
-      phonemes += phones.replace(/[0-2]/g).replace(/ /g, delim) + SP;
-      syllables += phones.replace(/ /g, slash).replace(/1/g) + SP;
+      phonemes += phones.replace(/[0-2]/g, E).replace(/ /g, delim) + SP;
+      syllables += phones.replace(/ /g, slash).replace(/1/g, E) + SP;
 
       if (!useRaw) {
         stressyls = phones.split(SP);
@@ -1846,7 +1844,7 @@ RiString.prototype = {
 
   removeWord: function(wordIdx) {
 
-    return this.replaceWord(wordIdx);
+    return this.replaceWord(wordIdx, E);
   },
 
   insertWord: function(wordIdx, newWord) {
@@ -1951,7 +1949,7 @@ RiString.prototype = {
 // RiGrammar
 // ////////////////////////////////////////////////////////////
 
-var RiGrammar = RiTa._makeClass();
+var RiGrammar = makeClass();
 
 RiGrammar.START_RULE = "<start>";
 RiGrammar.PROB_PATT = /(.*[^\s])\s*\[([0-9.]+)\](.*)/;
@@ -2298,7 +2296,7 @@ RiGrammar.prototype = {
       if (parts && parts.length == 2) {
 
         var funName = parts[0];
-        var argStr = parts[1].replace(/\)/);
+        var argStr = parts[1].replace(/\)/,E);
         var g = context;
         if (!g && typeof window != 'undefined') g = window;
         if (g && g[funName] && is(g[funName], F)) {
@@ -2379,7 +2377,7 @@ RiGrammar.prototype = {
 
 }; // end RiGrammar
 
-var RiTaEvent = RiTa._makeClass();
+var RiTaEvent = makeClass();
 
 RiTaEvent._callbacksDisabled = false;
 RiTaEvent.ID = 0;
@@ -2439,7 +2437,7 @@ RiTaEvent.prototype = {
 // RiLetterToSound (adapted from FreeTTS text-to-speech)
 /////////////////////////////////////////////////////////////////////////
 
-var LetterToSound = RiTa._makeClass();
+var LetterToSound = makeClass();
 
 /*
  * Entry in file represents the total number of states in the file. This
@@ -2689,7 +2687,7 @@ LetterToSound.prototype = {
 // DecisionState
 /////////////////////////////////////////////////////////////////////////
 
-var DecisionState = RiTa._makeClass();
+var DecisionState = makeClass();
 
 DecisionState.TYPE = 1;
 
@@ -2747,7 +2745,7 @@ DecisionState.prototype = {
 // FinalState
 // ///////////////////////////////////////////////////////////////////////
 
-var FinalState = RiTa._makeClass();
+var FinalState = makeClass();
 
 FinalState.TYPE = 2;
 
@@ -2812,7 +2810,7 @@ FinalState.prototype = {
 //StringTokenizer
 /////////////////////////////////////////////////////////////////////////
 
-var StringTokenizer = RiTa._makeClass();
+var StringTokenizer = makeClass();
 
 StringTokenizer.prototype = {
 
@@ -2836,7 +2834,7 @@ StringTokenizer.prototype = {
 // TextNode
 // ////////////////////////////////////////////////////////////
 
-var TextNode = RiTa._makeClass();
+var TextNode = makeClass();
 
 TextNode.prototype = {
 
@@ -3030,7 +3028,7 @@ TextNode.prototype = {
 // Conjugator
 // ////////////////////////////////////////////////////////////
 
-var Conjugator = RiTa._makeClass();
+var Conjugator = makeClass();
 
 Conjugator.prototype = {
 
@@ -3620,7 +3618,7 @@ RiTa.stem_Porter = (function() {
       re = new RegExp(mgr0);
       if (re.test(fp[1])) {
         re = /.$/;
-        w = w.replace(re);
+        w = w.replace(re,E);
       }
     } else if (re2.test(w)) {
       fp = re2.exec(w);
@@ -3635,7 +3633,7 @@ RiTa.stem_Porter = (function() {
           w = w + "e";
         } else if (re3.test(w)) {
           re = /.$/;
-          w = w.replace(re);
+          w = w.replace(re,E);
         } else if (re4.test(w)) {
           w = w + "e";
         }
@@ -3711,7 +3709,7 @@ RiTa.stem_Porter = (function() {
     re2 = new RegExp(mgr1);
     if (re.test(w) && re2.test(w)) {
       re = /.$/;
-      w = w.replace(re);
+      w = w.replace(re,E);
     }
 
     // and turn initial Y back to y
@@ -4147,7 +4145,7 @@ var MinEditDist = {
 //////// Concorder
 ////////////////////////////////////////////////////////////////
 
-var Concorder = RiTa._makeClass();
+var Concorder = makeClass();
 
 Concorder.prototype = {
 
@@ -4254,7 +4252,7 @@ Concorder.prototype = {
 //////// RE
 ////////////////////////////////////////////////////////////////
 
-var RE = RiTa._makeClass();
+var RE = makeClass();
 
 RE.prototype = {
 
@@ -5046,10 +5044,10 @@ var hasP5 = (typeof p5 !== 'undefined');
 if (!RiTa.SILENT && console)
   console.log('[INFO] RiTaJS.version [' + RiTa.VERSION + ']');
 
-module.exports.RiTa = RiTa;
+/*module.exports.RiTa = RiTa;
 module.exports.RiString = RiString;
 //module.exports.RiLexicon = RiLexicon;
 module.exports.RiGrammar = RiGrammar;
 module.exports.RiMarkov = RiMarkov;
 module.exports.RiWordNet = RiWordNet;
-module.exports.RiTaEvent = RiTaEvent;
+module.exports.RiTaEvent = RiTaEvent;*/

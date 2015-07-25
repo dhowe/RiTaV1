@@ -1,5 +1,7 @@
 'use strict';
 
+var rita = require('./rita_lts');
+var rita = require('./rita_dict');
 var rita = require('./rita');
 var rilexicon = require('./rita_lexicon');
 
