@@ -1,7 +1,6 @@
 package rita.support;
 
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -49,7 +48,8 @@ public class MinEditDist
    */ 
   public float computeAdjusted(String source, String target)
   {
-  	return computeRaw(source, target) / (float) (source.length() + target.length());
+    float denominator = ( (float) (source.length() + target.length() ) / 2);
+    return computeRaw(source, target) / denominator;
   }
   
   /**
@@ -58,6 +58,7 @@ public class MinEditDist
    */ 
   public int computeRaw(String source, String target)
   {
+    
     int matrix[][]; // matrix
     char sI; // ith character of s
     char tJ; // jth character of t
@@ -117,10 +118,8 @@ public class MinEditDist
    */ 
   public float computeAdjusted(String[] source, String[] target)
   {
-//  System.out.println(Arrays.asList(source)+","+Arrays.asList(target));
-//  System.out.println(computeRaw(source, target)+"/"+(float)(source.length + target.length));
-
-    return  computeRaw(source, target) / (float) (source.length + target.length);
+    float denominator = ( (float) (source.length + target.length ) / 2);
+    return computeRaw(source, target) / denominator;
   }
   
   /**
