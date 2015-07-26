@@ -48,7 +48,7 @@ public class MinEditDist
    */ 
   public float computeAdjusted(String source, String target)
   {
-    float denominator = ( (float) (source.length() + target.length() ) / 2);
+    float denominator = Math.max(source.length(), target.length());
     return computeRaw(source, target) / denominator;
   }
   
@@ -118,7 +118,7 @@ public class MinEditDist
    */ 
   public float computeAdjusted(String[] source, String[] target)
   {
-    float denominator = ( (float) (source.length + target.length ) / 2);
+    float denominator = Math.max(source.length, target.length);
     return computeRaw(source, target) / denominator;
   }
   

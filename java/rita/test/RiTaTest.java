@@ -1931,7 +1931,7 @@ public class RiTaTest
 
     str1 = "The dog"; str2 = "";
     equal(RiTa.minEditDistance(str1, str2, false), 7);
-    equal(RiTa.minEditDistance(str1, str2, true), (float) 7 / 3.5);
+    equal(RiTa.minEditDistance(str1, str2, true), 1);
   }
   
   @Test
@@ -1945,7 +1945,7 @@ public class RiTaTest
     arr1 = new String[]{"The", "dog", "ate"};
     arr2 = new String[0];
     equal(RiTa.minEditDistance(arr1, arr2, false), 3);
-    equal(RiTa.minEditDistance(arr1, arr2, true), (float) 3 / 1.5);
+    equal(RiTa.minEditDistance(arr1, arr2, true), 1);
   }
   
   @Test
