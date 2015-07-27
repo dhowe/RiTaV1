@@ -16,14 +16,15 @@
 
         function setup() {
 
-            createCanvas(600, 400);
+            createCanvas(600, 600);
+            textFont('Times');
 
             input = createInput([ word ]);
-            input.size(50);
-            input.position(width / 2 - 50, 10);
+            input.size(70);
+            input.position(width / 2 - 50, 15);
 
-            button = createButton('generate');
-            button.position(width / 2 + 10, 10);
+            button = createButton('UPDATE');
+            button.position(width / 2 + 30, 15);
             button.mousePressed(newWord);
 
             updateKWIC();
@@ -37,15 +38,18 @@
                 wordCount: 6
             });
 
-            background(255);
+            background(250);
             fill(0);
+            textSize(14);
+            text('search:', 200, 21);
 
+            textSize(18);
             var tw = textWidth(word) / 2;
             for (var i = 0; i < kwic.length; i++) {
 
                 //console.log(display[i]);
                 var parts = kwic[i].split(word);
-                var x = width / 2, y = i * 20 + 40;
+                var x = width / 2, y = i * 20 + 50;
 
                 fill(0);
                 textAlign(RIGHT);
