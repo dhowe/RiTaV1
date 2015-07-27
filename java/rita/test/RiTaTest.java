@@ -1928,6 +1928,14 @@ public class RiTaTest
     String str1 = "The dog", str2 = "The cat";
     equal(RiTa.minEditDistance(str1, str2, false), 3);
     equal(RiTa.minEditDistance(str1, str2, true), (float) 3 / 7);
+    
+    str1 = "fefnction"; str2 = "faunctional";
+    equal(RiTa.minEditDistance(str1, str2, false), 4);
+    equal(RiTa.minEditDistance(str1, str2, true), (float) 4 / 11);
+    
+    str1 = "intention"; str2 = "execution";
+    equal(RiTa.minEditDistance(str1, str2, false), 5);
+    equal(RiTa.minEditDistance(str1, str2, true), (float) 5 / 9);
 
     str1 = "The dog"; str2 = "";
     equal(RiTa.minEditDistance(str1, str2, false), 7);
@@ -1946,6 +1954,11 @@ public class RiTaTest
     arr2 = new String[0];
     equal(RiTa.minEditDistance(arr1, arr2, false), 3);
     equal(RiTa.minEditDistance(arr1, arr2, true), 1);
+    
+    arr1 = new String[]{"fefnction", "intention", "ate"};
+    arr2 = new String[]{"faunctional", "execution", "ate"};
+    equal(RiTa.minEditDistance(arr1, arr2, false), 2);
+    equal(RiTa.minEditDistance(arr1, arr2, true), (float) 2 / 3);
   }
   
   @Test
