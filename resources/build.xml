@@ -8,7 +8,7 @@
 	<property name="project.dist" location="dist"/>
 	<property name="dist.bin" location="dist/bin"/>
 	<property name="project.lib" location="lib/java"/>
-	<property name="project.examples" location="web/examples"/>
+	<property name="project.examples" location="www/examples"/>
 	<property name="p5.sketchbook" location="${user.home}/Documents/Processing"/>
 	<property name="p5.libraries" location="${p5.sketchbook}/libraries/"/>
 
