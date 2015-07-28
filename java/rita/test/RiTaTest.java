@@ -412,7 +412,7 @@ public class RiTaTest
     equal(RiTa.stripPunctuation("Hel/lo"), "Hello");
     equal(RiTa.stripPunctuation("Hel\"lo"), "Hello");
     equal(RiTa.stripPunctuation("Hel-lo"), "Hello");
-    //equal(RiTa.stripPunctuation("Hel`lo"), "Hello");
+    equal(RiTa.stripPunctuation("Hel`lo"), "Hello");
     equal(RiTa.stripPunctuation("Hel?lo"), "Hello");
     equal(RiTa.stripPunctuation("Hel.lo"), "Hello");
     equal(RiTa.stripPunctuation("Hel+lo"), "Hello");
