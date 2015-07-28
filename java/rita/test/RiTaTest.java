@@ -12,7 +12,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -413,7 +412,7 @@ public class RiTaTest
     equal(RiTa.stripPunctuation("Hel/lo"), "Hello");
     equal(RiTa.stripPunctuation("Hel\"lo"), "Hello");
     equal(RiTa.stripPunctuation("Hel-lo"), "Hello");
-    equal(RiTa.stripPunctuation("Hel`lo"), "Hello");
+    //equal(RiTa.stripPunctuation("Hel`lo"), "Hello");
     equal(RiTa.stripPunctuation("Hel?lo"), "Hello");
     equal(RiTa.stripPunctuation("Hel.lo"), "Hello");
     equal(RiTa.stripPunctuation("Hel+lo"), "Hello");
@@ -1193,7 +1192,7 @@ public class RiTaTest
     ok(data.get("The")==1);
     equal(data.get("THE"),null);
     
-    Map<String, Comparable> args = new HashMap<String, Comparable>();
+    Map<String, Object> args = new HashMap<String, Object>();
     args.put("ignoreCase", false);
     args.put("ignoreStopWords", false);
     args.put("ignorePunctuation", false);
@@ -1212,15 +1211,111 @@ public class RiTaTest
     equal(data.get("The"),null);
     equal(data.get("THE"),null);
     
+    // test with larger text with all false 
+    args.put("ignoreCase", false);
+    args.put("ignorePunctuation", false);
+    args.put("ignoreStopWords", false);
+    String txt = RiTa.loadString("kafka.txt");
+    data = RiTa.concordance(txt, args);
+    ok(data.get("Gregor")==199);
+    ok(data.get("Gregor") + data.get("Gregor's") == 298);
+    ok(data.get("sister") == 96);
+    ok(data.get("sister") + data.get("sister's") == 101);
+    ok(data.get("here")==19);
+    ok(data.get("the") == 1097);
+    ok(data.get("The") == 51);
+    ok(data.get(",")==1292);
+    ok(data.get(".")==737);
+    
+    // test all true
+    int nUppercaseFather = data.get("Father");
+    int nLowercaseFather = data.get("father");
+    args.put("ignoreCase", true);
+    args.put("ignorePunctuation", true);
+    args.put("ignoreStopWords", true);
+    data = RiTa.concordance(txt, args);
+    ok(data.get("gregor") + data.get("gregor's") == 298);
+    ok(data.get("sister") + data.get("sister's") == 101);
+    equal(data.get("here"),null);
+    equal(data.get("the"),null);
+    equal(data.get(","),null);
+    equal(data.get("."),null);
+    ok(data.get("father") == nUppercaseFather + nLowercaseFather);
+    
+    // test ignoreCase
+    args.put("ignoreCase", true);
+    args.put("ignorePunctuation", false);
+    args.put("ignoreStopWords", false);
+    data = RiTa.concordance(txt, args);
+    ok(data.get("father") == nUppercaseFather + nLowercaseFather);
+
+    // test ignorePunctuation
+    args.put("ignoreCase", false);
+    args.put("ignorePunctuation", true);
+    args.put("ignoreStopWords", false);
+    data = RiTa.concordance(txt, args);
+    equal(data.get(","),null);
+    equal(data.get("."),null);
+
+    // test ignoreStopWords
+    args.put("ignoreCase", false);
+    args.put("ignorePunctuation", false);
+    args.put("ignoreStopWords", true);
+    data = RiTa.concordance(txt, args);
+    equal(data.get("here"),null);
+    equal(data.get("the"),null);
+    
+    // test ignoreStopWords and ignorePunctuation
     args.put("ignoreCase", false);
     args.put("ignorePunctuation", true);
     args.put("ignoreStopWords", true);
-    String txt = RiTa.loadString("kafka.txt");
-    System.out.println(txt.length());
-    data = RiTa.concordance(txt,args);
-    ok(data.get("Gregor")==199);
-    ok(data.get("Gregor")>data.get("sister"));
-    // TODO: larger text, plus all combinations of options, plus sorting
+    data = RiTa.concordance(txt, args);
+    equal(data.get(","),null);
+    equal(data.get("."),null);
+    equal(data.get("here"),null);
+    equal(data.get("the"),null);
+    
+    // test ignoreStopWords and ignoreCase
+    args.put("ignoreCase", true);
+    args.put("ignorePunctuation", false);
+    args.put("ignoreStopWords", true);
+    data = RiTa.concordance(txt, args);
+    ok(data.get("father") == nUppercaseFather + nLowercaseFather);
+    equal(data.get("here"),null);
+    equal(data.get("the"),null);
+    
+    // test ignorePunctuation and ignoreCase
+    args.put("ignoreCase", true);
+    args.put("ignorePunctuation", true);
+    args.put("ignoreStopWords", false);
+    data = RiTa.concordance(txt, args);
+    ok(data.get("father") == nUppercaseFather + nLowercaseFather);
+    equal(data.get(","),null);
+    equal(data.get("."),null);
+    
+    // test wordsToIgnore
+    args.put("wordsToIgnore", new String[]{"father", "sister"}); 
+    args.put("ignoreCase", false);
+    args.put("ignorePunctuation", false);
+    args.put("ignoreStopWords", false);
+    data = RiTa.concordance(txt, args);
+    equal(data.get("father"),null);
+    equal(data.get("sister"),null);
+    
+    // test that result is sorted by frequency
+    boolean isDescending = true;
+    int current = -1; // -1 indicate 'current' at starting value 
+    for (String entry : data.keySet()) {      
+      if (current == -1)
+	current = data.get(entry);
+      else if (current < data.get(entry)) {
+	isDescending = false;
+	break;
+      }
+      else
+	current = data.get(entry);
+    }
+    equal(isDescending,true);
   }
   
   @Test
@@ -1236,7 +1331,46 @@ public class RiTaTest
     //RiTa.out(lines);
     equal(lines.length,2);
     
-    // TODO: more tests with bigger text and diff. options
+    // test ignorePunctuation
+    m.put("ignorePunctuation", false);
+    String txt = RiTa.loadString("kafka.txt");
+    lines = RiTa.kwic(txt,",",m);
+    equal(lines.length,1292);
+    m.put("ignorePunctuation", true);
+    lines = RiTa.kwic(txt,",",m);
+    equal(lines.length,0);
+
+    // test ignoreCase
+    m.put("wordCount", 4);
+    m.put("ignoreCase", true);
+    lines = RiTa.kwic(txt,"eventually",m);
+    equal(lines.length,2);
+    m.put("ignoreCase", false);
+    lines = RiTa.kwic(txt,"eventually",m);
+    equal(lines.length,1);
+    
+    // test ignoreStopWords
+    lines = RiTa.kwic(txt,"here",m);
+    equal(lines.length,19);
+    m.put("ignoreStopWords", true);
+    lines = RiTa.kwic(txt,"here",m);
+    equal(lines.length,0);
+
+    // test wordCount
+    m.put("wordCount", 6);
+    m.put("ignoreCase", false);
+    lines = RiTa.kwic(txt,"sister",m);
+    for (int i = 0; i < lines.length; i++) {
+      int length = RiTa.tokenize(lines[i]).length;
+      equal(length,6 + 1 + 6);
+    }
+
+    // test wordsToIgnore
+    m.put("wordsToIgnore", new String[]{"father", "sister"}); 
+    lines = RiTa.kwic(txt,"father",m);
+    equal(lines.length,0);
+    lines = RiTa.kwic(txt,"sister",m);
+    equal(lines.length,0);
   }
   
   @Test
