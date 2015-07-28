@@ -4215,7 +4215,12 @@ Concorder.prototype = {
       var word = this.words[j];
       if (this.ignorable(word)) continue;
       var lookup = this.lookup(word);
-      if (!lookup) {
+
+      // The typeof check below fixes a strange bug in Firefox: #XYZ
+      // where the string 'watch' comes back from lookup as a function
+      // TODO: resolve in a better way
+      if (!lookup || typeof lookup !== 'object') {
+
          lookup = { word: word, key: this.compareKey(word), indexes: [] };
          this.model[lookup.key] = lookup;
       }
