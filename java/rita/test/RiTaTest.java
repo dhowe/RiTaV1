@@ -1193,7 +1193,7 @@ public class RiTaTest
     ok(data.get("The")==1);
     equal(data.get("THE"),null);
     
-    Map<String, Comparable> args = new HashMap<String, Comparable>();
+    Map<String, Object> args = new HashMap<String, Object>();
     args.put("ignoreCase", false);
     args.put("ignoreStopWords", false);
     args.put("ignorePunctuation", false);
@@ -1292,9 +1292,16 @@ public class RiTaTest
     data = RiTa.concordance(txt, args);
     ok(data.get("father") == nUppercaseFather + nLowercaseFather);
     equal(data.get(","),null);
-    equal(data.get("."),null);    
+    equal(data.get("."),null);
     
-    // TODO: test wordsToIgnore and wordCount, plus sorting
+    // test wordsToIgnore
+    args.put("wordsToIgnore", new String[]{"father", "sister"}); 
+    args.put("ignoreCase", false);
+    args.put("ignorePunctuation", false);
+    args.put("ignoreStopWords", false);
+    data = RiTa.concordance(txt, args);
+    equal(data.get("father"),null);
+    equal(data.get("sister"),null);
   }
   
   @Test
@@ -1310,7 +1317,46 @@ public class RiTaTest
     //RiTa.out(lines);
     equal(lines.length,2);
     
-    // TODO: more tests with bigger text and diff. options
+    // test ignorePunctuation
+    m.put("ignorePunctuation", false);
+    String txt = RiTa.loadString("kafka.txt");
+    lines = RiTa.kwic(txt,",",m);
+    equal(lines.length,1292);
+    m.put("ignorePunctuation", true);
+    lines = RiTa.kwic(txt,",",m);
+    equal(lines.length,0);
+
+    // test ignoreCase
+    m.put("wordCount", 4);
+    m.put("ignoreCase", true);
+    lines = RiTa.kwic(txt,"eventually",m);
+    equal(lines.length,2);
+    m.put("ignoreCase", false);
+    lines = RiTa.kwic(txt,"eventually",m);
+    equal(lines.length,1);
+    
+    // test ignoreStopWords
+    lines = RiTa.kwic(txt,"here",m);
+    equal(lines.length,19);
+    m.put("ignoreStopWords", true);
+    lines = RiTa.kwic(txt,"here",m);
+    equal(lines.length,0);
+
+    // test wordCount
+    m.put("wordCount", 6);
+    m.put("ignoreCase", false);
+    lines = RiTa.kwic(txt,"sister",m);
+    for (int i = 0; i < lines.length; i++) {
+      int length = RiTa.tokenize(lines[i]).length;
+      equal(length,6 + 1 + 6);
+    }
+
+    // test wordsToIgnore
+    m.put("wordsToIgnore", new String[]{"father", "sister"}); 
+    lines = RiTa.kwic(txt,"father",m);
+    equal(lines.length,0);
+    lines = RiTa.kwic(txt,"sister",m);
+    equal(lines.length,0);
   }
   
   @Test
