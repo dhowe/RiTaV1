@@ -12,7 +12,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -1302,6 +1301,21 @@ public class RiTaTest
     data = RiTa.concordance(txt, args);
     equal(data.get("father"),null);
     equal(data.get("sister"),null);
+    
+    // test that result is sorted by frequency
+    boolean isDescending = true;
+    int current = -1; // -1 indicate 'current' at starting value 
+    for (String entry : data.keySet()) {      
+      if (current == -1)
+	current = data.get(entry);
+      else if (current < data.get(entry)) {
+	isDescending = false;
+	break;
+      }
+      else
+	current = data.get(entry);
+    }
+    equal(isDescending,true);
   }
   
   @Test
