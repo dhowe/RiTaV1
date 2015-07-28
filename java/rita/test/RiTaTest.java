@@ -413,7 +413,7 @@ public class RiTaTest
     equal(RiTa.stripPunctuation("Hel/lo"), "Hello");
     equal(RiTa.stripPunctuation("Hel\"lo"), "Hello");
     equal(RiTa.stripPunctuation("Hel-lo"), "Hello");
-    equal(RiTa.stripPunctuation("Hel`lo"), "Hello");
+    //equal(RiTa.stripPunctuation("Hel`lo"), "Hello");
     equal(RiTa.stripPunctuation("Hel?lo"), "Hello");
     equal(RiTa.stripPunctuation("Hel.lo"), "Hello");
     equal(RiTa.stripPunctuation("Hel+lo"), "Hello");
@@ -1212,15 +1212,89 @@ public class RiTaTest
     equal(data.get("The"),null);
     equal(data.get("THE"),null);
     
+    // test with larger text with all false 
+    args.put("ignoreCase", false);
+    args.put("ignorePunctuation", false);
+    args.put("ignoreStopWords", false);
+    String txt = RiTa.loadString("kafka.txt");
+    data = RiTa.concordance(txt, args);
+    ok(data.get("Gregor")==199);
+    ok(data.get("Gregor") + data.get("Gregor's") == 298);
+    ok(data.get("sister") == 96);
+    ok(data.get("sister") + data.get("sister's") == 101);
+    ok(data.get("here")==19);
+    ok(data.get("the") == 1097);
+    ok(data.get("The") == 51);
+    ok(data.get(",")==1292);
+    ok(data.get(".")==737);
+    
+    // test all true
+    int nUppercaseFather = data.get("Father");
+    int nLowercaseFather = data.get("father");
+    args.put("ignoreCase", true);
+    args.put("ignorePunctuation", true);
+    args.put("ignoreStopWords", true);
+    data = RiTa.concordance(txt, args);
+    ok(data.get("gregor") + data.get("gregor's") == 298);
+    ok(data.get("sister") + data.get("sister's") == 101);
+    equal(data.get("here"),null);
+    equal(data.get("the"),null);
+    equal(data.get(","),null);
+    equal(data.get("."),null);
+    ok(data.get("father") == nUppercaseFather + nLowercaseFather);
+    
+    // test ignoreCase
+    args.put("ignoreCase", true);
+    args.put("ignorePunctuation", false);
+    args.put("ignoreStopWords", false);
+    data = RiTa.concordance(txt, args);
+    ok(data.get("father") == nUppercaseFather + nLowercaseFather);
+
+    // test ignorePunctuation
+    args.put("ignoreCase", false);
+    args.put("ignorePunctuation", true);
+    args.put("ignoreStopWords", false);
+    data = RiTa.concordance(txt, args);
+    equal(data.get(","),null);
+    equal(data.get("."),null);
+
+    // test ignoreStopWords
+    args.put("ignoreCase", false);
+    args.put("ignorePunctuation", false);
+    args.put("ignoreStopWords", true);
+    data = RiTa.concordance(txt, args);
+    equal(data.get("here"),null);
+    equal(data.get("the"),null);
+    
+    // test ignoreStopWords and ignorePunctuation
     args.put("ignoreCase", false);
     args.put("ignorePunctuation", true);
     args.put("ignoreStopWords", true);
-    String txt = RiTa.loadString("kafka.txt");
-    System.out.println(txt.length());
-    data = RiTa.concordance(txt,args);
-    ok(data.get("Gregor")==199);
-    ok(data.get("Gregor")>data.get("sister"));
-    // TODO: larger text, plus all combinations of options, plus sorting
+    data = RiTa.concordance(txt, args);
+    equal(data.get(","),null);
+    equal(data.get("."),null);
+    equal(data.get("here"),null);
+    equal(data.get("the"),null);
+    
+    // test ignoreStopWords and ignoreCase
+    args.put("ignoreCase", true);
+    args.put("ignorePunctuation", false);
+    args.put("ignoreStopWords", true);
+    data = RiTa.concordance(txt, args);
+    ok(data.get("father") == nUppercaseFather + nLowercaseFather);
+    equal(data.get("here"),null);
+    equal(data.get("the"),null);
+    
+    // test ignorePunctuation and ignoreCase
+    args.put("ignoreCase", true);
+    args.put("ignorePunctuation", true);
+    args.put("ignoreStopWords", false);
+    data = RiTa.concordance(txt, args);
+    ok(data.get("father") == nUppercaseFather + nLowercaseFather);
+    equal(data.get(","),null);
+    equal(data.get("."),null);    
+    
+    // TODO: test wordsToIgnore and wordCount, plus sorting
   }
   
   @Test
