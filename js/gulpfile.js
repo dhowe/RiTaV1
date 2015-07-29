@@ -54,42 +54,43 @@ gulp.task('build', ['clean'], function() {
 gulp.task('test', ['build'], function(cb) {
 
   var tests = [
-      'test/LibStructure-tests',
-      'test/RiTaEvent-tests',
-      'test/RiString-tests',
-      'test/RiTa-tests',
-      'test/RiGrammar-tests',
-      'test/RiMarkov-tests',
-      'test/RiLexicon-tests',
-      'test/UrlLoading-tests'
+    'test/LibStructure-tests',
+    'test/RiTaEvent-tests',
+    'test/RiString-tests',
+    'test/RiTa-tests',
+    'test/RiGrammar-tests',
+    'test/RiMarkov-tests',
+    'test/RiLexicon-tests',
+    'test/UrlLoading-tests'
   ];
 
   if (argv.name) {
 
-      tests = [testDir + argv.name + '-tests'];
-      console.log('[INFO] Testing ' + tests[0]);
+    tests = [testDir + argv.name + '-tests'];
+    console.log('[INFO] Testing ' + tests[0]);
   }
 
   var testrunner = require("qunit");
   testrunner.setup({
-          maxBlockDuration: 20000,
-          log: {
-              globalSummary: true,
-              errors: true
-          }
-      });
-
-  testrunner.run({
-          code: "dist/dist.js",
-          deps: [
-              "src/rita_lts.js",
-              "src/rita_dict.js",
-              "test/qunit-helpers.js"
-          ],
-          tests: tests
-      }, function(err, report) {
-          if (err) console.error(err);
-      });
+    maxBlockDuration: 20000,
+    log: {
+      globalSummary: true,
+      errors: true
+    }
   });
 
-  console.log("Building "+version);
+  testrunner.run({
+    code: "dist/rita.js",
+    deps: [
+      "src/rita_lts.js",
+      "src/rita_dict.js",
+//      "src/rita_lancaster.js",
+      "test/qunit-helpers.js"
+    ],
+    tests: tests
+  }, function(err, report) {
+    if (err) console.error(err);
+  });
+});
+
+  //console.log("Version: "+version);

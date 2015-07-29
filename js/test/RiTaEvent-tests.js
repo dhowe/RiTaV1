@@ -4,7 +4,6 @@
 /*jshint loopfunc: true */
 
 // Note: Don't need to extract test-results
-
 var runtests = function() {
 
   QUnit.module("RiTaEvent", {

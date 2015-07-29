@@ -385,7 +385,6 @@ var runtests = function() {
             deepEqual(rg, rg2)
 
             var e = "<start>\n  '<noun_phrase> <verb_phrase>.' [1]\n<noun_phrase>\n  '<determiner> <noun>' [1]\n<verb_phrase>\n  '<verb>' [1]\n  '<verb> <noun_phrase>' [.1]\n<determiner>\n  'a' [.1]\n  'the' [1]\n<noun>\n  'woman' [1]\n  'man' [1]\n<verb>\n  'shoots' [1]";
-console.log(rg.getGrammar());
             equal(rg.getGrammar(), e);
         });
 
