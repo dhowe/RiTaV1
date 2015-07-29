@@ -178,6 +178,60 @@ var runtests = function() {
         });
     });
 
+    asyncTest("testKwic", function () {
+
+        RiTa.loadString(filePath + "kafka.txt", function (txt) {
+            
+            var args = {
+                ignoreCase: false,
+                ignorePunctuation: false,
+                ignoreStopWords: false
+            }
+    
+            // test ignorePunctuation
+            args.ignorePunctuation = false;
+            lines = RiTa.kwic(txt, ",",  args);
+            equal(lines.length, 1292);
+            args.ignorePunctuation = true;
+            lines = RiTa.kwic(txt, ",",  args);
+            equal(lines.length, 0);
+
+            // test ignoreCase
+            args.wordCount = 4;
+            args.ignoreCase = true;
+            lines = RiTa.kwic(txt, "eventually",  args);
+            equal(lines.length, 2);
+            args.ignoreCase = false;
+            lines = RiTa.kwic(txt, "eventually",  args);
+            equal(lines.length, 1);
+    
+            // test ignoreStopWords
+            lines = RiTa.kwic(txt, "here",  args);
+            equal(lines.length, 19);
+            args.ignoreStopWords = true;
+            lines = RiTa.kwic(txt, "here",  args);
+            equal(lines.length, 0);
+
+            // test wordCount
+            args.wordCount = 6;
+            args.ignoreCase = false;
+            lines = RiTa.kwic(txt, "sister",  args);
+            for (var i = 0; i < lines.length; i++) {
+                var length = RiTa.tokenize(lines[i]).length;
+                equal(length, 6 + 1 + 6);
+            }
+    
+            // test wordsToIgnore
+            args.wordsToIgnore = ["father", "sister"];
+            lines = RiTa.kwic(txt, "father",  args);
+            equal(lines.length, 0);
+            lines = RiTa.kwic(txt, "sister",  args);
+            equal(lines.length, 0);
+    
+            start();
+        });
+    });
+
     // RiGrammar
     //////////////////////////////////////////////////////////////////////////////////////
 
