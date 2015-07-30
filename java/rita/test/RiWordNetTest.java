@@ -1931,6 +1931,24 @@ public class RiWordNetTest {
   @Test
   public void testGetHypernymTree() {
 
+    int[] ids = w.getSenseIds("cat", "n");
+    String[] htree = w.getHypernymTree(ids[0]);
+    RiTa.out(htree);
+    
+    System.out.println();
+    
+    ids = w.getSenseIds("dog", "n");
+    htree = w.getHypernymTree(ids[0]);
+    RiTa.out(htree);
+    System.out.println();
+   
+    
+    ids = w.getSenseIds("cell", "n");
+    htree = w.getHypernymTree(ids[0]);
+    RiTa.out(htree);
+    
+    if (1==1) return;
+    
     String[] expected = { "time period:period of time:period",
 	"fundamental quantity:fundamental measure",
 	"abstraction:abstract entity", "measure:quantity:amount",
@@ -1950,8 +1968,7 @@ public class RiWordNetTest {
     // printArr(w.getHypernymTree(915192074));
     setEqual(expected2, result2);
 
-    w.getHypernymTree(815192074);
-
+    w.getHypernymTree(815192074);    
   }
 
   @Test

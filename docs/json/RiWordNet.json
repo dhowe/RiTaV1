@@ -555,7 +555,26 @@
     "related": "",
     "platform": "Java only",
     "note": ""
-  }, {
+  },
+  {
+    "variable": false,
+    "name": "getHypernymTree",
+    "example": "",
+    "description": "Returns a String[] of hypernym-synsets (each a colon-delimited String) representing the path from the input node to the root of the ontology",
+    "syntax": "getHypernymTree(id);",
+    "parameters": [{
+      "type": "int",
+      "desc": "id"
+    }],
+    "returns": [{
+      "type": "java.lang.String[]",
+      "desc": ""
+    }],
+    "related": "",
+    "platform": "Java only",
+    "note": ""
+  },
+   {
     "variable": false,
     "name": "getHyponymTree",
     "example": "",

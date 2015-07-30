@@ -233,6 +233,8 @@ The examples below assume the following installation structure (linux/unix/osx):
                     <br>
                     <a href="RiWordNet/getHypernyms/index.php">getHypernyms()</a>
                     <br>
+                    <a href="RiWordNet/getHypernymTree/index.php">getHypernymTree()</a>
+                    <br>
                     <a href="RiWordNet/getHyponymTree/index.php">getHyponymTree()</a>
                     <br>
                     <a href="RiWordNet/getMeronyms/index.php">getMeronyms()</a>

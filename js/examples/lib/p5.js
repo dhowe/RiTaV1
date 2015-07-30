@@ -1,3 +1,4 @@
+/*! p5.js v0.4.7 July 29, 2015 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.p5 = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*!
   * Reqwest! A general purpose XHR connection manager
@@ -616,27 +617,38 @@
 });
 
 },{}],2:[function(require,module,exports){
-/**
- * @module Shape
- * @submodule 3D Primitives
- * @for p5
- * @requires core
- * @requires canvas
- * @requires constants
- */
-
 'use strict';
 
 var p5 = require('../core/core');
 require('./p5.Geometry3D');
 
 /**
- * generate plane geomery
- * @param  {Number} width   the width of the plane
- * @param  {Number} height  the height of the plane
- * @param  {Number} detailX how many segments in the x axis
- * @param  {Number} detailY how many segments in the y axis
- * @return {[type]}         [description]
+ * draw a plane with given a width and height
+ * @param  {Number} width             the width of the plane
+ * @param  {Number} height            the height of the plane
+ * @param  {Number} detailX(optional) number of vertices on horizontal surface
+ * @param  {Number} detailY(optional) number of vertices on horizontal surface
+ * example
+ * <div class="norender">
+ * <code>
+ * function setup(){
+ *   createCanvas(windowWidth, windowHeight, 'webgl');
+ * }
+ *
+ * var theta = 0;
+ *
+ * function draw(){
+ *   background(255, 255, 255, 255);
+ *   translate(0, 0, -100);
+ *   push();
+ *   rotateZ(theta);
+ *   rotateX(theta);
+ *   rotateY(theta);
+ *   plane(100, 100);
+ *   pop();
+ *   theta += 0.05;
+ * </code>
+ * </div>
  */
 p5.prototype.plane = function(width, height, detailX, detailY){
 
@@ -646,9 +658,9 @@ p5.prototype.plane = function(width, height, detailX, detailY){
   detailX = detailX || 1;
   detailY = detailY || 1;
 
-  var uuid = 'plane|'+width+'|'+height+'|'+detailX+'|'+detailY;
+  var gId = 'plane|'+width+'|'+height+'|'+detailX+'|'+detailY;
 
-  if(this._graphics.notInHash(uuid)){
+  if(!this._graphics.geometryInHash(gId)){
 
     var geometry3d = new p5.Geometry3D();
 
@@ -663,20 +675,40 @@ p5.prototype.plane = function(width, height, detailX, detailY){
 
     var obj = geometry3d.generateObj();
 
-    this._graphics.initBuffer(uuid, obj);
+    this._graphics.initBuffer(gId, obj);
 
   }
 
-  this._graphics.drawBuffer(uuid);
+  this._graphics.drawBuffer(gId);
 
 };
 
 /**
- * [sphere description]
- * @param  {[type]} radius  [description]
- * @param  {[type]} detailX [description]
- * @param  {[type]} detailY [description]
- * @return {[type]}         [description]
+ * draw a sphere with given raduis
+ * @param  {Number} radius            radius of the sphere
+ * @param  {Number} detailX(optional) number of vertices on horizontal surface
+ * @param  {Number} detailY(optional) number of vertices on vertical surface
+ * example
+ * <div class="norender">
+ * <code>
+ * function setup(){
+ *   createCanvas(windowWidth, windowHeight, 'webgl');
+ * }
+ *
+ * var theta = 0;
+ *
+ * function draw(){
+ *   background(255, 255, 255, 255);
+ *   translate(0, 0, -100);
+ *   push();
+ *   rotateZ(theta);
+ *   rotateX(theta);
+ *   rotateY(theta);
+ *   sphere(100);
+ *   pop();
+ *   theta += 0.05;
+ * </code>
+ * </div>
  */
 p5.prototype.sphere = function(radius, detailX, detailY){
 
@@ -685,9 +717,9 @@ p5.prototype.sphere = function(radius, detailX, detailY){
   detailX = detailX || 10;
   detailY = detailY || 6;
 
-  var uuid = 'sphere|'+radius+'|'+detailX+'|'+detailY;
+  var gId = 'sphere|'+radius+'|'+detailX+'|'+detailY;
 
-  if(this._graphics.notInHash(uuid)){
+  if(!this._graphics.geometryInHash(gId)){
 
     var geometry3d = new p5.Geometry3D();
 
@@ -704,32 +736,53 @@ p5.prototype.sphere = function(radius, detailX, detailY){
 
     var obj = geometry3d.generateObj();
 
-    this._graphics.initBuffer(uuid, obj);
+    this._graphics.initBuffer(gId, obj);
   }
 
-  this._graphics.drawBuffer(uuid);
+  this._graphics.drawBuffer(gId);
 
   return this;
 };
 
 /**
- * [cylinder description]
- * @param  {[type]} radius  [description]
- * @param  {[type]} detailX [description]
- * @param  {[type]} detailY [description]
- * @return {[type]}         [description]
+ * draw a cylinder with given radius and height
+ * @param  {Number} radius            radius of the surface
+ * @param  {Number} height            height of the cylinder
+ * @param  {Number} detailX(optional) number of vertices on horizontal surface
+ * @param  {Number} detailY(optional) number of vertices on vertical surface
+ * example
+ * <div class="norender">
+ * <code>
+ * function setup(){
+ *   createCanvas(windowWidth, windowHeight, 'webgl');
+ * }
+ *
+ * var theta = 0;
+ *
+ * function draw(){
+ *   background(255, 255, 255, 255);
+ *   translate(0, 0, -100);
+ *   push();
+ *   rotateZ(theta);
+ *   rotateX(theta);
+ *   rotateY(theta);
+ *   cylinder(100, 200);
+ *   pop();
+ *   theta += 0.05;
+ * </code>
+ * </div>
  */
 p5.prototype.cylinder = function(radius, height, detailX, detailY){
 
   radius = radius || 50;
   height = height || 50;
 
-  detailX = detailX || 10;
-  detailY = detailY || 6;
+  detailX = detailX || 12;
+  detailY = detailY || 8;
 
-  var uuid = 'cylinder|'+radius+'|'+height+'|'+detailX+'|'+detailY;
+  var gId = 'cylinder|'+radius+'|'+height+'|'+detailX+'|'+detailY;
 
-  if(this._graphics.notInHash(uuid)){
+  if(!this._graphics.geometryInHash(gId)){
 
     var geometry3d = new p5.Geometry3D();
 
@@ -742,28 +795,77 @@ p5.prototype.cylinder = function(radius, height, detailX, detailY){
     };
 
     geometry3d.parametricGeometry(createCylinder, detailX, detailY);
+    geometry3d.mergeVertices();
 
-    //TODO: top and bottom faces
-    //this.vertices.push(new p5.Vector(0, height/2, 0));
-    //this.vertices.push(new p5.Vector(0, -height/2, 0));
+    var createTop = function(u, v){
+      var theta = 2 * Math.PI * u;
+      var x = radius * Math.sin(-theta);
+      var y = height;
+      var z = radius * Math.cos(theta);
+      if(v === 0){
+        return new p5.Vector(0, height, 0);
+      }
+      else{
+        return new p5.Vector(x, y, z);
+      }
+    };
 
-    var obj = geometry3d.generateObj();
+    geometry3d.parametricGeometry(
+      createTop, detailX, 1, geometry3d.vertices.length);
 
-    this._graphics.initBuffer(uuid, obj);
+    var createBottom = function(u, v){
+      var theta = 2 * Math.PI * u;
+      var x = radius * Math.sin(theta);
+      var y = -height;
+      var z = radius * Math.cos(theta);
+      if(v === 0){
+        return new p5.Vector(0, -height, 0);
+      }else{
+        return new p5.Vector(x, y, z);
+      }
+    };
+
+    geometry3d.parametricGeometry(
+      createBottom, detailX, 1, geometry3d.vertices.length);
+
+    var obj = geometry3d.generateObj(true);
+
+    this._graphics.initBuffer(gId, obj);
   }
 
-  this._graphics.drawBuffer(uuid);
+  this._graphics.drawBuffer(gId);
 
   return this;
 };
 
+
 /**
- * [cone description]
- * @param  {[type]} radius  [description]
- * @param  {[type]} height  [description]
- * @param  {[type]} detailX [description]
- * @param  {[type]} detailY [description]
- * @return {[type]}         [description]
+ * draw a cone with given radius and height
+ * @param  {Number} radius            radius of the bottom surface
+ * @param  {Number} height            height of the cone
+ * @param  {Number} detailX(optional) number of vertices on horizontal surface
+ * @param  {Number} detailY(optional) number of vertices on vertical surface
+ * example
+ * <div class="norender">
+ * <code>
+ * function setup(){
+ *   createCanvas(windowWidth, windowHeight, 'webgl');
+ * }
+ *
+ * var theta = 0;
+ *
+ * function draw(){
+ *   background(255, 255, 255, 255);
+ *   translate(0, 0, -100);
+ *   push();
+ *   rotateZ(theta);
+ *   rotateX(theta);
+ *   rotateY(theta);
+ *   cone(100, 200);
+ *   pop();
+ *   theta += 0.05;
+ * </code>
+ * </div>
  */
 p5.prototype.cone = function(radius, height, detailX, detailY){
 
@@ -773,9 +875,9 @@ p5.prototype.cone = function(radius, height, detailX, detailY){
   detailX = detailX || 10;
   detailY = detailY || 6;
 
-  var uuid = 'cone|'+radius+'|'+height+'|'+detailX+'|'+detailY;
+  var gId = 'cone|'+radius+'|'+height+'|'+detailX+'|'+detailY;
 
-  if(this._graphics.notInHash(uuid)){
+  if(!this._graphics.geometryInHash(gId)){
 
     var geometry3d = new p5.Geometry3D();
 
@@ -788,47 +890,78 @@ p5.prototype.cone = function(radius, height, detailX, detailY){
     };
 
     geometry3d.parametricGeometry(createCone, detailX, detailY);
+    geometry3d.mergeVertices();
 
-    //@TODO: add bottom face
-    //
-    var obj = geometry3d.generateObj();
+    var createBottom = function(u, v){
+      var theta = 2 * Math.PI * u;
+      var x = radius * (1 - v) * Math.sin(-theta);
+      var y = -height;
+      var z = radius * (1 - v) * Math.cos(theta);
+      return new p5.Vector(x, y, z);
+    };
 
-    this._graphics.initBuffer(uuid, obj);
+    geometry3d.parametricGeometry(
+      createBottom, detailX, 1, geometry3d.vertices.length);
+
+    var obj = geometry3d.generateObj(true);
+
+    this._graphics.initBuffer(gId, obj);
   }
 
-  this._graphics.drawBuffer(uuid);
+  this._graphics.drawBuffer(gId);
 
   return this;
 };
 
+
 /**
- * [torus description]
- * @param  {[type]} radius  [description]
- * @param  {[type]} height  [description]
- * @param  {[type]} detailX [description]
- * @param  {[type]} detailY [description]
- * @return {[type]}         [description]
+ * draw a torus with given radius and tube radius
+ * @param  {Number} radius            radius of the whole ring
+ * @param  {Number} tubeRadius        radius of the tube
+ * @param  {Number} detailX(optional) number of vertices on horizontal surface
+ * @param  {Number} detailY(optional) number of vertices on vertical surface
+ * example
+ * <div class="norender">
+ * <code>
+ * function setup(){
+ *   createCanvas(windowWidth, windowHeight, 'webgl');
+ * }
+ *
+ * var theta = 0;
+ *
+ * function draw(){
+ *   background(255, 255, 255, 255);
+ *   translate(0, 0, -100);
+ *   push();
+ *   rotateZ(theta);
+ *   rotateX(theta);
+ *   rotateY(theta);
+ *   torus(100, 20);
+ *   pop();
+ *   theta += 0.05;
+ * </code>
+ * </div>
  */
-p5.prototype.torus = function(radius, tube, detailX, detailY){
+p5.prototype.torus = function(radius, tubeRadius, detailX, detailY){
 
   radius = radius || 50;
-  tube = tube || 20;
+  tubeRadius = tubeRadius || 20;
 
-  detailX = detailX || 10;
+  detailX = detailX || 12;
   detailY = detailY || 6;
 
-  var uuid = 'torus|'+radius+'|'+tube+'|'+detailX+'|'+detailY;
+  var gId = 'torus|'+radius+'|'+tubeRadius+'|'+detailX+'|'+detailY;
 
-  if(this._graphics.notInHash(uuid)){
+  if(!this._graphics.geometryInHash(gId)){
 
     var geometry3d = new p5.Geometry3D();
 
     var createTorus = function(u, v){
       var theta = 2 * Math.PI * u;
       var phi = 2 * Math.PI * v;
-      var x = (radius + tube * Math.cos(phi)) * Math.cos(theta);
-      var y = (radius + tube * Math.cos(phi)) * Math.sin(theta);
-      var z = tube * Math.sin(phi);
+      var x = (radius + tubeRadius * Math.cos(phi)) * Math.cos(theta);
+      var y = (radius + tubeRadius * Math.cos(phi)) * Math.sin(theta);
+      var z = tubeRadius * Math.sin(phi);
       return new p5.Vector(x, y, z);
     };
 
@@ -836,22 +969,40 @@ p5.prototype.torus = function(radius, tube, detailX, detailY){
 
     var obj = geometry3d.generateObj();
 
-    this._graphics.initBuffer(uuid, obj);
+    this._graphics.initBuffer(gId, obj);
   }
 
-  this._graphics.drawBuffer(uuid);
+  this._graphics.drawBuffer(gId);
 
   return this;
 };
 
 /**
- * [cube description]
- * @param  {[type]} width   [description]
- * @param  {[type]} height  [description]
- * @param  {[type]} depth   [description]
- * @param  {[type]} detailX [description]
- * @param  {[type]} detailY [description]
- * @return {[type]}         [description]
+ * draw a box with given widht, height and depth
+ * @param  {Number} width  width of the box
+ * @param  {Number} height height of the box
+ * @param  {Number} depth  depth of the box
+ * example
+ * <div class="norender">
+ * <code>
+ * function setup(){
+ *   createCanvas(windowWidth, windowHeight, 'webgl');
+ * }
+ *
+ * var theta = 0;
+ *
+ * function draw(){
+ *   background(255, 255, 255, 255);
+ *   translate(0, 0, -100);
+ *   push();
+ *   rotateZ(theta);
+ *   rotateX(theta);
+ *   rotateY(theta);
+ *   box(100, 100, 100);
+ *   pop();
+ *   theta += 0.05;
+ * </code>
+ * </div>
  */
 p5.prototype.box = function(width, height, depth){
 
@@ -863,9 +1014,9 @@ p5.prototype.box = function(width, height, depth){
   var detailX = typeof arguments[3] === Number ? arguments[3] : 1;
   var detailY = typeof arguments[4] === Number ? arguments[4] : 1;
 
-  var uuid = 'cube|'+width+'|'+height+'|'+depth+'|'+detailX+'|'+detailY;
+  var gId = 'cube|'+width+'|'+height+'|'+depth+'|'+detailX+'|'+detailY;
 
-  if(this._graphics.notInHash(uuid)){
+  if(!this._graphics.geometryInHash(gId)){
 
     var geometry3d = new p5.Geometry3D();
 
@@ -876,13 +1027,13 @@ p5.prototype.box = function(width, height, depth){
       return new p5.Vector(x, y, z);
     };
     var createPlane2 = function(u, v){
-      var x = 2 * width * u - width;
+      var x = 2 * width * ( 1 - u ) - width;
       var y = 2 * height * v - height;
       var z = -depth;
       return new p5.Vector(x, y, z);
     };
     var createPlane3 = function(u, v){
-      var x = 2 * width * u - width;
+      var x = 2 * width * ( 1 - u ) - width;
       var y = height;
       var z = 2 * depth * v - depth;
       return new p5.Vector(x, y, z);
@@ -901,7 +1052,7 @@ p5.prototype.box = function(width, height, depth){
     };
     var createPlane6 = function(u, v){
       var x = -width;
-      var y = 2 * height * u - height;
+      var y = 2 * height * ( 1 - u ) - height;
       var z = 2 * depth * v - depth;
       return new p5.Vector(x, y, z);
     };
@@ -921,10 +1072,10 @@ p5.prototype.box = function(width, height, depth){
 
     var obj = geometry3d.generateObj(true);
 
-    this._graphics.initBuffer(uuid, obj);
+    this._graphics.initBuffer(gId, obj);
   }
 
-  this._graphics.drawBuffer(uuid);
+  this._graphics.drawBuffer(gId);
 
   return this;
 
@@ -932,18 +1083,277 @@ p5.prototype.box = function(width, height, depth){
 
 module.exports = p5;
 
-},{"../core/core":16,"./p5.Geometry3D":3}],3:[function(require,module,exports){
-/**
- * @module Geometry3D
- * @for p5
- * @requires core
- * @requires canvas
- * @requires constants
- */
+},{"../core/core":20,"./p5.Geometry3D":6}],3:[function(require,module,exports){
+//@TODO: documentation of immediate mode
 
 'use strict';
 
 var p5 = require('../core/core');
+
+//////////////////////////////////////////////
+// Primitives2D in 3D space
+//////////////////////////////////////////////
+
+p5.Renderer3D.prototype.primitives2D = function(arr){
+
+  var gl = this.GL;
+  var shaderProgram = this.getColorVertexShader();
+
+  //create vertice buffer
+  var vertexPositionBuffer = this.verticeBuffer;
+  gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
+
+  gl.bufferData(
+    gl.ARRAY_BUFFER, new Float32Array(arr), gl.STATIC_DRAW);
+  gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute,
+    3, gl.FLOAT, false, 0, 0);
+
+  //create vertexcolor buffer
+  var vertexColorBuffer = this.colorBuffer;
+  gl.bindBuffer(gl.ARRAY_BUFFER, vertexColorBuffer);
+  var color = this.getCurColor();
+  var colors = [];
+  for(var i = 0; i < arr.length / 3; i++){
+    colors = colors.concat(color);
+  }
+
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
+  gl.vertexAttribPointer(shaderProgram.vertexColorAttribute,
+    4, gl.FLOAT, false, 0, 0);
+
+  //matrix
+  var mId = 'vertexColorVert|vertexColorFrag';
+  this.setMatrixUniforms(mId);
+};
+
+//@TODO: point does not show up, gotta fix it.
+p5.Renderer3D.prototype.point = function(x, y, z){
+  var gl = this.GL;
+  this.primitives2D([x, y, z]);
+  gl.drawArrays(gl.POINTS, 0, 1);
+  return this;
+};
+
+p5.Renderer3D.prototype.line = function(x1, y1, z1, x2, y2, z2){
+  var gl = this.GL;
+  this.primitives2D([x1, y1, z1, x2, y2, z2]);
+  gl.drawArrays(gl.LINES, 0, 2);
+  return this;
+};
+
+p5.Renderer3D.prototype.triangle = function
+(x1, y1, z1, x2, y2, z2, x3, y3, z3){
+  var gl = this.GL;
+  this.primitives2D([x1, y1, z1, x2, y2, z2, x3, y3, z3]);
+  this._strokeCheck();
+  gl.drawArrays(gl.TRIANGLES, 0, 3);
+  return this;
+};
+
+//@TODO: how to define the order of 4 points
+p5.Renderer3D.prototype.quad = function
+(x1, y1, z1, x2, y2, z2, x3, y3, z3, x4, y4, z4){
+  var gl = this.GL;
+  this.primitives2D(
+    [x1, y1, z1, x2, y2, z2, x3, y3, z3, x4, y4, z4]);
+  this._strokeCheck();
+  gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+  return this;
+};
+
+p5.Renderer3D.prototype.beginShape = function(mode){
+  this.modeStack.push(mode);
+  this.verticeStack = [];
+  return this;
+};
+
+p5.Renderer3D.prototype.vertex = function(x, y, z){
+  this.verticeStack.push(x, y, z);
+  return this;
+};
+
+p5.Renderer3D.prototype.endShape = function(){
+  var gl = this.GL;
+  this.primitives2D(this.verticeStack);
+  this.verticeStack = [];
+  var mode = this.modeStack.pop();
+
+  switch(mode){
+    case 'POINTS':
+      gl.drawArrays(gl.POINTS, 0, 1);
+      break;
+    case 'LINES':
+      gl.drawArrays(gl.LINES, 0, 2);
+      break;
+    case 'TRIANGLES':
+      this._strokeCheck();
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+      break;
+    case 'TRIANGLE_STRIP':
+      this._strokeCheck();
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      break;
+    default:
+      this._strokeCheck();
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+      break;
+  }
+  return this;
+};
+
+//@TODO: figure out how to actually do stroke on shapes in 3D
+p5.Renderer3D.prototype._strokeCheck = function(){
+  var drawMode = this.drawModeStack[this.drawModeStack.length-1];
+  if(drawMode === 'stroke'){
+    throw new Error(
+      'stroke for shapes in 3D not yet implemented, use fill for now :('
+    );
+  }
+};
+
+//////////////////////////////////////////////
+// COLOR
+//////////////////////////////////////////////
+
+p5.Renderer3D.prototype.fill = function(r, g, b, a) {
+  var color = this._pInst.color.apply(this._pInst, arguments);
+  var colorNormalized = _normalizeColor(color.rgba);
+  if( colorNormalized !== this.getCurColor()){
+    this.colorStack.push(colorNormalized);
+  }
+  this.drawModeStack.push('fill');
+  return this;
+};
+
+p5.Renderer3D.prototype.stroke = function(r, g, b, a) {
+  var color = this._pInst.color.apply(this._pInst, arguments);
+  var colorNormalized = _normalizeColor(color.rgba);
+  if( colorNormalized !== this.getCurColor()){
+    this.colorStack.push(colorNormalized);
+  }
+  this.drawModeStack.push('stroke');
+  return this;
+};
+
+p5.Renderer3D.prototype.getColorVertexShader = function(){
+  var gl = this.GL;
+  var mId = 'vertexColorVert|vertexColorFrag';
+  var shaderProgram;
+  if(!this.materialInHash(mId)){
+    shaderProgram =
+      this.initShaders('vertexColorVert', 'vertexColorFrag', true);
+    shaderProgram.vertexColorAttribute =
+    gl.getAttribLocation(shaderProgram, 'aVertexColor');
+    gl.enableVertexAttribArray(shaderProgram.vertexColorAttribute);
+  }else{
+    shaderProgram = this.mHash[mId];
+  }
+  return shaderProgram;
+};
+
+function _normalizeColor(_arr){
+  var arr = [];
+  _arr.forEach(function(val){
+    arr.push(val/255);
+  });
+  return arr;
+}
+
+module.exports = p5.Renderer3D;
+},{"../core/core":20}],4:[function(require,module,exports){
+'use strict';
+
+var p5 = require('../core/core');
+
+//@TODO: fix this fake orbitControl
+p5.prototype.orbitControl = function(){
+  if(this.mouseIsPressed){
+    this.rotateX((this.mouseX - this.width / 2) / (this.width / 2));
+    this.rotateY((this.mouseY - this.height / 2) / (this.width / 2));
+  }
+  return this;
+};
+
+module.exports = p5;
+},{"../core/core":20}],5:[function(require,module,exports){
+'use strict';
+
+var p5 = require('../core/core');
+
+/**
+* [normal description]
+* @return {[type]} [description]
+*/
+p5.prototype.normalMaterial = function(){
+
+  var mId = 'normalVert|normalFrag';
+
+  if(!this._graphics.materialInHash(mId)){
+    this._graphics.initShaders('normalVert', 'normalFrag');
+  }
+
+  if(mId !== this._graphics.getCurShaderId()){
+    this._graphics.saveShaders(mId);
+  }
+
+  return this;
+
+};
+
+/**
+* [basic description]
+* @param  {[type]} r [description]
+* @param  {[type]} g [description]
+* @param  {[type]} b [description]
+* @param  {[type]} a [description]
+* @return {[type]}   [description]
+*/
+p5.prototype.basicMaterial = function(r, g, b, a){
+
+  var mId = 'normalVert|basicFrag';
+  var gl = this._graphics.GL;
+  var shaderProgram;
+
+  if(!this._graphics.materialInHash(mId)){
+    shaderProgram =
+     this._graphics.initShaders('normalVert', 'basicFrag');
+  }else{
+    shaderProgram = this._graphics.mHash[mId];
+  }
+  gl.useProgram(shaderProgram);
+  shaderProgram.uMaterialColor = gl.getUniformLocation(
+    shaderProgram, 'uMaterialColor' );
+
+  var color = this._graphics._pInst.color.apply(
+    this._graphics._pInst, arguments);
+  var colors = _normalizeColor(color.rgba);
+
+  gl.uniform4f( shaderProgram.uMaterialColor,
+    colors[0], colors[1], colors[2], colors[3]);
+
+  if(mId !== this._graphics.getCurShaderId()){
+    this._graphics.saveShaders(mId);
+  }
+
+  return this;
+
+};
+
+function _normalizeColor(_arr){
+  var arr = [];
+  _arr.forEach(function(val){
+    arr.push(val/255);
+  });
+  return arr;
+}
+
+module.exports = p5;
+
+},{"../core/core":20}],6:[function(require,module,exports){
+'use strict';
+
+var p5 = require('../core/core');
+
 /**
  * p5 Geometry3D class
  */
@@ -959,32 +1369,27 @@ p5.Geometry3D = function(){
   this.faces = [];
   //an array holding every noraml for each face
   //each faceNormal is a p5.Vector
-  //[[p5.Vector, p5.Vector, p5.Vector], [p5.Vector, p5.Vector, p5.Vector],...]
+  //[[p5.Vector, p5.Vector, p5.Vector],[p5.Vector, p5.Vector, p5.Vector],...]
   this.faceNormals = [];
   //an array of p5.Vector holding uvs
   this.uvs = [];
 };
 
 /**
- * [parametricGeometry description]
- * @param  {[type]} func   [description]
- * @param  {[type]} detailX [description]
- * @param  {[type]} detailY [description]
- * @param  {[type]} offset [description]
- * @return {[type]}        [description]
+ * generate geometriy with parametric method
+ * @param  {Function} func  callback function for how to generate geometry
+ * @param  {Number} detailX number of vertices on horizontal surface
+ * @param  {Number} detailY number of vertices on horizontal surface
+ * @param  {Number} offset  offset of vertices index
  */
-p5.Geometry3D.prototype.parametricGeometry = function(func,
-                                                      detailX,
-                                                      detailY,
-                                                      offset) {
+p5.Geometry3D.prototype.parametricGeometry = function
+//@TODO: put func as the last parameters
+(func, detailX, detailY, offset){
 
   var i, j, p;
   var u, v;
   offset = offset || 0;
 
-  //0,0---0,1
-  // |     |
-  //1,0---1,1
   var sliceCount = detailX + 1;
   for (i = 0; i <= detailY; i++){
     v = i / detailY;
@@ -1021,8 +1426,7 @@ p5.Geometry3D.prototype.parametricGeometry = function(func,
 };
 
 /**
- * [mergeVertices description]
- * @return {[type]} [description]
+ * merge duplicated vertices
  */
 p5.Geometry3D.prototype.mergeVertices= function () {
 
@@ -1091,12 +1495,10 @@ p5.Geometry3D.prototype.mergeVertices= function () {
 };
 
 /**
- * [computeFaceNormals description]
- * @return {[type]} [description]
+ * compute faceNormals for a geometry
  */
 p5.Geometry3D.prototype.computeFaceNormals = function(){
 
-  //if(!box){
   var cb = new p5.Vector();
   var ab = new p5.Vector();
 
@@ -1118,8 +1520,7 @@ p5.Geometry3D.prototype.computeFaceNormals = function(){
 };
 
 /**
- * [computeVertexNormals description]
- * @return {[type]} [description]
+ * compute vertexNormals for a geometry
  */
 p5.Geometry3D.prototype.computeVertexNormals = function (){
 
@@ -1163,11 +1564,10 @@ p5.Geometry3D.prototype.computeVertexNormals = function (){
 };
 
 /**
- * [generateObj description]
- * @return {[type]} [description]
+ * generate an object containing information needed to create buffer
  */
-p5.Geometry3D.prototype.generateObj = function(box){
-  if(!box){
+p5.Geometry3D.prototype.generateObj = function(noMerge){
+  if(!noMerge){
     this.mergeVertices();
   }
   this.computeFaceNormals();
@@ -1208,12 +1608,11 @@ function turnVectorArrayIntoNumberArray(arr){
 }
 
 module.exports = p5.Geometry3D;
-
-},{"../core/core":16}],4:[function(require,module,exports){
+},{"../core/core":20}],7:[function(require,module,exports){
 /**
- * @requires constants
- * @todo see methods below needing further implementation.
- */
+* @requires constants
+* @todo see methods below needing further implementation.
+*/
 
 'use strict';
 
@@ -1284,8 +1683,8 @@ p5.Matrix.prototype.get = function () {
 };
 
 /**
- * Copies the mat4
- * @return {[type]} [description]
+ * return a copy of a matrix
+ * @return {p5.Matrix}   the result matrix
  */
 p5.Matrix.prototype.copy = function(){
   var copied = new p5.Matrix();
@@ -1310,16 +1709,16 @@ p5.Matrix.prototype.copy = function(){
 
 /**
  * return an identity matrix
- * @return {[type]} [description]
+ * @return {p5.Matrix}   the result matrix
  */
 p5.Matrix.identity = function(){
   return new p5.Matrix();
 };
 
 /**
- * [transpose description]
- * @param  {[type]} a [description]
- * @return {[type]}   [description]
+ * transpose according to a given matrix
+ * @param  {p5.Matrix | Typed Array} a  the matrix to be based on to transpose
+ * @return {p5.Matrix}                  this
  */
 p5.Matrix.prototype.transpose = function(a){
   var a01, a02, a03, a12, a13, a23;
@@ -1377,9 +1776,9 @@ p5.Matrix.prototype.transpose = function(a){
 };
 
 /**
- * [invert description]
- * @param  {[type]} a [description]
- * @return {[type]}   [description]
+ * invert  matrix according to a give matrix
+ * @param  {p5.Matrix or Typed Array} a   the matrix to be based on to invert
+ * @return {p5.Matrix}                    this
  */
 p5.Matrix.prototype.invert = function(a){
   var a00, a01, a02, a03, a10, a11, a12, a13,
@@ -1462,8 +1861,8 @@ p5.Matrix.prototype.invert = function(a){
 };
 
 /**
- * @return {Number} Determinant of our 4x4 matrix
  * inspired by Toji's mat4 determinant
+ * @return {Number} Determinant of our 4x4 matrix
  */
 p5.Matrix.prototype.determinant = function(){
   var d00 = (this.mat4[0] * this.mat4[5]) - (this.mat4[1] * this.mat4[4]),
@@ -1486,8 +1885,8 @@ p5.Matrix.prototype.determinant = function(){
 
 /**
  * multiply two mat4s
- * @param {p5.Matrix | Array} multMatrix The matrix we want to multiply by
- * @return {[type]} [description]
+ * @param {p5.Matrix | Array}  multMatrix The matrix we want to multiply by
+ * @return {p5.Matrix}         this
  */
 p5.Matrix.prototype.mult = function(multMatrix){
   var _dest = new GLMAT_ARRAY_TYPE(16);
@@ -1544,7 +1943,7 @@ p5.Matrix.prototype.mult = function(multMatrix){
  * scales a p5.Matrix by scalars or a vector
  * @param  {p5.Vector | Array | Numbers}
  *                      vector to scale by
- * @return {[type]}     [description]
+ * @return {p5.Matrix}  this
  */
 p5.Matrix.prototype.scale = function() {
   var x,y,z;
@@ -1596,7 +1995,7 @@ p5.Matrix.prototype.scale = function() {
  * rotate our Matrix around an axis by the given angle.
  * @param  {Number} a The angle of rotation in radians
  * @param  {p5.Vector | Array} axis  the axis(es) to rotate around
- * @return {[type]}       [description]
+ * @return {p5.Matrix}                    this
  * inspired by Toji's gl-matrix lib, mat4 rotation
  */
 p5.Matrix.prototype.rotate = function(a, axis){
@@ -1675,7 +2074,7 @@ p5.Matrix.prototype.rotate = function(a, axis){
  * @todo  finish implementing this method!
  * translates
  * @param  {Array} v vector to translate by
- * @return {[type]}   [description]
+ * @return {p5.Matrix}                    this
  */
 p5.Matrix.prototype.translate = function(v){
   var x = v[0],
@@ -1701,16 +2100,132 @@ p5.Matrix.prototype.rotateZ = function(a){
   this.rotate(a, [0,0,1]);
 };
 
-module.exports = p5.Matrix;
+/**
+ * sets the perspective matrix
+ * @param  {Number} fovy   [description]
+ * @param  {Number} aspect [description]
+ * @param  {Number} near   near clipping plane
+ * @param  {Number} far    far clipping plane
+ * @return {void}
+ */
+p5.Matrix.prototype.perspective = function(fovy,aspect,near,far){
 
-},{"../core/constants":15,"../core/core":16,"../math/polargeometry":45}],5:[function(require,module,exports){
+  var f = 1.0 / Math.tan(fovy / 2),
+    nf = 1 / (near - far);
+
+  this.mat4[0] = f / aspect;
+  this.mat4[1] = 0;
+  this.mat4[2] = 0;
+  this.mat4[3] = 0;
+  this.mat4[4] = 0;
+  this.mat4[5] = f;
+  this.mat4[6] = 0;
+  this.mat4[7] = 0;
+  this.mat4[8] = 0;
+  this.mat4[9] = 0;
+  this.mat4[10] = (far + near) * nf;
+  this.mat4[11] = -1;
+  this.mat4[12] = 0;
+  this.mat4[13] = 0;
+  this.mat4[14] = (2 * far * near) * nf;
+  this.mat4[15] = 0;
+
+  return this;
+
+};
+
+/**
+ * sets the ortho matrix
+ * @param  {Number} left   [description]
+ * @param  {Number} right  [description]
+ * @param  {Number} bottom [description]
+ * @param  {Number} top    [description]
+ * @param  {Number} near   near clipping plane
+ * @param  {Number} far    far clipping plane
+ * @return {void}
+ */
+p5.Matrix.prototype.ortho = function(left,right,bottom,top,near,far){
+
+  var lr = 1 / (left - right),
+    bt = 1 / (bottom - top),
+    nf = 1 / (near - far);
+  this.mat4[0] = -2 * lr;
+  this.mat4[1] = 0;
+  this.mat4[2] = 0;
+  this.mat4[3] = 0;
+  this.mat4[4] = 0;
+  this.mat4[5] = -2 * bt;
+  this.mat4[6] = 0;
+  this.mat4[7] = 0;
+  this.mat4[8] = 0;
+  this.mat4[9] = 0;
+  this.mat4[10] = 2 * nf;
+  this.mat4[11] = 0;
+  this.mat4[12] = (left + right) * lr;
+  this.mat4[13] = (top + bottom) * bt;
+  this.mat4[14] = (far + near) * nf;
+  this.mat4[15] = 1;
+
+  return this;
+};
+
+/**
+ * PRIVATE
+ */
+// matrix methods adapted from:
+// https://developer.mozilla.org/en-US/docs/Web/WebGL/
+// gluPerspective
+//
+// function _makePerspective(fovy, aspect, znear, zfar){
+//    var ymax = znear * Math.tan(fovy * Math.PI / 360.0);
+//    var ymin = -ymax;
+//    var xmin = ymin * aspect;
+//    var xmax = ymax * aspect;
+//    return _makeFrustum(xmin, xmax, ymin, ymax, znear, zfar);
+//  }
+
+////
+//// glFrustum
+////
+//function _makeFrustum(left, right, bottom, top, znear, zfar){
+//  var X = 2*znear/(right-left);
+//  var Y = 2*znear/(top-bottom);
+//  var A = (right+left)/(right-left);
+//  var B = (top+bottom)/(top-bottom);
+//  var C = -(zfar+znear)/(zfar-znear);
+//  var D = -2*zfar*znear/(zfar-znear);
+//  var frustrumMatrix =[
+//  X, 0, A, 0,
+//  0, Y, B, 0,
+//  0, 0, C, D,
+//  0, 0, -1, 0
+//];
+//return frustrumMatrix;
+// }
+
+// function _setMVPMatrices(){
+////an identity matrix
+////@TODO use the p5.Matrix class to abstract away our MV matrices and
+///other math
+//var _mvMatrix =
+//[
+//  1.0,0.0,0.0,0.0,
+//  0.0,1.0,0.0,0.0,
+//  0.0,0.0,1.0,0.0,
+//  0.0,0.0,0.0,1.0
+//];
+
+module.exports = p5.Matrix;
+},{"../core/constants":19,"../core/core":20,"../math/polargeometry":49}],8:[function(require,module,exports){
+'use strict';
 
 var p5 = require('../core/core');
-var shaders = require('./shaders');
+var shader = require('./shader');
 require('../core/p5.Renderer');
 require('./p5.Matrix');
-var gl, shaderProgram;
 var uMVMatrixStack = [];
+var shaderStack = [];
+var RESOLUTION = 1000;
 
 //@TODO should probably implement an override for these attributes
 var attributes = {
@@ -1743,17 +2258,21 @@ p5.Renderer3D = function(elt, pInst, isMainCanvas) {
   }
 
   this.isP3D = true; //lets us know we're in 3d mode
-  gl = this.drawingContext;
+  this.GL = this.drawingContext;
+  var gl = this.GL;
   gl.clearColor(1.0, 1.0, 1.0, 1.0); //background is initialized white
   gl.clearDepth(1);
   gl.enable(gl.DEPTH_TEST);
   gl.depthFunc(gl.LEQUAL);
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
   gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
-  this.initShaders(); //initialize our default shaders
   //create our default matrices
-  this.initHash();
   this.initMatrix();
+  this.initHash();
+  this.resetStack();
+  //for immedidate mode
+  this.verticeBuffer = gl.createBuffer();
+  this.colorBuffer = gl.createBuffer();
   return this;
 };
 
@@ -1778,22 +2297,68 @@ p5.Renderer3D.prototype._applyDefaults = function() {
  * @return {[type]}   [description]
  */
 p5.Renderer3D.prototype.resize = function(w,h) {
-  p5.Renderer.prototype.resize.call(this, w,h);
+  var gl = this.GL;
+  p5.Renderer.prototype.resize.call(this, w, h);
   gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
 };
 
+//////////////////////////////////////////////
+// BACKGROUND | Setting
+//////////////////////////////////////////////
+
 /**
- * [initShaders description]
+ * [background description]
  * @return {[type]} [description]
  */
-p5.Renderer3D.prototype.initShaders = function() {
+p5.Renderer3D.prototype.background = function() {
+  var gl = this.GL;
+  var _col = this._pInst.color.apply(this._pInst, arguments);
+  // gl.clearColor(0.0,0.0,0.0,1.0);
+  var _r = (_col.color_array[0]) / 255;
+  var _g = (_col.color_array[1]) / 255;
+  var _b = (_col.color_array[2]) / 255;
+  var _a = (_col.color_array[3]) / 255;
+  gl.clearColor(_r, _g, _b, _a);
+  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+  this.resetMatrix();
+  this.resetStack();
+};
+
+/**
+ * [originMode description]
+ * @param  {[type]} mode [description]
+ * @return {[type]}      [description]
+ */
+p5.prototype.originMode = function(mode){
+  if(mode === 'TOP_LEFT'){
+    this._graphics.translate(-this.width/2, -this.height/2, 0);
+  }
+};
+
+//@TODO implement this
+// p5.Renderer3D.prototype.clear = function() {
+//@TODO
+// };
+
+//////////////////////////////////////////////
+// SHADER
+//////////////////////////////////////////////
+
+/**
+ * [initShaders description]
+ * @param  {[type]} vertId [description]
+ * @param  {[type]} fragId [description]
+ * @return {[type]}        [description]
+ */
+p5.Renderer3D.prototype.initShaders = function(vertId, fragId, immediateMode) {
+  var gl = this.GL;
   //set up our default shaders by:
   // 1. create the shader,
   // 2. load the shader source,
   // 3. compile the shader
   var _vertShader = gl.createShader(gl.VERTEX_SHADER);
   //load in our default vertex shader
-  gl.shaderSource(_vertShader, shaders.testVert);
+  gl.shaderSource(_vertShader, shader[vertId]);
   gl.compileShader(_vertShader);
   // if our vertex shader failed compilation?
   if (!gl.getShaderParameter(_vertShader, gl.COMPILE_STATUS)) {
@@ -1804,7 +2369,7 @@ p5.Renderer3D.prototype.initShaders = function() {
 
   var _fragShader = gl.createShader(gl.FRAGMENT_SHADER);
   //load in our material frag shader
-  gl.shaderSource(_fragShader, shaders.testFrag);
+  gl.shaderSource(_fragShader, shader[fragId]);
   gl.compileShader(_fragShader);
   // if our frag shader failed compilation?
   if (!gl.getShaderParameter(_fragShader, gl.COMPILE_STATUS)) {
@@ -1813,7 +2378,7 @@ p5.Renderer3D.prototype.initShaders = function() {
     return null;
   }
 
-  shaderProgram = gl.createProgram();
+  var shaderProgram = gl.createProgram();
   gl.attachShader(shaderProgram, _vertShader);
   gl.attachShader(shaderProgram, _fragShader);
   gl.linkProgram(shaderProgram);
@@ -1823,20 +2388,27 @@ p5.Renderer3D.prototype.initShaders = function() {
   gl.useProgram(shaderProgram);
   //END SHADERS SETUP
 
-  // var vertexResolution =
-  // gl.getUniformLocation(shaderProgram, 'u_resolution');
   // @TODO replace 4th argument with far plane once we implement
   // a view frustrum
+  shaderProgram.uResolution =
+    gl.getUniformLocation(shaderProgram, 'uResolution');
+  gl.uniform1f(shaderProgram.uResolution, RESOLUTION);
 
   //vertex position Attribute
   shaderProgram.vertexPositionAttribute =
     gl.getAttribLocation(shaderProgram, 'position');
   gl.enableVertexAttribArray(shaderProgram.vertexPositionAttribute);
 
-  //vertex normal Attribute
-  shaderProgram.vertexNormalAttribute =
-    gl.getAttribLocation(shaderProgram, 'normal');
-  gl.enableVertexAttribArray(shaderProgram.vertexNormalAttribute);
+  if(immediateMode === undefined){
+    //vertex normal Attribute
+    shaderProgram.vertexNormalAttribute =
+      gl.getAttribLocation(shaderProgram, 'normal');
+    gl.enableVertexAttribArray(shaderProgram.vertexNormalAttribute);
+
+    //normal Matrix uniform
+    shaderProgram.uNMatrixUniform =
+    gl.getUniformLocation(shaderProgram, 'normalMatrix');
+  }
 
   //projection Matrix uniform
   shaderProgram.uPMatrixUniform =
@@ -1845,19 +2417,116 @@ p5.Renderer3D.prototype.initShaders = function() {
   shaderProgram.uMVMatrixUniform =
     gl.getUniformLocation(shaderProgram, 'modelviewMatrix');
 
-  //normal Matrix uniform
-  shaderProgram.uNMatrixUniform =
-  gl.getUniformLocation(shaderProgram, 'normalMatrix');
+  this.mHash[vertId + '|' + fragId] = shaderProgram;
+
+  return shaderProgram;
 };
+
+/**
+ * Sets the Matrix Uniforms inside our default shader.
+ * @param {String} shaderKey key of current shader
+ */
+p5.Renderer3D.prototype.setMatrixUniforms = function(shaderKey) {
+  var gl = this.GL;
+  var shaderProgram = this.mHash[shaderKey];
+
+  gl.useProgram(shaderProgram);
+
+  gl.uniformMatrix4fv(
+    shaderProgram.uPMatrixUniform,
+    false, this.uPMatrix.mat4);
+
+  gl.uniformMatrix4fv(
+    shaderProgram.uMVMatrixUniform,
+    false, this.uMVMatrix.mat4);
+
+  this.uNMatrix = new p5.Matrix();
+  this.uNMatrix.invert(this.uMVMatrix);
+  this.uNMatrix.transpose(this.uNMatrix);
+
+  gl.uniformMatrix4fv(
+    shaderProgram.uNMatrixUniform,
+    false, this.uNMatrix.mat4);
+};
+
+//////////////////////////////////////////////
+// STACK | for shader, vertex, color and mode
+//////////////////////////////////////////////
+
+p5.Renderer3D.prototype.saveShaders = function(mId){
+  shaderStack.push(mId);
+};
+
+p5.Renderer3D.prototype.getCurColor = function() {
+  return this.colorStack[this.colorStack.length-1] || [0.5, 0.5, 0.5, 1.0];
+};
+
+p5.Renderer3D.prototype.getCurShaderId = function(){
+  var mId = shaderStack[shaderStack.length - 1];
+  if(mId === undefined){
+    //default shader: basicMaterial
+    mId = 'normalVert|basicFrag';
+    var gl = this.GL;
+    var shaderProgram =
+     this.initShaders('normalVert', 'basicFrag');
+    shaderProgram.uMaterialColor = gl.getUniformLocation(
+      shaderProgram, 'uMaterialColor' );
+    var colors = this.getCurColor();
+    gl.uniform4f( shaderProgram.uMaterialColor,
+    colors[0], colors[1], colors[2], colors[3]);
+    this.saveShaders(mId);
+  }
+  return mId;
+};
+
+p5.Renderer3D.prototype.resetStack = function(){
+  shaderStack = [];
+  //holding colors declaration, like [0, 120, 0]
+  this.colorStack = [];
+  //holding mode, like TIANGLE or 'LINES'
+  this.modeStack = [];
+  //holding 'fill' or 'stroke'
+  this.drawModeStack = [];
+  //holding an array of vertex position
+  this.verticeStack = [];
+  //holding lights
+  this.lightStack = [];
+};
+
+//////////////////////////////////////////////
+// HASH | for material and geometry
+//////////////////////////////////////////////
 
 /**
  * [initBuffer description]
  * @return {[type]} [description]
  */
 p5.Renderer3D.prototype.initHash = function(){
-  this.hash = {};
-  window.hash = this.hash;//for debug
+  this.gHash = {};
+  this.mHash = {};
 };
+
+/**
+ * [geometryInHash description]
+ * @param  {[type]} gId [description]
+ * @return {[type]}     [description]
+ */
+p5.Renderer3D.prototype.geometryInHash = function(gId){
+  return this.gHash[gId] !== undefined;
+};
+
+/**
+ * [materialInHash description]
+ * @param  {[type]} mId [description]
+ * @return {[type]}     [description]
+ */
+p5.Renderer3D.prototype.materialInHash = function(mId){
+  return this.mHash[mId] !== undefined;
+};
+
+//////////////////////////////////////////////
+// MATRIX
+//////////////////////////////////////////////
 
 /**
  * [initMatrix description]
@@ -1867,7 +2536,9 @@ p5.Renderer3D.prototype.initMatrix = function(){
   this.uMVMatrix = new p5.Matrix();
   this.uPMatrix  = new p5.Matrix();
   this.uNMatrix = new p5.Matrix();
-  this._perspective(60 / 180 * Math.PI, this.width / this.height, 0.1, 100);
+  var _w = this.width;
+  var _h = this.height;
+  this.uPMatrix.perspective(60 / 180 * Math.PI, _w / _h, 0.1, 100);
 };
 
 /**
@@ -1879,92 +2550,6 @@ p5.Renderer3D.prototype.resetMatrix = function() {
   this.uMVMatrix = p5.Matrix.identity();
 };
 
-//////////////////////////////////////////////
-// COLOR | Setting
-//////////////////////////////////////////////
-
-/**
- * [background description]
- * @return {[type]} [description]
- */
-p5.Renderer3D.prototype.background = function() {
-  var _col = this._pInst.color.apply(this._pInst, arguments);
-  // gl.clearColor(0.0,0.0,0.0,1.0);
-  var _r = (_col.color_array[0]) / 255;
-  var _g = (_col.color_array[1]) / 255;
-  var _b = (_col.color_array[2]) / 255;
-  var _a = (_col.color_array[3]) / 255;
-  gl.clearColor(_r, _g, _b, _a);
-  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-  this.resetMatrix();
-};
-
-//@TODO implement this
-// p5.Renderer3D.prototype.clear = function() {
-//@TODO
-// };
-
-//@TODO implement this
-// p5.Renderer3D.prototype.fill = function() {
-//@TODO
-// };
-
-/**
- * [stroke description]
- * @return {[type]} [description]
- */
-p5.Renderer3D.prototype.stroke = function() {
-  this._stroke = this._pInst.color.apply(this._pInst, arguments);
-};
-
-
-p5.Renderer3D.prototype.notInHash = function(uuid){
-  return this.hash[uuid] === undefined;
-};
-
-p5.Renderer3D.prototype.initBuffer = function(uuid, obj) {
-
-  this.hash[uuid] = {};
-  this.hash[uuid].len = obj.len;
-  this.hash[uuid].vertexBuffer = gl.createBuffer();
-  this.hash[uuid].normalBuffer = gl.createBuffer();
-  this.hash[uuid].indexBuffer = gl.createBuffer();
-
-  gl.bindBuffer(gl.ARRAY_BUFFER, this.hash[uuid].vertexBuffer);
-  gl.bufferData(
-    gl.ARRAY_BUFFER, new Float32Array(obj.vertices), gl.STATIC_DRAW);
-  gl.vertexAttribPointer(
-    shaderProgram.vertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);
-
-  gl.bindBuffer(gl.ARRAY_BUFFER, this.hash[uuid].normalBuffer);
-  gl.bufferData(
-    gl.ARRAY_BUFFER, new Float32Array(obj.vertexNormals), gl.STATIC_DRAW);
-  gl.vertexAttribPointer(
-    shaderProgram.vertexNormalAttribute, 3, gl.FLOAT, false, 0, 0);
-
-  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.hash[uuid].indexBuffer);
-  gl.bufferData
-   (gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(obj.faces), gl.STATIC_DRAW);
-};
-
-p5.Renderer3D.prototype.drawBuffer = function(uuid) {
-
-  gl.bindBuffer(gl.ARRAY_BUFFER, this.hash[uuid].vertexBuffer);
-  gl.vertexAttribPointer(
-    shaderProgram.vertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);
-
-  gl.bindBuffer(gl.ARRAY_BUFFER, this.hash[uuid].normalBuffer);
-  gl.vertexAttribPointer(
-    shaderProgram.vertexNormalAttribute, 3, gl.FLOAT, false, 0, 0);
-
-  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.hash[uuid].indexBuffer);
-
-  this.setMatrixUniforms();
-  gl.drawElements(
-    gl.TRIANGLES, this.hash[uuid].len,
-     gl.UNSIGNED_SHORT, 0);
-};
-
 /**
  * [translate description]
  * @param  {[type]} x [description]
@@ -1974,9 +2559,10 @@ p5.Renderer3D.prototype.drawBuffer = function(uuid) {
  * @todo implement handle for components or vector as args
  */
 p5.Renderer3D.prototype.translate = function(x, y, z) {
-  x = x / 100;
-  y = -y / 100;
-  z = z / 100;
+  //@TODO: figure out how to fit the resolution
+  x = x / RESOLUTION;
+  y = -y / RESOLUTION;
+  z = z / RESOLUTION;
   this.uMVMatrix.translate([x,y,z]);
   return this;
 };
@@ -2044,322 +2630,101 @@ p5.Renderer3D.prototype.pop = function() {
   this.uMVMatrix = uMVMatrixStack.pop();
 };
 
-/**
- * Sets the Matrix Uniforms inside our default shader.
- * @param {Array float} projection projection matrix
- * @param {Array float} modelView  model view matrix
- */
-p5.Renderer3D.prototype.setMatrixUniforms = function() {
-  gl.uniformMatrix4fv(
-    shaderProgram.uPMatrixUniform, false, this.uPMatrix.mat4);
-  gl.uniformMatrix4fv(
-    shaderProgram.uMVMatrixUniform, false, this.uMVMatrix.mat4);
-  this.uNMatrix = new p5.Matrix();
-  this.uNMatrix.invert(this.uMVMatrix);
-  this.uNMatrix.transpose(this.uNMatrix);
-  gl.uniformMatrix4fv(
-    shaderProgram.uNMatrixUniform, false, this.uNMatrix.mat4);
-};
-/**
- * PRIVATE
- */
-// matrix methods adapted from:
-// https://developer.mozilla.org/en-US/docs/Web/WebGL/
-// gluPerspective
-//
-// function _makePerspective(fovy, aspect, znear, zfar){
-//    var ymax = znear * Math.tan(fovy * Math.PI / 360.0);
-//    var ymin = -ymax;
-//    var xmin = ymin * aspect;
-//    var xmax = ymax * aspect;
-//    return _makeFrustum(xmin, xmax, ymin, ymax, znear, zfar);
-//  }
-
-////
-//// glFrustum
-////
-//function _makeFrustum(left, right, bottom, top, znear, zfar){
-//  var X = 2*znear/(right-left);
-//  var Y = 2*znear/(top-bottom);
-//  var A = (right+left)/(right-left);
-//  var B = (top+bottom)/(top-bottom);
-//  var C = -(zfar+znear)/(zfar-znear);
-//  var D = -2*zfar*znear/(zfar-znear);
-//  var frustrumMatrix =[
-//  X, 0, A, 0,
-//  0, Y, B, 0,
-//  0, 0, C, D,
-//  0, 0, -1, 0
-//];
-//return frustrumMatrix;
-// }
-
-// function _setMVPMatrices(){
-////an identity matrix
-////@TODO use the p5.Matrix class to abstract away our MV matrices and
-///other math
-//var _mvMatrix =
-//[
-//  1.0,0.0,0.0,0.0,
-//  0.0,1.0,0.0,0.0,
-//  0.0,0.0,1.0,0.0,
-//  0.0,0.0,0.0,1.0
-//];
-
-//////////////////////////////////////////
-/// CAMERA
-//////////////////////////////////////////
-p5.prototype.perspective = function(fovy,aspect,near,far){
-  this._pInst._graphics._perspective(arguments);
-};
-/**
- * sets the perspective matrix
- * @param  {Number} fovy   [description]
- * @param  {Number} aspect [description]
- * @param  {Number} near   near clipping plane
- * @param  {Number} far    far clipping plane
- * @return {void}
- */
-p5.Renderer3D.prototype._perspective = function(){
-  var fovy = arguments[0];
-  var aspect = arguments[1];
-  var near = arguments[2];
-  var far = arguments[3];
-
-  var f = 1.0 / Math.tan(fovy / 2),
-    nf = 1 / (near - far);
-  this.uPMatrix.mat4[0] = f / aspect;
-  this.uPMatrix.mat4[1] = 0;
-  this.uPMatrix.mat4[2] = 0;
-  this.uPMatrix.mat4[3] = 0;
-  this.uPMatrix.mat4[4] = 0;
-  this.uPMatrix.mat4[5] = f;
-  this.uPMatrix.mat4[6] = 0;
-  this.uPMatrix.mat4[7] = 0;
-  this.uPMatrix.mat4[8] = 0;
-  this.uPMatrix.mat4[9] = 0;
-  this.uPMatrix.mat4[10] = (far + near) * nf;
-  this.uPMatrix.mat4[11] = -1;
-  this.uPMatrix.mat4[12] = 0;
-  this.uPMatrix.mat4[13] = 0;
-  this.uPMatrix.mat4[14] = (2 * far * near) * nf;
-  this.uPMatrix.mat4[15] = 0;
-  return this;
-};
-//// create a perspective matrix with
-//// fovy, aspect, znear, zfar
-//var _pMatrix = _makePerspective(45,
-//  gl.drawingBufferWidth/gl.drawingBufferHeight,
-//  0.1, 1000.0);
 module.exports = p5.Renderer3D;
+},{"../core/core":20,"../core/p5.Renderer":26,"./p5.Matrix":7,"./shader":10}],9:[function(require,module,exports){
+//retained mode is used by rendering 3d_primitives
 
-},{"../core/core":16,"../core/p5.Renderer":22,"./p5.Matrix":4,"./shaders":6}],6:[function(require,module,exports){
-/*
-Part of the Processing project - http://processing.org
+'use strict';
 
-Copyright (c) 2011-13 Ben Fry and Casey Reas
+var p5 = require('../core/core');
 
-This library is free software; you can redistribute it and/or
-modify it under the terms of the GNU Lesser General Public
-License version 2.1 as published by the Free Software Foundation.
-
-This library is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General
-Public License along with this library; if not, write to the
-Free Software Foundation, Inc., 59 Temple Place, Suite 330,
-Boston, MA  02111-1307  USA
- */
 /**
- * @description Default full shaders for our WebGL context
+ * [createBuffer description]
+ * @param  {[type]} gId [description]
+ * @param  {[type]} obj [description]
+ * @return {[type]}     [description]
  */
-module.exports = {
-  texLightVert : [
-    'uniform mat4 modelviewMatrix;',
-    'uniform mat4 transformMatrix;',
-    'uniform mat3 normalMatrix;',
-    'uniform mat4 texMatrix;',
-
-    'uniform int lightCount;',
-    'uniform vec4 lightPosition[8];',
-    'uniform vec3 lightNormal[8];',
-    'uniform vec3 lightAmbient[8];',
-    'uniform vec3 lightDiffuse[8];',
-    'uniform vec3 lightSpecular[8];',
-    'uniform vec3 lightFalloff[8];',
-    'uniform vec2 lightSpot[8];',
-
-    'attribute vec4 position;',
-    'attribute vec4 color;',
-    'attribute vec3 normal;',
-    'attribute vec2 texCoord;',
-
-    'attribute vec4 ambient;',
-    'attribute vec4 specular;',
-    'attribute vec4 emissive;',
-    'attribute float shininess;',
-
-    'varying vec4 vertColor;',
-    'varying vec4 backVertColor;',
-    'varying vec4 vertTexCoord;',
-
-    'const float zero_float = 0.0;',
-    'const float one_float = 1.0;',
-    'const vec3 zero_vec3 = vec3(0);',
-
-    'float falloffFactor(vec3 lightPos, vec3 vertPos, vec3 coeff) {',
-    'vec3 lpv = lightPos - vertPos;',
-    'vec3 dist = vec3(one_float);',
-    'dist.z = dot(lpv, lpv);',
-    'dist.y = sqrt(dist.z);',
-    'return one_float / dot(dist, coeff);',
-    '}',
-
-    'float spotFactor(vec3 lightPos,vec3 vertPos,',
-    'vec3 lightNorm,float minCos,float spotExp) {',
-    'vec3 lpv = normalize(lightPos - vertPos);',
-    'vec3 nln = -one_float * lightNorm;',
-    'float spotCos = dot(nln, lpv);',
-    'return spotCos <= minCos ? zero_float : pow(spotCos, spotExp);',
-    '}',
-    'float lambertFactor(vec3 lightDir, vec3 vecNormal) {',
-    'return max(zero_float, dot(lightDir, vecNormal));',
-    '}',
-
-    'float blinnPhongFactor(vec3 lightDir,',
-    'vec3 vertPos,vec3 vecNormal, float shine) {',
-    'vec3 np = normalize(vertPos);',
-    'vec3 ldp = normalize(lightDir - np);',
-    'return pow(max(zero_float, dot(ldp, vecNormal)), shine);',
-    '}',
-
-    'void main() {',
-      // Vertex in clip coordinates
-    'gl_Position = transformMatrix * position;',
-
-      // Vertex in eye coordinates
-    'vec3 ecVertex = vec3(modelviewMatrix * position);',
-
-      // Normal vector in eye coordinates
-    'vec3 ecNormal = normalize(normalMatrix * normal);',
-    'vec3 ecNormalInv = ecNormal * -one_float;',
-
-    // Light calculations
-    'vec3 totalAmbient = vec3(0, 0, 0);',
-
-    'vec3 totalFrontDiffuse = vec3(0, 0, 0);',
-    'vec3 totalFrontSpecular = vec3(0, 0, 0);',
-
-    'vec3 totalBackDiffuse = vec3(0, 0, 0);',
-    'vec3 totalBackSpecular = vec3(0, 0, 0);',
-
-    'for (int i = 0; i < 8; i++) {',
-    'if (lightCount == i) break;',
-
-    'vec3 lightPos = lightPosition[i].xyz;',
-    'bool isDir = zero_float < lightPosition[i].w;',
-    'float spotCos = lightSpot[i].x;',
-    'float spotExp = lightSpot[i].y;',
-
-    'vec3 lightDir;',
-    'float falloff;',
-    'float spotf;',
-
-    'if (isDir) {',
-    'falloff = one_float;',
-    'lightDir = -one_float * lightNormal[i];',
-    '} else {',
-    'falloff = falloffFactor(lightPos, ecVertex, lightFalloff[i]);',
-    'lightDir = normalize(lightPos - ecVertex);',
-    '}',
-
-    'spotf=spotExp > zero_float ? spotFactor(lightPos,',
-    'ecVertex,',
-    'lightNormal[i],',
-    'spotCos,',
-    'spotExp):one_float;',
-
-    'if (any(greaterThan(lightAmbient[i], zero_vec3))) {',
-    'totalAmbient+= lightAmbient[i] * falloff;',
-    '}',
-
-    'if (any(greaterThan(lightDiffuse[i], zero_vec3))) {',
-    'totalFrontDiffuse  += lightDiffuse[i] * falloff * spotf *',
-    'lambertFactor(lightDir, ecNormal);',
-    'totalBackDiffuse   += lightDiffuse[i] * falloff * spotf *',
-    'lambertFactor(lightDir, ecNormalInv);',
-    '}',
-
-    'if (any(greaterThan(lightSpecular[i], zero_vec3))) {',
-    'totalFrontSpecular += lightSpecular[i] * falloff * spotf * ',
-    'blinnPhongFactor(lightDir, ecVertex, ecNormal, shininess);',
-    'totalBackSpecular  += lightSpecular[i] * falloff * spotf *',
-    'blinnPhongFactor(lightDir, ecVertex, ecNormalInv, shininess);',
-    '}',
-    '}',
-
-    // Calculating final color as result of all lights (plus emissive term).
-    // Transparency is determined exclusively by the diffuse component.
-    'vertColor =vec4(totalAmbient, 0) * ambient + ',
-    'vec4(totalFrontDiffuse, 1) * color +' ,
-    'vec4(totalFrontSpecular, 0) * specular +',
-    'vec4(emissive.rgb, 0);',
-
-    'backVertColor = vec4(totalAmbient, 0) * ambient + ',
-    'vec4(totalBackDiffuse, 1) * color +',
-    'vec4(totalBackSpecular, 0) * specular +',
-    'vec4(emissive.rgb, 0);',
-
-      // Calculating texture coordinates, with r and q set both to one
-    'vertTexCoord = texMatrix * vec4(texCoord, 1.0, 1.0);',
-    '}'
-  ].join('\n'),
-  texLightFrag : [
-    'precision mediump float;',
-    'precision mediump int;',
-    'uniform sampler2D texture;',
-
-    'uniform vec2 texOffset;',
-
-    'varying vec4 vertColor;',
-    'varying vec4 backVertColor;',
-    'varying vec4 vertTexCoord;',
-
-    'void main() {',
-    'gl_FragColor = texture2D(texture,vertTexCoord.st)*',
-    '(gl_FrontFacing ? vertColor : backVertColor);',
-    '}'
-  ].join('\n'),
-  testVert: [
-    'attribute vec3 position;',
-    'attribute vec3 normal;',
-
-    'uniform mat4 modelviewMatrix;',
-    'uniform mat4 transformMatrix;',
-    'uniform mat4 normalMatrix;',
-
-    'varying vec3 vertexNormal;',
-
-    'void main(void) {',
-    'vec3 zeroToOne = position / 1000.0;',
-    'vec4 positionVec4 = vec4(zeroToOne, 1.);',
-    'gl_Position = transformMatrix * modelviewMatrix * positionVec4;',
-    'vertexNormal = vec3( normalMatrix * vec4( normal, 1.0 ) );',
-    '}'
-  ].join('\n'),
-  testFrag: [
-    'precision mediump float;',
-    'varying vec3 vertexNormal;',
-    'void main(void) {',
-    'gl_FragColor = vec4(vertexNormal, 1.0);',
-    '}'
-  ].join('\n')
+p5.Renderer3D.prototype.createBuffer = function(gId, obj) {
+  var gl = this.GL;
+  this.gHash[gId] = {};
+  this.gHash[gId].len = obj.len;
+  this.gHash[gId].vertexBuffer = gl.createBuffer();
+  this.gHash[gId].normalBuffer = gl.createBuffer();
+  this.gHash[gId].indexBuffer = gl.createBuffer();
 };
 
-},{}],7:[function(require,module,exports){
+/**
+ * [initBuffer description]
+ * @param  {String} gId    key of the geometry object
+ * @param  {Object} obj    an object containing geometry information
+ */
+p5.Renderer3D.prototype.initBuffer = function(gId, obj) {
+  var gl = this.GL;
+  this.createBuffer(gId, obj);
+
+  var shaderProgram = this.mHash[this.getCurShaderId()];
+
+  gl.bindBuffer(gl.ARRAY_BUFFER, this.gHash[gId].vertexBuffer);
+  gl.bufferData(
+    gl.ARRAY_BUFFER, new Float32Array(obj.vertices), gl.STATIC_DRAW);
+  gl.vertexAttribPointer(
+    shaderProgram.vertexPositionAttribute,
+    3, gl.FLOAT, false, 0, 0);
+
+  gl.bindBuffer(gl.ARRAY_BUFFER, this.gHash[gId].normalBuffer);
+  gl.bufferData(
+    gl.ARRAY_BUFFER, new Float32Array(obj.vertexNormals), gl.STATIC_DRAW);
+  gl.vertexAttribPointer(
+    shaderProgram.vertexNormalAttribute,
+    3, gl.FLOAT, false, 0, 0);
+
+  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.gHash[gId].indexBuffer);
+  gl.bufferData
+   (gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(obj.faces), gl.STATIC_DRAW);
+};
+
+/**
+ * [drawBuffer description]
+ * @param  {String} gId     key of the geometery object
+ */
+p5.Renderer3D.prototype.drawBuffer = function(gId) {
+  var gl = this.GL;
+  var shaderKey = this.getCurShaderId();
+  var shaderProgram = this.mHash[shaderKey];
+
+  gl.bindBuffer(gl.ARRAY_BUFFER, this.gHash[gId].vertexBuffer);
+  gl.vertexAttribPointer(
+    shaderProgram.vertexPositionAttribute,
+    3, gl.FLOAT, false, 0, 0);
+
+  gl.bindBuffer(gl.ARRAY_BUFFER, this.gHash[gId].normalBuffer);
+  gl.vertexAttribPointer(
+    shaderProgram.vertexNormalAttribute,
+    3, gl.FLOAT, false, 0, 0);
+
+  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.gHash[gId].indexBuffer);
+
+  this.setMatrixUniforms(shaderKey);
+
+  gl.drawElements(
+    gl.TRIANGLES, this.gHash[gId].len,
+     gl.UNSIGNED_SHORT, 0);
+};
+
+module.exports = p5.Renderer3D;
+},{"../core/core":20}],10:[function(require,module,exports){
+
+
+module.exports = {
+  vertexColorVert:
+    "attribute vec3 position;\n\nattribute vec4 aVertexColor;\n\nuniform mat4 modelviewMatrix;\nuniform mat4 transformMatrix;\n\nvarying vec4 vColor;\n\nvoid main(void) {\n  vec3 zeroToOne = position / 1000.0;\n  vec4 positionVec4 = vec4(zeroToOne * vec3(1., -1., 1.), 1.);\n  gl_Position = transformMatrix * modelviewMatrix * positionVec4;\n  vColor = aVertexColor;\n}",
+  vertexColorFrag:
+    "precision mediump float;\nvarying vec4 vColor;\nvoid main(void) {\n  gl_FragColor = vColor;\n}",
+  normalVert: "attribute vec3 position;\nattribute vec3 normal;\n\nuniform mat4 modelviewMatrix;\nuniform mat4 transformMatrix;\nuniform mat4 normalMatrix;\nuniform float uResolution;\n\nvarying vec3 vertexNormal;\n\nvoid main(void) {\n  vec3 zeroToOne = position / uResolution;\n  vec4 positionVec4 = vec4(zeroToOne, 1.);\n  gl_Position = transformMatrix * modelviewMatrix * positionVec4;\n  vertexNormal = vec3( normalMatrix * vec4( normal, 1.0 ) );\n}",
+  normalFrag: "precision mediump float;\nvarying vec3 vertexNormal;\nvoid main(void) {\n  gl_FragColor = vec4(vertexNormal, 1.0);\n}",
+  basicFrag: "precision mediump float;\nvarying vec3 vertexNormal;\nuniform vec4 uMaterialColor;\nvoid main(void) {\n  gl_FragColor = uMaterialColor;\n}"
+};
+},{}],11:[function(require,module,exports){
 
 'use strict';
 
@@ -2409,9 +2774,13 @@ require('./typography/loading_displaying');
 
 require('./3d/p5.Renderer3D');
 require('./3d/p5.Geometry3D');
+require('./3d/retainedMode3D');
+require('./3d/immediateMode3D');
 require('./3d/3d_primitives');
-require('./3d/shaders');
 require('./3d/p5.Matrix');
+require('./3d/material');
+require('./3d/shader');
+require('./3d/interaction');
 
 /**
  * _globalInit
@@ -2443,8 +2812,7 @@ if (document.readyState === 'complete') {
 }
 
 module.exports = p5;
-
-},{"./3d/3d_primitives":2,"./3d/p5.Geometry3D":3,"./3d/p5.Matrix":4,"./3d/p5.Renderer3D":5,"./3d/shaders":6,"./color/creating_reading":9,"./color/p5.Color":10,"./color/setting":11,"./core/2d_primitives":12,"./core/attributes":13,"./core/constants":15,"./core/core":16,"./core/curves":17,"./core/environment":18,"./core/p5.Element":20,"./core/p5.Graphics":21,"./core/p5.Renderer2D":23,"./core/rendering":24,"./core/structure":26,"./core/transform":27,"./core/vertex":28,"./events/acceleration":29,"./events/keyboard":30,"./events/mouse":31,"./events/touch":32,"./image/image":34,"./image/loading_displaying":35,"./image/p5.Image":36,"./image/pixels":37,"./io/files":38,"./io/p5.Table":39,"./io/p5.TableRow":40,"./math/calculation":41,"./math/math":42,"./math/noise":43,"./math/p5.Vector":44,"./math/random":46,"./math/trigonometry":47,"./typography/attributes":48,"./typography/loading_displaying":49,"./typography/p5.Font":50,"./utilities/array_functions":51,"./utilities/conversion":52,"./utilities/string_functions":53,"./utilities/time_date":54}],8:[function(require,module,exports){
+},{"./3d/3d_primitives":2,"./3d/immediateMode3D":3,"./3d/interaction":4,"./3d/material":5,"./3d/p5.Geometry3D":6,"./3d/p5.Matrix":7,"./3d/p5.Renderer3D":8,"./3d/retainedMode3D":9,"./3d/shader":10,"./color/creating_reading":13,"./color/p5.Color":14,"./color/setting":15,"./core/2d_primitives":16,"./core/attributes":17,"./core/constants":19,"./core/core":20,"./core/curves":21,"./core/environment":22,"./core/p5.Element":24,"./core/p5.Graphics":25,"./core/p5.Renderer2D":27,"./core/rendering":28,"./core/structure":30,"./core/transform":31,"./core/vertex":32,"./events/acceleration":33,"./events/keyboard":34,"./events/mouse":35,"./events/touch":36,"./image/image":38,"./image/loading_displaying":39,"./image/p5.Image":40,"./image/pixels":41,"./io/files":42,"./io/p5.Table":43,"./io/p5.TableRow":44,"./math/calculation":45,"./math/math":46,"./math/noise":47,"./math/p5.Vector":48,"./math/random":50,"./math/trigonometry":51,"./typography/attributes":52,"./typography/loading_displaying":53,"./typography/p5.Font":54,"./utilities/array_functions":55,"./utilities/conversion":56,"./utilities/string_functions":57,"./utilities/time_date":58}],12:[function(require,module,exports){
 /**
  * module Utils
  * submodule Color Utils
@@ -2709,7 +3077,7 @@ p5.ColorUtils.rgbaToHSLA = function(rgba, maxes) {
 
 module.exports = p5.ColorUtils;
 
-},{"../core/core":16}],9:[function(require,module,exports){
+},{"../core/core":20}],13:[function(require,module,exports){
 /**
  * @module Color
  * @submodule Creating & Reading
@@ -3136,7 +3504,7 @@ p5.prototype.saturation = function(c) {
 
 module.exports = p5;
 
-},{"../core/core":16,"./p5.Color":10}],10:[function(require,module,exports){
+},{"../core/core":20,"./p5.Color":14}],14:[function(require,module,exports){
 /**
  * @module Color
  * @submodule Creating & Reading
@@ -3670,7 +4038,7 @@ p5.Color._getFormattedColor = function () {
 
 module.exports = p5.Color;
 
-},{"../core/constants":15,"../core/core":16,"./color_utils":8}],11:[function(require,module,exports){
+},{"../core/constants":19,"../core/core":20,"./color_utils":12}],15:[function(require,module,exports){
 /**
  * @module Color
  * @submodule Setting
@@ -4183,7 +4551,7 @@ p5.prototype.stroke = function() {
 
 module.exports = p5;
 
-},{"../core/constants":15,"../core/core":16,"./p5.Color":10}],12:[function(require,module,exports){
+},{"../core/constants":19,"../core/core":20,"./p5.Color":14}],16:[function(require,module,exports){
 /**
  * @module Shape
  * @submodule 2D Primitives
@@ -4395,18 +4763,21 @@ p5.prototype.line = function() {
   }
   //check whether we should draw a 3d line or 2d
   if(this._graphics.isP3D){
-    this._graphics.line(arguments[0],
+    this._graphics.line(
+      arguments[0],
       arguments[1],
       arguments[2],
       arguments[3],
       arguments[4],
       arguments[5]);
   } else {
-    this._graphics.line(arguments[0],
+    this._graphics.line(
+      arguments[0],
       arguments[1],
       arguments[2],
       arguments[3]);
   }
+  return this;
 };
 
 /**
@@ -4428,17 +4799,32 @@ p5.prototype.line = function() {
  * </code>
  * </div>
  */
-p5.prototype.point = function(x, y) {
+p5.prototype.point = function() {
   this._validateParameters(
     'point',
     arguments,
-    ['Number', 'Number']
+    [
+      ['Number', 'Number'],
+      ['Number', 'Number', 'Number']
+    ]
   );
 
   if (!this._doStroke) {
     return this;
   }
-  this._graphics.point(x, y);
+  //check whether we should draw a 3d line or 2d
+  if(this._graphics.isP3D){
+    this._graphics.point(
+      arguments[0],
+      arguments[1],
+      arguments[2]
+      );
+  } else {
+    this._graphics.point(
+      arguments[0],
+      arguments[1]
+    );
+  }
   return this;
 };
 
@@ -4467,18 +4853,50 @@ p5.prototype.point = function(x, y) {
  * </code>
  * </div>
  */
-p5.prototype.quad = function(x1, y1, x2, y2, x3, y3, x4, y4) {
+p5.prototype.quad = function() {
   this._validateParameters(
     'quad',
     arguments,
-    [ 'Number', 'Number', 'Number', 'Number',
-      'Number', 'Number', 'Number', 'Number' ]
+    [
+      [ 'Number', 'Number', 'Number', 'Number',
+        'Number', 'Number', 'Number', 'Number' ],
+      [ 'Number', 'Number', 'Number',
+        'Number', 'Number', 'Number',
+        'Number', 'Number', 'Number',
+        'Number', 'Number', 'Number']
+    ]
   );
 
   if (!this._doStroke && !this._doFill) {
     return this;
   }
-  this._graphics.quad(x1, y1, x2, y2, x3, y3, x4, y4);
+  if(this._graphics.isP3D){
+    this._graphics.quad(
+      arguments[0],
+      arguments[1],
+      arguments[2],
+      arguments[3],
+      arguments[4],
+      arguments[5],
+      arguments[6],
+      arguments[7],
+      arguments[8],
+      arguments[9],
+      arguments[10],
+      arguments[11]
+      );
+  } else {
+    this._graphics.quad(
+     arguments[0],
+     arguments[1],
+     arguments[2],
+     arguments[3],
+     arguments[4],
+     arguments[5],
+     arguments[6],
+    arguments[7]
+    );
+  }
   return this;
 };
 
@@ -4565,23 +4983,48 @@ p5.prototype.rect = function (x, y, w, h, tl, tr, br, bl) {
 * </code>
 * </div>
 */
-p5.prototype.triangle = function(x1, y1, x2, y2, x3, y3) {
+p5.prototype.triangle = function() {
   this._validateParameters(
     'triangle',
     arguments,
-    ['Number', 'Number', 'Number', 'Number', 'Number', 'Number']
+    [
+      ['Number', 'Number', 'Number', 'Number', 'Number', 'Number'],
+      ['Number', 'Number', 'Number', 'Number', 'Number', 'Number',
+       'Number', 'Number', 'Number']
+    ]
   );
 
   if (!this._doStroke && !this._doFill) {
     return this;
   }
-  this._graphics.triangle(x1, y1, x2, y2, x3, y3);
+  if(this._graphics.isP3D){
+    this._graphics.triangle(
+      arguments[0],
+      arguments[1],
+      arguments[2],
+      arguments[3],
+      arguments[4],
+      arguments[5],
+      arguments[6],
+      arguments[7],
+      arguments[8]
+      );
+  } else {
+    this._graphics.triangle(
+     arguments[0],
+     arguments[1],
+     arguments[2],
+     arguments[3],
+     arguments[4],
+     arguments[5]
+    );
+  }
   return this;
 };
 
 module.exports = p5;
 
-},{"./constants":15,"./core":16,"./error_helpers":19}],13:[function(require,module,exports){
+},{"./constants":19,"./core":20,"./error_helpers":23}],17:[function(require,module,exports){
 /**
  * @module Shape
  * @submodule Attributes
@@ -4883,7 +5326,7 @@ p5.prototype.strokeWeight = function(w) {
 
 module.exports = p5;
 
-},{"./constants":15,"./core":16}],14:[function(require,module,exports){
+},{"./constants":19,"./core":20}],18:[function(require,module,exports){
 /**
  * @requires constants
  */
@@ -4919,7 +5362,7 @@ module.exports = {
 };
 
 
-},{"./constants":15}],15:[function(require,module,exports){
+},{"./constants":19}],19:[function(require,module,exports){
 /**
  * @module Constants
  * @submodule Constants
@@ -5122,7 +5565,7 @@ module.exports = {
 
 };
 
-},{}],16:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 /**
  * @module Structure
  * @submodule Structure
@@ -5325,18 +5768,6 @@ var p5 = function(sketch, node, sync) {
       }
     }
 
-    // Setup loading screen
-    // Set loading scfeen into dom if not present
-    // Otherwise displays and removes user provided loading screen
-    this._loadingScreen = document.getElementById(this._loadingScreenId);
-    if(!this._loadingScreen){
-      this._loadingScreen = document.createElement('loadingDiv');
-      this._loadingScreen.innerHTML = 'loading...';
-      this._loadingScreen.style.position = 'absolute';
-      var node = this._userNode || document.body;
-      node.appendChild(this._loadingScreen);
-    }
-
     // Always create a default canvas.
     // Later on if the user calls createCanvas, this default one
     // will be replaced
@@ -5351,6 +5782,19 @@ var p5 = function(sketch, node, sync) {
     var context = this._isGlobal ? window : this;
     if (userPreload) {
 
+      // Setup loading screen
+      // Set loading scfeen into dom if not present
+      // Otherwise displays and removes user provided loading screen
+      var loadingScreen = document.getElementById(this._loadingScreenId);
+      if(!loadingScreen){
+        loadingScreen = document.createElement('div');
+        loadingScreen.innerHTML = 'Loading...';
+        loadingScreen.style.position = 'absolute';
+        loadingScreen.id = this._loadingScreenId;
+        var node = this._userNode || document.body;
+        node.appendChild(loadingScreen);
+      }
+
       var methods = this._preloadMethods;
       Object.keys(methods).forEach(function(f) {
         context[f] = function() {
@@ -5360,11 +5804,6 @@ var p5 = function(sketch, node, sync) {
       });
 
       userPreload();
-      if (this._preloadCount === 0) {
-        this._setup();
-        this._runFrames();
-        this._draw();
-      }
     } else {
       this._setup();
       this._runFrames();
@@ -5378,6 +5817,10 @@ var p5 = function(sketch, node, sync) {
     var preloadCallback = function (resp) {
       context._setProperty('_preloadCount', context._preloadCount - 1);
       if (context._preloadCount === 0) {
+        var loadingScreen = document.getElementById(context._loadingScreenId);
+        if (loadingScreen) {
+          loadingScreen.parentNode.removeChild(loadingScreen);
+        }
         context._setup();
         context._runFrames();
         context._draw();
@@ -5394,7 +5837,7 @@ var p5 = function(sketch, node, sync) {
     if (typeof context.preload === 'function') {
       for (var f in this._preloadMethods) {
         var o = this._preloadMethods[f];
-        context[f] = window[o].prototype[f];
+        context[f] = window[o][f];
       }
     }
 
@@ -5417,9 +5860,6 @@ var p5 = function(sketch, node, sync) {
       k.className = k.className.replace(reg, '');
     }
     this._setupDone = true;
-
-    // Removes the loading screen if it's in the DOM
-    this._loadingScreen.parentNode.removeChild(this._loadingScreen);
 
   }.bind(this);
 
@@ -5640,7 +6080,7 @@ p5.prototype.registerMethod = function(name, m) {
 
 module.exports = p5;
 
-},{"./constants":15,"./shim":25}],17:[function(require,module,exports){
+},{"./constants":19,"./shim":29}],21:[function(require,module,exports){
 /**
  * @module Shape
  * @submodule Curves
@@ -6038,7 +6478,7 @@ p5.prototype.curveTangent = function(a, b,c, d, t) {
 
 module.exports = p5;
 
-},{"./core":16,"./error_helpers":19}],18:[function(require,module,exports){
+},{"./core":20,"./error_helpers":23}],22:[function(require,module,exports){
 /**
  * @module Environment
  * @submodule Environment
@@ -6598,7 +7038,7 @@ p5.prototype.getURLParams = function() {
 
 module.exports = p5;
 
-},{"./constants":15,"./core":16}],19:[function(require,module,exports){
+},{"./constants":19,"./core":20}],23:[function(require,module,exports){
 /**
  * @for p5
  * @requires core
@@ -6863,7 +7303,7 @@ function friendlyWelcome() {
 
 module.exports = p5;
 
-},{"./core":16}],20:[function(require,module,exports){
+},{"./core":20}],24:[function(require,module,exports){
 /**
  * @module DOM
  * @submodule DOM
@@ -7367,7 +7807,7 @@ p5.Element.prototype._setProperty = function (prop, value) {
 
 module.exports = p5.Element;
 
-},{"./core":16}],21:[function(require,module,exports){
+},{"./core":20}],25:[function(require,module,exports){
 /**
  * @module Rendering
  * @submodule Rendering
@@ -7434,7 +7874,7 @@ p5.Graphics.prototype = Object.create(p5.Element.prototype);
 
 module.exports = p5.Graphics;
 
-},{"./constants":15,"./core":16}],22:[function(require,module,exports){
+},{"./constants":19,"./core":20}],26:[function(require,module,exports){
 /**
  * @module Rendering
  * @submodule Rendering
@@ -7492,7 +7932,7 @@ p5.Renderer.prototype.resize = function(w, h) {
 
 module.exports = p5.Renderer;
 
-},{"./core":16}],23:[function(require,module,exports){
+},{"./core":20}],27:[function(require,module,exports){
 
 var p5 = require('./core');
 var canvas = require('./canvas');
@@ -7720,16 +8160,12 @@ p5.Renderer2D.prototype.get = function(x, y, w, h) {
   var pd = this.pixelDensity || this._pInst.pixelDensity;
 
   if (w === 1 && h === 1){
-
-    var imageData = this.drawingContext.getImageData(x * pd, y * pd, w, h);
-    var data = imageData.data;
-    var pixels = [];
-
-    for (var i = 0; i < data.length; i += 4) {
-      pixels.push(data[i], data[i+1], data[i+2], data[i+3]);
-    }
-
-    return pixels;
+    return [
+      this.pixels[pd*4*(y*this.width+x)],
+      this.pixels[pd*(4*(y*this.width+x)+1)],
+      this.pixels[pd*(4*(y*this.width+x)+2)],
+      this.pixels[pd*(4*(y*this.width+x)+3)]
+    ];
   } else {
     var sx = x * pd;
     var sy = y * pd;
@@ -7767,7 +8203,7 @@ p5.Renderer2D.prototype.set = function (x, y, imgOrCol) {
     this.drawingContext.save();
     this.drawingContext.setTransform(1, 0, 0, 1, 0, 0);
     this.drawingContext.scale(this._pInst.pixelDensity,
-                              this._pInst.pixelDensity);
+      this._pInst.pixelDensity);
     this.drawingContext.drawImage(imgOrCol.canvas, x, y);
     this.loadPixels.call(this._pInst);
     this.drawingContext.restore();
@@ -8492,6 +8928,8 @@ function(n00, n01, n02, n10, n11, n12) {
 
 p5.Renderer2D.prototype.resetMatrix = function() {
   this.drawingContext.setTransform(1, 0, 0, 1, 0, 0);
+  this.drawingContext.scale(this._pInst.pixelDensity,
+                            this._pInst.pixelDensity);
   return this;
 };
 
@@ -8615,7 +9053,6 @@ p5.Renderer2D.prototype.text = function (str, x, y, maxWidth, maxHeight) {
       line = '';
       words = cars[ii].split(' ');
       for (n = 0; n < words.length; n++) {
-
         testLine = line + words[n] + ' ';
         testWidth = this.textWidth(testLine);
         if (testWidth > maxWidth && line.length > 0) {
@@ -8763,7 +9200,7 @@ p5.Renderer2D.prototype.pop = function() {
 
 module.exports = p5.Renderer2D;
 
-},{"../image/filters":33,"./canvas":14,"./constants":15,"./core":16,"./p5.Renderer":22}],24:[function(require,module,exports){
+},{"../image/filters":37,"./canvas":18,"./constants":19,"./core":20,"./p5.Renderer":26}],28:[function(require,module,exports){
 /**
  * @module Rendering
  * @submodule Rendering
@@ -9024,7 +9461,7 @@ p5.prototype.blendMode = function(mode) {
 
 module.exports = p5;
 
-},{"../3d/p5.Renderer3D":5,"./constants":15,"./core":16,"./p5.Graphics":21,"./p5.Renderer2D":23}],25:[function(require,module,exports){
+},{"../3d/p5.Renderer3D":8,"./constants":19,"./core":20,"./p5.Graphics":25,"./p5.Renderer2D":27}],29:[function(require,module,exports){
 
 // requestAnim shim layer by Paul Irish
 window.requestAnimationFrame = (function(){
@@ -9104,7 +9541,7 @@ window.performance.now = (function(){
 }());
 
 
-},{}],26:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 /**
  * @module Structure
  * @submodule Structure
@@ -9401,25 +9838,28 @@ p5.prototype.redraw = function () {
     if (typeof userSetup === 'undefined') {
       this.scale(this.pixelDensity, this.pixelDensity);
     }
+    var self = this;
     this._registeredMethods.pre.forEach(function (f) {
-      f.call(this);
+      f.call(self);
     });
     userDraw();
     this._registeredMethods.post.forEach(function (f) {
-      f.call(this);
+      f.call(self);
     });
     this.pop();
   }
 };
 
 p5.prototype.size = function() {
-  throw 'size() not implemented, see createCanvas()';
+  var s = 'size() is not a valid p5 function, to set the size of the ';
+  s += 'drawing canvas, please use createCanvas() instead';
+  throw s;
 };
 
 
 module.exports = p5;
 
-},{"./core":16}],27:[function(require,module,exports){
+},{"./core":20}],31:[function(require,module,exports){
 /**
  * @module Transform
  * @submodule Transform
@@ -9734,7 +10174,7 @@ p5.prototype.translate = function(x, y, z) {
 
 module.exports = p5;
 
-},{"./constants":15,"./core":16}],28:[function(require,module,exports){
+},{"./constants":19,"./core":20}],32:[function(require,module,exports){
 /**
  * @module Shape
  * @submodule Vertex
@@ -9963,19 +10403,23 @@ p5.prototype.beginContour = function() {
  * </div>
  */
 p5.prototype.beginShape = function(kind) {
-  if (kind === constants.POINTS ||
-    kind === constants.LINES ||
-    kind === constants.TRIANGLES ||
-    kind === constants.TRIANGLE_FAN ||
-    kind === constants.TRIANGLE_STRIP ||
-    kind === constants.QUADS ||
-    kind === constants.QUAD_STRIP) {
-    shapeKind = kind;
-  } else {
-    shapeKind = null;
+  if(this._graphics.isP3D){
+    this._graphics.beginShape(kind);
+  }else{
+    if (kind === constants.POINTS ||
+      kind === constants.LINES ||
+      kind === constants.TRIANGLES ||
+      kind === constants.TRIANGLE_FAN ||
+      kind === constants.TRIANGLE_STRIP ||
+      kind === constants.QUADS ||
+      kind === constants.QUAD_STRIP) {
+      shapeKind = kind;
+    } else {
+      shapeKind = null;
+    }
+    vertices = [];
+    contourVertices = [];
   }
-  vertices = [];
-  contourVertices = [];
   return this;
 };
 
@@ -10155,30 +10599,34 @@ p5.prototype.endContour = function() {
  * </div>
  */
 p5.prototype.endShape = function(mode) {
-  if (vertices.length === 0) { return this; }
-  if (!this._doStroke && !this._doFill) { return this; }
+  if(this._graphics.isP3D){
+    this._graphics.endShape();
+  }else{
+    if (vertices.length === 0) { return this; }
+    if (!this._doStroke && !this._doFill) { return this; }
 
-  var closeShape = mode === constants.CLOSE;
+    var closeShape = mode === constants.CLOSE;
 
-  // if the shape is closed, the first element is also the last element
-  if (closeShape && !isContour) {
-    vertices.push(vertices[0]);
-  }
+    // if the shape is closed, the first element is also the last element
+    if (closeShape && !isContour) {
+      vertices.push(vertices[0]);
+    }
 
-  this._graphics.endShape(mode, vertices, isCurve, isBezier,
-    isQuadratic, isContour, shapeKind);
+    this._graphics.endShape(mode, vertices, isCurve, isBezier,
+      isQuadratic, isContour, shapeKind);
 
-  // Reset some settings
-  isCurve = false;
-  isBezier = false;
-  isQuadratic = false;
-  isContour = false;
+    // Reset some settings
+    isCurve = false;
+    isBezier = false;
+    isQuadratic = false;
+    isContour = false;
 
-  // If the shape is closed, the first element was added as last element.
-  // We must remove it again to prevent the list of vertices from growing
-  // over successive calls to endShape(CLOSE)
-  if (closeShape) {
-    vertices.pop();
+    // If the shape is closed, the first element was added as last element.
+    // We must remove it again to prevent the list of vertices from growing
+    // over successive calls to endShape(CLOSE)
+    if (closeShape) {
+      vertices.pop();
+    }
   }
   return this;
 };
@@ -10278,33 +10726,38 @@ p5.prototype.quadraticVertex = function(cx, cy, x3, y3) {
  * </div>
  */
 p5.prototype.vertex = function(x, y, moveTo) {
-  var vert = [];
-  vert.isVert = true;
-  vert[0] = x;
-  vert[1] = y;
-  vert[2] = 0;
-  vert[3] = 0;
-  vert[4] = 0;
-  vert[5] = this._graphics._getFill();
-  vert[6] = this._graphics._getStroke();
+  if(this._graphics.isP3D){
+    this._graphics.vertex
+    (arguments[0], arguments[1], arguments[2]);
+  }else{
+    var vert = [];
+    vert.isVert = true;
+    vert[0] = x;
+    vert[1] = y;
+    vert[2] = 0;
+    vert[3] = 0;
+    vert[4] = 0;
+    vert[5] = this._graphics._getFill();
+    vert[6] = this._graphics._getStroke();
 
-  if (moveTo) {
-    vert.moveTo = moveTo;
-  }
-  if (isContour) {
-    if (contourVertices.length === 0) {
-      vert.moveTo = true;
+    if (moveTo) {
+      vert.moveTo = moveTo;
     }
-    contourVertices.push(vert);
-  } else {
-    vertices.push(vert);
+    if (isContour) {
+      if (contourVertices.length === 0) {
+        vert.moveTo = true;
+      }
+      contourVertices.push(vert);
+    } else {
+      vertices.push(vert);
+    }
   }
   return this;
 };
 
 module.exports = p5;
 
-},{"./constants":15,"./core":16}],29:[function(require,module,exports){
+},{"./constants":19,"./core":20}],33:[function(require,module,exports){
 /**
  * @module Events
  * @submodule Acceleration
@@ -10515,7 +10968,7 @@ p5.prototype._handleMotion = function() {
 
 module.exports = p5;
 
-},{"../core/core":16}],30:[function(require,module,exports){
+},{"../core/core":20}],34:[function(require,module,exports){
 /**
  * @module Events
  * @submodule Keyboard
@@ -10826,7 +11279,7 @@ p5.prototype.keyIsDown = function(code) {
 
 module.exports = p5;
 
-},{"../core/core":16}],31:[function(require,module,exports){
+},{"../core/core":20}],35:[function(require,module,exports){
 /**
  * @module Events
  * @submodule Mouse
@@ -11510,7 +11963,7 @@ p5.prototype._onmousewheel = p5.prototype._onDOMMouseScroll = function(e) {
 
 module.exports = p5;
 
-},{"../core/constants":15,"../core/core":16}],32:[function(require,module,exports){
+},{"../core/constants":19,"../core/core":20}],36:[function(require,module,exports){
 /**
  * @module Events
  * @submodule Touch
@@ -11789,7 +12242,7 @@ p5.prototype._ontouchend = function(e) {
 
 module.exports = p5;
 
-},{"../core/core":16}],33:[function(require,module,exports){
+},{"../core/core":20}],37:[function(require,module,exports){
 /*global ImageData:false */
 
 /**
@@ -12392,7 +12845,7 @@ Filters.blur = function(canvas, radius){
 
 module.exports = Filters;
 
-},{}],34:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 /**
  * @module Image
  * @submodule Image
@@ -12697,7 +13150,7 @@ p5.prototype._makeFrame = function(filename, extension, _cnv) {
 
 module.exports = p5;
 
-},{"../core/constants":15,"../core/core":16}],35:[function(require,module,exports){
+},{"../core/constants":19,"../core/core":20}],39:[function(require,module,exports){
 /**
  * @module Image
  * @submodule Loading & Displaying
@@ -13042,7 +13495,7 @@ p5.prototype.imageMode = function(m) {
 
 module.exports = p5;
 
-},{"../core/canvas":14,"../core/constants":15,"../core/core":16,"../core/error_helpers":19,"./filters":33}],36:[function(require,module,exports){
+},{"../core/canvas":18,"../core/constants":19,"../core/core":20,"../core/error_helpers":23,"./filters":37}],40:[function(require,module,exports){
 /**
  * @module Image
  * @submodule Image
@@ -13469,7 +13922,7 @@ p5.Image.prototype.save = function(filename, extension) {
 
 module.exports = p5.Image;
 
-},{"../core/core":16,"./filters":33}],37:[function(require,module,exports){
+},{"../core/core":20,"./filters":37}],41:[function(require,module,exports){
 /**
  * @module Image
  * @submodule Pixels
@@ -14022,7 +14475,7 @@ p5.prototype.updatePixels = function (x, y, w, h) {
 
 module.exports = p5;
 
-},{"../color/p5.Color":10,"../core/core":16,"./filters":33}],38:[function(require,module,exports){
+},{"../color/p5.Color":14,"../core/core":20,"./filters":37}],42:[function(require,module,exports){
 /* global opentype:false */
 
 /**
@@ -14084,26 +14537,28 @@ require('../core/error_helpers');
  *   textFont(font, 36);
  *   text('p5*js', 10, 50);
  * }
- * function draw(){
- * }
+ *
  * </code></div>
  *
  */
-
-
-
-
-p5.prototype.loadFont = function(path, callback) {
+p5.prototype.loadFont = function(path, onSuccess, onError) {
 
   var p5Font = new p5.Font(this);
 
   opentype.load(path, function(err, font) {
+
     if (err) {
-      throw Error(err);
+
+      if (typeof onError !== 'undefined') {
+        return onError(err);
+      }
+      throw err;
     }
+
     p5Font.font = font;
-    if (typeof callback !== 'undefined') {
-      callback(p5Font);
+
+    if (typeof onSuccess !== 'undefined') {
+      onSuccess(p5Font);
     }
   });
 
@@ -15299,7 +15754,7 @@ function destroyClickedElement(event) {
 
 module.exports = p5;
 
-},{"../core/core":16,"../core/error_helpers":19,"reqwest":1}],39:[function(require,module,exports){
+},{"../core/core":20,"../core/error_helpers":23,"reqwest":1}],43:[function(require,module,exports){
 /**
  * @module IO
  * @submodule Table
@@ -16363,7 +16818,7 @@ p5.Table.prototype.getArray = function () {
 
 module.exports = p5.Table;
 
-},{"../core/core":16}],40:[function(require,module,exports){
+},{"../core/core":20}],44:[function(require,module,exports){
 /**
  * @module IO
  * @submodule Table
@@ -16533,7 +16988,7 @@ p5.TableRow.prototype.getString = function(column) {
 
 module.exports = p5.TableRow;
 
-},{"../core/core":16}],41:[function(require,module,exports){
+},{"../core/core":20}],45:[function(require,module,exports){
 /**
  * @module Math
  * @submodule Calculation
@@ -17205,7 +17660,7 @@ p5.prototype.sqrt = Math.sqrt;
 
 module.exports = p5;
 
-},{"../core/core":16}],42:[function(require,module,exports){
+},{"../core/core":20}],46:[function(require,module,exports){
 /**
  * @module Math
  * @submodule Math
@@ -17239,7 +17694,7 @@ p5.prototype.createVector = function (x, y, z) {
 
 module.exports = p5;
 
-},{"../core/core":16}],43:[function(require,module,exports){
+},{"../core/core":20}],47:[function(require,module,exports){
 //////////////////////////////////////////////////////////////
 
 // http://mrl.nyu.edu/~perlin/noise/
@@ -17556,7 +18011,7 @@ p5.prototype.noiseSeed = function(seed) {
 
 module.exports = p5;
 
-},{"../core/core":16}],44:[function(require,module,exports){
+},{"../core/core":20}],48:[function(require,module,exports){
 /**
  * @module Math
  * @submodule Math
@@ -18594,7 +19049,7 @@ p5.Vector.angleBetween = function (v1, v2) {
 
 module.exports = p5.Vector;
 
-},{"../core/constants":15,"../core/core":16,"./polargeometry":45}],45:[function(require,module,exports){
+},{"../core/constants":19,"../core/core":20,"./polargeometry":49}],49:[function(require,module,exports){
 
 module.exports = {
 
@@ -18608,7 +19063,7 @@ module.exports = {
 
 };
 
-},{}],46:[function(require,module,exports){
+},{}],50:[function(require,module,exports){
 /**
  * @module Math
  * @submodule Random
@@ -18823,7 +19278,7 @@ p5.prototype.randomGaussian = function(mean, sd)  {
 
 module.exports = p5;
 
-},{"../core/core":16}],47:[function(require,module,exports){
+},{"../core/core":20}],51:[function(require,module,exports){
 /**
  * @module Math
  * @submodule Trigonometry
@@ -19161,7 +19616,7 @@ p5.prototype.angleMode = function(mode) {
 
 module.exports = p5;
 
-},{"../core/constants":15,"../core/core":16,"./polargeometry":45}],48:[function(require,module,exports){
+},{"../core/constants":19,"../core/core":20,"./polargeometry":49}],52:[function(require,module,exports){
 /**
  * @module Typography
  * @submodule Attributes
@@ -19518,7 +19973,7 @@ p5.prototype._calculateOffset = function(object) {
 
 module.exports = p5;
 
-},{"../core/constants":15,"../core/core":16}],49:[function(require,module,exports){
+},{"../core/constants":19,"../core/core":20}],53:[function(require,module,exports){
 /**
  * @module Typography
  * @submodule Loading & Displaying
@@ -19660,7 +20115,7 @@ p5.prototype.textFont = function(theFont, theSize) {
 
 module.exports = p5;
 
-},{"../core/constants":15,"../core/core":16,"../core/error_helpers":19}],50:[function(require,module,exports){
+},{"../core/constants":19,"../core/core":20,"../core/error_helpers":23}],54:[function(require,module,exports){
 /**
  * This module defines the p5.Font class and functions for
  * drawing text to the display canvas.
@@ -20058,7 +20513,7 @@ function cacheKey() {
 
 module.exports = p5.Font;
 
-},{"../core/constants":15,"../core/core":16}],51:[function(require,module,exports){
+},{"../core/constants":19,"../core/core":20}],55:[function(require,module,exports){
 /**
  * @module Data
  * @submodule Array Functions
@@ -20406,7 +20861,7 @@ p5.prototype.subset = function(list, start, count) {
 
 module.exports = p5;
 
-},{"../core/core":16}],52:[function(require,module,exports){
+},{"../core/core":20}],56:[function(require,module,exports){
 /**
  * @module Data
  * @submodule Conversion
@@ -20667,7 +21122,7 @@ p5.prototype.unhex = function(n) {
 
 module.exports = p5;
 
-},{"../core/core":16}],53:[function(require,module,exports){
+},{"../core/core":20}],57:[function(require,module,exports){
 /**
  * @module Data
  * @submodule String Functions
@@ -21149,7 +21604,7 @@ p5.prototype.trim = function(str) {
 
 module.exports = p5;
 
-},{"../core/core":16}],54:[function(require,module,exports){
+},{"../core/core":20}],58:[function(require,module,exports){
 /**
  * @module Input
  * @submodule Time & Date
@@ -21290,7 +21745,7 @@ p5.prototype.year = function() {
 
 module.exports = p5;
 
-},{"../core/core":16}]},{},[7])(7)
+},{"../core/core":20}]},{},[11])(11)
 });
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.opentype = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 "use strict";exports.argument=function(r,t){if(!r)throw new Error(t)},exports.assert=exports.argument;
