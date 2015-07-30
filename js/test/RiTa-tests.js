@@ -87,7 +87,8 @@ var runtests = function() {
     });
 
     test("testMinEditDistance", function() {
-
+      
+      // testMinEditDistanceArray()
       var arr1 = ['The', 'dog', 'ate'], arr2 = ['The', 'cat', 'ate'];
       equal(RiTa.minEditDistance(arr1, arr2, false), 1);
       equal(RiTa.minEditDistance(arr1, arr2, true), 1 / 3.0);
@@ -96,6 +97,12 @@ var runtests = function() {
       equal(RiTa.minEditDistance(arr1, arr2, false), 3);
       equal(RiTa.minEditDistance(arr1, arr2, true), 1);
 
+      arr1 = ["fefnction", "intention", "ate"];
+      arr2 = ["faunctional", "execution", "ate"];
+      equal(RiTa.minEditDistance(arr1, arr2, false), 2);
+      equal(RiTa.minEditDistance(arr1, arr2, true), 2 / 3);
+      
+      // test testMinEditDistanceString()
       var arr1 = 'The dog', arr2 = 'The cat';
       equal(RiTa.minEditDistance(arr1, arr2, false), 3);
       equal(RiTa.minEditDistance(arr1, arr2, true), 3 / 7);
@@ -103,6 +110,14 @@ var runtests = function() {
       var arr1 = 'The dog', arr2 = '';
       equal(RiTa.minEditDistance(arr1, arr2, false), 7);
       equal(RiTa.minEditDistance(arr1, arr2, true), 1);
+
+      arr1 = "fefnction"; arr2 = "faunctional";
+      equal(RiTa.minEditDistance(arr1, arr2, false), 4);
+      equal(RiTa.minEditDistance(arr1, arr2, true), 4 / 11);
+
+      arr1 = "intention"; arr2 = "execution";
+      equal(RiTa.minEditDistance(arr1, arr2, false), 5);
+      equal(RiTa.minEditDistance(arr1, arr2, true), 5 / 9);
     });
 
     test("testEnv", function() {
@@ -1271,9 +1286,6 @@ var runtests = function() {
       equal(data["the"],2);
       equal(data["The"],undefined);
       equal(data["THE"],undefined);
-
-      // TODO: larger text, plus all combinations of options
-      // and test that result is sorted by frequency (as in java)
     });
 
     test("testKwic", function() {
@@ -1283,7 +1295,6 @@ var runtests = function() {
       var opts = { ignoreCase: true };
       lines = RiTa.kwic(s,"ate",opts);
       equal(lines.length,2);
-      // TODO: more tests with bigger text and diff. options
     });
 
     test("testConjugate", function() {
