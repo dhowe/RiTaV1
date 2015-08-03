@@ -180,13 +180,13 @@
     "name": "getWildcardMatch",
     "example": "",
     "description": "Returns up to maxResults of the specified pos matching a wildcard pattern, with '*' representing any number of characters, and '?' equals any single character..<br/>Example: 't?le' returns (tale,tile,tole)<br/>Example: 't*le' returns (tatumble, turtle, tussle, etc.)<br/>Example: 't?le*' returns (telex, tile,tilefish,tile,talent, tiles, etc.) ",
-    "syntax": "getWildcardMatch(pattern, posStr);<br/>getWildcardMatch(pattern, posStr, maxResults);",
+    "syntax": "getWildcardMatch(pattern, pos);<br/>getWildcardMatch(pattern, pos, maxResults);",
     "parameters": [{
       "type": "String",
       "desc": "pattern"
     }, {
       "type": "String",
-      "desc": "posStr"
+      "desc": "pos"
     }, {
       "type": "int",
       "desc": "(optional) maxResults"
@@ -253,13 +253,13 @@
     "name": "getSynonyms",
     "example": "",
     "description": "Returns an unordered String[] containing the synset, hyponyms, similars, alsoSees, and coordinate terms (checking each in order) for all senses of word with pos",
-    "syntax": "getSynonyms(word, posStr);<br/>getSynonyms(word, posStr, maxResults);",
+    "syntax": "getSynonyms(word, pos);<br/>getSynonyms(word, pos, maxResults);",
     "parameters": [{
       "type": "String",
       "desc": "word"
     }, {
       "type": "String",
-      "desc": "posStr"
+      "desc": "pos"
     }, {
       "type": "int",
       "desc": "(Optional) maxResults"
@@ -296,13 +296,13 @@
     "name": "getStartsWith",
     "example": "",
     "description": "Returns up to maxResults of the specified pos starting with the given word.<br/>Example: 'turn' returns 'turntable'",
-    "syntax": "getStartsWith(word, posStr);<br/>getStartsWith(word, posStr, maxResults);",
+    "syntax": "getStartsWith(word, pos);<br/>getStartsWith(word, pos, maxResults);",
     "parameters": [{
       "type": "String",
       "desc": "word"
     }, {
       "type": "String",
-      "desc": "posStr"
+      "desc": "pos"
     }, {
       "type": "int",
       "desc": "(Optional) maxResults"
@@ -319,13 +319,13 @@
     "name": "getSoundsLike",
     "example": "",
     "description": "Returns up to maxResults of the specified pos that match the soundex code of the given word.",
-    "syntax": "getSoundsLike(pattern, posStr);<br/>getSoundsLike(pattern, posStr, maxResults);",
+    "syntax": "getSoundsLike(pattern, pos);<br/>getSoundsLike(pattern, pos, maxResults);",
     "parameters": [{
       "type": "String",
       "desc": "pattern"
     }, {
       "type": "String",
-      "desc": "posStr"
+      "desc": "pos"
     }, {
       "type": "int",
       "desc": "(Optional) maxResults"
@@ -365,7 +365,7 @@
     "name": "getSenseIds",
     "example": "",
     "description": "Returns an array of unique ids, one for each sense of word with pos",
-    "syntax": "getSenseIds(idw);<br/>getSenseIds(word, posStr);",
+    "syntax": "getSenseIds(idw);<br/>getSenseIds(word, pos);",
     "parameters": [{
       "type": "IndexWord",
       "desc": "idw"
@@ -374,7 +374,7 @@
       "desc": "word"
     }, {
       "type": "String",
-      "desc": "posStr"
+      "desc": "pos"
     }],
     "returns": [{
       "type": "int[]",
@@ -408,13 +408,13 @@
     "name": "getRegexMatch",
     "example": "",
     "description": "Returns up to maxResults of the specified pos Example: '.*table' returns 'turntable' & 'uncomfortable'",
-    "syntax": "getRegexMatch(pattern, posStr);<br/>getRegexMatch(pattern, posStr, maxResults);",
+    "syntax": "getRegexMatch(pattern, pos);<br/>getRegexMatch(pattern, pos, maxResults);",
     "parameters": [{
       "type": "String",
       "desc": "pattern"
     }, {
       "type": "String",
-      "desc": "posStr"
+      "desc": "pos"
     }, {
       "type": "int",
       "desc": "(Optional) maxResults"
@@ -503,7 +503,7 @@
       "desc": "id"
     }],
     "returns": [{
-      "type": "java.lang.String",
+      "type": "java.lang.String[]",
       "desc": "String from ('a' = adjective, 'n' = noun, 'r' = adverb, 'v' = verb), or null if not found."
     }],
     "related": "",
@@ -596,7 +596,7 @@
     "name": "getHypernyms",
     "example": "",
     "description": "Returns Hypernym String[] for the id or word/pos pair<p>X is a hyponym of Y if there exists an is-a relationship between X and Y.<br>That is, if X is a subtype of Y. <br>Or, for example, if X is a species of the genus Y. <br>X is a hypernym of Y is Y is a hyponym of X. <br>Holds between: nouns and nouns & verbs and verbs<br>Examples:<ul><li>artifact is a hyponym of object<li>object is a hypernym of artifact<li>carrot is a hyponym of herb<li>herb is a hypernym of carrot</ul>",
-    "syntax": "getHypernyms(id);<br/>getHypernyms(word, posStr);",
+    "syntax": "getHypernyms(id);<br/>getHypernyms(word, pos);",
     "parameters": [{
       "type": "int",
       "desc": "id"
@@ -605,7 +605,7 @@
       "desc": "word"
     }, {
       "type": "String",
-      "desc": "posStr"
+      "desc": "pos"
     }],
     "returns": [{
       "type": "java.lang.String[]",
@@ -688,13 +688,13 @@
     "name": "getEndsWith",
     "example": "",
     "description": "Returns up to maxResults of the specified pos ending with the given word.<br/>Example: 'table' returns 'turntable' & 'uncomfortable'",
-    "syntax": "getEndsWith(word, posStr);<br/>getEndsWith(word, posStr, maxResults);",
+    "syntax": "getEndsWith(word, pos);<br/>getEndsWith(word, pos, maxResults);",
     "parameters": [{
       "type": "String",
       "desc": "word"
     }, {
       "type": "String",
-      "desc": "posStr"
+      "desc": "pos"
     }, {
       "type": "int",
       "desc": "(optional) maxResults"
@@ -803,13 +803,13 @@
     "name": "getContains",
     "example": "",
     "description": "Returns all 'contains' matches for the specified word and pos <br/>Example: 'table' returns 'bleat' (but not 'tale').",
-    "syntax": "getContains(word, posStr);<br/>getContains(word, posStr, maxResults);",
+    "syntax": "getContains(word, pos);<br/>getContains(word, pos, maxResults);",
     "parameters": [{
       "type": "String",
       "desc": "word"
     }, {
       "type": "String",
-      "desc": "posStr"
+      "desc": "pos"
     }, {
       "type": "int",
       "desc": "(Optional) maxResults"
@@ -929,13 +929,13 @@
     "name": "getAnagrams",
     "example": "",
     "description": "Returns all full anagram matches for the specified word and pos<br/>Example: 'table' returns 'bleat' (but not 'tale').",
-    "syntax": "getAnagrams(word, posStr);<br/>getAnagrams(word, posStr, maxResults);",
+    "syntax": "getAnagrams(word, pos);<br/>getAnagrams(word, pos, maxResults);",
     "parameters": [{
       "type": "String",
       "desc": "word"
     }, {
       "type": "String",
-      "desc": "posStr"
+      "desc": "pos"
     }, {
       "type": "int",
       "desc": "(Optional) maxResults"
@@ -995,13 +995,13 @@
     "name": "getAllSynsets",
     "example": "",
     "description": "Returns String[] of words in each synset for all senses of word with pos",
-    "syntax": "getAllSynsets(word, posStr);",
+    "syntax": "getAllSynsets(word, pos);",
     "parameters": [{
       "type": "String",
       "desc": "word"
     }, {
       "type": "String",
-      "desc": "posStr"
+      "desc": "pos"
     }],
     "returns": [{
       "type": "java.lang.String[]",
@@ -1015,7 +1015,7 @@
     "name": "getAllSynonyms",
     "example": "",
     "description": "Returns all the synonyms of the word by 'senseID' or the 'word'.",
-    "syntax": "getAllSynonyms(senseId);<br/>getAllSynonyms(senseId, maxResults);<br/>getAllSynonyms(word, posStr);<br/>getAllSynonyms(word, posStr, maxResults);",
+    "syntax": "getAllSynonyms(senseId);<br/>getAllSynonyms(senseId, maxResults);<br/>getAllSynonyms(word, pos);<br/>getAllSynonyms(word, pos, maxResults);",
     "parameters": [{
       "type": "int",
       "desc": "senseId"
@@ -1024,7 +1024,7 @@
       "desc": "word"
     }, {
       "type": "String",
-      "desc": "(Optional) posStr"
+      "desc": "(Optional) pos"
     }, {
       "type": "int",
       "desc": "(Optional) maxResults"
@@ -1101,13 +1101,13 @@
     "name": "getAllHyponyms",
     "example": "",
     "description": "Returns an unordered String[] of hyponym-synsets (each a colon-delimited String)",
-    "syntax": "getAllHyponyms(word, posStr);",
+    "syntax": "getAllHyponyms(word, pos);",
     "parameters": [{
       "type": "String",
       "desc": "word"
     }, {
       "type": "String",
-      "desc": "posStr"
+      "desc": "pos"
     }],
     "returns": [{
       "type": "java.lang.String[]",
@@ -1121,13 +1121,13 @@
     "name": "getAllHypernyms",
     "example": "",
     "description": "Returns an ordered String[] of hypernym-synsets (each a semi-colon delimited String) up to the root of WordNet for the 1st sense of the word",
-    "syntax": "getAllHypernyms(word, posStr);",
+    "syntax": "getAllHypernyms(word, pos);",
     "parameters": [{
       "type": "String",
       "desc": "word"
     }, {
       "type": "String",
-      "desc": "posStr"
+      "desc": "pos"
     }],
     "returns": [{
       "type": "java.lang.String[]",
@@ -1141,13 +1141,13 @@
     "name": "getAllHolonyms",
     "example": "",
     "description": "Returns part-to-whole relationships for all sense of word/pos, or none if not found<br/>X is a meronym of Y if Y has X as a part.<br/>X is a holonym of Y if X has Y as a part. That is, if Y is a meronym of X. <br/>Holds between: nouns and nouns<br/>Returns part, member, and substance holonyms<br/>Example: arm -> [body, physical-structure, man, human...]",
-    "syntax": "getAllHolonyms(word, posStr);",
+    "syntax": "getAllHolonyms(word, pos);",
     "parameters": [{
       "type": "String",
       "desc": "word"
     }, {
       "type": "String",
-      "desc": "posStr"
+      "desc": "pos"
     }],
     "returns": [{
       "type": "java.lang.String[]",
@@ -1315,13 +1315,13 @@
     "name": "getBaseForm",
     "example": "",
     "description": "Returns the base form of the word",
-    "syntax": "getBaseForm(word)<br/>getBaseForm(word,posStr)",
+    "syntax": "getBaseForm(word)<br/>getBaseForm(word,pos)",
     "parameters": [{
       "type": "String",
       "desc": "word"
     }, {
       "type": "String",
-      "desc": "(Optional) posStr"
+      "desc": "(Optional) pos"
     }],
     "returns": [{
       "type": "String",
