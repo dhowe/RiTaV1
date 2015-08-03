@@ -218,8 +218,8 @@ The examples below assume the following installation structure (linux/unix/osx):
                     <a href="RiWordNet/getCoordinates/index.php">getCoordinates()</a>
                     <br>
                     <a href="RiWordNet/getDerivedTerms/index.php">getDerivedTerms()</a>
-                    <br>
-                    <a href="RiWordNet/getDescription/index.php">getDescription()</a>
+                    <!--br>
+                    <a href="RiWordNet/getDescription/index.php">getDescription()</a-->
                     <br>
                     <a href="RiWordNet/getDistance/index.php">getDistance()</a>
                     <br>
