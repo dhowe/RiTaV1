@@ -26,7 +26,7 @@ import rita.wordnet.WordnetUtil;
  */
 public class RiWordNetTest {
 
-  static String pathWordNet = "D:\\development\\WordNet3.1";
+  static String pathWordNet = "/WordNet-3.1";
   
   static final String[] EMPTY = new String[0];
 
@@ -641,98 +641,6 @@ public class RiWordNetTest {
   }
 
   @Test
-  public void testGetGlossStringString() {
-
-    String expected = "impairment resulting from long use; " + '"'
-	+ "the tires showed uneven wear" + '"';
-    String result = w.getGloss("wear", "n");
-    // println(result);
-    assertEquals(expected, result);
-
-    String expected2 = "a sign posted in a public place as an advertisement; "
-	+ '"' + "a poster advertised the coming attractions" + '"';
-    String result2 = w.getGloss("poster", "n");
-    // println(result2);
-    assertEquals(expected2, result2);
-
-    String expected3 = "affix in a public place or for public notice; " + '"'
-	+ "post a warning" + '"';
-    String result3 = w.getGloss("post", "v");
-    // println(result3);
-    assertEquals(expected3, result3);
-
-    String expected4 = null;
-    String result4 = w.getGloss("post", "a");
-    // println(result4);
-    assertEquals(expected4, result4);
-
-    String expected5 = null;
-    String result5 = w.getGloss("post", "r");
-    // println(result5);
-    assertEquals(expected5, result5);
-
-    String expected6 = "engagingly stimulating or provocative; " + '"'
-	+ "a piquant wit" + '"' + "; " + '"' + "salty language" + '"';
-    String result6 = w.getGloss("salty", "a");
-    // println(result6);
-    assertEquals(expected6, result6);
-
-    String expected7 = "with resolute determination; " + '"'
-	+ "we firmly believed it" + '"' + "; " + '"' + "you must stand firm"
-	+ '"';
-    String result7 = w.getGloss("firmly", "r");
-    // println(result7);
-    assertEquals(expected7, result7);
-
-    equal(w.getGloss("post", "u"), null);
-
-    w.ignoreCompoundWords(false);
-    w.ignoreUpperCaseWords(false);
-
-    expected = "impairment resulting from long use; " + '"'
-	+ "the tires showed uneven wear" + '"';
-    result = w.getGloss("wear", "n");
-    // println(result);
-    assertEquals(expected, result);
-
-    expected2 = "a sign posted in a public place as an advertisement; " + '"'
-	+ "a poster advertised the coming attractions" + '"';
-    result2 = w.getGloss("poster", "n");
-    // println(result2);
-    assertEquals(expected2, result2);
-
-    expected3 = "affix in a public place or for public notice; " + '"'
-	+ "post a warning" + '"';
-    result3 = w.getGloss("post", "v");
-    // println(result3);
-    assertEquals(expected3, result3);
-
-    expected4 = null;
-    result4 = w.getGloss("post", "a");
-    // println(result4);
-    assertEquals(expected4, result4);
-
-    expected5 = null;
-    result5 = w.getGloss("post", "r");
-    // println(result5);
-    assertEquals(expected5, result5);
-
-    expected6 = "engagingly stimulating or provocative; " + '"'
-	+ "a piquant wit" + '"' + "; " + '"' + "salty language" + '"';
-    result6 = w.getGloss("salty", "a");
-    // println(result6);
-    assertEquals(expected6, result6);
-
-    expected7 = "with resolute determination; " + '"' + "we firmly believed it"
-	+ '"' + "; " + '"' + "you must stand firm" + '"';
-    result7 = w.getGloss("firmly", "r");
-    // println(result7);
-    assertEquals(expected7, result7);
-
-    equal(w.getGloss("post", "u"), null);
-  }
-
-  @Test
   public void testGetAllGlosses() {
 
     String[] expected12 = {};
@@ -846,153 +754,98 @@ public class RiWordNetTest {
   @Test
   public void testGetGlossInt() {
   
-    ok(w.getGloss(123213123) == null);
-
     String expected = "feline mammal usually having thick soft fur and no ability to roar: domestic cats; wildcats";
     String result = w.getGloss(92124272);
-    // println(result);
-    assertEquals(expected, result);
-
-    String expected2 = "try to locate or discover, or try to establish the existence of; "
-	+ '"'
-	+ "The police are searching for clues"
-	+ '"'
-	+ "; "
-	+ '"'
-	+ "They are searching for the missing man in the entire county" + '"';
-    String result2 = w.getGloss(81318273);
-    // println(result2);
-    assertEquals(expected2, result2);
-
-    String expected3 = "a whip with nine knotted cords; " + '"'
-	+ "British sailors feared the cat" + '"';
-    String result3 = w.getGloss(92989061);
-    // println(result3);
-    assertEquals(expected3, result3);
-
-    w.ignoreUpperCaseWords(true);
-    w.ignoreCompoundWords(true);
-
-    expected = "feline mammal usually having thick soft fur and no ability to roar: domestic cats; wildcats";
-    result = w.getGloss(92124272);
-    // println(result);
-    assertEquals(expected, result);
-
-    expected2 = "try to locate or discover, or try to establish the existence of; "
-	+ '"'
-	+ "The police are searching for clues"
-	+ '"'
-	+ "; "
-	+ '"'
-	+ "They are searching for the missing man in the entire county" + '"';
-    result2 = w.getGloss(81318273);
-    // println(result2);
-    assertEquals(expected2, result2);
-
-    expected3 = "a whip with nine knotted cords; " + '"'
-	+ "British sailors feared the cat" + '"';
-    result3 = w.getGloss(92989061);
-    // println(result3);
-    assertEquals(expected3, result3);
-
-    ok(w.getGloss(123213123) == null);
-  }
-
-  @Test
-  public void testGetDescriptionInt() {
-  
-    String expected = "feline mammal usually having thick soft fur and no ability to roar: domestic cats; wildcats";
-    String result = w.getDescription(92124272);
     // //println(result);
     assertEquals(expected, result);
 
     String expected2 = "try to locate or discover, or try to establish the existence of";
-    String result2 = w.getDescription(81318273);
+    String result2 = w.getGloss(81318273);
     // //println(result2);
     assertEquals(expected2, result2);
 
     String expected3 = "a whip with nine knotted cords";
-    String result3 = w.getDescription(92989061);
+    String result3 = w.getGloss(92989061);
     // //println(result3);
     assertEquals(expected3, result3);
 
-    ok(w.getDescription(123213123) == null);
+    ok(w.getGloss(123213123) == null);
 
     w.ignoreUpperCaseWords(true);
     w.ignoreCompoundWords(true);
     String expected4 = "feline mammal usually having thick soft fur and no ability to roar: domestic cats; wildcats";
-    String result4 = w.getDescription(92124272);
+    String result4 = w.getGloss(92124272);
     // //println(result);
     assertEquals(expected4, result4);
 
     String expected5 = "try to locate or discover, or try to establish the existence of";
-    String result5 = w.getDescription(81318273);
+    String result5 = w.getGloss(81318273);
     // //println(result2);
     assertEquals(expected5, result5);
 
     String expected6 = "a whip with nine knotted cords";
-    String result6 = w.getDescription(92989061);
+    String result6 = w.getGloss(92989061);
     // //println(result6);
     assertEquals(expected6, result6);
 
-    ok(w.getDescription(123213123) == null);
+    ok(w.getGloss(123213123) == null);
 
   }
 
   @Test
-  public void testGetDescriptionStringString() {
+  public void testGetGlossStringString() {
 
     String expected = "feline mammal usually having thick soft fur and no ability to roar: domestic cats; wildcats";
-    String result = w.getDescription("cat", "n");
-    // //println(result);
+    String result = w.getGloss("cat", "n");
+    println("testGetGlossStringString" + result);
     assertEquals(expected, result);
 
     String expected2 = "change location; move, travel, or proceed, also metaphorically";
-    String result2 = w.getDescription("move", "v");
+    String result2 = w.getGloss("move", "v");
     // //println(result2);
     assertEquals(expected2, result2);
 
     String expected3 = "having an (over)abundance of flesh";
-    String result3 = w.getDescription("fat", "a");
+    String result3 = w.getGloss("fat", "a");
     // //println(result3);
     assertEquals(expected3, result3);
 
     String expected4 = "to a severe or serious degree";
-    String result4 = w.getDescription("badly", "r");
+    String result4 = w.getGloss("badly", "r");
     // //println(result4);
     assertEquals(expected4, result4);
 
-    ok(w.getDescription("badly", "u") == null);
+    ok(w.getGloss("badly", "u") == null);
 
     w.ignoreUpperCaseWords(true);
     w.ignoreCompoundWords(true);
 
     String expected5 = "feline mammal usually having thick soft fur and no ability to roar: domestic cats; wildcats";
-    String result5 = w.getDescription("cat", "n");
+    String result5 = w.getGloss("cat", "n");
     // //println(result);
     assertEquals(expected5, result5);
 
     String expected6 = "change location; move, travel, or proceed, also metaphorically";
-    String result6 = w.getDescription("move", "v");
+    String result6 = w.getGloss("move", "v");
     // //println(result2);
     assertEquals(expected6, result6);
 
     String expected7 = "having an (over)abundance of flesh";
-    String result7 = w.getDescription("fat", "a");
+    String result7 = w.getGloss("fat", "a");
     // //println(result3);
     assertEquals(expected7, result7);
 
     String expected8 = "to a severe or serious degree";
-    String result8 = w.getDescription("badly", "r");
+    String result8 = w.getGloss("badly", "r");
     // //println(result4);
     assertEquals(expected8, result8);
 
     String expected9 = null;
-    String result9 = w.getDescription("badlyyyyy", "r");
+    String result9 = w.getGloss("badlyyyyy", "r");
     // println(result9);
     assertEquals(expected9, result9);
 
-    ok(w.getDescription("badly", "u") == null);
+    ok(w.getGloss("badly", "u") == null);
 
   }
 

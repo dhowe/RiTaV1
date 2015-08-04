@@ -735,15 +735,6 @@ public class RiWordNet
   }
 
   /**
-   * Returns full gloss for 1st sense of 'word' with 'pos' 
-   */
-  public String getGloss(String word, String pos)
-  {
-    Synset synset = getSynsetAtIndex(word, pos, 1);
-    return getGloss(synset);
-  }
-
-  /**
    * Returns glosses for all senses of 'word' with 'pos', 
    */
   public String[] getAllGlosses(String word, String pos)
@@ -756,7 +747,7 @@ public class RiWordNet
     
     for (int i = 0; i < synsets.length; i++)
     {
-      String gloss = getGloss(synsets[i]);
+      String gloss = getGlossFromSynset(synsets[i]);
       if (gloss != null)
         glosses.add(gloss);
     }
@@ -765,25 +756,16 @@ public class RiWordNet
   }
 
   /**
-   * Returns full gloss for word with unique <code>senseId</code>, or null if
+   * Returns gloss for word with unique <code>senseId</code>, or null if
    * not found
    */
   public String getGloss(int senseId)
   {
-    return getGloss(getSynsetAtId(senseId));
+    String gloss = getGlossFromSynset(getSynsetAtId(senseId));
+    return WordnetUtil.parseGloss(gloss);
   }
 
-  /**
-   * Returns description for word with unique <code>senseId</code>, or null if
-   * not found
-   */
-  public String getDescription(int senseId)
-  {
-    String gloss = getGloss(senseId);
-    return WordnetUtil.parseDescription(gloss);
-  }
-
-  private String getGloss(Synset synset) // returns null
+  private String getGlossFromSynset(Synset synset) // returns null
   {
     if (synset == null)
       return null;
@@ -791,13 +773,14 @@ public class RiWordNet
   }
 
   /**
-   * Returns description for <code>word</code> with <code>pos</code> or null if
+   * Returns gloss for <code>word</code> with <code>pos</code> or null if
    * not found
    */
-  public String getDescription(String word, String pos)
+  public String getGloss(String word, String pos)
   {
-    String gloss = getGloss(word, pos);
-    return WordnetUtil.parseDescription(gloss);
+    Synset synset = getSynsetAtIndex(word, pos, 1);
+    String gloss = getGlossFromSynset(synset);
+    return WordnetUtil.parseGloss(gloss);
   }
 
   /**
@@ -872,7 +855,7 @@ public class RiWordNet
 
   private List getExamples(Synset synset)
   {
-    String gloss = getGloss(synset);
+    String gloss = getGlossFromSynset(synset);
     return WordnetUtil.parseExamples(gloss);
   }
 
