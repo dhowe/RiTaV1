@@ -731,29 +731,6 @@
     "note": ""
   }, {
     "variable": false,
-    "name": "getDescription",
-    "example": "",
-    "description": "Returns description for the id or word/pos pair, or null if not found",
-    "syntax": "getDescription(senseId);<br/>getDescription(word, pos);",
-    "parameters": [{
-      "type": "int",
-      "desc": "senseId"
-    }, {
-      "type": "String",
-      "desc": "word"
-    }, {
-      "type": "String",
-      "desc": "the part-of-speech"
-    }],
-    "returns": [{
-      "type": "java.lang.String",
-      "desc": ""
-    }],
-    "related": "",
-    "platform": "Java only",
-    "note": ""
-  }, {
-    "variable": false,
     "name": "getDerivedTerms",
     "example": "",
     "description": "Returns derived terms for the id or word/pos pair<br>Holds for adverbs <br>Example: happily -> [jubilant, blithe, gay, mirthful, merry, happy]",

@@ -69,7 +69,7 @@ public abstract class WordnetUtil implements Constants
     return result;
   }
   
-  public static String parseDescription(String gloss)
+  public static String parseGloss(String gloss)
   {
     if (gloss == null)
       return null;

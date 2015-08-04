@@ -56,10 +56,6 @@ public interface RiWordNetIF
   
   public String getGloss(int senseId);
   
-  public String getDescription(int senseId);
-  
-  public String getDescription(String word, String pos);
-  
   public String[] getExamples(String word, String pos);
   
   public String getRandomExample(String word, String pos);
