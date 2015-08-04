@@ -184,7 +184,8 @@ public class JSONLexicon implements Constants
     // clean out the JSON formatting (TODO: optimize)
     String clean = data.replaceAll("['\\[\\]]",E).replaceAll(",","|");
     
-    return clean.split("\\|?\\n");
+    String splitter = "\\|?" + System.getProperty("line.separator");
+    return clean.split(splitter);
   }
   
   public static String readFile(String filename)
