@@ -26,7 +26,7 @@ import rita.wordnet.WordnetUtil;
  */
 public class RiWordNetTest {
 
-  static String pathWordNet = "D:/development/WordNet3.1"; // "/WordNet-3.1";
+  static String pathWordNet = "/WordNet-3.1";
   
   static final String[] EMPTY = new String[0];
 

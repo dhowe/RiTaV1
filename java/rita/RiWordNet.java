@@ -832,8 +832,6 @@ public class RiWordNet
     {
       if (syns[i] != null)
       {
-        for (int j = 0; j < syns.length; j++)
-        {
           List examples = getExamples(syns[i]);
           if (examples == null)
             continue;
@@ -841,12 +839,11 @@ public class RiWordNet
           {
             String example = (String) k.next();
             // does it contain the word
-            if (example.indexOf(word.toString()) < 0)
+            if (example.indexOf(word) < 0)
               continue;
             if (!l.contains(example))
               l.add(example);
           }
-        }
       }
     }
     l.remove(word);
