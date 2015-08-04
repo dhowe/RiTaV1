@@ -747,7 +747,7 @@ public class RiWordNet
     
     for (int i = 0; i < synsets.length; i++)
     {
-      String gloss = getGlossFromSynset(synsets[i]);
+      String gloss = WordnetUtil.parseGloss(getGlossFromSynset(synsets[i]));
       if (gloss != null)
         glosses.add(gloss);
     }

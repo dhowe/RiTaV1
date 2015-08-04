@@ -26,7 +26,7 @@ import rita.wordnet.WordnetUtil;
  */
 public class RiWordNetTest {
 
-  static String pathWordNet = "/WordNet-3.1";
+  static String pathWordNet = "D:/development/WordNet3.1"; // "/WordNet-3.1";
   
   static final String[] EMPTY = new String[0];
 
@@ -649,40 +649,40 @@ public class RiWordNetTest {
     setEqual(expected12, result12);
 
     String[] expected2 = {
-	"with sadness; in a sad manner; \"`She died last night,' he said sadly\"",
-	"in an unfortunate way; \"sadly he died before he could see his grandchild\"",
-	"in an unfortunate or deplorable manner; \"he was sadly neglected\"; \"it was woefully inadequate\"", };
+	"with sadness; in a sad manner",
+	"in an unfortunate way",
+	"in an unfortunate or deplorable manner", };
     String[] result2 = w.getAllGlosses("sadly", "r");
     setEqual(expected2, result2);
 
     String[] expected = {
-	"impairment resulting from long use; \"the tires showed uneven wear\"",
-	"the act of having on your person as a covering or adornment; \"she bought it for everyday wear\"",
+	"impairment resulting from long use",
+	"the act of having on your person as a covering or adornment",
 	"a covering designed to be worn on a person's body", };
     String[] result = w.getAllGlosses("wear", "n");
     // println(result,true);
     setEqual(expected, result);
 
     String[] expected3 = {
-	"feeling happy appreciation; \"glad of the fire's warmth\"",
-	"cheerful and bright; \"a beaming smile\"; \"a glad May morning\"",
-	"eagerly disposed to act or to be of service; \"glad to help\"",
-	"showing or causing joy and pleasure; especially made happy; \"glad you are here\"; \"glad that they succeeded\"; \"gave a glad shout\"; \"a glad smile\"; \"heard the glad news\"; \"a glad occasion\"", };
+	"feeling happy appreciation",
+	"cheerful and bright",
+	"eagerly disposed to act or to be of service",
+	"showing or causing joy and pleasure; especially made happy", };
     String[] result3 = w.getAllGlosses("glad", "a");
     // println(result3,true);
     setEqual(expected3, result3);
 
     String[] expected4 = {
-	"cause to grow or develop; \"He grows vegetables in his backyard\"",
-	"come to have or undergo a change of (physical features and attributes); \"He grew a beard\"; \"The patient developed abdominal pains\"; \"I got funny spots all over my body\"; \"Well-developed breasts\"",
-	"pass into a condition gradually, take on a specific property or attribute; become; \"The weather turned nasty\"; \"She grew angry\"",
-	"cultivate by growing, often involving improvements by means of agricultural techniques; \"The Bordeaux region produces great red wines\"; \"They produce good ham in Parma\"; \"We grow wheat here\"; \"We raise hogs here\"",
-	"develop and reach maturity; undergo maturation; \"He matured fast\"; \"The child grew fast\"",
-	"become larger, greater, or bigger; expand or gain; \"The problem grew too large for me\"; \"Her business grew fast\"",
-	"come into existence; take on form or shape; \"A new religious movement originated in that country\"; \"a love that sprang up from friendship\"; \"the idea for the book grew out of a short story\"; \"An interesting phenomenon uprose\"",
-	"grow emotionally or mature; \"The child developed beautifully in her new kindergarten\"; \"When he spent a summer at camp, the boy grew noticeably and no longer showed some of his old adolescent behavior\"",
-	"become attached by or as if by the process of growth; \"The tree trunks had grown together\"",
-	"increase in size by natural process; \"Corn doesn't grow here\"; \"In these forests, mushrooms grow under the trees\"; \"her hair doesn't grow much anymore\"", };
+	"cause to grow or develop",
+	"come to have or undergo a change of (physical features and attributes)",
+	"pass into a condition gradually, take on a specific property or attribute; become",
+	"cultivate by growing, often involving improvements by means of agricultural techniques",
+	"develop and reach maturity; undergo maturation",
+	"become larger, greater, or bigger; expand or gain",
+	"come into existence; take on form or shape",
+	"grow emotionally or mature",
+	"become attached by or as if by the process of growth",
+	"increase in size by natural process", };
     String[] result4 = w.getAllGlosses("grow", "v");
     // println(result4,true);
     setEqual(expected4, result4);
@@ -699,40 +699,40 @@ public class RiWordNetTest {
     w.ignoreCompoundWords(true);
 
     String[] expected5 = {
-	"with sadness; in a sad manner; \"`She died last night,' he said sadly\"",
-	"in an unfortunate way; \"sadly he died before he could see his grandchild\"",
-	"in an unfortunate or deplorable manner; \"he was sadly neglected\"; \"it was woefully inadequate\"", };
+	"with sadness; in a sad manner",
+	"in an unfortunate way",
+	"in an unfortunate or deplorable manner", };
     String[] result5 = w.getAllGlosses("sadly", "r");
     setEqual(expected5, result5);
 
     String[] expected6 = {
-	"impairment resulting from long use; \"the tires showed uneven wear\"",
-	"the act of having on your person as a covering or adornment; \"she bought it for everyday wear\"",
+	"impairment resulting from long use",
+	"the act of having on your person as a covering or adornment",
 	"a covering designed to be worn on a person's body", };
     String[] result6 = w.getAllGlosses("wear", "n");
     // println(result6,true);
     setEqual(expected6, result6);
 
     String[] expected7 = {
-	"feeling happy appreciation; \"glad of the fire's warmth\"",
-	"cheerful and bright; \"a beaming smile\"; \"a glad May morning\"",
-	"eagerly disposed to act or to be of service; \"glad to help\"",
-	"showing or causing joy and pleasure; especially made happy; \"glad you are here\"; \"glad that they succeeded\"; \"gave a glad shout\"; \"a glad smile\"; \"heard the glad news\"; \"a glad occasion\"", };
+	"feeling happy appreciation",
+	"cheerful and bright",
+	"eagerly disposed to act or to be of service",
+	"showing or causing joy and pleasure; especially made happy", };
     String[] result7 = w.getAllGlosses("glad", "a");
     // println(result7,true);
     setEqual(expected7, result7);
 
     String[] expected8 = {
-	"cause to grow or develop; \"He grows vegetables in his backyard\"",
-	"come to have or undergo a change of (physical features and attributes); \"He grew a beard\"; \"The patient developed abdominal pains\"; \"I got funny spots all over my body\"; \"Well-developed breasts\"",
-	"pass into a condition gradually, take on a specific property or attribute; become; \"The weather turned nasty\"; \"She grew angry\"",
-	"cultivate by growing, often involving improvements by means of agricultural techniques; \"The Bordeaux region produces great red wines\"; \"They produce good ham in Parma\"; \"We grow wheat here\"; \"We raise hogs here\"",
-	"develop and reach maturity; undergo maturation; \"He matured fast\"; \"The child grew fast\"",
-	"become larger, greater, or bigger; expand or gain; \"The problem grew too large for me\"; \"Her business grew fast\"",
-	"come into existence; take on form or shape; \"A new religious movement originated in that country\"; \"a love that sprang up from friendship\"; \"the idea for the book grew out of a short story\"; \"An interesting phenomenon uprose\"",
-	"grow emotionally or mature; \"The child developed beautifully in her new kindergarten\"; \"When he spent a summer at camp, the boy grew noticeably and no longer showed some of his old adolescent behavior\"",
-	"become attached by or as if by the process of growth; \"The tree trunks had grown together\"",
-	"increase in size by natural process; \"Corn doesn't grow here\"; \"In these forests, mushrooms grow under the trees\"; \"her hair doesn't grow much anymore\"", };
+	"cause to grow or develop",
+	"come to have or undergo a change of (physical features and attributes)",
+	"pass into a condition gradually, take on a specific property or attribute; become",
+	"cultivate by growing, often involving improvements by means of agricultural techniques",
+	"develop and reach maturity; undergo maturation",
+	"become larger, greater, or bigger; expand or gain",
+	"come into existence; take on form or shape",
+	"grow emotionally or mature",
+	"become attached by or as if by the process of growth",
+	"increase in size by natural process", };
     String[] result8 = w.getAllGlosses("grow", "v");
     // println(result8,true);
     setEqual(expected8, result8);
