@@ -26,7 +26,7 @@ import rita.wordnet.WordnetUtil;
  */
 public class RiWordNetTest {
 
-  static String pathWordNet = "/WordNet-3.1";
+  static String pathWordNet = "D:\\development\\WordNet3.1";
   
   static final String[] EMPTY = new String[0];
 
@@ -1933,19 +1933,19 @@ public class RiWordNetTest {
 
     int[] ids = w.getSenseIds("cat", "n");
     String[] htree = w.getHypernymTree(ids[0]);
-    RiTa.out(htree);
+    // RiTa.out(htree);
     
     System.out.println();
     
     ids = w.getSenseIds("dog", "n");
     htree = w.getHypernymTree(ids[0]);
-    RiTa.out(htree);
-    System.out.println();
+    // RiTa.out(htree);
+    // System.out.println();
    
     
     ids = w.getSenseIds("cell", "n");
     htree = w.getHypernymTree(ids[0]);
-    RiTa.out(htree);
+    // RiTa.out(htree);
     
     if (1==1) return;
     
