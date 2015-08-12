@@ -862,10 +862,10 @@
     "variable": false,
     "name": "getRandomExample",
     "example": "",
-    "description": "Return a random example from the set of examples from all senses of word with pos, assuming they contain word, or else null if not found",
-    "syntax": "getAnyExample(word, pos);",
+    "description": "Returns a random example from the set of examples from all senses of word with pos, assuming they contain word, or else null if not found",
+    "syntax": "getRandomExample(word, pos);",
     "parameters": [{
-      "type": "String",
+      "type": "String (optional)",
       "desc": "word"
     }, {
       "type": "String",
