@@ -51,19 +51,6 @@ public class KnownIssuesTest implements Constants
     String res = rg.expand();
     ok(res.equals("���hello!���")); // fails bc of editor
   }
-  
-  @Test
-  public void testTokenizing()
-  {
-    String[] testStrings = { "The boy screamed, \"Where is my apple?\"", };
-
-    for (int i = 0; i < testStrings.length; i++)
-    {
-      String[] tokens = RiTa.tokenize(testStrings[i]);
-      String output = RiTa.untokenize(tokens);
-      equal(testStrings[i], output);
-    }
-  }
 
   @Test
   public void testWordNetAntonyms()
