@@ -561,6 +561,10 @@ public class RiTaTest
     output = RiTa.untokenize(input);
     //System.out.println(output);
     deepEqual(output, expected);
+
+    expected = "The boy screamed, \"Where is my apple?\"";
+    output = RiTa.untokenize(RiTa.tokenize(expected));
+    deepEqual(output, expected);
     
     expected = "Dr. Chan is talking slowly with Mr. Cheng, and they're friends."; 
     input = new String[] { "Dr", ".", "Chan", "is", "talking", "slowly", "with", "Mr",
