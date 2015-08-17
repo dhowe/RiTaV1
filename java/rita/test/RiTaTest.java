@@ -412,17 +412,6 @@ public class RiTaTest
 	"A: Visitors from most countries can enter Hong Kong without a visa for periods of seven to 180 days, depending on nationality."};
     deepEqual(output, expected);
 
-    /*
-    //  Q. or A. at start of sentence 
-    input = "Q. Do I need a visa to visit Hong Kong? A. Visitors from most countries can enter Hong Kong without a visa for periods of seven to 180 days, depending on nationality.";
-    output = RiTa.splitSentences(input);
-    System.out.println(Arrays.asList(output));
-    expected = new String[] { 
-	"Q. Do I need a visa to visit Hong Kong?", 
-	"A. Visitors from most countries can enter Hong Kong without a visa for periods of seven to 180 days, depending on nationality."};
-    deepEqual(output, expected);
-    */
-
     // double initial (X.Y.) -> middle of sentence
     input = "Joanne \"Jo\" Rowling, OBE FRSL[2] (born 31 July 1965),[1] pen names J. K. Rowling and Robert Galbraith, is a British novelist best known as the author of the Harry Potter fantasy series.";
     output = RiTa.splitSentences(input);
@@ -443,17 +432,6 @@ public class RiTaTest
     expected = new String[] { 
 	"Will there be other factors such as temperature, humidity etc. affect the result?"};
     deepEqual(output, expected);
-    
-    /*
-    // nextToken does not begin with an upper case
-    input = "What did he buy? iPad or iPhone?";
-    output = RiTa.splitSentences(input);
-    expected = new String[] { 
-	"What did he buy?",
-	"iPad or iPhone?"};
-    System.out.println(Arrays.asList(output));
-    deepEqual(output, expected);
-    */
     
     // single upper-case alpha + "." -> middle of sentence
     input = "Chopper and Monkey D. Luffy were friends. Now they are not.";
