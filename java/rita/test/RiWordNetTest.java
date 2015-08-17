@@ -1551,8 +1551,8 @@ public class RiWordNetTest {
   @Test
   public void testGetAntonymsStringString() {
 
-    setEqual(w.getAntonyms("day", "n"), new String[] {}); // WHY?? Added to
-							  // known-issues
+    setEqual(w.getAntonyms("day", "n"), new String[] { "night" });
+    
     setEqual(w.getAntonyms("night", "n"), new String[] { "day" });
 
     setEqual(w.getAntonyms("left", "a"), new String[] { "right" });
@@ -1572,8 +1572,8 @@ public class RiWordNetTest {
     w.ignoreCompoundWords(true);
     w.ignoreUpperCaseWords(true);
 
-    setEqual(w.getAntonyms("day", "n"), new String[] {}); // WHY?? Added to
-							  // known-issues
+    setEqual(w.getAntonyms("day", "n"), new String[] { "night" });
+    
     setEqual(w.getAntonyms("night", "n"), new String[] { "day" });
 
     setEqual(w.getAntonyms("left", "a"), new String[] { "right" });

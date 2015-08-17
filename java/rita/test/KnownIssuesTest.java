@@ -66,17 +66,6 @@ public class KnownIssuesTest implements Constants
   }
 
   @Test
-  public void testWordNetAntonyms()
-  {
-    // returns empty, but 'night' returns 'day'
-
-    RiWordNet w = new RiWordNet("/WordNet-3.1");
-    String[] result = w.getAntonyms("day", "n");
-    // System.out.println(RiTa.asList(result));
-    setEqual(result, new String[] { "night" });
-  }
-
-  @Test
   public void testRhyming()
   {
     RiLexicon lex = new RiLexicon();
