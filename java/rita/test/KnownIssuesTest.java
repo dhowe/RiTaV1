@@ -63,16 +63,6 @@ public class KnownIssuesTest implements Constants
     System.out.println(Arrays.asList(output));
     deepEqual(output, expected);
   }
-      
-  @Test
-  public void testSpecialCharsInRiGrammar()
-  {
-    String s = "{ \"<start>\": \"&#8220;hello!&#8221;\" }";
-    RiGrammar rg = new RiGrammar(s);
-    //ok("fails b/c of editor?");
-    String res = rg.expand();
-    ok(res.equals("���hello!���")); // fails bc of editor
-  }
 
   @Test
   public void testRhyming()
