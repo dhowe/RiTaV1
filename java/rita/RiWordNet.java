@@ -1375,14 +1375,26 @@ public class RiWordNet
 
   // ANTONYMS ------------
   /**
-   * Returns String[] of Antonyms for the 1st sense of <code>word</code> with
-   * <code>pos</code> <br>
+   * Returns String[] of Antonyms for the 1st sense containing valid Antonyms of <code>word</code>
+   * with <code>pos</code> <br>
    * 
    * Example: 'night' -> 'day', "full", -> "empty"
    */
   public String[] getAntonyms(String word, String pos)
   {
-    return getPointerTargetsAtIndex(word, pos, PointerType.ANTONYM, 1);
+    String[] result = EA;
+    int index = getSenseCount(word, pos), i = 1;
+
+    while (i <= index) {
+      result = getPointerTargetsAtIndex(word, pos, PointerType.ANTONYM, i);
+  
+      if (result == EA)
+        i++;
+      else 
+        break;
+    }
+
+    return result;
   }
 
   /**
