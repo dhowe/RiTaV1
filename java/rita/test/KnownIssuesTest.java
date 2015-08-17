@@ -40,6 +40,28 @@ public class KnownIssuesTest implements Constants
   public void testPorterStemmerFails()
   {
     String type = RiTa.PORTER;
+  }  
+  
+  @Test
+  public void testSplitSentences()
+  {
+    //  Q. or A. at start of sentence 
+    String input = "Q. Do I need a visa to visit Hong Kong? A. Visitors from most countries can enter Hong Kong without a visa for periods of seven to 180 days, depending on nationality.";
+    String[] output = RiTa.splitSentences(input);
+    System.out.println(Arrays.asList(output));
+    String[] expected = new String[] { 
+	"Q. Do I need a visa to visit Hong Kong?", 
+	"A. Visitors from most countries can enter Hong Kong without a visa for periods of seven to 180 days, depending on nationality."};
+    deepEqual(output, expected);
+    
+    // nextToken does not begin with an upper case
+    input = "What did he buy? iPad or iPhone?";
+    output = RiTa.splitSentences(input);
+    expected = new String[] { 
+	"What did he buy?",
+	"iPad or iPhone?"};
+    System.out.println(Arrays.asList(output));
+    deepEqual(output, expected);
   }
       
   @Test
