@@ -21,27 +21,6 @@ import rita.support.LetterToSound;
 
 public class KnownIssuesTest implements Constants
 {
-  
-  @Test
-  public void testPlingStemmerFails()
-  {
-    String type = RiTa.PLING;
-    
-    // TODO: add all failing tests
-  }
-  
-  @Test
-  public void testLancasterStemmerFails()
-  {
-    String type = RiTa.LANCASTER;
-  }
-  
-  @Test
-  public void testPorterStemmerFails()
-  {
-    String type = RiTa.PORTER;
-  }  
-  
   @Test
   public void testSplitSentences()
   {
