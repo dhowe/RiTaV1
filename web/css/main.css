@@ -9,7 +9,6 @@
 /* ==========================================================================
    Website Template__Chihiro_2015.04.10
    ========================================================================== */
-
 html,
 button,
 input,
@@ -32,8 +31,8 @@ h1, h2, h3, h4, h5, p {
     margin-bottom: 0.8em;
 }
 h1, h2, h3, h4, h5{
-font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
-
+font-family:"HelveticaNeue-Light", "Helvetica Neue Light",  "Helvetica Neue", Helvetica, Arial, sans-serif; 
+letter-spacing: 0.02rem;
 }
 h1 {
     font-size: 5rem;
@@ -54,8 +53,13 @@ h5 {
 }
 p {
     font-family: "Enriqueta", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
-    font-size: 1.2rem;
+    font-size: 1rem;
     margin-bottom: 1.2rem;
+    letter-spacing: 0.02rem;
+}
+p b{
+    font-family:"Helvetica Neue", Helvetica, Arial, sans-serif; 
+    font-weight: 500;
 }
 
 
@@ -1029,6 +1033,7 @@ b{
     color:rgb(250,250,250);
     border-width:300;
     padding:0.5rem;
+    letter-spacing: 0.05rem;
 }
 .button.bc{
     color:#222;
@@ -1044,6 +1049,7 @@ b{
 }
 #vc p{
     min-width:180px;
+    letter-spacing: 0.03rem;
      font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif !important; 
 }
 .button:hover{
@@ -1117,8 +1123,8 @@ span.spacing{
     color:grey;
 }
 .intro>p{
-    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
-
+    font-family:"HelveticaNeue-Light", "Helvetica Neue Light","Helvetica Neue", Helvetica, Arial, sans-serif; 
+    line-height: 1.678em;
 }
 .bg2{
     background-color: #F5F5F5;
@@ -1193,7 +1199,7 @@ text-transform: none;
     font-family: "Enriqueta";
 }
 .category b{
-    font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+    font-family:"HelveticaNeue-Light", "Helvetica Neue Light","Helvetica Neue", Helvetica, Arial, sans-serif; 
     font-weight:bold;
 }
 .category b span{
@@ -1206,16 +1212,100 @@ table {
   border-collapse: collapse;
 }
 table strong{
-    font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light","Helvetica Neue", Helvetica, Arial, sans-serif; 
     font-weight:bold;
 }
 td p{
-    font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+    font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif; 
 }
 td h3{
     text-align: left!important;
 }
-
+/*Tutorial*/
+.gd-section.tutorial p{
+    line-height: 1.618rem;
+    font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif; 
+    font-size: 1rem;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+}
+.tutorialList li{
+    font-size: 1.2rem;
+    line-height: 1.5em;
+}
+.tutorialList ul{
+    margin-top: 0.3rem;
+}
+.tutorialList ul li{
+    font-size: 1rem;
+}
+.tutorial .col8{
+    max-width: 650px;
+}
+.tutorial img
+{
+    margin:0.5rem 0;
+    width:100%;
+    height:auto;
+}
+.tutorial h4{
+    margin-left: -150px;
+    font-size: 1.6rem;
+}
+.tutorial h4 span{
+    padding:0 1rem;
+    font-weight: 500;
+    font-family:"HelveticaNeue-Light", "Helvetica Neue Light","Helvetica Neue", Helvetica, Arial, sans-serif; 
+}
+.tutorial h5{
+    margin-top: 3rem;
+    text-transform: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+.tutorial h5.sub{
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+    margin-bottom: 2rem;
+}
+.tutorial hr{
+    margin-top: 2em;
+}
+.tutorial .example{
+    padding-left: 1.5rem;
+    min-height: 0!important;
+    background-color: #f5f5f5;
+}
+.tutorial .example p{
+    font-size:1em;
+    line-height: 1.4em;
+    
+}
+.tutorial .example table{
+    max-width: 150px;
+}
+.tutorial .ref{
+    margin-top: 0.5rem;
+}
+.tutorial .ref p{
+    font-size:0.9rem;
+    line-height: 1.3rem;
+    color:grey;
+}
+span.ref{
+    font-size:0.9rem;
+    line-height: 1.3rem;
+    color:grey;
+}
+.tutorial .ref a{
+    color:grey;
+}
+.sublist{
+    line-height:1.8rem;
+}
 /* Start of custom grid */
 
 .gd-section {
@@ -1355,10 +1445,7 @@ td h3{
 }
 
 
-.example {
-    min-height: 60px;
-    margin-bottom: 20px;
-}
+
 .contain-example {
     background-color: #f6eed1;
     min-height: 60px;

@@ -735,15 +735,6 @@ public class RiWordNet
   }
 
   /**
-   * Returns full gloss for 1st sense of 'word' with 'pos' 
-   */
-  public String getGloss(String word, String pos)
-  {
-    Synset synset = getSynsetAtIndex(word, pos, 1);
-    return getGloss(synset);
-  }
-
-  /**
    * Returns glosses for all senses of 'word' with 'pos', 
    */
   public String[] getAllGlosses(String word, String pos)
@@ -756,7 +747,7 @@ public class RiWordNet
     
     for (int i = 0; i < synsets.length; i++)
     {
-      String gloss = getGloss(synsets[i]);
+      String gloss = WordnetUtil.parseGloss(getGlossFromSynset(synsets[i]));
       if (gloss != null)
         glosses.add(gloss);
     }
@@ -765,25 +756,16 @@ public class RiWordNet
   }
 
   /**
-   * Returns full gloss for word with unique <code>senseId</code>, or null if
+   * Returns gloss for word with unique <code>senseId</code>, or null if
    * not found
    */
   public String getGloss(int senseId)
   {
-    return getGloss(getSynsetAtId(senseId));
+    String gloss = getGlossFromSynset(getSynsetAtId(senseId));
+    return WordnetUtil.parseGloss(gloss);
   }
 
-  /**
-   * Returns description for word with unique <code>senseId</code>, or null if
-   * not found
-   */
-  public String getDescription(int senseId)
-  {
-    String gloss = getGloss(senseId);
-    return WordnetUtil.parseDescription(gloss);
-  }
-
-  private String getGloss(Synset synset) // returns null
+  private String getGlossFromSynset(Synset synset) // returns null
   {
     if (synset == null)
       return null;
@@ -791,13 +773,14 @@ public class RiWordNet
   }
 
   /**
-   * Returns description for <code>word</code> with <code>pos</code> or null if
+   * Returns gloss for <code>word</code> with <code>pos</code> or null if
    * not found
    */
-  public String getDescription(String word, String pos)
+  public String getGloss(String word, String pos)
   {
-    String gloss = getGloss(word, pos);
-    return WordnetUtil.parseDescription(gloss);
+    Synset synset = getSynsetAtIndex(word, pos, 1);
+    String gloss = getGlossFromSynset(synset);
+    return WordnetUtil.parseGloss(gloss);
   }
 
   /**
@@ -849,8 +832,6 @@ public class RiWordNet
     {
       if (syns[i] != null)
       {
-        for (int j = 0; j < syns.length; j++)
-        {
           List examples = getExamples(syns[i]);
           if (examples == null)
             continue;
@@ -858,12 +839,11 @@ public class RiWordNet
           {
             String example = (String) k.next();
             // does it contain the word
-            if (example.indexOf(word.toString()) < 0)
+            if (example.indexOf(word) < 0)
               continue;
             if (!l.contains(example))
               l.add(example);
           }
-        }
       }
     }
     l.remove(word);
@@ -872,7 +852,7 @@ public class RiWordNet
 
   private List getExamples(Synset synset)
   {
-    String gloss = getGloss(synset);
+    String gloss = getGlossFromSynset(synset);
     return WordnetUtil.parseExamples(gloss);
   }
 
@@ -1395,14 +1375,26 @@ public class RiWordNet
 
   // ANTONYMS ------------
   /**
-   * Returns String[] of Antonyms for the 1st sense of <code>word</code> with
-   * <code>pos</code> <br>
+   * Returns String[] of Antonyms for the 1st sense containing valid Antonyms of <code>word</code>
+   * with <code>pos</code> <br>
    * 
    * Example: 'night' -> 'day', "full", -> "empty"
    */
   public String[] getAntonyms(String word, String pos)
   {
-    return getPointerTargetsAtIndex(word, pos, PointerType.ANTONYM, 1);
+    String[] result = EA;
+    int index = getSenseCount(word, pos), i = 1;
+
+    while (i <= index) {
+      result = getPointerTargetsAtIndex(word, pos, PointerType.ANTONYM, i);
+  
+      if (result == EA)
+        i++;
+      else 
+        break;
+    }
+
+    return result;
   }
 
   /**

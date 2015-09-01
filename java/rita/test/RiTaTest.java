@@ -377,11 +377,70 @@ public class RiTaTest
     expected = new String[] { input };
     deepEqual(output, expected);
 
+    input = "Yes, it was a dog that ate the baby!?. I am sad.";
+    output = RiTa.splitSentences(input);
+    expected = new String[] { "Yes, it was a dog that ate the baby!?.", "I am sad." };
+
+    input = "Yes, it was a dog that ate the baby!. I am sad.";
+    output = RiTa.splitSentences(input);
+    expected = new String[] { "Yes, it was a dog that ate the baby!.", "I am sad." };
+
+    input = "Yes, it was a dog that ate the baby!.? I am sad.";
+    output = RiTa.splitSentences(input);
+    expected = new String[] { "Yes, it was a dog that ate the baby!.?", "I am sad." };
+    deepEqual(output, expected);
+
     input = "'Yes, it was a dog that ate the baby', he said.";
     output = RiTa.splitSentences(input);
     expected = new String[] { "\'Yes, it was a dog that ate the baby\', he said." };
     deepEqual(output, expected);
 
+    // (for XML-marked text) next char is < 
+    input = "<para>Here is an example of how to include some text that contains many <literal><</literal> and <literal>&</literal> symbols. The sample text is a fragment of <acronym>XHTML</acronym>. The surrounding text (<para> and <programlisting>) are from DocBook.</para>";
+    output = RiTa.splitSentences(input);
+    expected = new String[] { 
+	"<para>Here is an example of how to include some text that contains many <literal><</literal> and <literal>&</literal> symbols.", 
+	"The sample text is a fragment of <acronym>XHTML</acronym>.", 
+	"The surrounding text (<para> and <programlisting>) are from DocBook.</para>"};
+    deepEqual(output, expected);
+
+    //  Q: or A: at start of sentence 
+    input = "Q: Do I need a visa to visit Hong Kong? A: Visitors from most countries can enter Hong Kong without a visa for periods of seven to 180 days, depending on nationality.";
+    output = RiTa.splitSentences(input);
+    expected = new String[] { 
+	"Q: Do I need a visa to visit Hong Kong?", 
+	"A: Visitors from most countries can enter Hong Kong without a visa for periods of seven to 180 days, depending on nationality."};
+    deepEqual(output, expected);
+
+    // double initial (X.Y.) -> middle of sentence
+    input = "Joanne \"Jo\" Rowling, OBE FRSL[2] (born 31 July 1965),[1] pen names J. K. Rowling and Robert Galbraith, is a British novelist best known as the author of the Harry Potter fantasy series.";
+    output = RiTa.splitSentences(input);
+    expected = new String[] { 
+	"Joanne \"Jo\" Rowling, OBE FRSL[2] (born 31 July 1965),[1] pen names J. K. Rowling and Robert Galbraith, is a British novelist best known as the author of the Harry Potter fantasy series."};
+    deepEqual(output, expected);
+
+    // last char not "." -> middle of sentence
+    input = "Completing Project.D is of the utmost importance!";
+    output = RiTa.splitSentences(input);
+    expected = new String[] { 
+	"Completing Project.D is of the utmost importance!"};
+    deepEqual(output, expected);
+    
+    // last char not "." -> middle of sentence
+    input = "Will there be other factors such as temperature, humidity etc. affect the result?";
+    output = RiTa.splitSentences(input);
+    expected = new String[] { 
+	"Will there be other factors such as temperature, humidity etc. affect the result?"};
+    deepEqual(output, expected);
+    
+    // single upper-case alpha + "." -> middle of sentence
+    input = "Chopper and Monkey D. Luffy were friends. Now they are not.";
+    output = RiTa.splitSentences(input);
+    expected = new String[] { 
+	"Chopper and Monkey D. Luffy were friends.",
+	"Now they are not."};
+    deepEqual(output, expected);
+    
     input = "-@.576";
     output = RiTa.splitSentences(input);
     expected = new String[] { "-@.576" };
@@ -560,6 +619,10 @@ public class RiTaTest
         "?", "'" };
     output = RiTa.untokenize(input);
     //System.out.println(output);
+    deepEqual(output, expected);
+
+    expected = "The boy screamed, \"Where is my apple?\"";
+    output = RiTa.untokenize(RiTa.tokenize(expected));
     deepEqual(output, expected);
     
     expected = "Dr. Chan is talking slowly with Mr. Cheng, and they're friends."; 

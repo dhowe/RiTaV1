@@ -641,98 +641,6 @@ public class RiWordNetTest {
   }
 
   @Test
-  public void testGetGlossStringString() {
-
-    String expected = "impairment resulting from long use; " + '"'
-	+ "the tires showed uneven wear" + '"';
-    String result = w.getGloss("wear", "n");
-    // println(result);
-    assertEquals(expected, result);
-
-    String expected2 = "a sign posted in a public place as an advertisement; "
-	+ '"' + "a poster advertised the coming attractions" + '"';
-    String result2 = w.getGloss("poster", "n");
-    // println(result2);
-    assertEquals(expected2, result2);
-
-    String expected3 = "affix in a public place or for public notice; " + '"'
-	+ "post a warning" + '"';
-    String result3 = w.getGloss("post", "v");
-    // println(result3);
-    assertEquals(expected3, result3);
-
-    String expected4 = null;
-    String result4 = w.getGloss("post", "a");
-    // println(result4);
-    assertEquals(expected4, result4);
-
-    String expected5 = null;
-    String result5 = w.getGloss("post", "r");
-    // println(result5);
-    assertEquals(expected5, result5);
-
-    String expected6 = "engagingly stimulating or provocative; " + '"'
-	+ "a piquant wit" + '"' + "; " + '"' + "salty language" + '"';
-    String result6 = w.getGloss("salty", "a");
-    // println(result6);
-    assertEquals(expected6, result6);
-
-    String expected7 = "with resolute determination; " + '"'
-	+ "we firmly believed it" + '"' + "; " + '"' + "you must stand firm"
-	+ '"';
-    String result7 = w.getGloss("firmly", "r");
-    // println(result7);
-    assertEquals(expected7, result7);
-
-    equal(w.getGloss("post", "u"), null);
-
-    w.ignoreCompoundWords(false);
-    w.ignoreUpperCaseWords(false);
-
-    expected = "impairment resulting from long use; " + '"'
-	+ "the tires showed uneven wear" + '"';
-    result = w.getGloss("wear", "n");
-    // println(result);
-    assertEquals(expected, result);
-
-    expected2 = "a sign posted in a public place as an advertisement; " + '"'
-	+ "a poster advertised the coming attractions" + '"';
-    result2 = w.getGloss("poster", "n");
-    // println(result2);
-    assertEquals(expected2, result2);
-
-    expected3 = "affix in a public place or for public notice; " + '"'
-	+ "post a warning" + '"';
-    result3 = w.getGloss("post", "v");
-    // println(result3);
-    assertEquals(expected3, result3);
-
-    expected4 = null;
-    result4 = w.getGloss("post", "a");
-    // println(result4);
-    assertEquals(expected4, result4);
-
-    expected5 = null;
-    result5 = w.getGloss("post", "r");
-    // println(result5);
-    assertEquals(expected5, result5);
-
-    expected6 = "engagingly stimulating or provocative; " + '"'
-	+ "a piquant wit" + '"' + "; " + '"' + "salty language" + '"';
-    result6 = w.getGloss("salty", "a");
-    // println(result6);
-    assertEquals(expected6, result6);
-
-    expected7 = "with resolute determination; " + '"' + "we firmly believed it"
-	+ '"' + "; " + '"' + "you must stand firm" + '"';
-    result7 = w.getGloss("firmly", "r");
-    // println(result7);
-    assertEquals(expected7, result7);
-
-    equal(w.getGloss("post", "u"), null);
-  }
-
-  @Test
   public void testGetAllGlosses() {
 
     String[] expected12 = {};
@@ -741,40 +649,40 @@ public class RiWordNetTest {
     setEqual(expected12, result12);
 
     String[] expected2 = {
-	"with sadness; in a sad manner; \"`She died last night,' he said sadly\"",
-	"in an unfortunate way; \"sadly he died before he could see his grandchild\"",
-	"in an unfortunate or deplorable manner; \"he was sadly neglected\"; \"it was woefully inadequate\"", };
+	"with sadness; in a sad manner",
+	"in an unfortunate way",
+	"in an unfortunate or deplorable manner", };
     String[] result2 = w.getAllGlosses("sadly", "r");
     setEqual(expected2, result2);
 
     String[] expected = {
-	"impairment resulting from long use; \"the tires showed uneven wear\"",
-	"the act of having on your person as a covering or adornment; \"she bought it for everyday wear\"",
+	"impairment resulting from long use",
+	"the act of having on your person as a covering or adornment",
 	"a covering designed to be worn on a person's body", };
     String[] result = w.getAllGlosses("wear", "n");
     // println(result,true);
     setEqual(expected, result);
 
     String[] expected3 = {
-	"feeling happy appreciation; \"glad of the fire's warmth\"",
-	"cheerful and bright; \"a beaming smile\"; \"a glad May morning\"",
-	"eagerly disposed to act or to be of service; \"glad to help\"",
-	"showing or causing joy and pleasure; especially made happy; \"glad you are here\"; \"glad that they succeeded\"; \"gave a glad shout\"; \"a glad smile\"; \"heard the glad news\"; \"a glad occasion\"", };
+	"feeling happy appreciation",
+	"cheerful and bright",
+	"eagerly disposed to act or to be of service",
+	"showing or causing joy and pleasure; especially made happy", };
     String[] result3 = w.getAllGlosses("glad", "a");
     // println(result3,true);
     setEqual(expected3, result3);
 
     String[] expected4 = {
-	"cause to grow or develop; \"He grows vegetables in his backyard\"",
-	"come to have or undergo a change of (physical features and attributes); \"He grew a beard\"; \"The patient developed abdominal pains\"; \"I got funny spots all over my body\"; \"Well-developed breasts\"",
-	"pass into a condition gradually, take on a specific property or attribute; become; \"The weather turned nasty\"; \"She grew angry\"",
-	"cultivate by growing, often involving improvements by means of agricultural techniques; \"The Bordeaux region produces great red wines\"; \"They produce good ham in Parma\"; \"We grow wheat here\"; \"We raise hogs here\"",
-	"develop and reach maturity; undergo maturation; \"He matured fast\"; \"The child grew fast\"",
-	"become larger, greater, or bigger; expand or gain; \"The problem grew too large for me\"; \"Her business grew fast\"",
-	"come into existence; take on form or shape; \"A new religious movement originated in that country\"; \"a love that sprang up from friendship\"; \"the idea for the book grew out of a short story\"; \"An interesting phenomenon uprose\"",
-	"grow emotionally or mature; \"The child developed beautifully in her new kindergarten\"; \"When he spent a summer at camp, the boy grew noticeably and no longer showed some of his old adolescent behavior\"",
-	"become attached by or as if by the process of growth; \"The tree trunks had grown together\"",
-	"increase in size by natural process; \"Corn doesn't grow here\"; \"In these forests, mushrooms grow under the trees\"; \"her hair doesn't grow much anymore\"", };
+	"cause to grow or develop",
+	"come to have or undergo a change of (physical features and attributes)",
+	"pass into a condition gradually, take on a specific property or attribute; become",
+	"cultivate by growing, often involving improvements by means of agricultural techniques",
+	"develop and reach maturity; undergo maturation",
+	"become larger, greater, or bigger; expand or gain",
+	"come into existence; take on form or shape",
+	"grow emotionally or mature",
+	"become attached by or as if by the process of growth",
+	"increase in size by natural process", };
     String[] result4 = w.getAllGlosses("grow", "v");
     // println(result4,true);
     setEqual(expected4, result4);
@@ -791,40 +699,40 @@ public class RiWordNetTest {
     w.ignoreCompoundWords(true);
 
     String[] expected5 = {
-	"with sadness; in a sad manner; \"`She died last night,' he said sadly\"",
-	"in an unfortunate way; \"sadly he died before he could see his grandchild\"",
-	"in an unfortunate or deplorable manner; \"he was sadly neglected\"; \"it was woefully inadequate\"", };
+	"with sadness; in a sad manner",
+	"in an unfortunate way",
+	"in an unfortunate or deplorable manner", };
     String[] result5 = w.getAllGlosses("sadly", "r");
     setEqual(expected5, result5);
 
     String[] expected6 = {
-	"impairment resulting from long use; \"the tires showed uneven wear\"",
-	"the act of having on your person as a covering or adornment; \"she bought it for everyday wear\"",
+	"impairment resulting from long use",
+	"the act of having on your person as a covering or adornment",
 	"a covering designed to be worn on a person's body", };
     String[] result6 = w.getAllGlosses("wear", "n");
     // println(result6,true);
     setEqual(expected6, result6);
 
     String[] expected7 = {
-	"feeling happy appreciation; \"glad of the fire's warmth\"",
-	"cheerful and bright; \"a beaming smile\"; \"a glad May morning\"",
-	"eagerly disposed to act or to be of service; \"glad to help\"",
-	"showing or causing joy and pleasure; especially made happy; \"glad you are here\"; \"glad that they succeeded\"; \"gave a glad shout\"; \"a glad smile\"; \"heard the glad news\"; \"a glad occasion\"", };
+	"feeling happy appreciation",
+	"cheerful and bright",
+	"eagerly disposed to act or to be of service",
+	"showing or causing joy and pleasure; especially made happy", };
     String[] result7 = w.getAllGlosses("glad", "a");
     // println(result7,true);
     setEqual(expected7, result7);
 
     String[] expected8 = {
-	"cause to grow or develop; \"He grows vegetables in his backyard\"",
-	"come to have or undergo a change of (physical features and attributes); \"He grew a beard\"; \"The patient developed abdominal pains\"; \"I got funny spots all over my body\"; \"Well-developed breasts\"",
-	"pass into a condition gradually, take on a specific property or attribute; become; \"The weather turned nasty\"; \"She grew angry\"",
-	"cultivate by growing, often involving improvements by means of agricultural techniques; \"The Bordeaux region produces great red wines\"; \"They produce good ham in Parma\"; \"We grow wheat here\"; \"We raise hogs here\"",
-	"develop and reach maturity; undergo maturation; \"He matured fast\"; \"The child grew fast\"",
-	"become larger, greater, or bigger; expand or gain; \"The problem grew too large for me\"; \"Her business grew fast\"",
-	"come into existence; take on form or shape; \"A new religious movement originated in that country\"; \"a love that sprang up from friendship\"; \"the idea for the book grew out of a short story\"; \"An interesting phenomenon uprose\"",
-	"grow emotionally or mature; \"The child developed beautifully in her new kindergarten\"; \"When he spent a summer at camp, the boy grew noticeably and no longer showed some of his old adolescent behavior\"",
-	"become attached by or as if by the process of growth; \"The tree trunks had grown together\"",
-	"increase in size by natural process; \"Corn doesn't grow here\"; \"In these forests, mushrooms grow under the trees\"; \"her hair doesn't grow much anymore\"", };
+	"cause to grow or develop",
+	"come to have or undergo a change of (physical features and attributes)",
+	"pass into a condition gradually, take on a specific property or attribute; become",
+	"cultivate by growing, often involving improvements by means of agricultural techniques",
+	"develop and reach maturity; undergo maturation",
+	"become larger, greater, or bigger; expand or gain",
+	"come into existence; take on form or shape",
+	"grow emotionally or mature",
+	"become attached by or as if by the process of growth",
+	"increase in size by natural process", };
     String[] result8 = w.getAllGlosses("grow", "v");
     // println(result8,true);
     setEqual(expected8, result8);
@@ -846,153 +754,98 @@ public class RiWordNetTest {
   @Test
   public void testGetGlossInt() {
   
-    ok(w.getGloss(123213123) == null);
-
     String expected = "feline mammal usually having thick soft fur and no ability to roar: domestic cats; wildcats";
     String result = w.getGloss(92124272);
-    // println(result);
-    assertEquals(expected, result);
-
-    String expected2 = "try to locate or discover, or try to establish the existence of; "
-	+ '"'
-	+ "The police are searching for clues"
-	+ '"'
-	+ "; "
-	+ '"'
-	+ "They are searching for the missing man in the entire county" + '"';
-    String result2 = w.getGloss(81318273);
-    // println(result2);
-    assertEquals(expected2, result2);
-
-    String expected3 = "a whip with nine knotted cords; " + '"'
-	+ "British sailors feared the cat" + '"';
-    String result3 = w.getGloss(92989061);
-    // println(result3);
-    assertEquals(expected3, result3);
-
-    w.ignoreUpperCaseWords(true);
-    w.ignoreCompoundWords(true);
-
-    expected = "feline mammal usually having thick soft fur and no ability to roar: domestic cats; wildcats";
-    result = w.getGloss(92124272);
-    // println(result);
-    assertEquals(expected, result);
-
-    expected2 = "try to locate or discover, or try to establish the existence of; "
-	+ '"'
-	+ "The police are searching for clues"
-	+ '"'
-	+ "; "
-	+ '"'
-	+ "They are searching for the missing man in the entire county" + '"';
-    result2 = w.getGloss(81318273);
-    // println(result2);
-    assertEquals(expected2, result2);
-
-    expected3 = "a whip with nine knotted cords; " + '"'
-	+ "British sailors feared the cat" + '"';
-    result3 = w.getGloss(92989061);
-    // println(result3);
-    assertEquals(expected3, result3);
-
-    ok(w.getGloss(123213123) == null);
-  }
-
-  @Test
-  public void testGetDescriptionInt() {
-  
-    String expected = "feline mammal usually having thick soft fur and no ability to roar: domestic cats; wildcats";
-    String result = w.getDescription(92124272);
     // //println(result);
     assertEquals(expected, result);
 
     String expected2 = "try to locate or discover, or try to establish the existence of";
-    String result2 = w.getDescription(81318273);
+    String result2 = w.getGloss(81318273);
     // //println(result2);
     assertEquals(expected2, result2);
 
     String expected3 = "a whip with nine knotted cords";
-    String result3 = w.getDescription(92989061);
+    String result3 = w.getGloss(92989061);
     // //println(result3);
     assertEquals(expected3, result3);
 
-    ok(w.getDescription(123213123) == null);
+    ok(w.getGloss(123213123) == null);
 
     w.ignoreUpperCaseWords(true);
     w.ignoreCompoundWords(true);
     String expected4 = "feline mammal usually having thick soft fur and no ability to roar: domestic cats; wildcats";
-    String result4 = w.getDescription(92124272);
+    String result4 = w.getGloss(92124272);
     // //println(result);
     assertEquals(expected4, result4);
 
     String expected5 = "try to locate or discover, or try to establish the existence of";
-    String result5 = w.getDescription(81318273);
+    String result5 = w.getGloss(81318273);
     // //println(result2);
     assertEquals(expected5, result5);
 
     String expected6 = "a whip with nine knotted cords";
-    String result6 = w.getDescription(92989061);
+    String result6 = w.getGloss(92989061);
     // //println(result6);
     assertEquals(expected6, result6);
 
-    ok(w.getDescription(123213123) == null);
+    ok(w.getGloss(123213123) == null);
 
   }
 
   @Test
-  public void testGetDescriptionStringString() {
+  public void testGetGlossStringString() {
 
     String expected = "feline mammal usually having thick soft fur and no ability to roar: domestic cats; wildcats";
-    String result = w.getDescription("cat", "n");
-    // //println(result);
+    String result = w.getGloss("cat", "n");
+    println("testGetGlossStringString" + result);
     assertEquals(expected, result);
 
     String expected2 = "change location; move, travel, or proceed, also metaphorically";
-    String result2 = w.getDescription("move", "v");
+    String result2 = w.getGloss("move", "v");
     // //println(result2);
     assertEquals(expected2, result2);
 
     String expected3 = "having an (over)abundance of flesh";
-    String result3 = w.getDescription("fat", "a");
+    String result3 = w.getGloss("fat", "a");
     // //println(result3);
     assertEquals(expected3, result3);
 
     String expected4 = "to a severe or serious degree";
-    String result4 = w.getDescription("badly", "r");
+    String result4 = w.getGloss("badly", "r");
     // //println(result4);
     assertEquals(expected4, result4);
 
-    ok(w.getDescription("badly", "u") == null);
+    ok(w.getGloss("badly", "u") == null);
 
     w.ignoreUpperCaseWords(true);
     w.ignoreCompoundWords(true);
 
     String expected5 = "feline mammal usually having thick soft fur and no ability to roar: domestic cats; wildcats";
-    String result5 = w.getDescription("cat", "n");
+    String result5 = w.getGloss("cat", "n");
     // //println(result);
     assertEquals(expected5, result5);
 
     String expected6 = "change location; move, travel, or proceed, also metaphorically";
-    String result6 = w.getDescription("move", "v");
+    String result6 = w.getGloss("move", "v");
     // //println(result2);
     assertEquals(expected6, result6);
 
     String expected7 = "having an (over)abundance of flesh";
-    String result7 = w.getDescription("fat", "a");
+    String result7 = w.getGloss("fat", "a");
     // //println(result3);
     assertEquals(expected7, result7);
 
     String expected8 = "to a severe or serious degree";
-    String result8 = w.getDescription("badly", "r");
+    String result8 = w.getGloss("badly", "r");
     // //println(result4);
     assertEquals(expected8, result8);
 
     String expected9 = null;
-    String result9 = w.getDescription("badlyyyyy", "r");
+    String result9 = w.getGloss("badlyyyyy", "r");
     // println(result9);
     assertEquals(expected9, result9);
 
-    ok(w.getDescription("badly", "u") == null);
+    ok(w.getGloss("badly", "u") == null);
 
   }
 
@@ -1698,8 +1551,8 @@ public class RiWordNetTest {
   @Test
   public void testGetAntonymsStringString() {
 
-    setEqual(w.getAntonyms("day", "n"), new String[] {}); // WHY?? Added to
-							  // known-issues
+    setEqual(w.getAntonyms("day", "n"), new String[] { "night" });
+    
     setEqual(w.getAntonyms("night", "n"), new String[] { "day" });
 
     setEqual(w.getAntonyms("left", "a"), new String[] { "right" });
@@ -1719,8 +1572,8 @@ public class RiWordNetTest {
     w.ignoreCompoundWords(true);
     w.ignoreUpperCaseWords(true);
 
-    setEqual(w.getAntonyms("day", "n"), new String[] {}); // WHY?? Added to
-							  // known-issues
+    setEqual(w.getAntonyms("day", "n"), new String[] { "night" });
+    
     setEqual(w.getAntonyms("night", "n"), new String[] { "day" });
 
     setEqual(w.getAntonyms("left", "a"), new String[] { "right" });
@@ -1933,19 +1786,19 @@ public class RiWordNetTest {
 
     int[] ids = w.getSenseIds("cat", "n");
     String[] htree = w.getHypernymTree(ids[0]);
-    RiTa.out(htree);
+    // RiTa.out(htree);
     
     System.out.println();
     
     ids = w.getSenseIds("dog", "n");
     htree = w.getHypernymTree(ids[0]);
-    RiTa.out(htree);
-    System.out.println();
+    // RiTa.out(htree);
+    // System.out.println();
    
     
     ids = w.getSenseIds("cell", "n");
     htree = w.getHypernymTree(ids[0]);
-    RiTa.out(htree);
+    // RiTa.out(htree);
     
     if (1==1) return;
     

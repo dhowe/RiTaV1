@@ -21,59 +21,26 @@ import rita.support.LetterToSound;
 
 public class KnownIssuesTest implements Constants
 {
-  
   @Test
-  public void testPlingStemmerFails()
+  public void testSplitSentences()
   {
-    String type = RiTa.PLING;
+    //  Q. or A. at start of sentence 
+    String input = "Q. Do I need a visa to visit Hong Kong? A. Visitors from most countries can enter Hong Kong without a visa for periods of seven to 180 days, depending on nationality.";
+    String[] output = RiTa.splitSentences(input);
+    System.out.println(Arrays.asList(output));
+    String[] expected = new String[] { 
+	"Q. Do I need a visa to visit Hong Kong?", 
+	"A. Visitors from most countries can enter Hong Kong without a visa for periods of seven to 180 days, depending on nationality."};
+    deepEqual(output, expected);
     
-    // TODO: add all failing tests
-  }
-  
-  @Test
-  public void testLancasterStemmerFails()
-  {
-    String type = RiTa.LANCASTER;
-  }
-  
-  @Test
-  public void testPorterStemmerFails()
-  {
-    String type = RiTa.PORTER;
-  }
-      
-  @Test
-  public void testSpecialCharsInRiGrammar()
-  {
-    String s = "{ \"<start>\": \"&#8220;hello!&#8221;\" }";
-    RiGrammar rg = new RiGrammar(s);
-    //ok("fails b/c of editor?");
-    String res = rg.expand();
-    ok(res.equals("���hello!���")); // fails bc of editor
-  }
-  
-  @Test
-  public void testTokenizing()
-  {
-    String[] testStrings = { "The boy screamed, \"Where is my apple?\"", };
-
-    for (int i = 0; i < testStrings.length; i++)
-    {
-      String[] tokens = RiTa.tokenize(testStrings[i]);
-      String output = RiTa.untokenize(tokens);
-      equal(testStrings[i], output);
-    }
-  }
-
-  @Test
-  public void testWordNetAntonyms()
-  {
-    // returns empty, but 'night' returns 'day'
-
-    RiWordNet w = new RiWordNet("/WordNet-3.1");
-    String[] result = w.getAntonyms("day", "n");
-    // System.out.println(RiTa.asList(result));
-    setEqual(result, new String[] { "night" });
+    // nextToken does not begin with an upper case
+    input = "What did he buy? iPad or iPhone?";
+    output = RiTa.splitSentences(input);
+    expected = new String[] { 
+	"What did he buy?",
+	"iPad or iPhone?"};
+    System.out.println(Arrays.asList(output));
+    deepEqual(output, expected);
   }
 
   @Test

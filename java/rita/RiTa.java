@@ -222,8 +222,11 @@ public class RiTa implements Constants
         for (int i = 1; i < arr.length; i++) {
             if (arr[i] != null) {
               
-                if (!arr[i].matches("[,\\.\\;\\:\\?\\!\\)"+ALL_QUOTES+"]+") && !arr[i-1].matches("[\\("+ALL_QUOTES+"]+"))
-                    newStr += delim;
+              if (i != arr.length -1 && arr[i].matches("[,\\.\\;\\:\\?\\!\\)"+ALL_QUOTES+"]+") && arr[i-1].matches("[,\\.\\;\\:\\?\\!\\)"+ALL_QUOTES+"]+"))
+                newStr += delim;
+              
+              else if (!arr[i].matches("[,\\.\\;\\:\\?\\!\\)"+ALL_QUOTES+"]+") && !arr[i-1].matches("[\\("+ALL_QUOTES+"]+"))
+                newStr += delim;
                 
                 newStr += arr[i];
             }

@@ -299,6 +299,11 @@ public class RiGrammarTest
         ok(res.equals("hello") || res.equals("name"));
       }
     }
+    
+    s = new String[] { "{ \"<start>\": \"&#8220;hello!&#8221;\" }" };
+    rg = new RiGrammar(s[0]);
+    res = rg.expand();
+    ok(res.equals("“hello!”"));
   }
     
   @Test
