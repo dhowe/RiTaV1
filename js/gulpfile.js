@@ -1,16 +1,14 @@
-//var browserify = require('browserify');
 var gulp = require('gulp');
 var jscs = require('gulp-jscs');
 var source = require('vinyl-source-stream');
 var argv = require('yargs').argv;
-//var mocha = require('gulp-mocha');
 var del = require('del');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var replace = require('gulp-replace');
 var jshint = require('gulp-jshint');
-
 //var watch = require('gulp-watch');
+
 var pjson = require('./package.json'),
   version = pjson.version;
 
@@ -84,7 +82,6 @@ gulp.task('test', ['build'], function(cb) {
     deps: [
       "src/rita_lts.js",
       "src/rita_dict.js",
-//      "src/rita_lancaster.js",
       "test/qunit-helpers.js"
     ],
     tests: tests
@@ -93,4 +90,4 @@ gulp.task('test', ['build'], function(cb) {
   });
 });
 
-  //console.log("Version: "+version);
+//console.log("Version: "+version);

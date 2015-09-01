@@ -3529,11 +3529,16 @@ public class RiWordNet
       RiWordNet w = new RiWordNet("/WordNet-3.1");
       String[] s = w.getAllSynsets("dog", "n");
       System.out.println(Arrays.asList(s));
-      int[] is = w.getSenseIds("dog", "n");
-      for (int i = 0; i < is.length; i++) {
-	System.out.println(i+"] "+is[i]);
-      }
-      System.out.println(Arrays.asList(w.getSynset("dog", "n", 1)));
+//      int[] is = w.getSenseIds("dog", "n");
+//      for (int i = 0; i < is.length; i++) {
+//	System.out.println(i+"] "+is[i]);
+//      }
+      //System.out.println(Arrays.asList(w.getSynset("dog", "n", 1)));
+      //System.out.println(Arrays.asList(w.getAllGlosses("dog", "n")));
+      System.out.println(Arrays.asList(w.getGloss("dog", "n")));
+      System.out.println(Arrays.asList(w.getDescription("dog", "n")));
+      System.out.println(Arrays.asList(w.getExamples("dog", "n")));
+
     }
     else
       System.out.println(result);
