@@ -38,6 +38,7 @@
     "gulp": "^3.9.0",
     "gulp-jscs": "^1.6.0",
     "gulp-jshint": "^1.11.2",
+    "gulp-rename": "^1.2.2",
     "gulp-task-listing": "^1.0.1",
     "gulp-util": "^3.0.6",
     "jscs": "^1.13.1",
