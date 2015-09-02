@@ -12,9 +12,10 @@ var gulp = require('gulp'),
   pjson = require('./package.json'),
   version = pjson.version;
 
-var testDir = './test/',
+var testDir = 'test',
   buildDir = 'dist',
-  tmpDir = '/tmp';
+  tmpDir = '/tmp',
+  srcDir = 'src';
 
 // list all the defined tasks
 gulp.task('help', tasks);
@@ -29,46 +30,58 @@ gulp.task('lint', function() {
     expr: 1,
     laxbreak: 1
   };
-  return gulp.src('dist/rita.js')
+
+  log('Linting '+buildDir+'/rita.js');
+
+  return gulp.src(buildDir+'/rita.js')
     .pipe(jshint(opts))
     .pipe(jshint.reporter('default'));
 })
 
 gulp.task('watch', function() {
-  gulp.watch('src/*.js', ['build']);
+
+  log('Watching '+buildDir+'/rita.js');
+
+  gulp.watch(srcDir + '/*.js', ['build']);
 });
 
 gulp.task('build', ['clean'], function() {
 
-  gulp.src(['./src/header.js',
-      './src/rita_lts.js',
-      './src/rita_dict.js',
-      './src/rita.js',
-      './src/rita_lexicon.js',
-      './src/footer.js' ])
+  gulp.src([
+      srcDir + '/header.js',
+      srcDir + '/rita_lts.js',
+      srcDir + '/rita_dict.js',
+      srcDir + '/rita.js',
+      srcDir + '/rita_lexicon.js',
+      srcDir + '/footer.js' ])
     .pipe(replace('##version##', version))
     .pipe(concat('rita.js'))
     //.pipe(uglify())
     .pipe(gulp.dest(buildDir));
+
+    log('Wrote '+buildDir+'/rita.js');
 });
 
 gulp.task('test', ['build'], function(cb) {
 
   var tests = [
-    'test/LibStructure-tests',
-    'test/RiTaEvent-tests',
-    'test/RiString-tests',
-    'test/RiTa-tests',
-    'test/RiGrammar-tests',
-    'test/RiMarkov-tests',
-    'test/RiLexicon-tests',
-    'test/UrlLoading-tests'
+    testDir + '/LibStructure-tests',
+    testDir + '/RiTaEvent-tests',
+    testDir + '/RiString-tests',
+    testDir + '/RiTa-tests',
+    testDir + '/RiGrammar-tests',
+    testDir + '/RiMarkov-tests',
+    testDir + '/RiLexicon-tests',
+    testDir + '/UrlLoading-tests'
   ];
 
   if (argv.name) {
 
-    tests = [testDir + argv.name + '-tests'];
-    console.log('[INFO] Testing ' + tests[0]);
+    tests = [ testDir + argv.name + '-tests' ];
+    log('Testing ' + tests[0]);
+  }
+  else {
+    log('Testing '+buildDir+'/rita.js');
   }
 
   var testrunner = require("qunit");
@@ -81,11 +94,11 @@ gulp.task('test', ['build'], function(cb) {
   });
 
   testrunner.run({
-    code: "dist/rita.js",
+    code: buildDir + '/rita.js',
     deps: [
-      "src/rita_lts.js",
-      "src/rita_dict.js",
-      "test/qunit-helpers.js"
+      srcDir + '/rita_lts.js',
+      srcDir + '/rita_dict.js',
+      testDir + '/qunit-helpers.js'
     ],
     tests: tests
   }, function(err, report) {
@@ -93,7 +106,11 @@ gulp.task('test', ['build'], function(cb) {
   });
 });
 
+function log(msg) {
+  console.log('[INFO] '+ msg);
+}
+
 // help is the default task
 gulp.task('default', ['help']);
 
-//console.log("Version: "+version);
+//log("Version: "+version);

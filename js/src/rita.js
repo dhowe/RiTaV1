@@ -4173,7 +4173,7 @@ Concorder.prototype = {
   count: function(word) {
 
     var value = this.lookup(word);
-    return value == null ? 0 : value.count;
+    return value === null ? 0 : value.count;
   },
 
   concordance: function() {

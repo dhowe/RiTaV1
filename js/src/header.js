@@ -29,11 +29,6 @@ function ok(obj, type) {
   return true;
 }
 
-function last(word) { // last char of string
-  if (!word || !word.length) return E;
-  return word.charAt(word.length - 1);
-}
-
 function isNum(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 }
