@@ -1,23 +1,18 @@
 
 /*global console:0, Processing:0, window:0, document:0, _RiTa_DICT:0, _RiTa_LTS:0 */
 
-//var Util = require('./rita_util');
+var RiLexicon = makeClass(); // stub
 
-/*var N = Util.N, S = Util.S, O = Util.O, A = Util.A, B = Util.B,
-  R = Util.R, F = Util.F, is = Util.is, ok = Util.ok, get = Util.get,
-  strOk = Util.strOk, trim = Util.trim, SP = Util.SP, E = Util.E, EA = [],
-  startsWith = Util.startsWith, okeys = Util.okeys, inArray = Util.inArray,
-  err = Util.err, warn = Util.warn, log = Util.log, endsWith = Util.endsWith,
-  isNum = Util.isNum, last = Util.last;*/
-
-// for (var name in util) {
-//   module.exports[name] = util[name];
-//   //console.log('module.exports['+name+']('+typeof module.exports[name]+') = util['+name+']('+(typeof util[name])+')');
-// }
+RiLexicon.prototype.init = function() {
+    throw Error('RiLexicon is not available -- ' +
+      'if you need it, make to include rita_lexicon.js');
+};
 
 var RiTa = {
 
   VERSION: '##version##',
+
+  LEXICON: null, // static RiLexicon instance
 
   /* Use to disable loading of lexicon */
   USE_LEXICON: true,
@@ -106,6 +101,14 @@ var RiTa = {
   ],
 
   // Start functions =================================
+
+  _lexicon: function() {
+
+    if (!RiTa.LEXICON) {
+      RiTa.LEXICON = new RiLexicon();
+    }
+    return RiTa.LEXICON;
+  },
 
   untokenize: function(arr, delim, adjustPunctuationSpacing) {
 
@@ -1562,13 +1565,10 @@ RiString.prototype = {
 
   analyze: function() {
 
-    var phonemes = E,
-      syllables = E,
-      stresses = E,
-      slash = '/',
-      delim = '-',
-      phones, lts, ltsPhones, useRaw, words = RiTa.tokenize(this._text),
-      stressyls, lex = RiLexicon();
+    var phonemes = E, syllables = E, stresses = E,
+      slash = '/', delim = '-', lex = RiTa._lexicon(),
+      stressyls, phones, lts, ltsPhones, useRaw,
+      words = RiTa.tokenize(this._text);
 
     if (!this._features) this._initFeatureMap();
 
@@ -1583,13 +1583,14 @@ RiString.prototype = {
         if (words[i].match(/[a-zA-Z]+/))
           log("[RiTa] Used LTS-rules for '" + words[i] + "'");
 
-        lts = lts || LetterToSound();
+        lts = lex._letterToSound();
 
         ltsPhones = lts.getPhones(words[i]);
 
         if (ltsPhones && ltsPhones.length > 0) {
 
           phones = RiString._syllabify(ltsPhones);
+
         } else {
           phones = words[i];
           useRaw = true;
@@ -1701,7 +1702,8 @@ RiString.prototype = {
     if (!tags || !tags.length)
       return E;
 
-    return tags[Math.min(index < 0 ? tags.length + index : index, tags.length - 1)];
+    return tags[ Math.min(index < 0 ?
+      tags.length + index : index, tags.length - 1) ];
   },
 
   wordAt: function(index) {
@@ -2434,379 +2436,6 @@ RiTaEvent.prototype = {
 
 
 /////////////////////////////////////////////////////////////////////////
-// RiLetterToSound (adapted from FreeTTS text-to-speech)
-/////////////////////////////////////////////////////////////////////////
-
-var LetterToSound = makeClass();
-
-/*
- * Entry in file represents the total number of states in the file. This
- * should be at the top of the file. The format should be "TOTAL n" where n is
- * an integer value.
- */
-LetterToSound.TOTAL = "TOTAL";
-
-/*
- * Entry in file represents the beginning of a new letter index. This should
- * appear before the list of a new set of states for a particular letter. The
- * format should be "INDEX n c" where n is the index into the state machine
- * array and c is the character.
- */
-LetterToSound.INDEX = "INDEX";
-
-/*
- * Entry in file represents a state. The format should be "STATE i c t f"
- * where 'i' represents an index to look at in the decision string, c is the
- * character that should match, t is the index of the state to go to if there
- * is a match, and f is the of the state to go to if there isn't a match.
- */
-LetterToSound.STATE = "STATE";
-
-/*
- * Entry in file represents a final state. The format should be "PHONE p"
- * where p represents a phone string that comes from the phone table.
- */
-LetterToSound.PHONE = "PHONE";
-
-/*
- * If true, the state string is tokenized when it is first read. The side
- * effects of this are quicker lookups, but more memory usage and a longer
- * startup time.
- */
-LetterToSound.tokenizeOnLoad = true;
-
-/*
- * If true, the state string is tokenized the first time it is referenced. The
- * side effects of this are quicker lookups, but more memory usage.
- */
-LetterToSound.tokenizeOnLookup = false;
-
-LetterToSound.WINDOW_SIZE = 4;
-
-LetterToSound.prototype = {
-
-  init: function() {
-
-    /*
-     * The indices of the starting points for letters in the state machine.
-     */
-    this.letterIndex = {};
-
-    /*
-     * An array of characters to hold a string for checking against a rule. This
-     * will be reused over and over again, so the goal was just to have a single
-     * area instead of new'ing up a new one for every word. The name choice is to
-     * match that in Flite's <code>cst_lts.c</code>.
-     */
-    this.fval_buff = [];
-
-    /*
-     * The LTS state machine. Entries can be String or State. An ArrayList could
-     * be used here -- I chose not to because I thought it might be quicker to
-     * avoid dealing with the dynamic resizing.
-     */
-    this.stateMachine = null;
-
-    /*
-     * The number of states in the state machine.
-     */
-    this.numStates = 0;
-
-    // verify that the lts rules are included
-    if (!LetterToSound.RULES) LetterToSound.RULES = _RiTa_LTS;
-
-    if (!LetterToSound.RULES.length)
-      throw Error("[RiTa] No LTS-rules found!");
-
-    // add the rules to the object (static?)
-    for (var i = 0; i < LetterToSound.RULES.length; i++) {
-
-      this.parseAndAdd(LetterToSound.RULES[i]);
-    }
-  },
-
-  _createState: function(type, tokenizer) {
-
-    if (type === LetterToSound.STATE) {
-      var index = parseInt(tokenizer.nextToken());
-      var c = tokenizer.nextToken();
-      var qtrue = parseInt(tokenizer.nextToken());
-      var qfalse = parseInt(tokenizer.nextToken());
-
-      return new DecisionState(index, c.charAt(0), qtrue, qfalse);
-    } else if (type === LetterToSound.PHONE) {
-      return new FinalState(tokenizer.nextToken());
-    }
-
-    throw Error("Unexpected type: " + type);
-  },
-
-  /* Creates a word from the given input line and add it to the state machine.
-	   It expects the TOTAL line to come before any of the states.*/
-  parseAndAdd: function(line) {
-
-    var tokenizer = new StringTokenizer(line, SP);
-    var type = tokenizer.nextToken();
-
-    if (type == LetterToSound.STATE || type == LetterToSound.PHONE) {
-      if (LetterToSound.tokenizeOnLoad) {
-        this.stateMachine[this.numStates] = this._createState(type, tokenizer);
-      } else {
-        this.stateMachine[this.numStates] = line;
-      }
-      this.numStates++;
-    } else if (type == LetterToSound.INDEX) {
-      var index = parseInt(tokenizer.nextToken());
-      if (index != this.numStates) {
-        throw Error("Bad INDEX in file.");
-      } else {
-        var c = tokenizer.nextToken();
-        this.letterIndex[c] = index;
-
-      }
-      //log(type+" : "+c+" : "+index + " "+this.letterIndex[c]);
-    } else if (type == LetterToSound.TOTAL) {
-      this.stateMachine = [];
-      this.stateMachineSize = parseInt(tokenizer.nextToken());
-    }
-  },
-
-  getPhones: function(input, delim) {
-
-    var i, ph, result = [];
-
-    delim = delim || '-';
-
-    if (is(input, S)) {
-
-      if (!input.length) return E;
-
-      input = RiTa.tokenize(input);
-    }
-
-    for (i = 0; i < input.length; i++) {
-
-      ph = this._computePhones(input[i]);
-      result[i] = ph ? ph.join(delim) : E;
-    }
-
-    return result.join(delim);
-  },
-  _computePhones: function(word) {
-
-    var dig, phoneList = [],
-      full_buff, tmp, currentState, startIndex, stateIndex, c;
-
-    if (!word || !word.length || RiTa.isPunctuation(word))
-      return null;
-
-    word = word.toLowerCase();
-
-    if (isNum(word)) {
-
-      word = (word.length > 1) ? word.split(E) : [word];
-
-      for (var k = 0; k < word.length; k++) {
-
-        dig = parseInt(word[k]);
-        if (dig < 0 || dig > 9)
-          throw Error("Attempt to pass multi-digit number to LTS: '" + word + "'");
-
-        phoneList.push(RiString.phones.digits[dig]);
-      }
-
-      return phoneList;
-    }
-
-    // Create "000#word#000", uggh
-    tmp = "000#" + word.trim() + "#000", full_buff = tmp.split(E);
-
-    // For each character in the word, create a WINDOW_SIZE
-    // context on each size of the character, and then ask the
-    // state machine what's next
-    for (var pos = 0; pos < word.length; pos++) {
-
-      for (var i = 0; i < LetterToSound.WINDOW_SIZE; i++) {
-
-        this.fval_buff[i] = full_buff[pos + i];
-        this.fval_buff[i + LetterToSound.WINDOW_SIZE] =
-          full_buff[i + pos + 1 + LetterToSound.WINDOW_SIZE];
-      }
-
-      c = word.charAt(pos);
-      startIndex = this.letterIndex[c];
-
-      // must check for null here, not 0 (and not ===)
-      if (!isNum(startIndex)) {
-        warn("Unable to generate LTS for '" + word + "'\n       No LTS index for character: '" +
-          c + "', isDigit=" + isNum(c) + ", isPunct=" + RiTa.isPunctuation(c));
-        return null;
-      }
-
-      stateIndex = parseInt(startIndex);
-
-      currentState = this.getState(stateIndex);
-
-      while (!(currentState instanceof FinalState)) {
-
-        stateIndex = currentState.getNextState(this.fval_buff);
-        currentState = this.getState(stateIndex);
-      }
-
-      currentState.append(phoneList);
-    }
-
-    return phoneList;
-  },
-
-  getState: function(i) {
-
-    if (is(i, N)) {
-
-      var state = null;
-
-      // WORKING HERE: this check should fail :: see java
-      if (is(this.stateMachine[i], S)) {
-
-        state = this.getState(this.stateMachine[i]);
-        if (LetterToSound.tokenizeOnLookup)
-          this.stateMachine[i] = state;
-      } else
-        state = this.stateMachine[i];
-
-      return state;
-    } else {
-
-      var tokenizer = new StringTokenizer(i, " ");
-      return this.getState(tokenizer.nextToken(), tokenizer);
-    }
-  }
-};
-
-/////////////////////////////////////////////////////////////////////////
-// DecisionState
-/////////////////////////////////////////////////////////////////////////
-
-var DecisionState = makeClass();
-
-DecisionState.TYPE = 1;
-
-DecisionState.prototype = {
-
-  /*
-   * Class constructor.
-   *
-   * @param index
-   *          the index into a string for comparison to c
-   * @param c
-   *          the character to match in a string at index
-   * @param qtrue
-   *          the state to go to in the state machine on a match
-   * @param qfalse
-   *          the state to go to in the state machine on no match
-   */
-  init: function(index, c, qtrue, qfalse) {
-
-    this.c = c;
-    this.index = index;
-    this.qtrue = qtrue;
-    this.qfalse = qfalse;
-  },
-
-  type: function() {
-
-    return "DecisionState";
-  },
-
-  /*
-   * Gets the next state to go to based upon the given character sequence.
-   *
-   * @param chars the characters for comparison
-   *
-   * @returns an index into the state machine.
-   */
-  //public var getNextState(char[] chars)
-  getNextState: function(chars) {
-
-    return (chars[this.index] == this.c) ? this.qtrue : this.qfalse;
-  },
-
-  /*
-   * Outputs this <code>State</code> as though it came from the text input
-   * file.
-   */
-  toString: function() {
-    return this.STATE + " " + this.index + " " + this.c + " " + this.qtrue + " " + this.qfalse;
-  }
-
-}; // end DecisionState
-
-// ///////////////////////////////////////////////////////////////////////
-// FinalState
-// ///////////////////////////////////////////////////////////////////////
-
-var FinalState = makeClass();
-
-FinalState.TYPE = 2;
-
-FinalState.prototype = {
-
-  /*
-   * Constructor: the string "epsilon" is used to indicate an empty list.
-   */
-  init: function(phones) {
-
-    this.phoneList = [];
-
-    if (phones === ("epsilon")) {
-      this.phoneList = null;
-    } else if (is(phones, A)) {
-
-      this.phoneList = phones;
-    } else {
-      var i = phones.indexOf('-');
-      if (i != -1) {
-        this.phoneList[0] = phones.substring(0, i);
-        this.phoneList[1] = phones.substring(i + 1);
-      } else {
-        this.phoneList[0] = phones;
-      }
-    }
-  },
-
-  type: function() {
-
-    return "FinalState";
-  },
-
-  /*
-   * Appends the phone list for this state to the given <code>ArrayList</code>.
-   */
-  append: function(array) {
-
-    if (!this.phoneList) return;
-
-    for (var i = 0; i < this.phoneList.length; i++)
-      array.push(this.phoneList[i]);
-  },
-
-  /*
-   * Outputs this <code>State</code> as though it came from the text input
-   * file. The string "epsilon" is used to indicate an empty list.
-   */
-  toString: function() {
-
-    if (!this.phoneList) {
-      return LetterToSound.PHONE + " epsilon";
-    } else if (this.phoneList.length == 1) {
-      return LetterToSound.PHONE + " " + this.phoneList[0];
-    } else {
-      return LetterToSound.PHONE + " " + this.phoneList[0] + "-" + this.phoneList[1];
-    }
-  }
-};
-
-/////////////////////////////////////////////////////////////////////////
 //StringTokenizer
 /////////////////////////////////////////////////////////////////////////
 
@@ -3366,7 +2995,7 @@ var PosTagger = {
 
     var result = [],
       choices2d = [],
-      lex = RiLexicon(); //._getInstance();
+      lex = RiTa._lexicon();
 
     words = is(words, A) ? words : [words];
 
@@ -3391,12 +3020,13 @@ var PosTagger = {
         continue;
       }
 
-      var data = lex._getPosArr(words[i]);
+      var data = lex && lex._getPosArr(words[i]);
 
       if (!data || !data.length) {
 
         choices2d[i] = [];
         result.push((endsWith(words[i], 's') ? 'nns' : 'nn'));
+
       } else {
 
         result.push(data[0]);
@@ -4226,7 +3856,6 @@ Concorder.prototype = {
       }
       lookup.indexes.push(j);
     }
-    //console.log("KWIC: "+(new Date()-ts)+"ms");
   },
 
   ignorable: function(key) {
@@ -5048,11 +4677,3 @@ var hasP5 = (typeof p5 !== 'undefined');
 
 if (!RiTa.SILENT && console)
   console.log('[INFO] RiTaJS.version [' + RiTa.VERSION + ']');
-
-/*module.exports.RiTa = RiTa;
-module.exports.RiString = RiString;
-//module.exports.RiLexicon = RiLexicon;
-module.exports.RiGrammar = RiGrammar;
-module.exports.RiMarkov = RiMarkov;
-module.exports.RiWordNet = RiWordNet;
-module.exports.RiTaEvent = RiTaEvent;*/

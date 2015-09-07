@@ -1,6 +1,6 @@
 (function(window, undefined) {
 
-function makeClass() { // from: Resig
+function makeClass() { // from: Resig, TODO: make work with strict
   return function(args) {
     if (this instanceof arguments.callee) {
       if (typeof this.init == "function") {

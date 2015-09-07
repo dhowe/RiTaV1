@@ -24,6 +24,8 @@ var testResults = [{
   }, ]
 }];
 
+var lex = new RiLexicon();
+
 var runtests = function() {
 
   QUnit.module("RiLexicon", {
@@ -31,89 +33,13 @@ var runtests = function() {
     teardown: function() {}
   });
 
-  function createLex() {
-
-    RiLexicon.data = undefined;
-    return new RiLexicon();
-  }
-
-  var lex;
-
-  test("testAddWord", function() {
-
-    lex = RiLexicon();
-
-    var result = lex.addWord("bananana", "b-ax-n ae1-n ax ax", "nn");
-    ok(lex.containsWord("bananana"));
-
-    lex.addWord("hehehe", "hh-ee1 hh-ee1 hh-ee1", "uh");
-    ok(lex.containsWord("hehehe"));
-
-    equal(lex._getPhonemes("hehehe"), "hh-ee-hh-ee-hh-ee");
-
-    lex.addWord("HAHAHA", "hh-aa1 hh-aa1 hh-aa1", "uh");
-    ok(lex.containsWord("HAHAHA"));
-
-    lex.addWord("HAHAHA", "hh-aa1 hh-aa1 hh-aa1", "uh");
-    equal(lex._getPhonemes("HAHAHA"), "hh-aa-hh-aa-hh-aa");
-
-    lex = null;
-  });
-
-  test("testClear", function() {
-
-    lex = RiLexicon();
-    ok(lex.containsWord("banana"));
-    lex.removeWord("banana");
-
-    ok(!lex.containsWord("banana"));
-    
-    var obj = {};
-    obj["wonderfullyy"] = ["w-ah1-n-d er-f ax-l iy", "rb"];
-    lex.lexicalData(obj);
-    var result = lex.lexicalData();
-    deepEqual(result, obj)
-
-    lex.clear();
-    ok(lex.size() < 1);
-    lex = null;
-  });
-
   test("testSize", function() {
 
-    lex = RiLexicon();
     ok(lex.size() > 30000);
-
-    lex = null;
-  });
-
-  test("testReload", function() {
-
-    lex = RiLexicon();
-    var originalSize = lex.size();
-
-    ok(lex.containsWord("are"));
-    lex.removeWord("are");
-    var removeOneWordSize = lex.size();
-    lex.reload();
-    ok(lex.size() > removeOneWordSize);
-
-    ok(lex.containsWord("cat"));
-    lex.removeWord("cat");
-    ok(lex.containsWord("are"));
-    lex.removeWord("are");
-
-    var removeTwoWordSize = lex.size();
-    ok(removeTwoWordSize < removeOneWordSize);
-    lex.reload();
-    ok(lex.size() == originalSize);
-
-    lex = null;
   });
 
   test("testContainsWord", function() {
 
-    lex = RiLexicon();
     ok(lex.containsWord("cat"));
     ok(lex.containsWord("cats"));
     ok(!lex.containsWord("cated"));
@@ -125,14 +51,13 @@ var runtests = function() {
     ok(lex.containsWord("HeLLo"));
     ok(lex.containsWord("HELLO"));
 
-    RiLexicon.data['hello'] = undefined;
+    var tmp = lex.data['hello'];
+    lex.data['hello'] = undefined;
     ok(!lex.containsWord("hello"));
-    lex = null;
+    lex.data['hello'] = tmp; // restore data
   });
 
   test("testAlliterations", function() {
-
-    lex = RiLexicon();
 
     var result = lex.alliterations("cat");
     ok(result.length > 2000);
@@ -157,59 +82,22 @@ var runtests = function() {
 
   test("testAlliterations(int)", function() {
 
-    lex = RiLexicon();
-
     var result = lex.alliterations("dog", 15);
     ok(result.length == 3);
 
     var result = lex.alliterations("cat", 16);
     //for (var i = 0; i < result.length; i++)
-    //console.log(i + ") " + result[i]);
+      //console.log(i + ") " + result[i]);
 
     ok(result.length == 7); // TODO: check this
 
     // TODO: better tests
   });
 
-  test("testLexicalData", function() {
-
-    lex = RiLexicon();
-
-    var result = lex.lexicalData();
-    ok(Object.keys(result).length > 1000);
-
-    var re = lex.lexicalData();
-    result = re.a;
-    var answer = ["ey1", "dt"];
-
-    deepEqual(result, answer);
-
-    re = lex.lexicalData();
-    result = re.the;
-    answer = ["dh-ax", "dt"];
-
-    deepEqual(result, answer);
-
-    var obj = {};
-    obj["wonderfully"] = ["w-ah1-n-d er-f ax-l iy", "rb"];
-    result = lex.lexicalData(obj);
-    deepEqual(result.lexicalData(), obj);
-
-    obj = {};
-    obj["wonderfullyy"] = ["w-ah1-n-d er-f ax-l iy-y", "rb"];
-    result = lex.lexicalData(obj);
-    deepEqual(result.lexicalData().wonderfullyy, ["w-ah1-n-d er-f ax-l iy-y", "rb"]);
-
-    lex = null;
-  });
-
+  // TESTS: randomWord(), randomWord(targetLength),
+  // randomWord(pos), randomWord(pos, targetLength)
 
   test("testRandomWord(1)", function() {
-
-    //randomWord(), randomWord(targetLength), randomWord(pos),
-    //randomWord(pos, targetLength)
-
-    lex = createLex();
 
     var result = lex.randomWord();
     ok(result.length > 0, "randomWord: " + result);
@@ -226,14 +114,13 @@ var runtests = function() {
     result = lex.randomWord(5);
     ok(result.length > 0, "5 syllableCount: " + result);
 
-    result = lex.randomWord("nns", 3);
+    var result = lex.randomWord("nns", 3);
     ok(result.length > 0, "3 syllableCount + nns: " + result);
   });
 
 
   test("testRandomWord(2)", function() {
 
-    lex = RiLexicon();
     var pos = ["nn", "nns", "jj", "jjr", "wp"];
     for (var j = 0; j < pos.length; j++) {
       for (var i = 0; i < 5; i++) {
@@ -247,7 +134,6 @@ var runtests = function() {
 
   test("testRandomWord(3)", function() {
 
-    lex = RiLexicon();
     for (var i = 0; i < 10; i++) {
       var result = lex.randomWord(3);
       var syllables = RiTa.getSyllables(result);
@@ -259,7 +145,6 @@ var runtests = function() {
 
   test("testRandomWord(4)", function() {
 
-    lex = RiLexicon();
     for (var i = 0; i < 10; i++) {
       var result = lex.randomWord(5);
       var syllables = RiTa.getSyllables(result);
@@ -272,8 +157,6 @@ var runtests = function() {
   });
 
   test("testWords", function() {
-
-    lex = RiLexicon();
 
     var result = lex.words();
     ok(result.length > 1000);
@@ -310,7 +193,6 @@ var runtests = function() {
   });
 
   test("testIsAdverb", function() {
-    lex = RiLexicon();
 
     ok(!lex.isAdverb("swim"));
     ok(!lex.isAdverb("walk"));
@@ -370,7 +252,6 @@ var runtests = function() {
   });
 
   test("testIsNoun", function() {
-    lex = RiLexicon();
 
     ok(lex.isNoun("swim"));
     ok(lex.isNoun("walk"));
@@ -430,7 +311,6 @@ var runtests = function() {
   });
 
   test("testIsVerb", function() {
-    lex = RiLexicon();
 
     ok(lex.isVerb("dance"));
     ok(lex.isVerb("swim"));
@@ -490,7 +370,6 @@ var runtests = function() {
 
 
   test("testIsAdjective", function() {
-    lex = RiLexicon();
 
     ok(!lex.isAdjective("swim"));
     ok(!lex.isAdjective("walk"));
@@ -566,12 +445,11 @@ var runtests = function() {
     ok(!lex.isAlliteration("solo", "yoyo"));
     ok(!lex.isAlliteration("yoyo", "jojo"));
     ok(!lex.isAlliteration("", ""));
-
   });
 
 
   test("testIsRhyme", function() {
-    lex = RiLexicon();
+
     ok(!lex.isRhyme("solo ", "tomorrow"));
     ok(!lex.isRhyme("apple", "polo"));
     ok(!lex.isRhyme("this", "these"));
@@ -594,30 +472,7 @@ var runtests = function() {
 
   });
 
-  test("testRemoveWord", function() {
-
-    lex = RiLexicon();
-
-    ok(lex.containsWord("banana"));
-    lex.removeWord("banana");
-    ok(!lex.containsWord("banana"));
-
-    lex.removeWord("a");
-    ok(!lex.containsWord("a"));
-    ok(lex.containsWord("are")); //check that others r still there
-    lex.removeWord("aaa");
-    ok(!lex.containsWord("aaa"));
-
-    lex.removeWord("");
-
-    ok(!lex._getPhonemes("banana"));
-
-    lex = createLex();
-  });
-
   test("testSimilarByLetter", function() {
-
-    lex = RiLexicon();
 
     var result = lex.similarByLetter("banana");
     deepEqual(result, ["banal", "bonanza", "cabana", "lantana", "manna", "wanna"]);
@@ -658,8 +513,6 @@ var runtests = function() {
 
   test("testSimilarBySound", function() {
 
-    lex = RiLexicon();
-
     var result = lex.similarBySound("worngword");
     deepEqual(result, ["watchword", "wayward", "wormwood"]);
 
@@ -672,7 +525,6 @@ var runtests = function() {
 
     result = lex.similarBySound("try", 2);
     ok(result.length > answer.length); // more
-
 
     result = lex.similarBySound("happy");
     answer = ["happier", "hippie"];
@@ -691,8 +543,6 @@ var runtests = function() {
 
   test("testSimilarBySoundAndLetter", function() {
 
-    lex = RiLexicon();
-
     var result = lex.similarBySoundAndLetter("try");
     deepEqual(result, ["cry", "dry", "fry", "pry", "tray", "wry"]);
 
@@ -710,8 +560,6 @@ var runtests = function() {
   });
 
   test("testSubstrings", function() {
-
-    lex = RiLexicon();
 
     var result = lex.substrings("thousand");
     var answer = ["sand", "thou"];
@@ -741,8 +589,6 @@ var runtests = function() {
 
   test("testSuperstrings", function() {
 
-    lex = RiLexicon();
-
     var result = lex.superstrings("superm");
     var answer = ["supermarket", "supermarkets"];
     deepEqual(result, answer);
@@ -758,9 +604,6 @@ var runtests = function() {
   });
 
   test("testGetPosData", function() {
-
-
-    lex = RiLexicon();
 
     var result = lex._getPosData("box");
     deepEqual(result, "nn vb");
@@ -781,18 +624,11 @@ var runtests = function() {
     var result = lex._getPosData(".");
     deepEqual(result, "");
 
-    lex = createLex()
     var result = lex._getPosData("beautiful guy");
     deepEqual(result, "");
-
-
   });
 
-
   test("testIsVowel", function() {
-
-    lex = RiLexicon();
-
 
     ok(lex._isVowel("a"));
     ok(lex._isVowel("e"));
@@ -807,10 +643,6 @@ var runtests = function() {
   });
 
   test("testIsConsonant", function() {
-
-
-    lex = RiLexicon();
-
 
     ok(!lex._isConsonant("vv"));
     ok(!lex._isConsonant(""));
@@ -833,9 +665,6 @@ var runtests = function() {
 
   test("testLookupRaw", function() {
 
-
-    lex = RiLexicon();
-
     var result = lex._lookupRaw("banana");
     deepEqual(result, ["b-ax-n ae1-n ax", "nn"]);
 
@@ -855,9 +684,6 @@ var runtests = function() {
   //For RiTa.getPhonemes() NOT IN RiTa-Java
 
   test("testGetPhonemes", function() {
-
-
-    lex = RiLexicon();
 
 
     var result = lex._getPhonemes("The");
@@ -885,8 +711,6 @@ var runtests = function() {
   //For RiTa.getStresses() NOT IN RiTa-Java
 
   test("testGetStresses", function() {
-
-    lex = RiLexicon();
 
     var result = lex._getStresses("The emperor had no clothes on");
     var answer = "0 1/0/0 1 1 1 1";
@@ -917,8 +741,6 @@ var runtests = function() {
 
   test("testGetSyllables", function() {
 
-    lex = RiLexicon();
-
     var result = lex._getSyllables("The emperor had no clothes on.");
     var answer = "dh-ax eh-m-p/er/er hh-ae-d n-ow k-l-ow-dh-z aa-n";
     equal(result, answer);
@@ -932,21 +754,9 @@ var runtests = function() {
     equal(result, answer);
   });
 
-  // privates, no need to refactor
-
-  test("RiLexicon[singleton]", function() {
-    lex = RiLexicon();
-    var lex2 = RiLexicon();
-    ok(lex.data === lex2.data);
-    lex2 = null;
-  });
-
   test("RiLexicon-lookups", function() {
 
-    lex = RiLexicon();
-
-    ok(typeof RiLexicon.data != 'undefined');
-    ok(typeof RiLexicon != 'undefined', "RiLexicon OK");
+    ok(typeof lex.data != 'undefined');
 
     ok(lex._getPhonemes('gonna'));
     ok(lex._getPhonemes('gotta'));
@@ -958,8 +768,6 @@ var runtests = function() {
   });
 
   test("RiLexicon-gets", function() {
-
-    lex = RiLexicon();
 
     var word = "aberrations";
     var output1 = lex._getSyllables(word);
@@ -974,7 +782,118 @@ var runtests = function() {
 
     var expected3 = "1/0/1/0";
     equal(output3, expected3);
+  });
 
+  // below modify the lexicon.data field ================================
+
+  test("testAddWord", function() {
+
+    var result = lex.addWord("bananana", "b-ax-n ae1-n ax ax", "nn");
+    ok(lex.containsWord("bananana"));
+
+    lex.addWord("hehehe", "hh-ee1 hh-ee1 hh-ee1", "uh");
+    ok(lex.containsWord("hehehe"));
+
+    equal(lex._getPhonemes("hehehe"), "hh-ee-hh-ee-hh-ee");
+
+    lex.addWord("HAHAHA", "hh-aa1 hh-aa1 hh-aa1", "uh");
+    ok(lex.containsWord("HAHAHA"));
+
+    lex.addWord("HAHAHA", "hh-aa1 hh-aa1 hh-aa1", "uh");
+    equal(lex._getPhonemes("HAHAHA"), "hh-aa-hh-aa-hh-aa");
+
+    lex = RiLexicon(); // restore global
+  });
+
+  test("testClear", function() {
+
+    ok(lex.containsWord("banana"));
+    lex.removeWord("banana");
+
+    ok(!lex.containsWord("banana"));
+
+    var obj = {};
+    obj["wonderfullyy"] = ["w-ah1-n-d er-f ax-l iy", "rb"];
+    lex.lexicalData(obj);
+    var result = lex.lexicalData();
+    deepEqual(result, obj)
+
+    lex.clear();
+    ok(lex.size() < 1);
+
+    lex = RiLexicon(); // restore global
+  });
+
+  test("testRemoveWord", function() {
+
+    ok(lex.containsWord("banana"));
+    lex.removeWord("banana");
+    ok(!lex.containsWord("banana"));
+
+    lex.removeWord("a");
+    ok(!lex.containsWord("a"));
+    ok(lex.containsWord("are")); //check that others r still there
+    lex.removeWord("aaa");
+    ok(!lex.containsWord("aaa"));
+
+    lex.removeWord("");
+
+    ok(!lex._getPhonemes("banana"));
+
+    lex = RiLexicon(); // restore global
+  });
+
+  test("testReload", function() {
+
+    lex = RiLexicon();
+    var originalSize = lex.size();
+
+    ok(lex.containsWord("are"));
+    lex.removeWord("are");
+    var removeOneWordSize = lex.size();
+    lex.reload();
+
+    ok(lex.size() > removeOneWordSize);
+
+    ok(lex.containsWord("cat"));
+    lex.removeWord("cat");
+    ok(lex.containsWord("are"));
+    lex.removeWord("are");
+
+    var removeTwoWordSize = lex.size();
+    ok(removeTwoWordSize < removeOneWordSize);
+    lex.reload();
+    ok(lex.size() == originalSize);
+
+    lex = RiLexicon(); // restore global
+  });
+
+  test("testLexicalData", function() {
+
+    var result = lex.lexicalData();
+    ok(Object.keys(result).length > 1000);
+
+    var re = lex.lexicalData();
+    result = re.a;
+    var answer = ["ey1", "dt"];
+
+    deepEqual(result, answer);
+
+    re = lex.lexicalData();
+    result = re.the;
+    answer = ["dh-ax", "dt"];
+
+    deepEqual(result, answer);
+
+    var obj = {};
+    obj["wonderfully"] = ["w-ah1-n-d er-f ax-l iy", "rb"];
+    result = lex.lexicalData(obj);
+    deepEqual(result.lexicalData(), obj);
+
+    obj = {};
+    obj["wonderfullyy"] = ["w-ah1-n-d er-f ax-l iy-y", "rb"];
+    result = lex.lexicalData(obj);
+    deepEqual(result.lexicalData().wonderfullyy, ["w-ah1-n-d er-f ax-l iy-y", "rb"]);
   });
 }
 

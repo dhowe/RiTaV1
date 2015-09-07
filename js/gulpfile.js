@@ -1,6 +1,7 @@
+// NEXT: make rita-lexicon into a single-file with dict (and lts?)
+
 var gulp = require('gulp'),
-  jscs = require('gulp-jscs'),
-  source = require('vinyl-source-stream'),
+  sourcemaps = require('gulp-sourcemaps'),
   argv = require('yargs').argv,
   del = require('del'),
   concat = require('gulp-concat'),
@@ -46,7 +47,7 @@ gulp.task('lint', function() {
 // watch the src-dir for changes, then build
 gulp.task('watch', function() {
 
-  log('Watching '+buildDir+'/rita.js');
+  log('Watching ' + srcDir + '/*.js');
 
   gulp.watch(srcDir + '/*.js', ['build']);
 });
@@ -56,12 +57,11 @@ gulp.task('build', ['clean'], function() {
 
   gulp.src([
       srcDir + '/header.js',
-      srcDir + '/rita_lts.js',
-      srcDir + '/rita_dict.js',
       srcDir + '/rita.js',
       srcDir + '/rita_lexicon.js',
       srcDir + '/footer.js' ])
     .pipe(replace('##version##', version))
+    .pipe(sourcemaps.init())
 
     // complete lib concatenated
     .pipe(concat('rita.js'))
@@ -70,9 +70,36 @@ gulp.task('build', ['clean'], function() {
     // complete lib raw minified
     .pipe(rename('rita.min.js'))
     .pipe(uglify())
+    .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('dist'));
 
-    log('Writing [ rita.js, rita.min.js ] to '+buildDir);
+    log('Writing [ rita-core.js, rita-core.min.js ] to '+buildDir);
+});
+
+// build to the 'dist' folder
+gulp.task('build-full', ['clean'], function() {
+
+  gulp.src([
+      srcDir + '/header.js',
+      srcDir + '/rita_lts.js',
+      srcDir + '/rita_dict.js',
+      srcDir + '/rita.js',
+      srcDir + '/rita_lexicon.js',
+      srcDir + '/footer.js' ])
+    .pipe(replace('##version##', version))
+    .pipe(sourcemaps.init())
+
+    // complete lib concatenated
+    .pipe(concat('rita-full.js'))
+    .pipe(gulp.dest(buildDir))
+
+    // complete lib raw minified
+    .pipe(rename('rita-full.min.js'))
+    .pipe(uglify())
+    .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest('dist'));
+
+    log('Writing [ rita-full.js, rita-full.min.js ] to '+buildDir);
 });
 
 
@@ -100,10 +127,13 @@ gulp.task('test', ['build'], function(cb) {
   }
 
   var testrunner = require("qunit");
+
   testrunner.setup({
     maxBlockDuration: 20000,
+    coverage: true,
     log: {
       globalSummary: true,
+      testing: true,
       errors: true
     }
   });
@@ -111,13 +141,17 @@ gulp.task('test', ['build'], function(cb) {
   testrunner.run({
     code: buildDir + '/rita.js',
     deps: [
-      srcDir + '/rita_lts.js',
-      srcDir + '/rita_dict.js',
+      //srcDir + '/rita_lts.js',
+      //srcDir + '/rita_dict.js',
       testDir + '/qunit-helpers.js'
     ],
     tests: tests
+
   }, function(err, report) {
-    if (err) console.error(err);
+    if (err) {
+      console.error(err);
+      console.error(report);
+    }
   });
 });
 
@@ -125,5 +159,3 @@ function log(msg) { console.log('[INFO] '+ msg); }
 
 // help is the default task
 gulp.task('default', ['help']);
-
-//log("Version: "+version);

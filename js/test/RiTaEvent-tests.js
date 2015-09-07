@@ -1,5 +1,5 @@
 /*global console, test, throws, equal, fail, notEqual, expect, require, ok,
-    QUnit, RiTa, RiTaEvent, RiString, RiGrammar, RiMarkov, RiLexicon */
+    QUnit, RiTa, RiTaEvent, RiString, RiGrammar, RiMarkov, */
 
 /*jshint loopfunc: true */
 

@@ -1,6 +1,6 @@
 {
   "name": "rita",
-  "version": "1.0.96",
+  "version": "1.0.97",
   "author": "Daniel C. Howe <daniel@rednoise.org>",
   "description": "RiTa: A toolkit for natural language and computational literature",
   "homepage": "http://rednoise.org/rita",
@@ -36,14 +36,12 @@
     "argv": "0.0.2",
     "del": "^1.2.0",
     "gulp": "^3.9.0",
-    "gulp-jscs": "^1.6.0",
     "gulp-jshint": "^1.11.2",
     "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^1.5.2",
     "gulp-task-listing": "^1.0.1",
     "gulp-util": "^3.0.6",
-    "jscs": "^1.13.1",
     "qunit": "^0.7.6",
-    "vinyl-source-stream": "^1.1.0",
     "yargs": "^3.15.0"
   }
 }
