@@ -10,7 +10,7 @@ RiLexicon.prototype = {
 
   _letterToSound: function() { // lazy load
 
-    if (!this.lts) 
+    if (!this.lts)
       this.lts = new LetterToSound();
     return this.lts;
   },
@@ -18,25 +18,29 @@ RiLexicon.prototype = {
   clear: function() {
 
     this.data = {};
+    this.keys = [];
   },
 
   reload: function() {
 
     this.data = getDict();
+    this.keys = okeys(this.data);
   },
 
   addWord: function(word, pronunciationData, posData) {
 
-    this.data[word.toLowerCase()] = [ 
-      pronunciationData.toLowerCase(), 
+    this.data[word.toLowerCase()] = [
+      pronunciationData.toLowerCase(),
       posData.toLowerCase()
     ];
+    this.keys = okeys(this.data);
     return this;
   },
 
   removeWord: function(word) {
 
     delete this.data[word.toLowerCase()];
+    this.keys = okeys(this.data);
     return this;
   },
 
@@ -86,18 +90,15 @@ RiLexicon.prototype = {
     return result;
   },
 
-  similarBySound: function(input, minEditDist) {
+  similarBySound: function(input, minEditDist, minimumWordLen) {
 
     minEditDist = minEditDist || 1;
 
     var minVal = Number.MAX_VALUE,
-      entry, result = [],
-      minLen = 2,
-      phonesArr, phones = RiTa.getPhonemes(input),
-      med,
+      entry, result = [], minLen = minimumWordLen || 2,
+      phonesArr, phones = RiTa.getPhonemes(input), med,
       targetPhonesArr = phones ? phones.split('-') : [],
-      input_s = input + 's',
-      input_es = input + 'es',
+      input_s = input + 's', input_es = input + 'es',
       lts = this._letterToSound();
 
     if (!targetPhonesArr[0] || !(input && input.length)) return EA;
@@ -186,9 +187,7 @@ RiLexicon.prototype = {
 
     var a = arguments,
       shuffled = false,
-      regex,
-      wordArr = [],
-      words = okeys(this.data);
+      regex, wordArr = [];
 
     switch (a.length) {
 
@@ -209,7 +208,7 @@ RiLexicon.prototype = {
       case 1:
 
         if (is(a[0], B)) {
-          return a[0] ? shuffle(words) : words;
+          return a[0] ? shuffle(this.keys) : this.keys;
         }
 
         regex = (is(a[0], R)) ? a[0] : new RegExp(a[0]);
@@ -218,14 +217,14 @@ RiLexicon.prototype = {
 
       case 0:
 
-        return words;
+        return this.keys;
     }
 
-    for (var i = 0; i < words.length; i++) {
+    for (var i = 0; i < this.keys.length; i++) {
 
-      if (regex.test(words[i])) {
+      if (regex.test(this.keys[i])) {
 
-        wordArr.push(words[i]);
+        wordArr.push(this.keys[i]);
       }
     }
 
@@ -362,7 +361,7 @@ RiLexicon.prototype = {
 
   size: function() {
 
-    return this.data ? okeys(this.data).length : 0;
+    return this.keys.length;
   },
 
   _checkType: function(word, tagArray) {
@@ -566,9 +565,9 @@ RiLexicon.prototype = {
 
   randomWord: function() { // takes nothing, pos, syllableCount, or both
 
-    var found = false, a = arguments, wordArr = okeys(this.data),
-      ran = Math.floor(Math.random() * okeys(this.data).length),
-      ranWordArr = shuffle(wordArr), i, j, rdata;
+    var found = false, a = arguments,
+      ran = Math.floor(Math.random() * this.keys.length), i, j, rdata;
+      ranWordArr = this.keys;//shuffle(this.keys), ; // TODO: need to shuffle here?
 
     switch (a.length) {
 
@@ -623,7 +622,7 @@ RiLexicon.prototype = {
         break;
 
       case 0:
-        return wordArr[ran];
+        return ranWordArr[ran];
     }
     return E;
   }
@@ -683,8 +682,6 @@ LetterToSound.WINDOW_SIZE = 4;
 LetterToSound.prototype = {
 
   init: function() {
-
-console.log("New LetterToSound");
 
     /*
      * The indices of the starting points for letters in the state machine.

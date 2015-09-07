@@ -1,4 +1,4 @@
-// NEXT: make rita-lexicon into a single-file with dict (and lts?)
+// NEXT: optimize RiLexicon tests
 
 var gulp = require('gulp'),
   sourcemaps = require('gulp-sourcemaps'),
@@ -61,7 +61,7 @@ gulp.task('build', ['clean'], function() {
       srcDir + '/rita_lexicon.js',
       srcDir + '/footer.js' ])
     .pipe(replace('##version##', version))
-    .pipe(sourcemaps.init())
+    //.pipe(sourcemaps.init())
 
     // complete lib concatenated
     .pipe(concat('rita.js'))
@@ -70,7 +70,7 @@ gulp.task('build', ['clean'], function() {
     // complete lib raw minified
     .pipe(rename('rita.min.js'))
     .pipe(uglify())
-    .pipe(sourcemaps.write('./'))
+    //.pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('dist'));
 
     log('Writing [ rita-core.js, rita-core.min.js ] to '+buildDir);
@@ -129,7 +129,7 @@ gulp.task('test', ['build'], function(cb) {
   var testrunner = require("qunit");
 
   testrunner.setup({
-    maxBlockDuration: 20000,
+    maxBlockDuration: 50000,
     coverage: true,
     log: {
       globalSummary: true,
