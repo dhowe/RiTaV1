@@ -14,7 +14,6 @@ import java.util.regex.Pattern;
 import rita.json.JSONArray;
 import rita.json.JSONException;
 import rita.json.JSONObject;
-import rita.render.RiGrammarEditor;
 import rita.support.YAMLParser;
 
 public class RiGrammar
@@ -29,7 +28,7 @@ public class RiGrammar
   public Map<String, Map<String, Float>> _rules;
   public Object grammarUrl, parent;
   public Pattern probabilityPattern;
-  public RiGrammarEditor editor;
+  //public RiGrammarEditor editor;
   public boolean execDisabled;
   public int maxIterations = 1000;
 
@@ -108,7 +107,7 @@ public class RiGrammar
     return load(RiTa.loadString(url));
   }
 
-  public RiGrammarEditor openEditor() {
+  /*public RiGrammarEditor openEditor() {
     
     return openEditor(-1, -1);
   }
@@ -126,10 +125,10 @@ public class RiGrammar
     return openEditor(url, width, height);
   }
   
-  /**
+   *
    * Provides a live, editable view of a RiGrammarPort text file that can be
    * dynamically loaded into a sketch without stopping and restarting it.
-   */
+   *
   protected RiGrammarEditor openEditor(Object fileOrUrl, int width, int height)
   {
     if (fileOrUrl != null) {
@@ -161,7 +160,7 @@ public class RiGrammar
     }
         
     return editor;
-  }
+  }*/
 
   /**
    * Returns true if there is at least one valid rule in the object, else false

@@ -3528,7 +3528,7 @@ public class RiWordNet
       //System.out.println(Arrays.asList(w.getSynset("dog", "n", 1)));
       //System.out.println(Arrays.asList(w.getAllGlosses("dog", "n")));
       System.out.println(Arrays.asList(w.getGloss("dog", "n")));
-      System.out.println(Arrays.asList(w.getDescription("dog", "n")));
+      //System.out.println(Arrays.asList(w.getDescription("dog", "n")));
       System.out.println(Arrays.asList(w.getExamples("dog", "n")));
 
     }
