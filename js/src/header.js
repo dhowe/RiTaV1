@@ -1,4 +1,9 @@
+/*jshint browser:true, -W100:true, evil:true */
+
 (function(window, undefined) {
+
+var E= '', SP= ' ', EA= [], N= 'number', S= 'string', O= 'object',
+  A= 'array', B= 'boolean', R= 'regexp', F= 'function';
 
 function makeClass() { // from: Resig, TODO: make work with strict
   return function(args) {
@@ -9,11 +14,6 @@ function makeClass() { // from: Resig, TODO: make work with strict
     } else return new arguments.callee(arguments);
   };
 }
-
-'use strict';
-
-var E= '', SP= ' ', EA= [], N= 'number', S= 'string', O= 'object',
-  A= 'array', B= 'boolean', R= 'regexp', F= 'function';
 
 // Returns true if the object is of type 'type', otherwise false
 function is(obj, type) {

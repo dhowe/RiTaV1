@@ -1,4 +1,4 @@
-// NEXT: optimize RiLexicon tests
+// NEXT: deal with package.json in parent dir
 
 var gulp = require('gulp'),
   sourcemaps = require('gulp-sourcemaps'),
@@ -17,7 +17,8 @@ var gulp = require('gulp'),
 var testDir = 'test',
   buildDir = 'dist',
   tmpDir = '/tmp',
-  srcDir = 'src';
+  srcDir = 'src',
+  includeLex = false;
 
 // list all the defined tasks
 gulp.task('help', tasks);
@@ -32,7 +33,6 @@ gulp.task('clean', function(f) {
 gulp.task('lint', function() {
 
   var opts = {
-    asi: 1,
     expr: 1,
     laxbreak: 1
   };
@@ -55,7 +55,7 @@ gulp.task('watch', function() {
 // build to the 'dist' folder
 gulp.task('build', ['clean'], function() {
 
-  gulp.src([
+  var result = gulp.src([
       srcDir + '/header.js',
       srcDir + '/rita.js',
       srcDir + '/rita_lexicon.js',
@@ -74,6 +74,8 @@ gulp.task('build', ['clean'], function() {
     .pipe(gulp.dest('dist'));
 
     log('Writing [ rita-core.js, rita-core.min.js ] to '+buildDir);
+
+    return result;
 });
 
 // build to the 'dist' folder
@@ -84,7 +86,7 @@ gulp.task('build-full', ['clean'], function() {
       srcDir + '/rita_lts.js',
       srcDir + '/rita_dict.js',
       srcDir + '/rita.js',
-      srcDir + '/rita_lexicon.js',
+      //srcDir + '/rita_lexicon.js',
       srcDir + '/footer.js' ])
     .pipe(replace('##version##', version))
     .pipe(sourcemaps.init())
@@ -141,8 +143,6 @@ gulp.task('test', ['build'], function(cb) {
   testrunner.run({
     code: buildDir + '/rita.js',
     deps: [
-      //srcDir + '/rita_lts.js',
-      //srcDir + '/rita_dict.js',
       testDir + '/qunit-helpers.js'
     ],
     tests: tests

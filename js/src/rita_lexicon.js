@@ -997,10 +997,7 @@ FinalState.prototype = {
   }
 };
 
-//module.exports = RiLexicon;
-
-function getDict() {
-  return {
+function getDict() { return {
 'a': ['ey1','dt'],
 'aback': ['ax-b ae1-k','rb'],
 'abalone': ['ae1-b ax-l ow1-n iy','nn'],
@@ -34389,8 +34386,7 @@ function getDict() {
 'zooming': ['z-uw1-m ih-ng','vbg'],
 'zooms': ['z-uw1-m-z','vbz'],
 '&' : ['ae1-n-d','cc vbp jj rb nnp']
-  };
-};
+}; }
 
 LetterToSound.RULES = [
 'TOTAL 13100',

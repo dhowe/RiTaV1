@@ -1,5 +1,4 @@
-
-/*global console:0, Processing:0, window:0, document:0, _RiTa_DICT:0, _RiTa_LTS:0 */
+'use strict';
 
 var RiLexicon = makeClass(); // stub
 
@@ -2272,9 +2271,6 @@ RiGrammar.prototype = {
 
   _handleExec: function(input, context) { // TODO: list all cases and rewrite
 
-    /*jshint evil:true */
-    //log("_handleExec: "+input+ " "+ (typeof eval));
-
     if (!input || !input.length) return null;
 
     // strip backticks and eval
@@ -2571,7 +2567,7 @@ TextNode.prototype = {
   },
 
   siblingCount: function() {
-    if (!this.parent) err("Illegal siblingCount on ROOT!")
+    if (!this.parent) err("Illegal siblingCount on ROOT!");
     return this.parent.childCount();
   },
 
