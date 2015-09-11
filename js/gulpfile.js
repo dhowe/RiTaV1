@@ -1,6 +1,16 @@
+// NEXT:
+// gulp tests
+// gulp tests --nolex (a few tests still fail without lexicon)
+// gulp test --name=RiString -nolex
+//
+// npm: gulp test
+//
+// npm: test & publish
+//
+
 /**
  * USAGE:
- * 	gulp [ build | lint | watch | clean | help ]   [--nolex]
+ * 	gulp (build | lint | watch | clean | help)   [--nolex]
  *  gulp test
  *  gulp test --name RiString
  */
@@ -22,24 +32,59 @@ var del = require('del'),
   sourcemaps = require('gulp-sourcemaps'),
   pjson = require('./package.json'),
   rename = require('gulp-rename'),
+  exec = require('child_process').exec,
   version = pjson.version;
 
 var testDir = 'test',
-  buildDir = 'dist',
+  destDir = 'dist',
+  nodeDir = destDir+'/node/rita',
   tmpDir = '/tmp',
   srcDir = 'src',
   output = 'rita';
-
 
 if (argv.nolex) { // don't include (or test) the lexicon
   useLex = false;
 }
 
+gulp.task('build-npm', ['setup-npm'], function(done) {
+  exec('cd '+destDir+' && npm pack ../'+nodeDir, function (err, stdout, stderr) {
+    log("Packing "+nodeDir+'/'+stdout);
+    stderr && console.error(stderr);
+    done(err);
+  });
+});
+
+gulp.task('setup-npm', [ 'clean-node' ], function(done) {
+
+  //console.log(getTests(),testFiles());
+  // copy in the node readme
+  gulp.src('../README.node.md')
+    .pipe(rename('README.md'))
+    .pipe(gulp.dest(nodeDir));
+
+  // copy in other loose files
+  gulp.src(['../LICENSE', './package.json', './gulpfile.js'])
+    .pipe(gulp.dest(nodeDir));
+
+  // copy in the tests
+  gulp.src(testFiles(true))
+    .pipe(gulp.dest(nodeDir + '/test'));
+
+  // copy in the code
+  gulp.src(destDir + '/rita-full.min.js')
+    .pipe(rename('rita.js'))
+    .pipe(gulp.dest(nodeDir + '/lib'));
+
+  done();
+});
+
 // list all the defined tasks
 gulp.task('help', tasks);
 
 // clean out the build-dir
-gulp.task('clean', function(f) { del(buildDir, f); });
+gulp.task('clean', function(f) { del(destDir, f); });
+
+gulp.task('clean-node', function(f) { del(nodeDir, f); });
 
 // run lint on the non-uglified output
 gulp.task('lint', function() {
@@ -49,9 +94,9 @@ gulp.task('lint', function() {
     laxbreak: 1
   };
 
-  log('Linting '+buildDir+'/rita.js');
+  log('Linting '+destDir+'/rita.js');
 
-  return gulp.src(buildDir+'/rita.js')
+  return gulp.src(destDir+'/rita.js')
     .pipe(jshint(opts))
     .pipe(jshint.reporter('default'));
 })
@@ -60,77 +105,61 @@ gulp.task('lint', function() {
 gulp.task('watch', function() {
 
   log('Watching ' + srcDir + '/*.js');
-
   gulp.watch(srcDir + '/*.js', ['build']);
 });
 
-gulp.task('build', [ 'build-minify', 'build-concat' ]);
-
 // concatenate sources to 'dist' folder
-gulp.task('build-concat', ['clean'], function() {
+gulp.task('build-concat-lex', ['clean'], function() {
 
-  return gulp.src(sourceFiles(useLex))
+  return gulp.src(sourceFiles(true))
+    .pipe(replace('##version##', version))
+    .pipe(concat(output+'-full.js'))
+    .pipe(size({showFiles:true}))
+    .pipe(gulp.dest(destDir));
+});
+
+gulp.task('build-concat-nolex', ['clean'], function() {
+
+  return gulp.src(sourceFiles(false))
     .pipe(replace('##version##', version))
     .pipe(concat(output+'.js'))
     .pipe(size({showFiles:true}))
-    .pipe(gulp.dest(buildDir));
+    .pipe(gulp.dest(destDir));
 });
 
 // concatenate/minify sources to 'dist' folder
-gulp.task('build-minify', ['clean'], function() {
+gulp.task('build-minify-lex', ['clean'], function() {
 
-  return gulp.src(sourceFiles(useLex))
+  return gulp.src(sourceFiles(true))
     .pipe(replace('##version##', version))
     .pipe(gulpif(sourceMaps,sourcemaps.init()))
-    .pipe(concat(output+'.js'))
-    .pipe(rename(output+'.min.js'))
+    .pipe(concat(output+'-full.min.js'))
     .pipe(uglify())
     .pipe(gulpif(sourceMaps,sourcemaps.write('./')))
     .pipe(size({showFiles:true}))
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('make-lib', [], function(cb) {
-  useLex = true;
-  output = 'rita-full';
-  gulp.start('build');
-  useLex = false;
-  output = 'rita';
-  gulp.start('build');
-  gulp.start('node');
-});
+// concatenate/minify sources to 'dist' folder
+gulp.task('build-minify-nolex', ['clean'], function() {
 
-gulp.task('node', [], function(cb) {
+  return gulp.src(sourceFiles(false))
+    .pipe(replace('##version##', version))
+    .pipe(gulpif(sourceMaps,sourcemaps.init()))
+    .pipe(concat(output+'.min.js'))
+    .pipe(uglify())
+    .pipe(gulpif(sourceMaps,sourcemaps.write('./')))
+    .pipe(size({showFiles:true}))
+    .pipe(gulp.dest('dist'));
 });
 
 // run tests: gulp test (all) || gulp test --name RiString
-gulp.task('test', ['build'], function(cb) {
-  gulp.start('test-only');
+gulp.task('test', ['build-concat'], function() {
+  return gulp.start('test-only');
 })
 
-gulp.task('test-only', function(cb) {
-
-  var tests = [
-    testDir + '/LibStructure-tests',
-    testDir + '/RiTaEvent-tests',
-    testDir + '/RiString-tests',
-    testDir + '/RiTa-tests',
-    testDir + '/RiGrammar-tests',
-    testDir + '/RiMarkov-tests',
-    testDir + '/UrlLoading-tests'
-  ];
-
-  if (useLex)
-    tests.push(testDir + '/RiLexicon-tests');
-
-  if (argv.name) {
-
-    tests = [ testDir + '/' + argv.name + '-tests' ];
-    log('Testing ' + tests[0]);
-  }
-  else {
-    log('Testing ' + buildDir + '/rita.js');
-  }
+// runs tests without building first
+gulp.task('test-only', function(done) {
 
   var testrunner = require("qunit");
 
@@ -144,18 +173,46 @@ gulp.task('test-only', function(cb) {
   });
 
   testrunner.run({
-    code: buildDir + '/rita.js',
+    code: destDir + '/rita.js',
     deps: [ testDir + '/qunit-helpers.js' ],
-    tests: tests
+    tests: testFiles()
   }, function(err, report) {
     if (err) {
-      console.error(err);
-      console.error(report);
+      done(err);
+      done(report);
     }
+    done();
   });
 });
 
-function log(msg) { console.log('[INFO] '+ msg); }
+// Helper functions --------------------------------------
+
+function testFiles(includeLex) {
+
+  var tests = [
+    testDir + '/LibStructure-tests.js',
+    testDir + '/RiTaEvent-tests.js',
+    testDir + '/RiString-tests.js',
+    testDir + '/RiTa-tests.js',
+    testDir + '/RiGrammar-tests.js',
+    testDir + '/RiMarkov-tests.js',
+    testDir + '/UrlLoading-tests.js'
+  ];
+
+  if (includeLex)
+    tests.push(testDir + '/RiLexicon-tests.js');
+
+  if (argv.name) {
+
+    tests = [ testDir + '/' + argv.name + '-tests.js' ];
+    log('Testing ' + tests[0]);
+  }
+  else {
+    log('Testing ' + destDir + '/rita.js');
+  }
+
+  return tests;
+}
 
 function sourceFiles(includeLex) {
 
@@ -173,6 +230,16 @@ function sourceFiles(includeLex) {
   src.push(srcDir + '/footer.js');
   return src;
 }
+
+function log(msg) { console.log('[INFO] '+ msg); }
+
+// ----------------------------------------------------
+
+// task composition hack
+gulp.task('build', ['build-minify', 'build-concat']);
+gulp.task('make-lib', ['build-concat','build-minify', 'build-npm']);
+gulp.task('build-concat', ['build-concat-nolex','build-concat-lex']);
+gulp.task('build-minify', ['build-minify-nolex','build-minify-lex']);
 
 // help is the default task
 gulp.task('default', ['help']);
