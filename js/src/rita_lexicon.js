@@ -1,4 +1,5 @@
 RiLexicon.SILENCE_LTS = false;
+RiLexicon.enabled = true;
 
 RiLexicon.prototype = {
 

@@ -1,10 +1,10 @@
 'use strict';
 
 var RiLexicon = makeClass(); // stub
-
+RiLexicon.enabled = false;
 RiLexicon.prototype.init = function() {
     throw Error('RiLexicon is not available -- ' +
-      'if you need it, make to include rita_lexicon.js');
+      'if needed, make sure to include rita_lexicon.js');
 };
 
 var RiTa = {
@@ -12,9 +12,6 @@ var RiTa = {
   VERSION: '##version##',
 
   LEXICON: null, // static RiLexicon instance
-
-  /* Use to disable loading of lexicon */
-  USE_LEXICON: true,
 
   /* For tokenization, Can't -> Can not, etc. */
   SPLIT_CONTRACTIONS: false,
@@ -1527,18 +1524,22 @@ RiString.prototype = {
     var rs = RiString(this._text),
       feats = this.features();
 
-    rs._features = {};
+    if (feats) {
+      rs._features = {};
 
-    for (var prop in feats) {
+      for (var prop in feats) {
 
-      rs._features[prop] = feats[prop];
+        rs._features[prop] = feats[prop];
+      }
     }
     return rs;
   },
 
   features: function() {
 
-    this._features || this.analyze();
+    if (!this._features && RiLexicon.enabled) {
+        this.analyze();
+    }
     return this._features;
   },
 

@@ -18,7 +18,7 @@ var testDir = 'test',
   buildDir = 'dist',
   tmpDir = '/tmp',
   srcDir = 'src',
-  includeLex = false;
+  useLex = true;
 
 // list all the defined tasks
 gulp.task('help', tasks);
@@ -55,11 +55,15 @@ gulp.task('watch', function() {
 // build to the 'dist' folder
 gulp.task('build', ['clean'], function() {
 
-  var result = gulp.src([
-      srcDir + '/header.js',
-      srcDir + '/rita.js',
-      srcDir + '/rita_lexicon.js',
-      srcDir + '/footer.js' ])
+  var src = [
+    srcDir + '/header.js',
+    srcDir + '/rita.js' ];
+
+  if (useLex)
+    src.push(srcDir + '/rita_lexicon.js');
+  src.push(srcDir + '/footer.js');
+
+  var result = gulp.src(src)
     .pipe(replace('##version##', version))
     //.pipe(sourcemaps.init())
 
@@ -73,37 +77,10 @@ gulp.task('build', ['clean'], function() {
     //.pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('dist'));
 
-    log('Writing [ rita-core.js, rita-core.min.js ] to '+buildDir);
+    log('Writing [ rita.js, rita.min.js ] to '+buildDir);
 
     return result;
 });
-
-// build to the 'dist' folder
-gulp.task('build-full', ['clean'], function() {
-
-  gulp.src([
-      srcDir + '/header.js',
-      srcDir + '/rita_lts.js',
-      srcDir + '/rita_dict.js',
-      srcDir + '/rita.js',
-      //srcDir + '/rita_lexicon.js',
-      srcDir + '/footer.js' ])
-    .pipe(replace('##version##', version))
-    .pipe(sourcemaps.init())
-
-    // complete lib concatenated
-    .pipe(concat('rita-full.js'))
-    .pipe(gulp.dest(buildDir))
-
-    // complete lib raw minified
-    .pipe(rename('rita-full.min.js'))
-    .pipe(uglify())
-    .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest('dist'));
-
-    log('Writing [ rita-full.js, rita-full.min.js ] to '+buildDir);
-});
-
 
 // run tests: gulp test (all) || gulp test --name RiString
 gulp.task('test', ['build'], function(cb) {
@@ -115,9 +92,11 @@ gulp.task('test', ['build'], function(cb) {
     testDir + '/RiTa-tests',
     testDir + '/RiGrammar-tests',
     testDir + '/RiMarkov-tests',
-    testDir + '/RiLexicon-tests',
     testDir + '/UrlLoading-tests'
   ];
+
+  if (useLex)
+    tests.push(testDir + '/RiLexicon-tests');
 
   if (argv.name) {
 
@@ -142,11 +121,8 @@ gulp.task('test', ['build'], function(cb) {
 
   testrunner.run({
     code: buildDir + '/rita.js',
-    deps: [
-      testDir + '/qunit-helpers.js'
-    ],
+    deps: [ testDir + '/qunit-helpers.js' ],
     tests: tests
-
   }, function(err, report) {
     if (err) {
       console.error(err);

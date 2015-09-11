@@ -1,10 +1,14 @@
 {
   "name": "rita",
-  "version": "1.0.97",
+  "version": "1.0.98",
   "author": "Daniel C. Howe <daniel@rednoise.org>",
   "description": "RiTa: A toolkit for natural language and computational literature",
   "homepage": "http://rednoise.org/rita",
-  "main": "lib/rita.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dhowe/RiTa.git"
+  },
+  "main": "dist/rita.js",
   "engines": {
     "node": ">= 0.6"
   },
