@@ -1,15 +1,39 @@
-// NEXT: deal with package.json in parent dir
 
-var gulp = require('gulp'),
-  sourcemaps = require('gulp-sourcemaps'),
+
+
+
+
+
+
+
+// NEXT: fix problem with dictionary ***
+
+
+
+
+
+/**
+ * USAGE:
+ * 	gulp [ build | lint | watch | clean | help ]   [--nolex]
+ *  gulp test
+ *  gulp test --name RiString
+ */
+
+var useLex = true,
+  minimize = false,
+  sourceMaps = false;
+
+var del = require('del'),
+  gulp = require('gulp'),
+  gulpif = require('gulp-if')
   argv = require('yargs').argv,
-  del = require('del'),
   concat = require('gulp-concat'),
+  size = require('gulp-size'),
   uglify = require('gulp-uglify'),
   replace = require('gulp-replace'),
   jshint = require('gulp-jshint'),
   tasks = require('gulp-task-listing'),
-  //var watch = require('gulp-watch'),
+  sourcemaps = require('gulp-sourcemaps'),
   pjson = require('./package.json'),
   rename = require('gulp-rename'),
   version = pjson.version;
@@ -18,16 +42,18 @@ var testDir = 'test',
   buildDir = 'dist',
   tmpDir = '/tmp',
   srcDir = 'src',
-  useLex = true;
+  output = 'rita';
+
+
+if (argv.nolex) { // don't include (or test) the lexicon
+  useLex = false;
+}
 
 // list all the defined tasks
 gulp.task('help', tasks);
 
 // clean out the build-dir
-gulp.task('clean', function(f) {
-
-  del(buildDir, f)
-});
+gulp.task('clean', function(f) { del(buildDir, f); });
 
 // run lint on the non-uglified output
 gulp.task('lint', function() {
@@ -52,38 +78,51 @@ gulp.task('watch', function() {
   gulp.watch(srcDir + '/*.js', ['build']);
 });
 
-// build to the 'dist' folder
-gulp.task('build', ['clean'], function() {
+gulp.task('build', [ 'build-minify', 'build-concat' ]);
 
-  var src = [
-    srcDir + '/header.js',
-    srcDir + '/rita.js' ];
+// concatenate sources to 'dist' folder
+gulp.task('build-concat', ['clean'], function() {
 
-  if (useLex)
-    src.push(srcDir + '/rita_lexicon.js');
-  src.push(srcDir + '/footer.js');
-
-  var result = gulp.src(src)
+  return gulp.src(sourceFiles(useLex))
     .pipe(replace('##version##', version))
-    //.pipe(sourcemaps.init())
+    .pipe(concat(output+'.js'))
+    .pipe(size({showFiles:true}))
+    .pipe(gulp.dest(buildDir));
+});
 
-    // complete lib concatenated
-    .pipe(concat('rita.js'))
-    .pipe(gulp.dest(buildDir))
+// concatenate/minify sources to 'dist' folder
+gulp.task('build-minify', ['clean'], function() {
 
-    // complete lib raw minified
-    .pipe(rename('rita.min.js'))
+  return gulp.src(sourceFiles(useLex))
+    .pipe(replace('##version##', version))
+    .pipe(gulpif(sourceMaps,sourcemaps.init()))
+    .pipe(concat(output+'.js'))
+    .pipe(rename(output+'.min.js'))
     .pipe(uglify())
-    //.pipe(sourcemaps.write('./'))
+    .pipe(gulpif(sourceMaps,sourcemaps.write('./')))
+    .pipe(size({showFiles:true}))
     .pipe(gulp.dest('dist'));
+});
 
-    log('Writing [ rita.js, rita.min.js ] to '+buildDir);
+gulp.task('make-lib', [], function(cb) {
+  useLex = true;
+  output = 'rita-full';
+  gulp.start('build');
+  useLex = false;
+  output = 'rita';
+  gulp.start('build');
+  gulp.start('node');
+});
 
-    return result;
+gulp.task('node', [], function(cb) {
 });
 
 // run tests: gulp test (all) || gulp test --name RiString
 gulp.task('test', ['build'], function(cb) {
+  gulp.start('test-only');
+})
+
+gulp.task('test-only', function(cb) {
 
   var tests = [
     testDir + '/LibStructure-tests',
@@ -114,7 +153,6 @@ gulp.task('test', ['build'], function(cb) {
     coverage: true,
     log: {
       globalSummary: true,
-      testing: true,
       errors: true
     }
   });
@@ -132,6 +170,23 @@ gulp.task('test', ['build'], function(cb) {
 });
 
 function log(msg) { console.log('[INFO] '+ msg); }
+
+function sourceFiles(includeLex) {
+
+  var src = [ srcDir + '/header.js', srcDir + '/rita.js' ];
+
+  if (includeLex) {
+    src.push(srcDir + '/rita_lts.js');
+    src.push(srcDir + '/rita_dict.js');
+    src.push(srcDir + '/rilexicon.js');
+  }
+  else {
+    log('Build: ignoring RiLexicon');
+  }
+
+  src.push(srcDir + '/footer.js');
+  return src;
+}
 
 // help is the default task
 gulp.task('default', ['help']);

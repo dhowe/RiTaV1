@@ -14,6 +14,7 @@ import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 
+import rita.RiLexicon;
 import rita.RiString;
 import rita.RiTa;
 import rita.support.Constants;
@@ -21,7 +22,7 @@ import rita.support.Constants;
 public class RiStringTest implements Constants
 {
   static { 
-    //RiTa.USE_LEXICON = false;	
+    //RiLexicon.enabled = false;	
     RiTa.SILENT = true;
     RiTa.SILENT_LTS = true; //UNCOMMENT TO TEST WITHOUT LEXICON, USING ONLY LTS
   }
@@ -67,7 +68,7 @@ public class RiStringTest implements Constants
     equal(numWords, features.get(SYLLABLES).split(" ").length);
     equal(numWords, features.get(POS).split(" ").length);
     
-    if (!RiTa.USE_LEXICON) return; // Not using lexicon, further tests should fail
+    if (!RiLexicon.enabled) return; // Not using lexicon, further tests should fail
       
     // System.out.println(features);
     equal(features.get(PHONEMES), "m-aa-m & d-ae-d , w-ey-t-ih-ng f-ao-r dh-ax k-aa-r , ey-t ey s-t-ey-k .");
@@ -312,7 +313,7 @@ public class RiStringTest implements Constants
     ok(sy);
     ok(st);
     
-    if (!RiTa.USE_LEXICON) return; // Not using lexicon, further tests should fail
+    if (!RiLexicon.enabled) return; // Not using lexicon, further tests should fail
 
     // System.out.println(ph);
     equal(ph, "dh-ax l-ae-g-ih-n d-r-ae-g-aa-n");
@@ -641,7 +642,7 @@ public class RiStringTest implements Constants
     answer = new String[] { "nn" };
     deepEqual(answer, result);
     
-    if (!RiTa.USE_LEXICON) return; // Not using lexicon, further tests should fail
+    if (!RiLexicon.enabled) return; // Not using lexicon, further tests should fail
 
     rs = new RiString("There is a cat.");
     result = rs.pos();

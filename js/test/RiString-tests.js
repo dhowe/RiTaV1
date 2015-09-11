@@ -3,11 +3,15 @@
 
 /*jshint loopfunc: true */
 
+
+
+
+
 var runtests = function () {
 
   QUnit.module("RiString", {
     setup: function () {
-      //RiTa.SILENT = true;
+      RiTa.SILENT = true;
       // UNCOMMENT TO TEST WITHOUT LEXICON, USING ONLY LTS
       //RiTa.USE_LEXICON = false;
     },
@@ -51,7 +55,7 @@ var runtests = function () {
   test("testAnalyze", function () { // same tests as testFeatures() below
 
     var features = RiString("Mom & Dad, waiting for the car, ate a steak.").analyze().features();
-    // ok(features);
+    ok(features);
     //
     // var numWords =  features.tokens.split(" ").length;
     // equal(numWords, features.stresses.split(" ").length);
@@ -59,7 +63,10 @@ var runtests = function () {
     // equal(numWords, features.syllables.split(" ").length);
     // equal(numWords, features.pos.split(" ").length);
 
-    if (!RiTa.USE_LEXICON) return; // Not using lexicon, further tests should fail
+    if (!RiLexicon.enabled) {
+      console.log("testAnalyze() ignoring RiLexicon tests");
+      return; // Not using lexicon, further tests should fail
+    }
 
     equal(features.phonemes, "m-aa-m ae-n-d d-ae-d , w-ey-t-ih-ng f-ao-r dh-ax k-aa-r , ey-t ey s-t-ey-k .");
     equal(features.syllables, "m-aa-m ae-n-d d-ae-d , w-ey-t/ih-ng f-ao-r dh-ax k-aa-r , ey-t ey s-t-ey-k .");
@@ -197,7 +204,8 @@ var runtests = function () {
       deepEqual(rs.features(), rs2.features());
     }
     else {
-      ok("RiLexicon not loaded, passing test");
+      if (!RiLexicon.enabled)
+        console.log("testCopy() ignoring RiLexicon tests");
     }
   });
 
@@ -566,15 +574,18 @@ var runtests = function () {
     result = rs.pos();
     deepEqual(result, ["nns"]);
 
-    if (!RiTa.USE_LEXICON) return; // Not using lexicon, further tests should fail
+    if (!RiLexicon.enabled) {
+      console.log("testPos() ignoring RiLexicon tests");
+      return;
+    }
 
     rs = new RiString("There is a cat.");
     result = rs.pos();
-    deepEqual(["ex", "vbz", "dt", "nn", "."], result);
+    deepEqual(result, ["ex", "vbz", "dt", "nn", "."]);
 
     rs = new RiString("The boy, dressed in red, ate an apple.");
     result = rs.pos();
-    deepEqual(["dt", "nn", ",", "vbn", "in", "jj", ",", "vbd", "dt", "nn", "."], result);
+    deepEqual(result, ["dt", "nn", ",", "vbn", "in", "jj", ",", "vbd", "dt", "nn", "."]);
 
   });
 
@@ -1295,8 +1306,10 @@ var runtests = function () {
     var st = rs.get(RiTa.STRESSES);
     ok(ph && sy && st);
 
-    if (!RiTa.USE_LEXICON) return; // Not using lexicon, further tests should fail
-
+    if (!RiLexicon.enabled) {
+      console.log("testGet() ignoring RiLexicon tests");
+      return;
+    }
     equal(ph, "dh-ax l-ae-g-ih-n d-r-ae-g-aa-n");
     equal(sy, "dh-ax l-ae/g-ih-n d-r-ae-g/aa-n");
     equal(st, "0 1/1 1/0");

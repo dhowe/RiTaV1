@@ -12,10 +12,12 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import processing.core.PApplet;
+import rita.RiLexicon;
 import rita.RiTa;
 import rita.RiTaEvent;
 import rita.RiTaException;
@@ -27,7 +29,7 @@ public class RiTaTest
   @Before
   public void initialize() {
     RiTa.SILENT = true;
-    RiTa.USE_LEXICON = true;
+    RiLexicon.enabled = true;
   }
  
   @Test
@@ -745,7 +747,7 @@ public class RiTaTest
   @Test
   public void testGetPhonemesStringArrayLTS() // TODO: outputs generall do not match (see KnownIssues)
   {
-    RiTa.USE_LEXICON = false;
+    RiLexicon.enabled = false;
     
     String[] input = { "The" };
     String result = RiTa.getPhonemes(input);

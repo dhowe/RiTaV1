@@ -67,7 +67,7 @@ public class JSONLexicon implements Constants
    */
   public static JSONLexicon getInstance()
   {    
-    if (!RiTa.USE_LEXICON) return null;
+    if (!RiLexicon.enabled) return null;
     return getInstance(DEFAULT_LEXICON);
   }
 

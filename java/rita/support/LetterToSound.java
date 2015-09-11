@@ -162,6 +162,8 @@ public class LetterToSound
    */
   private InputStream loadText(InputStream is) throws IOException
   {
+    // TODO: compare pref. against parsing this with a JSON parser
+    
     BufferedReader reader;
     String line;
 
@@ -187,38 +189,24 @@ public class LetterToSound
    * @param line
    *          the line of text from the input file
    */
-  protected void parseAndAdd(String line)
+  protected void parseAndAdd(String aline)
   {
-    line = line.replaceAll("(^'|',?)","");
+    String line = aline.replaceAll("(^'|',?)","");
     StringTokenizer tokenizer = new StringTokenizer(line, " ");
     String type = tokenizer.nextToken();
 
     if (type.equals(STATE) || type.equals(PHONE))
     {
-      if (tokenizeOnLoad)
-      {
-        stateMachine[numStates] = getState(type, tokenizer);
-      }
-      else
-      {
-        stateMachine[numStates] = line;
-      }
-      numStates++;
+      stateMachine[numStates++] = tokenizeOnLoad ? getState(type, tokenizer) : line;
     }
     else if (type.equals(INDEX))
     {
-      Integer index = new Integer(tokenizer.nextToken());
-      if (index.intValue() != numStates)
-      {
-        throw new Error("Bad INDEX in file.");
-      }
-
-      String c = tokenizer.nextToken();
-      letterIndex.put(c, index);
+      int index = Integer.parseInt(tokenizer.nextToken());
+      letterIndex.put(tokenizer.nextToken(), index);
     }
     else if (type.equals(TOTAL))
     {
-      stateMachine = new Object[Integer.parseInt(tokenizer.nextToken())];
+      stateMachine = new Object[ Integer.parseInt(tokenizer.nextToken()) ];
     }
   }
 

@@ -55,9 +55,7 @@ public class RiTa implements Constants
   public static Object context = null; // generally a PApplet
   
   private static boolean INITD = false;
-  
-  public static boolean USE_LEXICON = true;
-   
+     
   /** Stops all RiTa output to the console */
   public static boolean SILENT = false;
   

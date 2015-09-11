@@ -122,7 +122,7 @@ public class Concorder {
 
   protected void build() {
 
-    long ts = System.currentTimeMillis();
+    //long ts = System.currentTimeMillis();
     model = new HashMap<String, Lookup>();
 
     for (int j = 0; j < words.size(); j++) {
@@ -140,7 +140,7 @@ public class Concorder {
       lookup.indexes.add(j);
     }
 
-    System.out.println("KWIC: " + (System.currentTimeMillis() - ts) + "ms");
+    //System.out.println("KWIC: " + (System.currentTimeMillis() - ts) + "ms");
   }
 
   protected void handleOptions(Map<String, Object> args) {

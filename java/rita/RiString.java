@@ -95,7 +95,7 @@ public class RiString implements FeaturedIF, Constants, Comparable<RiString> {
 	if (lts == null)
 	  lts = LetterToSound.getInstance();
 
-	if (!RiTa.SILENT && !RiTa.SILENT_LTS && RiTa.USE_LEXICON
+	if (!RiTa.SILENT && !RiTa.SILENT_LTS && RiLexicon.enabled
 	    && words[i].matches("[a-zA-Z]+"))
 	  System.out.println("[RiTa] Used LTS-rules for '" + words[i] + "'");
 
@@ -906,7 +906,7 @@ public class RiString implements FeaturedIF, Constants, Comparable<RiString> {
   }
 
   public static void main(String[] args) {
-    RiTa.USE_LEXICON = false;
+    RiLexicon.enabled = false;
     RiString ri = new RiString("The laggin dragon");
     ri.analyze();
     System.out.println(ri.features());

@@ -846,13 +846,14 @@ var runtests = function() {
 
     lex = RiLexicon();
     var originalSize = lex.size();
-
     ok(lex.containsWord("are"));
     lex.removeWord("are");
     var removeOneWordSize = lex.size();
-    lex.reload();
+    ok(lex.size()===originalSize-1);
 
-    ok(lex.size() > removeOneWordSize);
+    lex.reload();
+    console.log(lex.size());
+    ok(lex.size() === originalSize);
 
     ok(lex.containsWord("cat"));
     lex.removeWord("cat");
