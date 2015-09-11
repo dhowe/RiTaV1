@@ -155,7 +155,7 @@ public class JSONLexicon implements Constants
     String[] lines = loadJSON(this.dictionaryFile);
     lexicalData = new LinkedHashMap<String,String>(MAP_SIZE);
     
-    for (int i = 1; i < lines.length-1; i++) // ignore JSON prefix/suffix
+    for (int i = 1; i < lines.length-1; i++) // ignore JS prefix/suffix
     {
       String[] parts = lines[i].split(LEXICON_DELIM);
       if (parts == null || parts.length != 2)
@@ -183,12 +183,12 @@ public class JSONLexicon implements Constants
     
     // clean out the JSON formatting (TODO: optimize)
     String clean = data.replaceAll("['\\[\\]]",E).replaceAll(",","|");
-    
     String splitter = "\\|?" + System.getProperty("line.separator");
+    
     return clean.split(splitter);
   }
   
-  public static String readFile(String filename)
+  public static String readFile(String filename) // load file into single string
   {
     try
     {

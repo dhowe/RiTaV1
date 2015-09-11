@@ -1,3 +1,3 @@
 #!/bin/sh
 
-cp ../RiTaJS/src/rita_*.js ../src/rita/
+cp ../js/src/rita_*.js ../src/rita/

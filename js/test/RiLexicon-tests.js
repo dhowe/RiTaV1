@@ -846,24 +846,30 @@ var runtests = function() {
 
     lex = RiLexicon();
     var originalSize = lex.size();
+
     ok(lex.containsWord("are"));
     lex.removeWord("are");
+    ok(!lex.containsWord("are"));
     var removeOneWordSize = lex.size();
     ok(lex.size()===originalSize-1);
 
     lex.reload();
-    console.log(lex.size());
     ok(lex.size() === originalSize);
 
     ok(lex.containsWord("cat"));
     lex.removeWord("cat");
+    ok(!lex.containsWord("cat"));
+    ok(lex.size()===originalSize-1);
+
     ok(lex.containsWord("are"));
     lex.removeWord("are");
+    ok(!lex.containsWord("are"));
+    ok(lex.size()===originalSize-2);
 
-    var removeTwoWordSize = lex.size();
-    ok(removeTwoWordSize < removeOneWordSize);
     lex.reload();
-    ok(lex.size() == originalSize);
+    ok(lex.size() === originalSize);
+    ok(lex.containsWord("are"));
+    ok(lex.containsWord("cat"));
 
     lex = RiLexicon(); // restore global
   });
