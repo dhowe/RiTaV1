@@ -567,8 +567,8 @@ RiLexicon.prototype = {
   randomWord: function() { // takes nothing, pos, syllableCount, or both
 
     var found = false, a = arguments,
-      ran = Math.floor(Math.random() * this.keys.length), i, j, rdata;
-      ranWordArr = this.keys;//shuffle(this.keys), ; // TODO: need to shuffle here?
+      ran = Math.floor(Math.random() * this.keys.length), i, j, rdata,
+      ranWordArr = this.keys;//shuffle(this.keys), ; // TODO: need shuffle here?
 
     switch (a.length) {
 

@@ -118,7 +118,6 @@ var runtests = function() {
     ok(result.length > 0, "3 syllableCount + nns: " + result);
   });
 
-
   test("testRandomWord(2)", function() {
 
     var pos = ["nn", "nns", "jj", "jjr", "wp"];
