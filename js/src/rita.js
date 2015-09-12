@@ -1537,8 +1537,8 @@ RiString.prototype = {
 
   features: function() {
 
-    if (!this._features && RiLexicon.enabled) {
-        this.analyze();
+    if (!this._features) {
+      this.analyze();
     }
     return this._features;
   },
@@ -1550,6 +1550,7 @@ RiString.prototype = {
       this._features = {};
 
     } else {
+
       delete this._features.tokens;
       delete this._features.stresses;
       delete this._features.phonemes;
@@ -1565,65 +1566,73 @@ RiString.prototype = {
 
   analyze: function() {
 
-    var phonemes = E, syllables = E, stresses = E,
-      slash = '/', delim = '-', lex = RiTa._lexicon(),
-      stressyls, phones, lts, ltsPhones, useRaw,
+    var phonemes = E, syllables = E, stresses = E, slash = '/',
+      delim = '-', lex, stressyls, phones, lts, ltsPhones, useRaw,
       words = RiTa.tokenize(this._text);
 
     if (!this._features) this._initFeatureMap();
 
-    for (var i = 0, l = words.length; i < l; i++) {
+    this._features.tokens = words.join(SP);
+    this._features.pos = RiTa.getPosTags(this._text).join(SP);
 
-      useRaw = false;
+    if (RiLexicon.enabled) {
 
-      phones = lex && lex._getRawPhones(words[i]);
+      lex = RiTa._lexicon()
+      for (var i = 0, l = words.length; i < l; i++) {
 
-      if (!phones) {
+        useRaw = false;
 
-        if (words[i].match(/[a-zA-Z]+/))
-          log("[RiTa] Used LTS-rules for '" + words[i] + "'");
+        phones = lex && lex._getRawPhones(words[i]);
 
-        lts = lex._letterToSound();
+        if (!phones) {
 
-        ltsPhones = lts.getPhones(words[i]);
+          if (words[i].match(/[a-zA-Z]+/))
+            log("[RiTa] Used LTS-rules for '" + words[i] + "'");
 
-        if (ltsPhones && ltsPhones.length > 0) {
+          lts = lex._letterToSound();
 
-          phones = RiString._syllabify(ltsPhones);
+          ltsPhones = lts.getPhones(words[i]);
 
+          if (ltsPhones && ltsPhones.length > 0) {
+
+            phones = RiString._syllabify(ltsPhones);
+
+          } else {
+            phones = words[i];
+            useRaw = true;
+          }
+        }
+
+        phonemes += phones.replace(/[0-2]/g, E).replace(/ /g, delim) + SP;
+        syllables += phones.replace(/ /g, slash).replace(/1/g, E) + SP;
+
+        if (!useRaw) {
+          stressyls = phones.split(SP);
+          for (var j = 0; j < stressyls.length; j++) {
+
+            if (!stressyls[j].length) continue;
+
+            stresses += (stressyls[j].indexOf(RiTa.STRESSED) > -1) ?
+              RiTa.STRESSED : RiTa.UNSTRESSED;
+
+            if (j < stressyls.length - 1) stresses += slash;
+          }
         } else {
-          phones = words[i];
-          useRaw = true;
+
+          stresses += words[i];
         }
+
+        if (!endsWith(stresses, SP)) stresses += SP;
       }
 
-      phonemes += phones.replace(/[0-2]/g, E).replace(/ /g, delim) + SP;
-      syllables += phones.replace(/ /g, slash).replace(/1/g, E) + SP;
-
-      if (!useRaw) {
-        stressyls = phones.split(SP);
-        for (var j = 0; j < stressyls.length; j++) {
-
-          if (!stressyls[j].length) continue;
-
-          stresses += (stressyls[j].indexOf(RiTa.STRESSED) > -1) ?
-            RiTa.STRESSED : RiTa.UNSTRESSED;
-
-          if (j < stressyls.length - 1) stresses += slash;
-        }
-      } else {
-
-        stresses += words[i];
-      }
-
-      if (!endsWith(stresses, SP)) stresses += SP;
+      stresses = stresses.trim();
+      phonemes = phonemes.trim().replace(/\\s+/, SP);
+      syllables = syllables.trim().replace(/\\s+/, SP);
     }
 
-    this._features.tokens = words.join(SP);
-    this._features.stresses = stresses.trim();
-    this._features.phonemes = phonemes.trim().replace(/\\s+/, SP);
-    this._features.syllables = syllables.trim().replace(/\\s+/, SP);
-    this._features.pos = RiTa.getPosTags(this._text).join(SP);
+    this._features.stresses = stresses;
+    this._features.phonemes = phonemes;
+    this._features.syllables = syllables;
 
     return this;
   },
@@ -1684,7 +1693,7 @@ RiString.prototype = {
 
   pos: function() {
 
-    var words = RiTa.tokenize((this._text)); // was getPlaintext()
+    var words = RiTa.tokenize(this._text);
     var tags = PosTagger.tag(words);
 
     for (var i = 0, l = tags.length; i < l; i++) {
@@ -2958,14 +2967,13 @@ var PosTagger = {
   VERBS: ['vb', 'vbd', 'vbg', 'vbn', 'vbp', 'vbz'],
   ADJ: ['jj', 'jjr', 'jjs'],
   ADV: ['rb', 'rbr', 'rbs', 'rp'],
+  NOLEX_WARNED: false,
 
   isVerb: function(tag) {
-
     return inArray(this.VERBS, tag);
   },
 
   isNoun: function(tag) {
-
     return inArray(this.NOUNS, tag);
   },
 
@@ -2987,20 +2995,26 @@ var PosTagger = {
     return (choiceStr.indexOf(tag) > -1);
   },
 
-  // Returns an array of parts-of-speech from the Penn tagset, each corresponding to one word of input
+  // Returns an array of parts-of-speech from the Penn tagset,
+  // each corresponding to one word of input
   tag: function(words) {
 
-    var result = [],
-      choices2d = [],
+    var result = [], choices2d = [], lex;
+
+    if (RiLexicon.enabled) {
       lex = RiTa._lexicon();
+    }
+    else if (!RiTa.SILENT && !this.NOLEX_WARNED){
+      this.NOLEX_WARNED = true;
+      console.warn('No RiLexicon found: ' +
+        'part-of-speech tagging will be inaccurate!');
+    }
 
     words = is(words, A) ? words : [words];
 
     for (var i = 0, l = words.length; i < l; i++) {
 
-
       /*if (!words[i]) {
-
 				choices2d[i] = [];
 				continue;
 			}*/
@@ -3056,9 +3070,7 @@ var PosTagger = {
 
     //log("_applyContext("+words+","+result+","+choices+")");
 
-    // Shortcuts for brevity/readability
-    var sW = startsWith,
-      eW = endsWith,
+    var sW = startsWith, eW = endsWith,
       PRINT_CUSTOM_TAGS = (0 && !RiTa.SILENT);
 
     // Apply transformations
@@ -3066,6 +3078,7 @@ var PosTagger = {
 
       // transform 1: DT, {VBD | VBP | VB} --> DT, NN
       if (i > 0 && (result[i - 1] == "dt")) {
+
         if (sW(result[i], "vb")) {
           if (PRINT_CUSTOM_TAGS) {
             log("PosTagger: changing verb to noun: " + words[i]);
@@ -3076,6 +3089,7 @@ var PosTagger = {
         // transform 1: DT, {RB | RBR | RBS} --> DT, {JJ |
         // JJR | JJS}
         else if (sW(result[i], "rb")) {
+
           if (PRINT_CUSTOM_TAGS)
             log("PosTagger: custom tagged '" + words[i] + "', " + result[i]);
           result[i] = (result[i].length > 2) ? "jj" + result[i].charAt(2) : "jj";

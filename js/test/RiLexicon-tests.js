@@ -1,4 +1,5 @@
 var testResults = [{
+
   testName: 'testRhymes',
   testClass: 'RiLexicon',
   testMethod: 'rhymes',
@@ -24,9 +25,16 @@ var testResults = [{
   }, ]
 }];
 
-var lex = new RiLexicon();
+
 
 var runtests = function() {
+
+  if (!RiLexicon.enabled) {
+    console.warn("[INFO] RiLexicon-tests: skipping all tests (no RiLexicon found)");
+    return;
+  }
+
+  var lex = new RiLexicon();
 
   QUnit.module("RiLexicon", {
     setup: function() {},
@@ -512,9 +520,6 @@ var runtests = function() {
 
   test("testSimilarBySound", function() {
 
-    var result = lex.similarBySound("worngword");
-    deepEqual(result, ["watchword", "wayward", "wormwood"]);
-
     var result = lex.similarBySound("tornado");
     deepEqual(result, ["torpedo"]);
 
@@ -538,6 +543,9 @@ var runtests = function() {
 
     result = lex.similarBySound("cat", 2);
     ok(result.length > answer.length);
+
+    var result = lex.similarBySound("worngword");
+    deepEqual(result, ["watchword", "wayward", "wormwood"]);
   });
 
   test("testSimilarBySoundAndLetter", function() {
@@ -671,13 +679,13 @@ var runtests = function() {
     deepEqual(result, ["s-ae1-n-d", "nn"]);
 
     var result = lex._lookupRaw("hex");
-    deepEqual(result, null);
+    deepEqual(result, undefined);
 
     var result = lex._lookupRaw("there is");
-    deepEqual(result, null);
+    deepEqual(result, undefined);
 
     var result = lex._lookupRaw("ajj");
-    deepEqual(result, null);
+    deepEqual(result, undefined);
   });
 
   //For RiTa.getPhonemes() NOT IN RiTa-Java

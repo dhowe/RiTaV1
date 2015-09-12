@@ -9,13 +9,6 @@ RiLexicon.prototype = {
     //console.log("Init::Creating RiLexicon!");
   },
 
-  _letterToSound: function() { // lazy load
-
-    if (!this.lts)
-      this.lts = new LetterToSound();
-    return this.lts;
-  },
-
   clear: function() {
 
     this.data = {};
@@ -61,7 +54,9 @@ RiLexicon.prototype = {
       inputES = input + 'es',
       inputLen = input.length;
 
-    for (var entry in this.data) {
+    for (var i = 0; i < this.keys.length; i++) {
+
+      var entry = this.keys[i];
 
       if (entry.length < minLen)
         continue;
@@ -106,7 +101,9 @@ RiLexicon.prototype = {
 
     //console.log("TARGET "+targetPhonesArr);
 
-    for (entry in this.data) {
+    for (var i = 0; i < this.keys.length; i++) {
+
+      entry = this.keys[i];
 
       if (entry.length < minLen) continue;
 
@@ -115,7 +112,8 @@ RiLexicon.prototype = {
       if (entry === input || entry === input_s || entry === input_es)
         continue;
 
-      phones = this._getRawPhones(entry);
+      phones = this.data[entry][0];
+      //if (i<10) console.log(phones+" :: "+);
       phonesArr = phones.replace(/1/g, E).replace(/ /g, '-').split('-');
 
       med = MinEditDist.computeRaw(phonesArr, targetPhonesArr);
@@ -139,14 +137,32 @@ RiLexicon.prototype = {
     return result;
   },
 
+  similarBySoundAndLetter: function(word) {
+
+    var result = [], simSound, simLetter = this.similarByLetter(word);
+
+    if (simLetter.length < 1)
+      return result;
+
+    simSound = this.similarBySound(word);
+
+    if (simSound.length < 1)
+      return result;
+
+    return intersect(simSound, simLetter);
+  },
+
   substrings: function(word, minLength) {
 
     minLength = minLength || (minLength === 0) || 4;
 
-    var entry, result = [];
-    for (entry in this.data) {
-      if (entry === word || entry.length < minLength) continue;
-      if (word.indexOf(entry) >= 0) result.push(entry);
+    var result = [];
+    for (var i = 0; i < this.keys.length; i++) {
+
+      if (this.keys[i] === word || this.keys[i].length < minLength)
+        continue;
+      if (word.indexOf(this.keys[i]) >= 0)
+        result.push(this.keys[i]);
     }
 
     return result;
@@ -154,31 +170,13 @@ RiLexicon.prototype = {
 
   superstrings: function(word) {
 
-    var entry, result = [];
+    var result = [];
 
-    for (entry in this.data) {
-      if (entry === word) continue;
-      if (entry.indexOf(word) >= 0)
-        result.push(entry);
-    }
+    for (var i = 0; i < this.keys.length; i++) {
 
-    return result;
-  },
-
-  similarBySoundAndLetter: function(word) {
-
-    var result = [],
-      simSound = this.similarBySound(word),
-      simLetter = this.similarByLetter(word);
-
-    if (!simSound || simSound.length < 1 || !simLetter || simLetter.length < 1)
-      return result;
-
-    // union of two sets
-    for (var i = 0; i < simSound.length; i++) {
-
-      if (simLetter.indexOf(simSound[i]) > -1)
-        result.push(simSound[i]);
+      if (this.keys[i] === word) continue;
+      if (this.keys[i].indexOf(word) >= 0)
+        result.push(this.keys[i]);
     }
 
     return result;
@@ -263,17 +261,18 @@ RiLexicon.prototype = {
 
     if (this.containsWord(word)) {
 
-      var p = this._lastStressedPhoneToEnd(word);
-      var entry, entryPhones, results = [];
+      var p = this._lastStressedPhoneToEnd(word),
+        phones, results = [];
 
-      for (entry in this.data) {
-        if (entry === word)
+      for (var i = 0; i < this.keys.length; i++) {
+
+        if (this.keys[i] === word)
           continue;
-        entryPhones = this._getRawPhones(entry);
 
-        if (strOk(entryPhones) && endsWith(entryPhones, p)) {
-          results.push(entry);
-        }
+        phones = this.data[this.keys[i]][0];
+
+        if (endsWith(phones, p))
+          results.push(this.keys[i]);
       }
       return (results.length > 0) ? results : EA;
     }
@@ -285,15 +284,16 @@ RiLexicon.prototype = {
 
     matchMinLength = matchMinLength || 4;
 
-    var c2, entry, results = [];
-    var c1 = this._firstConsonant(this._firstStressedSyllable(word, useLTS));
+    var c2, results = [],
+      c1 = this._firstConsonant(this._firstStressedSyllable(word, useLTS));
 
-    for (entry in this.data) {
+    for (var i = 0; i < this.keys.length; i++) {
 
-      c2 = this._firstConsonant(this._firstStressedSyllable(entry, useLTS));
+      c2 = this._firstConsonant(
+          this._firstStressedSyllable(this.keys[i], useLTS));
 
-      if (c2 && c1 === c2 && entry.length > matchMinLength) {
-        results.push(entry);
+      if (c2 && c1 === c2 && this.keys[i].length > matchMinLength) {
+        results.push(this.keys[i]);
       }
     }
     return results;
@@ -314,8 +314,7 @@ RiLexicon.prototype = {
   _firstStressedSyllable: function(word, useLTS) {
 
     var raw = this._getRawPhones(word, useLTS),
-      idx = -1,
-      c, firstToEnd;
+      idx = -1, c, firstToEnd;
 
     if (!strOk(raw)) return E; // return null?
 
@@ -406,8 +405,7 @@ RiLexicon.prototype = {
 
     if (!strOk(word)) return E;
 
-    var wordArr = RiTa.tokenize(word),
-      raw = [];
+    var wordArr = RiTa.tokenize(word), raw = [];
 
     for (var i = 0; i < wordArr.length; i++) {
 
@@ -427,8 +425,7 @@ RiLexicon.prototype = {
 
   _getStresses: function(word) {
 
-    var i, stresses = [],
-      phones, raw = [],
+    var i, stresses = [], phones, raw = [],
       wordArr = is(word, A) ? word : RiTa.tokenize(word);
 
     if (!strOk(word)) return E;
@@ -480,9 +477,7 @@ RiLexicon.prototype = {
     word = word.toLowerCase();
     if (this.data && this.data[word])
       return this.data[word];
-
     //log("[RiTa] No lexicon entry for '" + word + "'");
-    return null;
   },
 
   _getRawPhones: function(word, useLTS) {
@@ -614,10 +609,18 @@ RiLexicon.prototype = {
         return ranWordArr[ran];
     }
     return E;
+  },
+
+  _letterToSound: function() { // lazy load
+
+    if (!this.lts)
+      this.lts = new LetterToSound();
+    return this.lts;
   }
 
 };
 
+function intersect(){var a,b,c,d,e,f,g=[],h={},i;i=arguments.length-1;d=arguments[0].length;c=0;for(a=0;a<=i;a++){e=arguments[a].length;if(e<d){c=a;d=e}}for(a=0;a<=i;a++){e=a===c?0:a||c;f=arguments[e].length;for(var j=0;j<f;j++){var k=arguments[e][j];if(h[k]===a-1){if(a===i){g.push(k);h[k]=0}else{h[k]=a}}else if(a===0){h[k]=0}}}return g};
 
 /////////////////////////////////////////////////////////////////////////
 // RiLetterToSound (adapted from FreeTTS text-to-speech)

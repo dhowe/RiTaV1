@@ -150,6 +150,11 @@ var runtests = function() {
 
   test("testAnalyze()", function() {
 
+    if (!RiLexicon.enabled) {
+      console.warn("[INFO] RiText.testAnalyze() skipping RiLexicon tests");
+      return ok(1);
+    }
+
     var features = RiText("the laggin dragon").analyze().features();
     ok(features);
     equal(features.phonemes, "dh-ax l-ae-g-ih-n d-r-ae-g-aa-n");
@@ -177,6 +182,11 @@ var runtests = function() {
 
   test("testFeatures()", function() {
 
+    if (!RiLexicon.enabled) {
+      console.warn("[INFO] RiText.testFeatures() skipping RiLexicon tests");
+      return ok(1);
+    }
+
     var rs = [RiText("Returns the array of words."), RiText(this, "Returns the array of words.")];
     for (var i = 0; i < rs.length; i++) {
 
@@ -197,7 +207,7 @@ var runtests = function() {
 
   test("testCharAt()", function() {
 
-    var rs = [new RiText("The dog was white"), RiText("The dog was white")];
+    var rs = [ new RiText("The dog was white"), RiText("The dog was white") ];
 
     for (var i = 0; i < rs.length; i++) {
       var r = rs[i];
@@ -616,6 +626,11 @@ var runtests = function() {
     var result = rs.pos();
     deepEqual(result, ["nns"]);
 
+    if (!RiLexicon.enabled) {
+      console.warn("[INFO] RiText.testPos() skipping RiLexicon tests");
+      return ok(1);
+    }
+
     var rs = new RiText("There is a cat.");
     var result = rs.pos();
     deepEqual(["ex", "vbz", "dt", "nn", "."], result);
@@ -635,6 +650,19 @@ var runtests = function() {
     var rs = new RiText("There is a cat.");
     var result = rs.posAt(3);
     equal("nn", result);
+
+    if (!RiLexicon.enabled) {
+      console.warn("[INFO] RiText.testPosAt() skipping RiLexicon tests");
+      return ok(1);
+    }
+
+    var rs = new RiText("There is a cat.");
+    var result = rs.posAt(1);
+    deepEqual("vbz", result);
+
+    var rs = new RiText("The boy, dressed in red, ate an apple.");
+    var result = rs.posAt(2);
+    deepEqual(",", result);
   });
 
   test("testRemoveChar()", function() {

@@ -43,6 +43,11 @@ var runtests = function() {
     // ------------------------------------------------------------------------
     test("testGetSyllables", function() { // new-style
 
+      if (!RiLexicon.enabled) {
+        console.warn("[INFO] RiTa.testGetSyllables() skipping RiLexicon tests");
+        return ok(1);
+      }
+
       var func = RiTa.getSyllables,
         tests = testResults[0].tests;
 
@@ -58,6 +63,11 @@ var runtests = function() {
       result = RiTa.getSyllables('');
       answer = '';
       equal(result, answer);
+
+      if (!RiLexicon.enabled) {
+        console.warn("[INFO] RiTa.testGetSyllablesOrig() skipping RiLexicon tests");
+        return ok(1);
+      }
 
       txt = 'The dog ran faster than the other dog. But the other dog was prettier.';
       result = RiTa.getSyllables(txt);
@@ -87,7 +97,7 @@ var runtests = function() {
     });
 
     test("testMinEditDistance", function() {
-      
+
       // testMinEditDistanceArray()
       var arr1 = ['The', 'dog', 'ate'], arr2 = ['The', 'cat', 'ate'];
       equal(RiTa.minEditDistance(arr1, arr2, false), 1);
@@ -101,7 +111,7 @@ var runtests = function() {
       arr2 = ["faunctional", "execution", "ate"];
       equal(RiTa.minEditDistance(arr1, arr2, false), 2);
       equal(RiTa.minEditDistance(arr1, arr2, true), 2 / 3);
-      
+
       // test testMinEditDistanceString()
       var arr1 = 'The dog', arr2 = 'The cat';
       equal(RiTa.minEditDistance(arr1, arr2, false), 3);
@@ -476,33 +486,12 @@ var runtests = function() {
       deepEqual(words, ["closed"]);
     });
 
-
-    /*test("testTrim", function() {
-
-      equal(RiTa.trim(""), "");
-      equal(RiTa.trim(" "), "");
-      equal(RiTa.trim("hello "), "hello");
-      equal(RiTa.trim("hel'lo "), "hel'lo");
-      equal(RiTa.trim(" hel o"), "hel o");
-      equal(RiTa.trim(" hello "), "hello");
-      equal(RiTa.trim("'hell' "), "'hell'");
-      equal(RiTa.trim("'hello    "), "'hello");
-      //tab
-      equal(RiTa.trim("  hello  "), "hello");
-      //multiple
-      equal(RiTa.trim("  hello    "), "hello");
-      //mixed
-
-    });*/
-
-
     test("testDistance", function() {
 
       equal(1, RiTa.distance(1, 3, 2, 3));
       equal(28, RiTa.distance(30, 1, 2, 1));
       equal(5.656854249492381, RiTa.distance(0, 0, 4, 4));
       equal(5.0990195135927845, RiTa.distance(3, 3, 8, 4));
-
     });
 
     test("testRandom", function() {
@@ -603,6 +592,15 @@ var runtests = function() {
 
     test("testGetPhonemes", function() {
 
+      var result = RiTa.getPhonemes("");
+      var answer = "";
+      equal(result, answer);
+
+      if (!RiLexicon.enabled) {
+        console.warn("[INFO] RiTa.testGetPhonemes() skipping RiLexicon tests");
+        return ok(1);
+      }
+
       var result = RiTa.getPhonemes("The");
       var answer = "dh-ax";
       equal(result, answer);
@@ -623,14 +621,32 @@ var runtests = function() {
       var result = RiTa.getPhonemes(txt);
       var answer = "dh-ax d-ao-g r-ae-n f-ae-s-t-er dh-ae-n dh-ax ah-dh-er d-ao-g . b-ah-t dh-ax ah-dh-er d-ao-g w-aa-z p-r-ih-t-iy-er .";
       equal(result, answer);
-
-      var result = RiTa.getPhonemes("");
-      var answer = "";
-      equal(result, answer);
     });
 
 
     test("testGetPosTags", function() {
+
+      var result = RiTa.getPosTags("mammal");
+      var answer = ["nn"];
+      deepEqual(result, answer);
+
+
+      var result = RiTa.getPosTags("asfaasd");
+      var answer = ["nn"];
+      deepEqual(result, answer);
+
+      var result = RiTa.getPosTags("innings");
+      var answer = ["nns"];
+      deepEqual(result, answer);
+
+      var result = RiTa.getPosTags("clothes");
+      var answer = ["nns"];
+      deepEqual(result, answer);
+
+      if (!RiLexicon.enabled) {
+        console.warn("[INFO] RiTa.testGetPosTags() skipping RiLexicon tests");
+        return ok(1);
+      }
 
       var result = RiTa.getPosTags("the boy dances");
       var answer = ["dt", "nn", "vbz"];
@@ -642,10 +658,6 @@ var runtests = function() {
 
       var result = RiTa.getPosTags("Dave dances");
       var answer = ["nnp", "vbz"];
-      deepEqual(result, answer);
-
-      var result = RiTa.getPosTags("mammal");
-      var answer = ["nn"];
       deepEqual(result, answer);
 
       var result = RiTa.getPosTags("running");
@@ -660,20 +672,8 @@ var runtests = function() {
       var answer = ["vbg"];
       deepEqual(result, answer);
 
-      var result = RiTa.getPosTags("asfaasd");
-      var answer = ["nn"];
-      deepEqual(result, answer);
-
-      var result = RiTa.getPosTags("innings");
-      var answer = ["nns"];
-      deepEqual(result, answer);
-
       var result = RiTa.getPosTags("Dave");
       var answer = ["nnp"];
-      deepEqual(result, answer);
-
-      var result = RiTa.getPosTags("clothes");
-      var answer = ["nns"];
       deepEqual(result, answer);
 
       var result = RiTa.getPosTags("There is a cat.");
@@ -697,6 +697,11 @@ var runtests = function() {
 
     test("testGetPosTags(sns)", function() {
 
+      if (!RiLexicon.enabled) {
+        console.warn("[INFO] RiTa.testGetPosTags(sns) skipping RiLexicon tests");
+        return ok(1);
+      }
+
       var checks = ["emphasis", "stress", "discus", "colossus", "fibrosis", "digitalis", "pettiness", "mess", "cleanliness", "orderliness", "bronchitis", "preparedness", "highness"];
       for (var i = 0, j = checks.length; i < j; i++) {
         if (RiTa.getPosTags(checks[i])[0] !== 'nn')
@@ -707,6 +712,10 @@ var runtests = function() {
 
     test("testGetPosTagsInline", function() {
 
+      var result = RiTa.getPosTagsInline("");
+      var answer = "";
+      deepEqual(result, answer);
+
       var result = RiTa.getPosTagsInline("asdfaasd");
       var answer = "asdfaasd/nn";
       deepEqual(result, answer);
@@ -714,6 +723,11 @@ var runtests = function() {
       var result = RiTa.getPosTagsInline("clothes");
       var answer = "clothes/nns";
       deepEqual(result, answer);
+
+      if (!RiLexicon.enabled) {
+        console.warn("[INFO] RiTa.testGetPosTagsInline() skipping RiLexicon tests");
+        return ok(1);
+      }
 
       var result = RiTa.getPosTagsInline("There is a cat.");
       var answer = "There/ex is/vbz a/dt cat/nn .";
@@ -727,14 +741,18 @@ var runtests = function() {
       var result = RiTa.getPosTagsInline(txt);
       var answer = "The/dt dog/nn ran/vbd faster/rbr than/in the/dt other/jj dog/nn . But/cc the/dt other/jj dog/nn was/vbd prettier/jjr .";
       equal(result, answer);
-
-      var result = RiTa.getPosTagsInline("");
-      var answer = "";
-      deepEqual(result, answer);
-
     });
 
     test("testGetStresses", function() {
+
+      var result = RiTa.getStresses("");
+      var answer = "";
+      equal(result, answer);
+
+      if (!RiLexicon.enabled) {
+        console.warn("[INFO] RiTa.testGetStresses() skipping RiLexicon tests");
+        return ok(1);
+      }
 
       var result = RiTa.getStresses("The emperor had no clothes on");
       var answer = "0 1/0/0 1 1 1 1";
@@ -760,11 +778,6 @@ var runtests = function() {
       var result = RiTa.getStresses(txt);
       var answer = "0 1 1 1/0 1 0 1/0 1 . 1 0 1/0 1 1 1/0/0 .";
       equal(result, answer);
-
-      var result = RiTa.getStresses("");
-      var answer = "";
-      equal(result, answer);
-
     });
 
     test("testGetWordCount", function() {
@@ -793,56 +806,59 @@ var runtests = function() {
 
     /*test("testPosToWordNet", function() {
 
-            var result = RiTa.posToWordNet("nn");
-            equal("n", result);
+        var result = RiTa.posToWordNet("nn");
+        equal("n", result);
 
-            var result = RiTa.posToWordNet("nns");
-            equal("n", result);
+        var result = RiTa.posToWordNet("nns");
+        equal("n", result);
 
-            var result = RiTa.posToWordNet("vbz");
-            equal("v", result);
+        var result = RiTa.posToWordNet("vbz");
+        equal("v", result);
 
-            var result = RiTa.posToWordNet("vbz!");
-            equal("-", result);
+        var result = RiTa.posToWordNet("vbz!");
+        equal("-", result);
 
-            var result = RiTa.posToWordNet("aa");
-            equal("-", result);
+        var result = RiTa.posToWordNet("aa");
+        equal("-", result);
 
-            var result = RiTa.posToWordNet("rb");
-            equal("r", result);
+        var result = RiTa.posToWordNet("rb");
+        equal("r", result);
 
-            var result = RiTa.posToWordNet("rb ");
-            //space
-            equal("-", result);
+        var result = RiTa.posToWordNet("rb ");
+        //space
+        equal("-", result);
 
-            var result = RiTa.posToWordNet(" rb ");
-            //space
-            equal("-", result);
+        var result = RiTa.posToWordNet(" rb ");
+        //space
+        equal("-", result);
 
-            var result = RiTa.posToWordNet(" rb  ");
-            //double space
-            equal("-", result);
+        var result = RiTa.posToWordNet(" rb  ");
+        //double space
+        equal("-", result);
 
-            var result = RiTa.posToWordNet("  rb");
-            //double space
-            equal("-", result);
+        var result = RiTa.posToWordNet("  rb");
+        //double space
+        equal("-", result);
 
-            var result = RiTa.posToWordNet("rb    ");
-            //tab space
-            equal("-", result);
+        var result = RiTa.posToWordNet("rb    ");
+        //tab space
+        equal("-", result);
 
-            var result = RiTa.posToWordNet("  rb");
-            //tab space
-            equal("-", result);
+        var result = RiTa.posToWordNet("  rb");
+        //tab space
+        equal("-", result);
 
-            var result = RiTa.posToWordNet("");
-            equal("", result);
-        });*/
+        var result = RiTa.posToWordNet("");
+        equal("", result);
+    });*/
 
     test("testStem(lancaster)", function() {
 
-      ok(1);
-      return;
+      if (!RiTa.stem_Lancaster) {
+        console.warn("[INFO] RiTa.testStem(lancaster) skipping Lancaster tests");
+        return ok(1);
+      }
+
       var type = 'Lancaster';
       // default
 
@@ -943,7 +959,12 @@ var runtests = function() {
       equal(RiTa.stem(test, type), result);
     });
 
-    test("RiTa.LTSEngine", function() {
+    test("testLTSEngine", function() {
+
+      if (!RiLexicon.enabled) {
+        console.warn("[INFO] RiTa.testLTSEngine() skipping RiLexicon tests");
+        return ok(1);
+      }
 
       //getPhonemes
       var result = RiTa.getPhonemes("asdfgasdasdasdasdsadasf");
@@ -1468,23 +1489,23 @@ var runtests = function() {
     // no need to extract
     /*asyncTest("testTimerAsync", function() {
 
-            var functionToTrigger = function() {
-                functionToTrigger.countInstances++;
-            }
-            functionToTrigger.countInstances = 0;
-            // initialize variable
+      var functionToTrigger = function() {
+          functionToTrigger.countInstances++;
+      }
+      functionToTrigger.countInstances = 0;
+      // initialize variable
 
-            var id = RiTa.timer(0.1, functionToTrigger)
+      var id = RiTa.timer(0.1, functionToTrigger)
 
-            setTimeout(function() {
+      setTimeout(function() {
 
-                    ok(functionToTrigger.countInstances == 4)
-                    //console.log("result: " + functionToTrigger.countInstances);
-                    start();
-                    RiTa.stopTimer(id);
+              ok(functionToTrigger.countInstances == 4)
+              //console.log("result: " + functionToTrigger.countInstances);
+              start();
+              RiTa.stopTimer(id);
 
-                }, 400);
-        });*/
+          }, 400);
+      });*/
 
   } // end runtests
 

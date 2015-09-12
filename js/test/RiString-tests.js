@@ -3,10 +3,6 @@
 
 /*jshint loopfunc: true */
 
-
-
-
-
 var runtests = function () {
 
   QUnit.module("RiString", {
@@ -54,19 +50,13 @@ var runtests = function () {
 
   test("testAnalyze", function () { // same tests as testFeatures() below
 
+    if (!RiLexicon.enabled) {
+      console.warn("[INFO] RiString.testAnalyze() skipping RiLexicon tests");
+      return ok(1);
+    }
+
     var features = RiString("Mom & Dad, waiting for the car, ate a steak.").analyze().features();
     ok(features);
-    //
-    // var numWords =  features.tokens.split(" ").length;
-    // equal(numWords, features.stresses.split(" ").length);
-    // equal(numWords, features.phonemes.split(" ").length);
-    // equal(numWords, features.syllables.split(" ").length);
-    // equal(numWords, features.pos.split(" ").length);
-
-    if (!RiLexicon.enabled) {
-      console.log("testAnalyze() ignoring RiLexicon tests");
-      return; // Not using lexicon, further tests should fail
-    }
 
     equal(features.phonemes, "m-aa-m ae-n-d d-ae-d , w-ey-t-ih-ng f-ao-r dh-ax k-aa-r , ey-t ey s-t-ey-k .");
     equal(features.syllables, "m-aa-m ae-n-d d-ae-d , w-ey-t/ih-ng f-ao-r dh-ax k-aa-r , ey-t ey s-t-ey-k .");
@@ -111,23 +101,30 @@ var runtests = function () {
 
   test("testFeatures", function () {
 
-    var rs = RiString("Returns the array of words.").analyze();
-    var features = rs.features();
-    ok(features);
-    ok(features[RiTa.TEXT]);
-    ok(features[RiTa.SYLLABLES]);
-    ok(features[RiTa.PHONEMES]);
-    ok(features[RiTa.STRESSES]);
-    ok(features[RiTa.TOKENS]);
-    ok(features[RiTa.POS]);
+    var txt = "Returns the array of words.";
+    var rs = RiString(txt), feats = rs.features();
+    ok(feats);
+    ok(feats[RiTa.POS]);
+    equal(feats[RiTa.TEXT], txt);
+    deepEqual(feats[RiTa.TOKENS], RiTa.tokenize(txt).join(' '));
 
-    ok(rs.get(RiTa.SYLLABLES));
-    ok(rs.get(RiTa.PHONEMES));
-    ok(rs.get(RiTa.STRESSES));
-    ok(rs.get(RiTa.TEXT));
-    ok(rs.get(RiTa.TOKENS));
-    ok(rs.get(RiTa.POS));
+    if (!RiLexicon.enabled) {
+      console.warn("[INFO] RiString.testFeatures() skipping RiLexicon tests");
+      return ok(1);
+    }
 
+    txt = "Returns the array of words.";
+    rs = RiString(txt).analyze();
+    feats = rs.features();
+    ok(feats);
+
+    equal(feats[RiTa.TEXT], txt);
+    deepEqual(feats[RiTa.TOKENS], RiTa.tokenize(txt).join(' '));
+
+    ok(feats[RiTa.SYLLABLES]);
+    ok(feats[RiTa.PHONEMES]);
+    ok(feats[RiTa.STRESSES]);
+    ok(feats[RiTa.POS]);
   });
 
   test("testCharAt", function () {
@@ -204,8 +201,7 @@ var runtests = function () {
       deepEqual(rs.features(), rs2.features());
     }
     else {
-      if (!RiLexicon.enabled)
-        console.log("testCopy() ignoring RiLexicon tests");
+      console.warn("[INFO] RiString.testCopy() skipping RiLexicon tests");
     }
   });
 
@@ -435,7 +431,6 @@ var runtests = function () {
     rs = new RiString("Inserts at wordIdx and shifts each subsequent word accordingly.");
     rs.insertWord(-2, "newWord");
     equal(rs.text(), "Inserts at wordIdx and shifts each subsequent word newWord accordingly.");
-    //console.log(rs.text()); return;
   });
 
   test("testLastIndexOf", function () {
@@ -464,7 +459,6 @@ var runtests = function () {
     rs = new RiString("Start at first character. Start at last character.");
     result = rs.lastIndexOf("");
     equal(result, rs.length()); // should be 50 or -1? 50(DCH)
-
   });
 
   test("testLength", function () {
@@ -562,10 +556,6 @@ var runtests = function () {
 
     // check that these are ok ---------------
 
-    var txt = "The dog"; // tmp: move to RiTa.tests
-    var words = RiTa.tokenize(txt);
-    deepEqual(words, ["The", "dog"]);
-
     var rs = new RiString("asdfaasd");
     var result = rs.pos();
     deepEqual(result, ["nn"]);
@@ -575,7 +565,7 @@ var runtests = function () {
     deepEqual(result, ["nns"]);
 
     if (!RiLexicon.enabled) {
-      console.log("testPos() ignoring RiLexicon tests");
+      console.warn("[INFO] RiString.testPos() skipping RiLexicon tests");
       return;
     }
 
@@ -600,6 +590,11 @@ var runtests = function () {
     rs = new RiString("There is a cat.");
     result = rs.posAt(3);
     equal("nn", result);
+
+    if (!RiLexicon.enabled) {
+      console.warn("[INFO] RiString.testPosAt() skipping RiLexicon tests");
+      return ok(1);
+    }
 
     rs = new RiString("There is a cat.");
     result = rs.posAt(2);
@@ -1301,15 +1296,20 @@ var runtests = function () {
   test("testGet", function () {
 
     var rs = RiString("The laggin dragon").analyze();
+    ok(rs);
+    ok(rs.features());
+
+    if (!RiLexicon.enabled) {
+      console.warn("[INFO] RiString.testGet() skipping RiLexicon tests");
+      return;
+    }
+
     var ph = rs.get(RiTa.PHONEMES);
     var sy = rs.get(RiTa.SYLLABLES);
     var st = rs.get(RiTa.STRESSES);
     ok(ph && sy && st);
 
-    if (!RiLexicon.enabled) {
-      console.log("testGet() ignoring RiLexicon tests");
-      return;
-    }
+
     equal(ph, "dh-ax l-ae-g-ih-n d-r-ae-g-aa-n");
     equal(sy, "dh-ax l-ae/g-ih-n d-r-ae-g/aa-n");
     equal(st, "0 1/1 1/0");

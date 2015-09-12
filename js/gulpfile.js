@@ -11,7 +11,7 @@
 /**
  * USAGE:
  * 	gulp (build | lint | watch | clean | help)   [--nolex]
- *  gulp test
+ *  gulp test        # all
  *  gulp test --name RiString
  */
 
@@ -40,7 +40,8 @@ var testDir = 'test',
   nodeDir = destDir+'/node/rita',
   tmpDir = '/tmp',
   srcDir = 'src',
-  output = 'rita';
+  output = 'rita',
+  testFile = 'rita';
 
 if (argv.nolex) { // don't include (or test) the lexicon
   useLex = false;
@@ -67,7 +68,7 @@ gulp.task('setup-npm', [ 'clean-node' ], function(done) {
     .pipe(gulp.dest(nodeDir));
 
   // copy in the tests
-  gulp.src(testFiles(true))
+  gulp.src(testFiles())
     .pipe(gulp.dest(nodeDir + '/test'));
 
   // copy in the code
@@ -108,8 +109,14 @@ gulp.task('watch', function() {
   gulp.watch(srcDir + '/*.js', ['build']);
 });
 
+gulp.task('watch-quick', function() {
+
+  log('Watching ' + srcDir + '/*.js');
+  gulp.watch(srcDir + '/*.js', ['build-quick']);
+});
+
 // concatenate sources to 'dist' folder
-gulp.task('build-concat-lex', ['clean'], function() {
+gulp.task('build-quick-lex', ['clean'], function() {
 
   return gulp.src(sourceFiles(true))
     .pipe(replace('##version##', version))
@@ -118,7 +125,7 @@ gulp.task('build-concat-lex', ['clean'], function() {
     .pipe(gulp.dest(destDir));
 });
 
-gulp.task('build-concat-nolex', ['clean'], function() {
+gulp.task('build-quick-nolex', ['clean'], function() {
 
   return gulp.src(sourceFiles(false))
     .pipe(replace('##version##', version))
@@ -154,14 +161,30 @@ gulp.task('build-minify-nolex', ['clean'], function() {
 });
 
 // run tests: gulp test (all) || gulp test --name RiString
-gulp.task('test', ['build-concat'], function() {
+gulp.task('test', ['build-quick'], function() {
   return gulp.start('test-only');
-})
+});
 
 // runs tests without building first
-gulp.task('test-only', function(done) {
+gulp.task('test-full', ['build-quick'], function (done) {
+  testFile = 'rita-full';
+  gulp.start('test-only');
+  done();
+});
 
-  var testrunner = require("qunit");
+
+// runs tests without building first
+gulp.task('test-only', function (done) {
+
+  var testrunner = require("qunit"),
+    tests = testFiles();
+
+  if (argv.name) {
+    if (argv.name === 'RiLexicon')
+      testFile = 'rita-full'
+    tests = [ testDir + '/' + argv.name + '-tests.js' ];
+    log('Testing: ' + tests[0]);
+  }
 
   testrunner.setup({
     maxBlockDuration: 50000,
@@ -172,17 +195,22 @@ gulp.task('test-only', function(done) {
     }
   });
 
+  var testSrc = destDir + '/' + testFile + '.js';
+  log('Source: ' + testSrc);
+
   testrunner.run({
-    code: destDir + '/rita.js',
-    deps: [ testDir + '/qunit-helpers.js' ],
-    tests: testFiles()
-  }, function(err, report) {
-    if (err) {
-      done(err);
-      done(report);
-    }
-    done();
-  });
+      deps: [ testDir + '/qunit-helpers.js' ],
+      code: testSrc,
+      tests: tests
+    },
+    function (err, report) {
+      if (err) {
+        done(err);
+        done(report);
+      }
+      testFile = 'rita'
+      done();
+    });
 });
 
 // Helper functions --------------------------------------
@@ -196,20 +224,9 @@ function testFiles(includeLex) {
     testDir + '/RiTa-tests.js',
     testDir + '/RiGrammar-tests.js',
     testDir + '/RiMarkov-tests.js',
-    testDir + '/UrlLoading-tests.js'
+    testDir + '/UrlLoading-tests.js',
+    testDir + '/RiLexicon-tests.js'
   ];
-
-  if (includeLex)
-    tests.push(testDir + '/RiLexicon-tests.js');
-
-  if (argv.name) {
-
-    tests = [ testDir + '/' + argv.name + '-tests.js' ];
-    log('Testing ' + tests[0]);
-  }
-  else {
-    log('Testing ' + destDir + '/rita.js');
-  }
 
   return tests;
 }
@@ -223,11 +240,9 @@ function sourceFiles(includeLex) {
     src.push(srcDir + '/rita_dict.js');
     src.push(srcDir + '/rilexicon.js');
   }
-  else {
-    log('Build: ignoring RiLexicon');
-  }
 
   src.push(srcDir + '/footer.js');
+  
   return src;
 }
 
@@ -236,9 +251,9 @@ function log(msg) { console.log('[INFO] '+ msg); }
 // ----------------------------------------------------
 
 // task composition hack
-gulp.task('build', ['build-minify', 'build-concat']);
-gulp.task('make-lib', ['build-concat','build-minify', 'build-npm']);
-gulp.task('build-concat', ['build-concat-nolex','build-concat-lex']);
+gulp.task('build', ['build-minify', 'build-quick']);
+gulp.task('make-lib', ['build-quick','build-minify', 'build-npm']);
+gulp.task('build-quick', ['build-quick-nolex','build-quick-lex']);
 gulp.task('build-minify', ['build-minify-nolex','build-minify-lex']);
 
 // help is the default task

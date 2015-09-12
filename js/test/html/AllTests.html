@@ -1,17 +1,19 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
-    <head>
+  <head>
 
-        <link rel="stylesheet" href="./rita-test.css">
-        <link rel="stylesheet" href="./qunit-composite.css">
+    <link rel="stylesheet" href="./rita-test.css">
+    <link rel="stylesheet" href="./qunit-composite.css">
 
-        <script type="text/javascript" src="../../lib/qunit.js"></script>
-        <script type="text/javascript" src="../../lib/qunit-composite.js"></script>
+    <!--script type="text/javascript" src="../../dist/rita.js"></script-->
+    <script type="text/javascript" src="../../dist/rita-full.js"></script>
+    <script type="text/javascript" src="../../lib/qunit.js"></script>
+    <script type="text/javascript" src="../../lib/qunit-composite.js"></script>
 
-        <script>
-			QUnit.testSuites([
-				//{ name: "RiTaEvent", path: "RiTaEvent" },
+    <script type="text/javascript">
+
+      var files = [
 				"RiTaEvent-tests.html",
 				"UrlLoading-tests.html",
 				"RiTa-tests.html",
@@ -21,18 +23,20 @@
 				"RiGrammar-tests.html",
 				"RiWordNet-tests.html",
 				"RiTextStructure-P5.html",
-				"RiLexicon-tests.html"
-			]);
-		</script>
-    </head>
+        "RiLexicon-tests.html"
+			];
+      QUnit.testSuites(files);
 
-    <body>
-		<div id="qunit"></div>
-        <div id="qunit-fixture">
-            test markup, will be hidden
-        </div>
-        <p>
-    <p>&nbsp; &nbsp;<a href="index.html"><img src="imgs/rita-loading.gif" width=40></a>
-    </body>
+    </script>
+</head>
+
+  <body>
+	<div id="qunit"></div>
+      <div id="qunit-fixture">
+          test markup, will be hidden
+      </div>
+      <p>
+  <p>&nbsp; &nbsp;<a href="index.html"><img src="imgs/rita-loading.gif" width=40></a>
+  </body>
 
 </html>
