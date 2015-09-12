@@ -1577,7 +1577,7 @@ RiString.prototype = {
 
     if (RiLexicon.enabled) {
 
-      lex = RiTa._lexicon()
+      lex = RiTa._lexicon();
       for (var i = 0, l = words.length; i < l; i++) {
 
         useRaw = false;

@@ -573,7 +573,7 @@ RiLexicon.prototype = {
         for (i = 0; i < ranWordArr.length; i++) {
           j = (ran + i) % ranWordArr.length;
           rdata = this.data[ranWordArr[j]];
-          var numSyls = rdata[0].split(SP).length;
+          numSyls = rdata[0].split(SP).length;
           if (numSyls === a[1] && a[0] === rdata[1].split(SP)[0]) {
             return ranWordArr[j];
           }
@@ -620,7 +620,36 @@ RiLexicon.prototype = {
 
 };
 
-function intersect(){var a,b,c,d,e,f,g=[],h={},i;i=arguments.length-1;d=arguments[0].length;c=0;for(a=0;a<=i;a++){e=arguments[a].length;if(e<d){c=a;d=e}}for(a=0;a<=i;a++){e=a===c?0:a||c;f=arguments[e].length;for(var j=0;j<f;j++){var k=arguments[e][j];if(h[k]===a-1){if(a===i){g.push(k);h[k]=0}else{h[k]=a}}else if(a===0){h[k]=0}}}return g};
+// from: https://gist.github.com/lovasoa/3361645
+function array_intersect() {
+  var i, all, n, len, ret = [], obj={}, shortest = 0,
+    nOthers = arguments.length-1, nShortest = arguments[0].length;
+  for (i=0; i<=nOthers; i++){
+    n = arguments[i].length;
+    if (n<nShortest) {
+      shortest = i;
+      nShortest = n;
+    }
+  }
+  for (i=0; i<=nOthers; i++) {
+    n = (i===shortest)?0:(i||shortest);
+    len = arguments[n].length;
+    for (var j=0; j<len; j++) {
+        var elem = arguments[n][j];
+        if(obj[elem] === i-1) {
+          if(i === nOthers) {
+            ret.push(elem);
+            obj[elem]=0;
+          } else {
+            obj[elem]=i;
+          }
+        }else if (i===0) {
+          obj[elem]=0;
+        }
+    }
+  }
+  return ret;
+}
 
 /////////////////////////////////////////////////////////////////////////
 // RiLetterToSound (adapted from FreeTTS text-to-speech)
