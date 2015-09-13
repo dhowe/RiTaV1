@@ -4,7 +4,9 @@
 var runtests = function() {
 
     var filePath = (typeof module != 'undefined' && module.exports) ?
-      "./test/data/" : "../data/", silentOrig;
+      "./test/data/" : "../data/";
+
+    var silentOrig, allowLocalWebServer = false;
 
     QUnit.module("UrlLoading", {
         setup : function() {
@@ -35,38 +37,11 @@ var runtests = function() {
         });
     });
 
-    asyncTest("RiTa.loadString1(url)", function() {
-
-        RiTa.loadString("http://localhost/ritajs/test/data/sentence1.json", function(s) {
-
-            ok(s && s.length > 100);
-            ok(JSON.parse(s));
-            start();
-        });
-    });
-
-    asyncTest("RiTa.loadString2(url)", function() {
-
-        RiTa.loadString("http://localhost/ritajs/test/data/sentence2.json", function(s) {
-            ok(s && s.length > 100);
-            ok(JSON.parse(s));
-            start();
-        });
-    });
-
-    asyncTest("RiTa.loadString3(url)", function() {
-
-        RiTa.loadString("http://localhost/ritajs/test/data/kafka.txt", function(s) {
-            ok(s && s.length > 65536);
-            start();
-        });
-    });
-
-    asyncTest("testConcordanceLoad", function () {
+    asyncTest("RiTa.testLoadConcordance", function () {
 
         RiTa.loadString(filePath + "kafka.txt", function (txt) {
-            
-            // test with all false 
+
+            // test with all false
             var args = {
                 ignoreCase: false,
                 ignorePunctuation: false,
@@ -97,7 +72,7 @@ var runtests = function() {
             equal(data[","], null);
             equal(data["."], null);
             ok(data["father"] == nUppercaseFather + nLowercaseFather);
-            
+
             // test ignoreCase
             args.ignoreCase = true;
             args.ignorePunctuation = false;
@@ -120,7 +95,7 @@ var runtests = function() {
             data = RiTa.concordance(txt, args);
             equal(data["here"], null);
             equal(data["the"], null);
-    
+
             // test ignoreStopWords and ignorePunctuation
             args.ignoreCase = false;
             args.ignorePunctuation = true;
@@ -130,7 +105,7 @@ var runtests = function() {
             equal(data["."], null);
             equal(data["here"], null);
             equal(data["the"], null);
-    
+
             // test ignoreStopWords and ignoreCase
             args.ignoreCase = true;
             args.ignorePunctuation = false;
@@ -139,7 +114,7 @@ var runtests = function() {
             ok(data["father"] == nUppercaseFather + nLowercaseFather);
             equal(data["here"], null);
             equal(data["the"], null);
-    
+
             // test ignorePunctuation and ignoreCase
             args.ignoreCase = true;
             args.ignorePunctuation = true;
@@ -148,7 +123,7 @@ var runtests = function() {
             ok(data["father"] == nUppercaseFather + nLowercaseFather);
             equal(data[","], null);
             equal(data["."], null);
-    
+
             // test wordsToIgnore
             args.wordsToIgnore = ["father", "sister"];
             args.ignoreCase = false;
@@ -157,37 +132,21 @@ var runtests = function() {
             data = RiTa.concordance(txt, args);
             equal(data["father"], null);
             equal(data["sister"], null);
-            
-            // disabled due to not passing
-            // test that result is sorted by frequency
-/*            var isDescending = true;
-            var current = -1; // -1 indicates 'current' at starting value
-            for (var key in data) {
-                if (current == -1)
-                    current = data[key];
-                else if (current < data[key]) {
-                    isDescending = false;
-                    break;
-                }
-                else
-                    current = data[key];
-            }
-            equal(isDescending, true);*/
 
             start();
         });
     });
 
-    asyncTest("testKwic", function () {
+    asyncTest("RiTa.testLoadKwicModel", function () {
 
         RiTa.loadString(filePath + "kafka.txt", function (txt) {
-            
+
             var args = {
                 ignoreCase: false,
                 ignorePunctuation: false,
                 ignoreStopWords: false
             }
-    
+
             // test ignorePunctuation
             args.ignorePunctuation = false;
             lines = RiTa.kwic(txt, ",",  args);
@@ -204,7 +163,7 @@ var runtests = function() {
             args.ignoreCase = false;
             lines = RiTa.kwic(txt, "eventually",  args);
             equal(lines.length, 1);
-    
+
             // test ignoreStopWords
             lines = RiTa.kwic(txt, "here",  args);
             equal(lines.length, 19);
@@ -220,43 +179,20 @@ var runtests = function() {
                 var length = RiTa.tokenize(lines[i]).length;
                 equal(length, 6 + 1 + 6);
             }
-    
+
             // test wordsToIgnore
             args.wordsToIgnore = ["father", "sister"];
             lines = RiTa.kwic(txt, "father",  args);
             equal(lines.length, 0);
             lines = RiTa.kwic(txt, "sister",  args);
             equal(lines.length, 0);
-    
+
             start();
         });
     });
 
     // RiGrammar
     //////////////////////////////////////////////////////////////////////////////////////
-
-    asyncTest("RiGrammar.loadFrom(Url)", function() {
-
-        var grammar = new RiGrammar();
-        grammar.loadFrom("http://localhost/ritajs/test/data/haikuGrammar.json");
-
-        var ts = +new Date();
-        var id = setInterval(function() {
-            if (grammar.ready()) {
-                ok(grammar);
-                start();
-                clearInterval(id);
-            } else {
-                var now = +new Date();
-                if (now - ts > 5000) {
-                    equal("no result", 0);
-                    start();
-                    clearInterval(id);
-                }
-            }
-
-        }, 50);
-    });
 
     var sentenceGrammar = {
         "<start>" : "<noun_phrase> <verb_phrase>.",
@@ -406,40 +342,6 @@ var runtests = function() {
     // RiMarkov
     //////////////////////////////////////////////////////////////////////////////////
 
-    asyncTest("RiMarkov.loadFromUrl", function() {
-
-        if (RiTa.env() == RiTa.NODE) {
-            ok("Not for Node");
-            start();
-            return;
-        }
-
-        var rm = new RiMarkov(3);
-        rm.loadFrom("http://localhost/ritajs/test/data/kafka.txt");
-
-        var ts = +new Date();
-        var id = setInterval(function() {
-
-            if (rm.ready()) {
-
-                ok(rm.size());
-                start();
-                clearInterval(id);
-            } else {
-
-                console.log("waiting...");
-                var now = +new Date();
-                if (now - ts > 5000) {
-                    equal("no result", 0);
-                    start();
-                    clearInterval(id);
-                }
-            }
-
-        }, 50);
-    });
-
-
     asyncTest("RiMarkov.loadFromFile", function() {
 
         var rm = new RiMarkov(3);
@@ -467,6 +369,89 @@ var runtests = function() {
         }, 50);
     });
 
+    // SOME TESTS ON THE LOCAL WEBSERVER -- ignore unless allowRemote=true
+    if (allowLocalWebServer) {
+
+      asyncTest("RiTa.loadString1(url)", function() {
+
+          RiTa.loadString("http://localhost/ritajs/test/data/sentence1.json", function(s) {
+
+              ok(s && s.length > 100);
+              ok(JSON.parse(s));
+              start();
+          });
+      });
+
+      asyncTest("RiTa.loadString2(url)", function() {
+
+          RiTa.loadString("http://localhost/ritajs/test/data/kafka.txt", function(s) {
+              ok(s && s.length > 65536);
+              start();
+          });
+      });
+
+      asyncTest("RiGrammar.loadFrom(Url)", function() {
+
+          var grammar = new RiGrammar();
+          grammar.loadFrom("http://localhost/ritajs/test/data/haikuGrammar.json");
+
+          var ts = +new Date();
+          var id = setInterval(function() {
+              if (grammar.ready()) {
+                  ok(grammar);
+                  start();
+                  clearInterval(id);
+              } else {
+                  var now = +new Date();
+                  if (now - ts > 5000) {
+                      equal("no result", 0);
+                      start();
+                      clearInterval(id);
+                  }
+              }
+
+          }, 50);
+      });
+
+      asyncTest("RiMarkov.loadFromUrl", function() {
+
+          var rm = new RiMarkov(3);
+          rm.loadFrom("http://localhost/ritajs/test/data/kafka.txt");
+
+          var ts = +new Date();
+          var id = setInterval(function() {
+
+              if (rm.ready()) {
+
+                  ok(rm.size());
+                  start();
+                  clearInterval(id);
+              } else {
+
+                  console.log("waiting...");
+                  var now = +new Date();
+                  if (now - ts > 5000) {
+                      equal("no result", 0);
+                      start();
+                      clearInterval(id);
+                  }
+              }
+
+          }, 50);
+      });
+    }
+    else {
+      //console.log("[INFO] UrlLoading-tests: skipping localhost tests");
+    }
+
 }// end runtests
-if ( typeof exports != 'undefined')
-    runtests();
+
+if (typeof exports != 'undefined') {
+  try {
+    YAML = require('yamljs');
+  }
+  catch(e) {
+    console.log("[WARN] require() didn't find a YAML parser");
+  }
+  runtests();
+}

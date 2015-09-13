@@ -1,8 +1,4 @@
 // NEXT:
-// gulp tests
-// gulp tests --nolex (a few tests still fail without lexicon)
-// gulp test --name=RiString -nolex
-//
 // npm: gulp test
 //
 // npm: test & publish
@@ -57,14 +53,6 @@ gulp.task('make.lib', ['build.full'], function(done) {
   gulp.start('npm.build');
 });
 
-function npmpack(done) {
-  exec('cd '+destDir+' && npm pack ../'+nodeDir, function (err, stdout, stderr) {
-    log("Packing "+nodeDir+'/'+stdout);
-    stderr && console.error(stderr);
-    done(err);
-  });
-}
-
 gulp.task('setup-npm', [ 'clean-node' ], function(done) {
 
   //console.log(getTests(),testFiles());
@@ -78,7 +66,7 @@ gulp.task('setup-npm', [ 'clean-node' ], function(done) {
     .pipe(gulp.dest(nodeDir));
 
   // copy in the tests
-  gulp.src(testFiles())
+  gulp.src(testFiles(true))
     .pipe(gulp.dest(nodeDir + '/test'));
 
   // copy in the code
@@ -180,6 +168,12 @@ gulp.task('test', ['build'], function() {
   return gulp.start('test-only');
 });
 
+// runs tests after npm install
+gulp.task('test-npm', ['build'], function() {
+  destDir = 'lib';
+  return gulp.start('test-only');
+});
+
 // runs tests with lexicon loaded
 gulp.task('test.full', function (done) {
 
@@ -219,17 +213,17 @@ gulp.task('test-only', function (done) {
     },
     function (err, report) {
       if (err) {
-        done(err);
-        done(report);
+        console.error(err);
+        console.error(report);
       }
-      testFile = 'rita'
+      testFile = 'rita' // restore
       done();
     });
 });
 
 // Helper functions --------------------------------------
 
-function testFiles(includeLex) {
+function testFiles(includeQunit) {
 
   var tests = [
     testDir + '/LibStructure-tests.js',
@@ -241,6 +235,9 @@ function testFiles(includeLex) {
     testDir + '/UrlLoading-tests.js',
     testDir + '/RiLexicon-tests.js'
   ];
+
+  if (includeQunit)
+    tests.push(testDir + '/qunit-helpers.js');
 
   return tests;
 }

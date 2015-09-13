@@ -50,10 +50,7 @@ var runtests = function () {
 
   test("testAnalyze", function () { // same tests as testFeatures() below
 
-    if (!RiLexicon.enabled) {
-      console.warn("[INFO] RiString.testAnalyze() skipping RiLexicon tests");
-      return ok(1);
-    }
+    if (noLexicon()) return;
 
     var features = RiString("Mom & Dad, waiting for the car, ate a steak.").analyze().features();
     ok(features);
@@ -108,10 +105,7 @@ var runtests = function () {
     equal(feats[RiTa.TEXT], txt);
     deepEqual(feats[RiTa.TOKENS], RiTa.tokenize(txt).join(' '));
 
-    if (!RiLexicon.enabled) {
-      console.warn("[INFO] RiString.testFeatures() skipping RiLexicon tests");
-      return ok(1);
-    }
+    if (noLexicon()) return;
 
     txt = "Returns the array of words.";
     rs = RiString(txt).analyze();
@@ -194,15 +188,13 @@ var runtests = function () {
     rs2 = rs.copy();
     equal(rs.get("myFeatureName"), rs2.get("myFeatureName"));
 
-    if (RiLexicon.enabled) {
-      rs = new RiString("copy cat");
-      rs.analyze();
-      rs2 = rs.copy();
-      deepEqual(rs.features(), rs2.features());
-    }
-    else {
-      console.warn("[INFO] RiString.testCopy() skipping RiLexicon tests");
-    }
+    if (noLexicon()) return;
+
+    rs = new RiString("copy cat");
+    rs.analyze();
+    rs2 = rs.copy();
+    deepEqual(rs.features(), rs2.features());
+
   });
 
   test("testEndsWith", function () {
@@ -564,10 +556,7 @@ var runtests = function () {
     result = rs.pos();
     deepEqual(result, ["nns"]);
 
-    if (!RiLexicon.enabled) {
-      console.warn("[INFO] RiString.testPos() skipping RiLexicon tests");
-      return;
-    }
+    if (noLexicon()) return;
 
     rs = new RiString("There is a cat.");
     result = rs.pos();
@@ -591,10 +580,7 @@ var runtests = function () {
     result = rs.posAt(3);
     equal("nn", result);
 
-    if (!RiLexicon.enabled) {
-      console.warn("[INFO] RiString.testPosAt() skipping RiLexicon tests");
-      return ok(1);
-    }
+    if (noLexicon()) return;
 
     rs = new RiString("There is a cat.");
     result = rs.posAt(2);
@@ -1299,10 +1285,7 @@ var runtests = function () {
     ok(rs);
     ok(rs.features());
 
-    if (!RiLexicon.enabled) {
-      console.warn("[INFO] RiString.testGet() skipping RiLexicon tests");
-      return;
-    }
+    if (noLexicon()) return;
 
     var ph = rs.get(RiTa.PHONEMES);
     var sy = rs.get(RiTa.SYLLABLES);
@@ -1431,6 +1414,17 @@ var runtests = function () {
     var result = RiString._syllabify(test);
     deepEqual(result, expected);
   });
+
+  function noLexicon() {
+    if (!RiLexicon.enabled) {
+      if (!lexWarningRiString) {
+        lexWarningRiString = true;
+        console.warn('[INFO] RiString-tests: skipping lexicon-required tests');
+      }
+      ok(1);
+      return true;
+    }
+  } var lexWarningRiString = false;
 };
 
 if (typeof exports != 'undefined') {

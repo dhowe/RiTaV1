@@ -621,7 +621,7 @@ RiLexicon.prototype = {
 };
 
 // from: https://gist.github.com/lovasoa/3361645
-function array_intersect() {
+function intersect() {
   var i, all, n, len, ret = [], obj={}, shortest = 0,
     nOthers = arguments.length-1, nShortest = arguments[0].length;
   for (i=0; i<=nOthers; i++){

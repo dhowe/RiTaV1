@@ -1998,57 +1998,60 @@ RiGrammar.prototype = {
     }.bind(this), '\n');
   },
 
-  getYamlParser: function() { // yuck
-
-    if (typeof YAML != 'undefined') // node/require
-      return YAML.parse;
-    if (typeof jsyaml != 'undefined') // browser
-      return jsyaml.load;
-  },
-
   load: function(grammar) {
-
-    var yamlParse, ex;
 
     this.reset();
 
     if (is(grammar, S)) {
 
-      yamlParse = this.getYamlParser();
-      if (yamlParse) {
+      if (typeof YAML != 'undefined') { // found a yaml-parser, so try it first
 
         try {
           //console.log('trying YAML');
-          grammar = yamlParse(grammar);
+          grammar = YAML.parse(grammar);
+
         } catch (e) {
 
           warn('YAML parsing failed, trying JSON');
         }
       }
 
-      if (!is(grammar, O)) {
+      if (!is(grammar, O)) { // we failed with our yaml-parser, so try JSON
         try {
 
           //console.log('trying JSON');
           grammar = JSON.parse(grammar);
+
         } catch (e) {
 
-          ex = e;
+          var ex = e;
         }
       }
     }
 
     if (ex || !is(grammar, O)) {
 
-      yamlParse && warn("No YAML parser found!");
-      err('Grammar appears to be invalid JSON/YAML, please check' +
-        ' it! (http://jsonlint.com/ or http://yamllint.com/)', grammar);
+      if (typeof YAML != 'undefined') {
+        err('Grammar appears to be invalid JSON/YAML, please check it!' +
+          ' (http://jsonlint.com/ or http://yamllint.com/)', grammar);
+      }
+      else {
+        var isnode = RiTa.env() === RiTa.NODE, verb =  isnode ? 'require'
+          : 'include', syntax = isnode ? "YAML = require('yamljs')" :
+            '<script src="yaml.min.js"></script>';
+
+        err('Grammar appears to be invalid JSON, please check it at ' +
+          'http://jsonlint.com/. If you are using YAML, be sure to '  +
+          verb + ' yamljs (https://github.com/jeremyfa/yaml.js), e.g. ' +
+          syntax, grammar);
+      }
 
       return;
     }
 
-    for (var rule in grammar)
+    for (var rule in grammar) {
       this.addRule(rule, grammar[rule]);
+    }
 
     return this;
   },

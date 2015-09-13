@@ -26,13 +26,11 @@ var testResults = [{
   }]
 }];
 
-var filePath = (typeof module != 'undefined' && module.exports) ? "./test/data/" : "./data/";
-
 var runtests = function() {
 
-    var WITHOUT_YAML = typeof YAML == 'undefined';
-
     RiTa.SILENT = 1;
+
+    var filePath = (typeof module != 'undefined' && module.exports) ? "./test/data/" : "./data/"
 
     QUnit.module("RiTa", {
 
@@ -43,10 +41,7 @@ var runtests = function() {
     // ------------------------------------------------------------------------
     test("testGetSyllables", function() { // new-style
 
-      if (!RiLexicon.enabled) {
-        console.warn("[INFO] RiTa.testGetSyllables() skipping RiLexicon tests");
-        return ok(1);
-      }
+      if (noLexicon()) return;
 
       var func = RiTa.getSyllables,
         tests = testResults[0].tests;
@@ -64,10 +59,7 @@ var runtests = function() {
       answer = '';
       equal(result, answer);
 
-      if (!RiLexicon.enabled) {
-        console.warn("[INFO] RiTa.testGetSyllablesOrig() skipping RiLexicon tests");
-        return ok(1);
-      }
+      if (noLexicon()) return;
 
       txt = 'The dog ran faster than the other dog. But the other dog was prettier.';
       result = RiTa.getSyllables(txt);
@@ -596,10 +588,7 @@ var runtests = function() {
       var answer = "";
       equal(result, answer);
 
-      if (!RiLexicon.enabled) {
-        console.warn("[INFO] RiTa.testGetPhonemes() skipping RiLexicon tests");
-        return ok(1);
-      }
+      if (noLexicon()) return;
 
       var result = RiTa.getPhonemes("The");
       var answer = "dh-ax";
@@ -643,10 +632,7 @@ var runtests = function() {
       var answer = ["nns"];
       deepEqual(result, answer);
 
-      if (!RiLexicon.enabled) {
-        console.warn("[INFO] RiTa.testGetPosTags() skipping RiLexicon tests");
-        return ok(1);
-      }
+      if (noLexicon()) return;
 
       var result = RiTa.getPosTags("the boy dances");
       var answer = ["dt", "nn", "vbz"];
@@ -697,10 +683,7 @@ var runtests = function() {
 
     test("testGetPosTags(sns)", function() {
 
-      if (!RiLexicon.enabled) {
-        console.warn("[INFO] RiTa.testGetPosTags(sns) skipping RiLexicon tests");
-        return ok(1);
-      }
+      if (noLexicon()) return;
 
       var checks = ["emphasis", "stress", "discus", "colossus", "fibrosis", "digitalis", "pettiness", "mess", "cleanliness", "orderliness", "bronchitis", "preparedness", "highness"];
       for (var i = 0, j = checks.length; i < j; i++) {
@@ -724,10 +707,7 @@ var runtests = function() {
       var answer = "clothes/nns";
       deepEqual(result, answer);
 
-      if (!RiLexicon.enabled) {
-        console.warn("[INFO] RiTa.testGetPosTagsInline() skipping RiLexicon tests");
-        return ok(1);
-      }
+      if (noLexicon()) return;
 
       var result = RiTa.getPosTagsInline("There is a cat.");
       var answer = "There/ex is/vbz a/dt cat/nn .";
@@ -749,10 +729,7 @@ var runtests = function() {
       var answer = "";
       equal(result, answer);
 
-      if (!RiLexicon.enabled) {
-        console.warn("[INFO] RiTa.testGetStresses() skipping RiLexicon tests");
-        return ok(1);
-      }
+      if (noLexicon()) return;
 
       var result = RiTa.getStresses("The emperor had no clothes on");
       var answer = "0 1/0/0 1 1 1 1";
@@ -855,12 +832,11 @@ var runtests = function() {
     test("testStem(lancaster)", function() {
 
       if (!RiTa.stem_Lancaster) {
-        console.warn("[INFO] RiTa.testStem(lancaster) skipping Lancaster tests");
+        console.warn("[INFO] RiTa-tests: skipping lancaster tests");
         return ok(1);
       }
 
       var type = 'Lancaster';
-      // default
 
       var tests = ["run", "runs", "running"];
       for (var i = 0; i < tests.length; i++) {
@@ -961,10 +937,7 @@ var runtests = function() {
 
     test("testLTSEngine", function() {
 
-      if (!RiLexicon.enabled) {
-        console.warn("[INFO] RiTa.testLTSEngine() skipping RiLexicon tests");
-        return ok(1);
-      }
+      if (noLexicon()) return;
 
       //getPhonemes
       var result = RiTa.getPhonemes("asdfgasdasdasdasdsadasf");
@@ -1486,26 +1459,16 @@ var runtests = function() {
       }
     });
 
-    // no need to extract
-    /*asyncTest("testTimerAsync", function() {
-
-      var functionToTrigger = function() {
-          functionToTrigger.countInstances++;
+    function noLexicon() {
+      if (!RiLexicon.enabled) {
+        if (!lexWarningRiTa) {
+          lexWarningRiTa = true;
+          console.warn('[INFO] RiTa-tests: skipping lexicon-required tests');
+        }
+        ok(1);
+        return true;
       }
-      functionToTrigger.countInstances = 0;
-      // initialize variable
-
-      var id = RiTa.timer(0.1, functionToTrigger)
-
-      setTimeout(function() {
-
-              ok(functionToTrigger.countInstances == 4)
-              //console.log("result: " + functionToTrigger.countInstances);
-              start();
-              RiTa.stopTimer(id);
-
-          }, 400);
-      });*/
+    } var lexWarningRiTa = false;
 
   } // end runtests
 

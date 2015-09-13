@@ -30,7 +30,7 @@ var testResults = [{
 var runtests = function() {
 
   if (!RiLexicon.enabled) {
-    console.warn("[INFO] RiLexicon-tests: skipping all tests (no RiLexicon found)");
+    console.warn("[INFO] Skipping RiLexicon-tests...");
     return;
   }
 
