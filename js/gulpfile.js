@@ -172,7 +172,7 @@ gulp.task('test', ['build'], function() {
   return gulp.start('test-only');
 });
 
-// runs tests after npm install
+// do tests after npm install (same as test, but runs on 'lib')
 gulp.task('test-npm', ['build'], function() {
 
   destDir = 'lib';
