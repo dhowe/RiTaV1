@@ -30,7 +30,7 @@ var runtests = function() {
 
     RiTa.SILENT = 1;
 
-    var filePath = (typeof module != 'undefined' && module.exports) ? "./test/data/" : "./data/"
+    var filePath = (typeof module != 'undefined' && module.exports) ? "./test/html/data/" : "./data/"
 
     QUnit.module("RiTa", {
 

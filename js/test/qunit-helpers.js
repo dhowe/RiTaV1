@@ -1,8 +1,6 @@
 /*jslint node: true*/
 /*global equal, expect, require, ok, QUnit */
 
-//var QUnitHelpers = {};
-
 /*
  * loads the JSON doc-file and checks that each described field actually exists in the object
  */

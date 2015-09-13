@@ -3,18 +3,11 @@
 
 var runtests = function() {
 
-  var tmp;
+  RiTa.SILENT = true;
+
   QUnit.module("RiText", {
-
-    setup: function() {
-
-      tmp = RiTa.SILENT;
-      RiTa.SILENT = true;
-    },
-    teardown: function() {
-
-      RiTa.SILENT = tmp;
-    }
+    setup: function() {},
+    teardown: function() {}
   });
 
   test("testCheckAPI", function() { // Can this move to QUnit-Callbacks?
@@ -150,10 +143,7 @@ var runtests = function() {
 
   test("testAnalyze()", function() {
 
-    if (!RiLexicon.enabled) {
-      console.warn("[INFO] RiText.testAnalyze() skipping RiLexicon tests");
-      return ok(1);
-    }
+    if (noLexicon()) return;
 
     var features = RiText("the laggin dragon").analyze().features();
     ok(features);
@@ -182,10 +172,8 @@ var runtests = function() {
 
   test("testFeatures()", function() {
 
-    if (!RiLexicon.enabled) {
-      console.warn("[INFO] RiText.testFeatures() skipping RiLexicon tests");
-      return ok(1);
-    }
+    if (noLexicon()) return;
+
 
     var rs = [RiText("Returns the array of words."), RiText(this, "Returns the array of words.")];
     for (var i = 0; i < rs.length; i++) {
@@ -626,10 +614,7 @@ var runtests = function() {
     var result = rs.pos();
     deepEqual(result, ["nns"]);
 
-    if (!RiLexicon.enabled) {
-      console.warn("[INFO] RiText.testPos() skipping RiLexicon tests");
-      return ok(1);
-    }
+    if (noLexicon()) return;
 
     var rs = new RiText("There is a cat.");
     var result = rs.pos();
@@ -651,10 +636,7 @@ var runtests = function() {
     var result = rs.posAt(3);
     equal("nn", result);
 
-    if (!RiLexicon.enabled) {
-      console.warn("[INFO] RiText.testPosAt() skipping RiLexicon tests");
-      return ok(1);
-    }
+    if (noLexicon()) return;
 
     var rs = new RiText("There is a cat.");
     var result = rs.posAt(1);
@@ -1340,11 +1322,7 @@ var runtests = function() {
     equal(rt.charAt(3), rt2.charAt(3));
 
     deepEqual(rt.boundingBox(), rt2.boundingBox());
-
     deepEqual(rt.fill(), rt2.fill());
-
-
-
 
     var rt3 = new RiText("!@#$%^&*()_ GHFHJJJ hjhjjh", 15, 20);
 
@@ -1366,11 +1344,18 @@ var runtests = function() {
     deepEqual(rt4.boundingBox(), rt3.boundingBox());
 
     deepEqual(rt4.fill(), rt3.fill());
-
-
   });
 
-  RiTa.SILENT = tmp;
+  function noLexicon() {
+    if (!RiLexicon.enabled) {
+      if (!lexWarningRiText) {
+        lexWarningRiText = true;
+        console.warn('[INFO] RiText-tests: skipping lexicon-required tests');
+      }
+      ok(1);
+      return true;
+    }
+  } var lexWarningRiText = false;
 }
 
 if (typeof exports != 'undefined') runtests();

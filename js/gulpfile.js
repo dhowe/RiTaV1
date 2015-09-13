@@ -1,8 +1,5 @@
 // NEXT:
-// npm: gulp test
-//
 // npm: test & publish
-//
 
 /**
  * USAGE:
@@ -53,9 +50,8 @@ gulp.task('make.lib', ['build.full'], function(done) {
   gulp.start('npm.build');
 });
 
-gulp.task('setup-npm', [ 'clean-node' ], function(done) {
+gulp.task('setup-npm', [ 'clean-npm' ], function(done) {
 
-  //console.log(getTests(),testFiles());
   // copy in the node readme
   gulp.src('../README.node.md')
     .pipe(rename('README.md'))
@@ -68,6 +64,10 @@ gulp.task('setup-npm', [ 'clean-node' ], function(done) {
   // copy in the tests
   gulp.src(testFiles(true))
     .pipe(gulp.dest(nodeDir + '/test'));
+
+  // copy in the tests
+  gulp.src(testDir + '/html/data/*')
+    .pipe(gulp.dest(nodeDir + '/test/html/data/'));
 
   // copy in the code
   gulp.src(destDir + '/rita-full.min.js')
@@ -83,7 +83,7 @@ gulp.task('help', tasks);
 // clean out the build-dir
 gulp.task('clean', function(f) { del(destDir, f); });
 
-gulp.task('clean-node', function(f) { del(nodeDir, f); });
+gulp.task('clean-npm', function(f) { del(nodeDir, f); });
 
 // run lint on the non-uglified output (no lexicon)
 gulp.task('lint', ['build'], function() {
@@ -165,27 +165,37 @@ gulp.task('build-minify-nolex', ['build-nolex'], function() {
 // usage: gulp test
 //        gulp test --name RiString
 gulp.task('test', ['build'], function() {
+
+  destDir = 'dist';
+  testFile = 'rita';
+  tests = testFiles(true);
   return gulp.start('test-only');
 });
 
 // runs tests after npm install
 gulp.task('test-npm', ['build'], function() {
+
   destDir = 'lib';
+  testFile = 'rita';
+  tests = testFiles(true);
+
   return gulp.start('test-only');
 });
 
 // runs tests with lexicon loaded
 gulp.task('test.full', function (done) {
 
+  destDir = 'dist';
   testFile = 'rita-full';
-  return gulp.start('test');
+  tests = testFiles(false);
+
+  return gulp.start('test-only');
 });
 
 // runs tests without building first
 gulp.task('test-only', function (done) {
 
-  var testrunner = require("qunit"),
-    tests = testFiles();
+  var testrunner = require("qunit");
 
   if (argv.name) {
     if (argv.name === 'RiLexicon')
@@ -223,21 +233,22 @@ gulp.task('test-only', function (done) {
 
 // Helper functions --------------------------------------
 
-function testFiles(includeQunit) {
+function testFiles(skipRiLexicon) {
 
   var tests = [
+    testDir + '/qunit-helpers.js',
     testDir + '/LibStructure-tests.js',
     testDir + '/RiTaEvent-tests.js',
     testDir + '/RiString-tests.js',
     testDir + '/RiTa-tests.js',
     testDir + '/RiGrammar-tests.js',
     testDir + '/RiMarkov-tests.js',
-    testDir + '/UrlLoading-tests.js',
-    testDir + '/RiLexicon-tests.js'
+    testDir + '/UrlLoading-tests.js'
   ];
 
-  if (includeQunit)
-    tests.push(testDir + '/qunit-helpers.js');
+  if (!skipRiLexicon) {
+    tests.push(testDir + '/RiLexicon-tests.js');
+  }
 
   return tests;
 }

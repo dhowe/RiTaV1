@@ -1,6 +1,6 @@
 {
   "name": "rita",
-  "version": "1.0.98",
+  "version": "1.0.99",
   "author": "Daniel C. Howe <daniel@rednoise.org>",
   "description": "RiTa: A toolkit for natural language and computational literature",
   "homepage": "http://rednoise.org/rita",
@@ -30,7 +30,7 @@
     }
   ],
   "scripts": {
-    "test": "gulp test"
+    "test": "gulp test-npm"
   },
   "dependencies": {},
   "optionalDependencies": {
@@ -51,7 +51,6 @@
     "gulp-uglify": "^1.4.0",
     "gulp-util": "^3.0.6",
     "qunit": "^0.7.6",
-    "yamljs": "^0.2.3",
     "yargs": "^3.15.0"
   }
 }

@@ -3,19 +3,16 @@
 
 var runtests = function() {
 
-    var filePath = (typeof module != 'undefined' && module.exports) ?
-      "./test/data/" : "../data/";
+    var allowLocalWebServer = false;
 
-    var silentOrig, allowLocalWebServer = false;
+    RiTa.SILENT = 1;
+
+    var filePath = (typeof module != 'undefined' && module.exports) ? "./test/html/data/" : "./data/"
 
     QUnit.module("UrlLoading", {
-        setup : function() {
-          silentOrig = RiTa.SILENT;
-          RiTa.SILENT = true;
-        },
-        teardown : function() {
-          RiTa.SILENT = silentOrig;
-        }
+
+      setup: function() {},
+      teardown: function() {}
     });
 
     asyncTest("RiTa.loadString1(file)", function() {
@@ -37,7 +34,7 @@ var runtests = function() {
         });
     });
 
-    asyncTest("RiTa.testLoadConcordance", function () {
+    asyncTest("RiTa.testLoadConcordance", function () {  // SLOW
 
         RiTa.loadString(filePath + "kafka.txt", function (txt) {
 
@@ -57,6 +54,7 @@ var runtests = function() {
             ok(data["The"] == 51);
             ok(data[","] == 1292);
             ok(data["."] == 737);
+
 
             // test all true
             var nUppercaseFather = data["Father"];
@@ -344,7 +342,7 @@ var runtests = function() {
 
     asyncTest("RiMarkov.loadFromFile", function() {
 
-        var rm = new RiMarkov(3);
+        var rm = new RiMarkov(2);
         rm.loadFrom(filePath + "kafka.txt");
 
         var ts = +new Date();
@@ -353,11 +351,14 @@ var runtests = function() {
             if (rm.ready()) {
 
                 ok(rm.size());
-                start();
+                // TODO: 1 or 2 more better tests here
+
                 clearInterval(id);
+                start();
+
             } else {
 
-                console.log("waiting...");
+                //console.log("waiting...");
                 var now = +new Date();
                 if (now - ts > 5000) {
                     equal("no result", 0);
@@ -413,22 +414,22 @@ var runtests = function() {
           }, 50);
       });
 
-      asyncTest("RiMarkov.loadFromUrl", function() {
+      asyncTest("RiMarkov.loadFromUrl", function() { // SLOW
 
           var rm = new RiMarkov(3);
           rm.loadFrom("http://localhost/ritajs/test/data/kafka.txt");
 
           var ts = +new Date();
           var id = setInterval(function() {
-
               if (rm.ready()) {
-
                   ok(rm.size());
-                  start();
+
+                  // TODO: 1 or 2 more better tests here
                   clearInterval(id);
+                  start();
+
               } else {
 
-                  console.log("waiting...");
                   var now = +new Date();
                   if (now - ts > 5000) {
                       equal("no result", 0);

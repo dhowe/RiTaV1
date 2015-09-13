@@ -25,12 +25,10 @@ var testResults = [{
   }, ]
 }];
 
-
-
 var runtests = function() {
 
   if (!RiLexicon.enabled) {
-    console.warn("[INFO] Skipping RiLexicon-tests...");
+    console.warn("[INFO] RiLexicon-tests: skipping ALL tests...");
     return;
   }
 
