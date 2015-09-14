@@ -1,5 +1,5 @@
 {
-  "version": "1.0.996",
+  "version": "1.0.997",
   "author": "Daniel C. Howe <daniel@rednoise.org>",
   "name": "rita",
   "description": "RiTa: A toolkit for natural language and computational literature",
@@ -29,6 +29,6 @@
   "main": "js/dist/rita.min.js",
   "ignore": [
     "*",
-    "!js/dist"
+    "!js/dist/*"
   ]
 }
