@@ -238,7 +238,7 @@ gulp.task('bower-update', [], function() {
   return gulp.src(['bower.tmpl'])
     .pipe(replace('##version##', version))
     .pipe(concat('bower.json'))
-    .pipe(gulp.dest('.'));
+    .pipe(gulp.dest('../'));
 });
 
 // Helper functions --------------------------------------
