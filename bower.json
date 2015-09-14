@@ -26,22 +26,9 @@
     "yaml.js": "^0.2.3"
   },
   "devDependencies": {},
-  "main": "dist/rita.min.js",
+  "main": "js/dist/rita.min.js",
   "ignore": [
-    "!js",
-    "**/.*",
-    "js/coverage",
-    "js/gulpfile*.js",
-    "js/package.json",
-    "js/bower.tmpl",
-    "js/src",
-    "js/bower_components",
-    "js/node_modules",
-    "js/examples",
-    "js/test",
-    "js/lib",
-    "js/dist/node",
-    "js/dist/rita-1*",
-    "js/dist/rita-2*"
+    "*",
+    "!js/dist",
   ]
 }
