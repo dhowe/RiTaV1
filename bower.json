@@ -1,5 +1,5 @@
 {
-  "version": "1.0.991",
+  "version": "1.0.992",
   "author": "Daniel C. Howe <daniel@rednoise.org>",
   "name": "rita",
   "description": "RiTa: A toolkit for natural language and computational literature",
@@ -28,19 +28,20 @@
   "devDependencies": {},
   "main": "dist/rita.min.js",
   "ignore": [
+    "!js",
     "**/.*",
-    "coverage",
-    "gulpfile*.js",
-    "package.json",
-    "bower.tmpl",
-    "src",
-    "bower_components",
-    "node_modules",
-    "examples",
-    "test",
-    "lib",
-    "dist/node",
-    "dist/rita-1*",
-    "dist/rita-2*"
+    "js/coverage",
+    "js/gulpfile*.js",
+    "js/package.json",
+    "js/bower.tmpl",
+    "js/src",
+    "js/bower_components",
+    "js/node_modules",
+    "js/examples",
+    "js/test",
+    "js/lib",
+    "js/dist/node",
+    "js/dist/rita-1*",
+    "js/dist/rita-2*"
   ]
 }
