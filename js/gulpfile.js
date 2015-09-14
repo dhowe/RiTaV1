@@ -1,5 +1,6 @@
 // NEXT:
-// npm: test & publish
+// npm: publish,download,test
+// bower, browserify
 
 /**
  * USAGE:
@@ -46,7 +47,7 @@ gulp.task('npm.build', ['setup-npm'], function(done) {
 });
 
 // build everything, then do npm pack
-gulp.task('make.lib', ['build.full'], function(done) {
+gulp.task('make.lib', [ 'build.full', 'bower-update' ], function(done) {
   gulp.start('npm.build');
 });
 
@@ -128,7 +129,7 @@ gulp.task('build-lex', ['clean'], function() {
     .pipe(gulp.dest(destDir));
 });
 
-gulp.task('build-nolex', ['clean'], function() {
+gulp.task('build-nolex', [ 'clean' ], function() {
 
   return gulp.src(sourceFiles(false))
     .pipe(replace('##version##', version))
@@ -138,7 +139,7 @@ gulp.task('build-nolex', ['clean'], function() {
 });
 
 // concatenate/minify sources to 'dist' folder
-gulp.task('build-minify-lex', ['build-lex'], function() {
+gulp.task('build-minify-lex', [ 'build-lex' ], function() {
 
   return gulp.src(destDir+'/'+output+'-full.js')
     .pipe(gulpif(sourceMaps, sourcemaps.init()))
@@ -150,7 +151,7 @@ gulp.task('build-minify-lex', ['build-lex'], function() {
 });
 
 // concatenate/minify sources to 'dist' folder
-gulp.task('build-minify-nolex', ['build-nolex'], function() {
+gulp.task('build-minify-nolex', [ 'build-nolex' ], function() {
 
   return gulp.src(destDir+'/'+output+'.js')
     .pipe(gulpif(sourceMaps, sourcemaps.init()))
@@ -164,7 +165,7 @@ gulp.task('build-minify-nolex', ['build-nolex'], function() {
 // runs tests without loading lexicon
 // usage: gulp test
 //        gulp test --name RiString
-gulp.task('test', ['build'], function() {
+gulp.task('test', [ 'build' ], function() {
 
   destDir = 'dist';
   testFile = 'rita';
@@ -173,7 +174,7 @@ gulp.task('test', ['build'], function() {
 });
 
 // do tests after npm install (same as test, but runs on 'lib')
-gulp.task('test-npm', ['build'], function() {
+gulp.task('test-npm', [ 'build' ], function() {
 
   destDir = 'lib';
   testFile = 'rita';
@@ -231,6 +232,15 @@ gulp.task('test-only', function (done) {
     });
 });
 
+gulp.task('bower-update', [], function() {
+
+  // update version # in bower.json
+  return gulp.src(['bower.tmpl'])
+    .pipe(replace('##version##', version))
+    .pipe(concat('bower.json'))
+    .pipe(gulp.dest('.'));
+});
+
 // Helper functions --------------------------------------
 
 function testFiles(skipRiLexicon) {
@@ -273,9 +283,9 @@ function log(msg) { console.log('[INFO] '+ msg); }
 // ----------------------------------------------------
 
 // task composition
-gulp.task('build', ['build-nolex', 'build-lex']);
+gulp.task('build', [ 'build-nolex', 'build-lex' ]);
 gulp.task('build.full', [ 'build', 'build-minify' ]);
-gulp.task('build-minify', ['build-minify-nolex', 'build-minify-lex']);
+gulp.task('build-minify', [ 'build-minify-nolex', 'build-minify-lex' ]);
 
 // help is the default task
-gulp.task('default', ['help']);
+gulp.task('default', [ 'help' ]);

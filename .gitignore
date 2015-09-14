@@ -2,12 +2,9 @@ tmp
 orig*
 .DS_STORE
 **/.DS_STORE
-readme.html
-TODO.txt
+**/bower_components
+**/node_modules
 /bin
-/RiTaLibraryJS
-/RiTaJS
-tasks.txt
 /latest
 /website
 /web-pub
