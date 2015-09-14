@@ -39,7 +39,7 @@ var testDir = 'test',
 
 // do npm pack on whatever is already in the dist dir
 gulp.task('npm.build', ['setup-npm'], function(done) {
-  exec('cd '+destDir+' && npm pack ../'+nodeDir, function (err, stdout, stderr) {
+  exec('npm pack '+nodeDir, function (err, stdout, stderr) {
     log("Packing "+nodeDir+'/'+stdout);
     stderr && console.error(stderr);
     done(err);
