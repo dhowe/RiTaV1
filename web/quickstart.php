@@ -48,7 +48,7 @@ Add your site or application content here
             <ul>
             <li><a href="https://www.npmjs.com/package/rita" target="_blank">In node.js (via npm)</a></li>
             <li><a href="https://github.com/dhowe/RiTaJS#with-nodejs-and-npm" target="_blank">In node.js (via github)</a></li>
-            <li><a href="https://github.com/dhowe/RiTaJS#a-simple-sketch" target="_blank">In the browser directly</a></li>
+            <li><a href="https://github.com/dhowe/RiTaJS#a-simple-sketch" target="_blank">In the browser</a></li>
             <li><a href="https://github.com/dhowe/RiTaJS#with-browserify-and-npm" target="_blank">In the browser with browserify</a></li>
         <li><a href="https://github.com/dhowe/RiTaJS#with-bower" target="_blank">In the browser with bower</a></li>
             <li><a href="https://github.com/dhowe/RiTaJS#with-p5js" target="_blank">In the browser with p5.js</a></li>
@@ -59,8 +59,8 @@ Add your site or application content here
           <ul>
             <li><a href="https://github.com/dhowe/RiTa#in-processing" target="_blank">In processing</a></li>
             <li><a href="https://github.com/dhowe/RiTa#in-processing-android-mode" target="_blank">In processing for android</a></li>
-            <li><a href="https://github.com/dhowe/RiTa/blob/master/README.android.md#in-android" target="_blank">In a standalone android app (jar)</a></li>
-            <li><a href="https://github.com/dhowe/RiTa#a-simple-example-java" target="_blank">In a standalone java program (jar)</a></li>
+            <li><a href="https://github.com/dhowe/RiTa/blob/master/README.android.md#in-android" target="_blank">As a standalone android app (jar)</a></li>
+            <li><a href="https://github.com/dhowe/RiTa#a-simple-example-java" target="_blank">As a standalone java program (jar)</a></li>
 
             <!-- TODO: update link
             <li><a href="https://github.com/dhowe/RiTa#development-setup-in-eclipse" target="_blank">In a java program via maven</a></li-->
@@ -73,7 +73,7 @@ Add your site or application content here
             <!-- TODO: update link
             <li><a href="https://github.com/dhowe/RiTa#development-setup-in-eclipse" target="_blank">Eclipse (java) via git/maven</a></li>-->
 
-            <li><a href="https://github.com/dhowe/RiTaJS#development-setup" target="_blank">Javascript via git/node/npm/gulp</a></li>
+            <li><a href="https://github.com/dhowe/RiTaJS#development-setup" target="_blank">Javascript via git/npm/gulp</a></li>
       </ul>
   </div>
     <div class="col1"></div>

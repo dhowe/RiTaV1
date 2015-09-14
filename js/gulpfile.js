@@ -32,7 +32,7 @@ var testDir = 'test',
   nodeDir = destDir+'/node/rita',
   tmpDir = '/tmp',
   srcDir = 'src',
-  output = 'rita',
+  rita = 'rita',
   testFile = 'rita',
   minimize = false,
   sourceMaps = false;
@@ -41,6 +41,17 @@ var testDir = 'test',
 gulp.task('npm.build', ['setup-npm'], function(done) {
   exec('npm pack '+nodeDir, function (err, stdout, stderr) {
     log("Packing "+nodeDir+'/'+stdout);
+    stderr && console.error(stderr);
+    del(destDir+'/node'); // remove the build dir
+    done(err);
+  });
+});
+
+// do npm pack on whatever is already in the dist dir
+gulp.task('npm.publish', [], function(done) {
+  var tgz = 'rita-'+version+'.tgz';
+  exec('npm publish '+tgz, function (err, stdout, stderr) {
+    log("Publishing "+tgz, stdout);
     stderr && console.error(stderr);
     done(err);
   });
@@ -124,7 +135,7 @@ gulp.task('build-lex', ['clean'], function() {
 
   return gulp.src(sourceFiles(true))
     .pipe(replace('##version##', version))
-    .pipe(concat(output+'-full.js'))
+    .pipe(concat(rita+'-full.js'))
     .pipe(size({showFiles:true}))
     .pipe(gulp.dest(destDir));
 });
@@ -133,7 +144,7 @@ gulp.task('build-nolex', [ 'clean' ], function() {
 
   return gulp.src(sourceFiles(false))
     .pipe(replace('##version##', version))
-    .pipe(concat(output+'.js'))
+    .pipe(concat(rita+'.js'))
     .pipe(size({showFiles:true}))
     .pipe(gulp.dest(destDir));
 });
@@ -141,11 +152,11 @@ gulp.task('build-nolex', [ 'clean' ], function() {
 // concatenate/minify sources to 'dist' folder
 gulp.task('build-minify-lex', [ 'build-lex' ], function() {
 
-  return gulp.src(destDir+'/'+output+'-full.js')
+  return gulp.src(destDir+'/'+rita+'-full.js')
     .pipe(gulpif(sourceMaps, sourcemaps.init()))
     .pipe(uglify())
     .pipe(gulpif(sourceMaps, sourcemaps.write('./')))
-    .pipe(rename(output+'-full.min.js'))
+    .pipe(rename(rita+'-full.min.js'))
     .pipe(size({showFiles:true}))
     .pipe(gulp.dest(destDir));
 });
@@ -153,11 +164,11 @@ gulp.task('build-minify-lex', [ 'build-lex' ], function() {
 // concatenate/minify sources to 'dist' folder
 gulp.task('build-minify-nolex', [ 'build-nolex' ], function() {
 
-  return gulp.src(destDir+'/'+output+'.js')
+  return gulp.src(destDir+'/'+rita+'.js')
     .pipe(gulpif(sourceMaps, sourcemaps.init()))
     .pipe(uglify())
     .pipe(gulpif(sourceMaps, sourcemaps.write('./')))
-    .pipe(rename(output+'.min.js'))
+    .pipe(rename(rita+'.min.js'))
     .pipe(size({showFiles:true}))
     .pipe(gulp.dest(destDir));
 });

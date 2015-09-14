@@ -16,7 +16,7 @@ About the project
 * Web Site:          [https://rednoise.org/rita](http://rednoise.org/rita)
 * Github Repo:       [https://github.com/dhowe/RiTa](https://github.com/dhowe/RiTa)
 * Bug Tracker:       [https://github.com/dhowe/RiTa/issues](https://github.com/dhowe/RiTa/issues)
-* Reference:    [https://rednoise.org/rita/reference](http://rednoise.org/rita/reference))
+* Reference:    [https://rednoise.org/rita/reference](http://rednoise.org/rita/reference)
 
 In [node.js](http://nodejs.org/)
 --------
