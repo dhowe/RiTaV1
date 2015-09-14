@@ -1,4 +1,6 @@
+js/examples/p5js/test*
 tmp
+misc
 orig*
 .DS_STORE
 **/.DS_STORE
