@@ -35,7 +35,7 @@
 
 <a href="http://www.rednoise.org/rita/download/RiTa-latest.zip">
 <div class="downloadbox">
- <b> RiTa-1.0.95 </b>
+ <b> RiTa-complete </b>
   <span>java, js, reference, examples, tutorial, src</span>
 </div></a>
 
@@ -45,26 +45,26 @@
 
 <a href="http://www.rednoise.org/rita/download/rita-latest.min.js">
 <div class="downloadbox mini">
-  rita-latest.min.js
-  <span>core, minimized, 90k</span>
+  rita.min.js
+  <span>core (no lexicon), minimized, 84k</span>
 </div></a>
 
 <a href="http://www.rednoise.org/rita/download/rita-latest.js">
 <div class="downloadbox mini">
-rita-latest.js
-<span>core, source, 180k</span>
+rita.js
+<span>core (no lexicon), source, 163k</span>
  </div></a>
 
  <a href="http://www.rednoise.org/rita/download/rita-full-latest.min.js">
 <div class="downloadbox mini">
-rita-full-latest.min.js
+rita-full.min.js
 <span>complete, minimized, 1.6m</span>
 </div></a>
 
   <a href="http://www.rednoise.org/rita/download/rita-full-1.0.95.js">
 <div class="downloadbox mini">
-rita-full-latest.js
-<span>complete, lexicon, LTS-rules, 1.9m</span>
+rita-full.js
+<span>complete (w' lexicon & lts-rules) 1.8m</span>
 </div></a>
 
 </div>
@@ -72,21 +72,30 @@ rita-full-latest.js
   <h4>JS-components</h4>
 
     <a href="http://www.rednoise.org/rita/download/rita_dict-1.0.95.js">
-<div class="downloadbox mini">
-    rita_dict-latest.js
-  <span>the lexicon, 1.3m</span> </div></a>
+      <div class="downloadbox mini">rita_dict.js
+        <span>the lexicon, 1.3m</span>
+      </div>
+    </a>
 
 
   <a href="http://www.rednoise.org/rita/download/rita_lts-latest.js">
-    <div class="downloadbox mini">
-    rita_lts-latest.js
-<span>letter-to-sound rules, 300k</span> </div></a>
+    <div class="downloadbox mini">rita_lts.js
+    <span>letter-to-sound rules, 300k</span>
+    </div>
+  </a>
 
+  <a href="http://www.rednoise.org/rita/download/lancaster-latest.js">
+    <div class="downloadbox mini">lancaster stemmer
+    <span>letter-to-sound rules, 300k</span>
+    </div>
+  </a>
 
   <a href="http://www.rednoise.org/rita/download/ritext-latest.min.js">
-    <div class="downloadbox mini">
-    ritext-latest.min.js
-<span>renderer, deprecated, 30k</span> </div></a>
+    <div class="downloadbox mini">ritext.min.js
+    <span>renderer, deprecated, 30k</span>
+    </div>
+  </a>
+
 </div>
 
 <div class="row pad-small">
@@ -94,7 +103,7 @@ rita-full-latest.js
 
   <a href="http://www.rednoise.org/rita/download/rita-latest.jar">
 <div class="downloadbox mini">
-    rita-latest.jar</div>
+    rita.jar</div>
   </a>
 </div>
 <div class="row pad-small">

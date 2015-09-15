@@ -64,8 +64,8 @@ Add your site or application content here
   <div class="row">
     <div class="col2"></div>
     <div class="col8 smgd-12 intro">
-      <p>Designed to support the creation of new works of computational literature, the RiTa<sup>†</sup> library provides tools for artists and writers working with natural language in programmable media. The library is designed to be simple while still enabling a range of powerful features, from grammar and Markov-based generation to text-mining, to feature-analysis (part-of-speech, phonemes, stresses, etc). All RiTa functions are heuristic and do not require training data, thus making the core library quite compact. RiTa can also be integrated with its own user-customisable lexicon, or with the WordNet database. RiTa is implemented in both Java and JavaScript, is free/libre and open-source, and runs in a number of popular programming environments including 
-      [Android], <a href="https://processing.org/">[Processing]</a>, <a href="https://nodejs.org/">[NodeJS]</a>, and <a href="http://p5js.org/">[P5.js]</a>.
+      <p>Designed to support the creation of new works of computational literature, the RiTa<sup>†</sup> library provides tools for artists and writers working with natural language in programmable media. The library is designed to be simple while still enabling a range of powerful features, from grammar and Markov-based generation to text-mining, to feature-analysis (part-of-speech, phonemes, stresses, etc). All RiTa functions are heuristic and do not require training data, thus making the core library quite compact. RiTa can also be integrated with its own user-customisable lexicon, or with the WordNet database. RiTa is implemented in both Java and JavaScript, is free/libre and open-source, and runs in a number of popular programming environments including
+      Android, <a href="https://processing.org/">Processing</a>, <a href="https://nodejs.org/">Node</a>, and <a href="http://p5js.org/">p5.js</a>.
 </p>
 
 

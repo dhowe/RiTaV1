@@ -7,7 +7,7 @@
 
 ### [The RiTa website](http://rednoise.org/rita)
 
-RiTa is designed to be an easy-to-use toolkit for experiments in natural language and generative literature. It is implemented in Java and JavaScript (with a unified API for both). It is free/libre and open-source according to the GPL license.
+RiTa is designed to be an easy-to-use toolkit for experiments in natural language and generative literature. It is implemented in Java and JavaScript (with a common API for both). It is free/libre and open-source via the GPL license.
 
 About the project
 --------
@@ -20,7 +20,11 @@ About the project
 
 In [node.js](http://nodejs.org/)
 --------
-To install: `$ npm install rita`
+To install, do the following from a terminal prompt
+
+`$ npm install rita`
+
+then use require() from your code
 
 ```javascript
 var rita = require('rita');
@@ -28,7 +32,7 @@ var rs = rita.RiString("The elephant took a bite!");
 console.log(rs.features());
 ```
 
-To run tests:
+To run tests, do the following from a terminal prompt:
 
 ```bash
 $ cd node_modules/rita && npm install && npm test
