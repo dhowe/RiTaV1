@@ -1,5 +1,4 @@
-gulpfile-orig.js
+gulpfile-*.js
 node_modules
-coverage
 dist/node
 rita-*.tgz

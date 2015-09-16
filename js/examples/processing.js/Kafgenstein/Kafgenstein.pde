@@ -3,18 +3,20 @@ import rita.*;
 RiMarkov markov;
 
 void setup()
-{    
+{
   size(500, 500);
-  
+
   RiText.defaultFontSize(18);
 
   new RiText(this, "click to (re)generate!");
 
   // create a markov model w' n=3
-  markov = new RiMarkov(4);  
-  
+  markov = new RiMarkov(4);
+
   // load files into the model
-  markov.loadFrom(new String[] { "wittgenstein.txt", "kafka.txt" }, this);    
+  markov.loadFrom(new String[] {
+    "../../data/wittgenstein.txt", "../../data/kafka.txt" },
+  this);
 }
 
 void draw()
@@ -23,10 +25,10 @@ void draw()
   RiText.drawAll();
 }
 
-void mouseClicked() 
-{   
-  if (!markov.ready()) return; 
-  
+void mouseClicked()
+{
+  if (!markov.ready()) return;
+
   RiText.disposeAll(); // clean-up old data
 
   String[] lines = markov.generateSentences(10);

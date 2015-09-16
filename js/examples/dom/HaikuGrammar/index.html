@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Haiku (dom)</title>
+  <script src="../../lib/jquery-1.11.3.min.js"></script>
+  <script src="../../../node_modules/yamljs/dist/yaml.min.js"></script>
+  <script src="../../lib/p5.min.js"></script>
+  <!--script src="../../lib/rita.min.js"></script-->
+  <script src="../../../dist/rita.js"></script>
+
+  <style>
+    @font-face {
+      font-family: Resagokr;
+      src: url(../../fonts/Resagokr.otf);
+    }
+
+    div {
+      background-color: rgb(230, 240, 255);
+      font-family: Resagokr;
+      font-size: 30px;
+      text-align: center;
+      width: 650px;
+      height: 200px;
+    }
+
+    span {
+      position: relative;
+      top: 25%;
+    }
+  </style>
+  <script>
+    var grammar, lines;
+
+    $(document).ready(function () {
+
+      lines = [$('#line1'), $('#line2'), $('#line3')];
+
+      grammar = RiGrammar();
+      grammar.loadFrom('../../data/haiku.yaml', function (str) {
+        lines[0].text("click to");
+        lines[1].text("generate");
+        lines[2].text("a haiku");
+
+        $('#hdiv').click(createHaiku);
+
+      });
+    });
+
+    function createHaiku() {
+      var result = grammar.expand();
+      var haiku = result.split("%");
+      for (var i = 0; i < lines.length; i++) {
+        lines[i].text(haiku[i]);
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <div id='hdiv'>
+    <span id='line1'></span>
+    </br>
+    <span id='line2'></span>
+    </br>
+    <span id='line3'></span>
+    </br>
+  </div>
+</body>
+
+</html>

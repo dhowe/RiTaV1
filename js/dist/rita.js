@@ -2103,7 +2103,6 @@ RiGrammar.prototype = {
 
     this._rules = {};
     this.execDisabled = false;
-
     if (grammar) {
 
       // a String or Object, but make sure its not a PApplet (e.g., this)

@@ -13,11 +13,8 @@ var testDir = "./renderer",  tests = [
 	new Test("g_BoundingBoxFeatures",0),
 	new Test("g_BoundingBoxArray",1),
 	new Test("g_ColorAndFade"),
-	//new Test("create-letters"),
-	//new Test("create-words"),
 	new Test("g_CreateLinesSingle"),
 	new Test("g_CreateLinesAndLayoutWithBreaks"),
-	//new Test("layout-with-breaks"),
 	new Test("g_DefaultFontAndFontVlwTtf",0),
 	new Test("g_DisposeAll"),
 	new Test("g_MotionTypes"),
@@ -25,44 +22,23 @@ var testDir = "./renderer",  tests = [
 	new Test("g_Scaling"),
 	new Test("g_TranslateToAndBehaviors",1),
 	new Test("g_WordsLettersLines",1),
-
- 	/*new Test("pixel-x-positions"),
- 	new Test("default-centering"),
- 	new Test("default-font"),
- 	new Test("delete-ritexts"),
- 	new Test("disposeAll"),
- 	new Test("fade-to-text"),
- 	new Test("font-scaling"),
- 	new Test("get-picked"),
-    new Test("grammar-haiku"),
-    new Test("grammar-expandFrom"),
- 	new Test("letter-grid"),
- 	new Test("move-to"),
- 	new Test("pick-and-drag"),
- 	new Test("rita-events"),
- 	new Test("simple-timer"),
- 	new Test("slot-machine"),
- 	new Test("text-font"),
- 	new Test("text-size"), */
 ];
 
 function Test(url, failP) {//}, failC) {
 	this.url = url;
 	this.fail = typeof failP !== 'undefined' ? failP : false;
 }
-
 </script>
-
 </head>
 
 <body>
 
-  <div id="qunit-header">RiTaJS Unit Tests</div>
+  <div id="qunit-header">RiTa Tests</div>
     <h2 id="qunit-banner"></div>
     <div id="qunit-testrunner-toolbar">&nbsp;</div>
     <h2 id="qunit-userAgent"></h2><br>
     <!--p class=head>Note: if you get an error running phantom tests, try resetting permissions<br> on the node_modules folder: (in terminal) $ chmod -R 770 node_modules</p-->
-	<h2 id="qunit-header2">PhantomJS (browser)</h2>
+	<h2 id="qunit-header2">Unit Tests</h2>
 	<a id="AllTests" class=head href="AllTests.html">[Full Test Suite]</a><p>
 
     <a id="RiTa-tests" class=head href="RiTa-tests.html">[RiTa]</a><br>

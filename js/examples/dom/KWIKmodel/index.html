@@ -1,0 +1,208 @@
+<html>
+
+<head>
+  <title>KWIKmodel (dom)</title>
+  <!--script src="../../lib/rita-latest.js"></script-->
+  <script src="../../lib/jquery-1.11.3.min.js"></script>
+  <script src="../../../dist/rita.js"></script>
+  <script>
+    const LEFT = "LEFT",
+      CENTER = "CENTER",
+      RIGHT = "RIGHT";
+
+    var fillColor, textAlignment = LEFT;
+    var kafkaString, $container;
+    var word = 'window',
+      display, opts;
+
+    const WIDTH = 600,
+      HEIGHT = 400;
+
+    $(document).ready(function () {
+
+      assignButton();
+      setup();
+    });
+
+    function assignButton() {
+
+      $("#textInput").focus();
+
+      $("#button").click(function () {
+        buttonClicked();
+      });
+
+      $("#textInput").keypress(function (e) {
+
+        if (e.which == 13) // enter key code
+        {
+          buttonClicked();
+          return;
+        }
+      })
+    }
+
+    function buttonClicked() {
+
+      var $textInput = $("#textInput");
+      word = $textInput.val();
+      $textInput.val("");
+      $("#textInput").attr("placeholder", word);
+
+      display = RiTa.kwic(kafkaString, word, opts);
+      drawText();
+    }
+
+    function setup() {
+
+      $container = $("#container");
+      $container.width(WIDTH).height(HEIGHT);
+      $("#textInput").attr("placeholder", word);
+
+      opts = {
+
+        ignorePunctuation: true,
+        ignoreStopWords: true,
+        storeSentences: true,
+        wordCount: 5
+      };
+
+      RiTa.loadString('../../data/kafka.txt', function (data) {
+
+        kafkaString = data;
+        display = RiTa.kwic(kafkaString, word, opts);
+
+        drawText();
+      });
+    }
+
+    function drawText() {
+
+      $("#container").empty();
+      $("#container").css('background-color', 'rgb(255, 255, 255)');
+
+      if (display.length == 0) {
+
+        textAlign(CENTER);
+        text("Word not found", WIDTH / 2, HEIGHT / 2);
+      } else {
+
+        var tw = textWidth(word) / 2;
+
+        for (var i = 0; i < display.length; i++) {
+
+          console.log(display[i]);
+          var parts = display[i].split(word);
+          var x = WIDTH / 2,
+            y = i * 20 + 25;
+
+          fill(0);
+          textAlign(RIGHT);
+          text(parts[0], x - tw, y);
+
+          fill(200, 0, 0);
+          textAlign(CENTER);
+          text(word, x, y);
+
+          fill(0);
+          textAlign(LEFT);
+          text(parts[1], x + tw, y);
+        }
+      }
+    }
+
+    function textWidth(s) {
+
+      var $span = $('<span>', {
+        html: s + '&nbsp;',
+        css: {
+          position: "absolute",
+          top: "-100px",
+          left: "-100px",
+        }
+      }).appendTo($('body'));
+
+      var width = $span.width();
+      $span.remove();
+
+      return width;
+    }
+
+    function fill(a, b, c) {
+
+      if (arguments.length == 1) fillColor = toHex(a);
+      else fillColor = "rgb(" + a + "," + b + "," + c + ")";
+
+      function toHex(color) {
+
+        var intValue = Math.floor(color);
+        return "rgb(" + intValue + "," + intValue + "," + intValue + ")";
+      }
+    }
+
+    function textAlign(direction) {
+
+      textAlignment = direction;
+    }
+
+    function text(s, x, y) {
+
+      function convertPosition(innerX) {
+
+        if (textAlignment == LEFT) {
+          // to position strings starting with ONLY_PUNCT one char leftward
+          var ONLY_PUNCT = /^[^0-9A-Za-z\s]/;
+          var regex = new RegExp(ONLY_PUNCT);
+          if (regex.test(s)) x = innerX - textWidth(""); // textWidth("") returns with of a space char
+        } else if (textAlignment == CENTER) x = innerX - textWidth(s) / 2;
+        else if (textAlignment == RIGHT) x = innerX - textWidth(s);
+      }
+
+      convertPosition(x);
+
+      var $span = $('<span/>', {
+        html: s,
+        css: {
+          position: 'absolute',
+          left: x,
+          top: y,
+          color: fillColor
+        }
+      }).appendTo($container);
+    }
+  </script>
+
+  <style>
+    body {
+      // font-family:"Courier New", Courier, monospace;
+      font-size: 13px;
+    }
+
+    #container {
+      position: relative;
+      overflow: hidden;
+    }
+
+    #textInput {
+      position: absolute;
+      left: 255px;
+      width: 50px;
+      z-index: 1;
+    }
+
+    #button {
+      position: absolute;
+      left: 305px;
+      z-index: 1;
+    }
+  </style>
+
+</head>
+
+<body>
+  <input type="text" id="textInput">
+  <button type="button" id="button">search</button>
+  <div id='container'></div>
+</body>
+
+</html>
