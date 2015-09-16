@@ -117,10 +117,10 @@ public class RiLexiconTest {
     ok(lex.containsWord("a"));
     ok(lex.containsWord("A"));
     ok(lex.containsWord("zooms"));
-
-    lex.lexicalData().put("hello", null);
-    ok(!lex.containsWord("hello"));
-    ok(!lex.containsWord(""));
+//
+//    lex.lexicalData().put("hello", null);
+//    ok(!lex.containsWord("hello"));
+//    ok(!lex.containsWord(""));
   }
 
   @Test
@@ -207,8 +207,8 @@ public class RiLexiconTest {
     answer = (String) result.get("a");
     deepEqual(answer, "ey1|dt");
 
-    lex.lexicalData().put("hello", null);
-    lex.containsWord("hello");
+//    lex.lexicalData().put("hello", null);
+//    lex.containsWord("hello");
   }
 
   @Test
@@ -249,7 +249,6 @@ public class RiLexiconTest {
 	    + "' has wrong syllable count 5 != " + num);
       ok(num == 5); // "5 syllableCount: "
     }
-
   }
 
   @Test

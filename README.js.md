@@ -85,9 +85,9 @@ $ sudo npm install -g browserify
 ```
 Create a file called 'main.js' with the following code:
 ```java
-var rita = require('rita');
+require('rita');
 
-var rs = rita.RiString("The elephant took a bite!");
+var rs = RiString("The elephant took a bite!");
 console.log(rs.features());
 ```
 Now install RiTa

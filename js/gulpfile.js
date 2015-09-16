@@ -210,7 +210,7 @@ gulp.task('test-only', function (done) {
   var testrunner = require("qunit");
 
   if (argv.name) {
-    if (argv.name === 'RiLexicon')
+    if (argv.name === 'RiLexicon' || argv.name ==='SimilarBySound') // tmp
       testFile = 'rita-full'
     tests = [ testDir + '/' + argv.name + '-tests.js' ];
     log('Testing: ' + tests[0]);
