@@ -21,22 +21,10 @@
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
 
-
-
-
-
-
-
-
-
-
-
 <!--
 Add your site or application content here
   Download    Reference     Examples    Gallery    Contact
 -->
-
-
 
 <?php include("header.php"); ?>
 
@@ -175,7 +163,7 @@ with or without Processing<br>(also in Android)</p>
 <div class="row">
   <div class="col1"></div>
   <div class="col10">
-     <h3>Featured Projects</h3>
+     <h3>Selected Projects</h3>
   <div class="gallery_home">
       <div class="row">
     <span class="gallery_home_item gd-4  mgd-6 sgd-12">
