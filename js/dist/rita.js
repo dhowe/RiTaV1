@@ -2904,7 +2904,7 @@ Conjugator.prototype = {
 
     var res, name = ruleSet.name,
       rules = ruleSet.rules,
-      defRule = ruleSet.defaultRule || null;
+      defRule = ruleSet.defaultRule;
 
     if (!rules) err("no rule: " + ruleSet.name + ' of ' + theVerb);
 

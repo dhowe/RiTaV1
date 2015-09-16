@@ -2904,7 +2904,7 @@ Conjugator.prototype = {
 
     var res, name = ruleSet.name,
       rules = ruleSet.rules,
-      defRule = ruleSet.defaultRule || null;
+      defRule = ruleSet.defaultRule;
 
     if (!rules) err("no rule: " + ruleSet.name + ' of ' + theVerb);
 
@@ -21855,7 +21855,7 @@ function _dict() { return {
 'cabana': ['k-ax-b ae1-n ax','nn'],
 'cabanas': ['k-ax-b ae1-n ax-z','nns'],
 'cabaret': ['k-ae1-b er ey1','nn'],
-'cabbage': ['k-ae1-b ax-jh','nn'],
+'cabbage': ['k-ae1-b ih-jh','nn'],
 'cabdriver': ['k-ae1-b d-r-ay1-v er','nn'],
 'cabin': ['k-ae1-b ax-n','nn'],
 'cabinet': ['k-ae1-b ax-n ax-t','nn jj'],
@@ -43721,11 +43721,11 @@ function _dict() { return {
 'sausage': ['s-ao1-s ax-jh','nn'],
 'sausages': ['s-ao1-s ih-jh ih-z','nns'],
 'saute': ['s-ao-t ey1','vb'],
-'savage': ['s-ae1-v ax-jh','jj nn'],
+'savage': ['s-ae1-v ih-jh','jj nn'],
 'savaged': ['s-ae1-v ih-jh-d','vbd'],
 'savagely': ['s-ae1-v ih-jh l-iy','rb'],
 'savagery': ['s-ae1-v ih-jh eh1-r iy','nn'],
-'savages': ['s-ae1-v ax-jh ax-z','nns'],
+'savages': ['s-ae1-v ih-jh ax-z','nns'],
 'save': ['s-ey1-v','vb in vbp'],
 'saved': ['s-ey1-v-d','vbn vbd'],
 'saver': ['s-ey1-v er','nn'],
