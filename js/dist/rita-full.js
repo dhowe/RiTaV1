@@ -51361,7 +51361,6 @@ RiLexicon.prototype = {
 
   reload: function() {
 
-console.log("RiTa/js: RiLexicon.reload()");
     this.data = _dict();
     this.keys = okeys(this.data);
   },

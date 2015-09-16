@@ -217,8 +217,7 @@ gulp.task('test-only', function (done) {
   }
 
   testrunner.setup({
-    maxBlockDuration: 50000,
-    coverage: true,
+    maxBlockDuration: 20000,
     log: {
       globalSummary: true,
       errors: true
