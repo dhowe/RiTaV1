@@ -67,7 +67,7 @@ public class QUnitStubs {
   }
 
   public static void equal(boolean o, boolean p, String s) {
-    if (!o == p)
+    if (o != p)
       System.err.println("[FAIL] '" + s + "'");
     // System.out.println(s);
     assertTrue(o == p);

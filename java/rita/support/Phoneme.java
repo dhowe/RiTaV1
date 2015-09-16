@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Static utility methods for operations involving phonemes.
  * <pre>
-        TTS-Phoneme   Example     Translation    (39 entries, 11 missing?)
+        TIMIT-Phoneme   Example     Translation    (39 entries, 11 missing?)
         ========================================================
           AA            odd         AA D
           AE            at          AE T

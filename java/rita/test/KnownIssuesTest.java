@@ -42,14 +42,35 @@ public class KnownIssuesTest implements Constants
     System.out.println(Arrays.asList(output));
     deepEqual(output, expected);
   }
+  
+  @Test
+  public void testLastStressedVowelSyllableToEnd() {
+    RiLexicon lex = new RiLexicon();
+    
+    String result = lex.lastStressedVowelSyllableToEnd("savage", false);
+    equal(result, "ih-jh");
+  }
 
   @Test
   public void testRhyming()
   {
     RiLexicon lex = new RiLexicon();
-    String[] result = lex.rhymes("savage");
-    String[] answer = new String[] { "ravage", "disparage", "cabbage", "etc" };
-    deepEqual(answer, result);
+    Map<String, String> data = lex.lexicalData();
+
+    String[] tests = { 
+	"savage", "ravage",
+	"savage", "disparage",
+	"savage", "cabbage"
+    }; 
+    for (int i = 0; i < tests.length; i+=2) {
+      //System.out.print(i/2+") "+tests[i]+"("+data.get(tests[i]).split("\\|")[0]+") ?= "+tests[i+1]+"("+data.get(tests[i+1]).split("\\|")[0]+")");
+      equal(true, lex.isRhyme(tests[i], tests[i+1]));
+    }
+    
+    //deepEqual(true, lex.isRhyme("savage", "ravage"));
+    //deepEqual(true, lex.isRhyme("savage", "disparage"));
+    //deepEqual(true, lex.isRhyme("savage", "cabbage"));
+    // ...
   }
 
   @Test

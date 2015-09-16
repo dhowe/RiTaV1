@@ -293,6 +293,7 @@ public class RiLexiconTest {
     result = lex.randomWord("nn", 30);
     ok(result == "");
   }
+  
 
   @Test
   public void testRhymesString() {
