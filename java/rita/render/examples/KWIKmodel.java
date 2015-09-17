@@ -1,4 +1,4 @@
-package rita.examples;
+package rita.render.examples;
 
 import java.util.HashMap;
 
