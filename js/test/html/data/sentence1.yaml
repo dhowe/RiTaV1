@@ -1,8 +1,0 @@
---- 
-<determiner>: a [0.1] | the
-#I am a comment
-<noun>: woman | man
-<noun_phrase>: <determiner> <noun>
-<start>: <noun_phrase> <verb_phrase>.
-<verb>: shoots
-<verb_phrase>: <verb> | <verb> <noun_phrase> [0.1]
