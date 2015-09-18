@@ -96,7 +96,7 @@
 							<!-- RETURNS/TYPE (for variables)  -->
 
 							<table cellpadding="0" cellspacing="0" border="0" class="sub-table">
-								<tr class=''><th width='25%' scope='row' class=nobold>java.lang.String</th><td width='75%'>String from ('a' = adjective, 'n' = noun, 'r' = adverb, 'v' = verb), or null if not found.</td></tr>
+								<tr class=''><th width='25%' scope='row' class=nobold>java.lang.String[]</th><td width='75%'>String from ('a' = adjective, 'n' = noun, 'r' = adverb, 'v' = verb), or null if not found.</td></tr>
 							</table></td>
 						</tr>
 

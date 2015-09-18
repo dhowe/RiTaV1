@@ -73,7 +73,7 @@
 							<th scope="row">Syntax</th>
 
 							<!-- SYNTAX  -->
-							<td><pre>getAnagrams(word, posStr);<br/>getAnagrams(word, posStr, maxResults);</pre></td>
+							<td><pre>getAnagrams(word, pos);<br/>getAnagrams(word, pos, maxResults);</pre></td>
 						</tr>
 
 
@@ -84,7 +84,7 @@
 							<!-- PARAMETERS  -->
 
 							<table cellpadding="0" cellspacing="0" border="0" class="sub-table">
-								<tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>word</td></tr><tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>posStr</td></tr><tr class=''><th width='25%' scope='row' class=nobold>int</th><td width='75%'>(Optional) maxResults</td></tr>
+								<tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>word</td></tr><tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>pos</td></tr><tr class=''><th width='25%' scope='row' class=nobold>int</th><td width='75%'>(Optional) maxResults</td></tr>
 							</table></td>
 						</tr>
 

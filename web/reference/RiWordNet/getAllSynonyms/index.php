@@ -73,7 +73,7 @@
 							<th scope="row">Syntax</th>
 
 							<!-- SYNTAX  -->
-							<td><pre>getAllSynonyms(senseId);<br/>getAllSynonyms(senseId, maxResults);<br/>getAllSynonyms(word, posStr);<br/>getAllSynonyms(word, posStr, maxResults);</pre></td>
+							<td><pre>getAllSynonyms(senseId);<br/>getAllSynonyms(senseId, maxResults);<br/>getAllSynonyms(word, pos);<br/>getAllSynonyms(word, pos, maxResults);</pre></td>
 						</tr>
 
 
@@ -84,7 +84,7 @@
 							<!-- PARAMETERS  -->
 
 							<table cellpadding="0" cellspacing="0" border="0" class="sub-table">
-								<tr class=''><th width='25%' scope='row' class=nobold>int</th><td width='75%'>senseId</td></tr><tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>word</td></tr><tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>(Optional) posStr</td></tr><tr class=''><th width='25%' scope='row' class=nobold>int</th><td width='75%'>(Optional) maxResults</td></tr>
+								<tr class=''><th width='25%' scope='row' class=nobold>int</th><td width='75%'>senseId</td></tr><tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>word</td></tr><tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>(Optional) pos</td></tr><tr class=''><th width='25%' scope='row' class=nobold>int</th><td width='75%'>(Optional) maxResults</td></tr>
 							</table></td>
 						</tr>
 

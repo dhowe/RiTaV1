@@ -66,14 +66,14 @@
 							<th scope="row">Description</th>
 
 							<!-- DESCRIPTION  -->
-							<td>Return a random example from the set of examples from all senses of word with pos, assuming they contain word, or else null if not found</td>
+							<td>Returns a random example from the set of examples from all senses of word with pos, assuming they contain word, or else null if not found</td>
 						</tr>
 
 						<tr class='Syntax'>
 							<th scope="row">Syntax</th>
 
 							<!-- SYNTAX  -->
-							<td><pre>getAnyExample(word, pos);</pre></td>
+							<td><pre>getRandomExample(word, pos);</pre></td>
 						</tr>
 
 
@@ -84,7 +84,7 @@
 							<!-- PARAMETERS  -->
 
 							<table cellpadding="0" cellspacing="0" border="0" class="sub-table">
-								<tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>word</td></tr><tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>the part-of-speech</td></tr>
+								<tr class=''><th width='25%' scope='row' class=nobold>String (optional)</th><td width='75%'>word</td></tr><tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>the part-of-speech</td></tr>
 							</table></td>
 						</tr>
 
