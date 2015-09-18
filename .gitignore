@@ -1,4 +1,6 @@
-js/examples/p5js/test*
+js/*
+js
+js-last
 tmp
 misc
 orig*
