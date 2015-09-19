@@ -2,7 +2,7 @@
  *                                                                        *
  *  JAVASCRIPT MENU HIGHLIGHTER v.1.5 (080929)                            *
  * --------------------------------------------                           *
- * ©2005 Media Division (www.MediaDivision.com)                           *
+ * ï¿½2005 Media Division (www.MediaDivision.com)                           *
  *                                                                        *
  * Written by Marius Smarandoiu & Armand Niculescu                        *
  *                                                                        *
@@ -18,7 +18,7 @@
 function extractPageName(hrefString)
 {
 	var arr = hrefString.split('/');
-	return  (arr.length<2) ? hrefString : arr[arr.length-2].toLowerCase() + arr[arr.length-1].toLowerCase();               
+	return  (arr.length<2) ? hrefString : arr[arr.length-2].toLowerCase() + arr[arr.length-1].toLowerCase();
 }
 
 function setActiveMenu(arr, crtPage)
