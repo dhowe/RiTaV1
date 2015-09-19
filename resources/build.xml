@@ -22,6 +22,8 @@ Decide publish mech.
 	<property name="props.src" location="${project.resources}/library.properties"/>
 	<property name="props.dst" location="${project.dist}/${project.name}/library.properties"/>
 	<property name="project.examples" location="${project.web}/examples" />
+	<property name="project.reference" location="${project.web}/reference" />
+	<property name="project.download" location="${project.web}/download" />
 
 	<property name="dist.bin" location="${project.dist}/bin" />
 	<property name="dist.library" location="${project.dist}/${project.name}/library" />
@@ -138,16 +140,6 @@ Decide publish mech.
 
 	<property name="line" value="-----------------------------------------------------------------------" />
 
-	<target name="make.lib" depends="test, generate.jars, make.docs">
-
-		<copy todir="${project.dist}/${project.name}/reference">
-			<fileset dir="web/reference" />
-		</copy>
-
-		<delete dir="${dist.bin}" />
-
-		<antcall target="generate.zip" />
-	</target>
 
 	<target name="compile" depends="create.structure">
 
@@ -176,10 +168,10 @@ Decide publish mech.
 		</java>
 	</target>
 
-	<target name="build" depends="test, generate.jars, make.docs">
+	<target name="make.lib" depends="test, generate.jars, make.docs">
 
 		<copy todir="${project.dist}/${project.name}/reference">
-			<fileset dir="web/reference" />
+			<fileset dir="${project.reference}" />
 		</copy>
 
 		<delete dir="${dist.bin}" />
@@ -203,6 +195,13 @@ Decide publish mech.
 		<move tofile="${project.web}/rita.zip" file="${project.web}/RiTa-${project.version}.zip" overwrite="true" />
 
 		<delete dir="${project.dist}/${project.name}" />
+
+		<copy todir="${project.download}">
+			<fileset dir="${project.dist}" >
+				<include name="rita*.*" />
+			</fileset>
+		</copy>
+
 	</target>
 
 	<target name="generate.jars" depends="compile">

@@ -44,25 +44,25 @@
 <div class="row pad-small">
 <h4>RiTa.js<span>(js-only)</span></h4>
 
-<a href="../dist/rita.min.js">
+<a href="download/rita.min.js">
 <div class="downloadbox mini">
   rita.min.js
   <span>core (no lexicon), minimized, 84k</span>
 </div></a>
 
-<a href="../dist/rita.js">
+<a href="download/rita.js">
 <div class="downloadbox mini">
 rita.js
 <span>core (no lexicon), source, 163k</span>
  </div></a>
 
- <a href="../dist/rita-full.min.js">
+ <a href="download/rita-full.min.js">
 <div class="downloadbox mini">
 rita-full.min.js
 <span>complete, minimized, 1.6m</span>
 </div></a>
 
-  <a href="../dist/rita-full.js">
+  <a href="download/rita-full.js">
 <div class="downloadbox mini">
 rita-full.js
 <span>complete (w' lexicon & lts-rules) 1.8m</span>
@@ -72,7 +72,7 @@ rita-full.js
 <div class="row pad-small">
   <h4>JS-components</h4>
 
-  <a href="../dist/rita_dict.js">
+  <a href="download/rita_dict.js">
     <div class="downloadbox mini">rita_dict.js
       <span>the lexicon, 1.3m</span>
     </div>
@@ -100,7 +100,7 @@ rita-full.js
 
 <div class="row pad-small">
   <h4>RiTa.java<span>(java-jar only)</span></h4>
-  <a href="../dist/rita.jar"><div class="downloadbox mini">rita.jar</div></a>
+  <a href="download/rita.jar"><div class="downloadbox mini">rita.jar</div></a>
 </div>
 <div class="row pad-small">
 <hr/>

@@ -17,7 +17,7 @@
       <li><a href="<?php echo $path.'/quickstart.php'; ?>">Quickstart</a></li>
       <li><a href="<?php echo $path.'/reference/index.php'; ?>">Reference</a></li>
       <li><a href="<?php echo $path.'/gallery.php'; ?>">Gallery</a></li>
-      <li><a href="mail.html" onmouseover="this.href='mai' + 'lto:' + 'rita-questions' + '@' + 'rednoise.org?subject=RiTa question'">Contact</a></li>
+      <li><a href="mail.html" onmouseover="this.href='mai' + 'lto:' + 'rita-questions' + '@' + 'rednoise.org?subject=Re: RiTa'">Contact</a></li>
     </ul>
 
     <a class="toggle-nav" href="#">&#9776;</a>
@@ -28,7 +28,8 @@
 
   function extractPageName(hrefString) {
     var arr = hrefString.split('/');
-    return  (arr.length<2) ? hrefString : arr[arr.length-2].toLowerCase() + arr[arr.length-1].toLowerCase();
+    return  (arr.length<2) ? hrefString : arr[arr.length-2].toLowerCase() +
+      arr[arr.length-1].toLowerCase();
   }
 
   function setActiveMenu(arr, crtPage) {
@@ -41,11 +42,13 @@
       }
     }
   }
-  
+
   (function() {
-    hrefString = document.location.href ? document.location.href : document.location;
+    hrefString = document.location.href ?
+      document.location.href : document.location;
     if (document.getElementById("nav")!=null)
-      setActiveMenu(document.getElementById("nav").getElementsByTagName("a"), extractPageName(hrefString));
+      setActiveMenu(document.getElementById("nav").getElementsByTagName("a"),
+        extractPageName(hrefString));
   })();
 
 </script>
