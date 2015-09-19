@@ -10,5 +10,6 @@ orig*
 **/node_modules
 /bin
 /dist
+/dist/**
 target
 hs_err_pid*
