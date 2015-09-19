@@ -15,7 +15,7 @@
   <h5>Links</h5>
 
 <p>
-  <a href="https://www.npmjs.com/package/rita"><img src="https://badge.fury.io/js/rita.svg" alt="npm version" height="18"></a><br>
+  <a href="https://www.npmjs.com/package/rita"><img src="https://img.shields.io/npm/v/rita.svg" alt="npm version"></a><br>
   <a href="https://github.com/dhowe/RiTa"><span class="source">RiTa Source Code</span></a> <br>
   <a href="https://github.com/dhowe/RiTaJS"><span class="source">RiTaJS Source Code</span></a>
   <br>
