@@ -91,7 +91,6 @@ Decide publish mech.
 		</antcall>
 	</target>
 
-
 	<target name="run.gulp" depends="check.js">
 		<if>
 			<isset property="rita.js.present" />
@@ -138,6 +137,17 @@ Decide publish mech.
 	</fileset>
 
 	<property name="line" value="-----------------------------------------------------------------------" />
+
+	<target name="make.lib" depends="test, generate.jars, make.docs">
+
+		<copy todir="${project.dist}/${project.name}/reference">
+			<fileset dir="web/reference" />
+		</copy>
+
+		<delete dir="${dist.bin}" />
+
+		<antcall target="generate.zip" />
+	</target>
 
 	<target name="compile" depends="create.structure">
 
