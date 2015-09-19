@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/dhowe/RiTa.svg?branch=master)](https://travis-ci.org/dhowe/RiTa)
+
 ### RiTa: the generative language toolkit
 
 #### Using RiWordNet with Processing
@@ -8,7 +10,7 @@
 ```processing
 import rita.*;
 
-RiWordNet w = new RiWordNet("/Users/<username>/Desktop/example/dict"); 
+RiWordNet w = new RiWordNet("/Users/<username>/Desktop/example/dict");
 String[] s = w.getAllSynsets("dog", "n");
 println(s);
 ```
@@ -26,7 +28,7 @@ public class WordNetExample {
 
   public static void main(String[] args) {
 
-	RiWordNet w = new RiWordNet("/Users/<username>/Desktop/example/dict"); 
+	RiWordNet w = new RiWordNet("/Users/<username>/Desktop/example/dict");
 	String[] s = w.getAllSynsets("dog", "n");
 	System.out.println(java.util.Arrays.asList(s));
   }
@@ -38,9 +40,7 @@ public class WordNetExample {
 ```processing
 import rita.*;
 
-RiWordNet w = new RiWordNet("/Users/<username>/Desktop/example/dict"); 
+RiWordNet w = new RiWordNet("/Users/<username>/Desktop/example/dict");
 String[] s = w.getAllSynsets("dog", "n");
 println(s);
 ```
-
-   

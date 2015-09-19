@@ -351,11 +351,11 @@ public class BrillPosTagger implements Constants
       // NO-TEST-CASE FOR THIS
       if (false && i < result.length-1 && result[i].equals("nns") && result[i+1].startsWith("rb") && hasTag(choices[i], "vbz")) {
         
-        if (DBUG);System.out.print("CUSTOM_TAG_TRANSFORM: "+result[i]);
+        //if (DBUG);System.out.print("CUSTOM_TAG_TRANSFORM: "+result[i]);
         
         result[i] = "vbz";
         
-        if (DBUG); System.out.println(" -> "+result[i]);
+        //if (DBUG); System.out.println(" -> "+result[i]);
       }
       
       

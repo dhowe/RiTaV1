@@ -1105,12 +1105,14 @@ public class Conjugator implements Constants {
       switch (numb) {
       case SINGULAR:
 	switch (pers) {
-	case FIRST_PERSON:
+
 	case THIRD_PERSON:
 	  return render("was");
 	case SECOND_PERSON:
 	  return render("were");
+	
 	}
+	  break;
       case PLURAL:
 	return render("were");
       }

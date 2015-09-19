@@ -15,12 +15,13 @@
   <h5>Links</h5>
 
 <p>
+  <a href="https://www.npmjs.com/package/rita"><img src="https://badge.fury.io/js/rita.svg" alt="npm version" height="18"></a><br>
   <a href="https://github.com/dhowe/RiTa"><span class="source">RiTa Source Code</span></a> <br>
-<a href="https://github.com/dhowe/RiTaJS"><span class="source">RiTaJS  Source Code</span></a>
+  <a href="https://github.com/dhowe/RiTaJS"><span class="source">RiTaJS Source Code</span></a>
   <br>
   <a href="http://twitter.com/RiTaSoftware" data-show-count="false" class="twitter-follow-button" >Follow @RiTaSoftware</a>
-<script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
-  </p>
+  <script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
+</p>
      </div>
    </div>
 

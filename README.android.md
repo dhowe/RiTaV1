@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/dhowe/RiTa.svg?branch=master)](https://travis-ci.org/dhowe/RiTa) <a href="http://www.gnu.org/licenses/gpl-3.0.en.html"><img src="https://img.shields.io/badge/license-GPL-brightgreen.svg" alt="npm version"></a> [![npm version](https://badge.fury.io/js/rita.svg)](https://www.npmjs.com/package/rita)
 
 ## RiTa: the generative language toolkit
 
@@ -24,13 +25,13 @@
 	    android:paddingRight="@dimen/activity_horizontal_margin"
 	    android:paddingTop="@dimen/activity_vertical_margin"
 	    tools:context="com.example.ritaexample.MainActivity" >
-	
+
 	    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:id="@+id/textView"
 	        android:layout_centerVertical="true"
 	        android:layout_centerHorizontal="true" />
-	
+
 	    <RelativeLayout
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -39,7 +40,7 @@
 	        android:layout_marginTop="86dp"
 	        android:layout_toRightOf="@+id/textView" >
 	    </RelativeLayout>
-	
+
 	</RelativeLayout>
 	```
 6. Download and drag [RiTa.jar](http://rednoise.org/rita/download/rita-latest.jar) into the libs folder of RitaExample project
@@ -49,25 +50,25 @@
 8. To test a simple example, replace the code of 'MainActivity.java' with the following:
 	```java
 	package com.example.ritaexample;
-	
+
 	import android.app.Activity;
 	import android.os.Bundle;
 	import android.widget.TextView;
-	
+
 	import rita.*;
-	
+
 	public class MainActivity extends Activity {
-	
+
 		@Override
 		protected void onCreate(Bundle savedInstanceState) {
-		
+
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.activity_main);
-			
+
 	        String [] a = RiTa.tokenize("The cat ate the stinky cheese.");
-	
+
 	        TextView t = (TextView) findViewById(R.id.textView);
-	
+
 	        t.setText( java.util.Arrays.toString(a) );
 		}
 	}
@@ -76,7 +77,7 @@
 
 &nbsp;
 
-#### With Android Studio 
+#### With Android Studio
 
 To install:
 
@@ -90,37 +91,36 @@ To install:
 
 5. Right-click on the jar file > 'Add As Library...'
 
-6. Add 'import rita.*;' to the top of your .java file 
+6. Add 'import rita.*;' to the top of your .java file
 
 7. To test a simple example, replace the code of 'MainActivity.java' with the following:
 	```java
 	package com.example.ritaexample;
-	
+
 	import android.app.Activity;
 	import android.os.Bundle;
 	import android.widget.TextView;
-	
+
 	import rita.*;
-	
+
 	public class MainActivity extends Activity {
-	
+
 		@Override
 		protected void onCreate(Bundle savedInstanceState) {
-		
+
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.activity_main);
-			
+
 	        String [] a = RiTa.tokenize("The cat ate the stinky cheese.");
-	
+
 	        TextView t = (TextView) findViewById(R.id.textView);
-	
+
 	        t.setText( java.util.Arrays.toString(a) );
 		}
 	}
 	```
-	
+
 
 #### Can I contribute?
 --------
-Please! We are looking for more coders to help out... Just press *Fork* at the top of this github page and get started, or follow the 'Development Setup' instructions at the bottom of [this page](https://github.com/dhowe/RiTa)... 
-
+Please! We are looking for more coders to help out... Just press *Fork* at the top of this github page and get started, or follow the 'Development Setup' instructions at the bottom of [this page](https://github.com/dhowe/RiTa)...

@@ -1,18 +1,32 @@
 
+<!--
+NEXT:
+Handle examples
+Decide publish mech.
+-->
+
 <project name="RiTa" default="test" basedir="../">
 
 	<!-- ===================== properties ===================== -->
 
 	<property file="resources/build.properties" />
 
-	<property name="project.src" location="java" />
-	<property name="project.bin" location="target/classes" />
-	<property name="project.dist" location="dist" />
-	<property name="dist.bin" location="dist/bin" />
+	<property name="project.src" location="${basedir}/java" />
+	<property name="project.bin" location="${basedir}/target/classes" />
+	<property name="project.dist" location="${basedir}/dist" />
+	<property name="project.lib" location="${basedir}/lib/java" />
+	<property name="project.web" location="${basedir}/web" />
+	<property name="project.resources" location="${basedir}/resources" />
+	<property name="project.archive" location="${basedir}/../rita-archive" />
+
+	<property name="props.src" location="${project.resources}/library.properties"/>
+	<property name="props.dst" location="${project.dist}/${project.name}/library.properties"/>
+	<property name="project.examples" location="${project.web}/examples" />
+
+	<property name="dist.bin" location="${project.dist}/bin" />
 	<property name="dist.library" location="${project.dist}/${project.name}/library" />
 	<property name="dist.js" location="${project.dist}/${project.name}/js" />
-	<property name="project.lib" location="lib/java" />
-	<property name="project.examples" location="www/examples" />
+
 	<property name="p5.sketchbook" location="${user.home}/Documents/Processing" />
 	<property name="p5.libraries" location="${p5.sketchbook}/libraries/" />
 
@@ -28,9 +42,10 @@
 		<fileset dir="${project.lib}" includes="**/*.jar" excludes="" />
 	</path>
 
-	<!-- ================= optional js-tasks ================== -->
+	<!-- ================= optional js-stuff ================== -->
 
-	<property name="project.js" location="js" />
+	<property name="project.js" location="${basedir}/js" />
+	<property name="js.src" location="${project.js}/src" />
 	<property name="js.dist" location="${project.js}/dist" />
 	<property name="rita.js" location="${project.js}/dist/rita.js" />
 	<property name="path.to.gulp" value="/usr/local/bin/gulp" />
@@ -42,12 +57,26 @@
 	</target>
 
 	<target name="include.js" depends="check.js">
+
+		<!-- 4 dist files (and dict) to dist for linking from web -->
+		<copy todir="${project.dist}">
+			<fileset dir="${js.dist}">
+				<include name="*.js" />
+			</fileset>
+		</copy>
+		<copy file="${js.src}/rita_dict.js" tofile="${project.dist}/rita_dict.js" />
+
+
+		<!-- 4 dist files to be zipped into js in complete-download -->
 		<copy todir="${dist.js}">
 			<fileset dir="${js.dist}">
 				<include name="*.js" />
 			</fileset>
 		</copy>
+
+		<!-- 1 js file to be zipped into library in complete-download -->
 		<copy file="${dist.js}/rita-full.min.js" tofile="${dist.library}/rita.js" />
+
 	</target>
 
 	<target name="build.js">
@@ -62,7 +91,7 @@
 		</antcall>
 	</target>
 
-			
+
 	<target name="run.gulp" depends="check.js">
 		<if>
 			<isset property="rita.js.present" />
@@ -80,7 +109,7 @@
 	</target>
 
 	<!-- ==================== java-tasks ===================== -->
-	
+
 	<path id="quickdocs.classpath">
 		<fileset dir="${project.lib}" includes="**/*.jar" />
 		<pathelement path="${project.bin}" />
@@ -117,6 +146,7 @@
 
 		<javac srcdir="${project.dist}/${project.name}/src" excludes="**/test/sketches/**" destdir="${dist.bin}" source="${java.target.version}" target="${java.target.version}" includeantruntime="false" debug="true">
 			<classpath refid="classpath" />
+		  <compilerarg line="-Xlint:deprecation,divzero,empty,fallthrough,finally,overrides,path" compiler="modern"/>
 		</javac>
 
 	</target>
@@ -128,7 +158,7 @@
 		</java>
 	</target>
 
-	<target name="_quickdocs">
+	<target name="_quick.docs">
 		<!-- dev: generates reference from current target/classes -->
 		<java classname="rita.docgen.DocGenerator" fork="true" dir="${basedir}">
 			<arg value="web/reference/" />
@@ -137,18 +167,32 @@
 	</target>
 
 	<target name="build" depends="test, generate.jars, make.docs">
+
+		<copy todir="${project.dist}/${project.name}/reference">
+			<fileset dir="web/reference" />
+		</copy>
+
+		<delete dir="${dist.bin}" />
+
+		<antcall target="generate.zip" />
+	</target>
+
+	<target name="_quick.build" depends="generate.jars">
 		<copy todir="${project.dist}/${project.name}/reference">
 			<fileset dir="web/reference" />
 		</copy>
 		<delete dir="${dist.bin}" />
-		<antcall target="generate.zip" />	
+		<antcall target="generate.zip" />
 	</target>
-	
+
 	<target name="generate.zip" depends="include.js">
 
-		<zip destfile="${project.dist}/RiTa-${project.version}.zip" basedir="${project.dist}/" excludes="**/.DS_Store, *.jar, *.zip" />
-		<!--symlink link="${project.dist}/Current" resource="${project.website}" overwrite="true"/-->
-		
+		<zip destfile="${project.web}/RiTa-${project.version}.zip" basedir="${project.dist}" excludes="**/.DS_Store, *.jar, *.zip, *.js" />
+
+		<copy tofile="${project.archive}/RiTa-${project.version}.zip" file="${project.web}/RiTa-${project.version}.zip" overwrite="true" />
+		<move tofile="${project.web}/rita.zip" file="${project.web}/RiTa-${project.version}.zip" overwrite="true" />
+
+		<delete dir="${project.dist}/${project.name}" />
 	</target>
 
 	<target name="generate.jars" depends="compile">
@@ -161,6 +205,7 @@
 				<include name="*.txt" />
 			</fileset>
 		</copy>
+
 		<copy todir="${dist.bin}/rita">
 			<fileset dir="${project.src}/rita/">
 				<include name="*.js" />
@@ -177,7 +222,7 @@
 		<copy file="${project.lib}/snakeyaml-1.15.jar" tofile="${project.dist}/${project.name}/library/snakeyaml-1.15.jar" />
 
 		<!-- full lib to latest -->
-		<jar jarfile="${project.dist}/rita-${project.version}.jar" basedir="${dist.bin}">
+		<jar jarfile="${project.dist}/rita.jar" basedir="${dist.bin}">
 			<exclude name="**/data/**" />
 			<exclude name="**/test/**" />
 			<exclude name="**/docgen/**" />
@@ -198,6 +243,15 @@
 			<exclude name="**/test/**" />
 			<exclude name="**/docgen/**" />
 		</jar>
+
+		<!--  library.properties for Processing -->
+		<copy file="${props.src}" tofile="${props.dst}" />
+		<replaceregexp file="${props.dst}" match="##version##" replace="${project.version}" flags="g" />
+		<replaceregexp file="${props.dst}" match="##versionnum##" replace="${project.version.num}" flags="g" />
+
+		<!--  library.properties as rita.txt to web,dist -->
+		<copy file="${props.dst}" tofile="${project.web}/rita.txt" />
+		<copy file="${props.dst}" tofile="${project.dist}/rita.txt" />
 
 	</target>
 
@@ -229,9 +283,9 @@
 			</fileset>
 		</copy>
 
-		<copy todir="${project.dist}/${project.name}/examples">
+		<!--copy todir="${project.dist}/${project.name}/examples">
 			<fileset refid="exampleFileSet" />
-		</copy>
+		</copy-->
 
 		<copy todir="${project.dist}/${project.name}/src">
 			<fileset dir="${project.src}">
@@ -316,7 +370,7 @@
 	<target name="info">
 		<echo>
 ${line}
-Name:		${project.name} 
+Name:		${project.name}
 Version:		${project.version}
 Java.Version:	${java.version}
 ${line}
