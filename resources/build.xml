@@ -1,62 +1,121 @@
 
 <project name="RiTa" default="test" basedir="../">
 
+	<!-- ===================== properties ===================== -->
+
 	<property file="resources/build.properties" />
 
-	<property name="project.src"  location="java"/>
-	<property name="project.bin"  location="target/classes"/>
-	<property name="project.dist" location="dist"/>
-	<property name="dist.bin" location="dist/bin"/>
-	<property name="project.lib" location="lib/java"/>
-	<property name="project.examples" location="www/examples"/>
-	<property name="p5.sketchbook" location="${user.home}/Documents/Processing"/>
-	<property name="p5.libraries" location="${p5.sketchbook}/libraries/"/>
+	<property name="project.src" location="java" />
+	<property name="project.bin" location="target/classes" />
+	<property name="project.dist" location="dist" />
+	<property name="dist.bin" location="dist/bin" />
+	<property name="dist.library" location="${project.dist}/${project.name}/library" />
+	<property name="dist.js" location="${project.dist}/${project.name}/js" />
+	<property name="project.lib" location="lib/java" />
+	<property name="project.examples" location="www/examples" />
+	<property name="p5.sketchbook" location="${user.home}/Documents/Processing" />
+	<property name="p5.libraries" location="${p5.sketchbook}/libraries/" />
+
+	<!-- ======================================================= -->
+
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
+		<classpath>
+			<pathelement location="./resources/ant-contrib-1.0b3.jar" />
+		</classpath>
+	</taskdef>
 
 	<path id="classpath">
-		<fileset dir="${project.lib}" includes="**/*.jar" excludes=""/>
+		<fileset dir="${project.lib}" includes="**/*.jar" excludes="" />
 	</path>
 
+	<!-- ================= optional js-tasks ================== -->
+
+	<property name="project.js" location="js" />
+	<property name="js.dist" location="${project.js}/dist" />
+	<property name="rita.js" location="${project.js}/dist/rita.js" />
+	<property name="path.to.gulp" value="/usr/local/bin/gulp" />
+
+	<target name="check.js">
+
+		<available file="${rita.js}" property="rita.js.present" />
+		<echo message="Checking for rita.js... ${rita.js.present}" />
+	</target>
+
+	<target name="include.js" depends="check.js">
+		<copy todir="${dist.js}">
+			<fileset dir="${js.dist}">
+				<include name="*.js" />
+			</fileset>
+		</copy>
+		<copy file="${dist.js}/rita-full.min.js" tofile="${dist.library}/rita.js" />
+	</target>
+
+	<target name="build.js">
+		<antcall target="run.gulp">
+			<param name="gulp.task" value="build.full" />
+		</antcall>
+	</target>
+
+	<target name="test.js">
+		<antcall target="run.gulp">
+			<param name="gulp.task" value="test" />
+		</antcall>
+	</target>
+
+			
+	<target name="run.gulp" depends="check.js">
+		<if>
+			<isset property="rita.js.present" />
+			<then>
+				<echo>"RiTaJS found..."</echo>
+				<echo message="Calling 'gulp ${gulp.task}' ..." />
+				<exec dir="${project.js}" resolveexecutable="false" executable="${path.to.gulp}" failonerror="true">
+					<arg line="${gulp.task}" />
+				</exec>
+			</then>
+			<else>
+				<echo message="No RiTaJS available..." />
+			</else>
+		</if>
+	</target>
+
+	<!-- ==================== java-tasks ===================== -->
+	
 	<path id="quickdocs.classpath">
-		<fileset dir="${project.lib}" includes="**/*.jar"/>
-		<pathelement path="${project.bin}"/>
-		<pathelement path="${project.src}"/>
+		<fileset dir="${project.lib}" includes="**/*.jar" />
+		<pathelement path="${project.bin}" />
+		<pathelement path="${project.src}" />
 	</path>
 
 	<path id="test.classpath">
-		<fileset dir="${project.lib}" includes="**/*.jar" excludes="core.jar"/>
-		<pathelement path="${dist.bin}"/>
-		<pathelement path="${project.dist}/${project.name}/src"/>
+		<fileset dir="${project.lib}" includes="**/*.jar" excludes="core.jar" />
+		<pathelement path="${dist.bin}" />
+		<pathelement path="${project.dist}/${project.name}/src" />
 	</path>
-	
+
 	<path id="doc.classpath">
 		<fileset dir="${project.lib}" includes="**/*.jar" />
-		<pathelement path="${dist.bin}"/>
-		<pathelement path="${project.dist}/${project.name}/src"/>
+		<pathelement path="${dist.bin}" />
+		<pathelement path="${project.dist}/${project.name}/src" />
 	</path>
 
 	<fileset id="exampleFileSet" dir="${project.examples}">
-		<exclude name="**/*README*"/>
-		<exclude name="**/*.html"/>
-		<exclude name="**/*.properties"/>
-		<exclude name="**/*.xml"/>
-		<exclude name="**/web-export/**"/>
-		<exclude name="**/lib/**"/>
+		<exclude name="**/*README*" />
+		<exclude name="**/*.html" />
+		<exclude name="**/*.properties" />
+		<exclude name="**/*.xml" />
+		<exclude name="**/web-export/**" />
+		<exclude name="**/lib/**" />
 	</fileset>
 
 	<property name="line" value="-----------------------------------------------------------------------" />
 
-	<target name="compile" depends="create.structure" >
+	<target name="compile" depends="create.structure">
 
 		<!-- Replaces version tag in RiTa.java -->
-		<replace file="${project.dist}/${project.name}/src/rita/RiTa.java" token="##version##" value="${project.version}"/>
+		<replace file="${project.dist}/${project.name}/src/rita/RiTa.java" token="##version##" value="${project.version}" />
 
-		<javac srcdir="${project.dist}/${project.name}/src"
-		    excludes="**/test/sketches/**"
-			destdir="${dist.bin}" 
-			source="${java.target.version}" 
-			target="${java.target.version}"
-			includeantruntime="false"
-			debug="true">
+		<javac srcdir="${project.dist}/${project.name}/src" excludes="**/test/sketches/**" destdir="${dist.bin}" source="${java.target.version}" target="${java.target.version}" includeantruntime="false" debug="true">
 			<classpath refid="classpath" />
 		</javac>
 
@@ -65,7 +124,7 @@
 	<target name="make.docs" depends="compile">
 		<java classname="rita.docgen.DocGenerator" fork="true" dir="${basedir}">
 			<arg value="web/reference/" />
-			<classpath refid="doc.classpath"/>
+			<classpath refid="doc.classpath" />
 		</java>
 	</target>
 
@@ -73,25 +132,21 @@
 		<!-- dev: generates reference from current target/classes -->
 		<java classname="rita.docgen.DocGenerator" fork="true" dir="${basedir}">
 			<arg value="web/reference/" />
-			<classpath refid="quickdocs.classpath"/>
+			<classpath refid="quickdocs.classpath" />
 		</java>
 	</target>
 
 	<target name="build" depends="test, generate.jars, make.docs">
 		<copy todir="${project.dist}/${project.name}/reference">
-			<fileset dir="web/reference"/>
+			<fileset dir="web/reference" />
 		</copy>
-		<delete dir="${dist.bin}"/>
-		<antcall target="generate.zip" />
+		<delete dir="${dist.bin}" />
+		<antcall target="generate.zip" />	
 	</target>
+	
+	<target name="generate.zip" depends="include.js">
 
-	<target name="generate.zip">
-
-		<zip destfile="${project.dist}/RiTa-${project.version}.zip"
-  	       basedir="${project.dist}/"
-  	       excludes="**/.DS_Store, *.jar, *.zip"
-		/>
-		
+		<zip destfile="${project.dist}/RiTa-${project.version}.zip" basedir="${project.dist}/" excludes="**/.DS_Store, *.jar, *.zip" />
 		<!--symlink link="${project.dist}/Current" resource="${project.website}" overwrite="true"/-->
 		
 	</target>
@@ -102,24 +157,24 @@
 
 		<copy todir="${dist.bin}/rita/wordnet">
 			<fileset dir="${project.src}/rita/wordnet">
-				<include name="*.xml"/>
-				<include name="*.txt"/>
+				<include name="*.xml" />
+				<include name="*.txt" />
 			</fileset>
 		</copy>
 		<copy todir="${dist.bin}/rita">
 			<fileset dir="${project.src}/rita/">
-				<include name="*.js"/>
-				<include name="*.gif"/>
+				<include name="*.js" />
+				<include name="*.gif" />
 			</fileset>
 		</copy>
 		<copy todir="${dist.bin}">
 			<fileset dir="${project.src}">
-				<include name="*.properties"/>
+				<include name="*.properties" />
 			</fileset>
 		</copy>
 
 		<!--  YAML lib for Processing -->
-		<copy file="${project.lib}/snakeyaml-1.15.jar" tofile="${project.dist}/${project.name}/library/snakeyaml-1.15.jar"/>
+		<copy file="${project.lib}/snakeyaml-1.15.jar" tofile="${project.dist}/${project.name}/library/snakeyaml-1.15.jar" />
 
 		<!-- full lib to latest -->
 		<jar jarfile="${project.dist}/rita-${project.version}.jar" basedir="${dist.bin}">
@@ -143,15 +198,15 @@
 			<exclude name="**/test/**" />
 			<exclude name="**/docgen/**" />
 		</jar>
-		
+
 	</target>
-	
+
 	<target name="_jars.to.p5" description="">
-		
+
 		<!-- dev: copies generated jars to local processing install -->
 
 		<copy todir="${p5.libraries}/${project.name}/library">
-			<fileset dir="${project.dist}/${project.name}/library"/>
+			<fileset dir="${project.dist}/${project.name}/library" />
 		</copy>
 	</target>
 
@@ -170,23 +225,23 @@
 
 		<copy todir="${project.dist}/${project.name}/css">
 			<fileset dir="web/css/">
-				<include name="*.css"/>
+				<include name="*.css" />
 			</fileset>
 		</copy>
 
 		<copy todir="${project.dist}/${project.name}/examples">
-			<fileset refid="exampleFileSet"/>
+			<fileset refid="exampleFileSet" />
 		</copy>
 
 		<copy todir="${project.dist}/${project.name}/src">
 			<fileset dir="${project.src}">
-				<exclude name="rita/test/sketches/**"/>
-				<exclude name="**/data/**"/>
+				<exclude name="rita/test/sketches/**" />
+				<exclude name="**/data/**" />
 			</fileset>
 		</copy>
 
 		<copy todir="${dist.bin}/data">
-			<fileset dir="${project.src}/data"/>
+			<fileset dir="${project.src}/data" />
 		</copy>
 
 		<!--  antcall target="create.src.zip"/-->
@@ -195,7 +250,7 @@
 
 	<target name="clean" depends="info">
 
-		<delete dir="${project.dist}"/>
+		<delete dir="${project.dist}" />
 		<!-- delete dir="${project.docs}"/>
 		<delete dir="${project.build}"/-->
 
@@ -204,9 +259,9 @@
 	<target name="test-one" description="one" depends="info">
 
 		<junit printsummary="yes" timeout="100000" haltonfailure="yes">
-			<formatter usefile="false" type="plain"/>
+			<formatter usefile="false" type="plain" />
 			<classpath>
-				<path refid="test.classpath"/>
+				<path refid="test.classpath" />
 			</classpath>
 			<test name="rita.test.RiLexiconTest" outfile="reports/rita.test.TestOne">
 			</test>
@@ -219,22 +274,22 @@
 		<junit printsummary="yes" timeout="100000" haltonfailure="yes">
 
 			<classpath>
-				<path refid="test.classpath"/>
+				<path refid="test.classpath" />
 			</classpath>
 
-			<formatter usefile="false" type="plain"/>
+			<formatter usefile="false" type="plain" />
 
 			<test name="rita.test.RiTaEventTest" outfile="reports/rita.test.RiTaEventTest">
 			</test>
-			<test name="rita.test.RiStringTest"  outfile="reports/rita.test.RiStringTest">
+			<test name="rita.test.RiStringTest" outfile="reports/rita.test.RiStringTest">
 			</test>
-			<test name="rita.test.RiTaTest"      outfile="reports/rita.test.RiTaTest">
+			<test name="rita.test.RiTaTest" outfile="reports/rita.test.RiTaTest">
 			</test>
 			<test name="rita.test.RiLexiconTest" outfile="reports/rita.test.RiLexiconTest">
 			</test>
 			<test name="rita.test.RiGrammarTest" outfile="reports/rita.test.RiGrammarTest">
 			</test>
-			<test name="rita.test.RiMarkovTest"  outfile="reports/rita.test.RiMarkovTest">
+			<test name="rita.test.RiMarkovTest" outfile="reports/rita.test.RiMarkovTest">
 			</test>
 		</junit>
 
@@ -244,10 +299,10 @@
 
 		<junit printsummary="yes" timeout="100000" haltonfailure="yes">
 
-			<formatter usefile="false" type="plain"/>
+			<formatter usefile="false" type="plain" />
 
 			<classpath>
-				<path refid="test.classpath"/>
+				<path refid="test.classpath" />
 			</classpath>
 
 			<test name="rita.test.RiWordNetTest" outfile="reports/rita.test.RiWordNetTest">

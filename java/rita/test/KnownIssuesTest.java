@@ -44,10 +44,10 @@ public class KnownIssuesTest implements Constants
   }
   
   @Test
-  public void testLastStressedVowelSyllableToEnd() {
+  public void testLastStressedVowelPhonemeToEnd() { // @TODO: Cyrus
     RiLexicon lex = new RiLexicon();
     
-    String result = lex.lastStressedVowelSyllableToEnd("savage", false);
+    String result = lex.lastStressedVowelPhonemeToEnd("savage", false);
     equal(result, "ih-jh");
   }
 

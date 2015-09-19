@@ -745,18 +745,17 @@ public class RiLexicon implements Constants {
   }
 
   /*
-   * Check each syllable. Iff it is stressed AND it starts with a vowel, then return until end.
-   * If none is found, return last syllable 
+   * Includes the last stressed vowel and all subsequent phonemes
+   * If none is found, return null(?) 
    * 
    * TODO: Cyrus
    */
-  public String lastStressedVowelSyllableToEnd(String word, boolean useLTS) {
+  public String lastStressedVowelPhonemeToEnd(String word, boolean useLTS) {
     return "";
   }
 
   /*
    * Includes the last stressed syllable and all subsequent phonemes in the form
-   * 'syl1.ph1 syl1.ph2/syl1.ph1 syl1.ph2/'
    */
   public String lastStressedPhoneToEnd(String word, boolean useLTS) {
     boolean dbug = false;
