@@ -1,3 +1,6 @@
+1.1.11
+-------------------
+
 1.0.64
 -------------------
 Much improved tests, especially for Android
