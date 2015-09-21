@@ -43,7 +43,7 @@
 
 	</RelativeLayout>
 	```
-6. Download and drag [RiTa.jar](http://rednoise.org/rita/download/rita-latest.jar) into the libs folder of RitaExample project
+6. Download and drag [RiTa.jar](http://rednoise.org/rita/download/rita.jar) into the libs folder of RitaExample project
 
 7. When prompted select 'Copy File' then right click on it select 'Build Path' > 'Add to Build Path'
 
@@ -85,7 +85,7 @@ To install:
 
 2. In the project window 'manifests', 'java' and 'res' packges can be seen under 'app'
 
-3. Right click on 'java' and create a new package called 'libs', dragging the [rita-latest.jar](http://rednoise.org/rita/download/rita-latest.jar) inside
+3. Right click on 'java' and create a new package called 'libs', dragging the [rita-latest.jar](http://rednoise.org/rita/download/rita.jar) inside
 
 4. When prompted check 'Search for references' and select 'Unlock files'
 
