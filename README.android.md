@@ -85,7 +85,7 @@ To install:
 
 2. In the project window 'manifests', 'java' and 'res' packges can be seen under 'app'
 
-3. Right click on 'java' and create a new package called 'libs', dragging the [rita-latest.jar](http://rednoise.org/rita/download/rita.jar) inside
+3. Right click on 'java' and create a new package called 'libs', dragging the [rita.jar](http://rednoise.org/rita/download/rita.jar) inside
 
 4. When prompted check 'Search for references' and select 'Unlock files'
 
