@@ -37,7 +37,7 @@ Add your site or application content here
           <h5>Using RiTa in JavaScript</h5>
             <ul>
             <li><a href="https://www.npmjs.com/package/rita" target="_blank">In node.js (via npm)</a></li>
-            <li><a href="https://github.com/dhowe/RiTaJS#with-nodejs-and-npm" target="_blank">In node.js (via github)</a></li>
+            <li><a href="https://github.com/dhowe/RiTaJS/blob/master/README.node.md#in-nodejs" target="_blank">In node.js (via github)</a></li>
             <li><a href="https://github.com/dhowe/RiTaJS#a-simple-sketch" target="_blank">In the browser</a></li>
             <li><a href="https://github.com/dhowe/RiTaJS#with-browserify-and-npm" target="_blank">In the browser with browserify</a></li>
         <li><a href="https://github.com/dhowe/RiTaJS#with-bower" target="_blank">In the browser with bower</a></li>
