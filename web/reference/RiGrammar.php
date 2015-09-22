@@ -156,7 +156,7 @@ there must be a corresponding method in the object that gets the callback , e.g.
    ...
 }
 </pre>
-Note: this mechanism is not yet implemented in NodeJS (see <a href="https://github.com/dhowe/RiTaJS/issues/9">Issue #9</a>)...<p>
+Note: this mechanism is not yet implemented in NodeJS (see <a href="https://github.com/dhowe/RiTaJSHistory/issues/9">Issue #9</a>)...<p>
 
             </div></td>
         </tr>
