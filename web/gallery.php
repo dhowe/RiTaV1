@@ -99,8 +99,8 @@ Add your site or application content here
       </span>
   <!-- row4-->
       <span class="gallery_home_item gd-4 mgd-6 sgd-12">
-        <a href="http://www.rednoise.org/rita/sketches/spinstate/"><img src="img/spin_state2.png" width="180"></a><br>
-        <a href="http://www.rednoise.org/rita/sketches/spinstate/">SpinState</a>
+        <a href="http://www.rednoise.org/sketches/spinstate/"><img src="img/spin_state2.png" width="180"></a><br>
+        <a href="http://www.rednoise.org/sketches/spinstate/">SpinState</a>
         <p>by Michael Coppola</p>
         <p class="gallery_spacer">&nbsp;</p>
       </span>

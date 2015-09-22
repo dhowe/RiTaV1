@@ -155,8 +155,8 @@
                     <br>
                     <a href="RiString/text/index.php">text()</a>
                     <br>
-                    <a href="RiString/toCharArray/index.php">toCharArray()</a>
-                    <br>
+                    <!--a href="RiString/toCharArray/index.php">toCharArray()</a>
+                    <br-->
                     <a href="RiString/toLowerCase/index.php">toLowerCase()</a>
                     <br>
                     <a href="RiString/toUpperCase/index.php">toUpperCase()</a>
