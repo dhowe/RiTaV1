@@ -943,6 +943,23 @@ b{
     max-width:300px; 
     margin:1rem  auto 4rem;
 }
+.downloadbox a span
+{ 
+  position:absolute; 
+  width:100%;
+  max-width:300px; 
+  height:80px;
+  margin:-1rem auto 0;
+  z-index: 1;
+}
+.downloadbox.mini a span{
+    max-width:210px;
+    height:60px;
+    margin:-0.5rem auto 0;
+}
+.downloadbox.smallest a span{
+    height:40px;
+}
 .downloadbox.mini{
     margin:0 auto 1rem;
     padding:0.7rem 0.1rem;
@@ -1109,9 +1126,6 @@ span.spacing{
 .platforms{
 /*    margin:auto;
     width:500px;*/
-}
-.platform img{
-    width:60px;
 }
 .platform span{
     font-size: 60px;
@@ -1638,6 +1652,10 @@ html, body {
 .s-last {
     margin-right: 0;
 }
+.intro{
+    padding-left: 100px!important;
+    width:600px;
+}
 #vc{
     padding:0 0.5rem;
     margin:1rem;
@@ -1679,7 +1697,10 @@ span.col{
 .span11{
 width:100%!important;
 }
-
+.intro{
+    padding-left: 50px!important;
+    width:500px;
+}
 }
 
 
@@ -1699,6 +1720,10 @@ width:100%!important;
 .platforms{
     width:400px;
 }
+.intro{
+    padding-left:20px!important;
+    width:90%;
+}
 .intro .col6{
     padding:0;
     margin:0;
@@ -1706,8 +1731,11 @@ width:100%!important;
 .platform{
     padding:5px;
 }
-.platform img{
-    width:45px;
+.platform span{
+    font-size:45px;
+}
+.platform p{   
+    font-size:0.8rem;
 }
 }
 
