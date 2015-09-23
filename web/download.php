@@ -35,72 +35,98 @@
 
     <h4>RiTa library</h4>
 
-<a href="rita.zip">
+
 <div class="downloadbox">
+  <a href="rita.zip"><span></span></a>
  <b> RiTa-complete </b>
   <span>java, javascript, examples, source, etc.</span>
-</div></a>
+</div>
 
 <div class="row pad-small">
 <h4>RiTa.js<span>(js-only)</span></h4>
 
-<a href="download/rita.min.js">
+<!--
+<form action="" method="get" class="ritajsform"> 
+ <h4>Build your own</h4>
+<div class="formcontent">
+<label><input name="Fruit" type="checkbox" value="" />RiMarkov <span>(size)</span></label> 
+<label><input name="Fruit" type="checkbox" value="" />RiGrammar <span>(size)</span></label> 
+<label><input name="Fruit" type="checkbox" value="" />RiLexicon <span>(size)</span></label> 
+<label><input name="Fruit" type="checkbox" value="" />RiLetterToSound<span> (size)</span></label> 
+<label><input name="Fruit" type="checkbox" value="" /> RiText (deprecated) <span>(size)</span></label> 
+<div class="button bc">Generate</div>
+</div>
+</form> 
+-->
+
 <div class="downloadbox mini">
+  <a href="download/rita.min.js"><span></span></a>
   rita.min.js
   <span>core (no lexicon), minimized, 84k</span>
-</div></a>
+</div>
 
-<a href="download/rita.js">
+
 <div class="downloadbox mini">
+  <a href="download/rita.js"><span></span></a>
 rita.js
 <span>core (no lexicon), source, 163k</span>
- </div></a>
+ </div>
 
- <a href="download/rita-full.min.js">
+
 <div class="downloadbox mini">
+   <a href="download/rita-full.min.js"><span></span></a>
 rita-full.min.js
 <span>complete, minimized, 1.6m</span>
-</div></a>
+</div>
 
-  <a href="download/rita-full.js">
+  
 <div class="downloadbox mini">
+  <a href="download/rita-full.js"><span></span></a>
 rita-full.js
 <span>complete (w' lexicon & lts-rules) 1.8m</span>
-</div></a>
+</div>
 
 </div>
 <div class="row pad-small">
   <h4>JS-components</h4>
 
-  <a href="download/rita_dict.js">
-    <div class="downloadbox mini">rita_dict.js
+ 
+    <div class="downloadbox mini">
+       <a href="download/rita_dict.js"> <span></span></a>
+      rita_dict.js
       <span>the lexicon, 1.3m</span>
     </div>
-  </a>
+ 
 
-  <a href="http://www.rednoise.org/rita-archive/rita_lts.js">
-    <div class="downloadbox mini">rita_lts.js
+
+    <div class="downloadbox mini">
+        <a href="http://www.rednoise.org/rita-archive/rita_lts.js"> <span></span> </a>
+      rita_lts.js
     <span>letter-to-sound rules, 294k</span>
     </div>
-  </a>
 
-  <a href="http://www.rednoise.org/rita-archive/lancaster.min.js">
-    <div class="downloadbox mini">lancaster stemmer
+
+
+    <div class="downloadbox mini">
+        <a href="http://www.rednoise.org/rita-archive/lancaster.min.js"><span></span> </a>
+      lancaster stemmer
     <span>alternate stemmer, 8k</span>
     </div>
-  </a>
+ 
 
-  <a href="http://www.rednoise.org/rita-archive/ritext.min.js">
-    <div class="downloadbox mini">ritext.min.js
+ 
+    <div class="downloadbox mini">
+       <a href="http://www.rednoise.org/rita-archive/ritext.min.js"> <span></span> </a>
+      ritext.min.js
     <span>renderer, deprecated, 32k</span>
     </div>
-  </a>
+
 
 </div>
 
 <div class="row pad-small">
   <h4>RiTa.java<span>(java-jar only)</span></h4>
-  <a href="download/rita.jar"><div class="downloadbox mini">rita.jar</div></a>
+  <div class="downloadbox mini smallest"><a href="download/rita.jar"><span></span></a>rita.jar</div>
 </div>
 <div class="row pad-small">
 <hr/>

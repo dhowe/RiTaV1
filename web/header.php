@@ -15,6 +15,7 @@
       <li><a href="<?php echo $path.'/index.php'; ?>">Home</a></li>
       <li> <a href="<?php echo $path.'/download.php'; ?>">Download</a> </li>
       <li><a href="<?php echo $path.'/quickstart.php'; ?>">Quickstart</a></li>
+      <li><a href="<?php echo $path.'/tutorial/index.php'; ?>">Tutorial</a></li>
       <li><a href="<?php echo $path.'/reference/index.php'; ?>">Reference</a></li>
       <li><a href="<?php echo $path.'/gallery.php'; ?>">Gallery</a></li>
       <li><a href="mail.html" onmouseover="this.href='mai' + 'lto:' + 'rita-questions' + '@' + 'rednoise.org?subject=Re: RiTa'">Contact</a></li>
