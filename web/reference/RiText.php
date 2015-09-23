@@ -157,7 +157,7 @@ Note: First argument (pApplet) is optional in JavaScript
 			      <td>
 			      	<div class="category" style="line-height:16px; padding-top:20px;">
  	<p>
-		<a href="RiText/x/index.html">x</a>,<a href="RiText/y/index.html">y</a>,<a href="RiText/z/index.html">z</a><br>
+		<a href="RiText/x/">x</a>,<a href="RiText/y/">y</a>,<a href="RiText/z/">z</a><br>
 
 	 	<span class="empty" style="line-height:16px; visibility:hidden"><br></span>
 
@@ -175,15 +175,15 @@ Note: First argument (pApplet) is optional in JavaScript
 		<a href="RiText/concat/">concat()</a><br>
 		<a href="RiText/contains/">contains()</a><br>
 		<a href="RiText/copy/">copy()</a><br>
-		<a href="RiText/defaults.alignments/index.html">defaults.alignments</a><br>
-		<a href="RiText/defaults.fill/index.html">defaults.fill</a><br>
-		<a href="RiText/defaults.motionType/index.html">defaults.motionType</a><br>
-		<a href="RiText/defaults.rotateX/index.html">defaults.rotateX</a><br>
-		<a href="RiText/defaults.rotateY/index.html">defaults.rotateY</a><br>
-		<a href="RiText/defaults.rotateZ/index.html">defaults.rotateZ</a><br>
-		<a href="RiText/defaults.scaleX/index.html">defaults.scaleX</a><br>
-		<a href="RiText/defaults.scaleY/index.html">defaults.scaleY</a><br>
-		<a href="RiText/defaults.scaleZ/index.html">defaults.scaleZ</a><br>
+		<a href="RiText/defaults.alignments/">defaults.alignments</a><br>
+		<a href="RiText/defaults.fill/">defaults.fill</a><br>
+		<a href="RiText/defaults.motionType/">defaults.motionType</a><br>
+		<a href="RiText/defaults.rotateX/">defaults.rotateX</a><br>
+		<a href="RiText/defaults.rotateY/">defaults.rotateY</a><br>
+		<a href="RiText/defaults.rotateZ/">defaults.rotateZ</a><br>
+		<a href="RiText/defaults.scaleX/">defaults.scaleX</a><br>
+		<a href="RiText/defaults.scaleY/">defaults.scaleY</a><br>
+		<a href="RiText/defaults.scaleZ/">defaults.scaleZ</a><br>
 		<a href="RiText/distanceTo/">distanceTo()</a><br>
 		<a href="RiText/draw/">draw()</a><br>
 		<a href="RiText/endsWith/">endsWith()</a><br>
