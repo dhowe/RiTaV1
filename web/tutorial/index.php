@@ -21,7 +21,7 @@
 <div class="row">
   <div class="col1"></div>
   <div class="col10">
-     <h3 style="margin-left:-20px">Tutorial</h3>
+     <h3 style="margin-left:-20px">Tutorials</h3>
 <ul class="tutorialList">
     <li><a href="analyzingtext.php">Analyzing text</a>
     <ul>
@@ -45,7 +45,7 @@
     <li><a href="concordance.php">Concordance and Key-Word-In-Context</a></li>
 </ul>
 
-<a href="sketch.html">Kitchen Sink sketch</a>
+<!--a href="sketch.html">Kitchen Sink sketch</a-->
 
 </div>
 <div class="col1"></div>
