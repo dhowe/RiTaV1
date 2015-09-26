@@ -24,14 +24,14 @@ html, body {
     width: 100%;
     margin: 0px;
     padding: 0px;
-    overflow-x: hidden; 
+    overflow-x: hidden;
 }
 h1, h2, h3, h4, h5, p {
     margin:0;
     margin-bottom: 0.8em;
 }
 h1, h2, h3, h4, h5{
-font-family:"HelveticaNeue-Light", "Helvetica Neue Light",  "Helvetica Neue", Helvetica, Arial, sans-serif; 
+font-family:"HelveticaNeue-Light", "Helvetica Neue Light",  "Helvetica Neue", Helvetica, Arial, sans-serif;
 letter-spacing: 0.02rem;
 }
 h1 {
@@ -52,13 +52,13 @@ h5 {
     text-transform: uppercase;
 }
 p {
-    font-family: "Enriqueta", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+    font-family: "Enriqueta", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     font-size: 1rem;
     margin-bottom: 1.2rem;
     letter-spacing: 0.02rem;
 }
 p b{
-    font-family:"Helvetica Neue", Helvetica, Arial, sans-serif; 
+    font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: 500;
 }
 
@@ -66,7 +66,7 @@ p b{
 /* Dropdown Menu Code */
         .site-navigation{
             width:100%;
-            position: fixed; 
+            position: fixed;
             top: 0;
             z-index: 90;
             background: rgba(56,66,90,1);
@@ -102,16 +102,16 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#38425a', end
         * html .clearfix { height: 1%; }
         .clearfix { display: block; }
         /* close commented backslash hack */
-    
+
         nav ul,
-        nav ol, 
+        nav ol,
         nav li {
             margin: 0;
             padding-left: 0.1em;
             float: left;
             letter-spacing: 0.1em;
             font-weight: 400;
-            
+
         }
         nav a {
             display: block;
@@ -138,7 +138,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#38425a', end
             min-width:10em;
             position: absolute;
             z-index: 99;
-            display: none; 
+            display: none;
             background-color: rgb(0,0,0);
             margin-left:-3.4em;
             padding-top:0.2em;
@@ -150,7 +150,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#38425a', end
             color:white;
             font-weight: 500;
         }
-    
+
         nav>ul>li>a{
             text-transform: uppercase;
         }
@@ -158,7 +158,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#38425a', end
             width: 100%;
             text-align: left;
             font-weight:300;
-            
+
         }
         nav ul ul li a{
             padding:0.4em 0.2em 0.4em 0.2em;
@@ -207,12 +207,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#38425a', end
         font-size:20px;
         transition:color linear 0.15s;
     }
- 
+
     .toggle-nav:hover, .toggle-nav.active {
         text-decoration:none;
         color:#00a7fd;
     }
- 
+
 }
 /*
  * Remove text-shadow in selection highlight: h5bp.com/i
@@ -891,23 +891,23 @@ a{
     padding:0;
  }
  .gitwrap{
-    position: absolute; 
-    top: 0; 
-    right: 0; 
+    position: absolute;
+    top: 0;
+    right: 0;
     border: 0;
-    
+
  }
  .gitwrap a{
     padding:0!important;
  }
 /*footer*/
 .footer{
-  text-align: right;  
+  text-align: right;
 }
 
 .footer p{
     font-size: 0.875rem;
-    
+
 }
 .footercol{
     margin:1rem;
@@ -915,7 +915,7 @@ a{
     border-color:#AAAAAA;
     border-width: 2px;
     text-align: left;
-   
+
 }
 .footer h5{
     padding-top: 0.5rem;
@@ -940,14 +940,14 @@ b{
     border-color:rgba(0,0,0,0.54);
     padding:1.5rem 0.5rem;
     border-width:2px;
-    max-width:300px; 
+    max-width:300px;
     margin:1rem  auto 4rem;
 }
 .downloadbox a span
-{ 
-  position:absolute; 
+{
+  position:absolute;
   width:100%;
-  max-width:300px; 
+  max-width:300px;
   height:80px;
   margin:-1rem auto 0;
   z-index: 1;
@@ -963,7 +963,7 @@ b{
 .downloadbox.mini{
     margin:0 auto 1rem;
     padding:0.7rem 0.1rem;
-    
+
     border-width:1px;
     max-width:210px;
 }
@@ -1027,7 +1027,7 @@ b{
 }
 
 .downloadbox p{
-    font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif !important; 
+    font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif !important;
     font-size: 1.8rem;
     font-weight: 400;
 }
@@ -1040,7 +1040,7 @@ b{
   top:-0.5em;
 }
 .supText{
-    font-family: "Enriqueta", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif !important; 
+    font-family: "Enriqueta", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif !important;
     font-size: 0.875rem;
     float:right;
     color:grey;
@@ -1067,7 +1067,7 @@ b{
 #vc p{
     min-width:180px;
     letter-spacing: 0.03rem;
-     font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif !important; 
+     font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif !important;
 }
 .button:hover{
     color:#00a7fd;
@@ -1084,7 +1084,7 @@ text-decoration: none!important;}
     position:relative;
      overflow:hidden;
 }
-#bigvid { 
+#bigvid {
   position: absolute;
   width: 100%;
   height: auto;
@@ -1098,9 +1098,9 @@ text-decoration: none!important;}
   transition: 1s opacity;
 }
 
-#vc { 
-  font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
-  font-weight:300; 
+#vc {
+  font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight:300;
   color: white;
   padding: 2rem 140px;
   min-width: 200px;
@@ -1108,7 +1108,7 @@ text-decoration: none!important;}
   font-size: 1.2rem;
   position:absolute;
   bottom:2em;
- 
+
 }
 
 #vc h1 {
@@ -1137,7 +1137,7 @@ span.spacing{
     color:grey;
 }
 .intro>p{
-    font-family:"HelveticaNeue-Light", "Helvetica Neue Light","Helvetica Neue", Helvetica, Arial, sans-serif; 
+    font-family:"HelveticaNeue-Light", "Helvetica Neue Light","Helvetica Neue", Helvetica, Arial, sans-serif;
     line-height: 1.678em;
 }
 .bg2{
@@ -1176,12 +1176,12 @@ span.spacing{
 }
 
 
-.gray{      
-    -webkit-filter: grayscale(100%);    
-    -moz-filter: grayscale(100%);    
-    -ms-filter: grayscale(100%);    
-    -o-filter: grayscale(100%);         
-    filter: grayscale(100%);      
+.gray{
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    filter: grayscale(100%);
     filter: gray;
 }
 
@@ -1213,7 +1213,7 @@ text-transform: none;
     font-family: "Enriqueta";
 }
 .category b{
-    font-family:"HelveticaNeue-Light", "Helvetica Neue Light","Helvetica Neue", Helvetica, Arial, sans-serif; 
+    font-family:"HelveticaNeue-Light", "Helvetica Neue Light","Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight:bold;
 }
 .category b span{
@@ -1226,11 +1226,11 @@ table {
   border-collapse: collapse;
 }
 table strong{
-    font-family: "HelveticaNeue-Light", "Helvetica Neue Light","Helvetica Neue", Helvetica, Arial, sans-serif; 
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light","Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight:bold;
 }
 td p{
-    font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif; 
+    font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 td h3{
     text-align: left!important;
@@ -1238,7 +1238,7 @@ td h3{
 /*Tutorial*/
 .gd-section.tutorial p{
     line-height: 1.618rem;
-    font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif; 
+    font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 1rem;
     -webkit-margin-before: 1em;
     -webkit-margin-after: 1em;
@@ -1271,10 +1271,10 @@ td h3{
 .tutorial h4 span{
     padding:0 1rem;
     font-weight: 500;
-    font-family:"HelveticaNeue-Light", "Helvetica Neue Light","Helvetica Neue", Helvetica, Arial, sans-serif; 
+    font-family:"HelveticaNeue-Light", "Helvetica Neue Light","Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .tutorial h5{
-    margin-top: 3rem;
+    margin-top: 1rem;
     text-transform: none;
     font-weight: 600;
     font-size: 1.1rem;
@@ -1296,7 +1296,7 @@ td h3{
 .tutorial .example p{
     font-size:1em;
     line-height: 1.4em;
-    
+
 }
 .tutorial .example table{
     max-width: 150px;
@@ -1324,7 +1324,7 @@ span.ref{
 
 .gd-section {
    width: 100%;
-   float: left; 
+   float: left;
 }
 .gd-center {
     width: 940px;
@@ -1336,16 +1336,16 @@ span.ref{
     margin-right: -10px;
     float: left;
 }
-.col1, 
-.col2, 
-.col3, 
-.col4, 
-.col5, 
-.col6, 
-.col7, 
-.col8, 
-.col9, 
-.col10, 
+.col1,
+.col2,
+.col3,
+.col4,
+.col5,
+.col6,
+.col7,
+.col8,
+.col9,
+.col10,
 .col11,
 .col12 {
     position: relative;
@@ -1393,16 +1393,16 @@ span.ref{
 }
 
 /* The Percentage-based grid, akin to bootstrap */
-.gd-1, 
-.gd-2, 
-.gd-3, 
-.gd-4, 
-.gd-5, 
-.gd-6, 
-.gd-7, 
-.gd-8, 
-.gd-9, 
-.gd-10, 
+.gd-1,
+.gd-2,
+.gd-3,
+.gd-4,
+.gd-5,
+.gd-6,
+.gd-7,
+.gd-8,
+.gd-9,
+.gd-10,
 .gd-11,
 .gd-12 {
     position: relative;
@@ -1630,16 +1630,16 @@ html, body {
     width: 96%;
     margin: 0 2%;
 }
-.col1, 
-.col2, 
-.col3, 
-.col4, 
-.col5, 
-.col6, 
-.col7, 
-.col8, 
-.col9, 
-.col10, 
+.col1,
+.col2,
+.col3,
+.col4,
+.col5,
+.col6,
+.col7,
+.col8,
+.col9,
+.col10,
 .col11,
 .col12 {
    margin:0 20px;
@@ -1665,7 +1665,7 @@ html, body {
 
 @media only screen and (max-width: 890px) {
 
-#bigvid{ 
+#bigvid{
     height:100%!important;
     width:auto!important;
 }
@@ -1734,7 +1734,7 @@ width:100%!important;
 .platform span{
     font-size:45px;
 }
-.platform p{   
+.platform p{
     font-size:0.8rem;
 }
 }

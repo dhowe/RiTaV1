@@ -24,7 +24,7 @@
   <div class="col2"></div>
   <div class="col8">
 
-     <h4><a href="index.php"><span>Tutorial ></span></a>Using RiMarkov</h4>
+     <h4><a href="index.php"><span>Tutorial ></span></a>Generating with RiMarkov</h4>
  <h5 class="sub">Markov Chain</h5>
  <p>A Markov chain (also called an “n-gram” chain) is a system of states and transitions. An analogy might be a set of cities connected by highways, where each city is a “state”, and each highway is a “transition”, a way of getting from one city to another.
  </p>
@@ -34,7 +34,7 @@
  </p>
 <img src="../img/tutorial/markov1.png" alt="" />
  </p>
- <p>In the image above we see a simple Markov chain for the sentence: “The girl created a game after school .” We start at the beginning, “The”, and follow the arrows to get to the final node, “.” In this very simple Markov chain, each word leads to exactly one subsequent word, so there are no choices we need to make. But consider the following chain:
+ <p>In the image above we see a simple Markov chain for the sentence: “The girl created a game after school.” We can start at first word, “The”, and follow the arrows to get to the final word, “.” In this very simple Markov-chain, each word leads to exactly one subsequent word, so there are no choices we need to make. </p><p>But consider the following example:
  </p>
 <img src="../img/tutorial/markov2.png" alt="" />
  </p>
