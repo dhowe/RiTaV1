@@ -274,7 +274,8 @@ textarea {
 
 code {
     background-color: #f5f5f5;
-    padding:4px;
+    padding:4px !important;
+    margin:0;
 }
 
 /* ==========================================================================
