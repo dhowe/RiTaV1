@@ -82,8 +82,7 @@ An example, in JavaScript:
     number: RiTa.SINGULAR,
     person: RiTa.THIRD_PERSON
   };
-  var result = RiTa.conjugate("swim", args);
-              </code></pre>
+  var result = RiTa.conjugate("swim", args);</code></pre>
 
               <p>The outcome of this example will be "swam".</p>
               <div id="content" width=200 height=200></div>
@@ -117,9 +116,8 @@ An example, in JavaScript:
               </p>
               <p>
                 You can change to another algorithm like this:</p>
-              <pre><code class="language-javascript">
-  RiTa.stem("wrote","Porter");
-                </code></pre>
+
+              <pre><code class="language-javascript">RiTa.stem("wrote","Porter");</code></pre>
               <div class="ref">
                 <p> Note: see <a href="http://text-processing.com/demo/stem/">http://text-processing.com/demo/stem/</a> for comparison of Lancaster and Porter algorithms or <a href="http://mpii.de/yago-naga/javatools">http://mpii.de/yago-naga/javatools</a> for info on the PlingStemmer
                 </p>
@@ -184,10 +182,7 @@ An example, in JavaScript:
 
               <p>The default <a href="../reference/RiTa/RiTa.tokenize/index.php"><b>RiTa.tokenize</b></a> function will
                  split a line of text into words and punctuation. You can also choose to use a RegexTokenizer (with a regular expression pattern of your choice):</p>
-              <pre>
-                <code class="language-javascript">
-  RiTa.tokenize(words, regex)</code>
-              </pre>
+              <pre><code class="language-javascript">RiTa.tokenize(words, regex);</code></pre>
               <p>
                 To go in the other direction, from an array of words and punctuation to a sentence, you can use <a href="../reference/RiTa/RiTa.untokenize/index.php"><b>RiTa.untokenize()</b></a>;</p>
 </br>

@@ -34,14 +34,12 @@
               Your RiGrammar might look like this:
             </p>
 
-            <pre>
-              <code class="language-yaml">
+            <pre><code class="language-yaml">
   &lt;start&gt;: &lt;subject&gt; &lt;verb&gt; &lt;object&gt;
   &lt;subject&gt;: I | You | They
   &lt;verb&gt;: want | hate | like | love
   &lt;object&gt;: coffee | bread | milk
-</code>
-</pre>
+</code></pre>
 
             <p>One generation from this grammar would be “I hate milk”.<br>Another would be “They want bread”.</p>
             <p>The first line defines the whole structure of your grammar.
@@ -53,25 +51,21 @@
               One can adjust the weights by adding 'multipliers' as follows:
             </p>
 
-<pre>
-  <code class="language-yaml">
+<pre><code class="language-yaml">
   &lt;object&gt;: coffee[2] | bread | milk
-</code>
-</pre>
+</code></pre>
 
             <p>Then the chance of getting the word “coffee” will be twice as often as either “bread” or “milk”.</p>
             <p>You can also make the grammar more flexible by adding rules within rules:</p>
 
-<pre>
-  <code class="language-yaml">
+<pre><code class="language-yaml">
   &lt;start&gt;: &lt;subject&gt;, &lt;verb&gt;, &lt;object&gt;
   &lt;subject&gt;: I | You | They
   &lt;verb&gt;: want | hate | like | love
   &lt;object&gt;: &lt;food&gt; | &lt;animals&gt;
   &lt;food&gt;: coffee | bread | milk
   &lt;animals&gt;: cats |dogs | fish
-</code>
-</pre>
+</code></pre>
 
 
             <p>Now you might get “You love coffee” or “They want fish”.</p>

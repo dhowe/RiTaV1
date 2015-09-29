@@ -65,9 +65,7 @@
 
               <p>You can use <a href="../reference/RiTa/RiTa.getPhonemes/index.php"><b>RiTa.getPhonemes</b></a> to analyse the phonemes.</p>
 
-              <pre>
-  <code class="language-javascript">RiTa.getPhonemes("An elephant is a mammal");</code>
-              </pre>
+              <pre><code class="language-javascript">RiTa.getPhonemes("An elephant is a mammal");</code></pre>
 
               <p>It will return: 'ae-n eh-l-ax-f-ax-n-t ih-z ey m-ae-m-ax-l'.</p><br/>
               <div class="ref">
@@ -94,9 +92,7 @@
                  text and returns a new string containing the stress for each syllable of the input.
               </p>
 
-              <pre>
-  <code class="language-javascript"> RiTa.getStresses("computer"); </code>
-              </pre>
+              <pre><code class="language-javascript"> RiTa.getStresses("computer"); </code></pre>
 
 
               <p> In this case, it returns 0/1/0, with a <b>1 </b>meaning 'stressed', and <b>0 </b>means ‘unstressed’: e.g., <b>com-PUTE-er</b></p>
