@@ -1683,7 +1683,7 @@
         "type": "String",
         "desc": "the font name (optional, for 'sets' only)"
       }, {
-        "type": "int",
+        "type": "float",
         "desc": "the font size (optional, for 'sets' only)"
       }],
       "returns": [{
