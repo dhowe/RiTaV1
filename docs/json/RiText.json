@@ -1648,13 +1648,13 @@
       "name": "RiText.defaultFill",
       "example": "",
       "description": "Convenience method to set/get the default fill color",
-      "syntax": "RiText.defaultFill();<br/>RiText.defaultFill(r,g,b,a)<br>RiText.defaultFill(colorArr);",
+      "syntax": "RiText.defaultFill();<br/>RiText.defaultFill(r,g,b,a)<br>RiText.defaultFill(colorArr);<br>RiText.defaultsFill(grey)<br>RiText.defaultsFill(grey, a)",
       "parameters": [{
         "type": "float OR float[]",
-        "desc": "red component or an array of values "
+        "desc": "red component or grey value or an array of values"
       }, {
         "type": "float",
-        "desc": "green component"
+        "desc": "green component or alphs (transparency)"
       }, {
         "type": "float",
         "desc": "blue component"
