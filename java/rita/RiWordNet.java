@@ -109,12 +109,7 @@ public class RiWordNet
     this(wordnetInstallDir, null, false, false);
   }
   
-  public RiWordNet(String wordnetInstallDir, Object parent)
-  {
-    this(wordnetInstallDir, parent, false, false);
-  }
-  
-  public RiWordNet(String wordnetInstallDir, boolean ignoreCompoundWords)
+   public RiWordNet(String wordnetInstallDir, boolean ignoreCompoundWords)
   {
     this(wordnetInstallDir, null, ignoreCompoundWords, false);
   }
@@ -124,7 +119,7 @@ public class RiWordNet
     this(wordnetInstallDir, null, ignoreCompoundWords, ignoreUpperCaseWords);
   }
 
-  public RiWordNet(String wordnetInstallDir, Object parent, boolean ignoreCompoundWords, boolean ignoreUpperCaseWords)
+  protected RiWordNet(String wordnetInstallDir, Object parent, boolean ignoreCompoundWords, boolean ignoreUpperCaseWords)
   {
     this.ignoreCompoundWords = ignoreCompoundWords;
     this.ignoreUpperCaseWords = ignoreUpperCaseWords;
