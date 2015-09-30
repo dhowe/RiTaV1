@@ -73,7 +73,7 @@
 							<th scope="row">Syntax</th>
 
 							<!-- SYNTAX  -->
-							<td><pre>RiText.defaultFill();<br/>RiText.defaultFill(r,g,b,a)<br>RiText.defaultFill(colorArr);</pre></td>
+							<td><pre>RiText.defaultFill();<br/>RiText.defaultFill(r,g,b,a)<br>RiText.defaultFill(colorArr);<br>RiText.defaultsFill(grey)<br>RiText.defaultsFill(grey, a)</pre></td>
 						</tr>
 
 
@@ -84,7 +84,7 @@
 							<!-- PARAMETERS  -->
 
 							<table cellpadding="0" cellspacing="0" border="0" class="sub-table">
-								<tr class=''><th width='25%' scope='row' class=nobold>float OR float[]</th><td width='75%'>red component or an array of values </td></tr><tr class=''><th width='25%' scope='row' class=nobold>float</th><td width='75%'>green component</td></tr><tr class=''><th width='25%' scope='row' class=nobold>float</th><td width='75%'>blue component</td></tr><tr class=''><th width='25%' scope='row' class=nobold>float</th><td width='75%'>alphs (transparency)</td></tr>
+								<tr class=''><th width='25%' scope='row' class=nobold>float OR float[]</th><td width='75%'>red component or grey value or an array of values</td></tr><tr class=''><th width='25%' scope='row' class=nobold>float</th><td width='75%'>green component or alphs (transparency)</td></tr><tr class=''><th width='25%' scope='row' class=nobold>float</th><td width='75%'>blue component</td></tr><tr class=''><th width='25%' scope='row' class=nobold>float</th><td width='75%'>alphs (transparency)</td></tr>
 							</table></td>
 						</tr>
 

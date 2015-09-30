@@ -84,7 +84,7 @@
 							<!-- PARAMETERS  -->
 
 							<table cellpadding="0" cellspacing="0" border="0" class="sub-table">
-								<tr class=''><th width='25%' scope='row' class=nobold>Object</th><td width='75%'>font (optional, for 'sets' only), generally a PFont</td></tr><tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>the font name (optional, for 'sets' only)</td></tr><tr class=''><th width='25%' scope='row' class=nobold>int</th><td width='75%'>the font size (optional, for 'sets' only)</td></tr>
+								<tr class=''><th width='25%' scope='row' class=nobold>Object</th><td width='75%'>font (optional, for 'sets' only), generally a PFont</td></tr><tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>the font name (optional, for 'sets' only)</td></tr><tr class=''><th width='25%' scope='row' class=nobold>float</th><td width='75%'>the font size (optional, for 'sets' only)</td></tr>
 							</table></td>
 						</tr>
 
