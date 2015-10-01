@@ -136,6 +136,25 @@ The examples below assume the following installation structure (linux/unix/osx):
 
 			      </td>
 		        </tr>
+            
+            <tr class='Syntax'>
+							<th scope="row">Syntax</th>
+
+							<!-- SYNTAX  -->
+							<td><pre>RiWordNet(String wordnetInstallDir);<br/>RiWordNet(String wordnetInstallDir, boolean ignoreCompoundWords);<br/>RiWordNet("/path/to/WordNet3.1", boolean ignoreCompoundWords, boolean ignoreUpperCaseWords);</pre></td>
+						</tr>
+
+
+						<tr class='Parameters'>
+							<th scope="row">Parameters</th>
+							<td>
+
+							<!-- PARAMETERS  -->
+
+							<table cellpadding="0" cellspacing="0" border="0" class="sub-table">
+								<tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>path to WordNet dictionary</td></tr><tr class=''><th width='25%' scope='row' class=nobold>boolean</th><td width='75%'>false by default, ignore compound words in the dictionary (optional)</td></tr><tr class=''><th width='25%' scope='row' class=nobold>boolean</th><td width='75%'>false by default, ignore upper case words in the dictionary (optional)</td></tr>
+							</table></td>
+						</tr>
 
 			   	<tr class="">
 			      <th scope="row">Platform</th>
