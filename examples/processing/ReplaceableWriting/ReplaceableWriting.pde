@@ -15,18 +15,17 @@ void setup()
 {
   size(600, 400);   
   
-  RiText.defaultFontSize(18);
-
-  wordnet = new RiWordNet("/WordNet-3.1", true, true);
-  rts = RiText.createLines(this, text, 50, 50, 500);
+  wordnet = new RiWordNet("/WordNet-3.1", true, true);   
 
   RiTa.timer(this, 2f);
 }
 
-void draw()
-{
+void draw() {
+  fill(0);
+  textSize(16);
+  textLeading(20);
   background(250);
-  RiText.drawAll();
+  text(text, 50, 30, 500, 10000); 
 }
 
 //  replace a random word in the paragraph with one
@@ -34,15 +33,16 @@ void draw()
 void onRiTaEvent(RiTaEvent e)
 {   
   String[] words = text.split(" ");
-
+  
   // loop from a random spot
   int count = (int)random(0, words.length);
   for (int i = count; i < words.length; i++) 
   {
     // only words of 3 or more chars
-    if (words[i].length()<3) continue;
+    if (words[i].length() < 3) continue;
 
-    String pos = wordnet.getBestPos(words[i].toLowerCase());        
+    String pos = wordnet.getBestPos(words[i].toLowerCase());  
+
     if (pos != null) 
     {
       // get the synset
@@ -57,16 +57,13 @@ void onRiTaEvent(RiTaEvent e)
 
       if (Character.isUpperCase(words[i].charAt(0)))              
         newStr = RiTa.upperCaseFirst(newStr); // keep capitals
+      
+      //println("replace: "+words[i]+" -> "+newStr);
 
       // and make a substitution
       text = text.replaceAll("\\b"+words[i]+"\\b", newStr);
 
-      RiText.dispose(rts);   // clean up the old text
-
-      // create a new RiText[] from 'text' starting at (30,50)
-      rts = RiText.createLines(this, text, 50, 50, 500);      
       break;
     }
   }
 }     
-

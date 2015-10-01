@@ -1,11 +1,5 @@
 import rita.*;
 
-/*
- * Note: Java-only, requires a local WordNet installation
- * Grab one here: http://rednoise.org/rita-archive/WordNet-3.1.zip
- * install it, and update the path below 
- */
- 
 String syns="", word = "";
 RiWordNet wordnet;
 
@@ -36,7 +30,7 @@ void draw()
   text(syns, 30, 66);
 }
 
-void onRiTaEvent(RiTaEvent re) { // called every 2 sec by timer   
+void onRiTaEvent(RiTaEvent re) { // called every 2 seconds by timer   
 
   String[] tmp = {};    
   while (tmp.length < 3) {
