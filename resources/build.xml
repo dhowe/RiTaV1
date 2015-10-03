@@ -19,8 +19,8 @@ Decide publish mech.
 	<property name="project.resources" location="${basedir}/resources" />
 	<property name="project.archive" location="${basedir}/../rita-archive" />
 
-	<property name="props.src" location="${project.resources}/library.properties"/>
-	<property name="props.dst" location="${project.dist}/${project.name}/library.properties"/>
+	<property name="props.src" location="${project.resources}/library.properties" />
+	<property name="props.dst" location="${project.dist}/${project.name}/library.properties" />
 	<property name="project.examples" location="${project.web}/examples" />
 	<property name="project.reference" location="${project.web}/reference" />
 	<property name="project.download" location="${project.web}/download" />
@@ -55,30 +55,50 @@ Decide publish mech.
 	<target name="check.js">
 
 		<available file="${rita.js}" property="rita.js.present" />
-		<echo message="Checking for rita.js... ${rita.js.present}" />
+		<echo message="Checking for rita.js..." />
+		<if>
+			<isset property="rita.js.present" />
+			<then>
+				<echo>"RiTaJS found..."</echo>
+			</then>
+			<else>
+				<echo message="No RiTaJS available..." />
+			</else>
+		</if>
 	</target>
 
 	<target name="include.js" depends="check.js">
+		<if>
+			<isset property="rita.js.present" />
+			<then>
+				<echo message="Copying js files ..." />
 
-		<!-- 4 dist files (and dict) to dist for linking from web -->
-		<copy todir="${project.dist}">
-			<fileset dir="${js.dist}">
-				<include name="*.js" />
-			</fileset>
-		</copy>
-		<copy file="${js.src}/rita_dict.js" tofile="${project.dist}/rita_dict.js" />
+				<!-- 4 dist files (and dict) to dist for linking from web -->
+				<copy todir="${project.dist}">
+					<fileset dir="${js.dist}">
+						<include name="*.js" />
+					</fileset>
+				</copy>
+				<copy file="${js.src}/rita_dict.js" tofile="${project.dist}/rita_dict.js" />
 
 
-		<!-- 4 dist files to be zipped into js in complete-download -->
-		<copy todir="${dist.js}">
-			<fileset dir="${js.dist}">
-				<include name="*.js" />
-			</fileset>
-		</copy>
+				<!-- 4 dist files to be zipped into js in complete-download -->
+				<copy todir="${dist.js}">
+					<fileset dir="${js.dist}">
+						<include name="*.js" />
+					</fileset>
+				</copy>
 
-		<!-- 1 js file to be zipped into library in complete-download -->
-		<copy file="${dist.js}/rita-full.min.js" tofile="${dist.library}/rita.js" />
+				<!-- 1 js file to be zipped into library in complete-download -->
+				<copy file="${dist.js}/rita-full.min.js" tofile="${dist.library}/rita.js" />
 
+			</then>
+			
+			<else>
+				<echo message="Generating zip without .js files..." />
+			</else>
+		</if>
+		
 	</target>
 
 	<target name="build.js">
@@ -148,7 +168,7 @@ Decide publish mech.
 
 		<javac srcdir="${project.dist}/${project.name}/src" excludes="**/test/sketches/**" destdir="${dist.bin}" source="${java.target.version}" target="${java.target.version}" includeantruntime="false" debug="true">
 			<classpath refid="classpath" />
-		  <compilerarg line="-Xlint:deprecation,divzero,empty,fallthrough,finally,overrides,path" compiler="modern"/>
+			<compilerarg line="-Xlint:deprecation,divzero,empty,fallthrough,finally,overrides,path" compiler="modern" />
 		</javac>
 
 	</target>
@@ -170,9 +190,10 @@ Decide publish mech.
 
 	<target name="make.lib" depends="test, generate.jars, make.docs">
 
-		<copy todir="${project.dist}/${project.name}/reference">
+		<!-- no php reference in zip -->
+		<!--copy todir="${project.dist}/${project.name}/reference">
 			<fileset dir="${project.reference}" />
-		</copy>
+		</copy-->
 
 		<delete dir="${dist.bin}" />
 
@@ -180,9 +201,10 @@ Decide publish mech.
 	</target>
 
 	<target name="_quick.build" depends="generate.jars">
-		<copy todir="${project.dist}/${project.name}/reference">
+		<!-- no php reference in zip -->
+		<!--copy todir="${project.dist}/${project.name}/reference">
 			<fileset dir="web/reference" />
-		</copy>
+		</copy-->
 		<delete dir="${dist.bin}" />
 		<antcall target="generate.zip" />
 	</target>
@@ -197,7 +219,7 @@ Decide publish mech.
 		<delete dir="${project.dist}/${project.name}" />
 
 		<copy todir="${project.download}">
-			<fileset dir="${project.dist}" >
+			<fileset dir="${project.dist}">
 				<include name="rita*.*" />
 			</fileset>
 		</copy>
@@ -376,14 +398,26 @@ Decide publish mech.
 
 	</target>
 
-	<target name="info">
-		<echo>
+	<target name="info" depends="check.js">
+<echo>
 ${line}
-Name:		${project.name}
+Name:		    ${project.name}
 Version:		${project.version}
 Java.Version:	${java.version}
+</echo>
+		<if>
+			<isset property="rita.js.present" />
+			<then>
+<echo>JavaScript:     true
 ${line}
-		</echo>
+</echo>
+			</then>
+			<else>
+<echo>JavaScript:     false
+${line}
+</echo>			
+			</else>
+		</if>
 	</target>
 
 </project>
