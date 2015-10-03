@@ -92,10 +92,10 @@
                  text and returns a new string containing the stress for each syllable of the input.
               </p>
 
-              <pre><code class="language-javascript"> RiTa.getStresses("computer"); </code></pre>
+              <pre><code class="language-javascript">RiTa.getStresses("computer");</code></pre>
 
 
-              <p> In this case, it returns 0/1/0, with a <b>1 </b>meaning 'stressed', and <b>0 </b>means ‘unstressed’: e.g., <b>com-PUTE-er</b></p>
+              <p> In this case, it returns 0/1/0, with a <b>1 </b>meaning 'stressed', and <b>0 </b>means ‘unstressed’: e.g., com-PUTE-er</p>
             </div>
             <hr />
 
@@ -107,14 +107,16 @@
                 article, etc.
               </p>
 
-              <p>You can use <a href="https://rednoise.org/rita/reference/RiTa/RiTa.getPosTags/index.html"><b>RiTa.getPosTags</b></a> to
-                 analyze the part-of-speech (or POS) for you. The default part-of-speech tagger in RiTa uses tags from the PENN tag set:
+              <p>You can use <a href="../reference/RiTa/RiTa.getPosTags/index.php"><b>RiTa.getPosTags</b></a> to
+                 analyze the part-of-speech (or POS) for you. 
               </p>
+               <pre><code class="language-javascript">RiTa.getPosTags("I am hungry");</code></pre>
+               <p>The outcome would be: ["prp", "nn", "nn"]</p>
               <p>
-                <a href="http://www.rednoise.org/rita/reference/PennTags.html">http://www.rednoise.org/rita/reference/PennTags.html </a>
+              Here you can find <a href="../reference/PennTags.html">a reference list of PENN part-of-speech tagger in RiTa</a>.
               </p>
 
-              <p>The PENN tag set is very detailed. If you only need the very basic POS categories, you can switch to WordNet-style tags,
+              <p>By default RiTa uses the <b>PENN </b>tag set and it is very detailed. If you only need the very basic POS categories, you can switch to <b>WordNet-style</b> tags,
                  which covers just the following basic categories:
               </p>
               <div style="line-height:1.618em!important;">
@@ -133,7 +135,7 @@
 
             <div id="Tokens" class="pad-small">
               <h5 class="sub">Tokens</h5>
-              <p>Tokens are the units for text tokenization. Tokens can be words or numbers or punctuation marks. See <a href="transformation.php#Tokenizing/Untokenizing"><b>Tokenizing.</b></a></p>
+              <p>Tokens are the units for text tokenization. Tokens can be words or numbers or punctuation marks. See <a href="transform.php#Tokenizing/Untokenizing"><b>Tokenizing.</b></a></p>
             </div>
 
 

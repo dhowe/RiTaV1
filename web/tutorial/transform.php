@@ -109,15 +109,16 @@ An example, in JavaScript:
               </p>
 
               <h5><a href="../reference/RiTa/RiTa.stem/index.php">RiTa.stem</a></h5>
-              <p>In RiTa, there are three different stemming algorithm for you to choose from.
+
+
+              <pre><code class="language-javascript">RiTa.stem("write written writing");</code></pre>
+              <p>The result would be: writ writ writ.</p>
+
+                            <p>In RiTa, there are three different stemming algorithm for you to choose from.
               </p>
               <p>
                 <b>RiTa.LANCASTER</b> (the default), <b>RiTa.PORTER</b>, or <b>RiTa.PLING</b>
               </p>
-              <p>
-                You can change to another algorithm like this:</p>
-
-              <pre><code class="language-javascript">RiTa.stem("wrote","Porter");</code></pre>
               <div class="ref">
                 <p> Note: see <a href="http://text-processing.com/demo/stem/">http://text-processing.com/demo/stem/</a> for comparison of Lancaster and Porter algorithms or <a href="http://mpii.de/yago-naga/javatools">http://mpii.de/yago-naga/javatools</a> for info on the PlingStemmer
                 </p>
@@ -128,6 +129,7 @@ An example, in JavaScript:
               <h5 class="sub">Plurals/Singulars</h5>
               <p><a href="../reference/RiTa/RiTa.pluralize/index.phpreference/RiTa/RiTa.pluralize/index.php"><b>RiTa.pluralize</b></a> is a simple pluralizer for nouns according to pluralisation rules. It uses a combination of letter-based rules and a lookup
                 table of irregular exceptions.
+                <pre><code class="language-javascript">RiTa.pluralize("apple")</code></pre>
                 <div class="example">
                   <p> 'apple' -> 'apples'</br>
                   'child' -> 'children'</br>
@@ -136,7 +138,9 @@ An example, in JavaScript:
               </p>
               <br/>
               <p><a href="../reference/RiTa/RiTa.singularize/index.php"><b>RiTa.singularize</b></a> does the reverse, taking the plural form of noun and returning the singular.</p>
+              <pre><code class="language-javascript">RiTa.singularize("apples");</code></pre>
               <div class="example">
+
                 <p> 'apples' -> 'apple'</br>
                 'children' -> 'child'</br>
                 'appendices' -> 'appendix'</p>
@@ -151,7 +155,16 @@ An example, in JavaScript:
                 ...), it does not end a sentence. A period following a single capitalized letter is assumed to be a person's initial, and is not considered the end of a sentence.
               </p>
               <p><a href="../reference/RiTa/RiTa.splitSentences/index.php"><b>RiTa.splitSentences</b></a> splits 'text' into sentences according to the PENN Treebank conventions.
-                <br/><br/>
+                <pre><code class="language-javascript">RiTa.splitSentences("'What's happened to me?' he thought. It wasn't a dream. His room, a proper human room although a little too small,lay peacefully between its four familiar walls.");</code></pre>
+              <p>This will return an array of three sentences:</p>
+              <div class="example">
+               [0] 'What's happened to me?' he thought. <br />
+               [1] It wasn't a dream. <br />
+               [2] His room, a proper human room although a little too small,lay peacefully between its four familiar walls. 
+
+
+              </div>
+              <br/>
 
                 <span class="ref">See: <a href=" http://www.cis.upenn.edu/~treebank/tokenization.html">http://www.cis.upenn.edu/~treebank/tokenization.html</a>
                 </span>
@@ -171,20 +184,15 @@ An example, in JavaScript:
               </p>
 
               <p>An example of tokenizing in RiTa looks like this:</p>
-              <div class="example">
-                <p>
-                  <br/>
-                  <b>Input</b>: “I want to have a cup of coffee.”
-                  <br/>
-                  <br/> <b>Output</b>: [ 'I', 'want', 'to', 'have', 'a', 'cup', 'of', 'coffee', '.' ]
-                  <br/><br/></p>
-              </div>
+              <pre><code class="language-javascript">RiTa.tokenize("I want to have a cup of coffee.");</code></pre>
+                <p>The output will be: [ 'I', 'want', 'to', 'have', 'a', 'cup', 'of', 'coffee', '.' ]</p>
+
 
               <p>The default <a href="../reference/RiTa/RiTa.tokenize/index.php"><b>RiTa.tokenize</b></a> function will
                  split a line of text into words and punctuation. You can also choose to use a RegexTokenizer (with a regular expression pattern of your choice):</p>
               <pre><code class="language-javascript">RiTa.tokenize(words, regex);</code></pre>
               <p>
-                To go in the other direction, from an array of words and punctuation to a sentence, you can use <a href="../reference/RiTa/RiTa.untokenize/index.php"><b>RiTa.untokenize()</b></a>;</p>
+                To go in the other direction, from an array of words and punctuation to a sentence, you can use <a href="../reference/RiTa/RiTa.untokenize/index.php"><b>RiTa.untokenize</b></a>;</p>
 </br>
               <h5>Untokenizing</h5>
 
@@ -192,17 +200,16 @@ An example, in JavaScript:
 
               <p><a href="../reference/RiTa/RiTa.untokenize/index.php"><b>RiTa.untokenize</b></a> takes an array of word and punctuation and joins them together into a sentence, preserving punctuation position and adding spaces as necessary.
               </p>
-
+             
               <p>An example of untokenizing in RiTa:</p>
-              <div class="example">
+              <pre><code class="language-javascript">var wordArray={'I', 'want', 'to', 'have', 'a', 'cup', 'of', 'coffee'}
+RiTa.untokenize(wordArray);</code></pre>
+
                 <p>
-                  <br/>
-                  <b>Input</b>: [ 'I', 'want', 'to', 'have', 'a', 'cup', 'of', 'coffee', '.' ]
-                  <br/>
-                  <br/><b>Output</b>: “I want to have a cup of coffee.”
-                  <br/><br/>
+                  The output will be: "I want to have a cup of coffee”
+
                   </p>
-              </div>
+
             </div>
 
 
