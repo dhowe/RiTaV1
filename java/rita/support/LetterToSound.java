@@ -162,7 +162,7 @@ public class LetterToSound
    */
   private InputStream loadText(InputStream is) throws IOException
   {
-    // TODO: compare pref. against parsing this with a JSON parser
+    // TODO: compare perf. against parsing this with a JSON parser
     
     BufferedReader reader;
     String line;
