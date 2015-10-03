@@ -76,8 +76,10 @@ var c = RiTa.concordance("Summer is hot. It is hot today.", args);
 </p>
 <br />
 <h5>Key Word In Context</h5>
-<p>A common format for concordance is <b>KWIC(Key Word In Context)</b>.  It sorts and aligns the words in a way allowing each word to be searchable alphabetically in the index. 
-  In RiTa, we can achieve this by <a href="../reference/RiTa/RiTa.kwic/index.php"><b>RiTa.kwic</b></a> like the following code shows:</p>
+<p>A common format for concordance is <b>KWIC(Key Word In Context)</b>.  It sorts and aligns the words in a way allowing each word to be searchable alphabetically in the index. A search result of a certain keyword in KWIC format looks like this:
+</p> 
+<img src="../img/kwic.png" alt="" />
+ <p>In RiTa, we can achieve this by <a href="../reference/RiTa/RiTa.kwic/index.php"><b>RiTa.kwic</b></a> like the following code shows:</p>
 <pre><code class="language-javascript">var args = {
   ignoreCase: false,
   ignoreStopWords: true
