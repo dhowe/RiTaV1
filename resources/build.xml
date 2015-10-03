@@ -11,6 +11,9 @@ Decide publish mech.
 
 	<property file="resources/build.properties" />
 
+	<!-- the optional location of the RiTaJS project -->
+	<property name="project.js" location="${basedir}/js" />
+
 	<property name="project.src" location="${basedir}/java" />
 	<property name="project.bin" location="${basedir}/target/classes" />
 	<property name="project.dist" location="${basedir}/dist" />
@@ -46,7 +49,6 @@ Decide publish mech.
 
 	<!-- ================= optional js-stuff ================== -->
 
-	<property name="project.js" location="${basedir}/js" />
 	<property name="js.src" location="${project.js}/src" />
 	<property name="js.dist" location="${project.js}/dist" />
 	<property name="rita.js" location="${project.js}/dist/rita.js" />
@@ -188,7 +190,7 @@ Decide publish mech.
 		</java>
 	</target>
 
-	<target name="make.lib" depends="test, generate.jars, make.docs">
+	<target name="build" depends="test, generate.jars, make.docs">
 
 		<!-- no php reference in zip -->
 		<!--copy todir="${project.dist}/${project.name}/reference">
