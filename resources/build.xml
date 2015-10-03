@@ -398,14 +398,26 @@ Decide publish mech.
 
 	</target>
 
-	<target name="info">
-		<echo>
+	<target name="info" depends="check.js">
+<echo>
 ${line}
-Name:		${project.name}
+Name:		    ${project.name}
 Version:		${project.version}
 Java.Version:	${java.version}
+</echo>
+		<if>
+			<isset property="rita.js.present" />
+			<then>
+<echo>JavaScript:     true
 ${line}
-		</echo>
+</echo>
+			</then>
+			<else>
+<echo>JavaScript:     false
+${line}
+</echo>			
+			</else>
+		</if>
 	</target>
 
 </project>
