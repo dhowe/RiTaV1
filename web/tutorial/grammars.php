@@ -27,19 +27,22 @@
               <a href="index.php">
                 <span>Tutorial ></span>
               </a>Generating with RiGrammar</h4>
-            <p><a href="../reference/RiGrammar.php"><b>RiGrammar</b></a> is a probabilistic context-free grammar with literary extensions for text-generation. It enables you to generate texts according to a set of rules that you define.
+            <p><a href="../reference/RiGrammar.php"><b>RiGrammar</b></a> is a probabilistic context-free grammar with literary extensions for text-generation.
+             It enables us to generate texts according to a set of rules that we define.
             </p>
             <p>RiTa grammars are valid JSON or YAML formatted strings (or objects).</p>
-            <p>For example, if you want to generate simple sentences with a Subject-Verb-Object pattern.
-              Your RiGrammar might look like this:
+            <p>For example, if we want to generate simple sentences with a Subject-Verb-Object pattern.
+              the RiGrammar might look like this:
             </p>
 
             <pre><code class="language-yaml">
+
   &lt;start&gt;: &lt;subject&gt; &lt;verb&gt; &lt;object&gt;
   &lt;subject&gt;: I | You | They
   &lt;verb&gt;: want | hate | like | love
   &lt;object&gt;: coffee | bread | milk
-</code></pre>
+</code></pre> 
+
 
             <p>One generation from this grammar would be “I hate milk”.<br>Another would be “They want bread”.</p>
             <p>The first line defines the whole structure of your grammar.
@@ -47,18 +50,50 @@
               For each part, RiTa looks into the grammar for the corresponding rule
               and randomly chooses one string from the options listed.
             </p>
+            <p>Please notice that in a proper YAML format, the above grammar would look like this:</p>
+            <pre><code class="language-yaml">
+--- 
+  &lt;start&gt;: 
+  - &lt;subject&gt;
+  - &lt;verb&gt;
+  - &lt;object&gt;
+  &lt;subject&gt;: 
+  - I 
+  - You
+  - They
+  &lt;verb&gt;: 
+  - want 
+  - hate 
+  - like 
+  - love
+  &lt;object&gt;: 
+  - coffee 
+  - bread 
+  - milk
+</code></pre>
+                        <p>To call the grammar, you will need <a href="../reference/RiGrammar/expandFrom/index.php"><b>expandFrom()</b></a> or <a href="../reference/RiGrammar/expand/index.php"><b>expand()</b></a>. <br />
+              <a href="../reference/RiGrammar/expandFrom/index.php">expandFrom()</a> expands the grammar from the given symbol, while  <a href="../reference/RiGrammar/expand/index.php">expand()</a> is simply a convenient version of expandFrom('&lt;start&gt;');.
+            
+            </p>
+            
+            <pre><code class="language-javascript">
+  RiGrammar.expandFrom('&lt;start&gt;');</code></pre>
+
+            
             <p>A RiGrammar object will assign (by default) equal weights to all choices in a rule.
               One can adjust the weights by adding 'multipliers' as follows:
             </p>
 
 <pre><code class="language-yaml">
+
   &lt;object&gt;: coffee[2] | bread | milk
 </code></pre>
 
             <p>Then the chance of getting the word “coffee” will be twice as often as either “bread” or “milk”.</p>
-            <p>You can also make the grammar more flexible by adding rules within rules:</p>
+            <p>We can also make the grammar more flexible by adding rules within rules:</p>
 
 <pre><code class="language-yaml">
+  
   &lt;start&gt;: &lt;subject&gt;, &lt;verb&gt;, &lt;object&gt;
   &lt;subject&gt;: I | You | They
   &lt;verb&gt;: want | hate | like | love
