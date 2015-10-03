@@ -12,7 +12,7 @@ void setup()
   textAlign(CENTER);
 
   grammar = new RiGrammar(this);
-  grammar.loadFrom("../data/haiku.json");
+  grammar.loadFrom("../data/haiku.yaml");
 }
 
 void draw()
