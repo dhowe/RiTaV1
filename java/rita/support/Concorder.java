@@ -104,11 +104,18 @@ public class Concorder {
     Integer[] idxs = value.indexes.toArray(new Integer[0]);
     String[] result = new String[idxs.length];
 
+    // Now create a phrase for each index, by appending numWords to either side of the target word
     for (int i = 0; i < idxs.length; i++) {
+      
       List<String> sub = words.subList(Math.max(0, idxs[i] - numWords),
 	  Math.min(words.size(), idxs[i] + numWords + 1));
+      
+      // What to do if the word appears more than once in our sub-list? (issue #169)
+      // that is, if the next idx is less than numWords ahead...
+      
       result[i] = RiTa.untokenize(sub.toArray(new String[0]));
     }
+    
     return result;
   }
 
@@ -133,10 +140,14 @@ public class Concorder {
 	continue;
 
       Lookup lookup = lookup(word);
+      
+      // first time for this word, add it
       if (lookup == null) {
 	lookup = new Lookup(word);
 	model.put(lookup.key, lookup);
       }
+      
+      // otherwise, just add the the index
       lookup.indexes.add(j);
     }
 

@@ -7,13 +7,13 @@ import rita.RiTa;
 
 public class KWIKmodel extends PApplet {
 
-  String word = "window";
+  String word = "door";
   String display[];
   int wordCount = 4;
 
   @Override
   public void setup() {
-    size(600, 400);
+    size(600, 900);
     HashMap args = new HashMap();
     args.put("ignorePunctuation", true);
     args.put("ignoreStopWords", true);

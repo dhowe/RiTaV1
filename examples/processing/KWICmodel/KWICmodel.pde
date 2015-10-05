@@ -1,8 +1,8 @@
 import rita.*;
 
 HashMap args;
-String word = "window";
-String buttons[] = {
+String data, word = "window";
+String[] buttons = {
   "Gregor", 
   "Samsa", 
   "family", 
@@ -23,11 +23,17 @@ void setup() {
   args.put("ignoreStopWords", true);
   args.put("wordCount", 6);
 
+	data = RiTa.loadString("../data/kafka.txt", this); 
+
   updateKWIC();
 }
 
+// required for mouseClicked() to work
+void draw() {}
+
 void updateKWIC() {
-  String kwic[] = RiTa.kwic(RiTa.loadString("../data/kafka.txt", this), word, args);
+
+  String kwic[] = RiTa.kwic(data, word, args);
 
   background(255);
 
@@ -58,10 +64,6 @@ void updateKWIC() {
     textAlign(LEFT);
     text(parts[1], x + tw, y);
   }
-}
-
-// needs draw() for mouseClicked() to work
-void draw() {
 }
 
 void mouseClicked() {
