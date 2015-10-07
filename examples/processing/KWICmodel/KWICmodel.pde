@@ -1,20 +1,15 @@
 import rita.*;
 
 HashMap args;
-String data, word = "window";
-String[] buttons = {
-  "Gregor", 
-  "Samsa", 
-  "family", 
-  "being", 
-  "clerk", 
-  "room", 
-  "violin", 
-  "window"
+float buttonX = 150;
+String[] kwic, buttons = {
+  "Gregor", "Samsa",  "family",  "being", 
+  "clerk",  "room",  "violin",  "window"
 };
+String data, over, word = buttons[7];
 
 void setup() {
-  size(600, 600);
+  size(800, 500);
 
   textFont(createFont("times", 18));
 
@@ -23,27 +18,16 @@ void setup() {
   args.put("ignoreStopWords", true);
   args.put("wordCount", 6);
 
-	data = RiTa.loadString("../data/kafka.txt", this); 
-
-  updateKWIC();
+  data = RiTa.loadString("../data/kafka.txt", this);
 }
 
-// required for mouseClicked() to work
-void draw() {}
+void draw() {
 
-void updateKWIC() {
-
-  String kwic[] = RiTa.kwic(data, word, args);
+  if (kwic == null)
+    kwic = RiTa.kwic(data, word, args);
 
   background(255);
-
-  // draw buttons
-  fill(200, 0, 0);
-  float posX = 50;
-  for (int i = 0; i < buttons.length; i++) {
-    text(buttons[i], posX, 40);
-    posX += (textWidth(buttons[i]) + 15);
-  }
+  drawButtons();
 
   float tw = textWidth(word) / 2f;
 
@@ -52,6 +36,8 @@ void updateKWIC() {
     String[] parts = kwic[i].split(word);
     float x = width / 2f, y = i * 20 + 75;
 
+    if (y > height - 20) return;
+    
     fill(0);
     textAlign(RIGHT);
     text(parts[0], x - tw, y);
@@ -66,15 +52,51 @@ void updateKWIC() {
   }
 }
 
-void mouseClicked() {
+void drawButtons() {
 
-  float posX = 50;
+  float posX = buttonX, posY = 40;
   for (int i = 0; i < buttons.length; i++) {
-    if (mouseX >= posX && mouseX <= posX + textWidth(buttons[i]) && mouseY >= 20 && mouseY <= 40) {
-      word = buttons[i];
-      updateKWIC();
-      break;
-    }
-    posX += (textWidth(buttons[i]) + 15);
+    noFill();
+    boolean on = word.equals(buttons[i]);
+    float tw = textWidth(buttons[i]);
+    fill(!on && buttons[i].equals(over) ? 235 : 255);
+    rect(posX-5, 44, tw+10, -20, 7);
+    fill((on ? 255 : 0), 0, 0);
+    text(buttons[i], posX, 40);
+    posX += tw + 20;
   }
 }
+
+void mouseClicked() {
+
+  float posX = buttonX, tw;
+  for (int i = 0; i < buttons.length; i++) {
+    tw = textWidth(buttons[i]);
+    if (inside(mouseX, mouseY, posX, tw)) {
+      word = buttons[i];
+      kwic = null;
+      break;
+    }
+    posX += tw + 20;
+  }
+}
+
+void mouseMoved() {
+  over = null;
+  float posX = buttonX, tw;
+  for (int i = 0; i < buttons.length; i++) {
+    tw = textWidth(buttons[i]);
+    if (inside(mouseX, mouseY, posX, tw)) {
+      over = buttons[i];
+      break;
+    }
+    posX += tw + 20;
+  }
+  println("moved: over="+over);
+}
+
+boolean inside(float mx, float my, float posX, float tw) {
+
+  return (mx >= posX-5 && mx <= posX + tw+5 && my >= 25 && my <= 44);
+}
+ 
