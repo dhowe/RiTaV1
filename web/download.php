@@ -29,7 +29,7 @@
   <div class="col1"></div>
   <div class="col10">
 <div id="version-div" height="500">
-<a href="https://www.npmjs.com/package/rita"><img src="https://badge.fury.io/js/rita.svg" alt="npm version" height="18"></a>
+<a href="https://www.npmjs.com/package/rita"><img src="https://img.shields.io/npm/v/rita.svg" alt="npm version"></a><br>
 
 <h3>Downloads</h3>
 
@@ -46,17 +46,17 @@
 <h4>RiTa.js<span>(js-only)</span></h4>
 
 <!--
-<form action="" method="get" class="ritajsform"> 
+<form action="" method="get" class="ritajsform">
  <h4>Build your own</h4>
 <div class="formcontent">
-<label><input name="Fruit" type="checkbox" value="" />RiMarkov <span>(size)</span></label> 
-<label><input name="Fruit" type="checkbox" value="" />RiGrammar <span>(size)</span></label> 
-<label><input name="Fruit" type="checkbox" value="" />RiLexicon <span>(size)</span></label> 
-<label><input name="Fruit" type="checkbox" value="" />RiLetterToSound<span> (size)</span></label> 
-<label><input name="Fruit" type="checkbox" value="" /> RiText (deprecated) <span>(size)</span></label> 
+<label><input name="Fruit" type="checkbox" value="" />RiMarkov <span>(size)</span></label>
+<label><input name="Fruit" type="checkbox" value="" />RiGrammar <span>(size)</span></label>
+<label><input name="Fruit" type="checkbox" value="" />RiLexicon <span>(size)</span></label>
+<label><input name="Fruit" type="checkbox" value="" />RiLetterToSound<span> (size)</span></label>
+<label><input name="Fruit" type="checkbox" value="" /> RiText (deprecated) <span>(size)</span></label>
 <div class="button bc">Generate</div>
 </div>
-</form> 
+</form>
 -->
 
 <div class="downloadbox mini">
@@ -79,7 +79,7 @@ rita-full.min.js
 <span>complete, minimized, 1.6m</span>
 </div>
 
-  
+
 <div class="downloadbox mini">
   <a href="download/rita-full.js"><span></span></a>
 rita-full.js
@@ -90,13 +90,13 @@ rita-full.js
 <div class="row pad-small">
   <h4>JS-components</h4>
 
- 
+
     <div class="downloadbox mini">
        <a href="download/rita_dict.js"> <span></span></a>
       rita_dict.js
       <span>the lexicon, 1.3m</span>
     </div>
- 
+
 
 
     <div class="downloadbox mini">
@@ -112,9 +112,9 @@ rita-full.js
       lancaster stemmer
     <span>alternate stemmer, 8k</span>
     </div>
- 
 
- 
+
+
     <div class="downloadbox mini">
        <a href="http://www.rednoise.org/rita-archive/ritext.min.js"> <span></span> </a>
       ritext.min.js
