@@ -22,6 +22,18 @@ import rita.support.LetterToSound;
 public class KnownIssuesTest implements Constants
 {
   @Test
+  public void testUntokenize()
+  {
+    String input[], output, expected;
+    input = new String[] { "\"", "Oh", "God", ",", "\"", "he", "thought", "."};
+    expected = "\"Oh God,\" he thought.";
+    output = RiTa.untokenize(input);
+    //System.out.println(expected);
+    //System.out.println(output);
+    deepEqual(output, expected);
+  }
+  
+  @Test
   public void testSplitSentences()
   {
     //  Q. or A. at start of sentence 

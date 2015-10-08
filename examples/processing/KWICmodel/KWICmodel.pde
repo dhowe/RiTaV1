@@ -23,8 +23,13 @@ void setup() {
 
 void draw() {
 
-  if (kwic == null)
+  if (kwic == null) {
     kwic = RiTa.kwic(data, word, args);
+    for (int i = 0; i < kwic.length; i++) {
+      String[] parts = kwic[i].split(word);
+      println(parts[0]+"|"+word+"|"+parts[1]);
+    }
+  }
 
   background(255);
   drawButtons();
@@ -56,7 +61,7 @@ void drawButtons() {
 
   float posX = buttonX, posY = 40;
   for (int i = 0; i < buttons.length; i++) {
-    noFill();
+    stroke(200);
     boolean on = word.equals(buttons[i]);
     float tw = textWidth(buttons[i]);
     fill(!on && buttons[i].equals(over) ? 235 : 255);
@@ -92,7 +97,6 @@ void mouseMoved() {
     }
     posX += tw + 20;
   }
-  println("moved: over="+over);
 }
 
 boolean inside(float mx, float my, float posX, float tw) {

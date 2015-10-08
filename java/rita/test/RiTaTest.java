@@ -521,7 +521,7 @@ public class RiTaTest
           "The boy, dressed in red, ate an apple.",
           "Dr. Chan is talking slowly with Mr. Cheng, and they're friends.",
           "The boy screamed, 'Where is my apple?'",
-        //  "The boy screamed, \"Where is my apple?\"",
+          "The boy screamed, \"Where is my apple?\"",
       };
       
       for (int i = 0; i < testStrings.length; i++) {
@@ -588,12 +588,20 @@ public class RiTaTest
   @Test
   public void testUntokenize()
   {
+    String input[], output, expected;
+    
     equal(RiTa.untokenize(new String[0]), "");
-
-    String expected = "The boy, dressed in red -- ate an apple.";
-    String[] input = { "The", "boy", ",", "dressed", "in", "red", "--", "ate", "an",
-        "apple", "." };
-    String output = RiTa.untokenize(input);
+    
+    input = new String[] { "She", "screamed", ":", "\"", "Oh", "God", "!", "\""};
+    expected = "She screamed: \"Oh God!\"";
+    output = RiTa.untokenize(input);
+    //System.out.println(expected);
+    //System.out.println(output);
+    deepEqual(output, expected);
+    
+    expected = "The boy, dressed in red -- ate an apple.";
+    input = new String[] { "The", "boy", ",", "dressed", "in", "red", "--", "ate", "an", "apple", "." };
+    output = RiTa.untokenize(input);
     deepEqual(output, expected);
     
     expected = "The boy screamed, \"Where is my apple?\"";
@@ -606,8 +614,7 @@ public class RiTaTest
     input = new String[] { "The", "boy", "screamed", ",", "'Where", "is", "my", "apple",
         "?", "'" };
     output = RiTa.untokenize(input);
-/*    System.out.println(expected);
-    System.out.println(output);*/
+
     deepEqual(output, expected);
 
     expected = "The boy, dressed in red, ate an apple.";
