@@ -202,6 +202,8 @@ public class JSONLexicon implements Constants
       {
         builder.append(buffer, 0, read);
       }
+      isr.close();
+      is.close();
       return builder.toString();
     }
     catch (Exception e)
