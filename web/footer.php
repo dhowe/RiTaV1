@@ -39,7 +39,9 @@ Matthew Stone
 Ken Perlin<br>
 Mary Choueiter<br>
 Mini Ham<br>
-Qianxun Chen</p></span>
+Qianxun Chen<br>
+Cyrus Suen
+</p></span>
 </div>
 </div>
  </div>
