@@ -133,12 +133,12 @@ var RiLexicon = makeClass(); // stub
 RiLexicon.enabled = false;
 RiLexicon.prototype.init = function() {
     throw Error('RiLexicon is not available -- ' +
-      'if needed, make sure to include rita_lexicon.js');
+      'if needed, make sure to include rilexicon.js');
 };
 
 var RiTa = {
 
-  VERSION: '1.1.12',
+  VERSION: '1.1.13',
 
   LEXICON: null, // static RiLexicon instance
 
