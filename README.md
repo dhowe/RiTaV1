@@ -120,7 +120,7 @@ If you don't feel like coding but still want to contribute, please send a twitte
 
    b. Click the '+' button to add a buildfile, and navigate to RiTa/resources/build.xml
 
-   c. Click to expand the 'RiTa' menu and reveal the various tasks, then double-click 'build'
+   c. Click to expand the 'RiTa' menu and reveal the various tasks, then double-click 'build' (or run 'ant build' from the terminal)
 
    d. When the build is complete, project resources can be found in RiTa/dist
 
