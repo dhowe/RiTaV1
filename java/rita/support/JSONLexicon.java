@@ -153,6 +153,10 @@ public class JSONLexicon implements Constants
   public void load() 
   {
     String[] lines = loadJSON(this.dictionaryFile);
+    
+    if (lines.length < 2)
+      throw new RiTaException("Problem parsing RiLexicon data files");
+    
     lexicalData = new LinkedHashMap<String,String>(MAP_SIZE);
     
     for (int i = 1; i < lines.length-1; i++) // ignore JS prefix/suffix
@@ -184,14 +188,10 @@ public class JSONLexicon implements Constants
     // clean out the JSON formatting (TODO: optimize)
     String clean = data.replaceAll("['\\[\\]]",E).replaceAll(",","|");
     
-    // check the newline char in the string
-    String newLine = "\n";
-    if (clean.contains("\r\n"))
-      newLine = "\r\n";
+    // check the newline char used in the string (for #237)
+    String newLine = clean.contains(BRN) ? BRN : BN;
     
-    String splitter = "\\|?" + newLine;
-    
-    return clean.split(splitter);
+    return clean.split("\\|?" + newLine);
   }
   
   public static String readFile(String filename) // load file into single string

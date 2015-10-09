@@ -196,7 +196,7 @@ public interface Constants extends EnglishConstants
 
   String[] EMPTY = new String[0];
   String FS = "/", SP = " ", E = "", DQ = "\"", SQ = "'"; 
-  String BN = "\n", DASH = "-", AMP = "&", EQ="=", USC = "_";
+  String BN = "\n", BRN = "\r\n", DASH = "-", AMP = "&", EQ="=", USC = "_";
   String LP = "(", RP = ")", LB = "[", RB = "]", BS = "\\";
   
   String END_STRING = "</?string>";
