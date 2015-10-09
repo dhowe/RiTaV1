@@ -23,14 +23,9 @@ void setup() {
 
 void draw() {
 
-  if (kwic == null) {
+  if (kwic == null)
     kwic = RiTa.kwic(data, word, args);
-    for (int i = 0; i < kwic.length; i++) {
-      String[] parts = kwic[i].split(word);
-      println(parts[0]+"|"+word+"|"+parts[1]);
-    }
-  }
-
+    
   background(255);
   drawButtons();
 
