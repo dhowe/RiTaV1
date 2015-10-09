@@ -227,6 +227,8 @@ Decide publish mech.
 
 	<target name="generate.zip" depends="include.js">
 
+		<delete file="${project.web}/rita.zip" />
+
 		<zip destfile="${project.web}/RiTa-${project.version}.zip" basedir="${project.dist}" excludes="**/.DS_Store, *.jar, *.zip, *.js" />
 
 		<copy tofile="${project.archive}/RiTa-${project.version}.zip" file="${project.web}/RiTa-${project.version}.zip" overwrite="true" />
