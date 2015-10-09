@@ -138,7 +138,7 @@ RiLexicon.prototype.init = function() {
 
 var RiTa = {
 
-  VERSION: '1.1.16',
+  VERSION: '1.1.17',
 
   LEXICON: null, // static RiLexicon instance
 
