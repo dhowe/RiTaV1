@@ -106,9 +106,15 @@ Decide publish mech.
 		
 	</target>
 
-	<target name="make.js.lib">
+	<target name="build.js">
 		<antcall target="run.gulp">
 			<param name="gulp.task" value="make.lib" />
+		</antcall>
+	</target>
+	
+	<target name="npm.publish">
+		<antcall target="run.gulp">
+			<param name="gulp.task" value="npm.publish" />
 		</antcall>
 	</target>
 

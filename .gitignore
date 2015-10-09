@@ -13,3 +13,4 @@ orig*
 /dist/**
 target
 hs_err_pid*
+build.txt
