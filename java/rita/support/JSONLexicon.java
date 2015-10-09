@@ -183,7 +183,13 @@ public class JSONLexicon implements Constants
     
     // clean out the JSON formatting (TODO: optimize)
     String clean = data.replaceAll("['\\[\\]]",E).replaceAll(",","|");
-    String splitter = "\\|?" + System.getProperty("line.separator");
+    
+    // check the newline char in the string
+    String newLine = "\n";
+    if (clean.contains("\r\n"))
+      newLine = "\r\n";
+    
+    String splitter = "\\|?" + newLine;
     
     return clean.split(splitter);
   }
