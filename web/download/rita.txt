@@ -10,8 +10,8 @@ sentence=A library for experiments in natural language and generative writing (i
 
 paragraph=RiTa is a library for experiments in natural language and generative writing. Components include text-generation (via context-free grammars and Markov-chains), tagging (for syllables, phonemes, stresses, and parts-of-speech), conjugation, pluralization, stemming, letter-to-phoneme mapping, and a user-customizable lexicon. RiTa and RiTaJS (the JavaScript version) work alone or in conjunction with Processing, Node, Bower, Browserify, Android, etc. and are free, libre, and open-source (via the GPL).
 
-version=1117
+version=1118
 
-prettyVersion=1.1.17
+prettyVersion=1.1.18
 
 imports=rita
