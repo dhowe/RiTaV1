@@ -16,7 +16,7 @@
 
     function setup() {
 
-      createCanvas(600, 600);
+      createCanvas(800, 600);
       textFont('Times');
 
       input = createInput([word]);
@@ -26,7 +26,7 @@
       var button = createButton('UPDATE');
       button.position(width / 2 + 30, 15);
       button.mousePressed(newWord);
-      
+
       input.elt.focus();
       newWord();
     }
@@ -42,35 +42,35 @@
       background(250);
       fill(0);
       textSize(14);
-      text('search:', 200, 21);
+      text('search:', 290, 21);
 
       textSize(18);
-      
+
       if (kwic.length == 0) {
-        
+
         textAlign(CENTER);
         text("Word not found", width / 2, height / 2);
       }
-      
+
       else {
-        
+
         var tw = textWidth(word) / 2;
-        
+
         for (var i = 0; i < kwic.length; i++) {
-          
+
           //console.log(display[i]);
           var parts = kwic[i].split(word);
           var x = width / 2,
           y = i * 20 + 50;
-          
+
           fill(0);
           textAlign(RIGHT);
           text(parts[0], x - tw, y);
-          
+
           fill(200, 0, 0);
           textAlign(CENTER);
           text(word, x, y);
-          
+
           fill(0);
           textAlign(LEFT);
           text(parts[1], x + tw, y);
@@ -84,7 +84,7 @@
       updateKWIC();
       input.value('');
     }
-    
+
     function keyPressed() {
       if (keyCode == 13) {
         newWord();

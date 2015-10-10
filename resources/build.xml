@@ -304,7 +304,6 @@ Decide publish mech.
 
 		<!--  library.properties as rita.txt to web, dist -->
 		<copy file="${props.dst}" tofile="${project.web}/rita.txt" />
-		<!--copy file="${props.dst}" tofile="${project.dist}/RiTa/rita.txt" /-->
 
 	</target>
 

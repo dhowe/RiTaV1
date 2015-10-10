@@ -8,15 +8,12 @@
   <script>
     const LEFT = "LEFT",
       CENTER = "CENTER",
-      RIGHT = "RIGHT";
-
-    var fillColor, textAlignment = LEFT;
-    var kafkaString, $container;
-    var word = 'window',
-      kwic, opts;
-
-    const WIDTH = 600,
+      RIGHT = "RIGHT",
+      WIDTH = 800,
       HEIGHT = 600;
+
+    var fillColor, kafkaString, textAlignment = LEFT;
+    var $container, word = 'window', kwic, opts;
 
     $(document).ready(function () {
 
@@ -177,7 +174,7 @@
       font-family: serif;
       font-size: 18px;
     }
-    
+
     span {
       text-overflow: clip;
       white-space: nowrap;
@@ -200,7 +197,7 @@
       left: 305px;
       z-index: 1;
     }
-    
+
     #label {
       position: absolute;
       left: 210px;
