@@ -35,6 +35,7 @@ Decide publish mech.
 
 	<property name="p5.sketchbook" location="${user.home}/Documents/Processing" />
 	<property name="p5.libraries" location="${p5.sketchbook}/libraries/" />
+	<property name="p5.rita.jar" location="${p5.libraries}/RiTa/library/rita.jar" />
 
 	<!-- ======================================================= -->
 
@@ -67,6 +68,21 @@ Decide publish mech.
 			</then>
 			<else>
 				<echo message="No RiTaJS available..." />
+			</else>
+		</if>
+	</target>
+	
+	<target name="check.processing">
+
+		<available file="${p5.rita.jar}" property="processing.present" />
+		<echo message="Checking for processing sketchbook..." />
+		<if>
+			<isset property="processing.present" />
+			<then>
+				<echo>"Processing (with RiTa-lib) found..."</echo>
+			</then>
+			<else>
+				<echo message="No Processing (with RiTa-lib) found..." />
 			</else>
 		</if>
 	</target>
@@ -239,13 +255,13 @@ Decide publish mech.
 		
 		<delete dir="${project.dist}/${project.name}" />
 
-		<!-- copy stuff to the download dir -->
+		<!-- copy files to the web/download dir -->
 		<copy todir="${project.download}">
 			<fileset dir="${project.dist}">
 				<include name="rita*.*" />
 			</fileset>
 		</copy>
-
+		
 	</target>
 
 	<target name="generate.jars" depends="compile">
@@ -297,6 +313,9 @@ Decide publish mech.
 			<exclude name="**/docgen/**" />
 		</jar>
 
+		<!--  rita.jar to Processing libraries -->
+		<copy file="${project.dist}/rita.jar" tofile="${p5.rita.jar}" />
+		
 		<!--  library.properties for Processing -->
 		<copy file="${props.src}" tofile="${props.dst}" />
 		<replaceregexp file="${props.dst}" match="##version##" replace="${project.version}" flags="g" />

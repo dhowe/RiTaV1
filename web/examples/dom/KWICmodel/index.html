@@ -2,18 +2,14 @@
 
 <head>
   <title>KWIKmodel (dom)</title>
-  <!--script src="../../lib/rita-latest.js"></script-->
   <script src="../../lib/jquery-1.11.3.min.js"></script>
-  <script src="../../../dist/rita.js"></script>
+  <script src="../../../dist/rita.min.js"></script>
   <script>
-    const LEFT = "LEFT",
-      CENTER = "CENTER",
-      RIGHT = "RIGHT",
-      WIDTH = 800,
-      HEIGHT = 600;
+    const LEFT = "LEFT", CENTER = "CENTER", RIGHT = "RIGHT",
+      WIDTH = 800, HEIGHT = 600;
 
-    var fillColor, kafkaString, textAlignment = LEFT;
-    var $container, word = 'window', kwic, opts;
+    var fillColor, kafkaString, textAlignment = LEFT,
+      $container, word = 'window', kwic, opts;
 
     $(document).ready(function () {
 
@@ -32,10 +28,7 @@
       $("#textInput").keypress(function (e) {
 
         if (e.which == 13) // enter key code
-        {
-          buttonClicked();
-          return;
-        }
+         return buttonClicked();
       })
     }
 
@@ -43,9 +36,7 @@
 
       var $textInput = $("#textInput");
       word = $textInput.val();
-      $textInput.val("");
-      $("#textInput").attr("placeholder", word);
-
+      $("#textInput").val("").attr("placeholder", word);
       kwic = RiTa.kwic(kafkaString, word, opts);
       drawText();
     }
@@ -53,12 +44,11 @@
     function setup() {
 
       $container = $("#container");
-      $container.width(WIDTH).height(HEIGHT);
-      $container.css("background-color", "rgb(250, 250, 250)");
+      $container.width(WIDTH).height(HEIGHT)
+        .css("background-color", "rgb(250, 250, 250)");
       $("#textInput").attr("placeholder", word);
 
       opts = {
-
         ignorePunctuation: true,
         ignoreStopWords: true,
         wordCount: 6
@@ -82,16 +72,18 @@
 
         textAlign(CENTER);
         text("Word not found", WIDTH / 2, HEIGHT / 2);
+
       } else {
 
         var tw = textWidth(word) / 2;
 
         for (var i = 0; i < kwic.length; i++) {
 
-          // console.log(kwic[i]);
           var parts = kwic[i].split(word);
           var x = WIDTH / 2,
             y = i * 20 + 25;
+
+          if (y > HEIGHT - 20) return;
 
           fill(0);
           textAlign(RIGHT);
@@ -127,8 +119,8 @@
 
     function fill(a, b, c) {
 
-      if (arguments.length == 1) fillColor = toHex(a);
-      else fillColor = "rgb(" + a + "," + b + "," + c + ")";
+      fillColor = (arguments.length == 1) ? toHex(a) :
+        "rgb(" + a + "," + b + "," + c + ")";
 
       function toHex(color) {
 
@@ -146,13 +138,20 @@
 
       function convertPosition(innerX) {
 
+        // position the strings according to alignment
         if (textAlignment == LEFT) {
-          // to position strings starting with ONLY_PUNCT one char leftward
+
           var ONLY_PUNCT = /^[^0-9A-Za-z\s]/;
           var regex = new RegExp(ONLY_PUNCT);
-          if (regex.test(s)) x = innerX - textWidth(""); // textWidth("") returns with of a space char
-        } else if (textAlignment == CENTER) x = innerX - textWidth(s) / 2;
-        else if (textAlignment == RIGHT) x = innerX - textWidth(s);
+          if (regex.test(s))
+            x = innerX - textWidth("");
+        }
+        else if (textAlignment == CENTER) {
+            x = innerX - textWidth(s) / 2;
+        }
+        else if (textAlignment == RIGHT) {
+            x = innerX - textWidth(s);
+        }
       }
 
       convertPosition(x);
@@ -161,8 +160,7 @@
         html: s,
         css: {
           position: 'absolute',
-          left: x,
-          top: y,
+          left: x, top: y,
           color: fillColor
         }
       }).appendTo($container);
@@ -187,20 +185,20 @@
 
     #textInput {
       position: absolute;
-      left: 255px;
+      left: 345px;
       width: 50px;
       z-index: 1;
     }
 
     #button {
       position: absolute;
-      left: 305px;
+      left: 395px;
       z-index: 1;
     }
 
     #label {
       position: absolute;
-      left: 210px;
+      left: 300px;
       z-index: 1;
       font-size: 14px;
     }

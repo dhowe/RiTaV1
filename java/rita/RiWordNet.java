@@ -139,8 +139,8 @@ public class RiWordNet
       }
       catch (Exception e)
       {
-        throw new RiWordNetError("Unable to find WordNet at " + 
-            wordnetInstallDir+" -- have you downloaded & installed it?", e);
+        throw new RiWordNetError("Unable to find WordNet at '" + 
+            wordnetInstallDir+"' -- have you downloaded & installed it?\n", e);
       }
     }
 
@@ -2283,22 +2283,15 @@ public class RiWordNet
    */
   private void initWordNet(String confFile) throws JWNLException
   {
-    if (false) System.err.println("[INFO] Initializing WordNet: conf='" + confFile + "'");
+    //System.err.println("[INFO] Initializing WordNet: conf='" + confFile + "'");
 
-    try
-    {
-      InputStream is = WordnetUtil.getResourceStream(WordnetUtil.class, confFile);
+    InputStream is = WordnetUtil.getResourceStream(WordnetUtil.class, confFile);
 
-      if (false)
-        System.err.println("[INFO] Initializing WordNet: stream='" + is + "'");
+    //System.err.println("[INFO] Initializing WordNet: stream='" + is + "'");
 
-      JWNL.initialize(is);
-    }
-    catch (RuntimeException e)
-    {
-      System.err.println(e.getMessage());
-      throw e;
-    }
+    JWNL.initialize(is);
+    
+    //System.err.println("[INFO] Initialized *** ");
   }
 
   String[] toStrArr(List l)
@@ -3513,7 +3506,7 @@ public class RiWordNet
     String result = "No WordNet in JS";
     if (RiTa.env() == RiTa.JAVA)
     {
-      RiWordNet w = new RiWordNet("/WordNet-3.1");
+      RiWordNet w = new RiWordNet("/WordNetx-3.1");
       String[] s = w.getAllSynsets("dog", "n");
       System.out.println(Arrays.asList(s));
 //      int[] is = w.getSenseIds("dog", "n");

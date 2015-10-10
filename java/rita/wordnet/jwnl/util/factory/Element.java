@@ -37,8 +37,8 @@ public class Element {
       //Installable installable = (Installable) .newInstance();
       //installable.install(_paramMap);
     } catch (Exception ex) {
-      ex.printStackTrace();
-      //throw new JWNLException("UTILS_EXCEPTION_005", _className, ex);
+      //ex.printStackTrace();
+      throw new JWNLException("UTILS_EXCEPTION_005", _className, ex);
     }
   }
 	 

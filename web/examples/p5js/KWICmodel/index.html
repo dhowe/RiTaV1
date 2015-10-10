@@ -4,7 +4,7 @@
   <title>KWIKmodel (p5js)</title>
   <script src="../../lib/p5.min.js"></script>
   <script src="../../lib/p5.dom.js"></script>
-  <script src="../../../dist/rita.js"></script>
+  <script src="../../../dist/rita.min.js"></script>
   <script>
 
     var word = 'window',
@@ -62,6 +62,8 @@
           var parts = kwic[i].split(word);
           var x = width / 2,
           y = i * 20 + 50;
+
+          if (y > height - 20) return;
 
           fill(0);
           textAlign(RIGHT);

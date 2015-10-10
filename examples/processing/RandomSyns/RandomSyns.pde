@@ -17,7 +17,7 @@ void setup()
   textFont(createFont("Georgia", 36));
 
   // load wordnet, ignoring compound & uppercase words
-  wordnet = new RiWordNet("/WordNet-3.1", true, true);
+  wordnet = new RiWordNet("/WordNetX-3.1", true, true);
   
   RiTa.timer(this, 2.0);
 }
