@@ -54,8 +54,7 @@ Decide publish mech.
 	<property name="js.dist" location="${project.js}/dist" />
 	<property name="rita.js" location="${project.js}/dist/rita.js" />
 	<property name="path.to.gulp" value="/usr/local/bin/gulp" />
-	<property name="js.examples" location="${project.js}/examples/p5js" />
-	<property name="js.examples.dom" location="${project.js}/examples/dom" />
+	<property name="js.examples" location="${project.js}/examples" />
 
 	<target name="check.js">
 
@@ -97,6 +96,10 @@ Decide publish mech.
 				<!-- 1 js file to be zipped into library in complete-download -->
 				<copy file="${dist.js}/rita-full.min.js" tofile="${dist.library}/rita.js" />
 
+				<!-- js examples (p5js and dom) to web folder -->
+			  <copy todir="${web.examples}">
+			    <fileset dir="${js.examples}"/>
+			  </copy>
 			</then>
 			
 			<else>
@@ -176,7 +179,6 @@ Decide publish mech.
 
 	<property name="line" value="-----------------------------------------------------------------------" />
 
-
 	<target name="compile" depends="create.structure">
 
 		<!-- Replaces version tag in RiTa.java -->
@@ -217,10 +219,6 @@ Decide publish mech.
 	</target>
 
 	<target name="_quick.build" depends="generate.jars">
-		<!-- no php reference in zip -->
-		<!--copy todir="${project.dist}/${project.name}/reference">
-			<fileset dir="web/reference" />
-		</copy-->
 		<delete dir="${dist.bin}" />
 		<antcall target="generate.zip" />
 	</target>
@@ -228,14 +226,20 @@ Decide publish mech.
 	<target name="generate.zip" depends="include.js">
 
 		<delete file="${project.web}/rita.zip" />
+		<delete file="${project.web}/RiTa-${project.version}.zip" />
 
+		<!-- create the zip -->		
 		<zip destfile="${project.web}/RiTa-${project.version}.zip" basedir="${project.dist}" excludes="**/.DS_Store, *.jar, *.zip, *.js" />
 
+		<!-- save a copy in the archive -->		
 		<copy tofile="${project.archive}/RiTa-${project.version}.zip" file="${project.web}/RiTa-${project.version}.zip" overwrite="true" />
-		<move tofile="${project.web}/rita.zip" file="${project.web}/RiTa-${project.version}.zip" overwrite="true" />
-
+		
+		<!-- add a symlink to rita.zip -->
+		<symlink link="${project.web}/rita.zip" resource="${project.web}/RiTa-${project.version}.zip"/>
+		
 		<delete dir="${project.dist}/${project.name}" />
 
+		<!-- copy stuff to the download dir -->
 		<copy todir="${project.download}">
 			<fileset dir="${project.dist}">
 				<include name="rita*.*" />
@@ -298,9 +302,9 @@ Decide publish mech.
 		<replaceregexp file="${props.dst}" match="##version##" replace="${project.version}" flags="g" />
 		<replaceregexp file="${props.dst}" match="##versionnum##" replace="${project.version.num}" flags="g" />
 
-		<!--  library.properties as rita.txt to web,dist -->
+		<!--  library.properties as rita.txt to web, dist -->
 		<copy file="${props.dst}" tofile="${project.web}/rita.txt" />
-		<copy file="${props.dst}" tofile="${project.dist}/rita.txt" />
+		<!--copy file="${props.dst}" tofile="${project.dist}/RiTa/rita.txt" /-->
 
 	</target>
 

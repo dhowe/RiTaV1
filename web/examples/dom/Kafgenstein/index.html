@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Kafgenstein (dom)</title>
+  <script src="../../lib/jquery-1.11.3.min.js"></script>
+  <!--script src="../../lib/rita.min.js"></script-->
+  <script src="../../../dist/rita.js"></script>
+  <style>
+    div {
+      width: 500px;
+      height: 500px;
+      font-size: 16px;
+      background-color: rgb(250, 250, 250);
+      display: flex;
+      display: -webkit-flex;
+    }
+
+    span {
+      display: flex;
+      display: -webkit-flex;
+      justify-content: center;
+      /* align horizontal */
+      -webkit-justify-content: center;
+      align-items: center;
+      /* align vertical */
+      -webkit-align-items: center;
+      line-height: 20px;
+      width: 400px;
+      height: 400px;
+      margin: 50px;
+    }
+  </style>
+  <script>
+    var lines, markov;
+
+    $(document).ready(function () {
+      markov = new RiMarkov(4);
+
+      RiTa.loadString('../../data/kafka.txt', function (data1) {
+        RiTa.loadString('../../data/wittgenstein.txt', function (data2) {
+          markov.loadText(data1);
+          markov.loadText(data2);
+        });
+      });
+
+      $('span').text("click to (re)generate!");
+      $('div').click(generate);
+    });
+
+    function generate() {
+      if (!markov.ready()) return;
+
+      lines = markov.generateSentences(10);
+
+      $('span').text(lines.join(' '));
+      $('span').css('align-items', 'stretch');
+    }
+  </script>
+</head>
+
+<body>
+  <div>
+    <span></span>
+  </div>
+</body>
+
+</html>
