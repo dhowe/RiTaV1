@@ -505,10 +505,41 @@ var RiTa = {
         me.fireDataLoaded(url, callback, data);
       });
     }
+    //return data;
   },
 
+  _loadStringXML: function (url, callback, linebreakChars) {
+
+    var me = this, ret = [], lb = linebreakChars || SP,
+      req = new XMLHttpRequest();
+
+    req.addEventListener('error', function () {
+      console.error('[RiTa] loadString() unable to load ' + url);
+    });
+
+    req.open('GET', url, true);
+    req.onreadystatechange = function () {
+      if (req.readyState === 4) {
+        if (req.status === 200) {
+          var arr = req.responseText.match(/[^\r\n]+/g);
+          for (var k in arr) {
+            ret[k] = arr[k];
+          }
+          ret = ret.join(lb);
+          console.log("MATCH-ARRAY: "+(arr===ret));
+          me.fireDataLoaded(url, callback, ret);
+        } else {
+          console.error('[RiTa] loadString() unable to load: ' + url);
+        }
+      }
+    };
+    req.send(null);
+    return ret;
+  },
+
+
   // hack to load a text file from the DOM via an invisible iframe
-  _loadStringDOM: function(url, callback, linebreakChars) {
+  _loadStringDOM: function(url, callback, linebreakChars) { // TODO: remove?
 
     var lb = linebreakChars || SP,
       cwin, iframe, me = this;
@@ -557,6 +588,8 @@ var RiTa = {
       data = htmlDecode(data.replace(/[\r\n]+/g, lb).trim());
       me.fireDataLoaded(url, callback, data);
     };
+
+    //return data;
   },
 
   loadStrings: function(url, callback) {
@@ -568,11 +601,16 @@ var RiTa = {
   },
 
   loadString: function(url, callback, linebreakChars) {
-
+    //console.log("loadString())");
     ok(url, S);
+    /*if (hasP5) {
+      console.log("USING P5!");
+      return p5.prototype.loadStrings(url, callback);
+    }*/
     var lb = linebreakChars || SP,
       func = isNode() ? this._loadStringNode : this._loadStringDOM;
-    func.call(this, url, callback, linebreakChars); // single-url
+      //func = isNode() ? this._loadStringNode : this._loadStringXML;// use XML
+    func.call(this, url, callback, lb); // single-url
   },
 
   fireDataLoaded: function(url, callback, data) {
