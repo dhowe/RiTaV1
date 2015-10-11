@@ -1,63 +1,60 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<html>
+
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Quick Start Guides</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/main.css">
-  <script src="js/vendor/modernizr-2.6.2.min.js"></script>
-  <script language="javascript" src="js/highlight.js"></script>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Examples</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
+    <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+    <script language="javascript" src="js/highlight.js"></script>
 </head>
+
 <body>
-<!--[if lt IE 7]>
-<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-<![endif]-->
+    <?php include("header.php"); ?>
 
-<?php include("header.php"); ?>
 
-<div class="gd-section pad-top-large quickstart">
+<div class="gd-section pad-top-large">
 <div class="gd-center pad-large">
 <div class="row">
-  <div class="col1"></div>
-  <div class="col10">
-<center>
-          <h3>Examples</h3><br>
-  
-            <div style="font-size:20px">HaikuGrammar (
-            <a href="examples/p5js/HaikuGrammar">p5js</a>
-            <a href="examples/dom/HaikuGrammar">dom</a> )</div>
-
-            <div style="font-size:20px">KafgensteinMarkov (
-            <a href="examples/p5js/Kafgenstein">p5js</a>
-            <a href="examples/dom/Kafgenstein">dom</a> )</div>
-
-            <div style="font-size:20px">KWICmodel (
-            <a href="examples/p5js/KWICmodel">p5js</a>
-            <a href="examples/dom/KWICmodel">dom</a> )</div>
-</center>
-<br>&nbsp;
-<br>&nbsp;
-<br>&nbsp;
-<br>&nbsp;
-<br>&nbsp;
-<br>&nbsp;
-<br>&nbsp;
-<br>&nbsp;
-
-  </div>
-  <div class="col1"></div>
+    <div class="col1"></div>
+    <div class="col10">
+     <h3 style="margin-left:-20px">Examples</h3>
+     <div class="examples">
+          <div class="exampleitem gd-4  mgd-6 sgd-12">
+     <p>HaikuGrammar</p>
+     <img src="img/sshaiku.png" alt="">
+     <p>
+        <a href="examples/p5js/HaikuGrammar">p5js</a> <a href="examples/p5js/HaikuGrammar/code.js">(source)</a><br>
+        <a href="examples/dom/HaikuGrammar">dom </a> <a href="examples/dom/HaikuGrammar/code.js">(source)</a> 
+     </p>
+</div>
+   <div class="exampleitem gd-4  mgd-6 sgd-12">
+            <p>KafgensteinMarkov </p>
+            <img src="img/sskafgenstein.png" alt="">
+          <p>  <a href="examples/p5js/Kafgenstein">p5js</a> <a href="examples/p5js/Kafgenstein/code.js">(source)</a><br>
+            <a href="examples/dom/Kafgenstein">dom </a> <a href="examples/dom/Kafgenstein/code.js">(source)</a></p>
+ </div>
+   <div class="exampleitem gd-4  mgd-6 sgd-12">
+            <p>KWICmodel </p>
+             <img src="img/sskwic.png" alt="">
+           <p> <a href="examples/p5js/KWICmodel">p5js</a> <a href="examples/p5js/KWICmodel/code.js">(source)</a><br>
+            <a href="examples/dom/KWICmodel">dom </a> <a href="examples/dom/KWICmodel/code.js">(source)</a></p>
 </div>
 </div>
 </div>
+<div class="col1"></div>
 
-<?php include("footer.php"); ?>
+ </div>
+
+</div>
+</div>
+   <?php include("footer.php"); ?>
+
+<!--
+End Site Content
+-->
 
 </body>
 </html>
