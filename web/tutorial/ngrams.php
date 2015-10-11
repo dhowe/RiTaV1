@@ -41,58 +41,61 @@
  <p>Again, we start from the left, at “The”, but after we get to “girl”, we have two choices about where to go next. Depending on which transition we take, we will end up with one of two different sentences.
 Here the probability of each sentence is 0.5.
 <br />
-The same idea can be further extended to a sequence of syllables, letters,words or sentences.</p>
+The same idea can be further extended to a sequence of syllables, letters, words or sentences.</p>
 <p>
 Now let’s change the sentences a little bit to make it more interesting:</p>
 <div class="example">The girl went to a game after dinner. <br /> The teacher went to dinner with a girl.</div>
 
- <p>The word “went” can occurs after “girl” or “teacher”, and what comes next after “girl” can be “.” or “went”. This contiguous sequence of N elements is <b>n-grammar</b>. <br />The minimum value of n in Markov chain is 2, so that we are at least able to create a chain. If we try to build a markov model for the above two sentences with an n of 2, the out come model would be something like this:
+ <p><br>The word “went” can occur after “girl” or “teacher”, and what comes next after “girl” can be “.” or “went”. This contiguous sequence of <em>n</em> elements is am <b>n-gram</b>. <br/>The minimum value of <em>n</em> in a Markov chain is 2, so that we are at least able to create a chain. If we try to build a Markov model for the above two sentences with  <em>n</em>=2, the outcome would be something like this:
 </p>
 <pre>
-The     —>  girl / teacher
-girl    —>  went / .
-went    —>  to
-to      —>  a / dinner
-a       —>  game / girl
-game    —>  after
-after   —>  dinner
-dinner  —>  ./with
-.       —>  The
-teacher —>  went
-with    —>  a</pre>
+      The     —>  girl / teacher
+      girl    —>  went / .
+      went    —>  to
+      to      —>  a / dinner
+      a       —>  game / girl
+      game    —>  after
+      after   —>  dinner
+      dinner  —>  ./with
+      .       —>  The
+      teacher —>  went
+      with    —>  a</pre>
 
-<p>Imagine this to be an action guide for the computer to generate sentences out of it. The computer would first start with “The”. Let’s say it chooses the word “girl”, after that it will check the action guide
- (the possible following words) for the word “girl” to generate the next word and keep doing this until it comes to an “.”
+<p>Imagine this to be an action guide from which the computer will attempt to generate sentences. The computer starts with the word “The”. Next it checks the action guide for words that follow “The”, and finds two choices: “girl” and “teacher”. Next the computer checks for words that follow “girl”, and finds two choices: “went” and “.”. And so on...
   </p><p>
- If we have a longer text sample for the markov-chain to analysis,the markov chain could produce much meaningful text with an n 
- that is larger.
+With a longer text sample we could experiment with different <em>n</em>-values. The higher the <em>n</em>-value, the more similar the output will be to the input text. Often the easiest way to find the best value for <em>n</em> is just to experiment...
 </p>
 
- <p> Here is <a href="https://github.com/dhowe/RiTaJS/blob/master/examples/p5js/Kafgenstein/index.html">a text generating example</a> with markov chain.
+ <p> Here is <a href="https://github.com/dhowe/RiTaJS/blob/master/examples/p5js/Kafgenstein/index.html">a text-generation example</a> with RiTa Markov-chains.
 </p>
 
 <br />
 <h5><a href="../reference/RiMarkov.php"><b>RiMarkov</b></a></h5>
 <p>In RiTa, to generate a piece of text with Markov Chain needs tree simple steps.
 </p>
-<p>First, construct a Markov-chain and set its n-factor, how many elements you want to consider as one state.Let’s take 4.
+<p>First, construct a Markov-chain and set its n-factor (the # of elements to consider as one state). Let’s start with 4...
 </p>
 <pre><code class="language-javascript">var rm = new RiMarkov(4);</code></pre>
-<p>Second, provide a source of text for the Markov-chain to analyse. There are three functions to achieve this: loadFrom(),loadText() and loadTokens(). Here we are going to use loadText().
+<p><br>Second, provide sometext for the Markov-chain to analyse. There are three functions to achieve this: <em>loadFrom()</em>,  <em>loadText()</em> and  <em>loadTokens()</em>. Let's start with <em>loadText()</em>.
 </p>
 <pre><code class="language-javascript">var rm = new RiMarkov(4);
 rm.loadText("The girl went to a game after dinner. The teacher went to dinner with a girl.");
 </code></pre>
-<p>Third, generate an outcome according to the Markov model. You can either use generateSentences() ,generateTokens() or generateUntil() to achieve different result.
+<p><br>Third, generate an outcome according to the Markov model. You can either use generateSentences() ,generateTokens() or generateUntil() to achieve different result.
 </p>
 <pre><code class="language-javascript">var rm = new RiMarkov(4);
 rm.loadText("The girl went to a game after dinner. The teacher went to dinner with a girl.");
 var sentences = rm.generateSentences(2);
 </code></pre>
-<p>A possible generation would be: </p>
+<p><br>With this setup, one possible generation would be: </p>
 <div class="example">
   The teacher went to dinner. <br />The girl went to dinner with a game after dinner.
 </div>
+<p>
+<br>
+</p>
+<p>To get a better sense of how it all works, check out <a href="../examples/p5js/Kafgenstein/index.html">this example sketch</a> using RiTa Markov chains...</p>
+
 </div>
 <div class="col2"></div>
 </div>

@@ -1,4 +1,4 @@
-var word = 'window', data, kwic, input;
+var word = 'window', data, kwic, input, ypos = 25;
 
 function preload() {
 
@@ -12,10 +12,10 @@ function setup() {
 
   input = createInput([word]);
   input.size(70);
-  input.position(width / 2 - 50, 15);
+  input.position(width / 2 - 50, ypos);
 
   var button = createButton('UPDATE');
-  button.position(width / 2 + 30, 15);
+  button.position(width / 2 + 30, ypos+2);
   button.mousePressed(newWord);
 
   input.elt.focus();
@@ -33,7 +33,7 @@ function updateKWIC() {
   background(250);
   fill(0);
   textSize(14);
-  text('search:', 290, 21);
+  text('search:', 290, ypos-3);
 
   textSize(18);
 

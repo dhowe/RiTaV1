@@ -71,10 +71,9 @@ function drawText() {
     for (var i = 0; i < kwic.length; i++) {
 
       var parts = kwic[i].split(word);
-      var x = WIDTH / 2,
-        y = i * 20 + 25;
+      var x = WIDTH / 2, y = i * 20 + 40;
 
-      if (y > HEIGHT - 20) return;
+      if (y > HEIGHT - 30) return;
 
       fill(0);
       textAlign(RIGHT);

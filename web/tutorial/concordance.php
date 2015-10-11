@@ -26,9 +26,9 @@
 
      <h4><a href="index.php"><span>Tutorial ></span></a>Concordance and Key-Word-In-Context</h4>
  <p>In publishing a concordance is an alphabetical list of the principal words used in a book or body of work, listing every instance of each word with its immediate context.
-  [<a href="https://en.wikipedia.org/wiki/Concordance_%28publishing%29">source</a>] In the precomputing era, when search was unavailable, a concordance offered readers a easy way to search results for every word they might want to look up .</p> 
+  [<a href="https://en.wikipedia.org/wiki/Concordance_%28publishing%29">source</a>] In the precomputing era, when search was unavailable, a concordance offered readers a easy way to search results for every word they might want to look up .</p>
 
-<p>In programming, when we mention concordance, it means  an object that stores all the words and the corresponding counts 
+<p>In programming, when we mention concordance, it means  an object that stores all the words and the corresponding counts
 from a given text. For Example, if my text is :</p>
 
 </p>
@@ -77,7 +77,7 @@ var c = RiTa.concordance("Summer is hot. It is hot today.", args);
 <br />
 <h5>Key Word In Context</h5>
 <p>A common format for concordance is <b>KWIC(Key Word In Context)</b>.  It sorts and aligns the words in a way allowing each word to be searchable alphabetically in the index. A search result of a certain keyword in KWIC format looks like this:
-</p> 
+</p>
 <img src="../img/kwic.png" alt="" />
  <p>In RiTa, we can achieve this by <a href="../reference/RiTa/RiTa.kwic/index.php"><b>RiTa.kwic</b></a> like the following code shows:</p>
 <pre><code class="language-javascript">var args = {
@@ -88,7 +88,7 @@ var c = RiTa.concordance("Summer is hot. It is hot today.", args);
 var lines = RiTa.kwic(text,keyword, args);
 </code></pre>
 
-<p>Here is <a href="https://github.com/dhowe/RiTaJS/blob/master/examples/p5js/KWICmodel/index.html">an example of using RiTa.kwic</a></p>
+<p>Here is <a href="../examples/p5js/KWICmodel/index.html">an example of using RiTa.kwic</a></p>
 </div>
 </div>
 <div class="col2"></div>
