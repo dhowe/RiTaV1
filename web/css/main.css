@@ -1237,6 +1237,14 @@ td p{
 td h3{
     text-align: left!important;
 }
+/*Examples page*/
+.examples img{
+    width:150px;
+    height:150px;
+}
+.examples .exampleitem{
+    text-align: center;
+}
 /*Tutorial*/
 .gd-section.tutorial p{
     line-height: 1.618rem;
