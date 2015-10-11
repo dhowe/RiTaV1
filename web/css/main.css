@@ -1241,6 +1241,7 @@ td h3{
 .examples img{
     width:150px;
     height:150px;
+    border: 1px solid #eee;
 }
 .examples .exampleitem{
     text-align: center;
