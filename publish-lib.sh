@@ -5,13 +5,16 @@
 
 set -e
 
-if [ $# == 0 ]
-then
+if [ $# = 0 ]; then
   echo
-  echo "publish RiTa resources to npm and rednoise"
+  echo "build then publish RiTa resources to github, npm, rednoise"
   echo
   echo "usage: publish-lib.sh [tag] (-w)"
   exit
+else
+  VERSION=$1
+  echo
+  echo "Version: $VERSION"
 fi
 
 WEB_ONLY=0
@@ -19,10 +22,14 @@ WEB_ONLY=0
 while [ $# -ge 1 ]; do
     #echo arg: $1
     case $1 in
-        -w) WEB_ONLY=1  ;;
+        -w) 
+          WEB_ONLY=1  
+          echo "Web-only: true"
+          ;;
     esac
     shift
 done
+echo
 
 ant -f resources/build.xml build.js
 ant -f resources/build.xml build
