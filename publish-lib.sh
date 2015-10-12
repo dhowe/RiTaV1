@@ -5,18 +5,9 @@
 
 set -e
 
-if [ $# = 0 ]; then
-  echo
-  echo "build then publish RiTa resources to github, npm, rednoise"
-  echo
-  echo "usage: publish-lib.sh [tag] (-w)"
-  exit
-else
-  VERSION=$1
-  echo
-  echo "Version: $VERSION"
-fi
-
+BUILDPROPS=resources/build.properties
+VERSION=`sed -n 's/^project.version=\(.*\)$/\1/p' $BUILDPROPS`
+echo "Version: $VERSION"
 WEB_ONLY=0
 
 while [ $# -ge 1 ]; do
@@ -45,4 +36,4 @@ else
     cd js && ~/bin/git-tag.sh ${VERSION} && cd ..
     ant -f resources/build.xml npm.publish
 fi
-ssh $RED "cd ~/git/RiTa && git pull"  # update server
+ssh $RED "cd ~/git/RiTa && git pull && ln -fs RiTa-${VERSION}.zip rita.zip && ls -l rita.zip"  # update server
