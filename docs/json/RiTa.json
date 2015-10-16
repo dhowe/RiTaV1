@@ -608,7 +608,7 @@
     "note": ""
   }, {
     "name": "RiTa.singularize",
-    "example": "",
+    "example": "// Java<br><br>String singularized = RiTa.singularize(\"dogs\");<br><br>// Javascript<br><br>var singularized = RiTa.singularize(\"dogs\");",
     "description": "Singularize a word according to singularization rules",
     "syntax": "RiTa.singularize(word);",
     "parameters": [{
