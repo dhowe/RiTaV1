@@ -235,7 +235,7 @@
 
   }, {
     "name": "RiTa.tokenize",
-    "example": "",
+    "example": "// Java<br><br>String sentence = \"The doctors treated dogs\";<br>String[] tokenized = RiTa.tokenize(sentence);<br><br>// Javascript<br><br>var sentence = \"The doctors treated dogs\";<br>var tokenized = RiTa.tokenize(sentence);",
     "description": "Tokenizes the string (into words) according to Penn Treebank conventions<br/>See: <a href='http://www.cis.upenn.edu/~treebank/tokenization.html'>http://www.cis.upenn.edu/~treebank/tokenization.html</a>",
     "syntax": "RiTa.tokenize(text);<br/>RiTa.tokenize(text, regex);",
     "parameters": [{
