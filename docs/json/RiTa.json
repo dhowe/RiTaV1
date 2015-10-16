@@ -592,7 +592,7 @@
     "note": ""
   }, {
     "name": "RiTa.pluralize",
-    "example": "",
+    "example": "// Java<br><br>String pluralized = RiTa.pluralize(\"dog\");<br><br>// Javascript<br><br>var pluralized = RiTa.pluralize(\"dog\");",
     "description": "Pluralizes a noun according to pluralization rules",
     "syntax": "RiTa.pluralize(word);",
     "parameters": [{
