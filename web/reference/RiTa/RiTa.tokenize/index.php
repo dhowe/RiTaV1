@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">// Java<br><br>String sentence = "The doctors treated dogs";<br>String[] tokenized = RiTa.tokenize(sentence);<br><br>// Javascript<br><br>var sentence = "The doctors treated dogs";<br>var tokenized = RiTa.tokenize(sentence);</pre>
+								<pre class="margin">// Java<br><br>String sentence = "The doctors treated dogs";<br>String[] tokenized = RiTa.tokenize(sentence);<br>String[] tokenized = RiTa.tokenize(sentence, "\\s");<br><br>// Javascript<br><br>var sentence = "The doctors treated dogs";<br>var tokenized = RiTa.tokenize(sentence);<br>var tokenized = RiTa.tokenize(sentence, /\s/);</pre>
 							</div></td>
 						</tr>
 

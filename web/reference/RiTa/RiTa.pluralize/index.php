@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">// Java<br><br>String pluralized = RiTa.pluralize("dog");<br><br>// Javascript<br><br>var pluralized = RiTa.pluralize("dog");</pre>
+								<pre class="margin">// Java<br><br>String pluralized = RiTa.pluralize("dog");<br>pluralized = RiTa.pluralize("mouse");<br><br>// Javascript<br><br>var pluralized = RiTa.pluralize("dog");<br>pluralized = RiTa.pluralize("mouse");</pre>
 							</div></td>
 						</tr>
 

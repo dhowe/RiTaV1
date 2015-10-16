@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">// Java<br><br>String singularized = RiTa.singularize("dogs");<br><br>// Javascript<br><br>var singularized = RiTa.singularize("dogs");</pre>
+								<pre class="margin">// Java<br><br>String singularized = RiTa.singularize("dogs");<br>singularized = RiTa.singularize("mice");<br><br>// Javascript<br><br>var singularized = RiTa.singularize("dogs");<br>singularized = RiTa.singularize("mice");</pre>
 							</div></td>
 						</tr>
 
