@@ -73,7 +73,7 @@
 							<th scope="row">Syntax</th>
 
 							<!-- SYNTAX  -->
-							<td><pre>RiTa.getPosTags(word);<br/>RiTa.getPosTags(wordArr);<br/>RiTa.getPosTags(word, true);<br/>RiTa.getPosTags(wordArr, true);</pre></td>
+							<td><pre>RiTa.getPosTags(word);<br/>RiTa.getPosTags(wordArr);<br/>RiTa.getPosTags(word, bool);<br/>RiTa.getPosTags(wordArr, bool);</pre></td>
 						</tr>
 
 

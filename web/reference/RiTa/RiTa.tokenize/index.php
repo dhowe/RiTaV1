@@ -66,7 +66,7 @@
 							<th scope="row">Description</th>
 
 							<!-- DESCRIPTION  -->
-							<td>Tokenizes the string (into words) according to Penn Treebank conventions<br/>See: <a href='http://www.cis.upenn.edu/~treebank/tokenization.html'>http://www.cis.upenn.edu/~treebank/tokenization.html</a></td>
+							<td>Tokenizes a string (into words) according to Penn Treebank conventions<br/>See: <a href='http://www.cis.upenn.edu/~treebank/tokenization.html'>http://www.cis.upenn.edu/~treebank/tokenization.html</a></td>
 						</tr>
 
 						<tr class='Syntax'>
@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">// Java<br><br>String sentence = "The doctors treated dogs";<br>String[] tokenized = RiTa.tokenize(sentence);<br>String[] tokenized = RiTa.tokenize(sentence, "\\s");<br><br>// Javascript<br><br>var sentence = "The doctors treated dogs";<br>var tokenized = RiTa.tokenize(sentence);<br>var tokenized = RiTa.tokenize(sentence, /\s/);</pre>
+								<pre class="margin"><br>sentence = "The doctors treated dogs";<br>wordArray = RiTa.tokenize(sentence);<br>wordArray = RiTa.tokenize(sentence, "\\s");<br></pre>
 							</div></td>
 						</tr>
 

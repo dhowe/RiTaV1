@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">// Java<br><br>String sentence = "The doctors treated dogs";<br>String posTags = RiTa.getPosTagsInline(sentence);<br><br>String[] tokenized = RiTa.tokenize(sentence);<br>posTags = RiTa.getPosTagsInline(sentence);<br><br>// Javascript<br><br>var sentence = "The doctors treated dogs";<br>var posTags = RiTa.getPosTagsInline(sentence);<br><br>var tokenized = RiTa.tokenize(sentence);<br>posTags = RiTa.getPosTagsInline(sentence);</pre>
+								<pre class="margin"><br>sentence = "The doctors treated dogs";<br>posTags = RiTa.getPosTagsInline(sentence);<br><br>tokenArray = RiTa.tokenize(sentence);<br>posTags = RiTa.getPosTagsInline(tokenArray);<br><br></pre>
 							</div></td>
 						</tr>
 
