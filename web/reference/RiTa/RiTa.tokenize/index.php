@@ -113,14 +113,14 @@
 							<td>tmp_note</td>
 						</tr>
 
-						<tr class='Example' style='display:none'>
+						<tr class='Example'>
 							<th scope='row'>Example</th>
 							<td>
 							<div class="example">
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">tmp_example</pre>
+								<pre class="margin">// Java<br><br>String sentence = "The doctors treated dogs";<br>String[] tokenized = RiTa.tokenize(sentence);<br>String[] tokenized = RiTa.tokenize(sentence, "\\s");<br><br>// Javascript<br><br>var sentence = "The doctors treated dogs";<br>var tokenized = RiTa.tokenize(sentence);<br>var tokenized = RiTa.tokenize(sentence, /\s/);</pre>
 							</div></td>
 						</tr>
 

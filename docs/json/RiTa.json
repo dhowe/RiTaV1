@@ -235,7 +235,7 @@
 
   }, {
     "name": "RiTa.tokenize",
-    "example": "",
+    "example": "// Java<br><br>String sentence = \"The doctors treated dogs\";<br>String[] tokenized = RiTa.tokenize(sentence);<br>String[] tokenized = RiTa.tokenize(sentence, \"\\\\\\\\s\");<br><br>// Javascript<br><br>var sentence = \"The doctors treated dogs\";<br>var tokenized = RiTa.tokenize(sentence);<br>var tokenized = RiTa.tokenize(sentence, /\\\\s/);",
     "description": "Tokenizes the string (into words) according to Penn Treebank conventions<br/>See: <a href='http://www.cis.upenn.edu/~treebank/tokenization.html'>http://www.cis.upenn.edu/~treebank/tokenization.html</a>",
     "syntax": "RiTa.tokenize(text);<br/>RiTa.tokenize(text, regex);",
     "parameters": [{
@@ -369,7 +369,7 @@
 
   }, {
     "name": "RiTa.getPosTagsInline",
-    "example": "",
+    "example": "// Java<br><br>String sentence = \"The doctors treated dogs\";<br>String posTags = RiTa.getPosTagsInline(sentence);<br><br>String[] tokenized = RiTa.tokenize(sentence);<br>posTags = RiTa.getPosTagsInline(sentence);<br><br>// Javascript<br><br>var sentence = \"The doctors treated dogs\";<br>var posTags = RiTa.getPosTagsInline(sentence);<br><br>var tokenized = RiTa.tokenize(sentence);<br>posTags = RiTa.getPosTagsInline(sentence);",
     "description": "Takes an string returns a combined string of the form:<p><pre>'The/dt doctor/nn treated/vbd dogs/nns'</pre>, using lowercased tags from the <a href='../../PennTags.html'>PENN tag set</a>",
     "syntax": "RiTa.getPosTagsInline(word);",
     "parameters": [{
@@ -592,7 +592,7 @@
     "note": ""
   }, {
     "name": "RiTa.pluralize",
-    "example": "",
+    "example": "// Java<br><br>String pluralized = RiTa.pluralize(\"dog\");<br>pluralized = RiTa.pluralize(\"mouse\");<br><br>// Javascript<br><br>var pluralized = RiTa.pluralize(\"dog\");<br>pluralized = RiTa.pluralize(\"mouse\");",
     "description": "Pluralizes a noun according to pluralization rules",
     "syntax": "RiTa.pluralize(word);",
     "parameters": [{
@@ -608,7 +608,7 @@
     "note": ""
   }, {
     "name": "RiTa.singularize",
-    "example": "",
+    "example": "// Java<br><br>String singularized = RiTa.singularize(\"dogs\");<br>singularized = RiTa.singularize(\"mice\");<br><br>// Javascript<br><br>var singularized = RiTa.singularize(\"dogs\");<br>singularized = RiTa.singularize(\"mice\");",
     "description": "Singularize a word according to singularization rules",
     "syntax": "RiTa.singularize(word);",
     "parameters": [{
