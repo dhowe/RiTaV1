@@ -11,8 +11,8 @@ $(document).ready(function () {
     });
   });
 
-  $('span').text("click to (re)generate!");
-  $('div').click(generate);
+  $('.textarea').text("click to (re)generate!");
+  $('.result').click(generate);
 });
 
 function generate() {
@@ -21,6 +21,6 @@ function generate() {
 
   lines = markov.generateSentences(10);
 
-  $('span').text(lines.join(' '));
-  $('span').css('align-items', 'stretch');
+  $('.textarea').text(lines.join(' '));
+  $('.textarea').css('align-items', 'stretch');
 }
