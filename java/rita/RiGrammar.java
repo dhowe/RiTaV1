@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 import rita.json.JSONArray;
 import rita.json.JSONException;
 import rita.json.JSONObject;
+import rita.support.Constants;
 import rita.support.YAMLParser;
 
 public class RiGrammar
@@ -76,15 +77,6 @@ public class RiGrammar
       this.load(grammarAsString);
   }
 
-  /** @deprecated */
-  public RiGrammar loadFile(String file, Object pApplet)
-  {
-    return loadFrom(file, pApplet);
-  }
-
-  // TODO: should not take a pApplet (breaks the JS API)
-  
-  @Deprecated
   public RiGrammar loadFrom(String file, Object pApplet)
   {
     this.grammarUrl = file;
@@ -97,8 +89,8 @@ public class RiGrammar
     this.grammarUrl = file;
 
     return load(parent == null ? 
-        RiTa.loadString(file, "RiGrammar.loadFrom")
-        : RiTa.loadString(file, parent));
+        RiTa.loadString(file, Constants.BN, "RiGrammar.loadFrom")
+        : RiTa.loadString(file, parent, Constants.BN));
   }
 
   public RiGrammar loadFrom(URL url)
@@ -172,7 +164,7 @@ public class RiGrammar
   
   public RiGrammar load(String grammarRulesAsString)
   {
-    //System.out.println("RiGrammar.load("+grammarRulesAsString+")\n");
+    System.out.println("RiGrammar.load("+grammarRulesAsString+")\n");
     this.reset();
     
     if (grammarRulesAsString == null || grammarRulesAsString.length()<1)

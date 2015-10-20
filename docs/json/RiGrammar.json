@@ -120,13 +120,13 @@
     "name": "loadFrom",
     "example": "",
     "description": "Re-initializes the grammar from a file or URL containing the grammar rules",
-    "syntax": "loadFrom(url, option);",
+    "syntax": "loadFrom(fileOrURL, option);",
     "parameters": [{
       "type": "String",
       "desc": "File or URL containing the grammar rules"
     }, {
       "type": "Function or Object (optional)",
-      "desc": "If a Function is supplied (in JavaScript), it will be called after the file is loaded.<br>If a PApplet(in Java) is passed, it will be used to locate and check the 'data' folder of the sketch for the specified file"
+      "desc": "If a function is supplied (in JavaScript), it will be called after the file is loaded.<br>If a PApplet(in Java) is passed, it will be used to locate and check the 'data' folder of the sketch for the specified file"
     }],
     "returns": [{
       "type": "RiGrammar",

@@ -123,7 +123,7 @@ public class RiGrammarTest
     for (int j = 0; j < sentenceGrammarFiles.length; j++)
     {
       RiGrammar rg = new RiGrammar();
-      rg.load(RiTa.loadString(sentenceGrammarFiles[j], null));
+      rg.load(RiTa.loadString(sentenceGrammarFiles[j]));
       for (int i = 0; i < 10; i++)
         ok(rg.expand());
     }
@@ -138,7 +138,7 @@ public class RiGrammarTest
     for (int j = 0; j < haikuGrammarFiles.length; j++)
     {
       RiGrammar rg = new RiGrammar();
-      rg.load(RiTa.loadString(haikuGrammarFiles[j], null));    
+      rg.load(RiTa.loadString(haikuGrammarFiles[j]));    
       for (int i = 0; i <10; i++)
         ok(rg.expand());
     }
@@ -549,7 +549,7 @@ public class RiGrammarTest
       if (sentenceGrammarFiles[j].endsWith(".yaml"))
       {
         RiGrammar rg = new RiGrammar();
-        rg.load(RiTa.loadString(sentenceGrammarFiles[j], null));
+        rg.load(RiTa.loadString(sentenceGrammarFiles[j]));
         equal(rg.expandFrom("<multiline>"),"This is my very long string that wraps three lines");
       }
     }
@@ -626,7 +626,7 @@ public class RiGrammarTest
     for (int j = 0; j < haikuGrammarFiles.length; j++)
     {
       rg = new RiGrammar(); 
-      rg.load(RiTa.loadString(haikuGrammarFiles[j],null));
+      rg.load(RiTa.loadString(haikuGrammarFiles[j]));
       ok(!rg.hasRule("")); // empty
       ok(rg.hasRule("<start>"));
       ok(rg.hasRule("<5-line>"));
@@ -733,7 +733,7 @@ public class RiGrammarTest
     for (int i = 0; i < sentenceGrammars.length; i++)
       al.add(new RiGrammar(sentenceGrammars[i]));
     for (int i = 0; i < sentenceGrammarFiles.length; i++)
-      al.add(new RiGrammar().load(RiTa.loadString(sentenceGrammarFiles[i],null)));
+      al.add(new RiGrammar().load(RiTa.loadString(sentenceGrammarFiles[i])));
     return (RiGrammar[]) al.toArray(new RiGrammar[0]);
   }
 

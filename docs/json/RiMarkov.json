@@ -67,13 +67,13 @@
     "name": "loadFrom",
     "example": "",
     "description": "Loads raw text into the object from one or more files/URLs",
-    "syntax": "loadFrom(url);<br>loadFrom(url, option);",
+    "syntax": "loadFrom(fileOrURL);<br>loadFrom(fileOrURL, option);",
     "parameters": [{
       "type": "String or Array",
-      "desc": "File(s) or URL(s) from which to load the file"
+      "desc": "File or URL from which to load the file"
     }, {
       "type": "Function or Object (optional)",
-      "desc": "If a Function is supplied (in JavaScript), it will be called after the file is loaded.<br>If a PApplet(in Java) is passed, it will be used to locate and check the 'data' folder of the sketch for the specified file"
+      "desc": "If a function is supplied (in JavaScript), it will be called after the file is loaded.<br>If a PApplet(in Java) is passed, it will be used to locate and check the 'data' folder of the sketch for the specified file"
     }],
     "returns": [{
       "type": "RiMarkov",

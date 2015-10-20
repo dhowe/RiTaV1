@@ -26,6 +26,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import rita.support.Concorder;
 import rita.support.Conjugator;
 import rita.support.Constants;
 import rita.support.EntityLookup;
@@ -33,9 +34,7 @@ import rita.support.MinEditDist;
 import rita.support.PAppletIF;
 import rita.support.Pluralizer;
 import rita.support.PosTagger;
-import rita.support.Concorder;
 import rita.support.RiDynamic;
-import rita.support.RiTaEventListener;
 import rita.support.RiTimer;
 import rita.support.RiTokenizer;
 import rita.support.Splitter;
@@ -1090,35 +1089,23 @@ public class RiTa implements Constants
     throw new RiTaException("Unable to load: "+fileName);
   }
   
-  static String[] loadStrings(String fileName, Object parent)
-  {
+  static String[] loadStrings(String fileName, Object parent) {
+    
     if (parent != null) {
 
-        Class pclass = getProcessingClass();
-        
-        if (pclass != null) {
-          
-          if (pclass.isInstance(parent)) {
+      Class pclass = getProcessingClass();
 
-            PAppletIF pApplet = (PAppletIF)RiDynamic.cast(parent, PAppletIF.class);
-            return pApplet.loadStrings(fileName);
-          }
-          
-          try
-          {
-            parent = RiDynamic.cast(parent, RiTaEventListener.class);
-          }
-          catch (Throwable e)
-          {
-            //System.out.println(e.getMessage());
-          }
-          
-          if (!(parent instanceof RiTaEventListener)) {
-            
-            System.err.println("[WARN] RiTa.loadString(s): Expecting a PApplet"
+      if (pclass != null) {
+
+	if (pclass.isInstance(parent)) {
+
+	  PAppletIF pApplet = (PAppletIF) RiDynamic.cast(parent, PAppletIF.class);
+	  return pApplet.loadStrings(fileName);
+	}
+	else 
+          System.err.println("[WARN] RiTa.loadString(s): Expecting a PApplet"
               + " as 2nd argument, but found: "+ parent.getClass());
-          }
-        }
+      }
     }
 
     return loadStrings(openStream(fileName), 100);
@@ -1182,43 +1169,7 @@ public class RiTa implements Constants
      fileName.matches("^[A-Za-z]:")); // hmmmmm... 'driveA:\\'?
   }
   
-  public static String loadString(URL url)
-  {
-    return join(loadStrings(url), BN);
-  }
-  
-  public static String loadString(String fileName)
-  {
-    return loadString(fileName, "RiTa.loadString");
-  }
-  
-  static String loadString(String[] files)
-  {
-    return loadString(files, "RiTa.loadString");
-  }
-  
-  static String loadString(String[] files, String methodNameForConsole)
-  {
-    //System.out.println("RiTa.loadString("+files.length+", "+methodNameForConsole+")");
-    String s = E;
 
-    try
-    {
-      for (int i = 0; i < files.length; i++) {
-        String content = loadString(files[i], null);
-        //System.out.println(i+") "+content);
-        if (content == null) 
-          throw new RiTaException("Unable to load: "+files[i]);
-        s += content;
-      }
-    }
-    catch (Throwable e)
-    {
-      throwPAppletMessage(methodNameForConsole, files);    
-    }
- 
-    return s;
-  }
 
   private static void throwPAppletMessage(String methodName, String file)
   {
@@ -1250,61 +1201,25 @@ public class RiTa implements Constants
     }
   }
   
-  public static String loadString(String[] files, Object parent)
-  {
-    if (parent == null) return loadString(files);
-    
-    String s = E;
-    for (int i = 0; i < files.length; i++)
-      s += loadString(files[i], parent, false);
-    
-    if (s.length() > 0)
-      fireDataLoaded(files, parent, s);
-    
-    return s;
+  public static String loadString(URL url) {
+    return loadString(url, BN);
+  }
+  public static String loadString(URL url, String lbc) {
+    return join(loadStrings(url), lbc);
   }
   
-  public static String loadString(URL[] urls)
-  {
-    String s = E;
-    for (int i = 0; i < urls.length; i++)
-      s += loadString(urls[i]);  
-    return s;
+  public static String loadString(String fileName) {
+    return loadString(fileName, BN);
+  }
+  public static String loadString(String fileName, String lbc) {
+    return loadString(fileName, lbc, "RiTa.loadString");
   }
   
-  static class RiTaLoaderSource { // stub to match JS object
-    
-    public String[] urls;
-    public String name = "RiTaLoader";
-    public RiTaLoaderSource(String[] u) {
-      this.urls = u;
-    }
-    public RiTaLoaderSource(String url) {
-      this.urls = new String[] {url};
-    }
+  static String loadString(String[] files, String lbc) {
+    return loadString(files, lbc, "RiTa.loadString");
   }
   
-  public static String loadString(String url, Object parent)
-  {
-    return loadString(url, parent, true);
-  }
-  
-  static String loadString(String url, Object parent, boolean fireEvent)
-  {
-    String result = join(loadStrings(url, parent), BN);
-
-    if (fireEvent && parent != null) 
-      fireDataLoaded(new String[]{ url }, parent, result);
-
-    return result;
-  }
-
-  private static boolean fireDataLoaded(String[] urls, Object parent, String result)
-  {
-    return new RiTaEvent(new RiTaLoaderSource(urls), EventType.DataLoaded, result).fire(parent);
-  }
-  
-  static String loadString(String url, String methodNameForConsole)
+  static String loadString(String url, String lbc, String methodNameForConsole)
   {
     String[] str = null;
     try
@@ -1321,7 +1236,92 @@ public class RiTa implements Constants
       return null;
     }
     
-    return join(str, BN);
+    return join(str, lbc);
+  }
+  
+  static String loadString(String[] files, String lbc, String methodNameForConsole)
+  {
+    //System.out.println("RiTa.loadString("+files.length+", "+methodNameForConsole+")");
+    String s = E;
+    try
+    {
+      for (int i = 0; i < files.length; i++) {
+        String content = loadString(files[i], null);
+        //System.out.println(i+") "+content);
+        if (content == null) 
+          throw new RiTaException("Unable to load: "+files[i]);
+        s += content;
+      }
+    }
+    catch (Throwable e)
+    {
+      throwPAppletMessage(methodNameForConsole, files);    
+    }
+ 
+    return s;
+  }
+  
+  public static String loadString(String[] files, Object parent) {
+    return loadString(files, parent, BN);
+  }
+  public static String loadString(String[] files, Object parent, String lbc)
+  {
+    if (parent == null) return loadString(files, lbc);
+    
+    String s = E;
+    for (int i = 0; i < files.length; i++)
+      s += loadString(files[i], parent, false, lbc);
+    
+    if (s.length() > 0)
+      fireDataLoaded(files, parent, s);
+    
+    return s;
+  }
+  
+  public static String loadString(URL[] urls) {
+    return loadString(urls, BN);
+  }
+  public static String loadString(URL[] urls, String lbc)
+  {
+    String s = E;
+    for (int i = 0; i < urls.length; i++)
+      s += loadString(urls[i]);  
+    return s;
+  }
+  
+  public static String loadString(String url, Object parent) {
+    return loadString(url, parent, true, BN);
+  }
+  
+  public static String loadString(String url, Object parent, String lbc) {
+    return loadString(url, parent, true, lbc);
+  }
+  
+  static String loadString(String url, Object parent, boolean fireEvent, String lbc)
+  {
+    String result = join(loadStrings(url, parent), lbc);
+
+    if (fireEvent && parent != null) 
+      fireDataLoaded(new String[]{ url }, parent, result);
+
+    return result;
+  }
+  
+  static class RiTaLoaderSource { // stub to match JS object
+    
+    public String[] urls;
+    public String name = "RiTaLoader";
+    public RiTaLoaderSource(String[] u) {
+      this.urls = u;
+    }
+    public RiTaLoaderSource(String url) {
+      this.urls = new String[] {url};
+    }
+  }
+
+  private static boolean fireDataLoaded(String[] urls, Object parent, String result)
+  {
+    return new RiTaEvent(new RiTaLoaderSource(urls), EventType.DataLoaded, result).fire(parent);
   }
 
   /** Returns a String holding the current working directory */

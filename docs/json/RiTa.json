@@ -715,17 +715,17 @@
   }, {
     "name": "RiTa.loadString",
     "example": "",
-    "description": "Loads the contents from one or more files/urls and then calls back to the supplied 'callback' function with the loaded string as an argument.",
+    "description": "Loads the contents of a file or URL and then calls back to the supplied 'callback' function with the loaded string as an argument.",
     "syntax": "RiTa.loadString(url);<br/>RiTa.loadString(url, callback);<br/>RiTa.loadString(url, pApplet);",
     "parameters": [{
-      "type": "String or Array",
-      "desc": "the filename(s) from which to load the file"
+      "type": "String",
+      "desc": "the filename from which to load the file"
     }, {
-      "type": "Function (optional: the callback, for JavaScript only) or Object (optional: the PApplet, for Java only)",
-      "desc": "If a Function (in JavaScript), it will be called after the file is loaded (with one string, the aggregate data, as its argument);<br>if no callback is supplied, or the argument is a PApplet(in Java), onRiTaEvent(re) will be called instead, with re.type() == RiTa.DATA_LOADED"
+      "type": "Function (optional: the callback, for JavaScript only)<br> or Object (optional: the PApplet, for Java only)<br>",
+      "desc": "If a function (in JavaScript), it will be called after the file is loaded (with the loaded string as its argument).<br>If no callback is supplied, or the argument is a PApplet(in Java), onRiTaEvent(re) will be called instead, with re.type() == RiTa.DATA_LOADED"
     }, {
       "type": "String (optional)",
-      "desc": "the characters with which to join the lines of the string (default = ''), in some case a linebreak ('\n') may be useful"
+      "desc": "the characters with which to join the lines of the string (default = '\\\\n'); in some cases, a space character may be more useful..."
     }],
     "returns": [],
     "related": "",

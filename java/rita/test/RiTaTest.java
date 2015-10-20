@@ -50,6 +50,15 @@ public class RiTaTest
   public void loadString_RelFile()
   {
     String s = RiTa.loadString("kafka.txt");
+    ok(s.indexOf("\n") > 0);
+    ok(s != null && s.length() > 100000);
+  }
+  
+  @Test
+  public void loadString_RelFileLBC()
+  {
+    String s = RiTa.loadString("kafka.txt", " ");
+    ok(s.indexOf("\n") == -1);
     ok(s != null && s.length() > 100000);
   }
   
@@ -1288,6 +1297,7 @@ public class RiTaTest
     args.put("ignorePunctuation", false);
     args.put("ignoreStopWords", false);
     String txt = RiTa.loadString("kafka.txt");
+
     data = RiTa.concordance(txt, args);
     ok(data.get("Gregor")==199);
     ok(data.get("Gregor") + data.get("Gregor's") == 298);
