@@ -135,17 +135,17 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#38425a', end
             color:white;
         }
         nav ul ul {
-            min-width:10em;
+            width:10em;
             position: absolute;
             z-index: 99;
             display: none;
-            background-color: rgb(0,0,0);
-            margin-left:-3.4em;
-            padding-top:0.2em;
+            background-color: rgb(15,20,30);
+            margin-left:-2em;
+            padding:0.3em 0 0.5em 0;
         }
-       /* nav li:hover ul {
+        nav li:hover ul {
             display: block;
-        }*/
+        }
         nav>ul>li>a.current {
             color:white;
             font-weight: 500;
@@ -170,7 +170,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#38425a', end
             width: 49%;
         }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 900px) {
     ul.menu {
         display:none;
     }
@@ -1241,7 +1241,6 @@ td h3{
 .examples img{
     width:150px;
     height:150px;
-    border: 1px solid #eee;
 }
 .examples .exampleitem{
     text-align: center;
