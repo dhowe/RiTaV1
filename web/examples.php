@@ -25,24 +25,24 @@
                 <p>HaikuGrammar</p>
                 <img src="img/sshaiku.png" alt="">
                 <p>
-                  <a href="examples/p5js/HaikuGrammar">p5js</a> <a href="examples/p5js/HaikuGrammar/code.js">(source)</a>
+                  <a href="examples/p5js/HaikuGrammar" target="_blank">p5js</a> <a href="examples/p5js/HaikuGrammar/code.js">(source)</a>
                   <br>
-                  <a href="examples/dom/HaikuGrammar">dom </a> <a href="examples/dom/HaikuGrammar/code.js">(source)</a>
+                  <a href="examples/dom/HaikuGrammar" target="_blank">dom </a> <a href="examples/dom/HaikuGrammar/code.js">(source)</a>
                 </p>
               </div>
               <div class="exampleitem gd-4  mgd-6 sgd-12">
                 <p>Kafgenstein (RiMarkov) </p>
                 <img src="img/sskafgenstein.png" alt="">
-                <p> <a href="examples/p5js/Kafgenstein">p5js</a> <a href="examples/p5js/Kafgenstein/code.js">(source)</a>
+                <p> <a href="examples/p5js/Kafgenstein" target="_blank">p5js</a> <a href="examples/p5js/Kafgenstein/code.js">(source)</a>
                   <br>
-                  <a href="examples/dom/Kafgenstein">dom </a> <a href="examples/dom/Kafgenstein/code.js">(source)</a></p>
+                  <a href="examples/dom/Kafgenstein" target="_blank">dom </a> <a href="examples/dom/Kafgenstein/code.js">(source)</a></p>
               </div>
               <div class="exampleitem gd-4  mgd-6 sgd-12">
                 <p>KeyWordsInContext </p>
                 <img src="img/sskwic.png" alt="">
-                <p> <a href="examples/p5js/KWICmodel">p5js</a> <a href="examples/p5js/KWICmodel/code.js">(source)</a>
+                <p> <a href="examples/p5js/KWICmodel" target="_blank">p5js</a> <a href="examples/p5js/KWICmodel/code.js">(source)</a>
                   <br>
-                  <a href="examples/dom/KWICmodel">dom </a> <a href="examples/dom/KWICmodel/code.js">(source)</a></p>
+                  <a href="examples/dom/KWICmodel" target="_blank">dom </a> <a href="examples/dom/KWICmodel/code.js">(source)</a></p>
               </div>
               <br>&nbsp;
               <br>&nbsp;

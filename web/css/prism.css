@@ -228,3 +228,39 @@ pre[data-line] code {
 pre .line-highlight {
 	margin-top: 0;
 }
+
+/* examples */
+.code{ 
+  display: none; 
+  position:absolute;
+  top:0;
+  background-color: white;
+  width:98%;
+  height:100%;
+  z-index: 10;
+}
+.code a{
+  float:left;
+  display:block;
+  margin-top:8px;
+  font-size: 16px;
+}
+pre{
+  position: static!important;
+  background-color: none!important;
+  box-shadow: none!important;
+  background-image:none!important;
+  max-height: none!important;
+  margin:0!important;
+  border-left: none!important;
+  margin: 2rem 0 0 1rem;
+  padding:10px !important;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+  font-size: 14px;
+
+
+}
+.code:target { display: block; }
