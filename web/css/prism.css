@@ -129,9 +129,12 @@ pre[class*="language-"]:after {
 	color: #c92c2c;
 }
 
+.token.string{
+	color: #008;
+}
+
 .token.selector,
 .token.attr-name,
-.token.string,
 .token.char,
 .token.function,
 .token.builtin,
