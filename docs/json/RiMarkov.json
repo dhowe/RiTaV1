@@ -298,25 +298,5 @@
     "related": "",
     "platform": "Java / Javascript",
     "note": ""
-  }, {
-    "name": "useSmoothing",
-    "example": "",
-    "description": "Sets/gets the value of 'useSmoothing' to detemine whether (add-1) smoothing is enabled for the model.<br><br>Note: should be called before any data loading is done.",
-    "syntax": "useSmoothing();<br>useSmoothing(trueOrFalse);",
-    "parameters": [{
-        "type": "boolean",
-        "desc": "the value (optional, for sets only)"
-      }
-
-    ],
-    "returns": [{
-        "type": "RiMarkov OR boolean",
-        "desc": ""
-      }
-
-    ],
-    "related": "",
-    "platform": "Java / Javascript",
-    "note": ""
   }]
 }
