@@ -234,10 +234,7 @@
                     <a href="RiMarkov/sentenceAware/index.php">sentenceAware()</a>
                     <br>
                     <a href="RiMarkov/size/index.php">size()</a>
-                    <br>
-                    <a href="RiMarkov/useSmoothing/index.php">useSmoothing()</a>
                 </div>
-
 
 
             </div>
