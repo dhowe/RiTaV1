@@ -164,7 +164,8 @@ public class RiGrammar
   
   public RiGrammar load(String grammarRulesAsString)
   {
-    System.out.println("RiGrammar.load("+grammarRulesAsString+")\n");
+    //System.out.println("RiGrammar.load("+grammarRulesAsString+")\n");
+    
     this.reset();
     
     if (grammarRulesAsString == null || grammarRulesAsString.length()<1)

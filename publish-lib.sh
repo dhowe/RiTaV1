@@ -26,6 +26,7 @@ exit
 
 ant -f resources/build.xml build.js
 ant -f resources/build.xml build
+
 if [ $WEB_ONLY = 1 ]
 then
     echo "*** Updating web only (no tags or npm) ***" 

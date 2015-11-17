@@ -1,40 +1,19 @@
 const LEFT = "LEFT", CENTER = "CENTER",
-  RIGHT = "RIGHT", WIDTH = 800, HEIGHT = 600;
+  RIGHT = "RIGHT", WIDTH = 800, HEIGHT = 500;
 
-var fillColor, kafkaString, textAlignment = LEFT,
-  $container, word = 'window', kwic, opts;
+var buttons = [
+  "Gregor", "Samsa", "family", "being",
+  "clerk", "room", "violin", "window"
+],
+  word = buttons[7],  fillColor, kafkaString, textAlignment = LEFT,
+  $container, kwic, opts, $btns;
 
 $(document).ready(function () {
 
-  assignButton();
-  setup();
-});
-
-function assignButton() {
-
-  $("#textInput").focus();
-
-  $("#button").click(function () {
-    buttonClicked();
-  });
-
-  $("#textInput").keypress(function (e) {
-
-    if (e.which == 13) // enter key code
-      return buttonClicked();
-  })
-}
-
-function buttonClicked() {
-
-  var $textInput = $("#textInput");
-  word = $textInput.val();
-  $("#textInput").val("").attr("placeholder", word);
-  kwic = RiTa.kwic(kafkaString, word, opts);
-  drawText();
-}
-
-function setup() {
+  $btns = $(".cssBtns");
+  
+  assignButtons();
+  $($btns[7]).css("color", "red");
 
   $container = $("#container");
   $container.width(WIDTH).height(HEIGHT)
@@ -51,6 +30,23 @@ function setup() {
     });
 
     drawText();
+  });
+});
+
+function assignButtons() {
+
+  for (var i = 0; i < $btns.length; i++)
+    $($btns[i]).html(buttons[i]);
+  
+  $btns.click(function() {
+    
+    word = $(this).text();
+    
+    kwic = RiTa.kwic(kafkaString, word, opts);
+    drawText();
+    
+    $btns.css("color", "black");
+    $(this).css("color", "red");
   });
 }
 
@@ -71,7 +67,8 @@ function drawText() {
     for (var i = 0; i < kwic.length; i++) {
 
       var parts = kwic[i].split(word);
-      var x = WIDTH / 2, y = i * 20 + 40;
+      var x = WIDTH / 2,
+        y = i * 20 + 65;
 
       if (y > HEIGHT - 30) return;
 

@@ -3,7 +3,7 @@
 (function(window, undefined) {
 
 var E= '', SP= ' ', EA= [], N= 'number', S= 'string', O= 'object',
-  A= 'array', B= 'boolean', R= 'regexp', F= 'function';
+  A= 'array', B= 'boolean', R= 'regexp', F= 'function', BN = '\n';
 
 function makeClass() { // from: Resig, TODO: make work with strict
   return function(args) {
@@ -303,7 +303,6 @@ var RiTa = {
     return (useWordNetTags) ? RiTa._tagForWordNet(words) : RiTa._tagForPENN(words);
   },
 
-  // TODO: example
   getPosTagsInline: function(words, delimiter) {
 
     if (!words || !words.length) return E;
@@ -353,7 +352,6 @@ var RiTa = {
     return s.charAt(0).toUpperCase() + s.substring(1);
   },
 
-  // TODO: 2 examples (regular & irregular) in docs
   pluralize: function(word) {
 
     if (!strOk(word)) return E;
@@ -373,8 +371,6 @@ var RiTa = {
 
     return DEFAULT_PLURAL_RULE.fire(word);
   },
-
-  // TODO: 2 examples (regular & irregular) in docs
 
   singularize: function(word) {
 
@@ -401,9 +397,6 @@ var RiTa = {
   },
 
   tokenize: function(words, regex) {
-
-    //TODO: 2 examples for doc comment, one with 1 arg,
-    // one with 2 (a regex that splits on spaces)
 
     if (!is(words,S)) return [];
 
@@ -459,9 +452,60 @@ var RiTa = {
     return inArray(this.ABBREVIATIONS, input);
   },
 
+  _loadStringsNode: function(url, callback) {
+
+    var data = '', isUrl = /.+?:\/\/.+/.test(url), me = this;
+
+    function processResponse(data) {
+      data = data.toString('utf-8').trim();
+      var lines = data.split(/(\r\n|\n)/gm);
+      me.fireDataLoaded(url, callback, lines);
+    }
+    //log("Using Node for: "+url +" isUrl="+isUrl);
+
+    if (isUrl) {
+
+      var httpcb = function(response) {
+        response.on('data', function(chunk) {
+          data += chunk;
+        });
+        response.on('error', function(e) {
+          throw e;
+        });
+        response.on('end', function() {
+          processResponse(data);
+        });
+      };
+
+      var req = require('http').request(url, httpcb);
+      req.on('socket', function(socket) { // shouldnt be needed
+
+        socket.setTimeout(5000); // ?
+        socket.on('timeout', function() {
+          req.abort();
+          throw Error("[RiTa] loadString timed-out and aborted request");
+        });
+      });
+      req.end();
+
+    } else {
+
+      // try with node file-system
+      var rq = require('fs');
+      rq.readFile(url, function(e, data) {
+        if (e || !data) {
+          err("[Node] Error reading file: " + url + BN + e);
+          throw e;
+        }
+        processResponse(data);
+      });
+    }
+    //return data;
+  },
+
   _loadStringNode: function(url, callback, linebreakChars) {
 
-    var data = '', lb = linebreakChars || SP,
+    var data = '', lb = linebreakChars || BN,
       isUrl = /.+?:\/\/.+/.test(url), me = this;
 
     //log("Using Node for: "+url +" isUrl="+isUrl);
@@ -498,7 +542,7 @@ var RiTa = {
       var rq = require('fs');
       rq.readFile(url, function(e, data) {
         if (e || !data) {
-          err("[Node] Error reading file: " + url + "\n" + e);
+          err("[Node] Error reading file: " + url + BN + e);
           throw e;
         }
         data = data.toString('utf-8').replace(/[\r\n]+/g, lb).trim();
@@ -508,114 +552,84 @@ var RiTa = {
     //return data;
   },
 
-  _loadStringXML: function (url, callback, linebreakChars) {
+  loadString: function(url, callback, linebreakChars) {
 
-    var me = this, ret = [], lb = linebreakChars || SP,
+    ok(url, S);
+
+    if (isNode()) {
+      return this._loadStringNode.apply(this, arguments);
+    }
+
+    var me = this, res = '', lb = linebreakChars || BN,
       req = new XMLHttpRequest();
 
     req.addEventListener('error', function () {
-      console.error('[RiTa] loadString() unable to load ' + url);
+      console.error('[RiTa] loadStrings() unable to load ' + url);
     });
 
     req.open('GET', url, true);
     req.onreadystatechange = function () {
       if (req.readyState === 4) {
         if (req.status === 200) {
+          var ret = [];
+          // remove blank lines
           var arr = req.responseText.match(/[^\r\n]+/g);
           for (var k in arr) {
             ret[k] = arr[k];
           }
-          ret = ret.join(lb);
-          console.log("MATCH-ARRAY: "+(arr===ret));
+          ret = ret.join(BN);
           me.fireDataLoaded(url, callback, ret);
+          //callback(res);
         } else {
           console.error('[RiTa] loadString() unable to load: ' + url);
         }
       }
     };
     req.send(null);
-    return ret;
+    return res;
   },
 
+  // TODO: update 'return' value in docs (for preload())
+  loadStrings: function(url, callback, linebreakChars) {
 
-  // hack to load a text file from the DOM via an invisible iframe
-  _loadStringDOM: function(url, callback, linebreakChars) { // TODO: remove?
-
-    var lb = linebreakChars || SP,
-      cwin, iframe, me = this;
-
-    //log("Using iFrame-hack for: "+url);
-
-    if (typeof document == 'undefined' || !document)
-      throw Error("Document 'undefined' (are you running in a browser?)");
-
-    iframe = document.createElement("iframe");
-    iframe.setAttribute('src', url);
-    iframe.setAttribute('style', 'display: none');
-
-    if (!document.body) {
-      console.error('[RiTa] loadString() found null document.body!');
-      return E;
-    }
-
-    function htmlDecode(input) {
-      var e = document.createElement('div'), s = '';
-      e.innerHTML = input;
-      if (e.childNodes.length === 0) return E;
-      for (var i = 0; i < e.childNodes.length; i++)
-        s += e.childNodes[i].nodeValue;
-      return s;
-    }
-
-    document.body.appendChild(iframe);
-    cwin = iframe.contentWindow || iframe.contentDocument.parentWindow;
-    cwin.onload = function() {
-
-      var data = "[RiTa] loadString() unexpected error!";
-      if (cwin && cwin.document && cwin.document.body &&
-        cwin.document.body.childNodes && cwin.document.body.childNodes.length)
-      {
-        data = cwin.document.body.childNodes[0].innerHTML;
-      }
-      else
-        console.error('[RiTa] loadString(' + url + ') failed trying iFrame-load');
-
-      if (!data) {
-        console.error('[RiTa] loadString(' + url + ') unable to load text from: ' + url);
-        return E;
-      }
-
-      data = htmlDecode(data.replace(/[\r\n]+/g, lb).trim());
-      me.fireDataLoaded(url, callback, data);
-    };
-
-    //return data;
-  },
-
-  loadStrings: function(url, callback) {
-
-    var fire = this.fireDataLoaded;
-    this.loadString(url, function(d) {
-      fire(url, callback, d.split('\n'));
-    }, '\n');
-  },
-
-  loadString: function(url, callback, linebreakChars) {
-    //console.log("loadString())");
     ok(url, S);
-    /*if (hasP5) {
-      console.log("USING P5!");
-      return p5.prototype.loadStrings(url, callback);
-    }*/
-    var lb = linebreakChars || SP,
-      func = isNode() ? this._loadStringNode : this._loadStringDOM;
-      //func = isNode() ? this._loadStringNode : this._loadStringXML;// use XML
-    func.call(this, url, callback, lb); // single-url
+
+    if (isNode()) {
+      return this._loadStringsNode.apply(this, arguments);
+    }
+
+    var me = this, res = '', lb = linebreakChars || BN,
+      req = new XMLHttpRequest();
+
+    req.addEventListener('error', function () {
+      console.error('[RiTa] loadStrings() unable to load ' + url);
+    });
+
+    req.open('GET', url, true);
+    req.onreadystatechange = function () {
+      if (req.readyState === 4) {
+        if (req.status === 200) {
+
+          // remove blank lines
+          var arr = req.responseText.match(/[^\r\n]+/g);
+          var ret = [];
+          for (var k in arr) {
+            ret[k] = arr[k];
+          }
+          me.fireDataLoaded(url, callback, ret);
+          //callback(res);
+        } else {
+          console.error('[RiTa] loadString() unable to load: ' + url);
+        }
+      }
+    };
+    req.send(null);
+    return res;
   },
 
   fireDataLoaded: function(url, callback, data) {
 
-    //log('fireDataLoaded: '+url, callback);
+    //log('fireDataLoaded: '+url, callback, data);
     return (callback) ? callback(data, url) :
       RiTaEvent({
         name: 'RiTaLoader',
@@ -658,11 +672,11 @@ var RiTa = {
 
     var nTL = nextWord.length,
       currentToken0 = currentWord.charAt(cWL - 1),
-      currentToken1 = (cWL > 1) ? currentWord.charAt(cWL - 2) : ' ',
-      currentToken2 = (cWL > 2) ? currentWord.charAt(cWL - 3) : ' ',
+      currentToken1 = (cWL > 1) ? currentWord.charAt(cWL - 2) : SP,
+      currentToken2 = (cWL > 2) ? currentWord.charAt(cWL - 3) : SP,
       nextToken0 = nextWord.charAt(0),
-      nextToken1 = (nTL > 1) ? nextWord.charAt(1) : ' ',
-      nextToken2 = (nTL > 2) ? nextWord.charAt(2) : ' ';
+      nextToken1 = (nTL > 1) ? nextWord.charAt(1) : SP,
+      nextToken2 = (nTL > 2) ? nextWord.charAt(2) : SP;
 
     // nextToken does not begin with an upper case,
     // [`'"([{<] + upper case, `` + upper case, or < -> middle of sent.
@@ -1010,7 +1024,7 @@ RiMarkov.prototype = {
 
     // uh-oh, we failed
     if (tries >= maxTries)
-      err("\nRiMarkov failed to complete after " + tries + " attempts\n");
+      err(BN+"RiMarkov failed to complete after " + tries + " attempts"+BN);
 
     return tokens;
 
@@ -1103,8 +1117,9 @@ RiMarkov.prototype = {
       regex = undefined;
     }
 
-    RiTa.loadString(url, function(data) {
+    RiTa.loadStrings(url, function(data) {
 
+      data = data.join(BN);
       me.loadText(data, multiplier, regex);
       callback && is(callback, F) && (callback(data));
     });
@@ -2099,7 +2114,7 @@ RiString.prototype = {
 
   toString: function() {
 
-    return "RiString[" + this._text + "]";
+    return '[' + this._text + ']';
   },
 
   toUpperCase: function() {
@@ -2157,12 +2172,13 @@ RiGrammar.prototype = {
 
   loadFrom: function(url, callback) {
 
-    RiTa.loadString(url, function(data) {
+    RiTa.loadStrings(url, function(data) {
 
+      data = data.join(BN);
       this.load(data);
       is(callback, F) && (callback(data));
 
-    }.bind(this), '\n');
+    }.bind(this));
   },
 
   load: function(grammar) {
@@ -2313,12 +2329,12 @@ RiGrammar.prototype = {
 
   getGrammar: function() {
 
-    var s = E, B = '\n';
+    var s = E;
     for (var name in this._rules) {
-      s += (name + B);
+      s += (name + BN);
       var choices = this._rules[name];
       for (var p in choices) {
-        s += ("  '" + p + "' [" + choices[p] + ']'+B);
+        s += ("  '" + p + "' [" + choices[p] + ']' + BN);
       }
     }
     return RiTa.chomp(s);
@@ -2328,7 +2344,7 @@ RiGrammar.prototype = {
 
     if (console) {
       var ln = "\n------------------------------";
-      console.log(ln + "\n" + this.getGrammar() + ln);
+      console.log(ln + BN + this.getGrammar() + ln);
     }
     return this;
 
@@ -2365,7 +2381,7 @@ RiGrammar.prototype = {
       if (s.indexOf(literal) > -1)
         return s;
     }
-    err("RiGrammar failed to complete after " + tries + " tries\n");
+    err("RiGrammar failed to complete after " + tries + " tries" + BN);
 
   },
 
@@ -2380,7 +2396,7 @@ RiGrammar.prototype = {
       err("(RiGrammar) No grammar rules found!");
 
     if (!this.hasRule(rule))
-      err("Rule not found: " + rule + "\nRules:\n" + JSON.stringify(this._rules));
+      err("Rule not found: " + rule + BN + "Rules:" + BN + JSON.stringify(this._rules));
 
     var parts, theCall, callResult, tries = 0,
       maxIterations = 1000;
@@ -2486,7 +2502,7 @@ RiGrammar.prototype = {
         }
       }
 
-      warn("RiGrammar failed parsing: " + input + "\n  -> " + e.message);
+      warn("RiGrammar failed parsing: " + input + BN + " -> " + e.message);
       return null;
     }
   },
@@ -2773,7 +2789,7 @@ TextNode.prototype = {
     var i, j, k, mn = textNode,
       l = [],
       node = null,
-      indent = "\n";
+      indent = BN;
 
     sort = sort || false;
 
@@ -2796,7 +2812,7 @@ TextNode.prototype = {
 
       var tok = node.token;
       if (tok) {
-        (tok == "\n") && (tok = "\\n");
+        (tok == BN) && (tok = "\\n");
         (tok == "\r") && (tok = "\\r");
         (tok == "\t") && (tok = "\\t");
         (tok == "\r\n") && (tok = "\\r\\n");
@@ -2817,7 +2833,7 @@ TextNode.prototype = {
         str += "}";
     }
 
-    indent = "\n";
+    indent = BN;
     for (j = 0; j < depth - 1; j++)
       indent += "  ";
 
@@ -3072,7 +3088,11 @@ Conjugator.prototype = {
   },
 
   toString: function() {
-    return "  ---------------------\n" + "  Passive = " + this.passive + "\n" + "  Perfect = " + this.perfect + "\n" + "  Progressive = " + this.progressive + "\n" + "  ---------------------\n" + "  Number = " + this.number + "\n" + "  Person = " + this.person + "\n" + "  Tense = " + this.tense + "\n" + "  ---------------------\n";
+    return "  ---------------------" + BN + "  Passive = " + this.passive +
+      BN + "  Perfect = " + this.perfect + BN + "  Progressive = " +
+      this.progressive + BN + "  ---------------------" + BN + "  Number = " +
+      this.number + BN + "  Person = " + this.person + BN + "  Tense = " +
+      this.tense + BN + "  ---------------------" + BN;
   }
 };
 
@@ -4854,15 +4874,11 @@ var PLURAL_RULES = [
 
 // ///////////////////////////// End Functions ////////////////////////////////////
 
-var hasP5 = (typeof p5 !== 'undefined');
-
 if (!RiTa.SILENT && console)
   console.log('[INFO] RiTaJS.version [' + RiTa.VERSION + ']');
 
 
 /*jshint -W069 */
-
-// TODO: compress
 
 if (window) { // for browser
 
@@ -4884,6 +4900,11 @@ if (window) { // for browser
   module.exports['RiLexicon'] = RiLexicon;
   module.exports['RiTaEvent'] = RiTaEvent;
 }
+
+// if (typeof p5 !== 'undefined') {
+//   p5.prototype.registerPreloadMethod('loadFrom', RiGrammar.prototype);
+//   p5.prototype.registerPreloadMethod('loadFrom', RiMarkov.prototype);
+// }
 
 /*jshint +W069 */
 

@@ -73,7 +73,7 @@
 							<th scope="row">Syntax</th>
 
 							<!-- SYNTAX  -->
-							<td><pre>loadFrom(url);<br>loadFrom(url, option);</pre></td>
+							<td><pre>loadFrom(fileOrURL);<br>loadFrom(fileOrURL, option);</pre></td>
 						</tr>
 
 
@@ -84,7 +84,7 @@
 							<!-- PARAMETERS  -->
 
 							<table cellpadding="0" cellspacing="0" border="0" class="sub-table">
-								<tr class=''><th width='25%' scope='row' class=nobold>String or Array</th><td width='75%'>File(s) or URL(s) from which to load the file</td></tr><tr class=''><th width='25%' scope='row' class=nobold>Function or Object (optional)</th><td width='75%'>If a Function is supplied (in JavaScript), it will be called after the file is loaded.<br>If a PApplet(in Java) is passed, it will be used to locate and check the 'data' folder of the sketch for the specified file</td></tr>
+								<tr class=''><th width='25%' scope='row' class=nobold>String or Array</th><td width='75%'>File or URL from which to load the file</td></tr><tr class=''><th width='25%' scope='row' class=nobold>Function or Object (optional)</th><td width='75%'>If a function is supplied (in JavaScript), it will be called after the file is loaded.<br>If a PApplet(in Java) is passed, it will be used to locate and check the 'data' folder of the sketch for the specified file</td></tr>
 							</table></td>
 						</tr>
 

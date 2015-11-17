@@ -1,4 +1,4 @@
-/*! p5.js v0.4.15 October 11, 2015 */
+/*! p5.js v0.4.17 October 13, 2015 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.p5 = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 
 },{}],2:[function(_dereq_,module,exports){
@@ -11578,7 +11578,7 @@ var p5 = function(sketch, node, sync) {
   if (window.DeviceOrientationEvent) {
     this._events.deviceorientation = null;
   }
-  if (window.DeviceMotionEvent) {
+  if (window.DeviceMotionEvent && !window._isNodeWebkit) {
     this._events.devicemotion = null;
   }
 
@@ -14251,7 +14251,7 @@ p5.Renderer2D.prototype.get = function(x, y, w, h) {
 
   var ctx = this._pInst || this;
 
-  var pd = ctx.pixelDensity || ctx._pInst.pixelDensity;
+  var pd = ctx.pixelDensity;
 
   this.loadPixels.call(ctx);
 
@@ -14274,7 +14274,7 @@ p5.Renderer2D.prototype.get = function(x, y, w, h) {
     var sh = dh * pd;
 
     var region = new p5.Image(dw, dh);
-    region.canvas.getContext('2d').drawImage(ctx.canvas, sx, sy, sw, sh,
+    region.canvas.getContext('2d').drawImage(this.canvas, sx, sy, sw, sh,
       0, 0, dw, dh);
 
     return region;
@@ -15311,6 +15311,7 @@ var constants = _dereq_('./constants');
 _dereq_('./p5.Graphics');
 _dereq_('./p5.Renderer2D');
 _dereq_('../3d/p5.Renderer3D');
+var defaultId = 'defaultCanvas0'; // this gets set again in createCanvas
 
 /**
  * Creates a canvas element in the document, and sets the dimensions of it
@@ -15352,17 +15353,22 @@ p5.prototype.createCanvas = function(w, h, renderer) {
   }
 
   if(r === constants.WEBGL){
-    c = document.getElementById('defaultCanvas');
+    c = document.getElementById(defaultId);
     if(c){ //if defaultCanvas already exists
       c.parentNode.removeChild(c); //replace the existing defaultCanvas
     }
     c = document.createElement('canvas');
-    c.id = 'defaultCanvas';
+    c.id = defaultId;
   }
   else {
     if (isDefault) {
       c = document.createElement('canvas');
-      c.id = 'defaultCanvas';
+      var i = 0;
+      while (document.getElementById('defaultCanvas'+i)) {
+        i++;
+      }
+      defaultId = 'defaultCanvas'+i;
+      c.id = defaultId;
     } else { // resize the default canvas if new one is created
       c = this.canvas;
     }
@@ -20143,6 +20149,7 @@ p5.Image = function(width, height){
    *     pixels[idx+3] = a;
    *   }
    * }
+   * </pre></code>
    * <br><br>
    * Before accessing this array, the data must loaded with the loadPixels()
    * function. After the array data has been modified, the updatePixels()
@@ -20663,9 +20670,8 @@ p5.prototype.blend = function() {
  * }
  *
  * function setup() {
- *   background(img0);
- *   image(img1, 0, 0);
- *   copy(7, 22, 10, 10, 35, 25, 50, 50);
+ *   background(img);
+ *   copy(img, 7, 22, 10, 10, 35, 25, 50, 50);
  *   stroke(255);
  *   noFill();
  *   // Rectangle shows area being copied
@@ -21691,7 +21697,7 @@ p5.prototype.loadXML = function(path, callback) {
       var x = resp.documentElement;
       ret.appendChild(x);
       if (typeof callback !== 'undefined') {
-        callback(resp);
+        callback(ret);
       }
       if (decrementPreload && (callback !== decrementPreload)) {
         decrementPreload();
