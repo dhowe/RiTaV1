@@ -16,6 +16,7 @@
 
 <p>
   <a href="https://www.npmjs.com/package/rita"><img src="https://img.shields.io/npm/v/rita.svg" alt="npm version"></a><br>
+  <a href="<?php echo $path.'/cite.php'; ?>">How to cite RiTa</a><br>
   <a href="https://github.com/dhowe/RiTa"><span class="source">RiTa on Github</span></a> <br>
   <a href="https://github.com/dhowe/RiTaJS"><span class="source">RiTa.js on Github</span></a><br>
   <a href="http://twitter.com/RiTaSoftware" data-show-count="false" class="twitter-follow-button" >Follow @RiTaSoftware</a>

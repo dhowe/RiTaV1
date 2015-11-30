@@ -1830,3 +1830,19 @@ width:100%!important;
         page-break-after: avoid;
     }
 }
+
+.footer p,h5,.cite p{
+     font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+.cite{
+    line-height: 1.6em;
+    color:grey;
+    margin: 7rem 0 0 1rem;
+    padding-left:1rem;
+}
+
+.cite b{
+     line-height: 2em;
+}
+
