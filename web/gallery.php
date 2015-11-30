@@ -35,8 +35,8 @@ Add your site or application content here
   <div class="gallery_home">
       <div class="row">
     <span class="gallery_home_item gd-4  mgd-6 sgd-12">
-        <a href="http://o-c-r.org/2014/07/01/the-whole-brilliant-enterprise/"><img class="gray" src="img/enterprise_sm.png" width="180"></a><br>
-        <a href="http://o-c-r.org/2014/07/01/the-whole-brilliant-enterprise/">The Whole Brilliant Enterprise</a>
+        <a href="http://o-c-r.org/2014/07/01/the-whole-brilliant-enterprise/" target="new"><img class="gray" src="img/enterprise_sm.png" width="180"></a><br>
+        <a href="http://o-c-r.org/2014/07/01/the-whole-brilliant-enterprise/" target="new">The Whole Brilliant Enterprise</a>
         <p>by Office for Creative Research</p>
         <p class="gallery_home_spacer">&nbsp;</p>
       </span>
@@ -49,65 +49,65 @@ Add your site or application content here
     </span>
 
     <span class="gallery_home_item gd-4 mgd-6 sgd-12">
-        <a href="http://www.angelaferraiolo.com/visual_grammars.html"><img src="img/visgram.jpg" width="180"></a>
-        <a href="http://www.angelaferraiolo.com/visual_grammars.html"><br>Visual Grammars</a>
+        <a href="http://www.angelaferraiolo.com/visual_grammars.html" target="new"><img src="img/visgram.jpg" width="180"></a>
+        <a href="http://www.angelaferraiolo.com/visual_grammars.html" target="new"><br>Visual Grammars</a>
         <p>by Angela Ferraiolo</p>
         <p class="gallery_home_spacer">&nbsp;</p>
       </span>
 <!-- row2-->
     <span class="gallery_home_item gd-4 mgd-6 sgd-12">
-      <a href="http://www.gamedefinitions.com/"><img src="img/gamedefs.png" width="180"></a><br>
-      <a href="http://www.gamedefinitions.com/">Game Definitions</a>
+      <a href="http://www.gamedefinitions.com/" target="new"><img src="img/gamedefs.png" width="180"></a><br>
+      <a href="http://www.gamedefinitions.com/" target="new">Game Definitions</a>
       <p>by MolleIndustria</p>
       <p class="gallery_home_spacer">&nbsp;</p>
     </span>
 
     <span class="gallery_home_item gd-4 mgd-6 sgd-12">
-      <a href="https://rednoise.org/sketches/CornellsYoke"><img src="img/cornell.jpg" width="180"></a><br>
-      <a href="https://rednoise.org/sketches/CornellsYoke">Cornell's Yoke Machine</a>
+      <a href="https://rednoise.org/sketches/CornellsYoke" target="new"><img src="img/cornell.jpg" width="180"></a><br>
+      <a href="https://rednoise.org/sketches/CornellsYoke" target="new">Cornell's Yoke Machine</a>
       <p>by Janalyn Guo</p>
       <p class="gallery_home_spacer">&nbsp;</p>
     </span>
 
     <span class="gallery_home_item gd-4 mgd-6 sgd-12">
-      <a href="http://rednoise.org/sketches/Shanshui/"><img src="img/shanshui.jpg" width="180"></a><br>
-      <a href="http://rednoise.org/sketches/Shanshui/">Shan Shui</a>
+      <a href="http://rednoise.org/sketches/Shanshui/" target="new"><img src="img/shanshui.jpg" width="180"></a><br>
+      <a href="http://rednoise.org/sketches/Shanshui/" target="new">Shan Shui</a>
       <p>by Chen Qianxun</p>
       <p class="gallery_home_spacer">&nbsp;</p>
     </span>
   <!-- row3-->
 
       <span class="gallery_home_item gd-4 mgd-6 sgd-12">
-        <a href="http://fugitivetexts.net/godard/"><img src="img/godard.png" width="180"></a><br>
-        <a href="http://fugitivetexts.net/godard/">The Godard Film Generator</a>
+        <a href="http://fugitivetexts.net/godard/" target="new"><img src="img/godard.png" width="180"></a><br>
+        <a href="http://fugitivetexts.net/godard/" target="new">The Godard Film Generator</a>
         <p>by Mark Sample</p>
         <p class="gallery_spacer">&nbsp;</p>
       </span>
 
       <span class="gallery_home_item gd-4 mgd-6 sgd-12">
-        <a href="http://elmcip.net/creative-work/about-nothing-places-memories-and-thoughts-robert-creeley-1926-2005-and-patricia"><img src="img/creeley270.jpg" width="180"></a><br>
-        <a href="http://elmcip.net/creative-work/about-nothing-places-memories-and-thoughts-robert-creeley-1926-2005-and-patricia">about nothing, places...</a>
+        <a href="http://elmcip.net/creative-work/about-nothing-places-memories-and-thoughts-robert-creeley-1926-2005-and-patricia" target="new"><img src="img/creeley270.jpg" width="180"></a><br>
+        <a href="http://elmcip.net/creative-work/about-nothing-places-memories-and-thoughts-robert-creeley-1926-2005-and-patricia" target="new">about nothing, places...</a>
         <p>by Patricia Tomaszek</p>
         <p class="gallery_spacer">&nbsp;</p>
       </span>
 
        <span class="gallery_home_item gd-4 mgd-6 sgd-12">
-        <a href="https://twitter.com/samplereality/lists/samplereality-bots"><img src="img/twitterbots.gif" width="180"></a><br>
-        <a href="https://twitter.com/samplereality/lists/samplereality-bots">RiTa Twitterbots</a>
+        <a href="https://twitter.com/samplereality/lists/samplereality-bots"target="new"><img src="img/twitterbots.gif" width="180"></a><br>
+        <a href="https://twitter.com/samplereality/lists/samplereality-bots"target="new">RiTa Twitterbots</a>
         <p>by Mark Sample</p>
         <p class="gallery_spacer">&nbsp;</p>
       </span>
   <!-- row4-->
       <span class="gallery_home_item gd-4 mgd-6 sgd-12">
-        <a href="http://www.rednoise.org/sketches/spinstate/"><img src="img/spin_state2.png" width="180"></a><br>
-        <a href="http://www.rednoise.org/sketches/spinstate/">SpinState</a>
+        <a href="http://www.rednoise.org/sketches/spinstate/"target="new"><img src="img/spin_state2.png" width="180"></a><br>
+        <a href="http://www.rednoise.org/sketches/spinstate/"target="new">SpinState</a>
         <p>by Michael Coppola</p>
         <p class="gallery_spacer">&nbsp;</p>
       </span>
 
       <span class="gallery_home_item gd-4 mgd-6 sgd-12">
-        <a href="http://www.rednoise.org/rita/~dhowe/automatype/"><img src="img/automatype.jpg" width="180"></a><br>
-        <a href="http://www.rednoise.org/rita/~dhowe/automatype/">Automatype</a>
+        <a href="https://rednoise.org/~dhowe/automatype/" target="new"><img src="img/automatype.jpg" width="180"></a><br>
+        <a href="https://rednoise.org/~dhowe/automatype/" target="new">Automatype</a>
         <p>by Daniel C. Howe</p>
         <p class="gallery_spacer">&nbsp;</p>
       </span>
@@ -119,7 +119,13 @@ Add your site or application content here
         <p>by Rob Clouth</p>
         <p class="gallery_spacer">&nbsp;</p>
       </span>
-
+      
+      <span class="gallery_home_item gd-4 mgd-6 sgd-12">
+        <a href="https://play.google.com/store/apps/details?id=processing.test.jumping_wild" target="new"><img src="img/jumping.png" width="180"></a><br>
+        <a href="https://play.google.com/store/apps/details?id=processing.test.jumping_wild" target="new">Jumping Wild Butoh Training</a>
+        <p>by Honza Svasek </p>
+        <p class="gallery_spacer">&nbsp;</p>
+      </span>
     </div>
 
   </div>
