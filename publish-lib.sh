@@ -22,7 +22,6 @@ while [ $# -ge 1 ]; do
 done
 echo
 ssh $RED "cd ~/git/RiTa && git pull && ln -fs RiTa-${VERSION}.zip rita.zip && ls -l rita.zip web/download"  # update server
-exit
 
 ant -f resources/build.xml build.js
 ant -f resources/build.xml build
@@ -34,9 +33,9 @@ then
     git push
 else
     echo "Updating tags and NPM to ${VERSION}"
-    exit;
     ~/bin/git-tag.sh ${VERSION}
     cd js && ~/bin/git-tag.sh ${VERSION} && cd ..
     ant -f resources/build.xml npm.publish
 fi
+
 ssh $RED "cd ~/git/RiTa && git pull && ln -fs RiTa-${VERSION}.zip rita.zip && ls -l"  # update server

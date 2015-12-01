@@ -7,88 +7,66 @@ import java.util.regex.Pattern;
 import rita.RiTa;
 
 /**
- * Simple tokenizer for user-supplied regular expressions. <P>
+ * Simple tokenizer for user-supplied regular expressions.
+ * <P>
  * Note: defaults to splitting on white-space characters('\s');
  */
-public final class RegexTokenizer implements TokenizerIF
-{
-  public static final String DEFAULT_REGEX = "\\s+";//[ ,;:()\\[\\]]";
-  private static final String SPC = " ";
+public final class RegexTokenizer implements TokenizerIF {
   
-  protected Pattern regex;
-  protected boolean trimSpaces = false;
-  protected boolean returnDelims = false;
+  public static final String DEFAULT_REGEX = "\\s+";
 
-/*  public RegexTokenizer(PApplet p, String regex) {
-    setRegex(regex == null ? DEFAULT_REGEX : regex);
-  }
-  
-  public RegexTokenizer(PApplet p, Pattern regex) {
-    setRegex(regex);
-  }*/
-  
+  protected Pattern regex;
+  protected boolean trimSpaces = false, returnDelims = false;
+
   public RegexTokenizer() {
     this(DEFAULT_REGEX);
   }
-  
-  public RegexTokenizer(String regex) {
-    setRegex(regex == null ? DEFAULT_REGEX : regex);
-  }
-  
-/*  public RegexTokenizer(PApplet p) {
-    this(p, DEFAULT_REGEX);
-  }
-  */
-  
 
-  
+  public RegexTokenizer(String regex) {
+    setRegex(regex);
+  }
+
   /**
-   * Splits the String into sentences according to the regular expression 
+   * Splits the String into sentences according to the regular expression
    */
-  public String[] split(String text)
-  {
+  public String[] split(String text) {
     return tokenize(text);
   }
-  
+
   /**
-   * Tokenizes the String according to the supplied regular expression
-   * and stores the result as a List in <code>result</code>
+   * Tokenizes the String according to the supplied regular expression and
+   * stores the result as a List in <code>result</code>
    */
-  public void tokenize(String words, List result) 
-  {
+  public void tokenize(String words, List result) {
     String[] tokens = RiTa.split(words, regex, returnDelims);
     for (int i = 0; i < tokens.length; i++)
-      if (tokens[i].length()>0) {
-        if (trimSpaces && tokens[i].equals(SPC))
-          continue;
-        result.add(tokens[i]);
+      if (tokens[i].length() > 0) {
+	if (trimSpaces && tokens[i].equals(Constants.SP))
+	  continue;
+	result.add(tokens[i]);
       }
   }
-  
-	/**
-	 * Tokenizes the String according to the supplied regular expression.
-	 */
-	public String[] tokenize(String words) 
-  {
+
+  /**
+   * Tokenizes the String according to the supplied regular expression.
+   */
+  public String[] tokenize(String words) {
     List l = new ArrayList();
     tokenize(words, l);
-    return (String[])l.toArray(new String[l.size()]);
-  } 
-
+    return (String[]) l.toArray(new String[l.size()]);
+  }
 
   /**
    * Returns the regular expression used for tokenizing
    */
-  public String getRegex()
-  {
+  public String getRegex() {
     return this.regex.pattern();
   }
 
   /**
    * Sets the regular expression to be used for tokenizing
    */
-  public RegexTokenizer setRegex(Pattern regex)
-  {
+  public RegexTokenizer setRegex(Pattern regex) {
     this.regex = regex;
     return this;
   }
@@ -96,8 +74,7 @@ public final class RegexTokenizer implements TokenizerIF
   /**
    * Sets the regular expression to be used for tokenizing
    */
-  public RegexTokenizer setRegex(String regex)
-  {
+  public RegexTokenizer setRegex(String regex) {
     if (regex != null)
       this.regex = Pattern.compile(regex);
     return this;
@@ -106,47 +83,45 @@ public final class RegexTokenizer implements TokenizerIF
   /**
    * Whether spaces are trimmed from each ends of tokens
    */
-  public boolean isTrimmingSpaces()
-  {
+  public boolean isTrimmingSpaces() {
     return this.trimSpaces;
   }
 
   /**
    * Sets whether spaces are trimmed from each ends of tokens
    */
-  public void setTrimSpaces(boolean trimSpaces)
-  {
+  public void setTrimSpaces(boolean trimSpaces) {
     this.trimSpaces = trimSpaces;
   }
 
   /**
-   * Whether delimiters are returned as tokens or ignored  
+   * Whether delimiters are returned as tokens or ignored
    */
-  public boolean isReturningDelims()
-  {
+  public boolean isReturningDelims() {
     return this.returnDelims;
   }
-  
+
   /**
-   * Sets whether delimiters should be returned as tokens or ignored  
+   * Sets whether delimiters should be returned as tokens or ignored
    */
-  public void setReturnDelims(boolean returnDelims)
-  {
+  public void setReturnDelims(boolean returnDelims) {
     this.returnDelims = returnDelims;
   }
-  
-  public static void main(String[] args)
-  {
-    String[] texts = { "Good time, great taste (that's why this is our place).", "McDonald's - it cannot happen" , "McDonald's, it cannot happen"  };
 
-    String paragraph  = "This isn't the greatest example sentence " +
-    "in the world because I've seen better. Neither is this one. " +
-    "T.D. Waterhouse is not bad, though.";
-    
+  public static void main(String[] args) {
+    String[] texts = {
+	"Good time, great taste (that's why this is our place).",
+	"McDonald's - it cannot happen", "McDonald's, it cannot happen" };
+
+    String paragraph = "This isn't the greatest example sentence "
+	+ "in the world because I've seen better. Neither is this one. "
+	+ "T.D. Waterhouse is not bad, though.";
+
     RegexTokenizer res = new RegexTokenizer(".");
-   /* List l = asList(res.split(paragraph));
-    for (Iterator i = l.iterator(); i.hasNext();)
-      System.out.println("'"+i.next()+"'");      */
+    /*
+     * List l = asList(res.split(paragraph)); for (Iterator i = l.iterator();
+     * i.hasNext();) System.out.println("'"+i.next()+"'");
+     */
   }
 
 }// end

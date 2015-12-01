@@ -2,6 +2,8 @@ package rita.support;
 
 import java.util.List;
 
+import rita.RiTa;
+
 // TODO:
 // Add test:
 //    Doesn't handle decimal numbers correctly! 
@@ -14,19 +16,6 @@ import java.util.List;
  * conventions.
  */
 public final class PennWordTokenizer implements TokenizerIF, Constants {
-  public static final boolean DEFAULT_SPLIT_CONTRACTIONS = false;
-
-  protected boolean splitContractions;
-
-  // private PApplet pApplet;
-
-  public PennWordTokenizer() {
-    this(DEFAULT_SPLIT_CONTRACTIONS);
-  }
-
-  public PennWordTokenizer(boolean splitContractions) {
-    this.splitContractions = splitContractions;
-  }
 
   // METHODS -------------------------------------------
 
@@ -49,74 +38,39 @@ public final class PennWordTokenizer implements TokenizerIF, Constants {
    */
   public String[] tokenize(String words) {
 
-    // these should all be compiled!!!!
-    words = words.replaceAll("``", "`` ");
-    words = words.replaceAll("''", "  ''");
-
+    // TODO: these should all be compiled
     words = words.replaceAll("([\\?!\"\\.,;:@#$%&])", " $1 ");
-
-    // String last = words;
-    // words = words.replaceAll("([0-9][0-9]*[\\.]{0,1}[0-9][0-9]*)", " $1 ");
-    // words = words.replaceAll("([\\.])", " $1 ");
-
     words = words.replaceAll("\\.\\.\\.", " ... ");
     words = words.replaceAll("\\s+", SP);
-
     words = words.replaceAll(",([^0-9])", " , $1");
-
     words = words.replaceAll("([^.])([.])([\\])}>\"']*)\\s*$", "$1 $2$3 ");
-
     words = words.replaceAll("([\\[\\](){}<>])", " $1 ");
     words = words.replaceAll("--", " -- ");
-
     words = words.replaceAll("$", SP);
     words = words.replaceAll("^", SP);
-
-    // str = str.replaceAll("\"", " '' ");
     words = words.replaceAll("([^'])' ", "$1 ' ");
-
-    // words = words.replaceAll("'([sSmMdD]) ", " '$1 ");
 
     // DCH!! (changed from ^, only on a proper name(starting cap)?)
     words = words.replaceAll("'([SMD]) ", " '$1 ");
 
-    if (splitContractions) {
-      words = words.replaceAll("'ll ", " 'll ");
-      words = words.replaceAll("'re ", " 're ");
-      words = words.replaceAll("'ve ", " 've ");
-      words = words.replaceAll("n't ", " n't ");
-      words = words.replaceAll("'LL ", " 'LL ");
-      words = words.replaceAll("'RE ", " 'RE ");
-      words = words.replaceAll("'VE ", " 'VE ");
-      words = words.replaceAll("N'T ", " N'T ");
+    if (RiTa.SPLIT_CONTRACTIONS) {
+     
+      words = words.replaceAll("([Cc])an't", "$1an not");
+      words = words.replaceAll("([Dd])idn't", "$1id not");
+      words = words.replaceAll("([CcWw])ouldn't", "$1ould not");
+      words = words.replaceAll("([Ss])houldn't", "$1hould not");
+      words = words.replaceAll(" ([Ii])t's", " $1t is");
+      words = words.replaceAll("n't", " not ");
+      words = words.replaceAll("'ve", " have ");
+      words = words.replaceAll("'re", " are ");
     }
-
-    words = words.replaceAll(" ([Cc])annot ", " $1an not ");
-    words = words.replaceAll(" ([Dd])'ye ", " $1' ye ");
-    words = words.replaceAll(" ([Gg])imme ", " $1im me ");
-    words = words.replaceAll(" ([Gg])onna ", " $1on na ");
-    words = words.replaceAll(" ([Gg])otta ", " $1ot ta ");
-    words = words.replaceAll(" ([Ll])emme ", " $1em me ");
-    words = words.replaceAll(" ([Mm])ore'n ", " $1ore 'n ");
-    words = words.replaceAll(" '([Tt])is ", " $1 is ");
-    words = words.replaceAll(" '([Tt])was ", " $1 was ");
-    words = words.replaceAll(" ([Ww])anna ", " $1an na ");
 
     // "Nicole I. Kidman" gets tokenized as "Nicole I . Kidman"
     words = words.replaceAll(" ([A-Z]) \\.", " $1. ");
     words = words.replaceAll("\\s+", SP);
     words = words.replaceAll("^\\s+", "");
 
-    String[] result = words.split(SP);
-    return result;
-  }
-
-  public boolean isSplittingContractions() {
-    return this.splitContractions;
-  }
-
-  public void setSplitContractions(boolean splitContractions) {
-    this.splitContractions = splitContractions;
+    return words.split(SP);
   }
 
   public static void main(String[] args) {
@@ -127,7 +81,7 @@ public final class PennWordTokenizer implements TokenizerIF, Constants {
 
     // String text = texts[j];
     PennWordTokenizer tk = new PennWordTokenizer();
-    tk.splitContractions = false;
+    RiTa.SPLIT_CONTRACTIONS = false;
     String[] toks = tk.tokenize(text);
     System.out.print("[");
     for (int i = 0; i < toks.length; i++)

@@ -526,11 +526,17 @@ public class RiTaTest
   public void testTokenizeAndBack()
   {
       String[] testStrings = {
-          "A simple sentence.","(that's why this is our place).",
+          "A simple sentence.",
+          "(that's why this is our place).",
           "The boy, dressed in red, ate an apple.",
           "Dr. Chan is talking slowly with Mr. Cheng, and they're friends.",
           "The boy screamed, 'Where is my apple?'",
           "The boy screamed, \"Where is my apple?\"",
+          "He can't didn't couldn't shouldn't wouldn't eat.",
+          "Shouldn't he eat?",
+          "It's not that I can't.",
+          "We've found the cat.",
+          "We didn't find the cat."
       };
       
       for (int i = 0; i < testStrings.length; i++) {
@@ -592,6 +598,33 @@ public class RiTaTest
     //System.out.println(RiTa.asList(expected));
     //System.out.println(RiTa.asList(output));
     deepEqual(output, expected);
+    
+    // contractions -------------------------
+
+    String txt1 = "Dr. Chan is talking slowly with Mr. Cheng, and they're friends."; // strange but same as RiTa-java
+    String txt2 = "He can't didn't couldn't shouldn't wouldn't eat.";
+    String txt3 = "Shouldn't he eat?";
+    String txt4 = "It's not that I can't.";
+    String txt5 = "We've found the cat.";
+    String txt6 = "We didn't find the cat.";
+
+    RiTa.SPLIT_CONTRACTIONS = false;
+    deepEqual(RiTa.tokenize(txt1), new String[] { "Dr", ".", "Chan", "is", "talking", "slowly", "with", "Mr", ".", "Cheng", ",", "and", "they're", "friends", "."});
+    deepEqual(RiTa.tokenize(txt2), new String[] { "He", "can't", "didn't", "couldn't", "shouldn't", "wouldn't", "eat", "."});
+    deepEqual(RiTa.tokenize(txt3), new String[] { "Shouldn't", "he", "eat", "?"});
+    deepEqual(RiTa.tokenize(txt4), new String[] { "It's", "not", "that", "I", "can't", "."});
+    deepEqual(RiTa.tokenize(txt5), new String[] { "We've", "found", "the", "cat", "."});
+    deepEqual(RiTa.tokenize(txt6), new String[] { "We", "didn't", "find", "the", "cat", "."});
+
+    RiTa.SPLIT_CONTRACTIONS = true;
+    deepEqual(RiTa.tokenize(txt1), new String[] { "Dr", ".", "Chan", "is", "talking", "slowly", "with", "Mr", ".", "Cheng", ",", "and", "they", "are", "friends", "."});
+    deepEqual(RiTa.tokenize(txt2), new String[] { "He", "can", "not", "did", "not", "could", "not", "should", "not", "would", "not", "eat", "."});
+    deepEqual(RiTa.tokenize(txt3), new String[] { "Should","not", "he", "eat", "?"});
+    deepEqual(RiTa.tokenize(txt4), new String[] { "It", "is", "not", "that", "I", "can", "not", "."});
+    deepEqual(RiTa.tokenize(txt5), new String[] { "We","have", "found", "the", "cat", "."});
+    deepEqual(RiTa.tokenize(txt6), new String[] { "We", "did", "not", "find", "the", "cat", "."});
+    
+    RiTa.SPLIT_CONTRACTIONS = false;
   }
 
   @Test

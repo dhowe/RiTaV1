@@ -138,7 +138,7 @@ RiLexicon.prototype.init = function() {
 
 var RiTa = {
 
-  VERSION: '1.1.19',
+  VERSION: '1.1.21',
 
   LEXICON: null, // static RiLexicon instance
 
@@ -402,8 +402,8 @@ var RiTa = {
 
     if (regex) return words.split(regex);
 
-    words = trim(words).replace(/``/g, "`` ");
-    words = words.replace(/''/g, "  ''");
+    words = trim(words);
+
     words = words.replace(/([\\?!\"\\.,;:@#$%&])/g, " $1 ");
     words = words.replace(/\\.\\.\\./g, " ... ");
     words = words.replace(/\\s+/g, SP);
@@ -416,27 +416,24 @@ var RiTa = {
     words = words.replace(/([^'])' /g, "$1 ' ");
     words = words.replace(/'([SMD]) /g, " '$1 ");
 
-    if (RiTa.SPLIT_CONTRACTIONS) { // SAVE
-      words = words.replace(/'ll /g, " 'll ");
-      words = words.replace(/'re /g, " 're ");
-      words = words.replace(/'ve /g, " have ");
+    if (RiTa.SPLIT_CONTRACTIONS) {
+
+      words = words.replace(/([Cc])an't/g, "$1an not");
+      words = words.replace(/([Dd])idn't/g, "$1id not");
+      words = words.replace(/([CcWw])ouldn't/g, "$1ould not");
+      words = words.replace(/([Ss])houldn't/g, "$1hould not");
+      words = words.replace(/ ([Ii])t's/g, " $1t is");
       words = words.replace(/n't /g, " not ");
-      words = words.replace(/'LL /g, " 'LL ");
-      words = words.replace(/'RE /g, " 'RE ");
-      words = words.replace(/'VE /g, " 'VE ");
-      words = words.replace(/N'T /g, " N'T ");
+      words = words.replace(/'ve /g, " have ");
+      words = words.replace(/'re /g, " are ");
     }
-    words = words.replace(/ ([Cc])an't /g, " $1an not ");
-    words = words.replace(/ ([Cc])annot /g, " $1an not ");
-    words = words.replace(/ ([Dd])idn't /g, " $1id not ");
-    words = words.replace(/ ([CcWw])ouldn't /g, " $1ould not ");
 
     // "Nicole I. Kidman" gets tokenized as "Nicole I . Kidman"
     words = words.replace(/ ([A-Z]) \\./g, " $1. ");
     words = words.replace(/\\s+/g, SP);
     words = words.replace(/^\\s+/g, E);
 
-    return trim(words).split(/\s+/); // DCH: fixed bug here, 6/3/12
+    return trim(words).split(/\s+/);
   },
 
   splitSentences: function(text, regex) {
@@ -905,7 +902,6 @@ RiMarkov.prototype = {
     this.isSentenceAware = (a.length > 1 && !a[1]) ? false : true;
     this.allowDuplicates = (a.length > 2 && !a[2]) ? false : true;
     this.printIgnoredText = false;
-    this.smoothing = false;
   },
 
   _initArgs: function() {
@@ -1070,16 +1066,6 @@ RiMarkov.prototype = {
     return res;
   },
 
-  useSmoothing: function(value) {
-
-    if (arguments.length) {
-
-      this.smoothing = value;
-      return this;
-    }
-    return this.smoothing;
-  },
-
   sentenceAware: function() {
 
     if (arguments.length > 0)
@@ -1166,7 +1152,7 @@ RiMarkov.prototype = {
         var node = this.root;
         for (var i = 0; i < toAdd.length; i++) {
           if (node.token) {
-            node = node.addChild(toAdd[i], this.smoothing ? 2 : 1);
+            node = node.addChild(toAdd[i], 1);
           }
         }
       }
@@ -1455,7 +1441,7 @@ RiMarkov.prototype = {
           add = add.substring(RiMarkov._SSDLM.length);
           var parent = node;
 
-          node = node.addChild(add, this.smoothing ? 2 : 1);
+          node = node.addChild(add, 1);
           node.isSentenceStart = true;
 
           if (parent.isRoot()) {
@@ -1463,7 +1449,7 @@ RiMarkov.prototype = {
           }
 
         } else
-          node = node.addChild(add, this.smoothing ? 2 : 1);
+          node = node.addChild(add, 1);
       }
     }
   },

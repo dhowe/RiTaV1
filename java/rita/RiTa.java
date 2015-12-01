@@ -46,7 +46,16 @@ import rita.support.Stemmer;
 public class RiTa implements Constants
 { 
   public final static String VERSION = "##version##";
+  
+  /** For tokenization, Can't -> Can not, etc. */
+  public static boolean SPLIT_CONTRACTIONS = false;
 
+  /** Stops all RiTa output to the console */
+  public static boolean SILENT = false;
+  
+  /** Stops all output from the LTS-engine to the console */
+  public static boolean SILENT_LTS = false;
+  
   public static final int JS = 1, NODE = 2, JAVA = 4, ANDROID = 8;
 
   public static boolean callbacksDisabled = false;
@@ -54,12 +63,6 @@ public class RiTa implements Constants
   public static Object context = null; // generally a PApplet
   
   private static boolean INITD = false;
-     
-  /** Stops all RiTa output to the console */
-  public static boolean SILENT = false;
-  
-  /** Stops all output from the LTS-engine to the console */
-  public static boolean SILENT_LTS = false;
   
   protected static String[] guesses = { "src/data", "data", "" };
    
