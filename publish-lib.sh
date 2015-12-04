@@ -21,10 +21,11 @@ while [ $# -ge 1 ]; do
     shift
 done
 echo
-ssh $RED "cd ~/git/RiTa && git pull && ln -fs RiTa-${VERSION}.zip rita.zip && ls -l rita.zip web/download"  # update server
 
 ant -f resources/build.xml build.js
 ant -f resources/build.xml build
+
+git add -u # add all tracked files
 
 if [ $WEB_ONLY = 1 ]
 then
