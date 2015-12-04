@@ -26,6 +26,7 @@ ant -f resources/build.xml build.js
 ant -f resources/build.xml build
 
 git add -u # add all tracked files
+git add web/RiTa-${VERSION}.zip  # add newly created zip file
 
 if [ $WEB_ONLY = 1 ]
 then
