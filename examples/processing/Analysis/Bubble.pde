@@ -15,7 +15,7 @@ class Bubble {
     ph=phoneme;
     t=0;
     x=0;
-    c=color(random(150)+100, random(150)+100, random(150)+100, 170);
+    c=getPhoColor(phoneme);
   } 
 
   void restart() {
