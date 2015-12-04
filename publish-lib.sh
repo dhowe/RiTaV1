@@ -22,12 +22,11 @@ while [ $# -ge 1 ]; do
 done
 echo
 
-#ant -f resources/build.xml build.js
-#ant -f resources/build.xml build
+ant -f resources/build.xml build.js
+ant -f resources/build.xml build
 
-#git add -u # add all tracked files
-#git add web/RiTa-${VERSION}.zip  # add newly created zip file
-
+git add -u                       # add all tracked files
+git add web/RiTa-${VERSION}.zip  # add newly created zip file
 
 if [ $WEB_ONLY = 1 ]
 then
@@ -38,9 +37,9 @@ else
     echo "Updating tags and NPM to ${VERSION}"
     ~/bin/git-tag.sh ${VERSION}
     cd js && ~/bin/git-tag.sh ${VERSION} && cd ..
-    exit
     ant -f resources/build.xml npm.publish
 fi
+exit
 
 echo Updating remote server... # pull from github and link rita.zip
 echo
