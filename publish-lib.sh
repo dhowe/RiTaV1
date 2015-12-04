@@ -43,4 +43,4 @@ exit
 
 echo Updating remote server... # pull from github and link rita.zip
 echo
-ssh $RED "cd ~/git/RiTa && git pull && cd web && ln -fs RiTa-${VERSION}.zip rita.zip && ls -l"  
+ssh $RED "cd ~/git/RiTa && git checkout HEAD^ web/rita.zip && git pull && cd web && ln -fs RiTa-${VERSION}.zip rita.zip && ls -l"  
