@@ -40,4 +40,6 @@ else
     ant -f resources/build.xml npm.publish
 fi
 
-ssh $RED "cd ~/git/RiTa && git pull && ln -fs RiTa-${VERSION}.zip rita.zip && ls -l"  # update server
+echo Updating remote server... # pull from github and link rita.zip
+echo
+ssh $RED "cd ~/git/RiTa && git pull && cd web && ln -fs RiTa-${VERSION}.zip rita.zip && ls -l"  
