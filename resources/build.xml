@@ -32,6 +32,7 @@
 	<property name="p5.sketchbook" location="${user.home}/Documents/Processing" />
 	<property name="p5.libraries" location="${p5.sketchbook}/libraries/" />
 	<property name="p5.rita.jar" location="${p5.libraries}/RiTa/library/rita.jar" />
+	<property name="p5.rita.support.jar" location="${p5.libraries}/RiTa/library/rita.support.jar" />
 
 	<!-- ======================================================= -->
 
@@ -70,7 +71,7 @@
 	
 	<target name="check.processing">
 
-		<available file="${p5.rita.jar}" property="processing.present" />
+		<available file="${p5.libraries}/RiTa/library" property="processing.present" />
 		<echo message="Checking for processing sketchbook..." />
 		<if>
 			<isset property="processing.present" />
@@ -313,9 +314,12 @@
 			<exclude name="**/docgen/**" />
 		</jar>
 
-		<!--  rita.jar to Processing libraries -->
+		<!--  rita jars to Processing libraries
 		<copy file="${project.dist}/rita.jar" tofile="${p5.rita.jar}" />
-		
+		<copy file="${project.dist}/rita.support.jar" tofile="${p5.rita.support.jar}" />
+		 -->
+		<antcall target="_jars.to.p5" />
+
 		<!--  library.properties for Processing -->
 		<copy file="${props.src}" tofile="${props.dst}" />
 		<replaceregexp file="${props.dst}" match="##version##" replace="${project.version}" flags="g" />
@@ -326,15 +330,24 @@
 
 	</target>
 
-	<target name="_jars.to.p5" description="">
+	<target name="_jars.to.p5" depends="check.processing">
+		<if>
+			<isset property="processing.present" />
+			<then>
+				<echo message="Copying jars to local p5 library ..." />
 
-		<!-- dev: copies generated jars to local processing install -->
-
-		<copy todir="${p5.libraries}/${project.name}/library">
-			<fileset dir="${project.dist}/${project.name}/library" />
-		</copy>
+				<copy todir="${p5.libraries}/${project.name}/library" >
+					<fileset dir="${project.dist}/${project.name}/library" />
+				</copy>
+			</then>
+			
+			<else>
+				<echo message="Skipping jars to p5" />
+			</else>
+		</if>
+		
 	</target>
-
+	
 	<target name="create.structure" description="" depends="clean">
 
 		<mkdir dir="${project.dist}" />
