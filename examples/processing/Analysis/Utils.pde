@@ -62,13 +62,8 @@ void addStresses(String stresses, String syllables, Bubble[] bubbles) {
 
 color phonemeColor(String phoneme) {
 
-  // find the index of current phoneme
-  for (int i = 0; i < RiTa.ALL_PHONES.length; i++) {
-    if (phoneme.equals(RiTa.ALL_PHONES[i]))
-      return colors[i];
-  }
-
-  return 0;
+  int idx = java.util.Arrays.asList(RiTa.ALL_PHONES).indexOf(phoneme);
+  return idx > -1 ? colors[idx] : 0;
 }
 
 color[] colorGradient() {
@@ -81,45 +76,4 @@ color[] colorGradient() {
   }
   colorMode(RGB,255,255,255,255);
   return tmp;
-}
-
-
-color[] randomColors() {
-
-  float[] mix = { 105, 153, 247	};
-  color[] cols = new color[RiTa.ALL_PHONES.length];
-  float gap = (256/(float)cols.length);
-
-  for (int i = 0; i < cols.length; i++) {
-
-    //float r = random(256), g = random(256), b = random(256);
-    float r = gap * i;
-    float b = 0;
-    float g = 0;//i%8 * 255/8.0, g = 255-b;//(gap * i * gap) % 255;
-
-    // mix the color
-    r = (r + mix[0]) / 2;
-    g = (g + mix[1]) / 2;
-    b = (b + mix[2]) / 2;
-
-    cols[i] = color(r, g, b, 255);
-  }
-
-  return cols;
-}
-
-color tagColor(String tag) {
-
-  switch(tag) {
-    case "Noun":
-      return #CC881B; // brown
-    case "Verb":
-      return #1B60CC; // blue
-    case "Adverb":
-      return #CC1BB8; // violet
-    case "Adjective":
-      return #1BCC2F; // green
-  }
-
-  return #FFCC00;
 }

@@ -5,8 +5,10 @@
   <script src="../../lib/jquery-1.11.3.min.js"></script>
   <script src="../../lib/yaml.min.js"></script>
   <script src="../../lib/p5.min.js"></script>
-  <script src="../../../dist/rita.js"></script>
-
+  <script src="../../../dist/rita.min.js"></script>
+  <script src="../../../js/prism.js"></script>
+  <script src="../../../js/sourcecode.js"></script>
+  <link rel='stylesheet' href='../../../css/prism.css' />
   <style>
     @font-face {
       font-family: Resagokr;
@@ -31,7 +33,21 @@
 </head>
 
 <body>
-  <font size=1><a href="code.js">source</a> <a href="../../data/haiku.yaml">grammar</a></font><br>
+<!-- showing souce code -->
+    <a href="#source" id="view-source">source</a> <a href="#source2" id="view-source">grammar</a>  </font><br>
+<div class="code" id="source">
+    <pre>
+ <code id="source-code" class="language-java"></code>
+ </pre>
+  </div>
+
+<div class="code" id="source2">
+    <pre>
+ <code id="grammar" class="language-yaml"></code>
+ </pre>
+  </div>
+<!-- end of showing souce code -->
+
   <div id='hdiv'>
     <span id='line1'></span></br>
     <span id='line2'></span></br>

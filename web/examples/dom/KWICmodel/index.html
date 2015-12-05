@@ -3,11 +3,14 @@
 <head>
   <title>KWIKmodel (dom)</title>
   <script src="../../lib/jquery-1.11.3.min.js"></script>
-  <script src="../../../dist/rita.js"></script>
+  <script src="../../../dist/rita.min.js"></script>
   <script src="code.js"></script>
+  <script src="../../../js/prism.js"></script>
+  <script src="../../../js/sourcecode.js"></script>
+  <link rel='stylesheet' href='../../../css/prism.css' />
   <style>
     body {
-      font-family: "Times New Roman";
+      font-family: serif;
       font-size: 18px;
     }
 
@@ -20,44 +23,43 @@
       position: absolute;
       overflow: hidden;
     }
-        
-    .buttonContainer {
+
+    #textInput {
       position: absolute;
-      left: 145px;
-      top: 40px;
+      left: 345px;
+      width: 50px;
       z-index: 1;
     }
-    
-    .cssBtns {
-      -moz-border-radius:7px;
-      -webkit-border-radius:7px;
-      border-radius:7px;
-      border:1px solid #dcdcdc;
-      padding:1px 6px;
-      text-decoration:none;
-      color:black;
-      display:inline-block;
-      cursor: default;
+
+    #button {
+      position: absolute;
+      left: 395px;
+      top: 21px;
+      z-index: 1;
+    }
+
+    #label {
+      position: absolute;
+      left: 300px;
+      top: 24px;
+      z-index: 1;
+      font-size: 14px;
     }
   </style>
 
 </head>
 
 <body>
-  <a href="code.js"><font size=1>source</font></a><br>
-    
-  <div class="buttonContainer">
-    <a href="#" class="cssBtns"></a>
-    <a href="#" class="cssBtns"></a>
-    <a href="#" class="cssBtns"></a>
-    <a href="#" class="cssBtns"></a>
-    <a href="#" class="cssBtns"></a>
-    <a href="#" class="cssBtns"></a>
-    <a href="#" class="cssBtns"></a>
-    <a href="#" class="cssBtns"></a>
-  </div>
-  
+  <a href="#source" id="view-source"><font size=1>source</font></a><br>
+  <span id="label">search: </span>
+  <input type="text" id="textInput">
+  <button type="button" id="button">UPDATE</button>
   <div id="container"></div>
+    <div class="code" id="source">
+    <pre>
+ <code id="source-code" class="language-java"></code>
+ </pre>
+  </div>
 </body>
 
 </html>

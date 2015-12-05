@@ -37,7 +37,7 @@ public interface Constants extends EnglishConstants
   String UNKNOWN = EventType.Unknown.name();
   
   String[] ALL_PHONES  = {
-    "aa","ae","ah","ao","aw","ax","axr","ay","b","ch","d","dh",
+    "aa","ae","ah","ao","aw","ax","ay","b","ch","d","dh",
     "eh","el","em","en","er","ey","f","g","hh","ih","iy","jh",
     "k","l","m","n","nx","ng","ow","oy","p","r","s","sh","t",
     "th","uh","uw","v","w","y","z","zh","pau"

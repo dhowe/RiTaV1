@@ -4,10 +4,13 @@
 <head>
   <title>Kafgenstein (dom)</title>
   <script src="../../lib/jquery-1.11.3.min.js"></script>
-  <script src="../../../dist/rita.js"></script>
+  <script src="../../../dist/rita.min.js"></script>
   <script src="code.js"></script>
+  <script src="../../../js/prism.js"></script>
+  <script src="../../../js/sourcecode.js"></script>
+  <link rel='stylesheet' href='../../../css/prism.css' />
   <style>
-    div {
+    .result{
       width: 500px;
       height: 500px;
       font-size: 16px;
@@ -16,7 +19,7 @@
       display: -webkit-flex;
     }
 
-    span {
+    .textarea{
       display: flex;
       display: -webkit-flex;
       justify-content: center;
@@ -32,9 +35,17 @@
 </head>
 
 <body>
-  <a href="code.js"><font size=1>source</font></a><br>
-  <div>
-    <span></span>
+  <a href="#source" id="view-source">source</a>
+
+<div class="code" id="source">
+    <pre>
+ <code id="source-code" class="language-java"></code>
+ </pre>
+  </div>
+
+<br><br>
+  <div class="result">
+    <span class="textarea"></span>
   </div>
 </body>
 </html>

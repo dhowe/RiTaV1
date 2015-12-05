@@ -2,89 +2,93 @@
 
 package rita.support;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 // should this be an enumerated type?
 /**
  * Static utility methods for operations involving phonemes.
+ * 
  * <pre>
-        TIMIT-Phoneme   Example     Translation    (39 entries, 11 missing?)
-        ========================================================
-          AA            odd         AA D
-          AE            at          AE T
-          AH            hut         HH AH T
-          AO            ought       AO T
-          AW            cow         K AW
-          AY            hide        HH AY D
-          B             be          B IY
-          CH            cheese      CH IY Z
-          D             dee         D IY
-          DH            thee        DH IY
-          EH            Ed          EH D
-          ER            hurt        HH ER T
-          EY            ate         EY T
-          F             fee         F IY
-          G             green       G R IY N
-          HH            he          HH IY
-          IH            it          IH T
-          IY            eat         IY T
-          JH            gee         JH IY
-          K             key         K IY
-          L             lee         L IY
-          M             me          M IY
-          N             knee        N IY
-          NG            ping        P IH NG
-          OW            oat         OW T
-          OY            toy         T OY
-          P             pee         P IY
-          R             read        R IY D
-          S             sea         S IY
-          SH            she         SH IY
-          T             tea         T IY
-          TH            theta       TH EY T AH
-          UH            hood        HH UH D
-          UW            two         T UW
-          V             vee         V IY
-          W             we          W IY
-          Y             yield       Y IY L D
-          Z             zee         Z IY
-          ZH            seizure     S IY ZH ER
-          
-          
-    SAMPA  IPA(hex), IPA(dec),           DESC                 29 Entries
-    ======================================================================== 
-    ('A',  '\u0251',  593,    "open back unrounded, Cardinal 5, Eng. start");
-    ('{',  '\u00E6',  230,    "near-open front unrounded, Eng. trap");
-    ('6',  '\u0250',  592,    "open schwa, Ger. besser");
-    ('Q',  '\u0252',  594,    "open back rounded, Eng. lot");
-    ('E',  '\u025B',  603,    "open-mid front unrounded, C3, Fr. m�me");
-    ('@',  '\u0259',  601,    "schwa, Eng. banana");
-    ('3',  '\u025C',  604,    "long mid central, Eng. nurse");
-    ('I',  '\u026A',  618,    "lax close front unrounded, Eng. kit");
-    ('O',  '\u0254',  596,    "open-mid back rounded, Eng. thought");
-    ('2',  '\u00F8',  248,    "close-mid front rounded, Fr. deux");
-    ('9',  '\u0153',  339,    "open-mid front rounded, Fr. neuf");
-    ('&',  '\u0276',  630,    "open front rounded");
-    ('U',  '\u028A',  650,    "lax close back rounded, Eng. foot");
-    ('}',  '\u0289',  649,    "close central rounded, Swedish sju");
-    ('V',  '\u028C',  652,    "open-mid back unrounded, Eng. strut");
-    ('Y',  '\u028F',  655,    "lax [y], Ger. h�bsc");
-    ('B',  '\u03B2',  946,    "voiced bilabial fricative, Sp. cabo");
-    ('C',  '\u00E7',  231,    "voiceless palatal fricative, Ger. ich");
-    ('D',  '\u00F0',  240,    "voiced dental fricative, Eng. then");
-    ('G',  '\u0263',  611,    "voiced velar fricative, Sp. fuego");
-    ('L',  '\u028E',  654,    "palatal lateral, It. famiglia");
-    ('J',  '\u0272',  626,    "palatal nasal, Sp. a�o");
-    ('N',  '\u014B',  331,    "velar nasal, Eng. thing");
-    ('R',  '\u0281',  641,    "vd. uvular fric. or trill, Fr. roi");
-    ('S',  '\u0283',  643,    "voiceless palatoalveolar fricative, Eng. ship");
-    ('T',  '\u03B8',  952,    "voiceless dental fricative, Eng. thin");
-    ('H',  '\u0265',  613,    "labial-palatal semivowel, Fr. huit");
-    ('Z',  '\u0292',  658,    "vd. palatoalveolar fric., Eng. measure");
-    ('?',  '\u0294',  660,    "glottal stop, Ger. Verein, also Danish st�d");</pre>
+ *         TIMIT-Phoneme   Example     Translation    (39 entries, 11 missing?)
+ *         ========================================================
+ *           AA            odd         AA D
+ *           AE            at          AE T
+ *           AH            hut         HH AH T
+ *           AO            ought       AO T
+ *           AW            cow         K AW
+ *           AY            hide        HH AY D
+ *           B             be          B IY
+ *           CH            cheese      CH IY Z
+ *           D             dee         D IY
+ *           DH            thee        DH IY
+ *           EH            Ed          EH D
+ *           ER            hurt        HH ER T
+ *           EY            ate         EY T
+ *           F             fee         F IY
+ *           G             green       G R IY N
+ *           HH            he          HH IY
+ *           IH            it          IH T
+ *           IY            eat         IY T
+ *           JH            gee         JH IY
+ *           K             key         K IY
+ *           L             lee         L IY
+ *           M             me          M IY
+ *           N             knee        N IY
+ *           NG            ping        P IH NG
+ *           OW            oat         OW T
+ *           OY            toy         T OY
+ *           P             pee         P IY
+ *           R             read        R IY D
+ *           S             sea         S IY
+ *           SH            she         SH IY
+ *           T             tea         T IY
+ *           TH            theta       TH EY T AH
+ *           UH            hood        HH UH D
+ *           UW            two         T UW
+ *           V             vee         V IY
+ *           W             we          W IY
+ *           Y             yield       Y IY L D
+ *           Z             zee         Z IY
+ *           ZH            seizure     S IY ZH ER
+ *           
+ *           
+ *     SAMPA  IPA(hex), IPA(dec),           DESC                 29 Entries
+ *     ======================================================================== 
+ *     ('A',  '\u0251',  593,    "open back unrounded, Cardinal 5, Eng. start");
+ *     ('{',  '\u00E6',  230,    "near-open front unrounded, Eng. trap");
+ *     ('6',  '\u0250',  592,    "open schwa, Ger. besser");
+ *     ('Q',  '\u0252',  594,    "open back rounded, Eng. lot");
+ *     ('E',  '\u025B',  603,    "open-mid front unrounded, C3, Fr. m�me");
+ *     ('@',  '\u0259',  601,    "schwa, Eng. banana");
+ *     ('3',  '\u025C',  604,    "long mid central, Eng. nurse");
+ *     ('I',  '\u026A',  618,    "lax close front unrounded, Eng. kit");
+ *     ('O',  '\u0254',  596,    "open-mid back rounded, Eng. thought");
+ *     ('2',  '\u00F8',  248,    "close-mid front rounded, Fr. deux");
+ *     ('9',  '\u0153',  339,    "open-mid front rounded, Fr. neuf");
+ *     ('&',  '\u0276',  630,    "open front rounded");
+ *     ('U',  '\u028A',  650,    "lax close back rounded, Eng. foot");
+ *     ('}',  '\u0289',  649,    "close central rounded, Swedish sju");
+ *     ('V',  '\u028C',  652,    "open-mid back unrounded, Eng. strut");
+ *     ('Y',  '\u028F',  655,    "lax [y], Ger. h�bsc");
+ *     ('B',  '\u03B2',  946,    "voiced bilabial fricative, Sp. cabo");
+ *     ('C',  '\u00E7',  231,    "voiceless palatal fricative, Ger. ich");
+ *     ('D',  '\u00F0',  240,    "voiced dental fricative, Eng. then");
+ *     ('G',  '\u0263',  611,    "voiced velar fricative, Sp. fuego");
+ *     ('L',  '\u028E',  654,    "palatal lateral, It. famiglia");
+ *     ('J',  '\u0272',  626,    "palatal nasal, Sp. a�o");
+ *     ('N',  '\u014B',  331,    "velar nasal, Eng. thing");
+ *     ('R',  '\u0281',  641,    "vd. uvular fric. or trill, Fr. roi");
+ *     ('S',  '\u0283',  643,    "voiceless palatoalveolar fricative, Eng. ship");
+ *     ('T',  '\u03B8',  952,    "voiceless dental fricative, Eng. thin");
+ *     ('H',  '\u0265',  613,    "labial-palatal semivowel, Fr. huit");
+ *     ('Z',  '\u0292',  658,    "vd. palatoalveolar fric., Eng. measure");
+ *     ('?',  '\u0294',  660,    "glottal stop, Ger. Verein, also Danish st�d");
+ * </pre>
  */
-public abstract class Phoneme implements Constants
-{
+public abstract class Phoneme implements Constants {
   /**
    * Vowels
    */
@@ -104,114 +108,199 @@ public abstract class Phoneme implements Constants
    * Voiced Obstruents
    */
   static final private String VOICED_OBSTRUENTS = "bdgjlmnnnrvwyz";
-  
 
-  public static boolean isPhoneme(String phoneme) 
-  {
+  public static boolean isPhoneme(String phoneme) {
     for (int i = 0; i < ALL_PHONES.length; i++) {
       if (phoneme.equals(ALL_PHONES[i]))
-        return true; 
+	return true;
     }
     return false;
   }
-  
+
   /**
    * Determines if the given phone is a vowel
    *
-   * @param phone the phone to test
+   * @param phone
+   *          the phone to test
    *
-   * @return <code>true</code> if phone is a vowel
-   *    otherwise <code>false</code>. 
+   * @return <code>true</code> if phone is a vowel otherwise <code>false</code>.
    */
   static public boolean isVowel(String phone) {
-      return VOWELS.indexOf(phone.substring(0,1)) != -1;
+    return VOWELS.indexOf(phone.substring(0, 1)) != -1;
   }
 
-    /**
+  /**
    * Determines if the given phone is a consonant
    *
-   * @param phoneme the phone to test
+   * @param phoneme
+   *          the phone to test
    *
-   * @return <code>true</code> if phone is a consonant
-   *    otherwise <code>false</code>. 
+   * @return <code>true</code> if phone is a consonant otherwise
+   *         <code>false</code>.
    */
-  public static boolean isConsonant(String phoneme) 
-  {
+  public static boolean isConsonant(String phoneme) {
     return !isVowel(phoneme); // ???
   }
-  
+
   /**
    * Determines if the given phone represents a silent phone.
    *
-   * @param phone the phone to test
+   * @param phone
+   *          the phone to test
    *
-   * @return <code>true</code> if the phone represents a silent
-   *    phone; otherwise <code>false</code>. 
+   * @return <code>true</code> if the phone represents a silent phone; otherwise
+   *         <code>false</code>.
    */
   static public boolean isSilence(String phone) {
     return phone.equals("pau");
   }
-  
+
   /**
-   * Determines if there is a vowel in the remainder of the array, 
-   * starting at the given index.
+   * Determines if there is a vowel in the remainder of the array, starting at
+   * the given index.
    *
-   * @param phones the set of phones to check
-   * @param index start checking at this index
+   * @param phones
+   *          the set of phones to check
+   * @param index
+   *          start checking at this index
    *
-   * @return <code>true</code> if a vowel is found; 
-   *    otherwise <code>false</code>. 
+   * @return <code>true</code> if a vowel is found; otherwise <code>false</code>
+   *         .
    */
   static public boolean hasVowel(String[] phones, int index) {
     for (int i = index; i < phones.length; i++) {
       if (isVowel(phones[i]))
-        return true;
+	return true;
     }
     return false;
   }
-  
+
   /**
    * Determines if there is a vowel in given list of phones.
    *
-   * @param phones the list of phones
+   * @param phones
+   *          the list of phones
    *
-   * @return <code>true</code> if a vowel is found; 
-   *    otherwise <code>false</code>. 
+   * @return <code>true</code> if a vowel is found; otherwise <code>false</code>
+   *         .
    */
   static public boolean hasVowel(List phones) {
     for (int i = 0; i < phones.size(); i++) {
-      if (isVowel((String) phones.get(i))) 
-        return true;
+      if (isVowel((String) phones.get(i)))
+	return true;
     }
     return false;
   }
-      
 
   /**
    * Determines the sonority for the given phone.
    * 
-   * @param phone the phone of interest
+   * @param phone
+   *          the phone of interest
    * 
    * @return an integer that classifies phone transitions
    */
-  public static int getSonority(String phone) 
-  {
+  public static int getSonority(String phone) {
     if (isVowel(phone) || isSilence(phone)) {
-        return 5;
-    } else if (GLIDES_LIQUIDS.indexOf(phone.substring(0,1)) != -1) {
-        return 4; 
-    } else if (NASALS.indexOf(phone.substring(0,1)) != -1) {
-        return 3;
-    } else if (VOICED_OBSTRUENTS.indexOf(phone.substring(0,1)) != -1) {
-        return 2;
+      return 5;
+    } else if (GLIDES_LIQUIDS.indexOf(phone.substring(0, 1)) != -1) {
+      return 4;
+    } else if (NASALS.indexOf(phone.substring(0, 1)) != -1) {
+      return 3;
+    } else if (VOICED_OBSTRUENTS.indexOf(phone.substring(0, 1)) != -1) {
+      return 2;
     } else {
-        return 1;
+      return 1;
     }
-  } 
-
-  public static void main(String[] args)
-  {
-    System.out.println(ALL_PHONES.length);
   }
-  
+
+  /**
+   * Converts an Arpabet phonemic transcription to an IPA phonemic
+   * transcription. Note that, somewhat unusually, the stress symbol will
+   * precede the vowel rather than the syllable. This is because Arpabet does
+   * not mark syllable boundaries.
+   *
+   * @param s
+   *          The Darpabet phonemic transcription to convert.
+   * @return The IPA equivalent of s.
+   * @throws IllegalArgumentException
+   *           if a phoneme is unknown.
+   */
+  public static String arpabetToIPA(String s) throws IllegalArgumentException {
+    String[] arpaPhonemes = s.trim().split("[ \\t]+");
+    StringBuffer ipaPhonemes = new StringBuffer(s.length());
+
+    for (String arpaPhoneme : arpaPhonemes) {
+      char stressChar = arpaPhoneme.charAt(arpaPhoneme.length() - 1);
+      if (stressChar == '0' || stressChar == '1' || stressChar == '2') {
+	arpaPhoneme = arpaPhoneme.substring(0, arpaPhoneme.length() - 1);
+	ipaPhonemes.append(arpabetMap.get(Character.toString(stressChar)));
+      }
+
+      String ipaPhoneme = arpabetMap.get(arpaPhoneme);
+      if (ipaPhoneme == null) {
+	throw new IllegalArgumentException();
+      }
+      ipaPhonemes.append(ipaPhoneme);
+    }
+
+    return ipaPhonemes.toString();
+  }
+
+  private static final Map<String, String> arpabetMap;
+  static {
+    Map<String, String> aMap = new HashMap<String, String>();
+    aMap.put("AA", "ɑ");
+    aMap.put("AE", "æ");
+    aMap.put("AH", "ʌ");
+    aMap.put("AO", "ɔ");
+    aMap.put("AW", "aʊ");
+    aMap.put("AX", "ə");
+    aMap.put("AY", "aɪ");
+    aMap.put("B", "b");
+    aMap.put("CH", "tʃ");
+    aMap.put("D", "d");
+    aMap.put("DH", "ð");
+    aMap.put("DX", "?");
+    aMap.put("EH", "ɛ");
+    aMap.put("ER", "ɚ");
+    aMap.put("EY", "eɪ");
+    aMap.put("F", "f");
+    aMap.put("G", "?");
+    aMap.put("HH", "h");
+    aMap.put("IH", "ɪ");
+    aMap.put("IY", "i");
+    aMap.put("JH", "dʒ");
+    aMap.put("K", "k");
+    aMap.put("L", "l");
+    aMap.put("M", "m");
+    aMap.put("NG", "ŋ");
+    aMap.put("N", "n");
+    aMap.put("OW", "oʊ");
+    aMap.put("OY", "ɔɪ");
+    aMap.put("P", "p");
+    aMap.put("R", "ɹ");
+    aMap.put("SH", "ʃ");
+    aMap.put("S", "s");
+    aMap.put("TH", "θ");
+    aMap.put("T", "t");
+    aMap.put("UH", "ʊ");
+    aMap.put("UW", "u");
+    aMap.put("V", "v");
+    aMap.put("W", "w");
+    aMap.put("Y", "j");
+    aMap.put("ZH", "ʒ");
+    aMap.put("Z", "z");
+    arpabetMap = Collections.unmodifiableMap(aMap);
+  }
+
+  public static void main(String[] args) {
+    System.out.println(ALL_PHONES.length);
+    for (int i = 0; i < ALL_PHONES.length; i++) {
+      if (!arpabetMap.containsKey(ALL_PHONES[i].toUpperCase()))
+	System.out.println(ALL_PHONES[i]);
+    }
+    System.out.println(arpabetMap.keySet().size());
+  }
+
 }// end

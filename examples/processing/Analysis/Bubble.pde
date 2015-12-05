@@ -6,6 +6,10 @@ class Bubble {
   int t; // timer
   float ypos, xpos, gravity = 0.5, speed = 0, sz;
 
+  Bubble() {
+    this("", 0);
+  }
+
   Bubble (String phone, float x) {
     xpos = x;
     ypos = 150;
@@ -44,7 +48,9 @@ class Bubble {
     sz = 0.5;
   }
 
-  void draw() {
+  void draw(int i) {
+
+    if (ph.length() < 1) return;
 
     // draw the background circle
     fill(c);
@@ -52,17 +58,13 @@ class Bubble {
 
     // display the phoneme
     fill(255);
+    textSize(18);
     textAlign(CENTER, CENTER);
     text(ph, xpos, ypos-5);
 
-    if (sz < 10) sz += 0.1 * sz;
+    if (sz < 10) sz *= 1.1;
 
-    t++;
-  }
-
-  void fall(int i) {
-
-    if (t > 100 + 2 * i) {
+    if (++t > 100 + 2 * i) {
       speed += gravity;
       ypos += speed;
     }
