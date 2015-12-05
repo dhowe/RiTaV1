@@ -28,7 +28,7 @@ public class RiString implements FeaturedIF, Constants, Comparable<RiString> {
   }
 
   protected String delegate;
-  protected Map<String, String> features;
+  protected HashMap<String, String> features;
   
   // convenience fields, in case we use this object for rendering
   public int x,y,z;
@@ -201,7 +201,7 @@ public class RiString implements FeaturedIF, Constants, Comparable<RiString> {
     return s;
   }
 
-  public Map<String, String> features() {
+  public HashMap<String, String> features() {
 
     if (features == null)
       this.analyze();

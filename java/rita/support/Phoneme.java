@@ -83,7 +83,7 @@ import java.util.List;
     ('Z',  '\u0292',  658,    "vd. palatoalveolar fric., Eng. measure");
     ('?',  '\u0294',  660,    "glottal stop, Ger. Verein, also Danish st�d");</pre>
  */
-public abstract class Phoneme 
+public abstract class Phoneme implements Constants
 {
   /**
    * Vowels
@@ -105,17 +105,11 @@ public abstract class Phoneme
    */
   static final private String VOICED_OBSTRUENTS = "bdgjlmnnnrvwyz";
   
-  public static final String[] TTS_PHONEMES  = {
-    "aa","ae","ah","ao","aw","ax","axr","ay","b","ch","d","dh",
-    "dx","eh","el","em","en","er","ey","f","g","hh","hv","ih",
-    "iy","jh","k","l","m","n","nx","ng","ow","oy","p","r","s",
-    "sh","t","th","uh","uw","v","w","y","z","zh","pau","h#","brth"
-  };
 
   public static boolean isPhoneme(String phoneme) 
   {
-    for (int i = 0; i < TTS_PHONEMES.length; i++) {
-      if (phoneme.equals(TTS_PHONEMES[i]))
+    for (int i = 0; i < ALL_PHONES.length; i++) {
+      if (phoneme.equals(ALL_PHONES[i]))
         return true; 
     }
     return false;
@@ -217,7 +211,7 @@ public abstract class Phoneme
 
   public static void main(String[] args)
   {
-    System.out.println(TTS_PHONEMES.length);
+    System.out.println(ALL_PHONES.length);
   }
   
 }// end
