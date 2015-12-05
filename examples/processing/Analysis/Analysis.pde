@@ -37,11 +37,10 @@ void draw()
   text(word, 80, 100);
 
   //pos Tag
+  fill(getTagColor(pos));
   textSize(18);
   textLeading(17);
-
   text(pos, 20, 30);
-  
 
   if (ph!="") {
     for (int i=0; i<bubbles.length; i++) {
@@ -66,9 +65,10 @@ void onRiTaEvent(RiTaEvent re) { // called every 4 sec by timer
     println(entry.getValue());
 
   //get all the features seperately
-  String[] temp =RiTa.getPosTags(word);
-  if (matchPennTags(temp[0])!=null)
-    pos = matchPennTags(temp[0]);
+  //get the pos tags, wordNet
+  String[] temp =RiTa.getPosTags(word,true);
+  if (matchTags(temp[0])!=null)
+    pos = matchTags(temp[0]);
   else pos =" ";
   sy=RiTa.getSyllables(word);
   ph=RiTa.getPhonemes(word);

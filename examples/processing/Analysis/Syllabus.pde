@@ -1,4 +1,5 @@
 void addSyllabus(String syllabus,Bubble[] bubbles)  {
+  
    //Split each syllabo
    String[] syllabo = syllabus.split("/");
    //record how many phonemes are in each syllabo
@@ -16,6 +17,7 @@ void addSyllabus(String syllabus,Bubble[] bubbles)  {
 }
 
 void addStress(String stresses,String syllabus, Bubble[] bubbles ){
+  
    String[] stress=stresses.split("/");
   //Split each syllabo
    String[] syllabo = syllabus.split("/");
