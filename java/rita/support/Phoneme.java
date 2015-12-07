@@ -2,11 +2,13 @@
 
 package rita.support;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import rita.RiLexicon;
 import rita.RiTa;
 
 /**
@@ -298,19 +300,41 @@ public abstract class Phoneme implements Constants {
   }
 
   public static void main(String[] args) {
-    
-//    String dict = RiTa.loadString("java/rita/rita_dict.js");
-//    for (int i = 0; i < RiTa.ALL_PHONES.length; i++) {
-//      int count = dict.length() - dict.replace(RiTa.ALL_PHONES[i], "").length();
-//      System.out.println(RiTa.ALL_PHONES[i]+": "+count);
-//    }
-    
-    System.out.println(ALL_PHONES.length);
-    for (int i = 0; i < ALL_PHONES.length; i++) {
-      if (!arpaMap.containsKey(ALL_PHONES[i]))
-	System.out.println(ALL_PHONES[i]);
+    int k = 0;
+
+    if (k==0) {
+      RiLexicon rl = new RiLexicon();
+      String[] words = rl.words();
+      List allPhones = Arrays.asList(RiTa.ALL_PHONES);
+      for (int i = 0; i < words.length; i++) {
+	String phonestr = RiTa.getPhonemes(words[i]);
+	String[] phones = phonestr.split("-");
+	String missing = "";
+	for (int j = 0; j < phones.length; j++) {
+	  if (allPhones.contains(phones[i]))
+	    missing += phones[i] + " ";
+	}
+	if (missing.length()>0)
+	  System.out.println(words[i] + " :: "+missing);
+      }
     }
-    System.out.println(arpaMap.keySet().size());
+    if (k==1) {
+      String dict = RiTa.loadString("java/rita/rita_dict.js");
+      for (int i = 0; i < RiTa.ALL_PHONES.length; i++) {
+        int count = dict.length() - dict.replace(RiTa.ALL_PHONES[i], "").length();
+        System.out.println(RiTa.ALL_PHONES[i]+": "+count);
+      }
+    }
+    
+    if (k==2) {
+  
+      System.out.println(ALL_PHONES.length);
+      for (int i = 0; i < ALL_PHONES.length; i++) {
+        if (!arpaMap.containsKey(ALL_PHONES[i]))
+  	System.out.println(ALL_PHONES[i]);
+      }
+      System.out.println(arpaMap.keySet().size());
+    }
   }
 
 }// end
