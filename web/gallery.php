@@ -121,11 +121,17 @@ Add your site or application content here
       </span>
       
       <span class="gallery_home_item gd-4 mgd-6 sgd-12">
+        <a href="http://antiboredom.github.io/zuckify/" target="new"><img src="img/zuckbaby.jpg" width="180"></a><br>
+        <a href="http://antiboredom.github.io/zuckify/" target="new">Zuckifier</a>
+        <p>by Sam Lavigne</p>
+        <p class="gallery_spacer">&nbsp;</p>
+      </span>
+<!--       <span class="gallery_home_item gd-4 mgd-6 sgd-12">
         <a href="https://play.google.com/store/apps/details?id=processing.test.jumping_wild" target="new"><img src="img/jumping.png" width="180"></a><br>
         <a href="https://play.google.com/store/apps/details?id=processing.test.jumping_wild" target="new">Jumping Wild Butoh Training</a>
         <p>by Honza Svasek </p>
         <p class="gallery_spacer">&nbsp;</p>
-      </span>
+      </span> -->
     </div>
 
   </div>
