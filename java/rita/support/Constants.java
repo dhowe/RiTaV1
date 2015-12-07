@@ -39,8 +39,8 @@ public interface Constants extends EnglishConstants
   String[] ALL_PHONES  = {
     "aa","ae","ah","ao","aw","ax","ay","b","ch","d","dh",
     "eh","el","em","en","er","ey","f","g","hh","ih","iy","jh",
-    "k","l","m","n","nx","ng","ow","oy","p","r","s","sh","t",
-    "th","uh","uw","v","w","y","z","zh","pau"
+    "k","l","m","n","ng","ow","oy","p","r","s","sh","t",
+    "th","uh","uw","v","w","y","z","zh",
   };
   
   // ==== Features ============ 

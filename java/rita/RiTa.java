@@ -1636,14 +1636,5 @@ public class RiTa implements Constants {
     return (!normalized) ? new MinEditDist().computeRaw(s1, s2)
 	: new MinEditDist().computeAdjusted(s1, s2);
   }
-  
-  public static void main(String[] args) {
-    System.out.println(System.getProperty("user.dir"));
-    String dict = loadString("java/rita/rita_dict.js");
-    for (int i = 0; i < RiTa.ALL_PHONES.length; i++) {
-      int count = dict.length() - dict.replace(RiTa.ALL_PHONES[i], "").length();
-      System.out.println(RiTa.ALL_PHONES[i]+": "+count);
-    }
-  }
 
 }

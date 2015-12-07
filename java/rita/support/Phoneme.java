@@ -7,7 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-// should this be an enumerated type?
+import rita.RiTa;
+
 /**
  * Static utility methods for operations involving phonemes.
  * 
@@ -220,13 +221,15 @@ public abstract class Phoneme implements Constants {
    * precede the vowel rather than the syllable. This is because Arpabet does
    * not mark syllable boundaries.
    *
-   * @param s
-   *          The Darpabet phonemic transcription to convert.
+   * Arpabet is the set of phonemes used by the CMU Pronouncing Dictionary. 
+   * IPA is the International Phonetic Alphabet.
+   *
+   * @param The Arpabet phonemic transcription to convert.
    * @return The IPA equivalent of s.
    * @throws IllegalArgumentException
    *           if a phoneme is unknown.
    */
-  public static String arpabetToIPA(String s) throws IllegalArgumentException {
+  public static String arpaToIPA(String s) throws IllegalArgumentException {
     String[] arpaPhonemes = s.trim().split("[ \\t]+");
     StringBuffer ipaPhonemes = new StringBuffer(s.length());
 
@@ -234,10 +237,10 @@ public abstract class Phoneme implements Constants {
       char stressChar = arpaPhoneme.charAt(arpaPhoneme.length() - 1);
       if (stressChar == '0' || stressChar == '1' || stressChar == '2') {
 	arpaPhoneme = arpaPhoneme.substring(0, arpaPhoneme.length() - 1);
-	ipaPhonemes.append(arpabetMap.get(Character.toString(stressChar)));
+	ipaPhonemes.append(arpaMap.get(Character.toString(stressChar)));
       }
 
-      String ipaPhoneme = arpabetMap.get(arpaPhoneme);
+      String ipaPhoneme = arpaMap.get(arpaPhoneme);
       if (ipaPhoneme == null) {
 	throw new IllegalArgumentException();
       }
@@ -247,60 +250,67 @@ public abstract class Phoneme implements Constants {
     return ipaPhonemes.toString();
   }
 
-  private static final Map<String, String> arpabetMap;
+  private static final Map<String, String> arpaMap;
   static {
-    Map<String, String> aMap = new HashMap<String, String>();
-    aMap.put("AA", "ɑ");
-    aMap.put("AE", "æ");
-    aMap.put("AH", "ʌ");
-    aMap.put("AO", "ɔ");
-    aMap.put("AW", "aʊ");
-    aMap.put("AX", "ə");
-    aMap.put("AY", "aɪ");
-    aMap.put("B", "b");
-    aMap.put("CH", "tʃ");
-    aMap.put("D", "d");
-    aMap.put("DH", "ð");
-    aMap.put("DX", "?");
-    aMap.put("EH", "ɛ");
-    aMap.put("ER", "ɚ");
-    aMap.put("EY", "eɪ");
-    aMap.put("F", "f");
-    aMap.put("G", "?");
-    aMap.put("HH", "h");
-    aMap.put("IH", "ɪ");
-    aMap.put("IY", "i");
-    aMap.put("JH", "dʒ");
-    aMap.put("K", "k");
-    aMap.put("L", "l");
-    aMap.put("M", "m");
-    aMap.put("NG", "ŋ");
-    aMap.put("N", "n");
-    aMap.put("OW", "oʊ");
-    aMap.put("OY", "ɔɪ");
-    aMap.put("P", "p");
-    aMap.put("R", "ɹ");
-    aMap.put("SH", "ʃ");
-    aMap.put("S", "s");
-    aMap.put("TH", "θ");
-    aMap.put("T", "t");
-    aMap.put("UH", "ʊ");
-    aMap.put("UW", "u");
-    aMap.put("V", "v");
-    aMap.put("W", "w");
-    aMap.put("Y", "j");
-    aMap.put("ZH", "ʒ");
-    aMap.put("Z", "z");
-    arpabetMap = Collections.unmodifiableMap(aMap);
+    Map<String, String> amap = new HashMap<String, String>();
+    amap.put("aa", "ɑ");
+    amap.put("ae", "æ");
+    amap.put("ah", "ʌ");
+    amap.put("ao", "ɔ");
+    amap.put("aw", "aʊ");
+    amap.put("ax", "ə");
+    amap.put("ay", "aɪ");
+    amap.put("b", "b");
+    amap.put("ch", "tʃ");
+    amap.put("d", "d");
+    amap.put("dh", "ð");
+    amap.put("dx", "?");
+    amap.put("eh", "ɛ");
+    amap.put("er", "ɚ");
+    amap.put("ey", "eɪ");
+    amap.put("f", "f");
+    amap.put("g", "?");
+    amap.put("hh", "h");
+    amap.put("ih", "ɪ");
+    amap.put("iy", "i");
+    amap.put("jh", "dʒ");
+    amap.put("k", "k");
+    amap.put("l", "l");
+    amap.put("m", "m");
+    amap.put("ng", "ŋ");
+    amap.put("n", "n");
+    amap.put("ow", "oʊ");
+    amap.put("oy", "ɔɪ");
+    amap.put("p", "p");
+    amap.put("r", "ɹ");
+    amap.put("sh", "ʃ");
+    amap.put("s", "s");
+    amap.put("th", "θ");
+    amap.put("t", "t");
+    amap.put("uh", "ʊ");
+    amap.put("uw", "u");
+    amap.put("v", "v");
+    amap.put("w", "w");
+    amap.put("y", "j");
+    amap.put("zh", "ʒ");
+    amap.put("z", "z");
+    arpaMap = Collections.unmodifiableMap(amap);
   }
 
   public static void main(String[] args) {
+    
+//    String dict = RiTa.loadString("java/rita/rita_dict.js");
+//    for (int i = 0; i < RiTa.ALL_PHONES.length; i++) {
+//      int count = dict.length() - dict.replace(RiTa.ALL_PHONES[i], "").length();
+//      System.out.println(RiTa.ALL_PHONES[i]+": "+count);
+//    }
+    
     System.out.println(ALL_PHONES.length);
     for (int i = 0; i < ALL_PHONES.length; i++) {
-      if (!arpabetMap.containsKey(ALL_PHONES[i].toUpperCase()))
+      if (!arpaMap.containsKey(ALL_PHONES[i]))
 	System.out.println(ALL_PHONES[i]);
     }
-    System.out.println(arpabetMap.keySet().size());
+    System.out.println(arpaMap.keySet().size());
   }
 
 }// end
