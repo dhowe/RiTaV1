@@ -1,8 +1,9 @@
 import rita.*;
 
 RiLexicon lexicon;
+int maxWordLength = 12;
 String pos="", word="", sy, ph, ss;
-Bubble[] bubbles = new Bubble[10];
+Bubble[] bubbles = new Bubble[maxWordLength];
 StringDict tagsDict;
 color[] colors;
 
@@ -59,7 +60,7 @@ void onRiTaEvent(RiTaEvent re) { // called every 4 sec by timer
   do {
     word = lexicon.randomWord();
   }
-  while (word.length() > 12);
+  while (word.length() > maxWordLength);
 
   // get various features
   sy = RiTa.getSyllables(word);
