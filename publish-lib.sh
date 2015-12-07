@@ -7,6 +7,9 @@ set -e
 
 BUILDPROPS=resources/build.properties
 VERSION=`sed -n 's/^project.version=\(.*\)$/\1/p' $BUILDPROPS`
+
+#TODO: check RiTaJS/package.json and make sure versions match
+
 echo "Version: $VERSION"
 WEB_ONLY=0
 
@@ -39,7 +42,6 @@ else
     cd js && ~/bin/git-tag.sh ${VERSION} && cd ..
     ant -f resources/build.xml npm.publish
 fi
-exit
 
 echo Updating remote server... # pull from github and link rita.zip
 echo
