@@ -74,7 +74,7 @@ function drawText() {
 
       fill(0);
       textAlign(RIGHT);
-      text(parts[0], x - tw, y);
+      text(parts[0], x - tw + 5, y);
 
       fill(200, 0, 0);
       textAlign(CENTER);

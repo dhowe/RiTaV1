@@ -45,15 +45,41 @@
       z-index: 1;
       font-size: 14px;
     }
+    
+    .buttonContainer {
+      position: absolute;
+      left: 145px;
+      top: 40px;
+      z-index: 1;
+    }
+    
+    .cssBtns {
+      -moz-border-radius:7px;
+      -webkit-border-radius:7px;
+      border-radius:7px;
+      border:1px solid #dcdcdc;
+      padding:1px 6px;
+      text-decoration:none;
+      color:black;
+      display:inline-block;
+      cursor: default;
+    }
   </style>
 
 </head>
 
 <body>
   <a href="#source" id="view-source"><font size=1>source</font></a><br>
-  <span id="label">search: </span>
-  <input type="text" id="textInput">
-  <button type="button" id="button">UPDATE</button>
+  <div class="buttonContainer">
+    <a href="#" class="cssBtns"></a>
+    <a href="#" class="cssBtns"></a>
+    <a href="#" class="cssBtns"></a>
+    <a href="#" class="cssBtns"></a>
+    <a href="#" class="cssBtns"></a>
+    <a href="#" class="cssBtns"></a>
+    <a href="#" class="cssBtns"></a>
+    <a href="#" class="cssBtns"></a>
+  </div>
   <div id="container"></div>
     <div class="code" id="source">
     <pre>
