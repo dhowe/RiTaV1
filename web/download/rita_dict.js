@@ -33365,7 +33365,7 @@ function _dict() { return {
 'zigzags': ['z-ih1-g z-ae-g-z','nns'],
 'zilch': ['z-ih1-l-ch','nn jj'],
 'zillions': ['z-ih1-l y-ax-n-z','nns'],
-'zinc': ['z-ih1-ng-k','nn'],
+'zinc': ['z-ih1-ng-k','nn'], 
 'zing': ['z-ih1-ng','nnp'],
 'zip': ['z-ih1-p','nn vbp vb'],
 'zipped': ['z-ih1-p-t','vbd'],
@@ -33386,5 +33386,4 @@ function _dict() { return {
 'zoomed': ['z-uw1-m-d','vbd vbn'],
 'zooming': ['z-uw1-m ih-ng','vbg'],
 'zooms': ['z-uw1-m-z','vbz'],
-'&' : ['ae1-n-d','cc vbp jj rb nnp']
 }; }

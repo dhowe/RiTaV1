@@ -138,7 +138,7 @@ RiLexicon.prototype.init = function() {
 
 var RiTa = {
 
-  VERSION: '1.1.26',
+  VERSION: '1.1.27',
 
   LEXICON: null, // static RiLexicon instance
 
@@ -169,7 +169,7 @@ var RiTa = {
   SENTENCE_BOUNDARY: "|",
   VOWELS: "aeiou",
   ABBREVIATIONS: ["Adm.", "Capt.", "Cmdr.", "Col.", "Dr.", "Gen.", "Gov.", "Lt.", "Maj.", "Messrs.", "Mr.", "Mrs.", "Ms.", "Prof.", "Rep.", "Reps.", "Rev.", "Sen.", "Sens.", "Sgt.", "Sr.", "St.", "a.k.a.", "c.f.", "i.e.", "e.g.", "vs.", "v.", "Jan.", "Feb.", "Mar.", "Apr.", "Mar.", "Jun.", "Jul.", "Aug.", "Sept.", "Oct.", "Nov.", "Dec."],
-  ALL_PHONES: [ "aa","ae","ah","ao","aw","ax","axr","ay","b","ch","d","dh","eh","el","em","en","er","ey","f","g","hh","ih","iy","jh","k","l","m","n","nx","ng","ow","oy","p","r","s","sh","t","th","uh","uw","v","w","y","z","zh"],
+  ALL_PHONES: ['aa','ae','ah','ao','aw','ax','ay','b','ch','d','dh', 'eh','er','ey','f','g','hh','ih','iy','jh', 'k','l', 'm','n','ng','ow','oy','p','r','s','sh','t','th','uh', 'uw','v','w','y','z','zh'],
 
   /* The infinitive verb form  - 'to eat an apple' */
   INFINITIVE: 1,
@@ -51361,7 +51361,7 @@ function _dict() { return {
 'zigzags': ['z-ih1-g z-ae-g-z','nns'],
 'zilch': ['z-ih1-l-ch','nn jj'],
 'zillions': ['z-ih1-l y-ax-n-z','nns'],
-'zinc': ['z-ih1-ng-k','nn'],
+'zinc': ['z-ih1-ng-k','nn'], 
 'zing': ['z-ih1-ng','nnp'],
 'zip': ['z-ih1-p','nn vbp vb'],
 'zipped': ['z-ih1-p-t','vbd'],
@@ -51382,7 +51382,6 @@ function _dict() { return {
 'zoomed': ['z-uw1-m-d','vbd vbn'],
 'zooming': ['z-uw1-m ih-ng','vbg'],
 'zooms': ['z-uw1-m-z','vbz'],
-'&' : ['ae1-n-d','cc vbp jj rb nnp']
 }; }
 
 RiLexicon.SILENCE_LTS = false;
