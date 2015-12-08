@@ -25,6 +25,9 @@ while [ $# -ge 1 ]; do
 done
 echo
 
+ssh $RED "cd ~/git/RiTa && git stash && cd web && ln -fs RiTa-${VERSION}.zip rita.zip && ls -l"
+exit
+
 ant -f resources/build.xml build.js
 ant -f resources/build.xml build
 
@@ -43,6 +46,7 @@ else
     ant -f resources/build.xml npm.publish
 fi
 
-echo Updating remote server... # pull from github and link rita.zip
+# pull from github and link rita.zip
+echo Updating remote server... 
 echo
-ssh $RED "cd ~/git/RiTa && git checkout HEAD^ web/rita.zip && git pull && cd web && ln -fs RiTa-${VERSION}.zip rita.zip && ls -l"  
+ssh $RED "cd ~/git/RiTa && git stash && cd web && ln -fs RiTa-${VERSION}.zip rita.zip && ls -l"
