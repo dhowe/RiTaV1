@@ -3902,7 +3902,7 @@ function _dict() { return {
 'cabana': ['k-ax-b ae1-n ax','nn'],
 'cabanas': ['k-ax-b ae1-n ax-z','nns'],
 'cabaret': ['k-ae1-b er ey1','nn'],
-'cabbage': ['k-ae1-b ax-jh','nn'],
+'cabbage': ['k-ae1-b ih-jh','nn'],
 'cabdriver': ['k-ae1-b d-r-ay1-v er','nn'],
 'cabin': ['k-ae1-b ax-n','nn'],
 'cabinet': ['k-ae1-b ax-n ax-t','nn jj'],
@@ -33365,7 +33365,7 @@ function _dict() { return {
 'zigzags': ['z-ih1-g z-ae-g-z','nns'],
 'zilch': ['z-ih1-l-ch','nn jj'],
 'zillions': ['z-ih1-l y-ax-n-z','nns'],
-'zinc': ['z-ih1-ng-k','nn'],
+'zinc': ['z-ih1-ng-k','nn'], 
 'zing': ['z-ih1-ng','nnp'],
 'zip': ['z-ih1-p','nn vbp vb'],
 'zipped': ['z-ih1-p-t','vbd'],
@@ -33386,5 +33386,4 @@ function _dict() { return {
 'zoomed': ['z-uw1-m-d','vbd vbn'],
 'zooming': ['z-uw1-m ih-ng','vbg'],
 'zooms': ['z-uw1-m-z','vbz'],
-'&' : ['ae1-n-d','cc vbp jj rb nnp']
 }; }

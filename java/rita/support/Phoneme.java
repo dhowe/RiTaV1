@@ -266,7 +266,7 @@ public abstract class Phoneme implements Constants {
     amap.put("ch", "tʃ");
     amap.put("d", "d");
     amap.put("dh", "ð");
-    amap.put("dx", "?");
+    //amap.put("dx", "?");
     amap.put("eh", "ɛ");
     amap.put("er", "ɚ");
     amap.put("ey", "eɪ");
@@ -294,13 +294,13 @@ public abstract class Phoneme implements Constants {
     amap.put("v", "v");
     amap.put("w", "w");
     amap.put("y", "j");
-    amap.put("zh", "ʒ");
     amap.put("z", "z");
+    amap.put("zh", "ʒ");
     arpaMap = Collections.unmodifiableMap(amap);
   }
 
   public static void main(String[] args) {
-    int k = 0;
+    int k = 2;
 
     if (k==0) {
       RiLexicon rl = new RiLexicon();
@@ -311,8 +311,8 @@ public abstract class Phoneme implements Constants {
 	String[] phones = phonestr.split("-");
 	String missing = "";
 	for (int j = 0; j < phones.length; j++) {
-	  if (allPhones.contains(phones[i]))
-	    missing += phones[i] + " ";
+	  if (!allPhones.contains(phones[j]))
+	    missing += phones[j] + " ";
 	}
 	if (missing.length()>0)
 	  System.out.println(words[i] + " :: "+missing);
