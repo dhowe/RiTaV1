@@ -16,7 +16,7 @@ public class RiLexiconTest {
   
   static {
     //System.out.println(System.getProperty("java.version"));
-    RiTa.SILENT = true;
+    //RiTa.SILENT = true;
     RiLexicon.SILENCE_LTS = true;
   }
 
@@ -25,7 +25,7 @@ public class RiLexiconTest {
   public void testLexicalDataMap() // TODO: check this in RiTaJS
   {
     Map obj = new HashMap();
-    obj.put("wonderfullyy", "w-ah1-n-d er-f ax-l iy|rb");
+    obj.put("wonderfullyy", "w-ah1-n-d er-f ah-l iy|rb");
 
     RiLexicon lex = new RiLexicon(obj);
     Map result = lex.lexicalData();
@@ -33,7 +33,7 @@ public class RiLexiconTest {
     ok(lex.containsWord("wonderfullyy"));
     // RiTa.out(result.get("wonderfullyy"));
 
-    equal("w-ah1-n-d er-f ax-l iy|rb", result.get("wonderfullyy"));
+    equal("w-ah1-n-d er-f ah-l iy|rb", result.get("wonderfullyy"));
 
     ok(!lex.containsWord("wonderful"));
 
@@ -45,7 +45,7 @@ public class RiLexiconTest {
   public void testAddWordStringStringString() {
     RiLexicon lex = new RiLexicon();
 
-    lex.addWord("bananana", "b-ax-n ae1-n ax ax", "nn");
+    lex.addWord("bananana", "b-ah-n ae1-n ae1-n ah", "nn");
     ok(lex.containsWord("bananana"));
 
     lex.addWord("hehehe", "hh-ee1 hh-ee1 hh-ee1", "uh");
@@ -80,8 +80,8 @@ public class RiLexiconTest {
     ok(lex.containsWord("banana"));
     ok(lex.containsWord("funny"));
 
-    Map obj = new HashMap();
-    obj.put("wonderfullyy", new String[] { "w-ah1-n-d er-f ax-l iy", "rb" });
+    HashMap obj = new HashMap();
+    obj.put("wonderfullyy", new String[] { "w-ah1-n-d er-f ah-l iy", "rb" });
     lex.lexicalData(obj);
     ok(lex.size() == 1);
     deepEqual(lex.lexicalData(), obj);
@@ -89,14 +89,18 @@ public class RiLexiconTest {
     ok(lex.containsWord("wonderfullyy"));
 
     lex.reload();
+    System.out.println(lex.size());
+    ok(lex.containsWord("zooms"));
+    ok(lex.containsWord("a"));
     ok(!lex.containsWord("wonderfullyy"));
     ok(lex.containsWord("wonderful"));
 
     Map result = new HashMap();
     lex = new RiLexicon();
     result = lex.lexicalData();
-    ok(lex.containsWord("a"));
+    
     ok(lex.containsWord("zooms"));
+    ok(lex.containsWord("a"));
     ok(result.size() > 1000);
   }
 
@@ -196,11 +200,11 @@ public class RiLexiconTest {
 
     re = lex.lexicalData();
     returned = (String) re.get("the");
-    expected = "dh-ax|dt";
+    expected = "dh-ah|dt";
     deepEqual(returned, expected);
 
     String answer = (String) result.get("aback");
-    deepEqual(answer, "ax-b ae1-k|rb");
+    deepEqual("ah b-ae1-k|rb", answer);
 
     // System.out.println("lexicalData containsKey('a'): "+result.containsKey("a"));
     // System.out.println("lexicalData : "+result.get("a"));
@@ -649,7 +653,7 @@ public class RiLexiconTest {
     RiLexicon lex = new RiLexicon();
 
     String s = lex.lexImpl.getRawPhones("dragging", false);
-    equal(s, "d-r-ae1-g ih-ng");
+    equal(s, "d-r-ae1 g-ih-ng");
 
     s = lex.lexImpl.getRawPhones("laggin", false);
     ok(s.length() == 0);
@@ -667,7 +671,7 @@ public class RiLexiconTest {
     ok(s.length() == 0);
 
     s = lex.lexImpl.getRawPhones("mellow", false);
-    equal(s, "m-eh1-l ow");
+    equal(s, "m-eh1 l-ow");
 
     // s = lex.lexImpl.getRawPhones("mellow", true);
     // equal(s,"m-eh1-l ow"); Note: moved to KnownIssues

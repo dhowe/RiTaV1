@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import rita.RiLexicon;
+import rita.RiString;
 import rita.RiTa;
 
 /**
@@ -267,7 +268,7 @@ public abstract class Phoneme implements Constants {
     amap.put("ah", "ʌ");
     amap.put("ao", "ɔ");
     amap.put("aw", "aʊ");
-    amap.put("ax", "ə");
+    //amap.put("ax", "ə");
     amap.put("ay", "aɪ");
     amap.put("b", "b");
     amap.put("ch", "tʃ");
@@ -307,14 +308,10 @@ public abstract class Phoneme implements Constants {
   }
 
   public static void main(String[] args) {
-    int k = 3;
+    int k = 0;
 
-    
-    
-    System.out.println(RiTa.getPhonemes("become"));
-    
-    
     if (k==0) {
+      
       RiLexicon rl = new RiLexicon();
       String[] words = rl.words();
       List allPhones = Arrays.asList(RiTa.ALL_PHONES);
@@ -347,6 +344,39 @@ public abstract class Phoneme implements Constants {
       }
       System.out.println(arpaMap.keySet().size());
     }
+    
+    if (k==3) {
+
+      RiLexicon.enabled = false;
+      RiString rs = new RiString("await");
+      rs.analyze();
+      System.out.println(rs.features());
+      //System.out.println(rs.get("syllables"));
+//      RiLexicon rl = new RiLexicon();
+//      System.out.println("become"));
+//      rl.lexImpl = null;
+//      System.out.println(RiTa.getPhonemes("become"));
+    }
+    if (k==4) {
+      RiLexicon rl = new RiLexicon();
+      String[] words = rl.words();
+      HashMap<String, String> syllables = new HashMap<String, String>();      
+      for (int i = 0; i < Math.min(words.length,20); i++) {
+	String word = words[i];
+	String sylls = RiTa.getSyllables(word);
+	syllables.put(word, sylls);
+      }
+      System.out.println("=========================================");
+      RiLexicon.enabled = false;
+      for (int i = 0; i < Math.min(words.length,20); i++) {
+	String word = words[i];
+	String ltsSylls = RiTa.getSyllables(word);
+	String sylss = syllables.get(word);
+	boolean match = ltsSylls.equals(sylss);
+	System.out.println(i+") "+word+": "+(match ? "OK" : ltsSylls +" != "+ sylss));
+      }
+    }
+
   }
 
 }// end

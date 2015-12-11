@@ -51,7 +51,7 @@ public class JSONLexicon implements Constants {
   // members ====================================
 
   protected String dictionaryFile;
-  protected Map<String, String> lexicalData;
+  protected HashMap<String, String> lexicalData;
   protected boolean loaded, lazyLoadLTS;
   protected LetterToSound letterToSound;
 
@@ -109,7 +109,7 @@ public class JSONLexicon implements Constants {
    * Returns the raw data (as a Map) used in the lexicon. Modifications to this
    * Map will be immediately reflected in the lexicon.
    */
-  public Map<String, String> getLexicalData() {
+  public HashMap<String, String> getLexicalData() {
     return lexicalData;
   }
 
@@ -117,7 +117,7 @@ public class JSONLexicon implements Constants {
    * Sets the raw data (a Map) used in the lexicon, replacing all default words
    * and features.
    */
-  public void setLexicalData(Map<String, String> lexicalData) {
+  public void setLexicalData(HashMap<String, String> lexicalData) {
     this.lexicalData = lexicalData;
   }
 

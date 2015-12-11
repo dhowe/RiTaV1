@@ -1017,10 +1017,6 @@ public class RiTaTest
     resultArr = RiTa.getPosTags("asserting"); 
     answerArr = new String[] {"vbg"};
     deepEqual(answerArr,resultArr);
-    
-    resultArr = RiTa.getPosTags("assenting"); // added to dict
-    answerArr = new String[] {"vbg"};
-    deepEqual(answerArr,resultArr);  
 
     resultArr = RiTa.getPosTags("asfaasd");
     answerArr = new String[] {"nn"};

@@ -1,6 +1,7 @@
 package rita;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
@@ -38,6 +39,7 @@ import rita.support.SetOp;
  * is only 1 copy)
  */
 public class RiLexicon implements Constants {
+  
   static {
     RiTa.init();
   }
@@ -62,7 +64,7 @@ public class RiLexicon implements Constants {
    */
   public RiLexicon(Object parent) // ignore parent
   {
-    this(null);
+    this((HashMap)null);
   }
 
   /**
@@ -72,10 +74,10 @@ public class RiLexicon implements Constants {
    * (there is only 1 copy)
    */
   public RiLexicon() {
-    this(null);
+    this((HashMap)null);
   }
 
-  public RiLexicon(Map data) {
+  public RiLexicon(HashMap data) {
     this.lexImpl = JSONLexicon.getInstance();
     if (data != null)
       this.lexImpl.setLexicalData(data);
@@ -149,11 +151,11 @@ public class RiLexicon implements Constants {
     return false;
   }
 
-  public Map<String, String> lexicalData() {
+  public HashMap<String, String> lexicalData() {
     return lexImpl.getLexicalData();
   }
 
-  public RiLexicon lexicalData(Map m) {
+  public RiLexicon lexicalData(HashMap m) {
     lexImpl.setLexicalData(m);
     return this;
   }
@@ -859,6 +861,7 @@ public class RiLexicon implements Constants {
 
   public static void main(String[] args) {
     RiLexicon rl = new RiLexicon();
+    if (1==1) return;
     // System.out.println(rl.lastStressedPhoneToEnd("mellow",true));
     System.out.println(rl.lastStressedPhoneToEnd("toy", true));
     System.out.println(rl.lastStressedPhoneToEnd("boy", true));
