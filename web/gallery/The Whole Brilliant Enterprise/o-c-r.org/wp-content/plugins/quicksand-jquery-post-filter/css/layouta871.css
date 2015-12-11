@@ -1,0 +1,60 @@
+
+/*- FILTER OPTIONS -*/
+
+.options-container {
+    width: 100%;
+    text-align:center;
+    border-bottom: none;
+}
+
+ul#filterOptions {
+        margin: 0 auto;
+        width: auto;
+        text-align: center;
+        height: auto;
+        
+}
+ul#filterOptions li { height:auto; margin-right: 2px; display: inline-block; }
+ul#filterOptions li a {
+	height:auto;
+	padding: 0 20px;
+	color: #000;
+	font-weight: bold;
+	line-height: 50px;
+	text-decoration: none;
+	display: block;
+}
+ul#filterOptions li a:hover { font-weight:bold; color:#666;}
+ul#filterOptions li.active a {  }
+/*- -*/
+/*- OUR DATA HOLDER -*/
+ul.ourHolder {
+	
+	width: 99%;
+	height: auto;
+	overflow: hidden;
+}
+ul.ourHolder li.item {
+	list-style:none;
+	padding: 1px;
+	width: 200px;
+	height: 200px;
+	display:inline-block;
+	text-align: center;
+	overflow: hidden;
+}
+ul.ourholder li.item img {
+       width:100%;
+       height:auto;
+}
+ul.ourHolder li.item h3 { margin-top: 10px; font-size: 14px; line-height: 20px; }
+/*- -*/
+
+.descriptions {
+    clear:both;
+}
+
+.descriptions h3 {
+    font-size:12px;
+    text-align:center;
+}

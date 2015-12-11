@@ -1,0 +1,60 @@
+<html>
+
+<head>
+    <title>Paragraph Layouts (p5js)</title>
+
+    <script src="lib/p5.js"></script>
+    <script src="lib/rita.js"></script>
+    <script src="lib/ristring-util.js"></script>
+    <script src="lib/rita-wordnet.js"></script>
+    <script>
+
+var words = ['A', 'raw', 'memory', '.', 'Church', '.', 'A', 'loud', 'room', 'with', 'children', 'playing', ',', 'thoughtlessly', '.', 'Wandering', 'wildly', '.', 'I', 'stand', 'small', 'and', 'young', 'within', 'a', 'chaotic', 'garden', 'of', 'little', 'ideas', 'and', 'unaware', ',', 'tiny', 'minds', '.', 'Colorful', 'toys', 'litter', 'the', 'ground', 'and', 'posters', 'of', 'silent', 'saints', 'loom', '.', 'My', 'mother', 'rises', 'tall', 'and', 'aware', '.', 'She', 'departs', 'gracefully', '.', 'I', 'pull', 'a', 'blue', ',', 'plastic', 'bucket', 'to', 'the', 'door', 'and', 'climb', 'it', '.', 'Staring', 'through', 'the', 'window', '.', 'Bells', 'ringing', '.', 'My', 'mom', 'is', 'walking', 'down', 'a', 'long', 'hall', ',', 'bright', 'with', 'holy', 'light', '.', 'I', 'am', 'trembling', ',', 'abiding', 'while', 'the', 'adults', 'pray', '.', 'I', 'play', ',', 'barely', ',', 'with', 'a', 'little', 'red', 'ambulance', ',', 'watching', 'the', 'empty', 'corridor', '.'];
+var txt = 'A raw memory. Church. A loud room with children playing, thoughtlessly. Wandering wildly. I stand small and young within a chaotic garden of little ideas and unaware, tiny minds. Colorful toys litter the ground and posters of silent saints loom. My mother rises tall and aware. She departs gracefully. I pull a blue, plastic bucket to the door and climb it. Staring through the window. Bells ringing. My mom is walking down a long hall, bright with holy light. I am trembling, abiding while the adults pray. I play, barely, with a little red ambulance, watching the empty corridor.'
+var all, x = 40, y = 50, w = 300, h = 400, fontSize = 18;
+
+function preload()
+{
+    font = loadFont('LondonBetween.ttf');
+}
+
+function setup()
+{
+    createCanvas(1100, 800);
+    textFont(font, fontSize);
+    var args = {
+        font: font, fontSize: fontSize, text: txt,
+        x: x, y: y, w: w, h: h,
+    };
+
+    var rs = RiString.createLines(args);
+
+    args.x += 350;
+    var rw = RiString.createWords(args);
+
+    args.x += 350;
+    var rl = RiString.createLetters(args);
+
+    console.log(rs.length+' lines,', rw.length+' words,', rl.length+' letters');
+    all = rs.concat(rw).concat(rl);
+}
+
+function draw()
+{
+    background(245);
+    rect(x,y,w,h);
+    rect(x+350,y,w,h);
+    rect(x+700,y,w,h);
+
+    for (var i = 0; i < all.length; i++) {
+        fill(random(200),random(200),random(200));
+        text(all[i].text(), all[i].get('x'), all[i].get('y'));
+    }
+
+    noLoop();
+}
+
+</script>
+</head>
+
+</html>

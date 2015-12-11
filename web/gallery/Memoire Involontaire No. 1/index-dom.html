@@ -1,0 +1,134 @@
+<html>
+
+<head>
+    <title>Memory (dom)</title>
+
+    <script src="lib/jquery-min.js"></script>
+    <script src="lib/rita.js"></script>
+    <script src="lib/ristring-util.js"></script>
+    <script src="lib/rita-wordnet.js"></script>
+    <script src="memory.js"></script>
+
+    <style>
+        @font-face {
+            font-family: font;
+            src: url('LondonBetween.ttf');
+            font-size: 48px;
+        }
+        div {
+            padding: 30px;
+            font-family: font;
+            line-height: 58px;
+            minHeight: 600px;
+            width: 1100px;
+        }
+    </style>
+
+<script>
+
+var rts = [];
+
+$(document).ready(function()
+{
+    wordnet = new RiWordNet(host, port);
+    for (var i = 0; i < words.length; i++) {
+        wordLists[i] = [words[i]];
+        colorVals[i] = 255.0;
+    }
+    reformat();
+    draw();
+});
+
+function draw()
+{
+    requestAnimationFrame(draw);
+
+    if (millis() - bgTimeStamp > 100)
+    {
+        $('#container').css('background-color',
+            toHex(adjustBackground()));
+        tryReplacement();
+    }
+}
+
+function reformat()
+{
+    var $container = $("#container");
+    var theText = RiTa.untokenize(words).split(' ');
+    for (var i = 0; i < theText.length; i++) {
+        if (!rts[i]) rts[i] = new RiString();
+        rts[i].text(theText[i]);
+        updateNode(i, $container);
+    }
+    timeStamp = millis();
+}
+
+function updateNode(i, div)
+{
+    var $span = $('span#'+i);
+    if (!$span.length) $span = createNode(i, div);
+    $span.css('color', toHex(colorVals[i]))
+        .html(rts[i].text() + '&nbsp;');
+}
+
+function createNode(i, div)
+{
+    var $span = $('<span/>', {
+        id: i,
+        html: rts[i].text() + '&nbsp;',
+        css: {
+            color: toHex(colorVals[i]),
+            display: "inline-block",
+            fontSize: fontSize
+        }
+    }).appendTo(div);
+
+    return $span;
+}
+
+function millis()
+{
+    // window.performance, amd millis() extracted from p5js
+    window.performance = window.performance || {};
+    window.performance.now = window.performance.now || function() {
+        var load_date = Date.now();
+        return window.performance.now ||
+            window.performance.mozNow ||
+            window.performance.msNow ||
+            window.performance.oNow ||
+            window.performance.webkitNow ||
+            function() { return Date.now() - load_date; };
+    }();
+    return window.performance.now();
+}
+
+function toHex(color)
+{
+    var intValue = Math.floor(color);
+    return "rgb(" + intValue + "," + intValue + "," + intValue + ")";
+}
+
+// requestAnim shim layer by Paul Irish
+window.requestAnimFrame = (function() {
+    return window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function( /* function */ callback, /* DOMElement */ element) {
+            window.setTimeout(callback, 1000 / 60);
+        };
+})();
+
+</script>
+</head>
+
+<body>
+    <audio src="bells3.mp3" loop autoplay></audio>
+    <p>
+        <font size=2>Memory by A. B. Soderman</font>
+    </p>
+    <div id='container'></div>
+</body>
+
+</html>

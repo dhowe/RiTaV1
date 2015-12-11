@@ -1,0 +1,300 @@
+<html>
+
+<head>
+    <title>Paragraph Layouts (p5js)</title>
+
+    <script src="lib/p5.js"></script>
+    <!--script src="lib/rita.js"></script-->
+    <script src="/Projects/RiTaJS/src/rita.js"></script>
+    <script src="lib/rita-wordnet.js"></script>
+    <script>
+
+var txt = ['A raw memory. Church.', 'A loud room with children playing, thoughtlessly.','Wandering wildly. I stand small and young'];
+var rs, tx = 20, ty = 50, tw = 500, th = 95, fsize = 28;
+
+function preload()
+{
+    font = loadFont('LondonBetween.ttf');
+}
+
+function setup()
+{
+    createCanvas(800, 600);
+    background(245);
+    textFont(font, fsize);
+    rs = RiString.createLines({
+        font: font, fontSize: fsize, text: txt, x: tx, y: ty, h: th
+    });
+}
+
+function draw()
+{
+    background(245);
+    rect(tx, ty, tw, th);
+    for (var i = 0; i < rs.length; i++) {
+        text(rs[i].text(), rs[i].get('x'), rs[i].get('y'));
+    }
+}
+
+// ------------------------------------------------------------------
+// TODO: test html tags
+
+var E =  '', SP = ' ', paragraphIndent = 30, indentFirstParagraph = false;
+var NON_BREAKING_SPACE = "<sp/>";
+var PARAGRAPH_BREAK = "<p/>";
+var LINE_BREAK = "<br/>";
+
+RiString.createLines = function(options) {
+
+    var opts = parseOpts(options, {
+        fontSize: 12, x: 0, y: 0, w: Number.MAX_VALUE , h: Number.MAX_VALUE
+    });
+
+    var p5font = opts.font, txt = opts.text,
+        fsize = opts.fontSize, x = opts.x, y = opts.y, w = opts.w, h = opts.h,
+        leading = opts.leading || opts.fontSize * 1.2, // make const
+        ascent, descent, startX = x, currentX, currentY, rlines = [],
+        sb = E, words = [], next, yPos = 0, rt = undefined,
+        newParagraph = 0, forceBreak = 0, firstLine = 1,
+        maxW = x + w, maxH = y + h;
+
+    if (!txt || !txt.length) return [];
+
+    // 1. get font ascent and descent
+    ascent = p5font._textAscent(fsize);
+    descent = p5font._textDescent(fsize);
+    //console.log('ascent: ',ascent,'descent: ',descent);
+
+    if (Array.isArray(txt)) {
+
+        return layoutArray(txt, x, y, h, ascent, descent, leading);
+    }
+
+    // remove line breaks & add spaces around html
+    txt = txt.replace(/&gt;/g, '>').replace(/&lt;/g, '<');
+    txt = txt.replace(/ ?(<[^>]+>) ?/g, " $1 ");
+    txt = txt.replace(/[\r\n]+/g, SP);
+
+    // split into reversed array of words
+    RiString._addToStack(txt, words);
+
+    if (!words.length) return [];
+
+    //log("txt.len="+txt.length+" x="+x+" y="+y+" w="+w+" h="+h+" lead="+leading);log(p5font);
+
+    currentY = y + ascent;
+
+    if (indentFirstParagraph)
+        startX += paragraphIndent;
+
+    while (words.length > 0) {
+
+        next = words.pop();
+
+        if (!next.length) continue;
+
+        // check for HTML-style tags
+        if (/<[^>]+>/.test(next)) {
+            if (next === NON_BREAKING_SPACE) {
+                sb += SP;
+            }
+            else if (next === PARAGRAPH_BREAK) {
+                newParagraph = true;
+            }
+            else if (next === LINE_BREAK) {
+                forceBreak = true;
+            }
+            continue;
+        }
+
+        // re-calculate our X position
+        currentX = startX + font._textWidth(sb + next, fontSize);
+
+        // check it against the line-width
+        if (!newParagraph && !forceBreak && currentX < maxW) {
+            sb += next + SP;
+            // add-word
+        }
+        else {
+
+            // check yPosition to see if its ok for another line?
+            if (RiString._withinBoundsY(currentY, leading, maxH, descent, firstLine)) {
+
+                yPos = firstLine ? currentY : currentY + leading;
+                rt = RiString._newRiTextLine(sb, p5font, startX, yPos);
+                rlines.push(rt);
+
+                currentY = newParagraph ? rt.get('y') + paragraphLeading : rt.get('y');
+                startX = x;
+                // reset
+
+                if (newParagraph)
+                    startX += paragraphIndent;
+
+                sb = next + SP;
+                // reset with next word
+
+                newParagraph = false;
+                forceBreak = false;
+                firstLine = false;
+            }
+            else {
+
+                // we've run out of y-space, break the loop and finish
+                words.push(next);
+                // not needed
+                break;
+            }
+        }
+    }
+
+    // check if leftover words can make a new line
+    if (RiString._withinBoundsY(currentY, leading, maxH, descent, firstLine)) {
+
+        // TODO: is it possible that there are tags in here?
+        yPos = firstLine ? currentY : currentY + leading;
+        rlines.push(RiString._newRiTextLine(sb, p5font, x, yPos));
+        sb = E;
+    }
+    else {
+
+        RiString._addToStack(sb, words);
+        // save for next (not needed?)
+    }
+
+    return rlines;
+};
+
+RiString._withinBoundsY = function(currentY, leading, maxY, descent, firstLine) {
+
+    return firstLine ? (currentY + descent) <= maxY :
+        (currentY + leading + descent) <= maxY;
+  };
+
+RiString._addToStack = function(txt, words) {
+
+    var tmp = txt.split(SP);
+    for ( var i = tmp.length - 1; i >= 0; i--)
+        words.push(tmp[i]);
+};
+
+RiString._newRiTextLine = function(s, pf, xPos, nextY) {
+
+    return new RiString(s.replace(/ *$/,'')).set('x', xPos).set('y', nextY);/// pf);
+};
+
+function endsWith(str, ending) {
+
+    if (typeof s != 'string') return false;
+    return new RegExp(ending+'$').test(str);
+    //return str.slice(-ending.length) == ending;
+}
+
+RiString.createWords = function(options) {
+
+    options.push({splitter: RiString.prototype.splitWords});
+    return RiString._createRiStrings(options);
+ };
+
+RiString.createLetters = function(options) {
+    options.push({splitter: RiString.prototype.splitLetters});
+    return RiString._createRiStrings(options);
+};
+
+RiString._createRiStrings = function(options) {
+
+    var rlines = RiString.createLines(options);
+    if (!rlines || rlines.length < 1) return [];
+
+    var result = [];
+    for (var i = 0; i < rlines.length; i++) {
+
+        var rs = options.splitter.call(rlines[i]);
+        for (var j = 0; j < rs.length; j++) {
+            result.push(rs[j]);
+        }
+
+        //RiString.dispose(rlines[i]);
+    }
+
+    return result;
+};
+
+RiString.prototype.splitWords = function(regex) {
+
+    regex = regex || SP;
+
+    (typeof regex == S) && (regex = new RegExp(regex));
+
+    var l = [];
+    var txt = this._rs._text;
+    var words = txt.split(regex);
+
+    for ( var i = 0; i < words.length; i++) {
+        if (words[i].length < 1) continue;
+        var tmp = this.copy();
+        tmp.text(words[i]);
+        var mx = RiString._wordOffsetFor(this, words, i);
+        tmp.position(mx, this.y);
+        l.push(tmp);
+    }
+
+    return l;
+};
+
+RiString.prototype.splitLetters = function() {
+
+    var l = [];
+    var chars = [];
+    var txt = this.text();
+    var len = txt.length;
+    for (var t = 0; t < len; t++) {
+        chars[t] = txt.charAt(t);
+    }
+
+    for ( var i = 0; i < chars.length; i++) {
+        if (chars[i] == SP) continue;
+        var tmp = this.copy();
+        tmp.text(chars[i]);
+        var mx = this.charOffset(i);
+        tmp.position(mx, this.y);
+        l.push(tmp);
+    }
+
+    return l;
+};
+
+function layoutArray(lines, x, y, h, ascent, descent, leading) {
+
+    // sets x,y for those that fit within the height
+
+    var lastOk, currentY = y + ascent, result = [];
+
+    for (var k = 0; k < lines.length; k++)
+    {
+        result.push(RiString(lines[k]).set('x', x).set('y',  currentY));
+        if (!RiString._withinBoundsY(currentY, leading, y + h, descent))
+            break;
+        currentY += leading;
+    }
+
+    return result;
+};
+
+function parseOpts(options, defaults) {
+
+  if (typeof options !== 'object') {
+    options = defaults;
+  }
+  else {
+    for (var key in defaults) {
+      if (typeof options[key] === 'undefined')
+        options[key] = defaults[key];
+    }
+  }
+  return options;
+}
+
+</script>
+</head>
+</html>

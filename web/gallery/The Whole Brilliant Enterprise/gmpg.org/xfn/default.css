@@ -1,0 +1,38 @@
+body {background: #FCFAEA; color: black; position: relative;
+  margin: 0; padding: 2em 10%; font: small Verdana, Arial, sans-serif; line-height: 1.4;}
+p {margin: 0 0 0.5em;  text-indent: 3em;}
+p#copyright { text-indent: 0 }
+sup {vertical-align: 0.4em; font-size: 75%;}
+pre {margin: 1.5em 1em;}
+pre, code {font-size: 1em; color: #555; text-indent:0}
+code strong, .egcodestrong { color:green; font-family:inherit }
+code.eg { display:block; padding:.5em 1em; margin:.5em 1em; background:#fff; border:1px solid silver; white-space:pre}
+h1 {margin: 2em 0 0.33em; border-bottom: 3px solid black; font-size: 250%; line-height: 1em;}
+h2 {margin: 2em 0 0.75em; border-bottom: 3px double gray; font-size: 150%; line-height: 0.9em;}
+h3 {margin: 1.5em 0 0.5em; border-bottom: 1px solid #000; font-size: 125%; line-height: 0.9em;}
+h2 :link,h2 :visited,h3 :link,h3 :visited { text-decoration:none }
+dt {font-weight: bold; margin-top:.2em}
+
+#authlist {list-style: none; margin: 0; padding: 0; text-align: right;}
+li {margin-top: 0.5em; padding:0}
+.set li { margin-top:0 }
+
+#fnotes {margin: 5em 0 0; padding: 0.5em 0 0; width: 10%; border-top: 1px solid; font-size: 90%;}
+#fnotes li {width: 1000%; list-style: none;}
+
+#trail {position: absolute; top: 0; right: 1em; width: 10em; padding: 0.33em;
+  font: bold 180% Arial, sans-serif; text-align: right; color: #DCDACA;}
+#trail a {color: #DCDACA; font-size: 90%;}
+
+#footer {margin-top: 3em; padding-top: 0.33em; border-top: 1px solid; color: #8C8A7A; font-size: 85%;}
+
+blockquote {background: #DCDACA; 
+  padding: 1em 2em; margin: 2em 1em 1em; border: 1px solid gray;
+  font: 1em Georgia, "New Century Schoolbook", "Times New Roman", Times, TimesNR, serif;}
+blockquote p {margin: 0;}
+blockquote cite { display:block; padding:0; margin-top:1em; text-align: right;}
+img { border: none; }
+#menu { margin: 0; padding: 0; position: absolute; right: 2em; top: 3em; }
+#menu li { display: inline; text-transform: lowercase; list-style: none;}
+#menu a { padding-right: 5px; }
+#current { font-weight: bold; }

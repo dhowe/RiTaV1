@@ -1,0 +1,347 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>XFN: Introduction and Examples </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link type="text/css" href="default.css" rel="stylesheet" />
+<style type="text/css">
+/*<![CDATA[*/
+.relgrid {background: gray; margin-bottom: 1.5em;}
+.relgrid th {text-align: left; background: silver; vertical-align: top;
+  padding: 0.2em;}
+.relgrid td {font: 90% "Courier New", Courier, monospace; white-space: pre; vertical-align: top;
+  padding: 0.33em; background: white;}
+.relgrid td.null {background: #DDD; color: #DDD;}
+
+.relcharts {margin-bottom: 1.5em; margin-right: 10%;}
+.relcharts td {vertical-align: top; border-top: 1px solid gray; padding: 0.25em 0 0.25em 1em;}
+.relcharts p {text-indent: 0;}
+.fig {margin: 1em 0;}
+.fig img {border: 1px solid silver; padding: 5px; background: white;}
+
+.results {margin: 1em;}
+.results span {text-decoration: none; color: blue;}
+.results .friend {font-weight: bold;}
+.results .co-worker {text-decoration: underline;}
+.results .acquaintance {font-style: italic;}/*]]>*/
+</style>
+<link rel="start" href="intro" title="XFN: Introduction and Examples" />
+<link rel="glossary" href="11" title="XFN profile" />
+<link rel="help" href="faq" title="XFN: FAQ" />
+<link rel="copyright" href="#copyright" title="Copyright" />
+</head>
+<body>
+<ul id="menu">
+	<li><a href="../xfn/">Home</a></li>
+	<li><a id="current" >Intro</a></li>
+	<li><a href="join">Join</a></li>
+	<li><a href="background">Background</a></li>
+	<li><a href="faq">FAQ</a></li>
+	<li><a href="tools">Tools</a></li>
+	<li><a href="and/">And...</a></li>
+	<li><a href="helping">Helping</a></li>
+	<li><a href="thanks">Thanks</a></li>
+	<li><a href="feedback">Feedback</a></li>
+</ul>
+
+<h1><abbr title="XHTML Friends Network">XFN</abbr>: Introduction and Examples</h1>
+
+<blockquote>
+<p>
+The web is more a social creation than a technical one. I designed it for a social effect &mdash; to help people work together &mdash; and not as a technical toy. The ultimate goal of the Web is to support and improve our weblike existence in the world. We clump into families, associations, and companies. We develop trust across the miles and distrust around the corner. 
+</p>
+<p><cite>&mdash;Tim Berners-Lee, Weaving The Web</cite></p>
+</blockquote>
+<h2>Introduction</h2>
+<p>
+<abbr title="XFN relationships meta data profile">XFN</abbr> puts a human face on linking.  As more people have come online and begun to form social networks, services such as <a href="http://www.technorati.com/">Technorati</a> and <a href="http://www.feedster.com/">Feedster</a> have arisen in an attempt to show how the various nodes are connected.  Such services are useful for discovering the mechanical connections between nodes, but they do not uncover the <em>human</em> relationships between the people responsible for the nodes.
+</p>
+<p>
+XFN outlines the relationships between individuals by defining a small set of values that describe personal relationships.  In HTML and XHTML documents, these are given as values for the <code>rel</code> attribute on a hyperlink.  XFN allows authors to indicate which of the weblogs they read belong to friends, whom they've physically met, and other personal relationships.  Using XFN values, which can be listed in any order, people can humanize their blogrolls and links pages, both of which have become a common feature of weblogs. </p>
+<p>
+In sufficiently modern browsers, authors using XFN can easily style all links of a particular type; thus, friends could be boldfaced, co-workers italicized, and so on.  It is also the hope of the authors that this practice becomes widespread enough to allow the creation of a service that charts personal (as opposed to purely mechanical) links between weblogs and the people responsible for them.
+</p>
+
+<h2>Examples</h2>
+
+<h3>A Short Blogroll</h3>
+<p>
+Joe is just getting started in the blogging world, and has a set of five links in his blogroll: his girlfriend Jane; his friends Dave and Darryl; industry expert James, who Joe briefly met once at a conference; and MetaFilter.
+</p>
+<p>
+The links in Joe's blogroll would look something like this:
+<code class="eg">&lt;a href="http://jane-blog.example.org/" <strong>rel="sweetheart date met"</strong>&gt;Jane&lt;/a&gt;
+&lt;a href="http://dave-blog.example.org/" <strong>rel="friend met"</strong>&gt;Dave&lt;/a&gt;
+&lt;a href="http://darryl-blog.example.org/" <strong>rel="friend met"</strong>&gt;Darryl&lt;/a&gt;
+&lt;a href="http://www.metafilter.com/"&gt;MetaFilter&lt;/a&gt;
+&lt;a href="http://james-blog.example.com/" <strong>rel="met"</strong>&gt;James Expert&lt;/a&gt;</code>
+</p>
+<p>
+MetaFilter gets no value since it does not represent an actual person.  The others in the list are given space-separated values appropriate to the link target.  Thus, since Joe is dating his sweetheart Jane (who he has, perhaps not surprisingly, also met in person) he gives the link to her the values <code>sweetheart date met</code>.  If Joe were not as committed to Jane, and in fact dated other people from time to time, then the <code>sweetheart</code> value would be dropped.
+</p>
+
+<h3>Links Between Two</h3>
+<p>
+Adam and Brad have met each other through mutual acquaintances, and had a few interesting conversations at parties where they found they had several interests in common.  They have linked to each other as follows:
+<code class="eg">&lt;a href="http://brad-log.example.org/" rel="met friend"&gt;Brad&lt;/a&gt;
+
+&lt;a href="http://adam-log.example.org/" rel="met acquaintance"&gt;Adam&lt;/a&gt;</code>
+</p>
+<p>
+Note that while values such as <code>friend</code> are defined to be symmetric, this does not require that links between blogs be of the same types.  Here, Adam feels Brad is a friend, but Brad has classified Adam as an acquaintance.
+</p>
+<p>
+Similarly, symmetric values can be one-way.  For example, let's say Adam decides he has a crush on Brad.  He then updates his link as follows:
+<code class="eg">&lt;a href="http://brad-log.example.org/" rel="met friend crush"&gt;Brad&lt;/a&gt;</code>
+</p>
+<p>
+If Brad is not attracted to Adam, then obviously he won't add a similar XFN value to his link to Adam.  If he is, though, he could add a <code>crush</code> value to his link to Adam.  Any service that charted XFN values could notice this, and add their names to a "mutual attraction" list.  A sufficiently advanced service might e-mail both Adam and Brad to point out that they seem to have a mutual attraction.
+</p>
+
+<h3>Party of Five</h3>
+<p>
+Let's consider a closed group of five people, all of whom link to each other but to nobody else.  The members of this group are:
+</p>
+<dl>
+<dt>Ingrid</dt>
+<dd>Works with Mary, is friends with Mary and Josh, is acquainted with Kat, and has physically met everyone except Nick</dd>
+<dt>Josh</dt>
+<dd>Son of Kat, friends with Ingrid and Nick, and has a crush on Mary (who he has met and considers an inspiration)</dd>
+<dt>Kat</dt>
+<dd>Mother of Josh; friends with Mary; in the same field as Ingrid and Mary but does not work at the same company; is acquainted with Nick</dd>
+<dt>Mary</dt>
+<dd>Works with Ingrid; is friends with Ingrid and Kat; has met everyone</dd>
+<dt>Nick</dt>
+<dd>Has a crush on Kat, who he's met; has never met Ingrid</dd>
+</dl>
+
+<p>
+We'll further assume all these people are blogging, and have blogrolls that list all the other members of the group.  In the first example, Ingrid would have the following links:
+<code class="eg">&lt;a href="http://josh.example.com/" <strong>rel="friend met"</strong>&gt;Josh&lt;/a&gt;
+&lt;a href="http://kat.example.com/" <strong>rel="met acquaintance"</strong>&gt;Kat&lt;/a&gt;
+&lt;a href="http://mary.example.com/" <strong>rel="co-worker friend met"</strong>&gt;Mary&lt;/a&gt;
+&lt;a href="http://nick.example.com/"&gt;Nick&lt;/a&gt;</code>
+</p>
+<p>
+Note the lack of a <code>rel</code> attribute for Nick.  Since none of the defined XFN values apply to Nick (from Ingrid's point of view), no <code>rel</code> is needed.  If Ingrid and Nick ever do meet in person, she can simply add <code>rel="met"</code> to the link.
+</p>
+<p>
+The <code>rel</code> values between these group members would be as follows:
+</p>
+
+<table class="relgrid" cellspacing="1">
+<tr>
+<th></th>
+<th>...to Ingrid</th>
+<th>...to Josh</th>
+<th>...to Kat</th>
+<th>...to Mary</th>
+<th>...to Nick</th>
+</tr>
+<tr>
+<th>From Ingrid...</th>
+<td class="null">x</td>
+<td>friend
+met
+</td>
+<td>acquaintance
+met
+</td>
+<td>co-worker
+friend
+met
+</td>
+<td></td>
+</tr>
+<tr>
+<th>From Josh...</th>
+<td>friend
+met
+</td>
+<td class="null">x</td>
+<td>parent
+met</td>
+<td>crush
+muse
+met</td>
+<td>friend
+met
+</td>
+</tr>
+<tr>
+<th>From Kat...</th>
+<td>colleague
+met
+</td>
+<td>child
+met
+</td>
+<td class="null">x
+</td>
+<td>friend
+colleague
+met
+</td>
+<td>acquaintance
+met
+</td>
+</tr>
+<tr>
+<th>From Mary...</th>
+<td>co-worker
+friend
+met
+</td>
+<td>met
+</td>
+<td>friend
+colleague
+met
+</td>
+<td class="null">x
+</td>
+<td>met
+</td>
+</tr>
+<tr>
+<th>From Nick...</th>
+<td>
+</td>
+<td>friend
+met
+</td>
+<td>crush
+met
+</td>
+<td>met
+</td>
+<td class="null">x
+</td>
+</tr>
+</table>
+
+<p>
+This set of relationships can also be graphically represented in a variety of ways.
+</p>
+
+<table class="relcharts" cellspacing="0">
+<tr>
+<td><p>
+For example, a simple chart of the people who have met each other could look like this.
+</p>
+</td>
+<td class="fig">
+<img src="pix/intro/five-met.gif" height="149" width="175" alt="">
+</td>
+</tr>
+<tr>
+<td><p>
+It would also be possible to graph the friendship and acquaintance links in the set.  In the following figure, a thick green line indicates friendship, whereas a thinner gray line indicates acquaintanceship.  If a line is dashed and has an arrowhead, then the link is one-way; that is, only one of the two people has claimed the relationship.
+</p>
+</td>
+<td class="fig">
+<img src="pix/intro/five-acqfr.gif" height="149" width="175" alt="">
+</td>
+</tr>
+<tr>
+<td><p>
+Similarly, we could graph professional relationships.  Here, thick gray lines indicate co-workers, whereas thin gray lines denote colleagues.  As before, a dashed line with an arrowhead indicates a one-way link.
+</p>
+</td>
+<td class="fig">
+<img src="pix/intro/five-prof.gif" height="149" width="175" alt="">
+</td>
+</tr>
+<tr>
+<td><p>
+For that matter, the love and familial links between the group member could be represented.  Here, a red line indicates a crush, and a blue line represents a familial link.  In this scenario, familial links are drawn from parent to child.
+</p>
+</td>
+<td class="fig">
+<img src="pix/intro/five-lovefam.gif" height="149" width="175" alt="">
+</td>
+</tr>
+</table>
+<p>
+There are many other ways to graph the group, of course, and many other ways to represent the links.  We considered making lines between family members look like a double helix, for example.
+</p>
+
+<h3>Relationship Styling</h3>
+<p>
+With a CSS2-aware browser, it is possible to style links based on their <code>rel</code> values.  Let's take another look at Ingrid's links:
+<code class="eg">&lt;a href="http://josh.example.com/" <strong>rel="friend met"</strong>&gt;Josh&lt;/a&gt;
+&lt;a href="http://kat.example.com/" <strong>rel="met acquaintance"</strong>&gt;Kat&lt;/a&gt;
+&lt;a href="http://mary.example.com/" <strong>rel="co-worker friend met"</strong>&gt;Mary&lt;/a&gt;
+&lt;a href="http://nick.example.com/"&gt;Nick&lt;/a&gt;</code>
+</p>
+<p>
+Suppose Ingrid wants to boldface any link to a friend, underline any link to a co-worker, and italicize any link to someone who is an acquaintance.  Using the <a href="http://www.w3.org/TR/CSS21/selector.html#attribute-selectors" title="CSS2.1:5.8 Attribute selectors
+">attribute selector syntax defined in CSS2.1</a>, the following stylesheet would meet her goals:
+<code class="eg">a[rel~="friend"] {font-weight: bold;}
+a[rel~="co-worker"] {text-decoration: underline;}
+a[rel~="acquaintance"] {font-style: italic;}</code>
+</p>
+<p>
+The resulting links would look something like this:
+</p>
+<div class="results">
+<span class="friend met">Josh</span><br>
+<span class="met acquaintance">Kat</span><br>
+<span class="co-worker friend met">Mary</span><br>
+<span>Nick</span>
+</div>
+<p>
+It is also possible to use advanced CSS2 to insert content before or after elements.  This can be used to recreate the practice of "starring" links to people physically met as follows:
+<code class="eg">a[rel~="met"]:after {content: " *";}</code>
+</p>
+<p>
+This will insert a space and an asterisk after every link that has an XFN value of <code>met</code>.  The advantage is that it removes the need to manually add the asterisk in the blogroll source itself, while strengthening the social network at the same time.  Applying just that rule to Ingrid's links might have an effect something like this:
+</p>
+<div class="results">
+<span>Josh *</span><br>
+<span>Kat *</span><br>
+<span>Mary *</span><br>
+<span>Nick</span>
+</div>
+
+<h2 id="bots">Brief Notes on Spidering</h2>
+<p>
+An XFN spider or crawler must at a minimum:
+</p>
+<ol>
+<li>Parse documents it encounters according to their language (e.g. legacy HTML, or well formed XHTML as XML).</li>
+<li>Obey "base" URL conventions according to the document language (e.g. <code>&lt;BASE&gt;</code>, <code>&lt;base /&gt;</code>, <code>xml:base</code> ).</li>
+<li>Track link tags (e.g. <code>&lt;a href&gt;</code>, <code>&lt;link /&gt;</code>) with '<code>rel</code>' attributes with values defined by XFN, while ignoring unknown values.  Note that the HTML '<code>rel</code>' attribute is a space separated set of values. </li>
+<li>Traverse those link tags and parse their documents as described above.</li>
+</ol>
+<p>A more advanced XFN spider might do one or more of the following:
+</p>
+<ul>
+<li>Parse the contents/titles of links (e.g. the text between the <code>&lt;a href&gt;</code> and <code>&lt;/a&gt;</code> tags, the '<code>title</code>' attribute of <code>&lt;a href&gt;</code> and <code>&lt;link /&gt;</code> elements) for an informative name of the target of the relationship.</li>
+<li>Parse metainformation tags (e.g. <code>&lt;meta&gt;</code> in HTML or XHTML documents), specifically for the "author" (e.g. Dublin Core 'author' or (X)HTML's <code>&lt;meta name="author" content="NameGoesHere" /&gt;</code>). Note that such names should be preferred to names derived from links as described in the previous point.
+</li>
+<li>Apply heuristics to determine when an XFN relationship is nested inside a time-based format (such as a blog or blogarchive), to either (both) maintain a relationship history or (and) reconcile conflicting XFN values on links with the same source and destination.
+</li>
+</ul>
+
+<h2 id="grandeur">Delusions of Grandeur</h2>
+<ol>
+<li>
+<!-- WWF - World Wide Friendster. --> XFN provides the basis for a world-wide distributed network of personal connections.  Proprietary data-owning services like Friendster could be superceded by XFN crawling and searching sites &mdash;a sort of "Friendorati," as it were.  The advantage of a Friendorati-style network is that it allows every individual to fully express themselves through personal weblogs and web sites, instead of to the limited degree permitted by a proprietary service's user interface.
+</li>
+<li>
+Commercial services like Amazon, which currently ask users to manually register all their friends in order to make "wish list" and other information sharing simpler, may find it easier simply to crawl XFN relationships on the open Internet.  This would allow a user to enter the URL of their site, and let the service programmatically analyze XFN relationships to build a list of friends.
+</li>
+</ol>
+
+
+<div id="trail">
+<a href="index">XFN</a> [<a href="../">GMPG</a>]
+</div>
+
+<div id="footer"><p id="copyright">
+Copyright &copy; 2003&#8211;2015 GMPG.  <a rel="license" href="http://creativecommons.org/licenses/by-nd/2.0/">Some rights reserved</a>.</p>
+</div>
+
+</body>
+</html>
