@@ -92,6 +92,9 @@ import rita.RiTa;
  * </pre>
  */
 public abstract class Phoneme implements Constants {
+  
+  public static final String IPA_STRESS = "ˈ";
+
   /**
    * Vowels
    */
@@ -226,30 +229,34 @@ public abstract class Phoneme implements Constants {
    * Arpabet is the set of phonemes used by the CMU Pronouncing Dictionary. 
    * IPA is the International Phonetic Alphabet.
    *
-   * @param The Arpabet phonemic transcription to convert.
+   * @param phones The Arpabet phonemic transcription to convert.
    * @return The IPA equivalent of s.
    * @throws IllegalArgumentException
    *           if a phoneme is unknown.
    */
-  public static String arpaToIPA(String s) throws IllegalArgumentException {
-    String[] arpaPhonemes = s.trim().split("[ \\t]+");
-    StringBuffer ipaPhonemes = new StringBuffer(s.length());
+  public static String arpaToIPA(String phones) throws IllegalArgumentException {
+    
+    boolean includeStresses =  !(phones.matches("[\\D]+")); 
+    //if (includeStress) System.out.println("Using stresses");
+    
+    String[] arpaPhones = phones.trim().split("[ \\t]+");
+    StringBuffer ipaPhones = new StringBuffer(phones.length());
 
-    for (String arpaPhoneme : arpaPhonemes) {
-      char stressChar = arpaPhoneme.charAt(arpaPhoneme.length() - 1);
-      if (stressChar == '0' || stressChar == '1' || stressChar == '2') {
-	arpaPhoneme = arpaPhoneme.substring(0, arpaPhoneme.length() - 1);
-	ipaPhonemes.append(arpaMap.get(Character.toString(stressChar)));
+    for (String arpaPhone : arpaPhones) {
+      char stress = arpaPhone.charAt(arpaPhone.length() - 1);
+      if (includeStresses && stress == '0' || stress == '1' || stress == '2') {
+	arpaPhone = arpaPhone.substring(0, arpaPhone.length() - 1);
+	ipaPhones.append(IPA_STRESS);
       }
 
-      String ipaPhoneme = arpaMap.get(arpaPhoneme);
+      String ipaPhoneme = arpaMap.get(arpaPhone);
       if (ipaPhoneme == null) {
-	throw new IllegalArgumentException();
+	throw new IllegalArgumentException("Unexpected Phoneme: "+arpaPhone);
       }
-      ipaPhonemes.append(ipaPhoneme);
+      ipaPhones.append(ipaPhoneme);
     }
 
-    return ipaPhonemes.toString();
+    return ipaPhones.toString();
   }
 
   private static final Map<String, String> arpaMap;
@@ -300,8 +307,13 @@ public abstract class Phoneme implements Constants {
   }
 
   public static void main(String[] args) {
-    int k = 2;
+    int k = 3;
 
+    
+    
+    System.out.println(RiTa.getPhonemes("become"));
+    
+    
     if (k==0) {
       RiLexicon rl = new RiLexicon();
       String[] words = rl.words();
