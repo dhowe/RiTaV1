@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>XFN: Frequently Asked Questions </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link type="text/css" href="default.css" rel="stylesheet" />
+<style type="text/css">
+/*<![CDATA[*/
+/*]]>*/
+</style>
+<link rel="start" href="intro" title="XFN: Introduction and Examples" />
+<link rel="glossary" href="11" title="XFN profile" />
+<link rel="help" href="faq" title="XFN: FAQ" />
+<link rel="copyright" href="#copyright" title="Copyright" />
+</head>
+<body>
+<ul id="menu">
+	<li><a href="../xfn/">Home</a></li>
+	<li><a href="intro">Intro</a></li>
+	<li><a href="join">Join</a></li>
+	<li><a href="background">Background</a></li>
+	<li><a id="current" >FAQ</a></li>
+	<li><a href="tools">Tools</a></li>
+	<li><a href="and/">And...</a></li>
+	<li><a href="helping">Helping</a></li>
+	<li><a href="thanks">Thanks</a></li>
+	<li><a href="feedback">Feedback</a></li>
+</ul>
+<h1><abbr title="XHTML Friends Network">XFN</abbr>: FAQ</h1>
+<p>Frequently asked questions about XFN.
+</p>
+
+<dl>
+<dt>Do you have questions?</dt>
+ <dd>We may have answers.</dd>
+</dl>
+
+<dl>
+ <dt id="isthereanorder">Do the XFN values have to be in a particular order?</dt>
+ <dd>Nope!  You can list them in whatever order you like best, or mix it up randomly each time.  So long as the values are separated by spaces, you're free to order them however you want.</dd>
+ <dt id="whenlinkingtoapost">How do I use XFN when I link to someone's blog post?</dt>
+ <dd>That's a great question and one which we've debated ourselves.  
+ A typical reference to a blog post might look like:
+ <pre style="background:#CCC"><code>
+  &lt;a href="http://d.example.com/2003/11/08.html#T2134"&gt;
+    David wrote about a new theory
+  &lt;/a&gt; 
+  ...
+ </code></pre>
+ At first it seems easy enough to simply put an XFN value directly on the hyperlink and be done:
+ <pre style="background:#FCC"><code>
+  &lt;a rel="colleague met" href="http://d.example.com/2003/11/08.html#T2134"&gt;
+    David wrote about a new theory
+  &lt;/a&gt; 
+  ...
+ </code></pre>
+ But the problem with this is that the hyperlink doesn't link to the <em>person</em> David,
+ it links to a specific blog post.  Thus what does it mean to be a "colleague" of a blog post,
+ or for that matter, to have "met" a blog post?  The first step is to separate the person
+ from the post.  It's already an established convention to treat blogs or personal sites as representing the person.
+ Additionally, we can add some semantics with the use of the <code>&lt;cite&gt;</code> tag.
+ <pre style="background:#CCC"><code>
+  &lt;a href="http://d.example.com"&gt;
+   &lt;cite&gt;David&lt;/cite&gt;
+  &lt;/a&gt;
+  &lt;a href="http://d.example.com/2003/11/08.html#T2134"&gt;
+    wrote about a new theory
+  &lt;/a&gt; 
+  ...
+ </code></pre>
+ and now it's much more obvious where to use XFN:
+ <pre style="background:#CFC"><code>
+  &lt;a rel="colleague met" href="http://d.example.com"&gt;
+   &lt;cite&gt;David&lt;/cite&gt;
+  &lt;/a&gt;
+  &lt;a href="http://d.example.com/2003/11/08.html#T2134"&gt;
+    wrote about a new theory
+  &lt;/a&gt; 
+  ...
+ </code></pre>
+ </dd>
+ <dt id="why">Why should a weblogger bother?</dt>
+ <dd>You might as well ask: why do webloggers bother to blog?  Or why do they bother to create and maintain a blogroll?  Here is an attempt to briefly answer a question that several books have already been written about:
+<p>
+Bloggers like to share with others (hence they blog).  Bloggers like to share with others the list of other blogs and news sources that they like to read &mdash; blog rolls.  Some bloggers even like to annotate their blogrolls with an asterisk "*" next to the names of folks that they have met.  <a href=".">XFN</a> is the logical next step.  A way to annotate the links in a blogroll according to whether you have met the person (and thus know they really exist), whether you think of them as a friend (and thus imply a stronger recommendation for their site) etc.  XFN is easy (just add <code>rel="met"</code> to links to people you've met for starters), and helps you enrich what you've already built &mdash; no new languages or files needed.  Edit your blogroll, type a few keystrokes, save/upload and you've joined the XHTML Friends Network.  Welcome.
+</p>
+ </dd>
+ <dt id="moredefs">What do symmetry, transitivity and inverse mean in the context of the XFN profile?</dt>
+ <dd>They're actually defined in the profile itself, try hovering over the italicized first occurance of the terms in the <a href="11">XFN profile</a>.  For your convenience the definitions are repeated here:
+  <dl><dt>symmetry</dt>
+  	  <dd>A symmetric relationship 'rel' is one where 'A rel B' implies 'B rel A' and vice versa.</dd>
+	  <dt>transitivity</dt>
+	  <dd>A transitive relationship 'rel' is one where 'A rel B' and 'B rel C' implies 'A rel C'</dd>
+	  <dt>inverse</dt>
+	  <dd>A relationship 'rel' has an inverse 'inv' when 'A rel B' implies 'B inv A'.  A symmetrical relationship is its own inverse.</dd>
+  </dl>
+ </dd>
+ <dt id="change">What do I do when my relationships change?</dt>
+ <dd>
+ What do you do when your friends move websites or domains or otherwise change their URL?
+ <p>
+ It's all a matter of updating your hyperlinks.  The easiest thing to do is to keep your personal links in one or two places (like your blogroll or links pages) and then just update those when your relationships change, just like you would update them if your friends changed where they host their blogs etc.
+</p>
+ <em style="display:block">But what about all my old blog posts where I've used XFN in my links to people?</em>
+ If you moved to a different city would you worry about updating all your blog posts that talk about where you used to live as if it were home?
+ <p>
+ You don't need to worry about updating your old blog posts' XFN info at all.  In fact, just like the example of where you used to live, your old blog posts simply reflect your relationships at the time that you wrote those posts.  See the XFN Background document for <a href="http://gmpg.org/xfn/background#timeless">more on mixing XFN and time based formats</a> like blogs.
+ </p>
+ </dd>
+ <dt>What about virtual relationships? I mean, I haven't met most of the people in my blogroll, how do I use XFN for them?</dt>
+ <dd>
+ Simple, you just omit the '<code>met</code>' value.
+ <p>
+ If you XFN your hyperlink to someone with <code>rel="acquaintance"</code>, you are saying that that person is your acquaintance, and by deliberately omitting the '<code>met</code>' value, you are saying that you've never physically met. Therefore you have a virtual relationship with that someone. 
+ </p>
+ <p>
+In the same way, you can make someone your virtual "<code>friend</code>" as well. You may eventually meet them in person, and then you would link to them with <code>rel="friend met"</code>.
+ </p>
+ </dd>
+</dl>
+
+
+<div id="trail">
+<a href="index">XFN</a> [<a href="../">GMPG</a>]
+</div>
+
+<div id="footer"><p id="copyright">
+Copyright &copy; 2003&#8211;2015 GMPG.  <a rel="license" href="http://creativecommons.org/licenses/by-nd/2.0/">Some rights reserved</a>.</p>
+</div>
+
+</body>
+</html>

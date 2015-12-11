@@ -1,0 +1,125 @@
+@font-face {
+	font-family: hpFont1;
+	src: url('MagicSchoolTwo.ttf');
+}
+@font-face {
+	font-family: hpFont2;
+	src: url('lumos.ttf');
+}
+body {
+	background-image: url("../images/desk.jpg");
+	background-repeat: repeat;
+	margin: 50px;
+}
+#applet {
+	visibility: hidden;
+	position: absolute;
+}
+#scroll-top, #scroll-bottom, #scroll-loop {
+	width: 1020px;
+	background-repeat: no-repeat;
+	margin: 0 auto;
+}
+#scroll-top {
+	background-image: url("../images/scroll-top.png");
+	height: 282px;
+}
+#scroll-bottom {
+	background-image: url("../images/scroll-bottom.png");
+	height: 302px;
+}
+#scroll-loop {
+	background-image: url("../images/scroll-loop2.png");
+	background-repeat: repeat-y;
+}
+.twitter-share-button {
+	position: fixed;
+	top: 5px;
+	left: 5px;
+}
+#generateBookButton {
+	position: fixed;
+	cursor: pointer;
+	width: 524px;
+	text-align: center;
+	bottom: 0px;
+	left: -267px;
+	margin: 0 50%;
+	font-family: hpFont1;
+	font-size: 35px;
+	text-shadow: 0px 10px 10px rgba(0, 0, 0, 1);
+	background-image: url("../images/new-book-button.png");
+	z-index: 10000;
+}
+.generateBookButtonHover {
+	text-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5);
+	text-shadow: 0px 10px 10px rgba(0, 0, 0, 1);
+}
+.generateBookButtonPressed {
+	color: #333;
+	text-shadow: 0px 0px 40px rgba(255, 255, 255, 1);
+}
+#progress {
+	width: 1000px;
+	margin: 0 auto;
+	text-align: center;
+	font-family: hpFont1;
+	font-size: 50px;
+	text-shadow: 0px -10px 10px rgba(0, 0, 0, 1);
+}
+#content {
+	z-index: 1000;
+	height: 600px;
+	width: 1020px;
+	margin: 100px 50%;
+	position: absolute;
+	top: 0;
+	left: -510px;
+}
+#progress {
+	position: relative;
+}
+#bookContent {
+	z-index: 1000;
+	position: relative;
+	width: 800px;
+	margin: 50px auto;
+	top: -50px;
+}
+.chapterTitle {
+	font-size: 30px;
+	margin: 0 0 10px 0;
+	font-family: hpFont1;
+}
+.chapterParagraph {
+	margin: 0;
+	text-indent: 50px;
+	font-size: 16px;
+}
+.theEnd {
+	font-size: 50px;
+	text-align: center;
+	font-family: hpFont1;
+	text-shadow: 0px -10px 10px rgba(0, 0, 0, 0.5);
+}
+h1.hpFont, h2.hpFont, h3.hpFont {
+	text-align: center;
+	font-weight: normal;
+	margin: 0;
+	font-family: hpFont1;
+	z-index: 1000;
+	text-shadow: 0px -10px 10px rgba(0, 0, 0, 0.5);
+}
+h1.hpFont {
+	font-size: 120px;
+}
+h2.hpFont {
+	font-size: 50px;
+	position: relative;
+	top: -60px;
+}
+h3.hpFont {
+	font-size: 40px;
+	position: relative;
+	top: -40px;
+}
