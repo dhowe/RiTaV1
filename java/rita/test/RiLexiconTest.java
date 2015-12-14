@@ -305,7 +305,7 @@ public class RiLexiconTest {
     RiLexicon lex = new RiLexicon();
 
     String[] result = lex.rhymes("apple");
-    String[] answer = { "pineapple", "chapel", "grapple" };
+    String[] answer = { "chapel", "grapple" };
     deepEqual(result, answer);
 
     result = lex.rhymes("bible");
