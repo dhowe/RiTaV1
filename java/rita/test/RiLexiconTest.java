@@ -627,13 +627,21 @@ public class RiLexiconTest {
   public void testIsAlliterationStringString() {
     RiLexicon lex = new RiLexicon();
 
-    ok(lex.isAlliteration("apple", "polo"));
-    ok(lex.isAlliteration("polo", "apple")); // swap position
-    ok(lex.isAlliteration("POLO", "apple")); // CAPITAL LETTERS
-    ok(lex.isAlliteration("POLO", "APPLE")); // CAPITAL LETTERS
-    ok(lex.isAlliteration("polo", "APPLE")); // CAPITAL LETTERS
-    ok(!lex.isAlliteration("polo ", "APPLE")); // Word with space False
-    ok(!lex.isAlliteration("polo    ", "APPLE")); // Word with tab space
+    ok(lex.isAlliteration("sally", "silly"));
+    ok(lex.isAlliteration("sea", "seven"));
+    ok(lex.isAlliteration("silly", "seven"));
+    ok(lex.isAlliteration("sea", "sally"));
+    
+    ok(lex.isAlliteration("big", "bad"));
+    ok(lex.isAlliteration("bad", "big")); // swap position
+    
+    ok(lex.isAlliteration("BIG", "bad")); // CAPITAL LETTERS
+    ok(lex.isAlliteration("big", "BAD")); // CAPITAL LETTERS
+    ok(lex.isAlliteration("BIG", "BAD")); // CAPITAL LETTERS
+    
+    ok(!lex.isAlliteration("big ", "bad")); // Word with space False
+    ok(!lex.isAlliteration("big    ", "bad")); // Word with tab space
+
     // False
     ok(lex.isAlliteration("this", "these"));
     ok(!lex.isAlliteration("solo", "tomorrow"));
