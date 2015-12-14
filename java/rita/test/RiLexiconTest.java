@@ -679,14 +679,13 @@ public class RiLexiconTest {
 
   @Test
   public void testIsRhymeStringString() {
-    // TODO: check all these
+
     RiLexicon lex = new RiLexicon();
 
-    ok(lex.isRhyme("solo", "tomorrow"));
+    ok(!lex.isRhyme("solo", "tomorrow"));
     ok(!lex.isRhyme("apple", "polo"));
     ok(!lex.isRhyme("this", "these"));
 
-    ok(lex.isRhyme("solo", "tomorrow"));
     ok(lex.isRhyme("cat", "hat"));
     ok(lex.isRhyme("yellow", "mellow"));
     ok(lex.isRhyme("toy", "boy"));
