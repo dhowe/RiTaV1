@@ -44,7 +44,7 @@ public abstract class Defaults implements Constants
     scaleXYZ = new float[] { 1, 1, 1 };
     rotateXYZ = new float[] { 0, 0, 0 };
 
-    fontSize = _defFontSize;
+    fontSize = _DEFAULT_FONT_SIZE;
     leadingFactor = 1.2f;
     boundingStrokeWeight = 1;
     paragraphIndent = 30;

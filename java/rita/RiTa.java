@@ -31,6 +31,8 @@ import rita.support.Concorder;
 import rita.support.Conjugator;
 import rita.support.Constants;
 import rita.support.EntityLookup;
+import rita.support.JSONLexicon;
+import rita.support.LetterToSound;
 import rita.support.MinEditDist;
 import rita.support.PAppletIF;
 import rita.support.Pluralizer;
@@ -49,6 +51,9 @@ public class RiTa implements Constants {
 
   /** For tokenization, Can't -> Can not, etc. */
   public static boolean SPLIT_CONTRACTIONS = false;
+  
+  /** For Phonemization: ARPA or IPA   */
+  public static int PHONEME_TYPE = ARPA;
 
   /** Stops all RiTa output to the console */
   public static boolean SILENT = false;
@@ -104,7 +109,7 @@ public class RiTa implements Constants {
   public static String getPhonemes(String[] s) {
     return getFeature(s, PHONEMES);
   }
-
+  
   public static String getStresses(String s) {
     return getFeature(s, STRESSES);
   }
@@ -1560,8 +1565,12 @@ public class RiTa implements Constants {
   }
 
   public static void out(Object[] l) {
-    if (l == null || l.length < 1) {
+    if (l == null) {
       System.out.println("null");
+      return;
+    }
+    if (l.length < 1) {
+      System.out.println("[]");
       return;
     }
     for (int j = 0; j < l.length; j++)
@@ -1601,7 +1610,7 @@ public class RiTa implements Constants {
       }
     }.start();
   }
-
+  
   public static String[] kwic(String text, String word, Map options) {
     return Concorder.cachedKwic(text, word, options);
   }
@@ -1637,4 +1646,8 @@ public class RiTa implements Constants {
 	: new MinEditDist().computeAdjusted(s1, s2);
   }
 
+  public static void main(String[] args) {
+    RiTa.PHONEME_TYPE = RiTa.IPA;
+    System.out.println(RiTa.getPhonemes("become"));
+  }
 }

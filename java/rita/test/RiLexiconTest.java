@@ -83,14 +83,19 @@ public class RiLexiconTest {
     HashMap obj = new HashMap();
     obj.put("wonderfullyy", new String[] { "w-ah1-n-d er-f ah-l iy", "rb" });
     lex.lexicalData(obj);
+ 
+System.out.println(lex.size());
+
     ok(lex.size() == 1);
     deepEqual(lex.lexicalData(), obj);
     ok(!lex.containsWord("wonderfully"));
     ok(lex.containsWord("wonderfullyy"));
 
     lex.reload();
-    System.out.println(lex.size());
-    ok(lex.containsWord("zooms"));
+
+System.out.println(lex.size());
+    
+    ok(lex.containsWord("zoom"));
     ok(lex.containsWord("a"));
     ok(!lex.containsWord("wonderfullyy"));
     ok(lex.containsWord("wonderful"));
@@ -99,7 +104,7 @@ public class RiLexiconTest {
     lex = new RiLexicon();
     result = lex.lexicalData();
     
-    ok(lex.containsWord("zooms"));
+    ok(lex.containsWord("zoom"));
     ok(lex.containsWord("a"));
     ok(result.size() > 1000);
   }
@@ -131,17 +136,6 @@ public class RiLexiconTest {
   public void testAlliterationsString() {
     RiLexicon lex = new RiLexicon();
     String[] result = lex.alliterations("accidentally");
-
-    for (int i = 0; i < result.length; i++) {
-      // System.out.println(result[i]);
-    }
-    ok(result.length > 1000);
-
-    lex = new RiLexicon();
-    result = lex.alliterations("apples");
-    for (int i = 0; i < result.length; i++) {
-      // System.out.println(result[i]);
-    }
     ok(result.length > 1000);
 
     result = new String[] {};
@@ -174,12 +168,13 @@ public class RiLexiconTest {
   @Test
   public void testAlliterationsStringInt() {
     RiLexicon lex = new RiLexicon();
-    String[] result = lex.alliterations("dog", 16);
-    ok(result.length == 3);
-    result = lex.alliterations("cat", 17);
-    // System.out.println("RiLexiconTest.testAlliterationsInt() :: "+result.length);
+    String[] result = lex.alliterations("dog", 15);
 
-    ok(result.length == 7);
+    ok(result.length == 4);
+    result = lex.alliterations("cat", 17);
+    //System.out.println("RiLexiconTest.testAlliterationsInt() :: "+result.length);
+
+    ok(result.length == 6);
     
     // TODO: better tests
   }
@@ -305,33 +300,33 @@ public class RiLexiconTest {
     RiLexicon lex = new RiLexicon();
 
     String[] result = lex.rhymes("apple");
+    RiTa.out(result);
     String[] answer = { "chapel", "grapple" };
-    deepEqual(result, answer);
+    deepEqual(answer, result);
 
     result = lex.rhymes("bible");
     answer = new String[] { "libel", "tribal" };
-    deepEqual(result, answer);
-
+    deepEqual(answer, result);
+    
     result = lex.rhymes("goxgle");
     answer = new String[] {};
-    deepEqual(result, answer);
-
+    deepEqual(answer, result);
+    
     result = lex.rhymes("google");
     answer = new String[] { "bugle", "frugal" };
-    // System.out.println(RiTa.asList(result));
-    deepEqual(result, answer);
-
+    deepEqual(answer, result);
+    
     result = lex.rhymes("happens in here");
     answer = new String[] {};
-    deepEqual(result, answer);
-
+    deepEqual(answer, result);
+    
     result = lex.rhymes("");
     answer = new String[] {};
-    deepEqual(result, answer);
-
+    deepEqual(answer, result);
+    
     result = lex.rhymes("apple.");
     answer = new String[] {};
-    deepEqual(result, answer);
+    deepEqual(answer, result);
   }
 
   @Test
@@ -660,25 +655,25 @@ public class RiLexiconTest {
   public void testGetRawPhonesStringBoolean() {
     RiLexicon lex = new RiLexicon();
 
-    String s = lex.lexImpl.getRawPhones("dragging", false);
+    String s = lex.getRawPhones("dragging", false);
     equal(s, "d-r-ae1 g-ih-ng");
 
-    s = lex.lexImpl.getRawPhones("laggin", false);
+    s = lex.getRawPhones("laggin", false);
     ok(s.length() == 0);
 
-    s = lex.lexImpl.getRawPhones("laggin", true);
+    s = lex.getRawPhones("laggin", true);
     equal(s, "l-ae1 g-ih1-n");
 
-    s = lex.lexImpl.getRawPhones("yoyo", true);
+    s = lex.getRawPhones("yoyo", true);
     equal(s, "y-oy1 ow1"); // not sure about this
 
-    s = lex.lexImpl.getRawPhones("yoyo", false);
+    s = lex.getRawPhones("yoyo", false);
     ok(s.length() == 0);
 
-    s = lex.lexImpl.getRawPhones("wellow", false);
+    s = lex.getRawPhones("wellow", false);
     ok(s.length() == 0);
 
-    s = lex.lexImpl.getRawPhones("mellow", false);
+    s = lex.getRawPhones("mellow", false);
     equal(s, "m-eh1 l-ow");
 
     // s = lex.lexImpl.getRawPhones("mellow", true);
@@ -839,18 +834,13 @@ public class RiLexiconTest {
     result = lex.similarByLetter("happier", 1);
     String[] answer = new String[] { "hardier", "rapier", "happily", "hipper",
 	"hopper", "dapper", "handier", "hippie", "hamper", "happiest", "happen" };
-    for (int i = 0; i < result.length; i++) {
-      // System.out.println(result[i]);
-    }
     deepEqual(result, answer);
 
     result = new String[] {};
     result = lex.similarByLetter("ice", 1);
     answer = new String[] { "mice", "ire", "dice", "rice", "icy", "vice",
 	"lice", "nice", "iced", "ace" };
-    // for(int i=0;i<result.length;i++){
-    // System.out.println(result[i]);
-    // }
+
     deepEqual(result, answer);
 
   }
@@ -865,26 +855,18 @@ public class RiLexiconTest {
     result = new String[] {};
     result = lex.similarByLetter("ice", 0, true);
     String[] answer = new String[] { "ire", "icy", "ace" };
-    for (int i = 0; i < result.length; i++) {
-      // System.out.println(result[i]);
-    }
     deepEqual(result, answer);
 
     result = new String[] {};
     result = lex.similarByLetter("happier", 1, false);
     answer = new String[] { "hardier", "rapier", "happily", "hipper", "hopper",
 	"dapper", "handier", "hippie", "hamper", "happiest", "happen" };
-    for (int i = 0; i < result.length; i++) {
-      // System.out.println(result[i]);
-    }
+
     deepEqual(result, answer);
 
     result = new String[] {};
     result = lex.similarByLetter("happier", 1, true);
     answer = new String[] { "hardier", "happily", "handier" };
-    for (int i = 0; i < result.length; i++) {
-      // System.out.println(result[i]);
-    }
     deepEqual(result, answer);
   }
 
@@ -926,16 +908,10 @@ public class RiLexiconTest {
 
     String[] result = lex.similarBySound("happy", 1);
     String[] answer = new String[] { "hippie", "happier" };
-    for (int i = 0; i < result.length; i++) {
-      // System.out.println(result[i]);
-    }
     deepEqual(result, answer);
 
     result = lex.similarBySound("happy", 0);
     answer = new String[] { "hippie", "happier" };
-    for (int i = 0; i < result.length; i++) {
-      // System.out.println(result[i]);
-    }
     deepEqual(result, answer);
 
     result = lex.similarBySound("happy", 2);
@@ -946,10 +922,6 @@ public class RiLexiconTest {
     result = lex.similarBySound("try", 0);
     answer = new String[] { "tie", "tried", "trite", "tree", "tries", "pry",
 	"dry", "tribe", "true", "tripe", "cry", "wry", "tray", "fry", "rye" };
-
-    for (int i = 0; i < result.length; i++) {
-      // System.out.println(result[i]);
-    }
     deepEqual(result, answer);
 
     result = lex.similarBySound("try", 1);
@@ -965,9 +937,6 @@ public class RiLexiconTest {
     answer = new String[] { "tie", "tried", "trite", "tree", "tries", "pry",
 	"dry", "tribe", "true", "tripe", "cry", "wry", "tray", "fry", "rye" };
 
-    for (int i = 0; i < result.length; i++) {
-      // System.out.println(result[i]);
-    }
     ok(result.length > 30);
   }
 
@@ -1046,15 +1015,11 @@ public class RiLexiconTest {
     deepEqual(result4, answer4);
 
     String[] result5 = lex.substrings("hi");
-    /*
-     * for(int i=0; i<result5.length; i++){ System.out.println(result5[i]); }
-     */
     String[] answer5 = {};
     deepEqual(result5, answer5);
 
     result = lex.substrings("");
     deepEqual(result, new String[0]);
-
   }
 
   @Test
@@ -1080,9 +1045,6 @@ public class RiLexiconTest {
 
     String[] result3 = lex.substrings("exhibition", 3);
     String[] answer3 = new String[] { "ion", "bit", "exhibit" };
-    /*
-     * for(int i=0; i<result3.length; i++){ //System.out.println(result3[i]); }
-     */
     deepEqual(result3, answer3);
 
     result3 = lex.substrings("exhibition", 5);

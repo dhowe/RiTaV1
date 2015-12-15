@@ -412,7 +412,9 @@ public interface EnglishConstants
    "timucus",
    "tiramisus",
    "tofus",
-   "tutus"
+   "tutus",
+   "menus", 
+   "gurus"
   );
 
   /** Words that change from "-sse" to "-sses" (like "finesse" etc.), listed in their plural forms*/
@@ -796,13 +798,11 @@ public interface EnglishConstants
     "children","child",
     "corpora","corpus",
     "ephemerides","ephemeris",
-    "firemen","fireman",
     "genera","genus",
     "genies","genie",
     "genii","genie",
     "kine","cow",
     "lice","louse",
-    "men","man",
     "mice","mouse",
     "mongooses","mongoose",
     "monies","money",
@@ -815,7 +815,9 @@ public interface EnglishConstants
     "taxis","taxi",
     "throes","throes",
     "trilbys","trilby",
-    "women","woman"
+    "innings","inning",
+    "alibis","alibi",
+    "skis","ski"
   ); 
   
   /** 

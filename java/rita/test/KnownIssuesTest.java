@@ -56,13 +56,21 @@ public class KnownIssuesTest implements Constants
   }
   
   @Test
-  public void testLastStressedVowelPhonemeToEnd() { // @TODO: Cyrus
+  public void testLastStressedVowelPhonemeToEnd() { // TODO: Cyrus
     RiLexicon lex = new RiLexicon();
     
     String result = lex.lastStressedVowelPhonemeToEnd("savage", false);
     equal(result, "ih-jh");
   }
+  
+  @Test
+  public void testSingularize()  // TODO
+  {
+    
 
+  }
+  
+  
   @Test
   public void testRhyming()
   {
@@ -144,9 +152,16 @@ public class KnownIssuesTest implements Constants
   }
 
   @Test
+  public void testAlliterations()
+  {
+    String[] result = new RiLexicon().alliterations("apples");
+    //RiTa.out(result);
+    ok(result.length > 0);
+  }
+
+  @Test
   public void testRandomIterator()
   {
-
     JSONLexicon lexicon = JSONLexicon.getInstance();
     long ts = System.currentTimeMillis();
     lexicon.randomPosIterator("nns");
@@ -166,7 +181,7 @@ public class KnownIssuesTest implements Constants
     String[] failing = { "dog", "dragging", "mellow" };
     for (int i = 0; i < failing.length; i++) {
       String phones = LetterToSound.getInstance().getPhones(failing[i]);
-      String phones2 = lex.lexImpl.getRawPhones(failing[i]);
+      String phones2 = lex.getRawPhones(failing[i], false);
       System.out.println(failing[i] + " -> "+phones + "[lts] ?= " + phones2
 	  + " \t\t ["+phones.equals(phones2)+"]");
       //equal(phones, phones2);
@@ -176,7 +191,7 @@ public class KnownIssuesTest implements Constants
     @Test
   public void testSyllabify2() 
   {
-    String s = new RiLexicon().lexImpl.getRawPhones("yoyo",true);
+    String s = new RiLexicon().getRawPhones("yoyo",true);
     equal(s,"y-oy1 ow1"); // TODO: Is this correct? check in JS
   }
     

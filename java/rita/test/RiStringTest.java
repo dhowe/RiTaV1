@@ -6,6 +6,7 @@ import static rita.support.QUnitStubs.notEqual;
 import static rita.support.QUnitStubs.ok;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -57,10 +58,11 @@ public class RiStringTest implements Constants
   public void testAnalyze()
   {
     Map<String, String> features = new RiString
-	("Mom & Dad, waiting for the car, ate a steak.")
+	("Mom and Dad, waiting for the car, ate a steak.")
     	.analyze().features();
 
     ok(features);
+//RiTa.out(features);  
     
     int numWords = features.get(TOKENS).split(" ").length;
     equal(numWords, features.get(STRESSES).split(" ").length);
@@ -70,10 +72,9 @@ public class RiStringTest implements Constants
     
     if (!RiLexicon.enabled) return; // Not using lexicon, further tests should fail
       
-    // System.out.println(features);
-    equal(features.get(PHONEMES), "m-aa-m & d-ae-d , w-ey-t-ih-ng f-ao-r dh-ax k-aa-r , ey-t ey s-t-ey-k .");
-    equal(features.get(SYLLABLES), "m-aa-m & d-ae-d , w-ey-t/ih-ng f-ao-r dh-ax k-aa-r , ey-t ey s-t-ey-k .");
-    equal(features.get(STRESSES), "1 & 1 , 1/0 1 0 1 , 1 1 1 .");
+    equal(features.get(PHONEMES), "m-aa-m ae-n-d d-ae-d , w-ey-t-ih-ng f-ao-r dh-ah k-aa-r , ey-t ey s-t-ey-k .");
+    equal(features.get(SYLLABLES), "m-aa-m ae-n-d d-ae-d , w-ey/t-ih-ng f-ao-r dh-ah k-aa-r , ey-t ey s-t-ey-k .");
+    equal(features.get(STRESSES), "1 1 1 , 1/0 1 0 1 , 1 1 1 .");
 
     String txt = "The dog ran faster than the other dog.  But the other dog was prettier.";
     RiString rs = new RiString(txt);
@@ -81,9 +82,10 @@ public class RiStringTest implements Constants
     features = rs.features();
     // RiTa.out(features);
     ok(features);
+    
 
-    equal(features.get(PHONEMES), "dh-ax d-ao-g r-ae-n f-ae-s-t-er dh-ae-n dh-ax ah-dh-er d-ao-g . b-ah-t dh-ax ah-dh-er d-ao-g w-aa-z p-r-ih-t-iy-er .");
-    equal(features.get(SYLLABLES), "dh-ax d-ao-g r-ae-n f-ae-s/t-er dh-ae-n dh-ax ah-dh/er d-ao-g . b-ah-t dh-ax ah-dh/er d-ao-g w-aa-z p-r-ih-t/iy/er .");
+    equal(features.get(PHONEMES), "dh-ah d-ao-g r-ae-n f-ae-s-t-er dh-ae-n dh-ah ah-dh-er d-ao-g . b-ah-t dh-ah ah-dh-er d-ao-g w-aa-z p-r-ih-t-iy-er .");
+    equal(features.get(SYLLABLES), "dh-ah d-ao-g r-ae-n f-ae/s-t-er dh-ae-n dh-ah ah/dh-er d-ao-g . b-ah-t dh-ah ah/dh-er d-ao-g w-aa-z p-r-ih/t-iy/er .");
     // System.err.println("STRESSES: "+features.get(STRESSES));
     equal(features.get(STRESSES), "0 1 1 1/0 1 0 1/0 1 . 1 0 1/0 1 1 1/0/0 .");
 
@@ -92,8 +94,8 @@ public class RiStringTest implements Constants
     features = ri.features();
     ok(features);
 
-    equal(features.get(PHONEMES), "dh-ax l-ae-g-ih-n d-r-ae-g-aa-n");
-    equal(features.get(SYLLABLES), "dh-ax l-ae/g-ih-n d-r-ae-g/aa-n");
+    equal(features.get(PHONEMES), "dh-ah l-ae-g-ih-n d-r-ae-g-ah-n");
+    equal(features.get(SYLLABLES), "dh-ah l-ae/g-ih-n d-r-ae/g-ah-n");
     equal(features.get(STRESSES), "0 1/1 1/0");
 
     features = new RiString("dog").analyze().features();
@@ -315,11 +317,11 @@ public class RiStringTest implements Constants
     
     if (!RiLexicon.enabled) return; // Not using lexicon, further tests should fail
 
-    // System.out.println(ph);
-    equal(ph, "dh-ax l-ae-g-ih-n d-r-ae-g-aa-n");
     
-    equal(sy, "dh-ax l-ae/g-ih-n d-r-ae-g/aa-n");
-    // in RITAJS equal(sy, "dh-ax l-ae/g-ih-n d-r-ae-g/ax-n");
+    equal(ph, "dh-ah l-ae-g-ih-n d-r-ae-g-ah-n");
+    //System.out.println(sy);
+    equal(sy, "dh-ah l-ae/g-ih-n d-r-ae/g-ah-n");
+    // in RITAJS equal(sy, "dh-ah l-ae/g-ih-n d-r-ae-g/ax-n");
     
     equal(st, "0 1/1 1/0");
 

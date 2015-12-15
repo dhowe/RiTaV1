@@ -70,8 +70,7 @@ public class JSONLexicon implements Constants {
   }
 
   /**
-   * Creates, loads and returns the singleton lexicon instance for a specific
-   * path.
+   * Creates, loads & returns the singleton lexicon instance for a specific path.
    */
   protected static JSONLexicon getInstance(String pathToLexicon) {
     if (instance == null) {
@@ -85,11 +84,10 @@ public class JSONLexicon implements Constants {
 	if (!RiTa.SILENT)
 	  System.out.println("[INFO] Loaded " + instance.size() + "(" + addenda
 	      + ") lexicon in " + (System.currentTimeMillis() - start) + " ms");
-	// "from "+pathToLexicon);
+		
       } catch (Throwable e) {
-	System.out.println(e.getMessage());
-	return null;
-	// throw new RiTaException(e);
+	
+	  throw new RiTaException(e.getMessage());
       }
     }
     return instance;
@@ -140,9 +138,10 @@ public class JSONLexicon implements Constants {
   }
 
   public void load() {
+    
     String[] lines = loadJSON(this.dictionaryFile);
 
-    if (lines.length < 2)
+    if (lines == null || lines.length < 2)
       throw new RiTaException("Problem parsing RiLexicon data files");
 
     lexicalData = new LinkedHashMap<String, String>(MAP_SIZE);
@@ -155,7 +154,7 @@ public class JSONLexicon implements Constants {
       lexicalData.put(parts[0], parts[1].trim());
     }
 
-    if (LOAD_USER_ADDENDA)
+    if (LOAD_USER_ADDENDA) // deprecate
       addAddendaEntries(DEFAULT_USER_ADDENDA_FILE, lexicalData);
 
     loaded = true;
@@ -165,10 +164,11 @@ public class JSONLexicon implements Constants {
   }
 
   public static String[] loadJSON(String file) {
+    
     if (file == null)
       throw new RiTaException("No dictionary path specified!");
 
-    String data = USE_NIO ? readFileNIO(file) : readFile(file);
+    String data = readFile(file);
 
     if (data == null)
       throw new RiTaException("Unable to load lexicon from: " + file);
@@ -185,8 +185,11 @@ public class JSONLexicon implements Constants {
   public static String readFile(String filename) // load file into single string
   {
     try {
+      
       StringBuilder builder = new StringBuilder();
       InputStream is = RiLexicon.class.getResourceAsStream(filename);
+      if (is == null)
+	throw new RiTaException("Unable to load lexicon: rita/java/"+filename);
       InputStreamReader isr = new InputStreamReader(is);
       Reader reader = new BufferedReader(isr);
       char[] buffer = new char[8192];
@@ -196,40 +199,13 @@ public class JSONLexicon implements Constants {
       }
       isr.close();
       is.close();
+      
       return builder.toString();
+            
     } catch (Exception e) {
+      
       throw new RiTaException(e);
     }
-
-  }
-
-  public static String readFileNIO(String filename) {
-    try {
-      File f = loadFileResourceOld(filename);
-      FileChannel channel = new FileInputStream(f).getChannel();
-      ByteBuffer buffer = ByteBuffer.allocate((int) channel.size());
-      channel.read(buffer);
-      channel.close();
-      return new String(buffer.array(), UTF8);
-    } catch (Exception e) {
-      throw new RiTaException(e);
-    }
-  }
-
-  private static InputStream loadFileResource(String filename) {
-    return RiLexicon.class.getResourceAsStream(filename);
-  }
-
-  private static File loadFileResourceOld(String filename)
-      throws URISyntaxException {
-    URL url = RiLexicon.class.getResource(filename);
-    String urlStr = url.toString();
-    // System.out.println("URLStr:"+urlStr);
-    URI uri = new URI(urlStr);
-    // System.out.println("URI:"+uri);
-    File f = new File(uri);
-    // System.out.println("FILE:"+f);
-    return f;
   }
 
   protected LetterToSound getLTSEngine() {
@@ -600,28 +576,6 @@ public class JSONLexicon implements Constants {
     if (!RiTa.SILENT)
       System.out.println("[INFO] Created and cached features... in "
 	  + (System.currentTimeMillis() - start) + "ms");
-  }
-
-  public String getRawPhones(String word) {
-    return getRawPhones(word, false);
-  }
-
-  public String getRawPhones(String word, boolean useLTS) {
-    if (word == null || word.length() < 1)
-      return E;
-
-    String data = lookupRaw(word);
-
-    if (data == null && useLTS) {
-      if (!RiTa.SILENT && !RiLexicon.SILENCE_LTS)
-	System.out.println("[RiTa] Using letter-to-sound rules for: " + word);
-
-      String phones = LetterToSound.getInstance().getPhones(word);
-      if (phones != null && phones.length() > 0)
-	return phones;
-    }
-
-    return data == null ? E : data.split(DATA_DELIM)[0].trim();
   }
 
   public String getPosStr(String word) {

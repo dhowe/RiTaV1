@@ -1,13 +1,10 @@
 js/*
 js
-js-last
 tmp
 misc
 orig*
 .DS_STORE
 **/.DS_STORE
-**/bower_components
-**/node_modules
 /bin
 /dist
 /dist/**

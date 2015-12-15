@@ -9,8 +9,11 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Pattern;
 
+import org.xml.sax.ext.LexicalHandler;
+
 import rita.support.Constants;
 import rita.support.JSONLexicon;
+import rita.support.LetterToSound;
 import rita.support.MinEditDist;
 import rita.support.Phoneme;
 import rita.support.PosTagger;
@@ -152,10 +155,13 @@ public class RiLexicon implements Constants {
   }
 
   public HashMap<String, String> lexicalData() {
-    return lexImpl.getLexicalData();
+    
+    return lexImpl != null ? lexImpl.getLexicalData() : new HashMap();
   }
 
   public RiLexicon lexicalData(HashMap m) {
+    if (lexImpl == null) 
+      throw new RuntimeException("Null lexicon");
     lexImpl.setLexicalData(m);
     return this;
   }
@@ -297,21 +303,65 @@ public class RiLexicon implements Constants {
    * are identical.
    */
   private void rhymes(String input, Set result) {
-    String lss = lastStressedPhoneToEnd(input, false); // TODO: change to true !
+    
+    String lss = lastStressedPhoneToEnd(input, true);
     if (lss == null)
       return; // no result
 
     for (Iterator it = lexicalData().keySet().iterator(); it.hasNext();) {
       String cand = (String) it.next();
-
+      
       if (cand.equals(input))
 	continue;
 
-      String chck = lexImpl.getRawPhones(cand);
+      String chck = getRawPhones(cand);
+      
+if (cand.equalsIgnoreCase("gap"))
+  System.out.println("gap: "+chck);
+      
       if (chck != null && chck.endsWith(lss))
 	result.add(cand);
     }
   }
+  
+  public String getRawPhones(String word) {
+    
+    return getRawPhones(word, false);
+  }
+  
+  public String getRawPhones(String word, boolean useLTS) {
+    
+    return getRawPhones(this.lexImpl, word, useLTS);
+  }
+  
+  public static String getRawPhones(JSONLexicon lex, String word) {
+    
+    return getRawPhones(lex, word, false);
+  }
+
+  public static String getRawPhones(JSONLexicon lex, String word, boolean useLTS) {
+    
+    if (word == null || word.length() < 1) return E;
+
+    String data = null;
+    if (lex != null)
+      data = lex.lookupRaw(word);
+
+    if (data == null && useLTS) {  // try LTS rules
+
+      String phones = LetterToSound.getInstance().getPhones(word);
+      if (phones != null && phones.length() > 0) {
+	
+	if (!RiTa.SILENT && !RiLexicon.SILENCE_LTS && RiLexicon.enabled)
+	  System.out.println("[RiTa] Using letter-to-sound rules for: " + word);
+
+	return phones;
+      }
+    }
+
+    return data == null ? E : data.split(DATA_DELIM)[0].trim();
+  }
+
 
   public String[] words() {
     return this.words(false);
@@ -679,10 +729,11 @@ public class RiLexicon implements Constants {
   }
 
   private String firstStressedSyllable(String word, boolean useLTS) {
+    
     if (word.indexOf(' ') > -1)
       return null;
 
-    String raw = lexImpl.getRawPhones(word, useLTS);
+    String raw = getRawPhones(word, useLTS);
     // System.out.println(word + "-> raw='"+raw+"'");
     int idx = -1;
 
@@ -762,7 +813,7 @@ public class RiLexicon implements Constants {
   public String lastStressedPhoneToEnd(String word, boolean useLTS) {
     boolean dbug = false;
 
-    String raw = lexImpl.getRawPhones(word, useLTS);
+    String raw = getRawPhones(word, useLTS);
     if (raw == null)
       return null;
 
@@ -840,10 +891,10 @@ public class RiLexicon implements Constants {
     alliterations(input, result, minLength, true); // Will use LTS for now
   }
 
-  private void alliterations(String input, Set result, int minLength,
-      boolean useLTS) {
+  private void alliterations(String input, Set result, int minLength, boolean useLTS) {
 
-    String fC = firstConsonant(firstStressedSyllable(input, useLTS));
+    String firstStressedSyllable = firstStressedSyllable(input, useLTS);
+    String fC = firstConsonant(firstStressedSyllable);
 
     if (input != null && (input.indexOf(' ') < 0) && fC != null) {
 

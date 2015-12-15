@@ -16,7 +16,7 @@ import rita.RiTa;
  * Static utility methods for operations involving phonemes.
  * 
  * <pre>
- *         TIMIT-Phoneme   Example     Translation    (39 entries, 11 missing?)
+ *         Phoneme   	Example     Translation    (39 entries)
  *         ========================================================
  *           AA            odd         AA D
  *           AE            at          AE T
@@ -57,58 +57,12 @@ import rita.RiTa;
  *           Y             yield       Y IY L D
  *           Z             zee         Z IY
  *           ZH            seizure     S IY ZH ER
- *           
- *           
- *     SAMPA  IPA(hex), IPA(dec),           DESC                 29 Entries
- *     ======================================================================== 
- *     ('A',  '\u0251',  593,    "open back unrounded, Cardinal 5, Eng. start");
- *     ('{',  '\u00E6',  230,    "near-open front unrounded, Eng. trap");
- *     ('6',  '\u0250',  592,    "open schwa, Ger. besser");
- *     ('Q',  '\u0252',  594,    "open back rounded, Eng. lot");
- *     ('E',  '\u025B',  603,    "open-mid front unrounded, C3, Fr. m�me");
- *     ('@',  '\u0259',  601,    "schwa, Eng. banana");
- *     ('3',  '\u025C',  604,    "long mid central, Eng. nurse");
- *     ('I',  '\u026A',  618,    "lax close front unrounded, Eng. kit");
- *     ('O',  '\u0254',  596,    "open-mid back rounded, Eng. thought");
- *     ('2',  '\u00F8',  248,    "close-mid front rounded, Fr. deux");
- *     ('9',  '\u0153',  339,    "open-mid front rounded, Fr. neuf");
- *     ('&',  '\u0276',  630,    "open front rounded");
- *     ('U',  '\u028A',  650,    "lax close back rounded, Eng. foot");
- *     ('}',  '\u0289',  649,    "close central rounded, Swedish sju");
- *     ('V',  '\u028C',  652,    "open-mid back unrounded, Eng. strut");
- *     ('Y',  '\u028F',  655,    "lax [y], Ger. h�bsc");
- *     ('B',  '\u03B2',  946,    "voiced bilabial fricative, Sp. cabo");
- *     ('C',  '\u00E7',  231,    "voiceless palatal fricative, Ger. ich");
- *     ('D',  '\u00F0',  240,    "voiced dental fricative, Eng. then");
- *     ('G',  '\u0263',  611,    "voiced velar fricative, Sp. fuego");
- *     ('L',  '\u028E',  654,    "palatal lateral, It. famiglia");
- *     ('J',  '\u0272',  626,    "palatal nasal, Sp. a�o");
- *     ('N',  '\u014B',  331,    "velar nasal, Eng. thing");
- *     ('R',  '\u0281',  641,    "vd. uvular fric. or trill, Fr. roi");
- *     ('S',  '\u0283',  643,    "voiceless palatoalveolar fricative, Eng. ship");
- *     ('T',  '\u03B8',  952,    "voiceless dental fricative, Eng. thin");
- *     ('H',  '\u0265',  613,    "labial-palatal semivowel, Fr. huit");
- *     ('Z',  '\u0292',  658,    "vd. palatoalveolar fric., Eng. measure");
- *     ('?',  '\u0294',  660,    "glottal stop, Ger. Verein, also Danish st�d");
  * </pre>
  */
 public abstract class Phoneme implements Constants {
-  
-  public static final String IPA_STRESS = "ˈ";
 
-  /**
-   * Vowels
-   */
   static final private String VOWELS = "aeiou";
-
-  /**
-   * Glides/Liquids
-   */
   static final private String GLIDES_LIQUIDS = "wylr";
-
-  /**
-   * Nasals
-   */
   static final private String NASALS = "nm";
 
   /**
@@ -227,37 +181,61 @@ public abstract class Phoneme implements Constants {
    * precede the vowel rather than the syllable. This is because Arpabet does
    * not mark syllable boundaries.
    *
-   * Arpabet is the set of phonemes used by the CMU Pronouncing Dictionary. 
-   * IPA is the International Phonetic Alphabet.
+   * Arpabet is the set of phonemes used by the CMU Pronouncing Dictionary. IPA
+   * is the International Phonetic Alphabet.
    *
-   * @param phones The Arpabet phonemic transcription to convert.
+   * @param phones
+   *          The Arpabet phonemic transcription to convert: 
    * @return The IPA equivalent of s.
    * @throws IllegalArgumentException
    *           if a phoneme is unknown.
    */
   public static String arpaToIPA(String phones) throws IllegalArgumentException {
-    
-    boolean includeStresses =  !(phones.matches("[\\D]+")); 
-    //if (includeStress) System.out.println("Using stresses");
-    
-    String[] arpaPhones = phones.trim().split("[ \\t]+");
-    StringBuffer ipaPhones = new StringBuffer(phones.length());
 
-    for (String arpaPhone : arpaPhones) {
-      char stress = arpaPhone.charAt(arpaPhone.length() - 1);
-      if (includeStresses && stress == '0' || stress == '1' || stress == '2') {
-	arpaPhone = arpaPhone.substring(0, arpaPhone.length() - 1);
-	ipaPhones.append(IPA_STRESS);
-      }
+    System.out.println("Phoneme.arpaToIPA("+phones+")");
+    
+    String[] syllables = phones.trim().split(RiTa.WORD_BOUNDARY);
+    StringBuffer ipaPhones = new StringBuffer();
 
-      String ipaPhoneme = arpaMap.get(arpaPhone);
-      if (ipaPhoneme == null) {
-	throw new IllegalArgumentException("Unexpected Phoneme: "+arpaPhone);
-      }
-      ipaPhones.append(ipaPhoneme);
+    for (int i = 0; i < syllables.length; i++) {
+      
+      ipaPhones.append(syllableToIPA(syllables[i]));
     }
-
+    
     return ipaPhones.toString();
+  }
+
+  private static String syllableToIPA(String arpaSyl) {
+
+    boolean stressed = false;
+    StringBuffer ipaSyl = new StringBuffer();
+    
+    String[] arpaPhones = arpaSyl.trim().split(RiTa.PHONEME_BOUNDARY);
+    
+    for (int i = 0; i < arpaPhones.length; i++) {
+      
+      String arpaPhone = arpaPhones[i];
+      char stress = arpaPhone.charAt(arpaPhone.length() - 1);
+      if (stress == RiTa.STRESSED || stress == '2') {
+	
+        arpaPhone = arpaPhone.substring(0, arpaPhone.length() - 1);
+        stressed = true; // TODO: what if we have an actual number?
+      }
+      
+      ipaSyl.append(phoneToIPA(arpaPhone));
+    }
+ 
+    if (stressed) ipaSyl.insert(0, IPA_STRESS);
+    
+    return ipaSyl.toString();
+  }
+
+  private static String phoneToIPA(String arpaPhone) {
+    String ipaPhoneme = arpaMap.get(arpaPhone);
+    if (ipaPhoneme == null) {
+      throw new IllegalArgumentException("Unexpected Phoneme: " + arpaPhone);
+    }
+    return ipaPhoneme;
   }
 
   private static final Map<String, String> arpaMap;
@@ -268,18 +246,16 @@ public abstract class Phoneme implements Constants {
     amap.put("ah", "ʌ");
     amap.put("ao", "ɔ");
     amap.put("aw", "aʊ");
-    //amap.put("ax", "ə");
     amap.put("ay", "aɪ");
     amap.put("b", "b");
     amap.put("ch", "tʃ");
     amap.put("d", "d");
     amap.put("dh", "ð");
-    //amap.put("dx", "?");
     amap.put("eh", "ɛ");
     amap.put("er", "ɚ");
     amap.put("ey", "eɪ");
     amap.put("f", "f");
-    amap.put("g", "?");
+    amap.put("g", "g");
     amap.put("hh", "h");
     amap.put("ih", "ɪ");
     amap.put("iy", "i");
@@ -310,8 +286,7 @@ public abstract class Phoneme implements Constants {
   public static void main(String[] args) {
     int k = 0;
 
-    if (k==0) {
-      
+    if (k == 0) {
       RiLexicon rl = new RiLexicon();
       String[] words = rl.words();
       List allPhones = Arrays.asList(RiTa.ALL_PHONES);
@@ -323,57 +298,46 @@ public abstract class Phoneme implements Constants {
 	  if (!allPhones.contains(phones[j]))
 	    missing += phones[j] + " ";
 	}
-	if (missing.length()>0)
-	  System.out.println(words[i] + " :: "+missing);
+	if (missing.length() > 0)
+	  System.out.println(words[i] + " :: " + missing);
       }
     }
-    if (k==1) {
+    if (k == 1) {
       String dict = RiTa.loadString("java/rita/rita_dict.js");
       for (int i = 0; i < RiTa.ALL_PHONES.length; i++) {
-        int count = dict.length() - dict.replace(RiTa.ALL_PHONES[i], "").length();
-        System.out.println(RiTa.ALL_PHONES[i]+": "+count);
+	int count = dict.length()
+	    - dict.replace(RiTa.ALL_PHONES[i], "").length();
+	System.out.println(RiTa.ALL_PHONES[i] + ": " + count);
       }
     }
-    
-    if (k==2) {
-  
+
+    if (k == 2) {
+
       System.out.println(ALL_PHONES.length);
       for (int i = 0; i < ALL_PHONES.length; i++) {
-        if (!arpaMap.containsKey(ALL_PHONES[i]))
-  	System.out.println(ALL_PHONES[i]);
+	if (!arpaMap.containsKey(ALL_PHONES[i]))
+	  System.out.println(ALL_PHONES[i]);
       }
       System.out.println(arpaMap.keySet().size());
     }
-    
-    if (k==3) {
-
-      RiLexicon.enabled = false;
-      RiString rs = new RiString("await");
-      rs.analyze();
-      System.out.println(rs.features());
-      //System.out.println(rs.get("syllables"));
-//      RiLexicon rl = new RiLexicon();
-//      System.out.println("become"));
-//      rl.lexImpl = null;
-//      System.out.println(RiTa.getPhonemes("become"));
-    }
-    if (k==4) {
+    if (k == 3) {
       RiLexicon rl = new RiLexicon();
       String[] words = rl.words();
-      HashMap<String, String> syllables = new HashMap<String, String>();      
-      for (int i = 0; i < Math.min(words.length,20); i++) {
+      HashMap<String, String> syllables = new HashMap<String, String>();
+      for (int i = 0; i < Math.min(words.length, 20); i++) {
 	String word = words[i];
 	String sylls = RiTa.getSyllables(word);
 	syllables.put(word, sylls);
       }
       System.out.println("=========================================");
       RiLexicon.enabled = false;
-      for (int i = 0; i < Math.min(words.length,20); i++) {
+      for (int i = 0; i < Math.min(words.length, 20); i++) {
 	String word = words[i];
 	String ltsSylls = RiTa.getSyllables(word);
 	String sylss = syllables.get(word);
 	boolean match = ltsSylls.equals(sylss);
-	System.out.println(i+") "+word+": "+(match ? "OK" : ltsSylls +" != "+ sylss));
+	System.out.println(i + ") " + word + ": "
+	    + (match ? "OK" : ltsSylls + " != " + sylss));
       }
     }
 

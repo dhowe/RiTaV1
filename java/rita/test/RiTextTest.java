@@ -24,44 +24,8 @@ public class RiTextTest
     rt.analyze();
     rt.features();
     ok(rt.features());
-
-    equal(rt.get(RiTa.PHONEMES), "dh-ax l-ae-g-ih-n d-r-ae-g-aa-n");
-    equal(rt.get(RiTa.SYLLABLES), "dh-ax l-ae/g-ih-n d-r-ae-g/aa-n");
-    equal(rt.get(RiTa.STRESSES), "0 1/1 1/0");
-
-    rt = new RiText(null, "123");
-    rt.analyze();
-    rt.features();
     
-    // TODO: these seem to be broken -- check with JS
-    if (1==2) {
-      
-      //ok(rt.features());
-      //System.out.println("features: " + rt.features());
-      //System.out.println("PHONEMES: " + rt.get(RiTa.PHONEMES));
-      
-      equal(rt.get(RiTa.PHONEMES), "w-ah-n-t-uw-th-r-iy");
-      equal(rt.get(RiTa.SYLLABLES), "w-ah-n/t-uw/th-r-iy");
-      equal(rt.get(RiTa.STRESSES), "0/0/0");
-  
-      rt = new RiText(null, "seven and 7");
-      rt.analyze();
-      rt.features();
-      ok(rt);
-  
-      equal(rt.get(RiTa.PHONEMES), "w-ah-n-t-uw-th-r-iy"); // TODO check answer
-      equal(rt.get(RiTa.SYLLABLES), "w-ah-n/t-uw/th-r-iy");
-      equal(rt.get(RiTa.STRESSES), "0/0/0");
-  
-      rt = new RiText(null, "1 2 7");
-      rt.analyze();
-      rt.features();
-      ok(rt);
-  
-      equal(rt.get(RiTa.PHONEMES), "w-ah-n t-uw s-eh-v-ax-n");
-      equal(rt.get(RiTa.SYLLABLES), "w-ah-n t-uw s-eh/v-ax-n");
-      equal(rt.get(RiTa.STRESSES), "0 0 1/0");
-    }
+    // delegates to RiString
   }
 
   @Test
@@ -172,11 +136,9 @@ public class RiTextTest
       String ph = rs.get(RiTa.PHONEMES); 
       String sy = rs.get(RiTa.SYLLABLES);
       String st = rs.get(RiTa.STRESSES); 
-//      System.out.println("Get PHONEMES :"+ph);
-//      System.out.println("Get SYLLABLES :"+sy);
-//      System.out.println("Get STRESSES :"+st);
-      equal(ph,"dh-ax l-ae-g-ih-n d-r-ae-g-aa-n");
-      equal(sy,"dh-ax l-ae/g-ih-n d-r-ae-g/aa-n"); 
+
+      equal(ph,"dh-ah l-ae-g-ih-n d-r-ae-g-ah-n");
+      equal(sy,"dh-ah l-ae/g-ih-n d-r-ae/g-ah-n"); 
       equal(st, "0 1/1 1/0");
   }
 
@@ -188,7 +150,6 @@ public class RiTextTest
     
     ok(features);
     ok(features.containsKey(RiTa.TEXT));
-//  ok(features.containsKey(RiTa.MUTABLE));
     ok(features.containsKey(RiTa.SYLLABLES));
     ok(features.containsKey(RiTa.PHONEMES));
     ok(features.containsKey(RiTa.STRESSES));
@@ -198,7 +159,6 @@ public class RiTextTest
     ok(rs.get(RiTa.PHONEMES));
     ok(rs.get(RiTa.STRESSES));
     ok(rs.get(RiTa.TEXT));
-//  ok(rs.get(RiTa.MUTABLE));
     ok(rs.get(RiTa.TOKENS));
     ok(rs.get(RiTa.POS));
   
@@ -210,7 +170,6 @@ public class RiTextTest
     ok(rs.get(RiTa.PHONEMES));
     ok(rs.get(RiTa.STRESSES));
     ok(rs.get(RiTa.TEXT));
-//  ok(rs.get(RiTa.MUTABLE));
     ok(rs.get(RiTa.TOKENS));
     ok(rs.get(RiTa.POS));
   }

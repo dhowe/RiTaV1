@@ -21,10 +21,11 @@ import rita.RiLexicon;
 import rita.RiTa;
 import rita.RiTaEvent;
 import rita.RiTaException;
+import rita.support.Phoneme;
 
 public class RiTaTest
 {  
-  public static final boolean REMOTE_TESTING = true;
+  public static final boolean REMOTE_TESTING = false;
   
   @Before
   public void initialize() {
@@ -720,10 +721,28 @@ public class RiTaTest
   {
     equal(1, RiTa.distance(1, 3, 2, 3));
     equal(28, RiTa.distance(30, 1, 2, 1));
-    equal(5.656854152679443, RiTa.distance(0, 0, 4, 4)); // 5.656854249492381
-                                                         // inRitaJS
-    equal(5.099019527435303, RiTa.distance(3, 3, 8, 4)); // 5.0990195135927845
-                                                         // in RitaJS
+    equal(5.656854152679443, RiTa.distance(0, 0, 4, 4)); 
+    equal(5.099019527435303, RiTa.distance(3, 3, 8, 4));
+  }
+
+  @Test
+  public void testGetPhonemesStringIPA()
+  {
+    RiTa.PHONEME_TYPE = RiTa.IPA;
+    
+    String[] words = {
+	"become", "bɪˈkʌm",
+	"parsley", "ˈpɑɹsli",
+	"catnip", "ˈkætˈnɪp",
+	"garlic", "ˈgɑɹlɪk",
+	"dill", "ˈdɪl",
+    };
+
+    for (int i = 0; i < words.length; i+=2) {
+      equal(words[i+1], RiTa.getPhonemes(words[i]));
+    }
+    
+    RiTa.PHONEME_TYPE = RiTa.ARPA;
   }
 
   @Test
@@ -1871,8 +1890,6 @@ public class RiTaTest
   @Test
   public void testPluralize()
   {
-    //System.out.println(RiTa.stem("dogs"));
-    
     equal("eyes", RiTa.pluralize("eye"));
     equal("blondes", RiTa.pluralize("blonde"));
     equal("blondes", RiTa.pluralize("blond"));
@@ -1889,7 +1906,6 @@ public class RiTaTest
 
     equal("sheep", RiTa.pluralize("sheep"));
     equal("shrimps", RiTa.pluralize("shrimp"));
-    //System.out.println("pluralize" + RiTa.pluralize("series"));
     equal("series", RiTa.pluralize("series"));
     equal("mice", RiTa.pluralize("mouse"));
 
@@ -1921,6 +1937,17 @@ public class RiTaTest
     equal("stimuli", RiTa.pluralize("stimulus"));
     equal("alumni", RiTa.pluralize("alumnus"));
     equal("corpora", RiTa.pluralize("corpus"));
+    
+    equal("women", RiTa.pluralize("woman"));
+    equal("men", RiTa.pluralize("man"));
+    equal("congressmen", RiTa.pluralize("congressman"));
+    equal("aldermen", RiTa.pluralize("alderman"));
+    equal("freshmen", RiTa.pluralize("freshman"));
+    
+    equal("bikinis", RiTa.pluralize("bikini")); 
+    equal("martinis", RiTa.pluralize("martini"));
+    equal("menus", RiTa.pluralize("menu"));
+    equal("gurus", RiTa.pluralize("guru"));
   }
 
   @Test
@@ -1936,7 +1963,6 @@ public class RiTaTest
     equal(RiTa.singularize("lochs"), "loch");
     equal(RiTa.singularize("stomachs"), "stomach");
 
- 
     equal(RiTa.singularize("people"), "person");
     equal(RiTa.singularize("monies"), "money");
     equal(RiTa.singularize("vertebrae"), "vertebra");
@@ -1986,7 +2012,6 @@ public class RiTaTest
     equal("louse", RiTa.singularize("lice"));
     equal("child", RiTa.singularize("children"));
     equal(RiTa.singularize("chinese"), "chinese");
-    //System.out.println("RiTa.singularize :" + RiTa.singularize("taxis"));
     equal(RiTa.singularize("taxis"), "taxi");
     
     equal(RiTa.singularize("gases"), "gas");
@@ -1999,6 +2024,16 @@ public class RiTaTest
     equal(RiTa.singularize("stimuli"), "stimulus");
     equal(RiTa.singularize("alumni"), "alumnus");
     equal(RiTa.singularize("corpora"), "corpus");
+    
+    equal("man", RiTa.singularize("men"));
+    equal("woman", RiTa.singularize("women"));
+    equal("congressman", RiTa.singularize("congressmen")); 
+    equal("alderman", RiTa.singularize("aldermen"));
+    equal("freshman", RiTa.singularize("freshmen"));
+    equal("fireman", RiTa.singularize("firemen"));
+    equal("grandchild", RiTa.singularize("grandchildren"));
+    equal("menu", RiTa.singularize("menus"));
+    equal("guru", RiTa.singularize("gurus"));
   }
 
   @Test

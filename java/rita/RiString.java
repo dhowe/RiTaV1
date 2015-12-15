@@ -1,27 +1,18 @@
 package rita;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import rita.support.Constants;
-import rita.support.FeaturedIF;
-import rita.support.JSONLexicon;
-import rita.support.LetterToSound;
-import rita.support.PosTagger;
+import rita.support.*;
 
 public class RiString implements FeaturedIF, Constants, Comparable<RiString> {
 
   static boolean DBUG_CACHED_FEATURES = false;
   
   static List<String> trackedFeatures = Arrays.asList(new String[] { 
-      "tokens", "stresses", "phonemes", "syllables", "pos", "text" });
+      TOKENS, STRESSES, PHONEMES, SYLLABLES, POS,  TEXT
+  });
 
   static {
     RiTa.init();
@@ -56,8 +47,8 @@ public class RiString implements FeaturedIF, Constants, Comparable<RiString> {
   }
 
   public String subSequence(int start, int end) {
-    start = Math.min(start < 0 ? delegate.length() + start : start,
-	length() - 1);
+    
+    start = Math.min(start < 0 ? delegate.length() + start : start, length() - 1);
     end = Math.min(end < 0 ? delegate.length() + end : end, length() - 1);
 
     if (end < start) {
@@ -79,7 +70,7 @@ public class RiString implements FeaturedIF, Constants, Comparable<RiString> {
     if (features == null || features.size() < 1)
       initFeatureMap();
 
-    String phonemes = E, syllables = E, stresses = E;
+    String phonemes = E, syllables = E, stresses = E, ipaPhones = null;
 
     for (int i = 0; i < words.length; i++) {
 
@@ -88,30 +79,31 @@ public class RiString implements FeaturedIF, Constants, Comparable<RiString> {
       String phones = null;
 
       if (lex != null)
-	phones = lex.getRawPhones(words[i]); // fetch phones from lex
+	phones = RiLexicon.getRawPhones(lex, words[i]); // fetch phones from lex
 
       if (phones == null || phones.length() < 1) {
 
-	if (lts == null)
-	  lts = LetterToSound.getInstance();
-
-	if (!RiTa.SILENT && !RiTa.SILENT_LTS && RiLexicon.enabled
-	    && words[i].matches("[a-zA-Z]+"))
-	  System.out.println("[RiTa] Used LTS-rules for '" + words[i] + "'");
+	if (lts == null) lts = LetterToSound.getInstance();
 
 	phones = lts.getPhones(words[i]); // next try LTS
 
 	if (phones == null || phones.length() < 1) {
 
-	  phones = words[i]; // still nothing, use the raw word
-			     // (should be punct)
+	  phones = words[i]; // still nothing, use the raw chars (punct)
 	  useRaw = true;
+	} 
+	else if (!RiTa.SILENT && !RiTa.SILENT_LTS && RiLexicon.enabled
+	    && words[i].matches("[a-zA-Z]+")) 
+	{
+	  System.out.println("[RiTa] Used LTS-rules for '" + words[i] + "'");
 	}
       }
 
-      // System.out.println(i+") '"+ phones+"'");
+      //System.out.println(i+") '"+ phones+"'");
 
-      phonemes += phones.replaceAll("[0-2]", E).replace(SP, DASH) + SP;
+      phonemes += ((RiTa.PHONEME_TYPE == IPA) ? Phoneme.arpaToIPA(phones): 
+	phones.replaceAll("[0-2]", E).replace(SP, DASH)) + SP;
+      
       syllables += phones.replaceAll("[0-2]", E).replace(SP, FS) + SP;
 
       if (!useRaw) {
@@ -124,8 +116,8 @@ public class RiString implements FeaturedIF, Constants, Comparable<RiString> {
 	  if (stressyls[j].length() < 1)
 	    continue;
 
-	  stresses += (stressyls[j].indexOf(RiTa.STRESSED) > -1) ? RiTa.STRESSED
-	      : RiTa.UNSTRESSED;
+	  stresses += (stressyls[j].indexOf(RiTa.STRESSED) > -1) ? 
+	      RiTa.STRESSED : RiTa.UNSTRESSED;
 
 	  if (j < stressyls.length - 1)
 	    stresses += FS;
@@ -133,13 +125,12 @@ public class RiString implements FeaturedIF, Constants, Comparable<RiString> {
       } else {
 
 	// no phones, just use raw word (punct)
-
 	stresses += words[i];
       }
 
-      if (!stresses.endsWith(SP))
-	stresses += SP;
+      if (!stresses.endsWith(SP)) stresses += SP;
     }
+      
 
     this.features.put(TOKENS, RiTa.join(words));
     this.features.put(STRESSES, stresses.trim());
@@ -149,7 +140,7 @@ public class RiString implements FeaturedIF, Constants, Comparable<RiString> {
 
     return this;
   }
-
+  
   void initFeatureMap() {
     if (this.features == null)
       this.features = new HashMap<String, String>();
@@ -193,7 +184,8 @@ public class RiString implements FeaturedIF, Constants, Comparable<RiString> {
       this.initFeatureMap();
     
     String s = features.get(featureName);
-    if (s == null && (trackedFeatures.indexOf(featureName) > -1) && (!features.containsKey(featureName))) {
+    if (s == null && (trackedFeatures.indexOf(featureName) > -1))
+    {
       this.analyze();
       s = features.get(featureName);
     }
@@ -906,7 +898,8 @@ public class RiString implements FeaturedIF, Constants, Comparable<RiString> {
   }
 
   public static void main(String[] args) {
-    RiLexicon.enabled = false;
+   // RiLexicon.enabled = false;
+    //RiTa.PHONEME_TYPE = RiTa.IPA;
     RiString ri = new RiString("The laggin dragon");
     ri.analyze();
     System.out.println(ri.features());
