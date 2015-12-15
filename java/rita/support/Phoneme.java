@@ -104,19 +104,6 @@ public abstract class Phoneme implements Constants {
   }
 
   /**
-   * Determines if the given phone represents a silent phone.
-   *
-   * @param phone
-   *          the phone to test
-   *
-   * @return <code>true</code> if the phone represents a silent phone; otherwise
-   *         <code>false</code>.
-   */
-  static public boolean isSilence(String phone) {
-    return phone.equals("pau");
-  }
-
-  /**
    * Determines if there is a vowel in the remainder of the array, starting at
    * the given index.
    *
@@ -162,7 +149,7 @@ public abstract class Phoneme implements Constants {
    * @return an integer that classifies phone transitions
    */
   public static int getSonority(String phone) {
-    if (isVowel(phone) || isSilence(phone)) {
+    if (isVowel(phone)) {
       return 5;
     } else if (GLIDES_LIQUIDS.indexOf(phone.substring(0, 1)) != -1) {
       return 4;
@@ -192,7 +179,7 @@ public abstract class Phoneme implements Constants {
    */
   public static String arpaToIPA(String phones) throws IllegalArgumentException {
 
-    System.out.println("Phoneme.arpaToIPA("+phones+")");
+    //System.out.println("Phoneme.arpaToIPA("+phones+")");
     
     String[] syllables = phones.trim().split(RiTa.WORD_BOUNDARY);
     StringBuffer ipaPhones = new StringBuffer();
@@ -205,7 +192,7 @@ public abstract class Phoneme implements Constants {
     return ipaPhones.toString();
   }
 
-  private static String syllableToIPA(String arpaSyl) {
+  protected static String syllableToIPA(String arpaSyl) {
 
     boolean stressed = false;
     StringBuffer ipaSyl = new StringBuffer();
@@ -230,7 +217,7 @@ public abstract class Phoneme implements Constants {
     return ipaSyl.toString();
   }
 
-  private static String phoneToIPA(String arpaPhone) {
+  protected static String phoneToIPA(String arpaPhone) {
     String ipaPhoneme = arpaMap.get(arpaPhone);
     if (ipaPhoneme == null) {
       throw new IllegalArgumentException("Unexpected Phoneme: " + arpaPhone);

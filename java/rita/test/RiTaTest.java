@@ -744,6 +744,34 @@ public class RiTaTest
     
     RiTa.PHONEME_TYPE = RiTa.ARPA;
   }
+  
+  @Test
+  public void testGetPhonemesStringArrayIPA()
+  {
+    RiTa.PHONEME_TYPE = RiTa.IPA;
+
+    String[][] inputs = {
+	{"become"},
+	{"parsley"},
+	{"catnip"},
+	{"garlic"},
+	{"dill"},
+    };
+    
+    String[] outputs = {
+	"bɪˈkʌm",
+	"ˈpɑɹsli",
+	"ˈkætˈnɪp",
+	"ˈgɑɹlɪk",
+	"ˈdɪl",
+    };
+    
+    for (int i = 0; i < inputs.length; i++) {
+      equal(outputs[i], RiTa.getPhonemes(inputs[i]));
+    }
+    
+    RiTa.PHONEME_TYPE = RiTa.ARPA;
+  }
 
   @Test
   public void testGetPhonemesString()

@@ -536,10 +536,9 @@ public class JSONLexicon implements Constants {
     boolean ib = false;
     if (currentWordPhone >= wordPhones.length) {
       ib = true;
-    } else if (Phoneme.isSilence(wordPhones[currentWordPhone])) {
-      ib = true;
-    } else if (!Phoneme.hasVowel(wordPhones, currentWordPhone)) { // rest of
-								  // word
+//    } else if (Phoneme.isSilence(wordPhones[currentWordPhone])) {
+//      ib = true;
+    } else if (!Phoneme.hasVowel(wordPhones, currentWordPhone)) { // rest ofword
       ib = false;
     } else if (!Phoneme.hasVowel(syllablePhones)) { // current syllable
       ib = false;
@@ -549,8 +548,7 @@ public class JSONLexicon implements Constants {
       ib = false;
     } else {
       int p, n, nn;
-      p = Phoneme
-	  .getSonority((String) syllablePhones.get(syllablePhones.size() - 1));
+      p = Phoneme.getSonority((String) syllablePhones.get(syllablePhones.size() - 1));
       n = Phoneme.getSonority(wordPhones[currentWordPhone]);
       nn = Phoneme.getSonority(wordPhones[currentWordPhone + 1]);
       if ((p <= n) && (n <= nn)) {
