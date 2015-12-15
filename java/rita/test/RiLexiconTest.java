@@ -84,16 +84,12 @@ public class RiLexiconTest {
     obj.put("wonderfullyy", new String[] { "w-ah1-n-d er-f ah-l iy", "rb" });
     lex.lexicalData(obj);
  
-System.out.println(lex.size());
-
     ok(lex.size() == 1);
     deepEqual(lex.lexicalData(), obj);
     ok(!lex.containsWord("wonderfully"));
     ok(lex.containsWord("wonderfullyy"));
 
     lex.reload();
-
-System.out.println(lex.size());
     
     ok(lex.containsWord("zoom"));
     ok(lex.containsWord("a"));
@@ -300,7 +296,7 @@ System.out.println(lex.size());
     RiLexicon lex = new RiLexicon();
 
     String[] result = lex.rhymes("apple");
-    RiTa.out(result);
+    //RiTa.out(result);
     String[] answer = { "chapel", "grapple" };
     deepEqual(answer, result);
 

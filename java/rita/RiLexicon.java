@@ -316,9 +316,6 @@ public class RiLexicon implements Constants {
 
       String chck = getRawPhones(cand);
       
-if (cand.equalsIgnoreCase("gap"))
-  System.out.println("gap: "+chck);
-      
       if (chck != null && chck.endsWith(lss))
 	result.add(cand);
     }
