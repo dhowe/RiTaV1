@@ -305,7 +305,7 @@ public class RiLexiconTest {
     RiLexicon lex = new RiLexicon();
 
     String[] result = lex.rhymes("apple");
-    String[] answer = { "pineapple", "chapel", "grapple" };
+    String[] answer = { "chapel", "grapple" };
     deepEqual(result, answer);
 
     result = lex.rhymes("bible");
@@ -627,13 +627,21 @@ public class RiLexiconTest {
   public void testIsAlliterationStringString() {
     RiLexicon lex = new RiLexicon();
 
-    ok(lex.isAlliteration("apple", "polo"));
-    ok(lex.isAlliteration("polo", "apple")); // swap position
-    ok(lex.isAlliteration("POLO", "apple")); // CAPITAL LETTERS
-    ok(lex.isAlliteration("POLO", "APPLE")); // CAPITAL LETTERS
-    ok(lex.isAlliteration("polo", "APPLE")); // CAPITAL LETTERS
-    ok(!lex.isAlliteration("polo ", "APPLE")); // Word with space False
-    ok(!lex.isAlliteration("polo    ", "APPLE")); // Word with tab space
+    ok(lex.isAlliteration("sally", "silly"));
+    ok(lex.isAlliteration("sea", "seven"));
+    ok(lex.isAlliteration("silly", "seven"));
+    ok(lex.isAlliteration("sea", "sally"));
+    
+    ok(lex.isAlliteration("big", "bad"));
+    ok(lex.isAlliteration("bad", "big")); // swap position
+    
+    ok(lex.isAlliteration("BIG", "bad")); // CAPITAL LETTERS
+    ok(lex.isAlliteration("big", "BAD")); // CAPITAL LETTERS
+    ok(lex.isAlliteration("BIG", "BAD")); // CAPITAL LETTERS
+    
+    ok(!lex.isAlliteration("big ", "bad")); // Word with space False
+    ok(!lex.isAlliteration("big    ", "bad")); // Word with tab space
+
     // False
     ok(lex.isAlliteration("this", "these"));
     ok(!lex.isAlliteration("solo", "tomorrow"));
@@ -679,14 +687,13 @@ public class RiLexiconTest {
 
   @Test
   public void testIsRhymeStringString() {
-    // TODO: check all these
+
     RiLexicon lex = new RiLexicon();
 
-    ok(lex.isRhyme("solo", "tomorrow"));
+    ok(!lex.isRhyme("solo", "tomorrow"));
     ok(!lex.isRhyme("apple", "polo"));
     ok(!lex.isRhyme("this", "these"));
 
-    ok(lex.isRhyme("solo", "tomorrow"));
     ok(lex.isRhyme("cat", "hat"));
     ok(lex.isRhyme("yellow", "mellow"));
     ok(lex.isRhyme("toy", "boy"));
@@ -698,21 +705,15 @@ public class RiLexiconTest {
 
   @Test
   public void testIsRhymeStringStringBoolean() {
-    
-    // TODO: check all these (more tests)
+
     RiLexicon lex = new RiLexicon();
 
-    ok(!lex.isRhyme("solo", "yoyo", false));
-    ok(!lex.isRhyme("yoyo", "jojo", false));
-    ok(lex.isRhyme("yoyo", "jojo", true));
-
-    ok(lex.isRhyme("solo", "tomorrow", true));
-
-    ok(lex.isRhyme("tomorrow", "solo", true));
+    ok(!lex.isRhyme("solo", "tomorrow", false));
+    ok(!lex.isRhyme("tomorrow", "solo", false));
+    
     ok(!lex.isRhyme("apple", "polo", true));
     ok(!lex.isRhyme("this", "these", false));
 
-    ok(lex.isRhyme("solo", "tomorrow", true));
     ok(lex.isRhyme("cat", "hat", true));
     ok(lex.isRhyme("yellow", "mellow", false));
     ok(lex.isRhyme("toy", "boy", true));
@@ -722,10 +723,35 @@ public class RiLexiconTest {
     ok(!lex.isRhyme("sieve", "mellow", false));
     ok(!lex.isRhyme("sieve", "mellow", true));
 
-    ok(lex.isRhyme("toy", "hoy", true));
-    // ok(lex.isRhyme("yellow", "wellow",true)); 
+    ok(lex.isRhyme("tense", "sense", false));
+    ok(lex.isRhyme("crab", "drab", false));
+    ok(lex.isRhyme("shore", "more", false));
+    ok(lex.isRhyme("mouse", "house", false));
+    ok(!lex.isRhyme("hose", "house", false));
+
+    ok(!lex.isRhyme("solo", "yoyo", false));
+    ok(!lex.isRhyme("solo", "yoyo", true)); // using LTS engine
     
-    //TODO: need example for correct use of LTS engine
+    ok(!lex.isRhyme("yoyo", "jojo", false));
+    ok(lex.isRhyme("yoyo", "jojo", true)); // using LTS engine
+
+    ok(!lex.isRhyme("toy", "hoy", false));
+    ok(lex.isRhyme("toy", "hoy", true)); // using LTS engine
+    
+    ok(!lex.isRhyme("yo", "bro", false)); 
+    ok(lex.isRhyme("yo", "bro", true)); // using LTS engine
+
+    ok(!lex.isRhyme("swag", "grab", false));
+    ok(!lex.isRhyme("swag", "grab", true)); // using LTS engine
+
+    ok(!lex.isRhyme("drake", "rake", false));
+    ok(lex.isRhyme("drake", "rake", true)); // using LTS engine
+
+    ok(!lex.isRhyme("nathan", "raven", false));
+    ok(lex.isRhyme("nathan", "raven", true)); // using LTS engine
+
+    // ok(lex.isRhyme("yellow", "wellow", true)); 
+    // ok(lex.isRhyme("solo", "yolo", true));
   }
 
   @Test
