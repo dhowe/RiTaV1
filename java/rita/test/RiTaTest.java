@@ -25,12 +25,20 @@ import rita.support.Phoneme;
 
 public class RiTaTest
 {  
-  public static final boolean REMOTE_TESTING = false;
+  public static boolean REMOTE_TESTING = false;
   
   @Before
   public void initialize() {
     RiTa.SILENT = true;
     RiLexicon.enabled = true;
+    
+    // detect Travis CI by checking env variable
+    // https://docs.travis-ci.com/user/environment-variables/#Default-Environment-Variables\
+    String env = System.getenv("CI");
+    if (env != null && env.equals("true"))
+      REMOTE_TESTING = true;
+    else
+      REMOTE_TESTING = false;
   }
  
   @Test
