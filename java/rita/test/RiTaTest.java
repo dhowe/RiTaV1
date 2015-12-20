@@ -887,15 +887,14 @@ public class RiTaTest
 
     result = RiTa.getStresses("The emperor had no clothes on. The King is fat.");
     answer = "0 1/0/0 1 1 1 1 . 0 1 1 1 .";
-    //System.out.println("getStresses" + result);
     equal(result, answer);
 
     result = RiTa.getStresses("to preSENT, to exPORT, to deCIDE, to beGIN");
-    answer = "1 0/1 , 1 0/1 , 1 0/1 , 1 0/1";
+    answer = "1 1/0 , 1 1/0 , 1 0/1 , 1 0/1";
     equal(result, answer);
 
     result = RiTa.getStresses("to present, to export, to decide, to begin");
-    answer = "1 0/1 , 1 0/1 , 1 0/1 , 1 0/1";
+    answer = "1 1/0 , 1 1/0 , 1 0/1 , 1 0/1";
     equal(result, answer);
 
     String txt = "The dog ran faster than the other dog.  But the other dog was prettier.";
