@@ -786,24 +786,23 @@ public class RiTaTest
   {
     String txt = "The dog ran faster than the other dog.  But the other dog was prettier.";
     String result = RiTa.getPhonemes(txt);
-    String answer = "dh-ax d-ao-g r-ae-n f-ae-s-t-er dh-ae-n dh-ax ah-dh-er d-ao-g . b-ah-t dh-ax ah-dh-er d-ao-g w-aa-z p-r-ih-t-iy-er .";
-    //System.out.println("getPhonemes: " + result);
+    String answer = "dh-ah d-ao-g r-ae-n f-ae-s-t-er dh-ae-n dh-ah ah-dh-er d-ao-g . b-ah-t dh-ah ah-dh-er d-ao-g w-aa-z p-r-ih-t-iy-er .";
     equal(result, answer);
     
     result = RiTa.getPhonemes("The");
-    answer = "dh-ax";
+    answer = "dh-ah";
     equal(result, answer);
 
     result = RiTa.getPhonemes("The.");
-    answer = "dh-ax .";
+    answer = "dh-ah .";
     equal(result, answer);
 
     result = RiTa.getPhonemes("The boy jumped over the wild dog.");
-    answer = "dh-ax b-oy jh-ah-m-p-t ow-v-er dh-ax w-ay-l-d d-ao-g .";
+    answer = "dh-ah b-oy jh-ah-m-p-t ow-v-er dh-ah w-ay-l-d d-ao-g .";
     equal(result, answer);
 
     result = RiTa.getPhonemes("The boy ran to the store.");
-    answer = "dh-ax b-oy r-ae-n t-uw dh-ax s-t-ao-r .";
+    answer = "dh-ah b-oy r-ae-n t-uw dh-ah s-t-ao-r .";
     equal(result, answer);
 
     result = RiTa.getPhonemes("");
