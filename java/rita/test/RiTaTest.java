@@ -922,19 +922,18 @@ public class RiTaTest
 
     input = new String[] { "to preSENT,", "to exPORT,", "to deCIDE,", "to beGIN" };
     result = RiTa.getStresses(input);
-    answer = "1 0/1 , 1 0/1 , 1 0/1 , 1 0/1";
+    answer = "1 1/0 , 1 1/0 , 1 0/1 , 1 0/1";
     equal(result, answer);
 
     input = new String[] { "to present, to export, to decide, to begin" };
     result = RiTa.getStresses(input);
-    answer = "1 0/1 , 1 0/1 , 1 0/1 , 1 0/1";
+    answer = "1 1/0 , 1 1/0 , 1 0/1 , 1 0/1";
     equal(result, answer);
 
     input = new String[] { "The dog ran faster than the other dog.",
         "But the other dog was prettier." };
     result = RiTa.getStresses(input);
     answer = "0 1 1 1/0 1 0 1/0 1 . 1 0 1/0 1 1 1/0/0 .";
-    //System.out.println("getStresses(array)" + result);
     equal(result, answer);
 
     input = new String[] { "" };
