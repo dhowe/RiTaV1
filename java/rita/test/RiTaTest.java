@@ -25,12 +25,20 @@ import rita.support.Phoneme;
 
 public class RiTaTest
 {  
-  public static final boolean REMOTE_TESTING = false;
+  public static boolean REMOTE_TESTING = false;
   
   @Before
   public void initialize() {
     RiTa.SILENT = true;
     RiLexicon.enabled = true;
+    
+    // detect Travis CI by checking env variable
+    // https://docs.travis-ci.com/user/environment-variables/#Default-Environment-Variables\
+    String env = System.getenv("CI");
+    if (env != null && env.equals("true"))
+      REMOTE_TESTING = true;
+    else
+      REMOTE_TESTING = false;
   }
  
   @Test
@@ -778,24 +786,23 @@ public class RiTaTest
   {
     String txt = "The dog ran faster than the other dog.  But the other dog was prettier.";
     String result = RiTa.getPhonemes(txt);
-    String answer = "dh-ax d-ao-g r-ae-n f-ae-s-t-er dh-ae-n dh-ax ah-dh-er d-ao-g . b-ah-t dh-ax ah-dh-er d-ao-g w-aa-z p-r-ih-t-iy-er .";
-    //System.out.println("getPhonemes: " + result);
+    String answer = "dh-ah d-ao-g r-ae-n f-ae-s-t-er dh-ae-n dh-ah ah-dh-er d-ao-g . b-ah-t dh-ah ah-dh-er d-ao-g w-aa-z p-r-ih-t-iy-er .";
     equal(result, answer);
     
     result = RiTa.getPhonemes("The");
-    answer = "dh-ax";
+    answer = "dh-ah";
     equal(result, answer);
 
     result = RiTa.getPhonemes("The.");
-    answer = "dh-ax .";
+    answer = "dh-ah .";
     equal(result, answer);
 
     result = RiTa.getPhonemes("The boy jumped over the wild dog.");
-    answer = "dh-ax b-oy jh-ah-m-p-t ow-v-er dh-ax w-ay-l-d d-ao-g .";
+    answer = "dh-ah b-oy jh-ah-m-p-t ow-v-er dh-ah w-ay-l-d d-ao-g .";
     equal(result, answer);
 
     result = RiTa.getPhonemes("The boy ran to the store.");
-    answer = "dh-ax b-oy r-ae-n t-uw dh-ax s-t-ao-r .";
+    answer = "dh-ah b-oy r-ae-n t-uw dh-ah s-t-ao-r .";
     equal(result, answer);
 
     result = RiTa.getPhonemes("");
@@ -806,32 +813,30 @@ public class RiTaTest
   @Test
   public void testGetPhonemesStringArray()
   {
-
     String[] input = { "The" };
     String result = RiTa.getPhonemes(input);
-    String answer = "dh-ax";
+    String answer = "dh-ah";
     equal(result, answer);
 
     input = new String[] { "The." };
     result = RiTa.getPhonemes(input);
-    answer = "dh-ax .";
+    answer = "dh-ah .";
     equal(result, answer);
 
     input = new String[] { "The", "boy", "jumped", "over", "the", "wild", "dog." };
     result = RiTa.getPhonemes(input);
-    answer = "dh-ax b-oy jh-ah-m-p-t ow-v-er dh-ax w-ay-l-d d-ao-g .";
+    answer = "dh-ah b-oy jh-ah-m-p-t ow-v-er dh-ah w-ay-l-d d-ao-g .";
     equal(result, answer);
 
     input = new String[] { "The boy ran to the store." };
     result = RiTa.getPhonemes(input);
-    answer = "dh-ax b-oy r-ae-n t-uw dh-ax s-t-ao-r .";
+    answer = "dh-ah b-oy r-ae-n t-uw dh-ah s-t-ao-r .";
     equal(result, answer);
 
     input = new String[] { "The dog ran faster than the other dog.",
         "But the other dog was prettier." };
     result = RiTa.getPhonemes(input);
-    answer = "dh-ax d-ao-g r-ae-n f-ae-s-t-er dh-ae-n dh-ax ah-dh-er d-ao-g . b-ah-t dh-ax ah-dh-er d-ao-g w-aa-z p-r-ih-t-iy-er .";
-    //System.out.println("getPhonemes(array)" + result);
+    answer = "dh-ah d-ao-g r-ae-n f-ae-s-t-er dh-ae-n dh-ah ah-dh-er d-ao-g . b-ah-t dh-ah ah-dh-er d-ao-g w-aa-z p-r-ih-t-iy-er .";
     equal(result, answer);
 
     input = new String[] { "" };
@@ -879,15 +884,14 @@ public class RiTaTest
 
     result = RiTa.getStresses("The emperor had no clothes on. The King is fat.");
     answer = "0 1/0/0 1 1 1 1 . 0 1 1 1 .";
-    //System.out.println("getStresses" + result);
     equal(result, answer);
 
     result = RiTa.getStresses("to preSENT, to exPORT, to deCIDE, to beGIN");
-    answer = "1 0/1 , 1 0/1 , 1 0/1 , 1 0/1";
+    answer = "1 1/0 , 1 1/0 , 1 0/1 , 1 0/1";
     equal(result, answer);
 
     result = RiTa.getStresses("to present, to export, to decide, to begin");
-    answer = "1 0/1 , 1 0/1 , 1 0/1 , 1 0/1";
+    answer = "1 1/0 , 1 1/0 , 1 0/1 , 1 0/1";
     equal(result, answer);
 
     String txt = "The dog ran faster than the other dog.  But the other dog was prettier.";
@@ -915,19 +919,18 @@ public class RiTaTest
 
     input = new String[] { "to preSENT,", "to exPORT,", "to deCIDE,", "to beGIN" };
     result = RiTa.getStresses(input);
-    answer = "1 0/1 , 1 0/1 , 1 0/1 , 1 0/1";
+    answer = "1 1/0 , 1 1/0 , 1 0/1 , 1 0/1";
     equal(result, answer);
 
     input = new String[] { "to present, to export, to decide, to begin" };
     result = RiTa.getStresses(input);
-    answer = "1 0/1 , 1 0/1 , 1 0/1 , 1 0/1";
+    answer = "1 1/0 , 1 1/0 , 1 0/1 , 1 0/1";
     equal(result, answer);
 
     input = new String[] { "The dog ran faster than the other dog.",
         "But the other dog was prettier." };
     result = RiTa.getStresses(input);
     answer = "0 1 1 1/0 1 0 1/0 1 . 1 0 1/0 1 1 1/0/0 .";
-    //System.out.println("getStresses(array)" + result);
     equal(result, answer);
 
     input = new String[] { "" };
@@ -941,28 +944,26 @@ public class RiTaTest
   {
     String txt = "The dog ran faster than the other dog. But the other dog was prettier.";
     String result = RiTa.getSyllables(txt);
-    String answer = "dh-ax d-ao-g r-ae-n f-ae-s/t-er dh-ae-n dh-ax ah-dh/er d-ao-g . b-ah-t dh-ax ah-dh/er d-ao-g w-aa-z p-r-ih-t/iy/er .";
+    String answer = "dh-ah d-ao-g r-ae-n f-ae/s-t-er dh-ae-n dh-ah ah/dh-er d-ao-g . b-ah-t dh-ah ah/dh-er d-ao-g w-aa-z p-r-ih/t-iy/er .";
     equal(result, answer);
 
     txt = "The emperor had no clothes on.";
     result = RiTa.getSyllables(txt);
-    answer = "dh-ax eh-m-p/er/er hh-ae-d n-ow k-l-ow-dh-z aa-n .";
+    answer = "dh-ah eh-m/p-er/er hh-ae-d n-ow k-l-ow-dh-z aa-n .";
     equal(result, answer);
 
     txt = "The Laggin Dragon";
     result = RiTa.getSyllables(txt);
-    answer = "dh-ax l-ae/g-ih-n d-r-ae-g/aa-n";
+    answer = "dh-ah l-ae/g-ih-n d-r-ae/g-ah-n";
     equal(result, answer);
     
     txt = "the laggin dragon";
     result = RiTa.getSyllables(txt);
-    //System.out.println(result);
-    answer = "dh-ax l-ae/g-ih-n d-r-ae-g/aa-n";
+    answer = "dh-ah l-ae/g-ih-n d-r-ae/g-ah-n";
     equal(result, answer);
 
     result = RiTa.getSyllables("@#$%&*()");
     answer = "@ # $ % & * ( )";
-    //System.out.println(result);
     equal(result, answer);
 
     result = RiTa.getSyllables("");
@@ -977,30 +978,27 @@ public class RiTaTest
     String[] txt = { "The dog ran faster than the other dog.",
         "But the other dog was prettier." };
     String result = RiTa.getSyllables(txt);
-    String answer = "dh-ax d-ao-g r-ae-n f-ae-s/t-er dh-ae-n dh-ax ah-dh/er d-ao-g . b-ah-t dh-ax ah-dh/er d-ao-g w-aa-z p-r-ih-t/iy/er .";
+    String answer = "dh-ah d-ao-g r-ae-n f-ae/s-t-er dh-ae-n dh-ah ah/dh-er d-ao-g . b-ah-t dh-ah ah/dh-er d-ao-g w-aa-z p-r-ih/t-iy/er .";
     equal(result, answer);
 
     txt = new String[] { "The", "emperor", "had", "no", "clothes", "on." };
     result = RiTa.getSyllables(txt);
-    answer = "dh-ax eh-m-p/er/er hh-ae-d n-ow k-l-ow-dh-z aa-n .";
+    answer = "dh-ah eh-m/p-er/er hh-ae-d n-ow k-l-ow-dh-z aa-n .";
     equal(result, answer);
 
     txt = new String[] { "The", "Laggin", "Dragon" };
     result = RiTa.getSyllables(txt);
-    //System.out.println(result);
-    answer = "dh-ax l-ae/g-ih-n d-r-ae-g/aa-n";
+    answer = "dh-ah l-ae/g-ih-n d-r-ae/g-ah-n";
     equal(result, answer);
     
     txt = new String[] { "the", "laggin", "dragon" };
     result = RiTa.getSyllables(txt);
-    //System.out.println(result);
-    answer = "dh-ax l-ae/g-ih-n d-r-ae-g/aa-n";
+    answer = "dh-ah l-ae/g-ih-n d-r-ae/g-ah-n";
     equal(result, answer);
 
     txt = new String[] { "@#", "$%", "&*", "()" };
     result = RiTa.getSyllables(txt);
     answer = "@ # $ % & * ( )";
-    //System.out.println(result);
     equal(result, answer);
 
     txt = new String[] { "" };
