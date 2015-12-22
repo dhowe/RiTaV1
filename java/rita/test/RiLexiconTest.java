@@ -294,9 +294,8 @@ public class RiLexiconTest {
   public void testRhymesString() {
     
     RiLexicon lex = new RiLexicon();
-
+    
     String[] result = lex.rhymes("apple");
-    //RiTa.out(result);
     String[] answer = { "chapel", "grapple" };
     deepEqual(answer, result);
 
@@ -313,7 +312,17 @@ public class RiLexiconTest {
     deepEqual(answer, result);
     
     result = lex.rhymes("happens in here");
-    answer = new String[] {};
+    answer = new String[] { "insincere", "persevere", "career",
+	"year", "reappear", "brigadier", "pioneer", "rear", "near",
+	"beer", "fear", "sneer", "adhere", "veer", "volunteer",
+	"sear", "sincere", "smear", "gear", "deer", "here", "queer",
+	"financier", "cavalier", "rainier", "mutineer", "unclear", "pamphleteer",
+	"disappear", "austere", "veneer", "overhear", "auctioneer", "spear",
+	"pier", "sphere", "peer", "cashier", "ear", "sheer", "steer", "dear", 
+	"hear", "souvenir", "frontier", "chandelier", "shear", "clear", 
+	"premier", "rehear", "engineer", "premiere", "cheer", "appear", 
+	"oneyear", "severe", "mere", "interfere", "racketeer"
+    };
     deepEqual(answer, result);
     
     result = lex.rhymes("");
@@ -321,7 +330,7 @@ public class RiLexiconTest {
     deepEqual(answer, result);
     
     result = lex.rhymes("apple.");
-    answer = new String[] {};
+    answer = new String[] { "eh" };
     deepEqual(answer, result);
   }
 
