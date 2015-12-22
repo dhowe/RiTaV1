@@ -331,7 +331,8 @@ public class LetterToSound
 
   static Map<String,String> cache = new HashMap<String, String>();
   static {
-    cache.put("the", "dh-ax");
+    cache.put("a", "ey");
+    cache.put("the", "dh-ah");
   }
   
   /**
@@ -391,6 +392,8 @@ public class LetterToSound
       }
       
       result = RiString.syllabify(phoneList.toArray(new String[0]));
+      result = result.replaceAll("ax","ah"); // added 12/22/15
+      
       cache.put(word, result);
     }
     
@@ -590,19 +593,12 @@ public class LetterToSound
      * @param al
      *          the list to append to
      */
-    public void append(ArrayList al)
-    {
+    public void append(ArrayList al) {
       if (phoneList == null)
-      {
-        return;
-      }
-      else
-      {
-        for (int i = 0; i < phoneList.length; i++)
-        {
-          al.add(phoneList[i]);
-        }
-      }
+	return;
+
+      for (int i = 0; i < phoneList.length; i++)
+	al.add(phoneList[i]);
     }
 
     /**
@@ -644,17 +640,14 @@ public class LetterToSound
         {
           return otherState.phoneList == null;
         }
-        else
+        for (int i = 0; i < phoneList.length; i++)
         {
-          for (int i = 0; i < phoneList.length; i++)
+          if (!phoneList[i].equals(otherState.phoneList[i]))
           {
-            if (!phoneList[i].equals(otherState.phoneList[i]))
-            {
-              return false;
-            }
+            return false;
           }
-          return true;
         }
+        return true;
       }
       return false;
     }
@@ -689,9 +682,11 @@ public class LetterToSound
   public static void main(String[] args)
   {
     LetterToSound text = LetterToSound.getInstance();
-    System.out.println(Arrays.asList(text.getPhones("laggin")));
-    System.out.println(Arrays.asList(text.getPhones("dragon")));
-    System.out.println(Arrays.asList(text.getPhones("hello")));
-    // System.out.println(Arrays.asList(text.getPhones("antelope", "n")));
+    System.out.println(text.findPhonemes());
+
+//    System.out.println(Arrays.asList(text.getPhones("laggin")));
+//    System.out.println(Arrays.asList(text.getPhones("dragon")));
+//    System.out.println(Arrays.asList(text.getPhones("hello")));
+//    System.out.println(Arrays.asList(text.getPhones("antelope", "n")));
   }
 }

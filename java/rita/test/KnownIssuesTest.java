@@ -64,12 +64,16 @@ public class KnownIssuesTest implements Constants
   }
   
   @Test
-  public void testSingularize()  // TODO
+  public void testLTS() 
   {
-    
+    // TODO: these all fail -> CYRUS
+    String[] fails = { "be","bed","bled","break","bred","brooch","eyed","fed","fled","floors","great","guests","guise","he","keyed","led","me","noun","poured","purrs","red","rein","reined","rouge","rough","roughed","say","scares","scenes","scour","scoured","scours","seized","serge","she","shed","shred","sleight","slough","souls","sped","squared","squeak","stares","steak","suede","sure","tear","through","touch","touched","tough","toughs","we","wed","whoosh","yes","youth","youths" };
 
+    RiLexicon.enabled = false; 
+    String phones = RiTa.getPhonemes("youths");
+    equal("y-uw-th-z", phones);
+    RiLexicon.enabled = true;    
   }
-  
   
   @Test
   public void testRhyming()

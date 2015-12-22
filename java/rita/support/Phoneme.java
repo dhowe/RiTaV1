@@ -2,14 +2,9 @@
 
 package rita.support;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import rita.RiLexicon;
-import rita.RiString;
 import rita.RiTa;
 
 /**
@@ -271,7 +266,7 @@ public abstract class Phoneme implements Constants {
   }
 
   public static void main(String[] args) {
-    int k = 0;
+    int k = 5;
 
     if (k == 0) {
       RiLexicon rl = new RiLexicon();
@@ -294,7 +289,7 @@ public abstract class Phoneme implements Constants {
       for (int i = 0; i < RiTa.ALL_PHONES.length; i++) {
 	int count = dict.length()
 	    - dict.replace(RiTa.ALL_PHONES[i], "").length();
-	System.out.println(RiTa.ALL_PHONES[i] + ": " + count);
+	System.out.println((i+1)+". "+ RiTa.ALL_PHONES[i] + ": " + count);
       }
     }
 
@@ -327,7 +322,44 @@ public abstract class Phoneme implements Constants {
 	    + (match ? "OK" : ltsSylls + " != " + sylss));
       }
     }
+    if (k == 5) {
+      String[] words = new RiLexicon().words();
+      int num = Math.min(words.length, 100000), misses = 0;
 
+      RiLexicon.enabled = false;
+      String[] ltsPhones = new String[num];
+      for (int i = 0; i < num; i++) {
+	String word = words[i];
+	ltsPhones[i] = mapToArpa(RiTa.getPhonemes(word));
+      }
+      RiLexicon.enabled = true;
+      String[] ritaPhones = new String[num];
+      for (int i = 0; i < num; i++) {
+	String word = words[i];
+	ritaPhones[i] = RiTa.getPhonemes(word);
+      }
+      for (int i = 0; i < num; i++) {
+	if (!ltsPhones[i].equals(ritaPhones[i])) {
+//	  System.out.println(words[i]);
+//	  System.out.println(ritaPhones[i]);
+//	  System.out.print(ltsPhones[i]);
+//	  System.out.println("\t(lts)\n");
+	  misses++;
+	}
+	if (ltsPhones[i].equals(words[i]) && words[i].length() > 1) 
+	  System.out.print("\""+words[i]+"\",");
+      }
+      System.out.println();
+      System.out.println((misses/(float)num)*100f+"% error-rate");
+    }
+  }
+
+  private static String mapToArpa(String phonemes) {
+    String[] phones = phonemes.split("-");
+    for (int i = 0; i < phones.length; i++) {
+      if (phones[i].equals("ax")) phones[i] = "ah";
+    }
+    return RiTa.join(phones,"-");
   }
 
 }// end

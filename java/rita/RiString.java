@@ -89,7 +89,7 @@ public class RiString implements FeaturedIF, Constants, Comparable<RiString> {
 
 	if (phones == null || phones.length() < 1) {
 
-	  phones = words[i]; // still nothing, use the raw chars (punct)
+	  phones = words[i]; // still nothing, use the raw chars (should be punct)
 	  useRaw = true;
 	} 
 	else if (!RiTa.SILENT && !RiTa.SILENT_LTS && RiLexicon.enabled

@@ -29,7 +29,7 @@ public class RiTaTest
   
   @Before
   public void initialize() {
-    RiTa.SILENT = true;
+    RiTa.SILENT = false;
     RiLexicon.enabled = true;
   }
  
@@ -841,29 +841,44 @@ public class RiTaTest
   }
   
   @Test
-  public void testGetPhonemesStringArrayLTS() // TODO: outputs generall do not match (see KnownIssues)
+  public void testGetPhonemesStringArrayLTS() // TODO: outputs generally do not match (see KnownIssues)
   {
     RiLexicon.enabled = false;
     
     String[] input = { "The" };
     String result = RiTa.getPhonemes(input);
-    String answer = "dh-ax";
+    String answer = "dh-ah";
     equal(result, answer);
 
     input = new String[] { "The." };
     result = RiTa.getPhonemes(input);
-    answer = "dh-ax .";
+    answer = "dh-ah .";
     equal(result, answer);
     
     input = new String[] { "the" };
     result = RiTa.getPhonemes(input);
-    answer = "dh-ax";
+    answer = "dh-ah";
     equal(result, answer);
     
     input = new String[] { "" };
     result = RiTa.getPhonemes(input);
     answer = "";
     equal(result, answer);
+    
+    // TODO: add a few longer tests
+    
+    RiLexicon.enabled = true;
+  }
+  
+  @Test
+  public void testGetStressesStringLTS()
+  {
+    RiLexicon.enabled = false;
+
+    // TODO: See KnownIssueTests
+    equal(RiTa.getStresses(""), "");
+    
+    RiLexicon.enabled = true;
   }
 
   @Test

@@ -69,8 +69,6 @@ public class RiTa implements Constants {
 
   private static boolean INITD = false;
 
-  protected static String[] guesses = { "src/data", "data", "" };
-
   static {
     if (!INITD)
       RiTa.init();
@@ -1058,7 +1056,7 @@ public class RiTa implements Constants {
     }
 
     InputStream is = null;
-
+    String[] guesses = { "src/data", "data", "" };
     for (int i = 0; i < guesses.length; i++) {
       String guess = streamName;
       if (guesses[i].length() > 0) {
@@ -1168,9 +1166,9 @@ public class RiTa implements Constants {
 	  PAppletIF pApplet = (PAppletIF) RiDynamic.cast(parent,
 	      PAppletIF.class);
 	  return pApplet.loadStrings(fileName);
-	} else
-	  System.err.println("[WARN] RiTa.loadString(s): Expecting a PApplet"
-	      + " as 2nd argument, but found: " + parent.getClass());
+	} 
+	System.err.println("[WARN] RiTa.loadString(s): Expecting a PApplet" +
+	    " as 2nd argument, but found: " + parent.getClass());
       }
     }
 
