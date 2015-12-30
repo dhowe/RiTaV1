@@ -178,12 +178,19 @@ public abstract class Phoneme implements Constants {
     
     String[] syllables = phones.trim().split(RiTa.WORD_BOUNDARY);
     StringBuffer ipaPhones = new StringBuffer();
+    
+    if (syllables.length == 1) { // one-syllable words dont get stresses
+      syllables[0] = syllables[0].replaceAll("[\\d]", "");
+    }
 
     for (int i = 0; i < syllables.length; i++) {
       
-      ipaPhones.append(syllableToIPA(syllables[i]));
+      String ipa = syllableToIPA(syllables[i]);
+      if (ipaPhones.length() > 0 && !ipa.startsWith(IPA_STRESS))
+	ipa = " " + ipa;
+      ipaPhones.append(ipa);
     }
-    
+
     return ipaPhones.toString();
   }
 
@@ -193,13 +200,13 @@ public abstract class Phoneme implements Constants {
     StringBuffer ipaSyl = new StringBuffer();
     
     String[] arpaPhones = arpaSyl.trim().split(RiTa.PHONEME_BOUNDARY);
-    
+ 
     for (int i = 0; i < arpaPhones.length; i++) {
       
       String arpaPhone = arpaPhones[i];
+      //System.out.println(arpaPhone);
       char stress = arpaPhone.charAt(arpaPhone.length() - 1);
       if (stress == RiTa.STRESSED || stress == '2') {
-	
         arpaPhone = arpaPhone.substring(0, arpaPhone.length() - 1);
         stressed = true; // TODO: what if we have an actual number?
       }
