@@ -1358,30 +1358,27 @@ public class RiStringTest implements Constants
     String out = "ao2-r g-ah0 n-ah0 z-ey1 sh-ah0-n-z";
     equal(RiString.stringify(data), out);
   }
-
+/*
   
   @Test
   public void testSyllabifyString()
   {
     String test = "ao2-r-g-ah0-n-ah0-z-ey1-sh-ah0-n-z";
-    String expected = "ao2-r g-ah0 n-ah0 z-ey1 sh-ah0-n-z";
     String result = RiString.syllabify(test);
-    deepEqual(result, expected);
+    deepEqual("ao2-r g-ah0 n-ah0 z-ey1 sh-ah0-n-z", result);
   }
 
   @Test
   public void testSyllabifyArray()
   {
     String[] test = "ao2-r-g-ah0-n-ah0-z-ey1-sh-ah0-n-z".split("-");
-    String expected = "ao2-r g-ah0 n-ah0 z-ey1 sh-ah0-n-z";
     String result = RiString.syllabify(test);
-    deepEqual(result, expected);
+    deepEqual("ao2-r g-ah0 n-ah0 z-ey1 sh-ah0-n-z", result);
     
     test = "m-aa1-m".split("-");
     //System.out.println(Arrays.asList(test));
-    expected = "m-aa1-m";
     result = RiString.syllabify(test);
-    deepEqual(result, expected);
+    deepEqual("m-aa1-m", result);
   }
 
   @Test
@@ -1422,7 +1419,7 @@ public class RiStringTest implements Constants
       equal(res, data[i][1]);
     }
   }
-
+*/
   // /////////////////////////////////////////////////////////////////////
 
   public static void main(String[] args)

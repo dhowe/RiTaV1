@@ -84,7 +84,8 @@ public class KnownIssuesTest implements Constants
     String[] tests = { 
 	"savage", "ravage",
 	"savage", "disparage",
-	"savage", "cabbage"
+	"savage", "cabbage",
+	"yo", "bro" // using LTS engine
     }; 
     for (int i = 0; i < tests.length; i+=2) {
       //System.out.print(i/2+") "+tests[i]+"("+data.get(tests[i]).split("\\|")[0]+") ?= "+tests[i+1]+"("+data.get(tests[i+1]).split("\\|")[0]+")");

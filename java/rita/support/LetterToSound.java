@@ -7,22 +7,9 @@ package rita.support;
  * All Rights Reserved.  Use is subject to license terms.
  */
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
-import rita.RiString;
 import rita.RiTa;
 import rita.RiTaException;
 
@@ -32,7 +19,7 @@ import rita.RiTaException;
  * General Letter-to-Sound Rules." Proceedings of ECSA Workshop on Speech
  * Synthesis, pages 77-80, Australia, 1998.
  */
-public class LetterToSound
+public class LetterToSound implements Constants
 {
   static LetterToSound instance;
   
@@ -41,6 +28,12 @@ public class LetterToSound
     if (instance == null)
       instance = new LetterToSound();
     return instance;
+  }
+  
+  static Map<String,String> cache = new HashMap<String, String>();
+  static {
+    cache.put("a", "ey");
+    cache.put("the", "dh-ah");
   }
 
   /**
@@ -77,23 +70,13 @@ public class LetterToSound
    * effects of this are quicker lookups, but more memory usage and a longer
    * startup time.
    */
-  protected boolean tokenizeOnLoad = true;
+  protected boolean tokenizeOnLoad = false;
 
   /**
    * If true, the state string is tokenized the first time it is referenced. The
    * side effects of this are quicker lookups, but more memory usage.
    */
-  protected boolean tokenizeOnLookup = false;
-
-  /**
-   * Magic number for binary LTS files.
-   */
-  private final static int MAGIC = 0xdeadbeef;
-
-  /**
-   * Current binary file version.
-   */
-  private final static int VERSION = 1;
+  protected boolean tokenizeOnLookup = true;
 
   /**
    * The LTS state machine. Entries can be String or State. An ArrayList could
@@ -136,7 +119,7 @@ public class LetterToSound
   }
 
   protected void loadLTS() {
-    
+    System.out.println("LetterToSound.loadLTS() "+Constants.DEFAULT_LTS);
     InputStream is = RiTa.class.getResourceAsStream(Constants.DEFAULT_LTS);
     try
     {
@@ -179,9 +162,155 @@ public class LetterToSound
     }
 
     return is;
-    // System.out.println("Init complete: "+this.stateMachine[3260].getClass()+" / "+this.stateMachine[3260]);
   }
 
+  public static String[] impossOnsets = { "pw", "bw", "fw", "vw" };
+
+  // two labials
+  // non-strident coronal followed by a lateral
+  // voiced fricative
+  // palatal constant
+  public static boolean prohibitedOnset(String onset) {
+    
+    return (Arrays.asList(impossOnsets).contains(onset));
+  }
+  
+  @SuppressWarnings("boxing")
+  public String syllabify(String[] phones) {
+
+    ArrayList<Integer> tmpOnset = new ArrayList<Integer>();
+    boolean legalOnset = false;
+
+    String sylls = E;
+    int sonorityDistance = 2;
+    
+    // store phonemes and tags
+    String[][] ONCs = new String[phones.length][2];
+
+    String[] type = new String[phones.length];
+    for (int i = 0; i < phones.length; i++) {
+      String phone = phones[i].replaceAll("[102]", E);
+      if (!Phoneme.isVowel(phone)) {
+      //if (Phoneme.isVowel(phone)) {
+	type[i] = "consonant";
+
+      } else {
+	type[i] = "vowel";
+      }
+    }
+
+    int i = 0;
+    int sonA, sonB;
+    boolean vowels = false;
+
+    if (phones.length > 0) {
+     
+      // until current phoneme is vowel, label current phoneme as onset
+      while (type[i] != "vowel") {
+	ONCs[i][0] = phones[i];
+	ONCs[i][1] = "O";// +index;
+	i++;
+	//tmp = phones[i].replaceAll("[102]", E);
+      }
+      
+      while (i < phones.length) {
+
+	if (phones[i].indexOf("1") == -1) {
+	  ONCs[i][0] = phones[i] + "0";
+	} else {
+	  ONCs[i][0] = phones[i];
+	}
+	ONCs[i][1] = "N";// +index;
+	i++;
+	vowels = false;
+	
+	// if there are no more vowels in the word, label all remaining
+	// consonants and codas
+	for (int j = i; j < phones.length; j++) {
+	  if (type[j] == "vowel") {
+	    vowels = true;
+	  }
+	}
+
+	if (vowels == false) {
+	  while (i < phones.length) {
+	    ONCs[i][0] = phones[i];
+	    ONCs[i][1] = "C";// +index;
+	    i++;
+	  }
+	} else {
+	  
+	  // label all consonants before next vowel as onsets
+	  tmpOnset.clear();
+	  while (type[i] != "vowel") {
+	    ONCs[i][0] = phones[i];
+	    ONCs[i][1] = "O";// +index;
+	    tmpOnset.add(i);
+	    i++;
+	  }// until onset is legal, coda = coda + first phoneme of onset
+	  
+	  if (tmpOnset.size() > 1) {
+	    legalOnset = false;
+	    String currOnset = E;
+	    while (!legalOnset) {
+	      currOnset = E;
+	      for (int m = 0; m < tmpOnset.size(); m++) {
+		currOnset += phones[tmpOnset.get(m)].replaceAll("[102]", E)
+		    .toLowerCase() + " ";
+	      }
+	      // this needs to be changed...to prohibited, not allowed...
+	      if (prohibitedOnset(currOnset.trim())) {
+		legalOnset = false;
+
+	      } else {
+
+		legalOnset = true;
+		for (int k = 1; k < tmpOnset.size(); k++) {
+		  sonA = Phoneme.getSonority(phones[tmpOnset.get(k)].replaceAll("[102]", E));
+		  sonB = Phoneme.getSonority(phones[tmpOnset.get(k - 1)].replaceAll("[102]", E));
+		  if (Math.abs(sonA - sonB) >= sonorityDistance && sonA >= 0 && sonB >= 0) {
+		    continue;
+		  } else if (sonA == -1 || sonB == -1) {
+		    System.out.println("PHONEME NOT FOUND: "
+			+ phones[tmpOnset.get(k)] + " or "
+			+ phones[tmpOnset.get(k - 1)]);
+		  } else {
+		    legalOnset = false;
+		    break;
+		  } // need to also check if it's on the prohibited list
+
+		}
+	      }
+
+	      if (!legalOnset) {
+		ONCs[tmpOnset.get(0)][1] = "C";
+		tmpOnset.remove(0);
+	      }
+	    }
+	  }
+	}
+      }
+    }
+
+    String prev = E, curr = E;
+    for (int j = 0; j < ONCs.length; j++) {
+      if (j > 0) {
+	prev = curr;
+	curr = ONCs[j][1];
+	if (prev.equals("C") && curr.equals("O") || prev.equals("N") && curr.equals("O")) {
+	  sylls += " " + ONCs[j][0];
+	} else {
+	  sylls += "-" + ONCs[j][0];
+	}
+
+      } else {
+	curr = ONCs[j][1];
+	sylls += ONCs[j][0];
+      }
+    }
+
+    return sylls; 
+  }
   /**
    * Creates a word from the given input line and add it to the state machine.
    * It expects the TOTAL line to come before any of the states.
@@ -191,7 +320,7 @@ public class LetterToSound
    */
   protected void parseAndAdd(String aline)
   {
-    String line = aline.replaceAll("(^'|',?)","");
+    String line = aline.replaceAll("(^'|',?)", E);
     StringTokenizer tokenizer = new StringTokenizer(line, " ");
     String type = tokenizer.nextToken();
 
@@ -329,11 +458,6 @@ public class LetterToSound
     return full_buff;
   }
 
-  static Map<String,String> cache = new HashMap<String, String>();
-  static {
-    cache.put("a", "ey");
-    cache.put("the", "dh-ah");
-  }
   
   /**
    * Calculates the phone list for a given word. If a phone list cannot be
@@ -391,8 +515,8 @@ public class LetterToSound
         //RiTa.out("phoneList: "+phoneList);      
       }
       
-      result = RiString.syllabify(phoneList.toArray(new String[0]));
-      result = result.replaceAll("ax","ah"); // added 12/22/15
+      result = syllabify(phoneList.toArray(new String[0]));
+      //result = result.replaceAll("ax","ah"); // added 12/22/15
       
       cache.put(word, result);
     }
@@ -682,7 +806,8 @@ public class LetterToSound
   public static void main(String[] args)
   {
     LetterToSound text = LetterToSound.getInstance();
-    System.out.println(text.getPhones("apple"));
+    String phones = text.getPhones("washington");
+    System.out.println(phones +"\t\t"+(phones.equals("w-aa1 sh-ih0-ng t-ah0-n") ? "OK" : "FAIL"));
 
 //    System.out.println(Arrays.asList(text.getPhones("laggin")));
 //    System.out.println(Arrays.asList(text.getPhones("dragon")));

@@ -4,8 +4,7 @@ package rita.support;
 
 import java.util.*;
 
-import rita.RiLexicon;
-import rita.RiTa;
+import rita.*;
 
 /**
  * Static utility methods for operations involving phonemes.
@@ -13,57 +12,48 @@ import rita.RiTa;
  * <pre>
  *         Phoneme   	Example     Translation    (39 entries)
  *         ========================================================
- *           AA            odd         AA D
- *           AE            at          AE T
- *           AH            hut         HH AH T
- *           AO            ought       AO T
- *           AW            cow         K AW
- *           AY            hide        HH AY D
- *           B             be          B IY
- *           CH            cheese      CH IY Z
- *           D             dee         D IY
- *           DH            thee        DH IY
- *           EH            Ed          EH D
- *           ER            hurt        HH ER T
- *           EY            ate         EY T
- *           F             fee         F IY
- *           G             green       G R IY N
- *           HH            he          HH IY
- *           IH            it          IH T
- *           IY            eat         IY T
- *           JH            gee         JH IY
- *           K             key         K IY
- *           L             lee         L IY
- *           M             me          M IY
- *           N             knee        N IY
- *           NG            ping        P IH NG
- *           OW            oat         OW T
- *           OY            toy         T OY
- *           P             pee         P IY
- *           R             read        R IY D
- *           S             sea         S IY
- *           SH            she         SH IY
- *           T             tea         T IY
- *           TH            theta       TH EY T AH
- *           UH            hood        HH UH D
- *           UW            two         T UW
- *           V             vee         V IY
- *           W             we          W IY
- *           Y             yield       Y IY L D
- *           Z             zee         Z IY
- *           ZH            seizure     S IY ZH ER
+ *           aa            odd         aa d
+ *           ae            at          ae t
+ *           ah            hut         hh ah t
+ *           ao            ought       ao t
+ *           aw            cow         k aw
+ *           ay            hide        hh ay d
+ *           b             be          b iy
+ *           ch            cheese      ch iy z
+ *           d             dee         d iy
+ *           dh            thee        dh iy
+ *           eh            ed          eh d
+ *           er            hurt        hh er t
+ *           ey            ate         ey t
+ *           f             fee         f iy
+ *           g             green       g r iy n
+ *           hh            he          hh iy
+ *           ih            it          ih t
+ *           iy            eat         iy t
+ *           jh            gee         jh iy
+ *           k             key         k iy
+ *           l             lee         l iy
+ *           m             me          m iy
+ *           n             knee        n iy
+ *           ng            ping        p ih ng
+ *           ow            oat         ow t
+ *           oy            toy         t oy
+ *           p             pee         p iy
+ *           r             read        r iy d
+ *           s             sea         s iy
+ *           sh            she         sh iy
+ *           t             tea         t iy
+ *           th            theta       th ey t ah
+ *           uh            hood        hh uh d
+ *           uw            two         t uw
+ *           v             vee         v iy
+ *           w             we          w iy
+ *           y             yield       y iy l d
+ *           z             zee         z iy
+ *           zh            seizure     s iy zh er
  * </pre>
  */
 public abstract class Phoneme implements Constants {
-
-  static final private String VOWELS = "aeiou";
-  static final private String GLIDES_LIQUIDS = "wylr";
-  static final private String NASALS = "nm";
-
-  /**
-   * Voiced Obstruents
-   */
-  static final private String VOICED_OBSTRUENTS = "bdgjlmnnnrvwyz";
 
   public static boolean isPhoneme(String phoneme) {
     for (int i = 0; i < ALL_PHONES.length; i++) {
@@ -82,7 +72,8 @@ public abstract class Phoneme implements Constants {
    * @return <code>true</code> if phone is a vowel otherwise <code>false</code>.
    */
   static public boolean isVowel(String phone) {
-    return VOWELS.indexOf(phone.substring(0, 1)) != -1;
+    
+    return "aeiou".indexOf(phone.substring(0, 1)) != -1;
   }
 
   /**
@@ -135,27 +126,63 @@ public abstract class Phoneme implements Constants {
     return false;
   }
 
-  /**
-   * Determines the sonority for the given phone.
-   * 
-   * @param phone
-   *          the phone of interest
-   * 
-   * @return an integer that classifies phone transitions
-   */
-  public static int getSonority(String phone) {
-    if (isVowel(phone)) {
-      return 5;
-    } else if (GLIDES_LIQUIDS.indexOf(phone.substring(0, 1)) != -1) {
-      return 4;
-    } else if (NASALS.indexOf(phone.substring(0, 1)) != -1) {
-      return 3;
-    } else if (VOICED_OBSTRUENTS.indexOf(phone.substring(0, 1)) != -1) {
-      return 2;
-    } else {
-      return 1;
-    }
+  static HashMap<String, Integer> sonority;
+
+  @SuppressWarnings("boxing")
+  public static void initSonority() {
+
+    sonority = new HashMap<String, Integer>();
+    
+    sonority.put("aa", 4);
+    sonority.put("ae", 4);
+    sonority.put("ah", 4);
+    sonority.put("ao", 4);
+    sonority.put("aw", 4);
+    sonority.put("ay", 4);
+    sonority.put("b", 0);
+    sonority.put("ch", 0);
+    sonority.put("d", 0);
+    sonority.put("dh", 0);
+    sonority.put("eh", 4);
+    sonority.put("er", 4);
+    sonority.put("ey", 4);
+    sonority.put("f", 0);
+    sonority.put("g", 0);
+    sonority.put("hh", 0);
+    sonority.put("ih", 4);
+    sonority.put("iy", 4);
+    sonority.put("jh", 0);
+    sonority.put("k", 0);
+    sonority.put("l", 2);
+    sonority.put("m", 1);
+    sonority.put("n", 1);
+    sonority.put("ng", 1);
+    sonority.put("ow", 4);
+    sonority.put("oy", 4);
+    sonority.put("p", 0);
+    sonority.put("r", 2);
+    sonority.put("s", 0);
+    sonority.put("sh", 0);
+    sonority.put("t", 0);
+    sonority.put("th", 0);
+    sonority.put("uh", 4);
+    sonority.put("uw", 4);
+    sonority.put("v", 0);
+    sonority.put("w", 3);
+    sonority.put("y", 3);
+    sonority.put("z", 0);
+    sonority.put("zh", 0);
+    
+    if (sonority.keySet().size() != ALL_PHONES.length)
+      throw new RiTaException("Invalid sonority table!");
   }
+
+  @SuppressWarnings("boxing")
+  public static int getSonority(String phone) {
+    if (sonority == null) initSonority();
+    return (sonority.containsKey(phone)) ? sonority.get(phone) : -1;
+  }
+
 
   /**
    * Converts an Arpabet phonemic transcription to an IPA phonemic
@@ -368,5 +395,5 @@ public abstract class Phoneme implements Constants {
     }
     return RiTa.join(phones,"-");
   }
-
+  
 }// end
