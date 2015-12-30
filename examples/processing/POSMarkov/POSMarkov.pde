@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 RiMarkov markov;
+Map<String, List<String>> dictionary = new HashMap <String, List<String>>();
 
 String[] files = { "../data/wittgenstein.txt", "../data/kafka.txt" };
 int x = 160, y = 240;
@@ -12,9 +13,6 @@ String[] vocabulary;
 String line = "click to (re)generate!";
 String lineInPos = "";
 String newline = "";
-
-Map<String, List<String>> dictionary = new HashMap <String, List<String>>();
-
 
 void setup()
 {
@@ -45,7 +43,7 @@ void mouseClicked()
 
   String[] lines = markov.generateSentences(5);
   String[] linesInPos = linesInPos(lines);
-  String[] convertedLines = PosToText(linesInPos, dictionary);
+  String[] convertedLines = PosToText(lines, linesInPos, dictionary);
 
   line = RiTa.join(lines, " ");
   lineInPos = RiTa.join(linesInPos, " ");
@@ -65,26 +63,39 @@ String[] linesInPos(String[] lines) {
   return linesInPos;
 }//end of linesInPos
 
-String[] PosToText(String[] linesInPos, Map<String, List<String>> dictionary) {
+String[] PosToText(String[] originalLines, String[] linesInPos, Map<String, List<String>> dictionary) {
+
   String[] lines = new String[linesInPos.length];
+
   for (int i = 0; i < lines.length; i++) {
     String[] Poss = split(linesInPos[i], " ");
+    //println(originalLines[i]);
+    String line = originalLines[i].replaceAll("[^a-zA-Z ]", "");
+    String[] lineInWords = split(line, " ");
+    int spCH=0;
     lines[i] = "";
-    for (int j = 0; j < Poss.length; j++) {
 
+    for (int j = 0; j < Poss.length; j++) {
       List<String> myList = dictionary.get(Poss[j]);
-      if (myList != null) {
-        int target = floor(random(0, myList.size()));
-        println(Poss[j], myList.get(target)) ;
-        //Capitalize the beginning of each sentense
-        if (j==0) {
-          String word = myList.get(target);
-          word = Character.toUpperCase(word.charAt(0)) + word.substring(1);
-          lines[i] += word;
-        } else lines[i] += " " +myList.get(target);
-      } else lines[i] += Poss[j];
-    }
-  }
+      if (myList != null ) {
+        String word;
+        boolean replacable =  Poss[j].startsWith("nn") || Poss[j].startsWith("jj");
+        if (replacable) {
+          word = myList.get(floor(random(0, myList.size())));
+          //println(Poss[j], word) ;
+          if (j == 0) //Capitalize the beginning of each sentense
+            word = Character.toUpperCase(word.charAt(0)) + word.substring(1);
+        } else word = lineInWords[ j - spCH ] ;//if POS is not replaceable, stay with the original word
+
+        if (j != 0) word = " " + word;
+        lines[i] += word;
+      } else {
+        //for special characters
+        lines[i] += Poss[j];
+        spCH++;
+      }
+    }//end of j loop
+  }//end of i loop
 
   return lines;
 }//end of PosToText
