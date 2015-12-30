@@ -15,8 +15,8 @@ public class PhonemeTests implements Constants {
   public void testWordToIPA1() {
     
     // finish this list (20 different examples): for now, nothing using LTS 
-    String[] words = { "become", "parsley", "garlic", "fall", "frost", "you" };
-    String[] results = { "bɪˈkʌm", "ˈpɑɹs li", "ˈgɑɹ lɪk", "fɔl", "fɹɔst", "ju", ""};
+    String[] words = { "become", "parsley", "garlic", "fall", "frost", "you", "going"};
+    String[] results = { "bɪˈkʌm", "ˈpɑɹs li", "ˈgɑɹ lɪk", "fɔl", "fɹɔst", "ju", "ˈɡəʊ ɪŋ"};
 
     RiLexicon rl = new RiLexicon();
     for (int i = 0; i < words.length; i++) {
