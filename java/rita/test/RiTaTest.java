@@ -740,10 +740,10 @@ public class RiTaTest
     
     String[] words = {
 	"become", "bɪˈkʌm",
-	"parsley", "ˈpɑɹsli",
+	"parsley", "ˈpɑɹs li",
 	"catnip", "ˈkætˈnɪp",
-	"garlic", "ˈgɑɹlɪk",
-	"dill", "ˈdɪl",
+	"garlic", "ˈgɑɹ lɪk",
+	"dill", "dɪl",
     };
 
     for (int i = 0; i < words.length; i+=2) {
@@ -768,10 +768,10 @@ public class RiTaTest
     
     String[] outputs = {
 	"bɪˈkʌm",
-	"ˈpɑɹsli",
+	"ˈpɑɹs li",
 	"ˈkætˈnɪp",
-	"ˈgɑɹlɪk",
-	"ˈdɪl",
+	"ˈgɑɹ lɪk",
+	"dɪl",
     };
     
     for (int i = 0; i < inputs.length; i++) {
