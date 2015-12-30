@@ -326,12 +326,11 @@ public class RiLexiconTest {
     };
     deepEqual(answer, result);
     
+    // test that we ignore trailing punctuation
+    deepEqual(lex.rhymes("apple"), lex.rhymes("apple."));
+    
     result = lex.rhymes("");
     answer = new String[] {};
-    deepEqual(answer, result);
-    
-    result = lex.rhymes("apple.");
-    answer = new String[] { "eh" };
     deepEqual(answer, result);
   }
 

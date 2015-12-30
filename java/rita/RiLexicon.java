@@ -302,8 +302,9 @@ public class RiLexicon implements Constants {
    * Two words rhyme if their final stressed vowel and all following phonemes
    * are identical.
    */
-  private void rhymes(String input, Set result) {
+  private void rhymes(String word, Set result) {
     
+    String input = RiTa.trimPunctuation(word);
     String lss = lastStressedPhoneToEnd(input, true);
     if (lss == null)
       return; // no result

@@ -682,7 +682,7 @@ public class LetterToSound
   public static void main(String[] args)
   {
     LetterToSound text = LetterToSound.getInstance();
-    System.out.println(text.findPhonemes());
+    System.out.println(text.getPhones("apple"));
 
 //    System.out.println(Arrays.asList(text.getPhones("laggin")));
 //    System.out.println(Arrays.asList(text.getPhones("dragon")));
