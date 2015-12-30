@@ -1,58 +1,49 @@
 package rita.test;
 
 import static org.junit.Assert.fail;
-import static rita.support.QUnitStubs.deepEqual;
-import static rita.support.QUnitStubs.equal;
-import static rita.support.QUnitStubs.ok;
+import static rita.support.QUnitStubs.*;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import processing.core.PApplet;
-import rita.RiLexicon;
-import rita.RiTa;
-import rita.RiTaEvent;
-import rita.RiTaException;
-import rita.support.Phoneme;
+import rita.*;
 
 public class RiTaTest
 {  
   public static boolean REMOTE_TESTING = false;
   
+  static {
+  
+    // only if set as in the env
+    String doRemotes = System.getenv("RITA_DO_REMOTE") ;
+    if ((doRemotes != null && doRemotes.equals("true"))) 
+      REMOTE_TESTING = true;
+
+    // but never on TravisCI
+    String isCI = System.getenv("CI") ;
+    if ((isCI != null && isCI.equals("true"))) 
+      REMOTE_TESTING = false;
+    
+    if (!REMOTE_TESTING)
+      System.out.println("[INFO] Skipping remote URL tests...");
+  }
+  
   @Before
   public void initialize() {
     RiTa.SILENT = false;
     RiLexicon.enabled = true;
-    
-    // detect Travis CI by checking env variable
-    // https://docs.travis-ci.com/user/environment-variables/#Default-Environment-Variables\
-    String env = System.getenv("CI");
-    if (env != null && env.equals("true"))
-      REMOTE_TESTING = true;
-    else
-      REMOTE_TESTING = false;
   }
  
   @Test
   public void testStart()
   {
-    if (REMOTE_TESTING) {
-      
-      ok("skip for remote testing");
-      return;
-    }
-        
     RiTa.start(null);
     RiTa.start(this);
-    RiTa.start(new PApplet());
+    //RiTa.start(new PApplet());
   }
 
   @Test

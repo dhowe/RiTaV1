@@ -394,14 +394,14 @@
 
 	</target>
 
-	<target name="test-one" description="one" depends="info">
+	<target name="test.one" description="one" depends="info">
 
 		<junit printsummary="yes" timeout="100000" haltonfailure="yes">
 			<formatter usefile="false" type="plain" />
 			<classpath>
 				<path refid="test.classpath" />
 			</classpath>
-			<test name="rita.test.RiLexiconTest" outfile="reports/rita.test.TestOne">
+			<test name="rita.test.RiTaTest" outfile="reports/rita.test.TestOne">
 			</test>
 		</junit>
 
@@ -433,7 +433,7 @@
 
 	</target>
 
-	<target name="test-wordnet" description="runs all wordnet tests" depends="info">
+	<target name="test.wordnet" description="runs all wordnet tests" depends="info">
 
 		<junit printsummary="yes" timeout="100000" haltonfailure="yes">
 
