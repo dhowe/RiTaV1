@@ -92,8 +92,8 @@ Add your site or application content here
       </span>
 
        <span class="gallery_home_item gd-4 mgd-6 sgd-12">
-        <a href="https://twitter.com/samplereality/lists/samplereality-bots"target="new"><img src="img/twitterbots.gif" width="180"></a><br>
-        <a href="https://twitter.com/samplereality/lists/samplereality-bots"target="new">RiTa Twitterbots</a>
+        <a href="/rita/web/gallery/RiTaTwitterbots"target="new"><img src="img/twitterbots.gif" width="180"></a><br>
+        <a href="/rita/web/gallery/RiTaTwitterbots"target="new">RiTa Twitterbots</a>
         <p>by Mark Sample</p>
         <p class="gallery_spacer">&nbsp;</p>
       </span>
