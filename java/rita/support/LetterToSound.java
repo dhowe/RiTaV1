@@ -119,7 +119,7 @@ public class LetterToSound implements Constants
   }
 
   protected void loadLTS() {
-    System.out.println("LetterToSound.loadLTS() "+Constants.DEFAULT_LTS);
+    
     InputStream is = RiTa.class.getResourceAsStream(Constants.DEFAULT_LTS);
     try
     {
@@ -311,6 +311,7 @@ public class LetterToSound implements Constants
 
     return sylls; 
   }
+  
   /**
    * Creates a word from the given input line and add it to the state machine.
    * It expects the TOTAL line to come before any of the states.
