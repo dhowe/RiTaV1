@@ -65,7 +65,7 @@ public class RiTaTest
   @Test
   public void loadString_AbsFile()
   {
-    if (REMOTE_TESTING) {
+    if (!REMOTE_TESTING) {
       ok("skip for remote testing");
       return;
     }
@@ -76,7 +76,7 @@ public class RiTaTest
   @Test
   public void loadString_Url()
   {
-    if (REMOTE_TESTING) {
+    if (!REMOTE_TESTING) {
       ok("skip for remote testing");
       return;
     }
@@ -87,7 +87,7 @@ public class RiTaTest
   @Test
   public void loadString_FileAsUrl()
   {
-    if (REMOTE_TESTING) {
+    if (!REMOTE_TESTING) {
       ok("skip for remote testing");
       return;
     }
@@ -123,7 +123,7 @@ public class RiTaTest
   @Test
   public void loadString_UrlStrMulti()
   {
-    if (REMOTE_TESTING) {
+    if (!REMOTE_TESTING) {
       ok("skip for remote testing");
       return;
     }
@@ -138,7 +138,7 @@ public class RiTaTest
   @Test
   public void loadString_UrlMulti()
   {
-    if (REMOTE_TESTING) {
+    if (!REMOTE_TESTING) {
       ok("skip for remote testing");
       return;
     }
@@ -157,7 +157,7 @@ public class RiTaTest
   @Test
   public void loadUrl()
   {
-    if (REMOTE_TESTING) {
+    if (!REMOTE_TESTING) {
       ok("skip for remote testing");
       return;
     }
@@ -2276,7 +2276,7 @@ public class RiTaTest
   @Test
   public void testTimer() // failing in travis
   {
-    if (REMOTE_TESTING) {
+    if (!REMOTE_TESTING) {
       ok("skip for remote testing");
       return;
     }
@@ -2297,7 +2297,7 @@ public class RiTaTest
   @Test
   public void testPauseTimer() // failing in travis
   {
-    if (REMOTE_TESTING) {
+    if (!REMOTE_TESTING) {
       ok("skip for remote testing");
       return;
     }
@@ -2326,7 +2326,7 @@ public class RiTaTest
   @Test
   public void testStopTimer() // failing in travis
   {
-    if (REMOTE_TESTING) {
+    if (!REMOTE_TESTING) {
       ok("skip for remote testing");
       return;
     }
