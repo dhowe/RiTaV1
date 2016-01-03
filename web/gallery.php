@@ -35,94 +35,94 @@ Add your site or application content here
   <div class="gallery_home">
       <div class="row">
     <span class="gallery_home_item gd-4  mgd-6 sgd-12">
-        <a href="/rita/web/gallery/TheWholeBrilliantEnterprise" target="new"><img class="gray" src="img/enterprise_sm.png" width="180"></a><br>
-        <a href="/rita/web/gallery/TheWholeBrilliantEnterprise" target="new">The Whole Brilliant Enterprise</a>
+        <a href="./gallery/TheWholeBrilliantEnterprise" target="new"><img class="gray" src="img/enterprise_sm.png" width="180"></a><br>
+        <a href="./gallery/TheWholeBrilliantEnterprise" target="new">The Whole Brilliant Enterprise</a>
         <p>by Office for Creative Research</p>
         <p class="gallery_home_spacer">&nbsp;</p>
       </span>
 
     <span class="gallery_home_item gd-4 mgd-6 sgd-12">
-      <a href="/rita/web/gallery/MemoireInvolontaireNo1" target="new"><img src="img/memory.gif" width="180"></a><br>
-      <a href="/rita/web/gallery/MemoireInvolontaireNo1" target="new">Memoire Involontaire No. 1</a>
+      <a href="./gallery/MemoireInvolontaireNo1" target="new"><img src="img/memory.gif" width="180"></a><br>
+      <a href="./gallery/MemoireInvolontaireNo1" target="new">Memoire Involontaire No. 1</a>
           <p>by A. Braxton Soderman</p>
       <p class="gallery_home_spacer">&nbsp;</p>
     </span>
 
     <span class="gallery_home_item gd-4 mgd-6 sgd-12">
-        <a href="/rita/web/gallery/VisualGrammars" target="new"><img src="img/visgram.jpg" width="180"></a>
-        <a href="/rita/web/gallery/VisualGrammars" target="new"><br>Visual Grammars</a>
+        <a href="./gallery/VisualGrammars" target="new"><img src="img/visgram.jpg" width="180"></a>
+        <a href="./gallery/VisualGrammars" target="new"><br>Visual Grammars</a>
         <p>by Angela Ferraiolo</p>
         <p class="gallery_home_spacer">&nbsp;</p>
       </span>
 <!-- row2-->
     <span class="gallery_home_item gd-4 mgd-6 sgd-12">
-      <a href="/rita/web/gallery/GameDefinitions" target="new"><img src="img/gamedefs.png" width="180"></a><br>
-      <a href="/rita/web/gallery/GameDefinitions" target="new">Game Definitions</a>
+      <a href="./gallery/GameDefinitions" target="new"><img src="img/gamedefs.png" width="180"></a><br>
+      <a href="./gallery/GameDefinitions" target="new">Game Definitions</a>
       <p>by MolleIndustria</p>
       <p class="gallery_home_spacer">&nbsp;</p>
     </span>
 
     <span class="gallery_home_item gd-4 mgd-6 sgd-12">
-      <a href="/rita/web/gallery/CornellsYokeMachine" target="new"><img src="img/cornell.jpg" width="180"></a><br>
-      <a href="/rita/web/gallery/CornellsYokeMachine" target="new">Cornell's Yoke Machine</a>
+      <a href="./gallery/CornellsYokeMachine" target="new"><img src="img/cornell.jpg" width="180"></a><br>
+      <a href="./gallery/CornellsYokeMachine" target="new">Cornell's Yoke Machine</a>
       <p>by Janalyn Guo</p>
       <p class="gallery_home_spacer">&nbsp;</p>
     </span>
 
     <span class="gallery_home_item gd-4 mgd-6 sgd-12">
-      <a href="/rita/web/gallery/ShanShui" target="new"><img src="img/shanshui.jpg" width="180"></a><br>
-      <a href="/rita/web/gallery/ShanShui" target="new">Shan Shui</a>
+      <a href="./gallery/ShanShui" target="new"><img src="img/shanshui.jpg" width="180"></a><br>
+      <a href="./gallery/ShanShui" target="new">Shan Shui</a>
       <p>by Chen Qianxun</p>
       <p class="gallery_home_spacer">&nbsp;</p>
     </span>
   <!-- row3-->
 
       <span class="gallery_home_item gd-4 mgd-6 sgd-12">
-        <a href="/rita/web/gallery/TheGodardFilmGenerator" target="new"><img src="img/godard.png" width="180"></a><br>
-        <a href="/rita/web/gallery/TheGodardFilmGenerator" target="new">The Godard Film Generator</a>
+        <a href="./gallery/TheGodardFilmGenerator" target="new"><img src="img/godard.png" width="180"></a><br>
+        <a href="./gallery/TheGodardFilmGenerator" target="new">The Godard Film Generator</a>
         <p>by Mark Sample</p>
         <p class="gallery_spacer">&nbsp;</p>
       </span>
 
       <span class="gallery_home_item gd-4 mgd-6 sgd-12">
-        <a href="/rita/web/gallery/AboutNothingPlaces" target="new"><img src="img/creeley270.jpg" width="180"></a><br>
-        <a href="/rita/web/gallery/AboutNothingPlaces" target="new">about nothing, places...</a>
+        <a href="./gallery/AboutNothingPlaces" target="new"><img src="img/creeley270.jpg" width="180"></a><br>
+        <a href="./gallery/AboutNothingPlaces" target="new">about nothing, places...</a>
         <p>by Patricia Tomaszek</p>
         <p class="gallery_spacer">&nbsp;</p>
       </span>
 
        <span class="gallery_home_item gd-4 mgd-6 sgd-12">
-        <a href="/rita/web/gallery/RiTaTwitterbots"target="new"><img src="img/twitterbots.gif" width="180"></a><br>
-        <a href="/rita/web/gallery/RiTaTwitterbots"target="new">RiTa Twitterbots</a>
+        <a href="./gallery/RiTaTwitterbots"target="new"><img src="img/twitterbots.gif" width="180"></a><br>
+        <a href="./gallery/RiTaTwitterbots"target="new">RiTa Twitterbots</a>
         <p>by Mark Sample</p>
         <p class="gallery_spacer">&nbsp;</p>
       </span>
   <!-- row4-->
       <span class="gallery_home_item gd-4 mgd-6 sgd-12">
-        <a href="/rita/web/gallery/SpinState"target="new"><img src="img/spin_state2.png" width="180"></a><br>
-        <a href="/rita/web/gallery/SpinState"target="new">SpinState</a>
+        <a href="./gallery/SpinState"target="new"><img src="img/spin_state2.png" width="180"></a><br>
+        <a href="./gallery/SpinState"target="new">SpinState</a>
         <p>by Michael Coppola</p>
         <p class="gallery_spacer">&nbsp;</p>
       </span>
 
       <span class="gallery_home_item gd-4 mgd-6 sgd-12">
-        <a href="/rita/web/gallery/Automatype" target="new"><img src="img/automatype.jpg" width="180"></a><br>
-        <a href="/rita/web/gallery/Automatype" target="new">Automatype</a>
+        <a href="./gallery/Automatype" target="new"><img src="img/automatype.jpg" width="180"></a><br>
+        <a href="./gallery/Automatype" target="new">Automatype</a>
         <p>by Daniel C. Howe</p>
         <p class="gallery_spacer">&nbsp;</p>
       </span>
 
 
       <span class="gallery_home_item gd-4 mgd-6 sgd-12">
-        <a href="/rita/web/gallery/HarryPotterBookGenerator" target="new"><img src="img/HarryPotterGenerator.png" width="180"></a><br>
-        <a href="/rita/web/gallery/HarryPotterBookGenerator" target="new">Harry Potter Book Generator</a>
+        <a href="./gallery/HarryPotterBookGenerator" target="new"><img src="img/HarryPotterGenerator.png" width="180"></a><br>
+        <a href="./gallery/HarryPotterBookGenerator" target="new">Harry Potter Book Generator</a>
         <p>by Rob Clouth</p>
         <p class="gallery_spacer">&nbsp;</p>
       </span>
       
       <span class="gallery_home_item gd-4 mgd-6 sgd-12">
-        <a href="/rita/web/gallery/Zuckifier/" target="new"><img src="img/zuckbaby.jpg" width="180"></a><br>
-        <a href="/rita/web/gallery/Zuckifier/" target="new">Zuckifier</a>
+        <a href="./gallery/Zuckifier/" target="new"><img src="img/zuckbaby.jpg" width="180"></a><br>
+        <a href="./gallery/Zuckifier/" target="new">Zuckifier</a>
         <p>by Sam Lavigne</p>
         <p class="gallery_spacer">&nbsp;</p>
       </span>
