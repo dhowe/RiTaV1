@@ -407,6 +407,19 @@
 
 	</target>
 
+	<target name="test.rhyme" description="one" depends="info">
+
+		<junit printsummary="yes" timeout="100000" haltonfailure="yes">
+			<formatter usefile="false" type="plain" />
+			<classpath>
+				<path refid="test.classpath" />
+			</classpath>
+			<test name="rita.test.IsRhymeTest" outfile="reports/rita.test.TestRhyme">
+			</test>
+		</junit>
+
+	</target>
+				
 	<target name="test" description="runs all java tests" depends="compile">
 
 		<junit printsummary="yes" timeout="100000" haltonfailure="yes">
