@@ -407,7 +407,7 @@
 
 	</target>
 
-	<target name="test.rhyme" description="one" depends="info">
+	<target name="test.rhyme" description="one" depends="compile">
 
 		<junit printsummary="yes" timeout="100000" haltonfailure="yes">
 			<formatter usefile="false" type="plain" />

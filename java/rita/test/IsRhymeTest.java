@@ -22,7 +22,9 @@ public class IsRhymeTest {
     };
 
     for (int i = 0; i < rhymes.length; i += 2) {
+      System.out.println(rhymes[i] + " + "+rhymes[i+1]+" -> "+isRhyme(rhymes[i], rhymes[i+1]));
       ok(isRhyme(rhymes[i], rhymes[i+1]));
+      
       ok(isRhyme(rhymes[i+1], rhymes[i])); // either way should be the same
     }
     
