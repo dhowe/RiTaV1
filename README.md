@@ -108,20 +108,22 @@ If you don't feel like coding but still want to contribute, please send a twitte
 
 5. Press Next and select 'Import existing projects' to finish.
 
-6. To run the tests:
+6. Right click on 'pom.xml' from RiTa root directory in Package Explorer panel in Eclipse and select 'Run as' > 'Maven install'.
+
+7. To run the tests:
 
    a. Navigate to the RiTa/resources directory and right-click on 'build.xml'
 
    b. Select 'Run as' > 'Ant Build' to compile and run the tests in JUnit.
 
-7. To build the project:
+8. To build the project:
 
    a. In the Eclipse menu, select 'Window' > 'Show View' -> 'Ant
 
-   b. Click the '+' button to add a buildfile, and navigate to RiTa/resources/build.xml
+   b. Click the 'Add buildfile' button to add a buildfile in the newly added Ant panel, and navigate to RiTa/resources/build.xml
 
    c. Click to expand the 'RiTa' menu and reveal the various tasks, then double-click 'build' (or run 'ant build' from the terminal)
 
    d. When the build is complete, project resources can be found in RiTa/dist
 
-8. Work on an existing [issue](https://github.com/dhowe/RiTa/issues?q=is%3Aopen+is%3Aissue), then [submit a pull request...](https://help.github.com/articles/creating-a-pull-request)
+9. Work on an existing [issue](https://github.com/dhowe/RiTa/issues?q=is%3Aopen+is%3Aissue), then [submit a pull request...](https://help.github.com/articles/creating-a-pull-request)
