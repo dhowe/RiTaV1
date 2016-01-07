@@ -15,8 +15,7 @@ import rita.RiTa;
 public class RiLexiconTest {
   
   static {
-    //System.out.println(System.getProperty("java.version"));
-    //RiTa.SILENT = true;
+    RiTa.SILENT = true;
     RiLexicon.SILENCE_LTS = true;
   }
 
@@ -690,7 +689,7 @@ public class RiLexiconTest {
 
     RiLexicon lex = new RiLexicon();
 
-//    ok(!lex.isRhyme("solo", "tomorrow"));
+//    
     ok(!lex.isRhyme("apple", "polo"));
     ok(!lex.isRhyme("this", "these"));
 
@@ -708,9 +707,6 @@ public class RiLexiconTest {
 
     RiLexicon lex = new RiLexicon();
 
-//    ok(!lex.isRhyme("solo", "tomorrow", false));
-//    ok(!lex.isRhyme("tomorrow", "solo", false));
-    
     ok(!lex.isRhyme("apple", "polo", true));
     ok(!lex.isRhyme("this", "these", false));
 
@@ -723,6 +719,7 @@ public class RiLexiconTest {
     ok(!lex.isRhyme("sieve", "mellow", false));
     ok(!lex.isRhyme("sieve", "mellow", true));
 
+    ok(lex.isRhyme("solo", "tomorrow"));
     ok(lex.isRhyme("tense", "sense", false));
     ok(lex.isRhyme("crab", "drab", false));
     ok(lex.isRhyme("shore", "more", false));
@@ -744,8 +741,72 @@ public class RiLexiconTest {
     ok(!lex.isRhyme("drake", "rake", false));
     ok(lex.isRhyme("drake", "rake", true)); // using LTS engine
 
-    // ok(lex.isRhyme("yellow", "wellow", true)); 
-    // ok(lex.isRhyme("solo", "yolo", true));
+    // TODO: why are these failing
+    //ok(lex.isRhyme("yellow", "wellow", true)); 
+    //ok(lex.isRhyme("solo", "yolo", true));
+  }
+  
+
+  @Test
+  public void testIsRhyme() {
+
+    RiLexicon lex = new RiLexicon();
+
+    String[] rhymes = { 
+	"candle", "handle", 
+	"fat", "cat",
+	"apple", "grapple",
+	"apple", "chapel",
+	"libel", "tribal",
+	"bugle", "frugal",
+	"arrested", "contested"
+    };
+
+    for (int i = 0; i < rhymes.length; i += 2) {
+      //System.out.println(rhymes[i] + " + "+rhymes[i+1]+" -> "+lex.isRhyme(rhymes[i], rhymes[i+1]));
+      ok(lex.isRhyme(rhymes[i], rhymes[i+1]), rhymes[i]+"/"+rhymes[i+1]);
+      ok(lex.isRhyme(rhymes[i+1], rhymes[i]), rhymes[i+1]+"/"+rhymes[i]);
+    }
+    
+    String[] rhymeSet1 = new String[] { 
+	"insincere", "persevere", "interfere",  // each should rhyme with the others
+	"career",  "year", "reappear", "brigadier", "pioneer", "rear", "near",
+	"beer", "fear", "sneer", "adhere", "veer", "volunteer", "pamphleteer",
+	"sear", "sincere", "smear", "gear", "deer", "here", "queer",
+	"financier", "cavalier", "rainier", "mutineer", "unclear", "racketeer",
+	"disappear", "austere", "veneer", "overhear", "auctioneer", "spear",
+	"pier", "sphere", "cashier", "ear", "steer",
+	 "souvenir", "frontier", "chandelier", "shear", "clear",  "mere",
+	"premier", "rehear", "engineer", "cheer", "appear", "severe",
+    };
+
+    for (int i = 0; i < rhymeSet1.length-1; i++) {
+      for (int j = 0; j < rhymeSet1.length; j++) {
+	
+	if (i != j){
+	  //System.out.println(rhymeSet1[i] + " + "+rhymeSet1[j]+" -> "+lex.isRhyme(rhymeSet1[i], rhymeSet1[j]));
+	  ok(lex.isRhyme(rhymeSet1[i], rhymeSet1[j]));
+	}
+	else
+	  ok(!lex.isRhyme(rhymeSet1[i], rhymeSet1[j]));
+      }
+    }
+    
+    String[] notRhymes = {
+	"not", "rhyme",
+	"deer", "dear",
+	"candle", "candle" ,
+	"hear","here",
+	"premiere","premier",
+	"peer","pear",
+	"sheer","shear"
+    };
+    
+    for (int i = 0; i < notRhymes.length; i += 2) {
+      //System.out.println(notRhymes[i] + " + "+notRhymes[i+1]+" -> "+lex.isRhyme(notRhymes[i], notRhymes[i+1]));
+      ok(!lex.isRhyme(notRhymes[i], notRhymes[i+1]));
+      ok(!lex.isRhyme(notRhymes[i+1], notRhymes[i]));  // either way should be the same
+    }
   }
 
   @Test

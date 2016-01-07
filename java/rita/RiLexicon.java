@@ -443,7 +443,7 @@ public class RiLexicon implements Constants {
    * wordA.equals(wordB) or if either are null.
    */
   public boolean isRhyme(String wordA, String wordB) {
-    return isRhyme(wordA, wordB, false); // TODO: change to true (with others)
+    return isRhyme(wordA, wordB, true); 
   }
 
   /**
