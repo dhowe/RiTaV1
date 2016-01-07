@@ -460,12 +460,14 @@ public class RiLexicon implements Constants {
     if (dbug)
       System.out.println("RiLexicon.isRhyme('" + wordA + "' ?= '" + wordB
 	  + "') ->");
+    
     boolean result = false;
+    String phonesA = getRawPhones(wordA, useLTS);
+    String phonesB = getRawPhones(wordB, useLTS);
+    if (wordA != null && wordB != null && !wordB.equalsIgnoreCase(wordA) &&  !phonesB.equals(phonesA)) {
 
-    if (wordA != null && wordB != null && !wordB.equalsIgnoreCase(wordA)) {
-
-      String lspA = lastStressedPhoneToEnd(wordA, useLTS);
-      String lspB = lastStressedPhoneToEnd(wordB, useLTS);
+      String lspA = lastStressedVowelPhonemeToEnd(wordA, useLTS);
+      String lspB = lastStressedVowelPhonemeToEnd(wordB, useLTS);
 
       if (dbug)
 	System.out.println("RiLexicon.isRhyme('" + lspA + "' ?= '" + lspB
@@ -802,7 +804,34 @@ public class RiLexicon implements Constants {
    * TODO: Cyrus
    */
   public String lastStressedVowelPhonemeToEnd(String word, boolean useLTS) {
-    return "";
+    boolean dbug = false;
+
+    String raw = lastStressedPhoneToEnd(word, useLTS);
+    if (raw == null)
+      return null;
+
+    String[] syllables = raw.split(" ");
+    String lastSyllable = syllables[syllables.length - 1];
+
+    String aeiou = "aeiou";
+    String res = "";
+    int idx = -1;
+
+    for (int i = 0; i < lastSyllable.length(); i++) {
+      char c = lastSyllable.charAt(i);
+      if (aeiou.indexOf(c) != -1) idx = i;
+      if (idx != -1) break;
+    }
+
+    if (idx == 0)
+      res = lastSyllable;
+    else   
+      res = lastSyllable.substring(idx);
+    
+    if (dbug)
+      System.out.println(word + " " + raw + " last:" + lastSyllable + " idx=" + idx + " result:" + res);
+
+    return res;
   }
 
   /*
