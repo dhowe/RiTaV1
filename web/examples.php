@@ -44,6 +44,13 @@
                   <br>
                   <a href="examples/dom/KWICmodel" target="_blank">dom </a> <a href="examples/dom/KWICmodel/index.html#source">(source)</a></p>
               </div>
+              <div class="exampleitem gd-4  mgd-6 sgd-12">
+                <p>Analysis</p>
+                <img src="img/analysisExample.png" alt="">
+                <p> <a href="examples/p5js/Analysis" target="_blank">p5js</a> <a href="examples/p5js/Analysis/index.html#source">(source)</a>
+                  <br>
+                  <a href="examples/dom/Analysis" target="_blank">dom </a> <a href="examples/dom/Analysis/index.html#source">(source)</a></p>
+              </div>
               <br>&nbsp;
               <br>&nbsp;
               <br>&nbsp;
