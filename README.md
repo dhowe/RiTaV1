@@ -102,21 +102,21 @@ If you don't feel like coding but still want to contribute, please send a twitte
 
 3. In the 'Import Window' select 'Git' > 'Projects from Git', then press Next.
 
-3. Select 'Clone URI' > then Next and copy and paste the 'HTTPS clone URL'     [https://github.com/dhowe/RiTa.git](https://github.com/dhowe/RiTa.git)  from RiTa's Github page into the URI field.
+4. Select 'Clone URI' > then Next and copy and paste the 'HTTPS clone URL'     [https://github.com/dhowe/RiTa.git](https://github.com/dhowe/RiTa.git)  from RiTa's Github page into the URI field.
 
-4. Press Next to proceed with the default master branch or (optionally) configure the project directory.
+5. Press Next to proceed with the default master branch or (optionally) configure the project directory.
 
-5. Press Next and select 'Import existing projects' to finish.
+6. Press Next and select 'Import existing projects' to finish.
 
-6. Right click on 'pom.xml' from RiTa root directory in Package Explorer panel in Eclipse and select 'Run as' > 'Maven install'.
+7. Right click on 'pom.xml' from RiTa root directory in Package Explorer panel in Eclipse and select 'Run as' > 'Maven install'.
 
-7. To run the tests:
+8. To run the tests:
 
    a. Navigate to the RiTa/resources directory and right-click on 'build.xml'
 
    b. Select 'Run as' > 'Ant Build' to compile and run the tests in JUnit.
 
-8. To build the project:
+9. To build the project:
 
    a. In the Eclipse menu, select 'Window' > 'Show View' -> 'Ant
 
@@ -126,4 +126,6 @@ If you don't feel like coding but still want to contribute, please send a twitte
 
    d. When the build is complete, project resources can be found in RiTa/dist
 
-9. Work on an existing [issue](https://github.com/dhowe/RiTa/issues?q=is%3Aopen+is%3Aissue), then [submit a pull request...](https://help.github.com/articles/creating-a-pull-request)
+10. Work on an existing [issue](https://github.com/dhowe/RiTa/issues?q=is%3Aopen+is%3Aissue), then [submit a pull request...](https://help.github.com/articles/creating-a-pull-request)
+
+11. (Optional) If you encounter error ```java.lang.UnsupportedClassVersionError: org/apache/maven/cli/MavenCli : Unsupported major.minor version```, follow [the instruction](http://crunchify.com/how-to-install-maven-on-mac-os-x-manually-fix-unsupportedclassversionerror-orgapachemavenclimavencli/) to install Maven manually.
