@@ -128,4 +128,4 @@ If you don't feel like coding but still want to contribute, please send a twitte
 
 10. Work on an existing [issue](https://github.com/dhowe/RiTa/issues?q=is%3Aopen+is%3Aissue), then [submit a pull request...](https://help.github.com/articles/creating-a-pull-request)
 
-11. (Optional) If you encounter error ```java.lang.UnsupportedClassVersionError: org/apache/maven/cli/MavenCli : Unsupported major.minor version```, follow [the instruction](http://crunchify.com/how-to-install-maven-on-mac-os-x-manually-fix-unsupportedclassversionerror-orgapachemavenclimavencli/) to install Maven manually.
+11. (Optional) If you encounter error ```java.lang.UnsupportedClassVersionError: org/apache/maven/cli/MavenCli : Unsupported major.minor version```, follow [these instructions](http://crunchify.com/how-to-install-maven-on-mac-os-x-manually-fix-unsupportedclassversionerror-orgapachemavenclimavencli/) to install Maven manually.
