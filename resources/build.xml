@@ -179,6 +179,7 @@
 	<fileset id="javaExampleFileSet" dir="${java.examples}">
 		<exclude name="**/*.properties" />
 		<exclude name="**/web-export/**" />
+		<exclude name="**/POSMarkov/**" />
 	</fileset>
 	
 	<fileset id="jsExampleFileSet" dir="${js.examples}">
@@ -224,17 +225,11 @@
 	</target>
 
 	<target name="build" depends="test, generate.jars, make.docs">
-
-		<!-- no php reference in zip -->
-		<!--copy todir="${project.dist}/${project.name}/reference">
-			<fileset dir="${project.reference}" />
-		</copy-->
-
 		<delete dir="${dist.bin}" />
-
 		<antcall target="generate.zip" />
 	</target>
 
+	<!-- skips tests and docs -->
 	<target name="_quick.build" depends="generate.jars">
 		<delete dir="${dist.bin}" />
 		<antcall target="generate.zip" />
@@ -314,10 +309,6 @@
 			<exclude name="**/docgen/**" />
 		</jar>
 
-		<!--  rita jars to Processing libraries
-		<copy file="${project.dist}/rita.jar" tofile="${p5.rita.jar}" />
-		<copy file="${project.dist}/rita.support.jar" tofile="${p5.rita.support.jar}" />
-		 -->
 		<antcall target="_jars.to.p5" />
 
 		<!--  library.properties for Processing -->

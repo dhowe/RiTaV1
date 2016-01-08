@@ -29,6 +29,7 @@ public interface Constants extends EnglishConstants
     "uw","v","w","y","z","zh",
   };
   String IPA_STRESS = "ˈ";
+  String VOWELS = "aeiou";
   
   // ==== Tokenizer  ============= 
   

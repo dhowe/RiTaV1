@@ -17,7 +17,7 @@ function setup() {
 
 function draw() {
 
-  background(230, 240, 255);
+  background(250);
   text(lines[0], width / 2, 75);
   text(lines[1], width / 2, 110);
   text(lines[2], width / 2, 145);

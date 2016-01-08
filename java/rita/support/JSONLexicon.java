@@ -414,21 +414,21 @@ public class JSONLexicon implements Constants {
 
   /** Returns all words where 'pos' is the first (or only) tag listed */
   public Set<String> getWordsWithPos(String pos) {
+    
     // System.out.println("JSONLexicon.getWordsWithPos("+pos+")");
 
-    if (!RiPos.isPennTag(pos))
-      throw new RiTaException(
-	  "Pos '"
-	      + pos
-	      + "' is not a known part-of-speech tag."
-	      + " Check the list at http://rednoise.org/rita/reference/PennTags.html");
+    if (!RiPos.isPennTag(pos)) {
+      throw new RiTaException("Pos '"+ pos + "' is not a known part-of-speech tag." + 
+	  " Check the list at http://rednoise.org/rita/reference/PennTags.html");
+    }
 
     Set<String> s = new TreeSet<String>();
     String posSpc = pos + " ";
     for (Iterator<String> iter = iterator(); iter.hasNext();) {
-      String str = iter.next(), allpos = getPosStr(str);
-      if (allpos.startsWith(posSpc) || allpos.equals(pos))
-	s.add(str);
+      String word = iter.next();
+      String poslist = getPosStr(word);
+      if (poslist.startsWith(posSpc) || poslist.equals(pos))
+	s.add(word);
     }
     return s;
   }
@@ -625,7 +625,7 @@ public class JSONLexicon implements Constants {
   public static void main(String[] args) {
     // testTiming(50); if (1==1) return;
     JSONLexicon lex = JSONLexicon.getInstance();
-    System.out.println(lex.getWordsWithPos("VBZ"));
+    System.out.println(lex.getWordsWithPos("vbg"));
     if (1 == 1)
       return;
     String test = "swimming";

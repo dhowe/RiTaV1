@@ -1,23 +1,9 @@
 package rita;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.regex.Pattern;
 
-import org.xml.sax.ext.LexicalHandler;
-
-import rita.support.Constants;
-import rita.support.JSONLexicon;
-import rita.support.LetterToSound;
-import rita.support.MinEditDist;
-import rita.support.Phoneme;
-import rita.support.PosTagger;
-import rita.support.SetOp;
+import rita.support.*;
 
 /**
  * RiLexicon represents the core 'dictionary' (or lexicon) for the RiTa tools.
@@ -33,13 +19,11 @@ import rita.support.SetOp;
  * 
  * <pre>
  * RiLexicon lex = new RiLexicon(this);
- * String[] sims = lex.similarBySound(&quot;cat&quot;);
  * String[] rhymes = lex.rhymes(&quot;cat&quot;);
  * // etc.
  * </pre>
  * 
- * Note: For performance, the data for all RiLexicon instances is shared (there
- * is only 1 copy)
+ * Note: For performance, the data for all RiLexicon instances is shared.
  */
 public class RiLexicon implements Constants {
   
@@ -140,8 +124,7 @@ public class RiLexicon implements Constants {
   }
 
   // NOTE: this is just an optimization of the above
-  boolean _isAlliteration(String firstConsOfFirstStressed, String wordB,
-      boolean useLTS) {
+  boolean _isAlliteration(String firstConsOfFirstStressed, String wordB, boolean useLTS) {
 
     if (wordB != null && firstConsOfFirstStressed != null) {
 
@@ -195,6 +178,7 @@ public class RiLexicon implements Constants {
    * @see PosTagger
    */
   public String randomWord(String pos, int syllableCount) {
+    
     Iterator<String> it = getIterator(pos);
 
     if (it != null) {
@@ -206,15 +190,16 @@ public class RiLexicon implements Constants {
 
       while (it.hasNext()) {
 
-	String s = it.next(), data = lookup.get(s);
+	String word = it.next();
+	String data = lookup.get(word);
 	if (data == null) {
-	  System.err.println("[WARN] null data after lookup: " + s);
+	  System.err.println("[WARN] null data after lookup: " + word);
 	  return E;
 	}
 
 	String sylStr = data.split("\\|")[0].trim();
 	if (sylStr.split(SP).length == syllableCount)
-	  return s;
+	  return word;
       }
     }
 
@@ -222,8 +207,8 @@ public class RiLexicon implements Constants {
   }
 
   private Iterator<String> getIterator(String pos) {
-    Iterator<String> it = (pos == null) ? lexImpl.randomIterator() : lexImpl
-	.randomPosIterator(pos);
+    Iterator<String> it = (pos == null) ? lexImpl.randomIterator() : 
+      	lexImpl.randomPosIterator(pos);
     return it;
   }
 
@@ -233,7 +218,7 @@ public class RiLexicon implements Constants {
    * 
    * @see PosTagger
    */
-  String randomWordByLength(String pos, int targetLength) { // NIAPI
+  public String randomWordByLength(String pos, int targetLength) { // NIAPI
 
     Iterator<String> it = getIterator(pos);
 
@@ -253,7 +238,7 @@ public class RiLexicon implements Constants {
    * Returns a random word from the lexicon with the specified target-length
    * (where length>0), or null if no such word exists.
    */
-  String randomWordByLength(int targetLength) { // NIAPI
+  public String randomWordByLength(int targetLength) { // NIAPI
 
     return randomWordByLength(null, targetLength);
   }
@@ -439,8 +424,8 @@ public class RiLexicon implements Constants {
 
   /**
    * Returns true if the two words rhyme (that is, if their final stressed
-   * phoneme and all following phonemes are identical). Note: returns false if
-   * wordA.equals(wordB) or if either are null.
+   * vowel phoneme and all following phonemes are identical). 
+   * Note: returns false if wordA.equals(wordB) or if either are null.
    */
   public boolean isRhyme(String wordA, String wordB) {
     return isRhyme(wordA, wordB, true); 
@@ -448,8 +433,8 @@ public class RiLexicon implements Constants {
 
   /**
    * Returns true if the two words rhyme (that is, if their final stressed
-   * phoneme and all following phonemes are identical). Note: returns false if
-   * wordA.equals(wordB) or if either are null;
+   * vowel phoneme and all following phonemes are identical). 
+   * Note: returns false if wordA.equals(wordB) or if either are null;
    * <p>
    * Note: will only use letter-to-sound engine for words not found in lexicon
    * if useLTS=true
@@ -804,6 +789,7 @@ public class RiLexicon implements Constants {
    * TODO: Cyrus
    */
   public String lastStressedVowelPhonemeToEnd(String word, boolean useLTS) {
+    
     boolean dbug = false;
 
     String raw = lastStressedPhoneToEnd(word, useLTS);
@@ -813,25 +799,19 @@ public class RiLexicon implements Constants {
     String[] syllables = raw.split(" ");
     String lastSyllable = syllables[syllables.length - 1];
 
-    String aeiou = "aeiou";
-    String res = "";
     int idx = -1;
 
     for (int i = 0; i < lastSyllable.length(); i++) {
       char c = lastSyllable.charAt(i);
-      if (aeiou.indexOf(c) != -1) idx = i;
-      if (idx != -1) break;
+      if (VOWELS.indexOf(c) != -1) {
+	idx = i;
+	break;
+      }
     }
 
-    if (idx == 0)
-      res = lastSyllable;
-    else   
-      res = lastSyllable.substring(idx);
+    //System.out.println(word + " " + raw + " last:" + lastSyllable + " idx=" + idx + " result:" + lastSyllable.substring(idx));
     
-    if (dbug)
-      System.out.println(word + " " + raw + " last:" + lastSyllable + " idx=" + idx + " result:" + res);
-
-    return res;
+    return lastSyllable.substring(idx);
   }
 
   /*
@@ -939,6 +919,7 @@ public class RiLexicon implements Constants {
 
   public static void main(String[] args) {
     RiLexicon rl = new RiLexicon();
+    System.out.println(rl.randomWord("n"));
     if (1==1) return;
     // System.out.println(rl.lastStressedPhoneToEnd("mellow",true));
     System.out.println(rl.lastStressedPhoneToEnd("toy", true));

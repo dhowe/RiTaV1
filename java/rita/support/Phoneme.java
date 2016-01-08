@@ -73,7 +73,7 @@ public abstract class Phoneme implements Constants {
    */
   static public boolean isVowel(String phone) {
     
-    return "aeiou".indexOf(phone.substring(0, 1)) != -1;
+    return VOWELS.indexOf(phone.substring(0, 1)) != -1;
   }
 
   /**

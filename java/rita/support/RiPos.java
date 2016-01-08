@@ -10,7 +10,7 @@ import java.util.List;
  * <p>
  * Includes QTag & Wordnet tags at present.
  */
-public class RiPos
+public class RiPos implements Constants
 {  
   /**  Part of Speech TYPE -> PENN FORMAT    */
   public static final int PENN    = 1;
@@ -18,18 +18,6 @@ public class RiPos
   /**  Part of Speech TYPE -> Wordnet FORMAT */
   public static final int WORDNET = 2;
 
-  /**  Part of Speech TYPE -> JET FORMAT     */
-  public static final int JET     = 3;
-  
-  /**  Part of Speech TYPE -> Glink FORMAT    */
-  public static final int GLINK   = 4;
-  
-  /**  Part of Speech TYPE -> AL FORMATS    */
-  public static final int ALL   = 0;
-  
-  // Types (ALL)             ======================================
-  public static final RiPos UNKNOWN = new RiPos("???", "unknown", ALL);
-  
   // Types (WORDNET / GENERIC)  ===================================
   public static final RiPos N = new RiPos("n", "NOUN_KEY", WORDNET);
   public static final RiPos V = new RiPos("v", "VERB_KEY", WORDNET);
@@ -75,23 +63,30 @@ public class RiPos
 
   //private static final List PENN_TAGS = Collections.unmodifiableList(Arrays.asList(
   private static final RiPos[] PENN_TAGS =  new RiPos[] { 
-    PENN_CC,PENN_CD,PENN_DT,PENN_EX,PENN_FW,
+    		PENN_CC,PENN_CD,PENN_DT,PENN_EX,PENN_FW,
 		PENN_IN,PENN_JJ,PENN_JJR,PENN_JJS,PENN_LS,PENN_MD,PENN_NN,PENN_NNS,
 		PENN_NNP,PENN_NNPS,PENN_PDT,PENN_POS,PENN_PRP,PENN_PRP$,PENN_RB,
 		PENN_RBR,PENN_RBS,PENN_RP,PENN_SYM,PENN_TO,PENN_UH,PENN_VB,PENN_VBD,
-		PENN_VBG,PENN_VBN,PENN_VBP,PENN_VBZ,PENN_WDT,PENN_WP,PENN_WP$,PENN_WRB,UNKNOWN };
+		PENN_VBG,PENN_VBN,PENN_VBP,PENN_VBZ,PENN_WDT,PENN_WP,PENN_WP$,PENN_WRB  };
 
   public static final RiPos[] PENN_NOUNS = { PENN_NN,PENN_NNS,PENN_NNP,PENN_NNPS };
   public static final RiPos[] PENN_VERBS = { PENN_VB,PENN_VBD,PENN_VBG,PENN_VBN,PENN_VBP,PENN_VBZ };
   public static final RiPos[] PENN_ADJ   = { PENN_JJ,PENN_JJR,PENN_JJS };
   public static final RiPos[] PENN_ADV   = { PENN_RB,PENN_RBR,PENN_RBS,PENN_WRB }; 
 
-  private static final List WORDNET_TAGS = Collections.unmodifiableList
-    (Arrays.asList( new RiPos[] { N, V, R, A } ));
+  public static final RiPos[] WORDNET_TAGS = { N, V, R, A };
 
   public static boolean isPennTag(String tag) {
     for (int i = 0; i < PENN_TAGS.length; i++) {
       if (PENN_TAGS[i].getTag().equals(tag))
+         return true;
+    }
+    return false;
+  }
+  
+  public static boolean isWordNetTag(String tag) {
+    for (int i = 0; i < WORDNET_TAGS.length; i++) {
+      if (WORDNET_TAGS[i].getTag().equals(tag))
          return true;
     }
     return false;
@@ -135,13 +130,12 @@ public class RiPos
   // members variables    =============================
   
   private String tag, description, examples;
-  private int type;
   
   // private constructors =============================
   
   private RiPos(String tag, String description, int type) 
   {
-    this(tag, description, QQ, type);
+    this(tag, description, E, type);
   }
   
   private RiPos(String tag, String description, String examples, int type) 
@@ -149,17 +143,17 @@ public class RiPos
     this.tag = tag;
     this.description = description;
     this.examples = examples;
-    this.type = type;
   }  
   
   public static RiPos fromWordnet(String label) {
     
-    for (Iterator iter = WORDNET_TAGS.iterator(); iter.hasNext();) {
-      RiPos pos = (RiPos) iter.next();
-      //System.out.println(pos);
+    for (int i = 0; i < WORDNET_TAGS.length; i++) {
+      
+      RiPos pos = WORDNET_TAGS[i];
       if (pos.getTag().equals(label))
         return pos;
     }
+    
     return null;
   }
   
@@ -193,170 +187,19 @@ public class RiPos
   public String getTag() {
     return this.tag;
   }
-
-  public int getType() {
-    return this.type;
-  }
   
   public String toString() {
     return this.tag;
   }
-  
 
   public int hashCode()
   {
-    return super.hashCode();
+    return this.tag.hashCode();
   }
   
   public boolean equals(Object obj)
   {
-    RiPos p = (RiPos)obj;
-    
-    // match primary tag
-    if (!getTag().equals(p.getTag()))
-      return false;
-    
-    // match POS type 
-    if (getType() != p.getType())
-      return false;
-    
-    return true;
-  }
-
-  private static final String QQ = "";
-  
-  public static void main(String[] args)
-  {   
-   // System.out.println(RiPos.getWordnetKey(net.didion.jwnl.data.POS.ADVERB));
+    return this.tag.equals(((RiPos)obj).getTag());
   }
   
 }// end
-
-/* 
-Full Set of QTag tags:
----------------------------
-    !
-    "
-    (
-    )
-    ,
-    -
-    .
-    ...
-    :
-    ;
-    ?
-    ???
-    BE
-    BED
-    BEDZ
-    BEG
-    BEM
-    BEN
-    BER
-    BEZ
-    CC
-    CD
-    CD21
-    CD22
-    CS
-    CS21
-    CS22
-    CS31
-    CS32
-    CS33
-    CS41
-    CS42
-    CS43
-    CS44
-    DO
-    DOD
-    DOG
-    DON
-    DOZ
-    DT
-    EX
-    FW
-    HV
-    HVD
-    HVG
-    HVN
-    HVZ
-    IN
-    IN21
-    IN22
-    IN31
-    IN32
-    IN33
-    IN41
-    IN42
-    IN43
-    IN44
-    JJ
-    JJ21
-    JJ22
-    JJ31
-    JJ32
-    JJ33
-    JJR
-    JJS
-    MD
-    MD21
-    MD22
-    NN
-    NN21
-    NN22
-    NN31
-    NN32
-    NN33
-    NNS
-    NNS21
-    NNS22
-    NP
-    NPS
-    OD
-    PDT
-    PN
-    PN21
-    PN22
-    POS
-    PP
-    PP$
-    PPX
-    PPX21
-    PPX22
-    RB
-    RB21
-    RB22
-    RB31
-    RB32
-    RB33
-    RB41
-    RB42
-    RB43
-    RB44
-    RBR
-    RBS
-    RP
-    SYM
-    TO
-    UH
-    UH21
-    UH22
-    VB
-    VBD
-    VBG
-    VBN
-    VBZ
-    WDT
-    WDT31
-    WDT32
-    WDT33
-    WP
-    WP$
-    WRB
-    WRB31
-    WRB32
-    WRB33
-    XNOT
-*/

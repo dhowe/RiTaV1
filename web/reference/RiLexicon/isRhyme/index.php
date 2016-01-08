@@ -66,7 +66,7 @@
 							<th scope="row">Description</th>
 
 							<!-- DESCRIPTION  -->
-							<td>Returns true if the two words rhyme, that is, if their final stressed phoneme and all following phonemes are identical, else false.<br/><br/>Note: returns false if word1.equals(word2) or if either (or both) are null;<br/><br/>Note: at present doesn't use letter-to-sound engine if either word is not found in the lexicon, but instead just returns false.</td>
+							<td>Returns true if the two words rhyme, that is, if their final stressed vowel phoneme and all following phonemes are identical, else false.<br/><br/>Note: returns false if word1.equals(word2) or if either (or both) are null;<br/><br/></td>
 						</tr>
 
 						<tr class='Syntax'>
@@ -84,7 +84,7 @@
 							<!-- PARAMETERS  -->
 
 							<table cellpadding="0" cellspacing="0" border="0" class="sub-table">
-								<tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>word1</td></tr><tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>word2</td></tr><tr class=''><th width='25%' scope='row' class=nobold>boolean</th><td width='75%'>use letter-to-sound rules (optional, default=false)</td></tr>
+								<tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>word1</td></tr><tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>word2</td></tr><tr class=''><th width='25%' scope='row' class=nobold>boolean</th><td width='75%'>use letter-to-sound rules if not found in lexicon (optional, default=true)</td></tr>
 							</table></td>
 						</tr>
 

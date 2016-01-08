@@ -228,7 +228,7 @@
   }, {
     "name": "isRhyme",
     "example": "",
-    "description": "Returns true if the two words rhyme, that is, if their final stressed phoneme and all following phonemes are identical, else false.<br/><br/>Note: returns false if word1.equals(word2) or if either (or both) are null;<br/><br/>Note: at present doesn't use letter-to-sound engine if either word is not found in the lexicon, but instead just returns false.",
+    "description": "Returns true if the two words rhyme, that is, if their final stressed vowel phoneme and all following phonemes are identical, else false.<br/><br/>Note: returns false if word1.equals(word2) or if either (or both) are null;<br/><br/>",
     "syntax": "isRhyme(word1, word2)<br>isRhyme(word1, word2, useLTS);",
     "parameters": [{
       "type": "String",
@@ -238,7 +238,7 @@
       "desc": "word2"
     }, {
       "type": "boolean",
-      "desc": "use letter-to-sound rules (optional, default=false)"
+      "desc": "use letter-to-sound rules if not found in lexicon (optional, default=true)"
     }],
     "returns": [{
       "type": "boolean",
