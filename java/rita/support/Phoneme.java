@@ -258,8 +258,8 @@ public abstract class Phoneme implements Constants {
   static {
     Map<String, String> amap = new HashMap<String, String>();
     amap.put("aa", "ɑ");
-    amap.put("ae", "æ");
-    amap.put("ah", "ʌ");
+    amap.put("ae", "ɑː"); // ɑː for NAmE; æ for BrE;
+    amap.put("ah", "ʌ"); // ə for 'sofa', 'alone'; ʌ for 'but', 'sun'
     amap.put("ao", "ɔ");
     amap.put("aw", "aʊ");
     amap.put("ay", "aɪ");
@@ -268,10 +268,10 @@ public abstract class Phoneme implements Constants {
     amap.put("d", "d");
     amap.put("dh", "ð");
     amap.put("eh", "ɛ");
-    amap.put("er", "ɚ");
+    amap.put("er", "ə"); // ə or ɚ 
     amap.put("ey", "eɪ");
     amap.put("f", "f");
-    amap.put("g", "g");
+    amap.put("g", "g"); // g or ɡ (view the difference in notepad)
     amap.put("hh", "h");
     amap.put("ih", "ɪ");
     amap.put("iy", "i");
@@ -281,10 +281,10 @@ public abstract class Phoneme implements Constants {
     amap.put("m", "m");
     amap.put("ng", "ŋ");
     amap.put("n", "n");
-    amap.put("ow", "oʊ");
+    amap.put("ow", "əʊ"); // əʊ for NAmE; or oʊ in BrE
     amap.put("oy", "ɔɪ");
     amap.put("p", "p");
-    amap.put("r", "ɹ");
+    amap.put("r", "ɹ"); // r or ɹ
     amap.put("sh", "ʃ");
     amap.put("s", "s");
     amap.put("th", "θ");
