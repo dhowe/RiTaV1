@@ -233,10 +233,12 @@ public abstract class Phoneme implements Constants {
       String arpaPhone = arpaPhones[i];
       //System.out.println(arpaPhone);
       char stress = arpaPhone.charAt(arpaPhone.length() - 1);
-      if (stress == RiTa.STRESSED || stress == '2') {
+      if (stress == RiTa.STRESSED) {
         arpaPhone = arpaPhone.substring(0, arpaPhone.length() - 1);
         stressed = true; // TODO: what if we have an actual number?
       }
+      else if (stress == '0' || stress == '2') // ignore Secondary stress
+        arpaPhone = arpaPhone.substring(0, arpaPhone.length() - 1);	
       
       ipaSyl.append(phoneToIPA(arpaPhone));
     }
@@ -258,7 +260,7 @@ public abstract class Phoneme implements Constants {
   static {
     Map<String, String> amap = new HashMap<String, String>();
     amap.put("aa", "ɑ");
-    amap.put("ae", "ɑː"); // ɑː for NAmE; æ for BrE;
+    amap.put("ae", "ɑː"); // ɑː or æ 
     amap.put("ah", "ʌ"); // ə for 'sofa', 'alone'; ʌ for 'but', 'sun'
     amap.put("ao", "ɔ");
     amap.put("aw", "aʊ");

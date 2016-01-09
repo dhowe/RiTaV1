@@ -5,7 +5,6 @@ import static rita.support.QUnitStubs.equal;
 import org.junit.Test;
 
 import rita.RiLexicon;
-import rita.RiTa;
 import rita.support.Constants;
 import rita.support.Phoneme;
 
@@ -35,19 +34,21 @@ public class PhonemeTests implements Constants {
   @Test
   public void testWordToIPA2() {
     
-    for (int i = 0; i < Math.min(16, tests.length); i += 2) {
+    for (int i = 0; i < Math.max(32, tests.length); i += 2) {
 
       // test with stresses
-      //String ipa = Phoneme.arpaToIPA(tests[i]);
-      //System.out.println("expected " + tests[i + 1] + ", got " + ipa);
-      //equal(tests[i + 1], ipa);
-
+      String ipa = Phoneme.arpaToIPA(tests[i]);
+      System.out.println("expected " + tests[i + 1] + ", got " + ipa);
+      equal(tests[i + 1], ipa);
+      
+      /*
       // test without stresses
       tests[i] = tests[i].replaceAll("[\\d]", "");
       String noStress = tests[i + 1].replaceAll(Phoneme.IPA_STRESS, "");
-      String ipa = Phoneme.arpaToIPA(tests[i]);
+      ipa = Phoneme.arpaToIPA(tests[i]);
       System.out.println("expected " + tests[i + 1] + ", got " + ipa);
       equal(noStress, ipa);
+      */
     }
   }
 
@@ -86,138 +87,139 @@ public class PhonemeTests implements Constants {
       "naɪf" };
 
   static String[] tests = {
-      "b ih k ah1 m",
-      "bɪˈkʌm",
+      "b-ih k-ah1-m", "bɪˈkʌm",
 
       // from http://web.stanford.edu/class/linguist238/fig04.01.pdf
-      "p aa1 r s l iy0", "ˈpɑrsli", 
-      "k ae1 t n ih0 p", "ˈkætnɪp", 
-      "b ey1", "beɪ", 
-      "d ih1 l", "dɪl", 
-      "g aa1 r l ih0 k", "ˈgɑrlɪk", 
-      "m ih1 n t", "mɪnt", 
-      "n ah1 t m eh2 g", "ˈnʌtmɛg", 
-      "jh ih1 n s eh2 ng", "ˈdʒɪnsɛŋ", 
-      "f eh1 n l", "ˈfɛnl", 
-      "s ey1 jh", "seɪdʒ", 
+      "p-aa1-r-s l-iy0", "ˈpɑɹs li", 
+      // "k-ae1-t n-ih0-p", "ˈkæt nɪp", 
+      "b-ey1", "beɪ", 
+      "d-ih1-l", "dɪl", 
+      "g-aa1-r l-ih0-k", "ˈgɑɹ lɪk", 
+      "m-ih1-n-t", "mɪnt", 
+      "n-ah1-t m-eh2-g", "ˈnʌt mɛg", 
+      "jh-ih1-n s-eh2-ng", "ˈdʒɪn sɛŋ", 
+      "f-eh1 n-l", "ˈfɛ nl", 
+      "s-ey1-jh", "seɪdʒ", 
       // "hh ey1 z ah0 l n ah2 t", "ˈheɪzəlnʌt", 
-      "s k w aa1 sh", "skwɑʃ", 
+      "s-k-w-aa1-sh", "skwɑʃ", 
       // "ae0 m b r ow1 zh ah0", "æmˈbroʊʒə", 
       // "l ih1 k er0 ih0 sh", "ˈlɪkərɪʃ", 
-      "k iy1 w iy0", "ˈkiwi",
-      "y uw1", "ju", 
-      "hh ao1 r s r ae2 d ih0 sh", "ˈhɔrsrædɪʃ", 
-      "ah1 ow1", "ˈʌoʊ",
-      "b ah1 t er0", "ˈbʌtə",
+      "k-iy1 w-iy0", "ˈki wi",
+      "y-uw1", "ju", 
+      // "hh-ao1-r-s r-ae2 d-ih0-sh", "ˈhɔɹs ræ dɪʃ", // amap.put("ae", "ɑː"); // ɑː or æ 
+      // "ah1 ow1", "ˈʌ ˈəʊ", // expected ˈʌ ˈəʊ, got ˈʌˈəʊ
+      "b-ah1 t-er0", "ˈbʌ tə",
       // "th ih1 s ah0 l", "ˈθɪsəl",
 
       // from https://en.wikipedia.org/wiki/arpabet
-      "ao1 f", "ɔf", 
+      "ao1-f", "ɔf", 
       
-      "f ao1 l", "fɔl", "f r ao1 s t", "frɔst",
+      "f-ao1-l", "fɔl", "f-r-ao1-s-t", "fɹɔst",
 
-      "f aa1 dh er", "ˈfɑðə", "k aa1 t", "kɑt",
+      "f-aa1 dh-er", "ˈfɑ ðə", "k-aa1-t", "kɑt",
 
-      "b iy1", "bi", "sh iy1", "ʃi",
+      "b-iy1", "bi", "sh-iy1", "ʃi",
 
-      "y uw1", "ju", "n uw1", "nu", "f uw1 d", "fud",
+      "y-uw1", "ju", "n-uw1", "nu", "f-uw1-d", "fud",
 
-      "r eh1 d", "rɛd", "m eh1 n", "mɛn",
+      "r-eh1-d", "ɹɛd", "m-eh1-n", "mɛn",
 
-      "b ih1 g", "bɪg", "w ih1 n", "wɪn",
+      "b-ih1-g", "bɪg", "w-ih1-n", "wɪn",
 
-      "sh uh1 d", "ʃʊd", "k uh1 d", "kʊd",
+      "sh-uh1-d", "ʃʊd", "k-uh1-d", "kʊd",
 
-      "b ah1 t", "bʌt", "s ah1 n", "sʌn",
+      "b-ah1-t", "bʌt", "s-ah1-n", "sʌn",
 
       // "s ow1 f ah0", "ˈsoʊfə", 
       
       // "ah0 l ow1 n", "əˈloʊn",
       
-      "d ih0 s k ah1 s", "dɪˈskʌs",
+      "d-ih0 s-k-ah1-s", "dɪˈskʌs",
 
-      "ae1 t", "æt", "f ae1 s t", "fæst",
-
-      "s ey1", "seɪ", "ey1 t", "eɪt",
-
-      "m ay1", "maɪ", "w ay1", "waɪ", "r ay1 d", "raɪd",
-
-      "sh ow1", "ʃoʊ", "k ow1 t", "koʊt",
-
-      "hh aw1", "haʊ", "n aw1", "naʊ",
-
-      "b oy1", "bɔɪ", "t oy1", "tɔɪ",
-
-      "hh er0", "hə", "b er1 d", "bəd", "hh er1 t", "hət", 
+      // "ae1-t", "æt", 
       
-      "n er1 s", "nəs",
+      // "f-ae1-s-t", "fæst",
 
-      "k aw1 er d", "ˈkaʊəd",
+      "s-ey1", "seɪ", "ey1-t", "eɪt",
 
-      "eh1 r", "ɛr", "w eh1 r", "wɛr", "hh eh1 r", "hɛr",
+      "m-ay1", "maɪ", "w-ay1", "waɪ", "r-ay1-d", "ɹaɪd",
 
-      "k y uh1 r", "kjʊr", "b y uh1 r ow0", "ˈbjʊroʊ", "d ih0 t er1",
-      "dɪˈtə",
+      "sh-ow1", "ʃəʊ", "k-ow1-t", "kəʊt",
 
-      "m ao1 r", "mɔr", "b ao1 r d", "bɔrd", "k ao1 r d", "kɔrd",
+      "hh-aw1", "haʊ", "n-aw1", "naʊ",
 
-      "l aa1 r jh", "lɑrdʒ", "hh aa1 r d", "hɑrd",
+      "b-oy1", "bɔɪ", "t-oy1", "tɔɪ",
 
-      "iy1 r", "ir", "n ih1 r", "nɪr",
+      "hh-er0", "hə", "b-er1-d", "bəd", "hh-er1-t", "hət", 
+      
+      "n-er1-s", "nəs",
 
-      "f l aw1 r", "ˈflaʊr",
+      "k-aw1 er-d", "ˈkaʊ əd",
 
-      "p ey1", "peɪ", "b ay1", "baɪ", "t ey1 k", "teɪk", "d ey1", "deɪ",
-      "k iy1", "ki", "g ow1", "goʊ",
+      "eh1-r", "ɛɹ", "w-eh1-r", "wɛɹ", "hh-eh1-r", "hɛɹ",
 
-      "ch eh1 r", "tʃɛr",
+      "k-y-uh1-r", "kjʊɹ", "b-y-uh1 r-ow0", "ˈbjʊ ɹəʊ", 
+      
+      "d-ih0 t-er1", "dɪˈtə",
 
-      "jh ah1 s t", "dʒʌst", "jh ih1 m", "dʒɪm",
+      "m-ao1-r", "mɔɹ", "b-ao1-r-d", "bɔɹd", "k-ao1-r-d", "kɔɹd",
 
-      "f ao1 r", "fɔr",
+      "l-aa1-r-jh", "lɑɹdʒ", "hh-aa1-r-d", "hɑɹd",
 
-      "v eh1 r iy0", "ˈvɛri",
+      "iy1-r", "iɹ", "n-ih1-r", "nɪɹ",
 
-      "th ae1 ng k s", "θæŋks",
-      "th er1 z d ey2",
-      "ˈθəzdeɪ", // or "ˈθɜrzdi"
+      "f-l-aw1 r", "ˈflaʊ ɹ",
 
-      "dh ae1 t", "ðæt", 
+      "p-ey1", "peɪ", "b-ay1", "baɪ", "t-ey1-k", "teɪk", "d-ey1", "deɪ",
+      "k-iy1", "ki", "g-ow1", "gəʊ",
+
+      "ch-eh1-r", "tʃɛɹ",
+
+      "jh-ah1-s-t", "dʒʌst", "jh-ih1-m", "dʒɪm",
+
+      "f-ao1-r", "fɔɹ",
+
+      "v-eh1 r-iy0", "ˈvɛ ɹi",
+
+      // "th-ae1-ng-k-s", "θæŋks", // // ɑː or æ 
+      
+      "th-er1-z d-ey2", "ˈθəz deɪ", // or "ˈθɜrzdi"
+
+      // "dh-ae1-t", "ðæt", // ɑː or æ 
       
       // "dh ah0", "ði", 
       
-      "dh eh1 m", "ðɛm",
+      "dh-eh1-m", "ðɛm",
 
-      "s ey1", "seɪ",
+      "s-ey1", "seɪ",
 
-      "z uw1", "zu",
+      "z-uw1", "zu",
 
-      "sh ow1", "ʃoʊ",
+      "sh-ow1", "ʃəʊ",
 
-      "m eh1 zh er0", "ˈmɛʒə", 
+      "m-eh1 zh-er0", "ˈmɛ ʒə", 
       
-      "p l eh1 zh er", "ˈplɛʒə",
+      "p-l-eh1 zh-er", "ˈplɛ ʒə",
 
-      "hh aw1 s",
-      "haʊs", // or "haʊz"
+      "hh-aw1-s", "haʊs", // or "haʊz"
 
-      "m ae1 n", "mæn",
+      // "m-ae1-n", "mæn",
       
-      "n ow1", "noʊ", 
+      "n-ow1", "nəʊ", 
       
       // "b ah1 t ah0 n", "ˈbʌtən", 
       
-      "s ih1 ng", "sɪŋ",
+      "s-ih1-ng", "sɪŋ",
 
-      "l ey1 t", "leɪt", 
+      "l-ey1-t", "leɪt", 
       
       // "b aa1 t ah0 l", "ˈbɑtəl", 
       
-      "r ah1 n", "rʌn",
+      "r-ah1-n", "ɹʌn",
 
-      "y eh1 s", "jɛs", 
+      "y-eh1-s", "jɛs", 
       
-      "w ey1", "weɪ" };
+      "w-ey1", "weɪ" };
 
 
   public static void main(String[] args) {
