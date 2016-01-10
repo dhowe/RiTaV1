@@ -82,7 +82,20 @@ public class PhonemeTests implements Constants {
       // System.out.println(i + ") " + words[i] + " -> " + data + " -> " + results[i]);
       equal(results[i], Phoneme.arpaToIPA(data));
     }
+  }
+  
+  @Test
+  public void testLTS() {
 
+    String[] words = { "washington", "coder", "streamer" };
+    String[] results = { "ˈwɑ ʃɪŋ tən", "ˈkəʊ də", "ˈstɹiː mə" };
+
+    RiLexicon rl = new RiLexicon();
+    for (int i = 0; i < words.length; i++) {
+      String data = rl.getRawPhones(words[i], true);
+      // System.out.println(i + ") " + words[i] + " -> " + data + " -> " + results[i]);
+      equal(results[i], Phoneme.arpaToIPA(data));
+    }
   }
 
   static String[] tests2 = { "that", "ðæt", "however", "haʊˈevəʳ", "difficult",
