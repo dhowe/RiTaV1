@@ -66,6 +66,24 @@ public class PhonemeTests implements Constants {
       equal(results[i], Phoneme.arpaToIPA(data));
     }
   }
+  
+  @Test
+  public void testAH() {
+    // ə for 'sofa', 'alone'; ʌ for 'but', 'sun'
+    // if “uh” sound is in an unstressed syllable, it’s /ə/
+    // if “uh” sound is occurring in a stressed syllable, it’s /ʌ/
+    
+    String[] words = { "alone", "but", "sun", };
+    String[] results = { "əˈləʊn", "bʌt", "sʌn" };
+
+    RiLexicon rl = new RiLexicon();
+    for (int i = 0; i < words.length; i++) {
+      String data = rl.getRawPhones(words[i], true);
+      // System.out.println(i + ") " + words[i] + " -> " + data + " -> " + results[i]);
+      equal(results[i], Phoneme.arpaToIPA(data));
+    }
+
+  }
 
   static String[] tests2 = { "that", "ðæt", "however", "haʊˈevəʳ", "difficult",
       "ˈdɪfɪkəlt", "another", "əˈnʌðəʳ", "you", "ju:", "again", "əˈgen",
@@ -122,9 +140,9 @@ public class PhonemeTests implements Constants {
       "k-iy1 w-iy0", "ˈkiː wi",
       "y-uw1", "ju", 
       // "hh-ao1-r-s r-ae2 d-ih0-sh", "ˈhɔɹs ræ dɪʃ", // amap.put("ae", "ɑː"); // ɑː or æ 
-      // "ah1 ow1", "ˈʌ ˈəʊ", // expected ˈʌ ˈəʊ, got ˈʌˈəʊ
+      // "ah1 ow1", "ˈʌ ˈəʊ", // spacing issue after stress
       "b-ah1 t-er0", "ˈbʌ tə",
-      // "th ih1 s ah0 l", "ˈθɪsəl",
+      "th-ih1-s ah0-l", "ˈθɪs əl",
 
       // from https://en.wikipedia.org/wiki/arpabet
       "ao1-f", "ɔf", 
@@ -145,13 +163,13 @@ public class PhonemeTests implements Constants {
 
       "b-ah1-t", "bʌt", "s-ah1-n", "sʌn",
 
-      // "s ow1 f ah0", "ˈsoʊfə", 
+      "s-ow1 f-ah0", "ˈsəʊ fə", 
       
-      // "ah0 l ow1 n", "əˈloʊn",
+      "ah0 l-ow1-n", "əˈləʊn",
       
       "d-ih0 s-k-ah1-s", "dɪˈskʌs",
 
-      // "ae1-t", "æt", 
+      "ae1-t", "æt", 
       
       // "f-ae1-s-t", "fæst",
 
@@ -196,13 +214,13 @@ public class PhonemeTests implements Constants {
 
       "v-eh1 r-iy0", "ˈvɛ ɹi",
 
-      // "th-ae1-ng-k-s", "θæŋks", // // ɑː or æ 
+      "th-ae1-ng-k-s", "θæŋks", // // ɑː or æ 
       
       "th-er1-z d-ey2", "ˈθəz deɪ", // or "ˈθɜrzdi"
 
-      // "dh-ae1-t", "ðæt", // ɑː or æ 
+      "dh-ae1-t", "ðæt", // ɑː or æ 
       
-      // "dh ah0", "ði", 
+      "dh-ah0", "ðə", 
       
       "dh-eh1-m", "ðɛm",
 
@@ -216,19 +234,19 @@ public class PhonemeTests implements Constants {
       
       "p-l-eh1 zh-er", "ˈplɛ ʒə",
 
-      "hh-aw1-s", "haʊs", // or "haʊz"
+      "hh-aw1-s", "haʊs",
 
-      // "m-ae1-n", "mæn",
+      "m-ae1-n", "mæn",
       
       "n-ow1", "nəʊ", 
       
-      // "b ah1 t ah0 n", "ˈbʌtən", 
+      "b-ah1 t-ah0-n", "ˈbʌ tən", 
       
       "s-ih1-ng", "sɪŋ",
 
       "l-ey1-t", "leɪt", 
       
-      // "b aa1 t ah0 l", "ˈbɑtəl", 
+      "b-aa1-t ah0-l", "ˈbɑt əl", 
       
       "r-ah1-n", "ɹʌn",
 

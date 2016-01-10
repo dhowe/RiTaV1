@@ -228,6 +228,7 @@ public abstract class Phoneme implements Constants {
 
     boolean stressed = false;
     boolean isIYStressed = false;
+    boolean isAHStressed = false;
     StringBuffer ipaSyl = new StringBuffer();
     
     String[] arpaPhones = arpaSyl.trim().split(RiTa.PHONEME_BOUNDARY);
@@ -243,6 +244,7 @@ public abstract class Phoneme implements Constants {
         stressed = true; // TODO: what if we have an actual number?
         
         if (arpaPhone.equals("iy")) isIYStressed = true;
+        else if (arpaPhone.equals("ah")) isAHStressed = true;
       }
       else if (stress == '0' || stress == '2') // ignore Secondary stress
         arpaPhone = arpaPhone.substring(0, arpaPhone.length() - 1);	
@@ -250,7 +252,9 @@ public abstract class Phoneme implements Constants {
       String IPASyl = phoneToIPA(arpaPhone);
       
       if (isIYStressed) IPASyl += "ː";
+      else if (isAHStressed) IPASyl = "ʌ";
       isIYStressed = false;
+      isAHStressed = false;
       
       ipaSyl.append(IPASyl);
     }
@@ -273,7 +277,7 @@ public abstract class Phoneme implements Constants {
     Map<String, String> amap = new HashMap<String, String>();
     amap.put("aa", "ɑ"); // ɑ or ɒ
     amap.put("ae", "æ"); // ɑː or æ 
-    amap.put("ah", "ʌ"); // ə for 'sofa', 'alone'; ʌ for 'but', 'sun'
+    amap.put("ah", "ə"); // ə for 'sofa', 'alone'; ʌ for 'but', 'sun'
     amap.put("ao", "ɔ");
     amap.put("aw", "aʊ");
     amap.put("ay", "aɪ");
