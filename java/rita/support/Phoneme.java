@@ -206,13 +206,16 @@ public abstract class Phoneme implements Constants {
     String[] syllables = phones.trim().split(RiTa.WORD_BOUNDARY);
     StringBuffer ipaPhones = new StringBuffer();
     
+    Boolean needStress = true;
+    
     if (syllables.length == 1) { // one-syllable words dont get stresses
-      syllables[0] = syllables[0].replaceAll("[\\d]", "");
+      // syllables[0] = syllables[0].replaceAll("[\\d]", "");
+      needStress = false;
     }
 
     for (int i = 0; i < syllables.length; i++) {
       
-      String ipa = syllableToIPA(syllables[i]);
+      String ipa = syllableToIPA(syllables[i], needStress);
       if (ipaPhones.length() > 0 && !ipa.startsWith(IPA_STRESS))
 	ipa = " " + ipa;
       ipaPhones.append(ipa);
@@ -221,9 +224,10 @@ public abstract class Phoneme implements Constants {
     return ipaPhones.toString();
   }
 
-  protected static String syllableToIPA(String arpaSyl) {
+  protected static String syllableToIPA(String arpaSyl, Boolean needStress) {
 
     boolean stressed = false;
+    boolean isIYStressed = false;
     StringBuffer ipaSyl = new StringBuffer();
     
     String[] arpaPhones = arpaSyl.trim().split(RiTa.PHONEME_BOUNDARY);
@@ -232,18 +236,26 @@ public abstract class Phoneme implements Constants {
       
       String arpaPhone = arpaPhones[i];
       //System.out.println(arpaPhone);
+      
       char stress = arpaPhone.charAt(arpaPhone.length() - 1);
       if (stress == RiTa.STRESSED) {
         arpaPhone = arpaPhone.substring(0, arpaPhone.length() - 1);
         stressed = true; // TODO: what if we have an actual number?
+        
+        if (arpaPhone.equals("iy")) isIYStressed = true;
       }
       else if (stress == '0' || stress == '2') // ignore Secondary stress
         arpaPhone = arpaPhone.substring(0, arpaPhone.length() - 1);	
       
-      ipaSyl.append(phoneToIPA(arpaPhone));
+      String IPASyl = phoneToIPA(arpaPhone);
+      
+      if (isIYStressed) IPASyl += "ː";
+      isIYStressed = false;
+      
+      ipaSyl.append(IPASyl);
     }
  
-    if (stressed) ipaSyl.insert(0, IPA_STRESS);
+    if (stressed && needStress) ipaSyl.insert(0, IPA_STRESS);
     
     return ipaSyl.toString();
   }
@@ -259,8 +271,8 @@ public abstract class Phoneme implements Constants {
   private static final Map<String, String> arpaMap;
   static {
     Map<String, String> amap = new HashMap<String, String>();
-    amap.put("aa", "ɑ");
-    amap.put("ae", "ɑː"); // ɑː or æ 
+    amap.put("aa", "ɑ"); // ɑ or ɒ
+    amap.put("ae", "æ"); // ɑː or æ 
     amap.put("ah", "ʌ"); // ə for 'sofa', 'alone'; ʌ for 'but', 'sun'
     amap.put("ao", "ɔ");
     amap.put("aw", "aʊ");

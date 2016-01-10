@@ -15,18 +15,18 @@ public class PhonemeTests implements Constants {
     
     // 20 different examples without using LTS 
     String[] words = { "become", "parsley", "garlic", "fall", "frost", "you", "going",
-	"should", "say", "how", "now", "coat", "ratio", "staff", "fast", "begin",
+	"should", "say", "how", "now", "coat", "ratio", "trade", "treat", "begin",
 	"end", "encounter", "range", "step"
     };
     String[] results = { "bɪˈkʌm", "ˈpɑɹs li", "ˈgɑɹ lɪk", "fɔl", "fɹɔst", "ju", "ˈgəʊ ɪŋ",
-	"ʃʊd", "seɪ", "haʊ", "naʊ", "kəʊt", "ˈɹeɪ ʃi əʊ", "stɑːf", "fɑːst", "bɪˈgɪn",
+	"ʃʊd", "seɪ", "haʊ", "naʊ", "kəʊt", "ˈɹeɪ ʃi əʊ", "tɹeɪd", "tɹiːt", "bɪˈgɪn",
 	"ɛnd", "ɪnˈkaʊn tə", "ɹeɪndʒ", "stɛp"
     };
 
     RiLexicon rl = new RiLexicon();
     for (int i = 0; i < words.length; i++) {
       String data = rl.getRawPhones(words[i], true);
-      System.out.println(i + ") " + words[i] + " -> " + data + " -> " + results[i]);
+      // System.out.println(i + ") " + words[i] + " -> " + data + " -> " + results[i]);
       equal(results[i], Phoneme.arpaToIPA(data));
     }
   }
@@ -34,11 +34,11 @@ public class PhonemeTests implements Constants {
   @Test
   public void testWordToIPA2() {
     
-    for (int i = 0; i < Math.max(32, tests.length); i += 2) {
+    for (int i = 0; i < tests.length; i += 2) {
 
       // test with stresses
       String ipa = Phoneme.arpaToIPA(tests[i]);
-      System.out.println("expected " + tests[i + 1] + ", got " + ipa);
+      // System.out.println("expected " + tests[i + 1] + ", got " + ipa);
       equal(tests[i + 1], ipa);
       
       /*
@@ -46,9 +46,24 @@ public class PhonemeTests implements Constants {
       tests[i] = tests[i].replaceAll("[\\d]", "");
       String noStress = tests[i + 1].replaceAll(Phoneme.IPA_STRESS, "");
       ipa = Phoneme.arpaToIPA(tests[i]);
-      System.out.println("expected " + tests[i + 1] + ", got " + ipa);
+      System.out.println("expected " + noStress + ", got " + ipa);
       equal(noStress, ipa);
       */
+    }
+  }
+  
+  @Test
+  public void testStressedIYSyl() {
+    
+    // test words contains iy1 syllable
+    String[] words = { "treat", "eve", "evening", "exceed" };
+    String[] results = { "tɹiːt", "iːv", "ˈiːv nɪŋ", "ɪkˈsiːd" };
+
+    RiLexicon rl = new RiLexicon();
+    for (int i = 0; i < words.length; i++) {
+      String data = rl.getRawPhones(words[i], true);
+      // System.out.println(i + ") " + words[i] + " -> " + data + " -> " + results[i]);
+      equal(results[i], Phoneme.arpaToIPA(data));
     }
   }
 
@@ -104,7 +119,7 @@ public class PhonemeTests implements Constants {
       "s-k-w-aa1-sh", "skwɑʃ", 
       // "ae0 m b r ow1 zh ah0", "æmˈbroʊʒə", 
       // "l ih1 k er0 ih0 sh", "ˈlɪkərɪʃ", 
-      "k-iy1 w-iy0", "ˈki wi",
+      "k-iy1 w-iy0", "ˈkiː wi",
       "y-uw1", "ju", 
       // "hh-ao1-r-s r-ae2 d-ih0-sh", "ˈhɔɹs ræ dɪʃ", // amap.put("ae", "ɑː"); // ɑː or æ 
       // "ah1 ow1", "ˈʌ ˈəʊ", // expected ˈʌ ˈəʊ, got ˈʌˈəʊ
@@ -118,7 +133,7 @@ public class PhonemeTests implements Constants {
 
       "f-aa1 dh-er", "ˈfɑ ðə", "k-aa1-t", "kɑt",
 
-      "b-iy1", "bi", "sh-iy1", "ʃi",
+      "b-iy1", "biː", "sh-iy1", "ʃiː",
 
       "y-uw1", "ju", "n-uw1", "nu", "f-uw1-d", "fud",
 
@@ -166,12 +181,12 @@ public class PhonemeTests implements Constants {
 
       "l-aa1-r-jh", "lɑɹdʒ", "hh-aa1-r-d", "hɑɹd",
 
-      "iy1-r", "iɹ", "n-ih1-r", "nɪɹ",
+      "iy1-r", "iːɹ", "n-ih1-r", "nɪɹ",
 
       "f-l-aw1 r", "ˈflaʊ ɹ",
 
       "p-ey1", "peɪ", "b-ay1", "baɪ", "t-ey1-k", "teɪk", "d-ey1", "deɪ",
-      "k-iy1", "ki", "g-ow1", "gəʊ",
+      "k-iy1", "kiː", "g-ow1", "gəʊ",
 
       "ch-eh1-r", "tʃɛɹ",
 
