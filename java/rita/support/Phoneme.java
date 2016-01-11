@@ -226,7 +226,8 @@ public abstract class Phoneme implements Constants {
 
   protected static String syllableToIPA(String arpaSyl, Boolean needStress) {
 
-    boolean stressed = false;
+    boolean primarystressed = false;
+    boolean secondarydStressed = false;
     boolean isIYStressed = false;
     boolean isAHStressed = false;
     StringBuffer ipaSyl = new StringBuffer();
@@ -239,15 +240,20 @@ public abstract class Phoneme implements Constants {
       //System.out.println(arpaPhone);
       
       char stress = arpaPhone.charAt(arpaPhone.length() - 1);
-      if (stress == RiTa.STRESSED) {
+      
+      if (stress == RiTa.UNSTRESSED) // no stress
         arpaPhone = arpaPhone.substring(0, arpaPhone.length() - 1);
-        stressed = true; // TODO: what if we have an actual number?
+      else if (stress == RiTa.STRESSED) { // primary stress
+        arpaPhone = arpaPhone.substring(0, arpaPhone.length() - 1);
+        primarystressed = true;
         
         if (arpaPhone.equals("iy")) isIYStressed = true;
         else if (arpaPhone.equals("ah")) isAHStressed = true;
       }
-      else if (stress == '0' || stress == '2') // ignore Secondary stress
-        arpaPhone = arpaPhone.substring(0, arpaPhone.length() - 1);	
+      else if (stress == '2') {// secondary stress
+	arpaPhone = arpaPhone.substring(0, arpaPhone.length() - 1);
+	secondarydStressed = true;
+      }
       
       String IPASyl = phoneToIPA(arpaPhone);
       
@@ -259,7 +265,8 @@ public abstract class Phoneme implements Constants {
       ipaSyl.append(IPASyl);
     }
  
-    if (stressed && needStress) ipaSyl.insert(0, IPA_STRESS);
+    if (needStress && primarystressed) ipaSyl.insert(0, IPA_STRESS);
+    else if (needStress && secondarydStressed) ipaSyl.insert(0, IPA_2NDSTRESS);
     
     return ipaSyl.toString();
   }

@@ -142,8 +142,8 @@ public class PhonemeTests implements Constants {
       "d-ih1-l", "dɪl", 
       "g-aa1-r l-ih0-k", "ˈgɑɹ lɪk", 
       "m-ih1-n-t", "mɪnt", 
-      "n-ah1-t m-eh2-g", "ˈnʌt mɛg", 
-      "jh-ih1-n s-eh2-ng", "ˈdʒɪn sɛŋ", 
+      "n-ah1-t m-eh2-g", "ˈnʌt ˌmɛg", 
+      "jh-ih1-n s-eh2-ng", "ˈdʒɪn ˌsɛŋ", 
       "f-eh1 n-l", "ˈfɛ nl", 
       "s-ey1-jh", "seɪdʒ", 
       // "hh ey1 z ah0 l n ah2 t", "ˈheɪzəlnʌt", 
@@ -229,7 +229,7 @@ public class PhonemeTests implements Constants {
 
       "th-ae1-ng-k-s", "θæŋks", // // ɑː or æ 
       
-      "th-er1-z d-ey2", "ˈθəz deɪ", // or "ˈθɜrzdi"
+      "th-er1-z d-ey2", "ˈθəz ˌdeɪ", // or "ˈθɜrzdi"
 
       "dh-ae1-t", "ðæt", // ɑː or æ 
       
