@@ -206,7 +206,7 @@ public abstract class Phoneme implements Constants {
     String[] syllables = phones.trim().split(RiTa.WORD_BOUNDARY);
     StringBuffer ipaPhones = new StringBuffer();
     
-    Boolean needStress = true;
+    boolean needStress = true;
     
     if (syllables.length == 1) { // one-syllable words dont get stresses
       // syllables[0] = syllables[0].replaceAll("[\\d]", "");
