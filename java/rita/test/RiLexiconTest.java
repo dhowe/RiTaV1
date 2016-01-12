@@ -662,12 +662,6 @@ public class RiLexiconTest {
     String s = lex.getRawPhones("dragging", false);
     equal(s, "d-r-ae1 g-ih-ng");
 
-    s = lex.getRawPhones("laggin", true);
-    equal(s, "l-ae1 g-ih1-n");
-
-    s = lex.getRawPhones("yoyo", true);
-    equal(s, "y-oy1-ow0"); // not sure about this
-
     s = lex.getRawPhones("wellow", false);
     ok(s.length() == 0);
 
@@ -680,8 +674,30 @@ public class RiLexiconTest {
     s = lex.getRawPhones("laggin", false);
     ok(s.length() == 0);
 
+    // start using LTS rules
+    s = lex.getRawPhones("laggin", true);
+    equal(s, "l-ae1 g-ih1-n");
+
+    s = lex.getRawPhones("apple", true);
+    equal(s, "ae1 p-ah-l");
+
+    s = lex.getRawPhones("hello", true);
+    equal(s, "hh-ah l-ow1");
+
+    s = lex.getRawPhones("washington", true);
+    equal(s, "w-aa1 sh-ih0-ng t-ah0-n");
+
+    s = lex.getRawPhones("coder", true);
+    equal(s, "k-ow1 d-er0");
+
+    s = lex.getRawPhones("streamer", true);
+    equal(s, "s-t-r-iy1 m-er0");
+
     // s = lex.lexImpl.getRawPhones("mellow", true);
     // equal(s,"m-eh1-l ow"); Note: moved to KnownIssues
+
+    // s = lex.getRawPhones("yoyo", true);
+    // equal(s, "y-oy1 y-ow0"); // Note: moved to KnownIssues
   }
 
   @Test
