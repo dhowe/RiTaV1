@@ -83,6 +83,22 @@ public class PhonemeTests implements Constants {
       equal(results[i], Phoneme.arpaToIPA(data));
     }
   }
+  
+  @Test
+  public void testAmericanPronounciation() {
+    // test when to use 'ɑː' or 'æ' 
+    // if 'ae1' replace 'ae1' with 'ɑː' instead of 'æ' with a few exceptions
+    
+    String[] words = { "staff", "fast", "ask", "at", "thank", "that", "man" };
+    String[] results = { "stɑːf", "fɑːst", "ɑːsk", "æt", "θæŋk", "ðæt", "mæn" };
+
+    RiLexicon rl = new RiLexicon();
+    for (int i = 0; i < words.length; i++) {
+      String data = rl.getRawPhones(words[i], true);
+      // System.out.println(i + ") " + words[i] + " -> " + data + " -> " + results[i]);
+      equal(results[i], Phoneme.arpaToIPA(data));
+    }
+  }
 
   static String[] tests2 = { "that", "ðæt", "however", "haʊˈevəʳ", "difficult",
       "ˈdɪfɪkəlt", "another", "əˈnʌðəʳ", "you", "ju:", "again", "əˈgen",
