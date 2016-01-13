@@ -798,7 +798,8 @@ public class RiLexicon implements Constants {
 
     String[] syllables = raw.split(" ");
     String lastSyllable = syllables[syllables.length - 1];
-
+    lastSyllable = lastSyllable.replaceAll("[^a-z-1 ]", "");
+    
     int idx = -1;
 
     for (int i = 0; i < lastSyllable.length(); i++) {

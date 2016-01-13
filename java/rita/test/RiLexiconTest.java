@@ -785,9 +785,9 @@ public class RiLexiconTest {
     ok(!lex.isRhyme("drake", "rake", false));
     ok(lex.isRhyme("drake", "rake", true)); // using LTS engine
 
-    // TODO: why are these failing
-    //ok(lex.isRhyme("yellow", "wellow", true)); 
-    //ok(lex.isRhyme("solo", "yolo", true));
+
+    ok(lex.isRhyme("yellow", "wellow", true)); 
+    ok(lex.isRhyme("solo", "yolo", true));
   }
   
 
