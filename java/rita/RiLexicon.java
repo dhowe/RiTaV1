@@ -307,9 +307,10 @@ public class RiLexicon implements Constants {
     }
   }
   
+  // NOTE: Default is NOT to use LTS
   public String getRawPhones(String word) {
     
-    return getRawPhones(word, false);
+    return getRawPhones(word, false); // Default is NOT to use LTS
   }
   
   public String getRawPhones(String word, boolean useLTS) {
@@ -322,6 +323,7 @@ public class RiLexicon implements Constants {
     return getRawPhones(lex, word, false);
   }
 
+  // Only uses LTS if useLTS is true AND the word is NOT found in the dictionary
   public static String getRawPhones(JSONLexicon lex, String word, boolean useLTS) {
     
     if (word == null || word.length() < 1) return E;

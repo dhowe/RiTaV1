@@ -66,7 +66,7 @@ public class KnownIssuesTest implements Constants
   @Test
   public void testLTS() 
   {
-    // TODO: these all fail -> CYRUS
+    // TODO: these all fail -> CYRUS (create another array with the correct results) 
     String[] fails = { "be","bed","bled","break","bred","brooch","eyed","fed","fled","floors","great","guests","guise","he","keyed","led","me","noun","poured","purrs","red","rein","reined","rouge","rough","roughed","say","scares","scenes","scour","scoured","scours","seized","serge","she","shed","shred","sleight","slough","souls","sped","squared","squeak","stares","steak","suede","sure","tear","through","touch","touched","tough","toughs","we","wed","whoosh","yes","youth","youths" };
 
     RiLexicon.enabled = false; 
@@ -75,6 +75,7 @@ public class KnownIssuesTest implements Constants
     RiLexicon.enabled = true;    
   }
   
+  @SuppressWarnings("boxing")
   @Test
   public void testRhyming()
   {
@@ -91,11 +92,6 @@ public class KnownIssuesTest implements Constants
       //System.out.print(i/2+") "+tests[i]+"("+data.get(tests[i]).split("\\|")[0]+") ?= "+tests[i+1]+"("+data.get(tests[i+1]).split("\\|")[0]+")");
       equal(true, lex.isRhyme(tests[i], tests[i+1]));
     }
-    
-    //deepEqual(true, lex.isRhyme("savage", "ravage"));
-    //deepEqual(true, lex.isRhyme("savage", "disparage"));
-    //deepEqual(true, lex.isRhyme("savage", "cabbage"));
-    // ...
   }
 
   @Test

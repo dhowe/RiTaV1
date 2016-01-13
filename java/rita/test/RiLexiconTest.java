@@ -17,8 +17,8 @@ import rita.support.Phoneme;
 public class RiLexiconTest {
   
   static {
-    RiTa.SILENT = true;
-    RiLexicon.SILENCE_LTS = true;
+    RiTa.SILENT = false;
+    RiLexicon.SILENCE_LTS = false;
   }
 
 /*// THIS CAUSES MAVEN TO FAIL
@@ -744,6 +744,13 @@ public class RiLexiconTest {
 
     ok(!lex.isRhyme("solo", "yoyo"));
     ok(!lex.isRhyme("yoyo", "jojo"));
+    
+    ok(lex.isRhyme("solo", "tomorrow"));
+    ok(lex.isRhyme("tense", "sense"));
+    ok(lex.isRhyme("crab", "drab"));
+    ok(lex.isRhyme("shore", "more"));
+    ok(lex.isRhyme("mouse", "house"));
+    ok(!lex.isRhyme("hose", "house"));
   }
 
   @Test

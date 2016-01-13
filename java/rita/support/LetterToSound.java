@@ -19,18 +19,16 @@ import rita.RiTaException;
  * General Letter-to-Sound Rules." Proceedings of ECSA Workshop on Speech
  * Synthesis, pages 77-80, Australia, 1998.
  */
-public class LetterToSound implements Constants
-{
+public class LetterToSound implements Constants {
   static LetterToSound instance;
-  
-  public static LetterToSound getInstance()
-  {
+
+  public static LetterToSound getInstance() {
     if (instance == null)
       instance = new LetterToSound();
     return instance;
   }
-  
-  static Map<String,String> cache = new HashMap<String, String>();
+
+  static Map<String, String> cache = new HashMap<String, String>();
   static {
     cache.put("a", "ey");
     cache.put("the", "dh-ah");
@@ -113,22 +111,18 @@ public class LetterToSound implements Constants
    */
   static private List phonemeTable;
 
-  private LetterToSound()
-  {
+  private LetterToSound() {
     loadLTS();
   }
 
   protected void loadLTS() {
-    
+
     InputStream is = RiTa.class.getResourceAsStream(Constants.DEFAULT_LTS);
-    try
-    {
+    try {
       if (is == null)
-        throw new Exception("No LTS rules found");
+	throw new Exception("No LTS rules found");
       loadText(is).close();
-    }
-    catch (Exception e)
-    {
+    } catch (Exception e) {
       throw new RiTaException(e);
     }
   }
@@ -143,10 +137,9 @@ public class LetterToSound implements Constants
    * @throws IOException
    *           if an error occurs on input.
    */
-  private InputStream loadText(InputStream is) throws IOException
-  {
+  private InputStream loadText(InputStream is) throws IOException {
     // TODO: compare perf. against parsing this with a JSON parser
-    
+
     BufferedReader reader;
     String line;
 
@@ -154,10 +147,9 @@ public class LetterToSound implements Constants
 
     reader = new BufferedReader(new InputStreamReader(is));
     line = reader.readLine();
-    while (line != null)
-    {
+    while (line != null) {
       if (!line.startsWith("***"))
-        parseAndAdd(line);
+	parseAndAdd(line);
       line = reader.readLine();
     }
 
@@ -171,10 +163,10 @@ public class LetterToSound implements Constants
   // voiced fricative
   // palatal constant
   public static boolean prohibitedOnset(String onset) {
-    
+
     return (Arrays.asList(impossOnsets).contains(onset));
   }
-  
+
   @SuppressWarnings("boxing")
   public String syllabify(String[] phones) {
 
@@ -183,20 +175,15 @@ public class LetterToSound implements Constants
 
     String sylls = E;
     int sonorityDistance = 2;
-    
+
     // store phonemes and tags
     String[][] ONCs = new String[phones.length][2];
 
     String[] type = new String[phones.length];
     for (int i = 0; i < phones.length; i++) {
-      String phone = phones[i].replaceAll("[102]", E);
-      if (!Phoneme.isVowel(phone)) {
-      //if (Phoneme.isVowel(phone)) {
-	type[i] = "consonant";
 
-      } else {
-	type[i] = "vowel";
-      }
+      String phone = phones[i].replaceAll("[102]", E);
+      type[i] = (!Phoneme.isVowel(phone)) ? "consonant" : "vowel";
     }
 
     int i = 0;
@@ -204,26 +191,35 @@ public class LetterToSound implements Constants
     boolean vowels = false;
 
     if (phones.length > 0) {
-     
+
       // until current phoneme is vowel, label current phoneme as onset
-      while (type[i] != "vowel") {
+      while (!type[i].equals("vowel")) {
+	
 	ONCs[i][0] = phones[i];
 	ONCs[i][1] = "O";// +index;
-	i++;
-	//tmp = phones[i].replaceAll("[102]", E);
+	
+	if (++i == phones.length) { // ADDED: (DCH) 1/14/16
+	  if (!RiTa.SILENT)
+	    System.err.println("[WARN] No vowel in LTS phonemes: ["+RiTa.join(phones)+"]");
+	  break;
+	}
       }
-      
+
       while (i < phones.length) {
 
 	if (phones[i].indexOf("1") == -1) {
+	  
 	  ONCs[i][0] = phones[i] + "0";
-	} else {
+	} 
+	else {
+	  
 	  ONCs[i][0] = phones[i];
 	}
+	
 	ONCs[i][1] = "N";// +index;
 	i++;
 	vowels = false;
-	
+
 	// if there are no more vowels in the word, label all remaining
 	// consonants and codas
 	for (int j = i; j < phones.length; j++) {
@@ -239,7 +235,7 @@ public class LetterToSound implements Constants
 	    i++;
 	  }
 	} else {
-	  
+
 	  // label all consonants before next vowel as onsets
 	  tmpOnset.clear();
 	  while (type[i] != "vowel") {
@@ -248,7 +244,7 @@ public class LetterToSound implements Constants
 	    tmpOnset.add(i);
 	    i++;
 	  }// until onset is legal, coda = coda + first phoneme of onset
-	  
+
 	  if (tmpOnset.size() > 1) {
 	    legalOnset = false;
 	    String currOnset = E;
@@ -266,9 +262,12 @@ public class LetterToSound implements Constants
 
 		legalOnset = true;
 		for (int k = 1; k < tmpOnset.size(); k++) {
-		  sonA = Phoneme.getSonority(phones[tmpOnset.get(k)].replaceAll("[102]", E));
-		  sonB = Phoneme.getSonority(phones[tmpOnset.get(k - 1)].replaceAll("[102]", E));
-		  if (Math.abs(sonA - sonB) >= sonorityDistance && sonA >= 0 && sonB >= 0) {
+		  sonA = Phoneme.getSonority(phones[tmpOnset.get(k)]
+		      .replaceAll("[102]", E));
+		  sonB = Phoneme.getSonority(phones[tmpOnset.get(k - 1)]
+		      .replaceAll("[102]", E));
+		  if (Math.abs(sonA - sonB) >= sonorityDistance && sonA >= 0
+		      && sonB >= 0) {
 		    continue;
 		  } else if (sonA == -1 || sonB == -1) {
 		    System.out.println("PHONEME NOT FOUND: "
@@ -297,7 +296,8 @@ public class LetterToSound implements Constants
       if (j > 0) {
 	prev = curr;
 	curr = ONCs[j][1];
-	if (prev.equals("C") && curr.equals("O") || prev.equals("N") && curr.equals("O")) {
+	if (prev.equals("C") && curr.equals("O") || prev.equals("N")
+	    && curr.equals("O")) {
 	  sylls += " " + ONCs[j][0];
 	} else {
 	  sylls += "-" + ONCs[j][0];
@@ -309,9 +309,9 @@ public class LetterToSound implements Constants
       }
     }
 
-    return sylls; 
+    return sylls;
   }
-  
+
   /**
    * Creates a word from the given input line and add it to the state machine.
    * It expects the TOTAL line to come before any of the states.
@@ -319,42 +319,33 @@ public class LetterToSound implements Constants
    * @param line
    *          the line of text from the input file
    */
-  protected void parseAndAdd(String aline)
-  {
+  protected void parseAndAdd(String aline) {
     String line = aline.replaceAll("(^'|',?)", E);
     StringTokenizer tokenizer = new StringTokenizer(line, " ");
     String type = tokenizer.nextToken();
 
-    if (type.equals(STATE) || type.equals(PHONE))
-    {
-      stateMachine[numStates++] = tokenizeOnLoad ? getState(type, tokenizer) : line;
-    }
-    else if (type.equals(INDEX))
-    {
+    if (type.equals(STATE) || type.equals(PHONE)) {
+      stateMachine[numStates++] = tokenizeOnLoad ? getState(type, tokenizer)
+	  : line;
+    } else if (type.equals(INDEX)) {
       int index = Integer.parseInt(tokenizer.nextToken());
       letterIndex.put(tokenizer.nextToken(), index);
-    }
-    else if (type.equals(TOTAL))
-    {
-      stateMachine = new Object[ Integer.parseInt(tokenizer.nextToken()) ];
+    } else if (type.equals(TOTAL)) {
+      stateMachine = new Object[Integer.parseInt(tokenizer.nextToken())];
     }
   }
 
-  private List findPhonemes() //  for documentation
+  private List findPhonemes() // for documentation
   {
     Set set = new HashSet();
-    for (int i = 0; i < stateMachine.length; i++)
-    {
-      if (stateMachine[i] instanceof FinalState)
-      {
-        FinalState fstate = (FinalState) stateMachine[i];
-        if (fstate.phoneList != null)
-        {
-          for (int j = 0; j < fstate.phoneList.length; j++)
-          {
-            set.add(fstate.phoneList[j]);
-          }
-        }
+    for (int i = 0; i < stateMachine.length; i++) {
+      if (stateMachine[i] instanceof FinalState) {
+	FinalState fstate = (FinalState) stateMachine[i];
+	if (fstate.phoneList != null) {
+	  for (int j = 0; j < fstate.phoneList.length; j++) {
+	    set.add(fstate.phoneList[j]);
+	  }
+	}
       }
     }
     return new ArrayList(set);
@@ -370,19 +361,14 @@ public class LetterToSound implements Constants
    * 
    * @return the <code>State</code> at the given index.
    */
-  protected State getState(int i)
-  {
+  protected State getState(int i) {
     State state = null;
-    if (stateMachine[i] instanceof String)
-    {
+    if (stateMachine[i] instanceof String) {
       state = getState((String) stateMachine[i]);
-      if (tokenizeOnLookup)
-      {
-        stateMachine[i] = state;
+      if (tokenizeOnLookup) {
+	stateMachine[i] = state;
       }
-    }
-    else
-    {
+    } else {
       state = (State) stateMachine[i];
     }
     return state;
@@ -396,8 +382,7 @@ public class LetterToSound implements Constants
    * 
    * @return the parsed <code>State</code>
    */
-  protected State getState(String s)
-  {
+  protected State getState(String s) {
     StringTokenizer tokenizer = new StringTokenizer(s, " ");
     return getState(tokenizer.nextToken(), tokenizer);
   }
@@ -413,18 +398,14 @@ public class LetterToSound implements Constants
    * 
    * @return the parsed <code>State</code>
    */
-  protected State getState(String type, StringTokenizer tokenizer)
-  {
-    if (type.equals(STATE))
-    {
+  protected State getState(String type, StringTokenizer tokenizer) {
+    if (type.equals(STATE)) {
       int index = Integer.parseInt(tokenizer.nextToken());
       String c = tokenizer.nextToken();
       int qtrue = Integer.parseInt(tokenizer.nextToken());
       int qfalse = Integer.parseInt(tokenizer.nextToken());
       return new DecisionState(index, c.charAt(0), qtrue, qfalse);
-    }
-    else if (type.equals(PHONE))
-    {
+    } else if (type.equals(PHONE)) {
       return new FinalState(tokenizer.nextToken());
     }
     return null;
@@ -438,28 +419,24 @@ public class LetterToSound implements Constants
    * 
    * @return the padded word
    */
-  protected char[] getFullBuff(String word)
-  {
+  protected char[] getFullBuff(String word) {
     char[] full_buff = new char[word.length() + (2 * WINDOW_SIZE)];
 
     // Make full_buff look like "000#word#000"
     //
-    for (int i = 0; i < (WINDOW_SIZE - 1); i++)
-    {
+    for (int i = 0; i < (WINDOW_SIZE - 1); i++) {
       full_buff[i] = '0';
     }
     full_buff[WINDOW_SIZE - 1] = '#';
     word.getChars(0, word.length(), full_buff, WINDOW_SIZE);
-    for (int i = 0; i < (WINDOW_SIZE - 1); i++)
-    {
+    for (int i = 0; i < (WINDOW_SIZE - 1); i++) {
       full_buff[full_buff.length - i - 1] = '0';
     }
     full_buff[full_buff.length - WINDOW_SIZE] = '#';
-    
+
     return full_buff;
   }
 
-  
   /**
    * Calculates the phone list for a given word. If a phone list cannot be
    * determined, <code>null</code> is returned. This particular implementation
@@ -470,70 +447,63 @@ public class LetterToSound implements Constants
    * 
    * @return the list of phones for word or <code>null</code>
    */
-  public String getPhones(String word)
-  {
+  public String getPhones(String word) {
     String result = cache.get(word); // check cache
     if (result == null) {
-    
+
       if (RiTa.PRINT_LTS_INFO && !RiTa.SILENT)
-        System.out.println("[INFO] Using LTS for '" + word + "'");
-  
+	System.out.println("[INFO] Using LTS for '" + word + "'");
+
       List<String> phoneList = new ArrayList<String>();
       State currentState;
       Integer startIndex;
       int stateIndex;
       char c;
-  
+
       // Create "000#word#000"
       char[] full_buff = getFullBuff(word);
-  
+
       // For each character in the word, create a WINDOW_SIZE
       // context on each size of the character, and then ask the
       // state machine what's next. Its magic
-      for (int pos = 0; pos < word.length(); pos++)
-      {
-        for (int i = 0; i < WINDOW_SIZE; i++)
-        {
-          fval_buff[i] = full_buff[pos + i];
-          fval_buff[i + WINDOW_SIZE] = full_buff[i + pos + 1 + WINDOW_SIZE];
-        }
-        c = word.charAt(pos);
-        startIndex = (Integer) letterIndex.get(Character.toString(c));
-        if (startIndex == null)
-        {
-          continue;
-        }
-  
-        stateIndex = startIndex.intValue();
-        currentState = getState(stateIndex);
-        while (!(currentState instanceof FinalState))
-        {
-          stateIndex = ((DecisionState) currentState).getNextState(fval_buff);
-          currentState = getState(stateIndex);
-        }
-  
-        ((FinalState) currentState).append((ArrayList<String>) phoneList);
-        //RiTa.out("phoneList: "+phoneList);      
+      for (int pos = 0; pos < word.length(); pos++) {
+	for (int i = 0; i < WINDOW_SIZE; i++) {
+	  fval_buff[i] = full_buff[pos + i];
+	  fval_buff[i + WINDOW_SIZE] = full_buff[i + pos + 1 + WINDOW_SIZE];
+	}
+	c = word.charAt(pos);
+	startIndex = (Integer) letterIndex.get(Character.toString(c));
+	if (startIndex == null) {
+	  continue;
+	}
+
+	stateIndex = startIndex.intValue();
+	currentState = getState(stateIndex);
+	while (!(currentState instanceof FinalState)) {
+	  stateIndex = ((DecisionState) currentState).getNextState(fval_buff);
+	  currentState = getState(stateIndex);
+	}
+
+	((FinalState) currentState).append((ArrayList<String>) phoneList);
+	// RiTa.out("phoneList: "+phoneList);
       }
-      
+
       result = syllabify(phoneList.toArray(new String[0]));
-      //result = result.replaceAll("ax","ah"); // added 12/22/15
-      
+      // result = result.replaceAll("ax","ah"); // added 12/22/15
+
       cache.put(word, result);
     }
-    
-    return result; 
+
+    return result;
   }
 
-  
   /**
    * A marker interface for the states in the LTS state machine.
    * 
    * @see DecisionState
    * @see FinalState
    */
-  static interface State
-  {
+  static interface State {
     public void writeBinary(DataOutputStream dos) throws IOException;
 
     public boolean compare(State other);
@@ -544,8 +514,7 @@ public class LetterToSound implements Constants
    * 
    * @see FinalState
    */
-  static class DecisionState implements State
-  {
+  static class DecisionState implements State {
     final static int TYPE = 1;
 
     int index;
@@ -568,8 +537,7 @@ public class LetterToSound implements Constants
      * @param qfalse
      *          the state to go to in the state machine on no match
      */
-    public DecisionState(int index, char c, int qtrue, int qfalse)
-    {
+    public DecisionState(int index, char c, int qtrue, int qfalse) {
       this.index = index;
       this.c = c;
       this.qtrue = qtrue;
@@ -584,8 +552,7 @@ public class LetterToSound implements Constants
      * 
      * @ret an index into the state machine.
      */
-    public int getNextState(char[] chars)
-    {
+    public int getNextState(char[] chars) {
       return (chars[index] == c) ? qtrue : qfalse;
     }
 
@@ -595,10 +562,10 @@ public class LetterToSound implements Constants
      * 
      * @return a <code>String</code> describing this <code>State</code>.
      */
-    public String toString()
-    {
-      return STATE + " " + Integer.toString(index) + " " + Character.toString(c) + " "
-          + Integer.toString(qtrue) + " " + Integer.toString(qfalse);
+    public String toString() {
+      return STATE + " " + Integer.toString(index) + " "
+	  + Character.toString(c) + " " + Integer.toString(qtrue) + " "
+	  + Integer.toString(qfalse);
     }
 
     /**
@@ -610,8 +577,7 @@ public class LetterToSound implements Constants
      * @throws IOException
      *           if an error occurs
      */
-    public void writeBinary(DataOutputStream dos) throws IOException
-    {
+    public void writeBinary(DataOutputStream dos) throws IOException {
       dos.writeInt(TYPE);
       dos.writeInt(index);
       dos.writeChar(c);
@@ -629,8 +595,7 @@ public class LetterToSound implements Constants
      * @throws IOException
      *           if an error occurs
      */
-    public static State loadBinary(DataInputStream dis) throws IOException
-    {
+    public static State loadBinary(DataInputStream dis) throws IOException {
       int index = dis.readInt();
       char c = dis.readChar();
       int qtrue = dis.readInt();
@@ -646,13 +611,11 @@ public class LetterToSound implements Constants
      * 
      * @return true if the states are equivalent
      */
-    public boolean compare(State other)
-    {
-      if (other instanceof DecisionState)
-      {
-        DecisionState otherState = (DecisionState) other;
-        return index == otherState.index && c == otherState.c
-            && qtrue == otherState.qtrue && qfalse == otherState.qfalse;
+    public boolean compare(State other) {
+      if (other instanceof DecisionState) {
+	DecisionState otherState = (DecisionState) other;
+	return index == otherState.index && c == otherState.c
+	    && qtrue == otherState.qtrue && qfalse == otherState.qfalse;
       }
       return false;
     }
@@ -664,8 +627,7 @@ public class LetterToSound implements Constants
    * 
    * @see DecisionState
    */
-  static class FinalState implements State
-  {
+  static class FinalState implements State {
     final static int TYPE = 2;
 
     String[] phoneList;
@@ -677,26 +639,19 @@ public class LetterToSound implements Constants
      * @param phones
      *          the phones for this state
      */
-    public FinalState(String phones)
-    {
-      if (phones.equals("epsilon"))
-      {
-        phoneList = null;
-      }
-      else
-      {
-        int i = phones.indexOf('-');
-        if (i != -1)
-        {
-          phoneList = new String[2];
-          phoneList[0] = phones.substring(0, i);
-          phoneList[1] = phones.substring(i + 1);
-        }
-        else
-        {
-          phoneList = new String[1];
-          phoneList[0] = phones;
-        }
+    public FinalState(String phones) {
+      if (phones.equals("epsilon")) {
+	phoneList = null;
+      } else {
+	int i = phones.indexOf('-');
+	if (i != -1) {
+	  phoneList = new String[2];
+	  phoneList[0] = phones.substring(0, i);
+	  phoneList[1] = phones.substring(i + 1);
+	} else {
+	  phoneList = new String[1];
+	  phoneList[0] = phones;
+	}
       }
     }
 
@@ -706,8 +661,7 @@ public class LetterToSound implements Constants
      * @param phones
      *          an array of phones for this state
      */
-    public FinalState(String[] phones)
-    {
+    public FinalState(String[] phones) {
       phoneList = phones;
     }
 
@@ -732,19 +686,13 @@ public class LetterToSound implements Constants
      * 
      * @return a <code>String</code> describing this <code>State</code>
      */
-    public String toString()
-    {
-      if (phoneList == null)
-      {
-        return PHONE + " epsilon";
-      }
-      else if (phoneList.length == 1)
-      {
-        return PHONE + " " + phoneList[0];
-      }
-      else
-      {
-        return PHONE + " " + phoneList[0] + "-" + phoneList[1];
+    public String toString() {
+      if (phoneList == null) {
+	return PHONE + " epsilon";
+      } else if (phoneList.length == 1) {
+	return PHONE + " " + phoneList[0];
+      } else {
+	return PHONE + " " + phoneList[0] + "-" + phoneList[1];
       }
     }
 
@@ -756,23 +704,18 @@ public class LetterToSound implements Constants
      * 
      * @return <code>true</code> if the states are equivalent
      */
-    public boolean compare(State other)
-    {
-      if (other instanceof FinalState)
-      {
-        FinalState otherState = (FinalState) other;
-        if (phoneList == null)
-        {
-          return otherState.phoneList == null;
-        }
-        for (int i = 0; i < phoneList.length; i++)
-        {
-          if (!phoneList[i].equals(otherState.phoneList[i]))
-          {
-            return false;
-          }
-        }
-        return true;
+    public boolean compare(State other) {
+      if (other instanceof FinalState) {
+	FinalState otherState = (FinalState) other;
+	if (phoneList == null) {
+	  return otherState.phoneList == null;
+	}
+	for (int i = 0; i < phoneList.length; i++) {
+	  if (!phoneList[i].equals(otherState.phoneList[i])) {
+	    return false;
+	  }
+	}
+	return true;
       }
       return false;
     }
@@ -786,33 +729,28 @@ public class LetterToSound implements Constants
      * @throws IOException
      *           if an error occurs
      */
-    public void writeBinary(DataOutputStream dos) throws IOException
-    {
+    public void writeBinary(DataOutputStream dos) throws IOException {
       dos.writeInt(TYPE);
-      if (phoneList == null)
-      {
-        dos.writeInt(0);
-      }
-      else
-      {
-        dos.writeInt(phoneList.length);
-        for (int i = 0; i < phoneList.length; i++)
-        {
-          dos.writeInt(phonemeTable.indexOf(phoneList[i]));
-        }
+      if (phoneList == null) {
+	dos.writeInt(0);
+      } else {
+	dos.writeInt(phoneList.length);
+	for (int i = 0; i < phoneList.length; i++) {
+	  dos.writeInt(phonemeTable.indexOf(phoneList[i]));
+	}
       }
     }
   }
-  
-  public static void main(String[] args)
-  {
+
+  public static void main(String[] args) {
     LetterToSound text = LetterToSound.getInstance();
     String phones = text.getPhones("washington");
-    System.out.println(phones +"\t\t"+(phones.equals("w-aa1 sh-ih0-ng t-ah0-n") ? "OK" : "FAIL"));
+    System.out.println(phones + "\t\t"
+	+ (phones.equals("w-aa1 sh-ih0-ng t-ah0-n") ? "OK" : "FAIL"));
 
-//    System.out.println(Arrays.asList(text.getPhones("laggin")));
-//    System.out.println(Arrays.asList(text.getPhones("dragon")));
-//    System.out.println(Arrays.asList(text.getPhones("hello")));
-//    System.out.println(Arrays.asList(text.getPhones("antelope", "n")));
+    // System.out.println(Arrays.asList(text.getPhones("laggin")));
+    // System.out.println(Arrays.asList(text.getPhones("dragon")));
+    // System.out.println(Arrays.asList(text.getPhones("hello")));
+    // System.out.println(Arrays.asList(text.getPhones("antelope", "n")));
   }
 }
