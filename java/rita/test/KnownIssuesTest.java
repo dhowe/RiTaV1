@@ -183,7 +183,8 @@ public class KnownIssuesTest implements Constants
   {
     equal(1,1);
     RiLexicon lex = new RiLexicon();
-    String[] failing = { "dog", "dragging", "mellow", "yoyo" };
+    String[] failing = { "dog", "dragging", "mellow", "yoyo", "yo", "hawaii", "california",
+	"elizabeth", "wikipedia" };
     for (int i = 0; i < failing.length; i++) {
       String phones = LetterToSound.getInstance().getPhones(failing[i]);
       String phones2 = lex.getRawPhones(failing[i], false);

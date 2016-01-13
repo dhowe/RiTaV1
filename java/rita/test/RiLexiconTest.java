@@ -12,6 +12,8 @@ import org.junit.Test;
 import rita.RiLexicon;
 import rita.RiTa;
 
+import rita.support.Phoneme;
+
 public class RiLexiconTest {
   
   static {
@@ -675,6 +677,17 @@ public class RiLexiconTest {
     ok(s.length() == 0);
 
     // start using LTS rules
+    // comparing results to 
+    // http://www.speech.cs.cmu.edu/cgi-bin/cmudict for arpabets
+    // http://lingorado.com/ipa/ for words not found in CMU dictionary above
+    // http://www.thefreedictionary.com/ for syllable 
+    
+    // s = lex.getRawPhones("yo", true); Moved to KnownIssues
+    // equal(s, "y-ow1");
+    
+    s = lex.getRawPhones("bing", true);
+    equal(s, "b-ih1-ng");
+    
     s = lex.getRawPhones("laggin", true);
     equal(s, "l-ae1 g-ih1-n");
 
@@ -684,20 +697,35 @@ public class RiLexiconTest {
     s = lex.getRawPhones("hello", true);
     equal(s, "hh-ah l-ow1");
 
-    s = lex.getRawPhones("washington", true);
-    equal(s, "w-aa1 sh-ih0-ng t-ah0-n");
-
     s = lex.getRawPhones("coder", true);
     equal(s, "k-ow1 d-er0");
 
     s = lex.getRawPhones("streamer", true);
     equal(s, "s-t-r-iy1 m-er0");
 
+    s = lex.getRawPhones("washington", true);
+    equal(s, "w-aa1 sh-ih0-ng t-ah0-n");
+    
+    // s = lex.getRawPhones("hawaii", true);
+    // equal(s, "hh-ah0 w-ay1 iy2"); // Moved to KnownIssues
+    
+    s = lex.getRawPhones("alaska", true);
+    equal(s, "ah0 l-ae1-s k-ah0");
+    
+    // s = lex.getRawPhones("wikipedia", true);
+    // equal(s, "w-ih1 k-iy0 p-iy2 d-iy2-ah0"); // Moved to KnownIssues
+    
+    // s = lex.getRawPhones("california", true);
+    // equal(s, "k-ae2 l-ah0 f-ao1-r n-y-ah0"); // Moved to KnownIssues
+    
+    // s = lex.getRawPhones("elizabeth", true);
+    // equal(s, "ih0 l-ih1-z ah0 b-ah0-th"); // Moved to KnownIssues
+
     // s = lex.lexImpl.getRawPhones("mellow", true);
-    // equal(s,"m-eh1-l ow"); Note: moved to KnownIssues
+    // equal(s,"m-eh1-l ow"); // Moved to KnownIssues
 
     // s = lex.getRawPhones("yoyo", true);
-    // equal(s, "y-oy1 y-ow0"); // Note: moved to KnownIssues
+    // equal(s, "y-oy1 y-ow0"); // Moved to KnownIssues
   }
 
   @Test
