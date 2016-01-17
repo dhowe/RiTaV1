@@ -89,8 +89,8 @@ public class PhonemeTests implements Constants {
     // test when to use 'ɑː' or 'æ' 
     // if 'ae1' replace 'ae1' with 'ɑː' instead of 'æ' with a few exceptions
     
-    String[] words = { "staff", "fast", "ask", "at", "thank", "that", "man" };
-    String[] results = { "stɑːf", "fɑːst", "ɑːsk", "æt", "θæŋk", "ðæt", "mæn" };
+    String[] words = { "staff", "fast", "ask", "at", "thank", "that", "man", "catnip" };
+    String[] results = { "stɑːf", "fɑːst", "ɑːsk", "æt", "θæŋk", "ðæt", "mæn", "ˈkætˈnɪp" };
 
     RiLexicon rl = new RiLexicon();
     for (int i = 0; i < words.length; i++) {
@@ -139,7 +139,7 @@ public class PhonemeTests implements Constants {
 
       // from http://web.stanford.edu/class/linguist238/fig04.01.pdf
       "p-aa1-r-s l-iy0", "ˈpɑɹs li", 
-      // "k-ae1-t n-ih0-p", "ˈkæt nɪp", 
+      "k-ae1-t n-ih0-p", "ˈkæt nɪp", 
       "b-ey1", "beɪ", 
       "d-ih1-l", "dɪl", 
       "g-aa1-r l-ih0-k", "ˈgɑɹ lɪk", 
@@ -148,14 +148,14 @@ public class PhonemeTests implements Constants {
       "jh-ih1-n s-eh2-ng", "ˈdʒɪn ˌsɛŋ", 
       "f-eh1 n-l", "ˈfɛ nl", 
       "s-ey1-jh", "seɪdʒ", 
-      // "hh ey1 z ah0 l n ah2 t", "ˈheɪzəlnʌt", 
+      // "hh-ey1 z-ah0-l n-ah2-t", "ˈheɪ zəl nʌt", 
       "s-k-w-aa1-sh", "skwɑʃ", 
       // "ae0 m b r ow1 zh ah0", "æmˈbroʊʒə", 
-      // "l ih1 k er0 ih0 sh", "ˈlɪkərɪʃ", 
+      // "l-ih1-k-er0-ih0-sh", "ˈlɪkərɪʃ", 
       "k-iy1 w-iy0", "ˈkiː wi",
       "y-uw1", "ju", 
-      // "hh-ao1-r-s r-ae2 d-ih0-sh", "ˈhɔɹs ræ dɪʃ", // amap.put("ae", "ɑː"); // ɑː or æ 
-      // "ah1 ow1", "ˈʌ ˈəʊ", // spacing issue after stress
+      "hh-ao1-r-s r-ae2 d-ih0-sh", "ˈhɔɹs ˌɹæ dɪʃ", // amap.put("ae", "ɑː"); // ɑː or æ 
+      "ah1 ow1", "ˈʌˈəʊ", // spacing issue after stress
       "b-ah1 t-er0", "ˈbʌ tə",
       "th-ih1-s ah0-l", "ˈθɪs əl",
 
@@ -186,7 +186,7 @@ public class PhonemeTests implements Constants {
 
       "ae1-t", "æt", 
       
-      // "f-ae1-s-t", "fæst",
+      "f-ae1-s-t", "fɑːst",
 
       "s-ey1", "seɪ", "ey1-t", "eɪt",
 
