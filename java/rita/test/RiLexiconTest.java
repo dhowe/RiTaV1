@@ -1,8 +1,6 @@
 package rita.test;
 
-import static rita.support.QUnitStubs.deepEqual;
-import static rita.support.QUnitStubs.equal;
-import static rita.support.QUnitStubs.ok;
+import static rita.support.QUnitStubs.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,13 +10,10 @@ import org.junit.Test;
 import rita.RiLexicon;
 import rita.RiTa;
 
-import rita.support.Phoneme;
-
 public class RiLexiconTest {
   
   static {
-    RiTa.SILENT = false;
-    RiLexicon.SILENCE_LTS = false;
+    RiTa.SILENT = RiLexicon.SILENCE_LTS = true;
   }
 
 /*// THIS CAUSES MAVEN TO FAIL
