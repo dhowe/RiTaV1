@@ -253,7 +253,8 @@ public abstract class Phoneme implements Constants {
         else if (arpaPhone.equals("ae") && arpaPhones.length > 2 // 'at'
             && !arpaPhones[i > 0 ? i-1 : i].equals("th") // e.g. for 'thank', 'ae1' is always 'æ'
             && !arpaPhones[i > 0 ? i-1 : i].equals("dh") // 'that'
-            && !arpaPhones[i > 0 ? i-1 : i].equals("m")) // 'man'
+            && !arpaPhones[i > 0 ? i-1 : i].equals("m") // 'man'
+            && !arpaPhones[i > 0 ? i-1 : i].equals("k")) // 'catnip'
           isAEStressed = true;
       }
       else if (stress == '2') {// secondary stress
