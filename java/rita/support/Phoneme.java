@@ -230,6 +230,7 @@ public abstract class Phoneme implements Constants {
     boolean secondarydStressed = false;
     boolean isIYStressed = false;
     boolean isAHStressed = false;
+    boolean isAEStressed = false;
     StringBuffer ipaSyl = new StringBuffer();
     
     String[] arpaPhones = arpaSyl.trim().split(RiTa.PHONEME_BOUNDARY);
@@ -249,6 +250,12 @@ public abstract class Phoneme implements Constants {
         
         if (arpaPhone.equals("iy")) isIYStressed = true;
         else if (arpaPhone.equals("ah")) isAHStressed = true;
+        else if (arpaPhone.equals("ae") && arpaPhones.length > 2 // 'at'
+            && !arpaPhones[i > 0 ? i-1 : i].equals("th") // e.g. for 'thank', 'ae1' is always 'æ'
+            && !arpaPhones[i > 0 ? i-1 : i].equals("dh") // 'that'
+            && !arpaPhones[i > 0 ? i-1 : i].equals("m") // 'man'
+            && !arpaPhones[i > 0 ? i-1 : i].equals("k")) // 'catnip'
+          isAEStressed = true;
       }
       else if (stress == '2') {// secondary stress
 	arpaPhone = arpaPhone.substring(0, arpaPhone.length() - 1);
@@ -259,8 +266,11 @@ public abstract class Phoneme implements Constants {
       
       if (isIYStressed) IPASyl += "ː";
       else if (isAHStressed) IPASyl = "ʌ";
+      else if (isAEStressed) IPASyl = "ɑː";
+      
       isIYStressed = false;
       isAHStressed = false;
+      isAEStressed = false;
       
       ipaSyl.append(IPASyl);
     }
