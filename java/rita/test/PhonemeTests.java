@@ -44,7 +44,7 @@ public class PhonemeTests implements Constants {
       /*
       // test without stresses
       tests[i] = tests[i].replaceAll("[\\d]", "");
-      String noStress = tests[i + 1].replaceAll(Phoneme.IPA_STRESS, "");
+      String noStress = tests[i + 1].replaceAll(Phoneme.IPA_STRESS, " ");
       ipa = Phoneme.arpaToIPA(tests[i]);
       System.out.println("expected " + noStress + ", got " + ipa);
       equal(noStress, ipa);
@@ -144,131 +144,77 @@ public class PhonemeTests implements Constants {
       "d-ih1-l", "dɪl", 
       "g-aa1-r l-ih0-k", "ˈgɑɹ lɪk", 
       "m-ih1-n-t", "mɪnt", 
-      "n-ah1-t m-eh2-g", "ˈnʌt ˌmɛg", 
-      "jh-ih1-n s-eh2-ng", "ˈdʒɪn ˌsɛŋ", 
+      "n-ah1-t m-eh2-g", "ˈnʌtˌmɛg", 
+      "jh-ih1-n s-eh2-ng", "ˈdʒɪnˌsɛŋ", 
       "f-eh1 n-l", "ˈfɛ nl", 
       "s-ey1-jh", "seɪdʒ", 
-      // "hh-ey1 z-ah0-l n-ah2-t", "ˈheɪ zəl nʌt", 
+      "hh-ey1 z-ah0-l n-ah2-t", "ˈheɪ zəlˌnʌt", 
       "s-k-w-aa1-sh", "skwɑʃ", 
-      // "ae0 m b r ow1 zh ah0", "æmˈbroʊʒə", 
-      // "l-ih1-k-er0-ih0-sh", "ˈlɪkərɪʃ", 
+      "ae0-m b-r-ow1 zh-ah0", "æmˈbɹəʊ ʒə", 
+      "l-ih1 k-r ih0-sh", "ˈlɪ kɹ ɪʃ", 
       "k-iy1 w-iy0", "ˈkiː wi",
       "y-uw1", "ju", 
-      "hh-ao1-r-s r-ae2 d-ih0-sh", "ˈhɔɹs ˌɹæ dɪʃ", // amap.put("ae", "ɑː"); // ɑː or æ 
-      "ah1 ow1", "ˈʌˈəʊ", // spacing issue after stress
+      "hh-ao1-r-s r-ae2 d-ih0-sh", "ˈhɔɹsˌɹæ dɪʃ",
+      "ah1 ow", "ˈʌ əʊ",
       "b-ah1 t-er0", "ˈbʌ tə",
       "th-ih1-s ah0-l", "ˈθɪs əl",
 
       // from https://en.wikipedia.org/wiki/arpabet
       "ao1-f", "ɔf", 
-      
       "f-ao1-l", "fɔl", "f-r-ao1-s-t", "fɹɔst",
-
       "f-aa1 dh-er", "ˈfɑ ðə", "k-aa1-t", "kɑt",
-
       "b-iy1", "biː", "sh-iy1", "ʃiː",
-
       "y-uw1", "ju", "n-uw1", "nu", "f-uw1-d", "fud",
-
       "r-eh1-d", "ɹɛd", "m-eh1-n", "mɛn",
-
       "b-ih1-g", "bɪg", "w-ih1-n", "wɪn",
-
       "sh-uh1-d", "ʃʊd", "k-uh1-d", "kʊd",
-
       "b-ah1-t", "bʌt", "s-ah1-n", "sʌn",
-
       "s-ow1 f-ah0", "ˈsəʊ fə", 
-      
       "ah0 l-ow1-n", "əˈləʊn",
-      
       "d-ih0 s-k-ah1-s", "dɪˈskʌs",
-
       "ae1-t", "æt", 
-      
       "f-ae1-s-t", "fɑːst",
-
       "s-ey1", "seɪ", "ey1-t", "eɪt",
-
       "m-ay1", "maɪ", "w-ay1", "waɪ", "r-ay1-d", "ɹaɪd",
-
       "sh-ow1", "ʃəʊ", "k-ow1-t", "kəʊt",
-
       "hh-aw1", "haʊ", "n-aw1", "naʊ",
-
       "b-oy1", "bɔɪ", "t-oy1", "tɔɪ",
-
       "hh-er0", "hə", "b-er1-d", "bəd", "hh-er1-t", "hət", 
-      
       "n-er1-s", "nəs",
-
       "k-aw1 er-d", "ˈkaʊ əd",
-
       "eh1-r", "ɛɹ", "w-eh1-r", "wɛɹ", "hh-eh1-r", "hɛɹ",
-
       "k-y-uh1-r", "kjʊɹ", "b-y-uh1 r-ow0", "ˈbjʊ ɹəʊ", 
-      
       "d-ih0 t-er1", "dɪˈtə",
-
       "m-ao1-r", "mɔɹ", "b-ao1-r-d", "bɔɹd", "k-ao1-r-d", "kɔɹd",
-
       "l-aa1-r-jh", "lɑɹdʒ", "hh-aa1-r-d", "hɑɹd",
-
       "iy1-r", "iːɹ", "n-ih1-r", "nɪɹ",
-
       "f-l-aw1 r", "ˈflaʊ ɹ",
-
       "p-ey1", "peɪ", "b-ay1", "baɪ", "t-ey1-k", "teɪk", "d-ey1", "deɪ",
       "k-iy1", "kiː", "g-ow1", "gəʊ",
-
       "ch-eh1-r", "tʃɛɹ",
-
       "jh-ah1-s-t", "dʒʌst", "jh-ih1-m", "dʒɪm",
-
       "f-ao1-r", "fɔɹ",
-
       "v-eh1 r-iy0", "ˈvɛ ɹi",
-
       "th-ae1-ng-k-s", "θæŋks", // // ɑː or æ 
-      
-      "th-er1-z d-ey2", "ˈθəz ˌdeɪ", // or "ˈθɜrzdi"
-
+      "th-er1-z d-ey2", "ˈθəzˌdeɪ", // or "ˈθɜrzdi"
       "dh-ae1-t", "ðæt", // ɑː or æ 
-      
       "dh-ah0", "ðə", 
-      
       "dh-eh1-m", "ðɛm",
-
       "s-ey1", "seɪ",
-
       "z-uw1", "zu",
-
       "sh-ow1", "ʃəʊ",
-
       "m-eh1 zh-er0", "ˈmɛ ʒə", 
-      
       "p-l-eh1 zh-er", "ˈplɛ ʒə",
-
       "hh-aw1-s", "haʊs",
-
       "m-ae1-n", "mæn",
-      
       "n-ow1", "nəʊ", 
-      
       "b-ah1 t-ah0-n", "ˈbʌ tən", 
-      
       "s-ih1-ng", "sɪŋ",
-
       "l-ey1-t", "leɪt", 
-      
       "b-aa1-t ah0-l", "ˈbɑt əl", 
-      
       "r-ah1-n", "ɹʌn",
-
       "y-eh1-s", "jɛs", 
-      
       "w-ey1", "weɪ" };
-
 
   public static void main(String[] args) {
 

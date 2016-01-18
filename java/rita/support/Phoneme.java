@@ -216,7 +216,7 @@ public abstract class Phoneme implements Constants {
     for (int i = 0; i < syllables.length; i++) {
       
       String ipa = syllableToIPA(syllables[i], needStress);
-      if (ipaPhones.length() > 0 && !ipa.startsWith(IPA_STRESS))
+      if (ipaPhones.length() > 0 && !ipa.startsWith(IPA_STRESS) && !ipa.startsWith(IPA_2NDSTRESS))
 	ipa = " " + ipa;
       ipaPhones.append(ipa);
     }
@@ -260,6 +260,8 @@ public abstract class Phoneme implements Constants {
       else if (stress == '2') {// secondary stress
 	arpaPhone = arpaPhone.substring(0, arpaPhone.length() - 1);
 	secondarydStressed = true;
+	
+	if (arpaPhone.equals("ah")) isAHStressed = true;
       }
       
       String IPASyl = phoneToIPA(arpaPhone);
