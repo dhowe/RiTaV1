@@ -228,9 +228,14 @@ public abstract class Phoneme implements Constants {
 
     boolean primarystressed = false;
     boolean secondarydStressed = false;
-    boolean isIYStressed = false;
+    
+    // handle stressed vowel syllables see https://github.com/dhowe/RiTa/issues/296
     boolean isAAStressed = false;
+    boolean isERStressed = false;
+    boolean isIYStressed = false;
+    boolean isAOStressed = false;
     boolean isUWStressed = false;
+    
     boolean isAHStressed = false;
     boolean isAEStressed = false;
     StringBuffer ipaSyl = new StringBuffer();
@@ -250,9 +255,12 @@ public abstract class Phoneme implements Constants {
         arpaPhone = arpaPhone.substring(0, arpaPhone.length() - 1);
         primarystressed = true;
 
-        if (arpaPhone.equals("iy")) isIYStressed = true;
-        else if (arpaPhone.equals("aa")) isAAStressed = true;
+        if (arpaPhone.equals("aa")) isAAStressed = true;
+        else if (arpaPhone.equals("er")) isUWStressed = true;
+        else if (arpaPhone.equals("iy")) isIYStressed = true;
+        else if (arpaPhone.equals("ao")) isUWStressed = true;
         else if (arpaPhone.equals("uw")) isUWStressed = true;
+        
         else if (arpaPhone.equals("ah")) isAHStressed = true;
         else if (arpaPhone.equals("ae") && arpaPhones.length > 2 // 'at'
             && !arpaPhones[i > 0 ? i-1 : i].equals("th") // e.g. for 'thank', 'ae1' is always 'æ'
@@ -270,13 +278,18 @@ public abstract class Phoneme implements Constants {
       
       String IPASyl = phoneToIPA(arpaPhone);
       
-      if (isIYStressed || isAAStressed || isUWStressed) IPASyl += "ː";
+      if (isAAStressed || isERStressed|| isIYStressed 
+	  || isAOStressed || isUWStressed) IPASyl += "ː";
+      
       else if (isAHStressed) IPASyl = "ʌ";
       else if (isAEStressed) IPASyl = "ɑː";
       
-      isIYStressed = false;
       isAAStressed = false;
+      isERStressed = false;
+      isIYStressed = false;
+      isAOStressed = false;
       isUWStressed = false;
+      
       isAHStressed = false;
       isAEStressed = false;
       
