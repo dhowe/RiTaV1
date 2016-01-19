@@ -58,13 +58,50 @@ public class KnownIssuesTest implements Constants
   
   @Test
   public void testLTS() 
-  {
-    // TODO: these all fail -> CYRUS (create another array with the correct results) 
-    String[] fails = { "be","bed","bled","break","bred","brooch","eyed","fed","fled","floors","great","guests","guise","he","keyed","led","me","noun","poured","purrs","red","rein","reined","rouge","rough","roughed","say","scares","scenes","scour","scoured","scours","seized","serge","she","shed","shred","sleight","slough","souls","sped","squared","squeak","stares","steak","suede","sure","tear","through","touch","touched","tough","toughs","we","wed","whoosh","yes","youth","youths" };
+  {    
+    String[] fails = { 
+	"be", "bed", "bled", "break", 
+	"bred", "brooch", "eyed", "fed", 
+	"fled", "floors", "great", "guests", 
+	"guise", "he", "keyed", "led", 
+	"me", "noun", "poured", "purrs", 
+	"red", "rein", "reined", "rouge", 
+	"rough", "roughed", "say", "scares", 
+	"scenes", "scour", "scoured", "scours", 
+	"seized", "serge", "she", "shed", 
+	"shred", "sleight", "slough", "souls", 
+	"sped", "squared", "squeak", "stares", 
+	"steak", "suede", "sure", "tear", 
+	"through", "touch", "touched", "tough", 
+	"toughs", "we", "wed", "whoosh", 
+	"yes", "youth", "youths",
+	};
+    
+    String[] expectedResults = {
+	"b-iy", "b-eh-d", "b-l-eh-d", "b-r-ey-k", 
+	"b-r-eh-d", "b-r-uw-ch", "ay-d", "f-eh-d", 
+	"f-l-eh-d", "f-l-ao-r-z", "g-r-ey-t", "g-eh-s-t-s", 
+	"g-ay-z", "hh-iy", "k-iy-d", "l-eh-d", 
+	"m-iy", "n-aw-n", "p-ao-r-d", "p-er-z", 
+	"r-eh-d", "r-ey-n", "r-ey-n-d", "r-uw-zh", 
+	"r-ah-f", "r-ah-f-t", "s-ey", "s-k-eh-r-z", 
+	"s-iy-n-z", "s-k-aw er", "s-k-aw er-d", "s-k-aw er-z", 
+	"s-iy-z-d", "s-er-jh", "sh-iy", "sh-eh-d", 
+	"sh-r-eh-d", "s-l-ay-t", "s-l-ah-f", "s-ow-l-z", 
+	"s-p-eh-d", "s-k-w-eh-r-d", "s-k-w-iy-k", "s-t-eh-r-z", 
+	"s-t-ey-k", "s-w-ey-d", "sh-uh-r", "t-eh-r", 
+	"th-r-uw", "t-ah-ch", "t-ah-ch-t", "t-ah-f", 
+	"t-ah-f-s", "w-iy", "w-eh-d", "w-uw-sh", 
+	"y-eh-s", "y-uw-th", "y-uw-dh-z",
+	};
 
     RiLexicon.enabled = false; 
-    String phones = RiTa.getPhonemes("youths");
-    equal("y-uw-th-z", phones);
+    
+    for (int i = 0; i < fails.length; i++) {
+      String phones = RiTa.getPhonemes(fails[i]);
+      equal(expectedResults[i], phones);
+    }
+    
     RiLexicon.enabled = true;    
   }
   
