@@ -455,7 +455,8 @@ public class RiLexicon implements Constants {
 
       String lspA = lastStressedVowelPhonemeToEnd(wordA, useLTS);
       String lspB = lastStressedVowelPhonemeToEnd(wordB, useLTS);
-
+      
+      
       if (dbug)
 	System.out.println("RiLexicon.isRhyme('" + lspA + "' ?= '" + lspB
 	    + "') ->");
@@ -812,7 +813,7 @@ public class RiLexicon implements Constants {
       }
     }
 
-    //System.out.println(word + " " + raw + " last:" + lastSyllable + " idx=" + idx + " result:" + lastSyllable.substring(idx));
+//    System.out.println(word + " " + raw + " last:" + lastSyllable + " idx=" + idx + " result:" + lastSyllable.substring(idx));
     
     return lastSyllable.substring(idx);
   }
@@ -824,7 +825,7 @@ public class RiLexicon implements Constants {
     boolean dbug = false;
 
     String raw = getRawPhones(word, useLTS);
-    if (raw == null)
+    if (raw == null || raw == "")
       return null;
 
     if (dbug)
@@ -834,9 +835,15 @@ public class RiLexicon implements Constants {
 
     if (dbug)
       System.out.print("idx=" + idx);
-
+    
+    //if only one syllable, return all
+    String[] syllables = raw.split(" ");
+    if(idx < 0 && syllables.length == 1)
+      return raw;
+    
     if (idx < 0)
       return null;
+    
 
     /*
      * if (idx == raw.length()-1) { // edge case

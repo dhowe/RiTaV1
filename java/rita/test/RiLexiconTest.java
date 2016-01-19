@@ -779,7 +779,7 @@ public class RiLexiconTest {
     ok(lex.isRhyme("toy", "hoy", true)); // using LTS engine
     
     ok(!lex.isRhyme("yo", "bro", false)); 
-    //ok(lex.isRhyme("yo", "bro", true)); // added to known-issues
+    ok(lex.isRhyme("yo", "bro", true)); // using LTS engine
 
     ok(!lex.isRhyme("swag", "grab", false));
     ok(!lex.isRhyme("swag", "grab", true)); // using LTS engine
@@ -805,7 +805,10 @@ public class RiLexiconTest {
 	"apple", "chapel",
 	"libel", "tribal",
 	"bugle", "frugal",
-	"arrested", "contested"
+	"arrested", "contested",
+	"savage", "ravage",
+	"savage", "disparage",
+	"savage", "cabbage"
     };
 
     for (int i = 0; i < rhymes.length; i += 2) {
