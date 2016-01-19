@@ -18,7 +18,7 @@ public class PhonemeTests implements Constants {
 	"should", "say", "how", "now", "coat", "ratio", "trade", "treat", "begin",
 	"end", "encounter", "range", "step"
     };
-    String[] results = { "bɪˈkʌm", "ˈpɑɹs li", "ˈgɑɹ lɪk", "fɔl", "fɹɔst", "ju", "ˈgəʊ ɪŋ",
+    String[] results = { "bɪˈkʌm", "ˈpɑːɹs li", "ˈgɑːɹ lɪk", "fɔl", "fɹɔst", "juː", "ˈgəʊ ɪŋ",
 	"ʃʊd", "seɪ", "haʊ", "naʊ", "kəʊt", "ˈɹeɪ ʃi əʊ", "tɹeɪd", "tɹiːt", "bɪˈgɪn",
 	"ɛnd", "ɪnˈkaʊn tə", "ɹeɪndʒ", "stɛp"
     };
@@ -54,8 +54,7 @@ public class PhonemeTests implements Constants {
   }
   
   @Test
-  public void testStressedIYSyl() {
-    
+  public void testStreeedSyl() {
     // test words contains iy1 syllable
     String[] words = { "treat", "eve", "evening", "exceed" };
     String[] results = { "tɹiːt", "iːv", "ˈiːv nɪŋ", "ɪkˈsiːd" };
@@ -65,6 +64,26 @@ public class PhonemeTests implements Constants {
       String data = rl.getRawPhones(words[i], true);
       // System.out.println(i + ") " + words[i] + " -> " + data + " -> " + results[i]);
       equal(results[i], Phoneme.arpaToIPA(data));
+    }
+    
+    // test aa1
+    String[] words1 = { "partisan" };
+    String[] results1 = { "ˈpɑːɹ tə zən" };
+
+    for (int i = 0; i < words1.length; i++) {
+      String data = rl.getRawPhones(words1[i], true);
+      // System.out.println(i + ") " + words[i] + " -> " + data + " -> " + results[i]);
+      equal(results1[i], Phoneme.arpaToIPA(data));
+    }
+    
+    // test uw1
+    String[] words2 = { "illusory" };
+    String[] results2 = { "ɪˈluː sə i" };
+
+    for (int i = 0; i < words2.length; i++) {
+      String data = rl.getRawPhones(words2[i], true);
+      // System.out.println(i + ") " + words[i] + " -> " + data + " -> " + results[i]);
+      equal(results2[i], Phoneme.arpaToIPA(data));
     }
   }
   
@@ -139,22 +158,22 @@ public class PhonemeTests implements Constants {
       //"b-ih k-ah1-m", "bɪˈkʌm",
 
       // from http://web.stanford.edu/class/linguist238/fig04.01.pdf
-      "p-aa1-r-s l-iy0", "ˈpɑɹs li", 
+      "p-aa1-r-s l-iy0", "ˈpɑːɹs li", 
       "k-ae1-t n-ih0-p", "ˈkæt nɪp", 
       "b-ey1", "beɪ", 
       "d-ih1-l", "dɪl", 
-      "g-aa1-r l-ih0-k", "ˈgɑɹ lɪk", 
+      "g-aa1-r l-ih0-k", "ˈgɑːɹ lɪk", 
       "m-ih1-n-t", "mɪnt", 
       "n-ah1-t m-eh2-g", "ˈnʌtˌmɛg", 
       "jh-ih1-n s-eh2-ng", "ˈdʒɪnˌsɛŋ", 
       "f-eh1 n-l", "ˈfɛ nl", 
       "s-ey1-jh", "seɪdʒ", 
       "hh-ey1 z-ah0-l n-ah2-t", "ˈheɪ zəlˌnʌt", 
-      "s-k-w-aa1-sh", "skwɑʃ", 
+      "s-k-w-aa1-sh", "skwɑːʃ", 
       "ae0-m b-r-ow1 zh-ah0", "æmˈbɹəʊ ʒə", 
       "l-ih1 k-r ih0-sh", "ˈlɪ kɹ ɪʃ", 
       "k-iy1 w-iy0", "ˈkiː wi",
-      "y-uw1", "ju", 
+      "y-uw1", "juː", 
       "hh-ao1-r-s r-ae2 d-ih0-sh", "ˈhɔɹsˌɹæ dɪʃ",
       "ah1 ow", "ˈʌ əʊ",
       "b-ah1 t-er0", "ˈbʌ tə",
@@ -163,9 +182,9 @@ public class PhonemeTests implements Constants {
       // from https://en.wikipedia.org/wiki/arpabet
       "ao1-f", "ɔf", 
       "f-ao1-l", "fɔl", "f-r-ao1-s-t", "fɹɔst",
-      "f-aa1 dh-er", "ˈfɑ ðə", "k-aa1-t", "kɑt",
+      "f-aa1 dh-er", "ˈfɑː ðə", "k-aa1-t", "kɑːt",
       "b-iy1", "biː", "sh-iy1", "ʃiː",
-      "y-uw1", "ju", "n-uw1", "nu", "f-uw1-d", "fud",
+      "n-uw1", "nuː", "f-uw1-d", "fuːd",
       "r-eh1-d", "ɹɛd", "m-eh1-n", "mɛn",
       "b-ih1-g", "bɪg", "w-ih1-n", "wɪn",
       "sh-uh1-d", "ʃʊd", "k-uh1-d", "kʊd",
@@ -187,7 +206,7 @@ public class PhonemeTests implements Constants {
       "k-y-uh1-r", "kjʊɹ", "b-y-uh1 r-ow0", "ˈbjʊ ɹəʊ", 
       "d-ih0 t-er1", "dɪˈtə",
       "m-ao1-r", "mɔɹ", "b-ao1-r-d", "bɔɹd", "k-ao1-r-d", "kɔɹd",
-      "l-aa1-r-jh", "lɑɹdʒ", "hh-aa1-r-d", "hɑɹd",
+      "l-aa1-r-jh", "lɑːɹdʒ", "hh-aa1-r-d", "hɑːɹd",
       "iy1-r", "iːɹ", "n-ih1-r", "nɪɹ",
       "f-l-aw1 r", "ˈflaʊ ɹ",
       "p-ey1", "peɪ", "b-ay1", "baɪ", "t-ey1-k", "teɪk", "d-ey1", "deɪ",
@@ -202,7 +221,7 @@ public class PhonemeTests implements Constants {
       "dh-ah0", "ðə", 
       "dh-eh1-m", "ðɛm",
       "s-ey1", "seɪ",
-      "z-uw1", "zu",
+      "z-uw1", "zuː",
       "sh-ow1", "ʃəʊ",
       "m-eh1 zh-er0", "ˈmɛ ʒə", 
       "p-l-eh1 zh-er", "ˈplɛ ʒə",
@@ -212,7 +231,7 @@ public class PhonemeTests implements Constants {
       "b-ah1 t-ah0-n", "ˈbʌ tən", 
       "s-ih1-ng", "sɪŋ",
       "l-ey1-t", "leɪt", 
-      "b-aa1-t ah0-l", "ˈbɑt əl", 
+      "b-aa1-t ah0-l", "ˈbɑːt əl", 
       "r-ah1-n", "ɹʌn",
       "y-eh1-s", "jɛs", 
       "w-ey1", "weɪ" };

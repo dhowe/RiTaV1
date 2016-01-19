@@ -731,9 +731,9 @@ public class RiTaTest
     
     String[] words = {
 	"become", "bɪˈkʌm",
-	"parsley", "ˈpɑɹs li",
+	"parsley", "ˈpɑːɹs li",
 	"catnip", "ˈkætˈnɪp",
-	"garlic", "ˈgɑɹ lɪk",
+	"garlic", "ˈgɑːɹ lɪk",
 	"dill", "dɪl",
     };
 
@@ -759,9 +759,9 @@ public class RiTaTest
     
     String[] outputs = {
 	"bɪˈkʌm",
-	"ˈpɑɹs li",
+	"ˈpɑːɹs li",
 	"ˈkætˈnɪp",
-	"ˈgɑɹ lɪk",
+	"ˈgɑːɹ lɪk",
 	"dɪl",
     };
     
