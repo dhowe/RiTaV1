@@ -444,28 +444,25 @@ public class RiLexicon implements Constants {
   public boolean isRhyme(String wordA, String wordB, boolean useLTS) {
     boolean dbug = false;
 
-    if (dbug)
-      System.out.println("RiLexicon.isRhyme('" + wordA + "' ?= '" + wordB
-	  + "') ->");
+    if (dbug) System.out.println("RiLexicon.isRhyme('" + wordA + "' ?= '" + wordB + "') ->");
     
     boolean result = false;
     String phonesA = getRawPhones(wordA, useLTS);
     String phonesB = getRawPhones(wordB, useLTS);
+    
     if (wordA != null && wordB != null && !wordB.equalsIgnoreCase(wordA) &&  !phonesB.equals(phonesA)) {
 
       String lspA = lastStressedVowelPhonemeToEnd(wordA, useLTS);
       String lspB = lastStressedVowelPhonemeToEnd(wordB, useLTS);
       
+      if (dbug) System.out.println("RiLexicon.isRhyme('" + lspA + "' ?= '" + lspB + "') ->");
       
-      if (dbug)
-	System.out.println("RiLexicon.isRhyme('" + lspA + "' ?= '" + lspB
-	    + "') ->");
       if (lspA != null && lspB != null && lspA.equals(lspB))
 	result = true;
     }
 
-    if (dbug)
-      System.out.println("  " + result);
+    if (dbug) System.out.println("  " + result);
+    
     return result;
   }
 
@@ -554,7 +551,7 @@ public class RiLexicon implements Constants {
     // System.out.println("TARGET: "+RiTa.asList(targetPhones));
 
     for (Iterator<String> i = lexImpl.iterator(); i.hasNext();) {
-      String candidate = (String) i.next();
+      String candidate = i.next();
       String[] phones = lexImpl.getPhonemeArr(candidate, false);
 
       int med = minEditDist.computeRaw(phones, targetPhones);
@@ -650,8 +647,8 @@ public class RiLexicon implements Constants {
   }
 
   public void substrings(String input, Set result, int minLength) {
-    if (minLength < 0)
-      minLength = MATCH_MIN_LENGTH;
+    
+    if (minLength < 0) minLength = MATCH_MIN_LENGTH;
 
     // List partials = getPartialCandidates(input, minLength);
     for (Iterator j = lexImpl.iterator(); j.hasNext();) {
@@ -680,8 +677,8 @@ public class RiLexicon implements Constants {
   }
 
   public void superstrings(String input, Set result, int minLength) {
-    if (minLength < 0)
-      minLength = MATCH_MIN_LENGTH;
+    
+    if (minLength < 0) minLength = MATCH_MIN_LENGTH;
 
     for (Iterator j = lexImpl.iterator(); j.hasNext();) {
       String candidate = (String) j.next();
@@ -711,10 +708,6 @@ public class RiLexicon implements Constants {
   }
 
   // PRIVATES
-
-  private String firstStressedSyllable(String word) {
-    return firstStressedSyllable(word, false);
-  }
 
   private String firstStressedSyllable(String word, boolean useLTS) {
     
@@ -787,14 +780,10 @@ public class RiLexicon implements Constants {
 
   /*
    * Includes the last stressed vowel and all subsequent phonemes
-   * If none is found, return null(?) 
-   * 
-   * TODO: Cyrus
+   * If none is found, return null 
    */
   public String lastStressedVowelPhonemeToEnd(String word, boolean useLTS) {
     
-    boolean dbug = false;
-
     String raw = lastStressedPhoneToEnd(word, useLTS);
     if (raw == null)
       return null;
