@@ -18,7 +18,7 @@ public class PhonemeTests implements Constants {
 	"should", "say", "how", "now", "coat", "ratio", "trade", "treat", "begin",
 	"end", "encounter", "range", "step"
     };
-    String[] results = { "bɪˈkʌm", "ˈpɑːɹs li", "ˈgɑːɹ lɪk", "fɔl", "fɹɔst", "juː", "ˈgəʊ ɪŋ",
+    String[] results = { "bɪˈkʌm", "ˈpɑːɹs li", "ˈgɑːɹ lɪk", "fɔːl", "fɹɔːst", "juː", "ˈgəʊ ɪŋ",
 	"ʃʊd", "seɪ", "haʊ", "naʊ", "kəʊt", "ˈɹeɪ ʃi əʊ", "tɹeɪd", "tɹiːt", "bɪˈgɪn",
 	"ɛnd", "ɪnˈkaʊn tə", "ɹeɪndʒ", "stɛp"
     };
@@ -54,36 +54,29 @@ public class PhonemeTests implements Constants {
   }
   
   @Test
-  public void testStreeedSyl() {
-    // test words contains iy1 syllable
-    String[] words = { "treat", "eve", "evening", "exceed" };
-    String[] results = { "tɹiːt", "iːv", "ˈiːv nɪŋ", "ɪkˈsiːd" };
+  public void testStressedVowelSyl() {
+    // handle stressed vowel syllables  
+
+    String[] words = { 
+	"partisan", "afar", "ah",			// aa1
+	"absurd", "adverse", "alert",			// er1
+	"treat", "eve", "evening", "exceed",		// iy1
+	"adjourn", "adore", "advertorial",		// ao1
+	"illusory", "aloof", "amuse"};			// uw1
+    
+    // compare the result on http://www.thefreedictionary.com/
+    String[] results = { 
+	"ˈpɑːɹ tə zən", "əˈfɑːɹ", "ɑː",
+	"əbˈsəːd", "ædˈvəːs", "əˈləːt",
+	"tɹiːt", "iːv", "ˈiːv nɪŋ", "ɪkˈsiːd",
+	"əˈdʒəːn", "əˈdɔːɹ", "æd vəˈtɔː ɹi əl",
+	"ɪˈluː sə i", "əˈluːf", "əˈmjuːz"};
 
     RiLexicon rl = new RiLexicon();
     for (int i = 0; i < words.length; i++) {
       String data = rl.getRawPhones(words[i], true);
       // System.out.println(i + ") " + words[i] + " -> " + data + " -> " + results[i]);
       equal(results[i], Phoneme.arpaToIPA(data));
-    }
-    
-    // test aa1
-    String[] words1 = { "partisan" };
-    String[] results1 = { "ˈpɑːɹ tə zən" };
-
-    for (int i = 0; i < words1.length; i++) {
-      String data = rl.getRawPhones(words1[i], true);
-      // System.out.println(i + ") " + words[i] + " -> " + data + " -> " + results[i]);
-      equal(results1[i], Phoneme.arpaToIPA(data));
-    }
-    
-    // test uw1
-    String[] words2 = { "illusory" };
-    String[] results2 = { "ɪˈluː sə i" };
-
-    for (int i = 0; i < words2.length; i++) {
-      String data = rl.getRawPhones(words2[i], true);
-      // System.out.println(i + ") " + words[i] + " -> " + data + " -> " + results[i]);
-      equal(results2[i], Phoneme.arpaToIPA(data));
     }
   }
   
@@ -174,14 +167,14 @@ public class PhonemeTests implements Constants {
       "l-ih1 k-r ih0-sh", "ˈlɪ kɹ ɪʃ", 
       "k-iy1 w-iy0", "ˈkiː wi",
       "y-uw1", "juː", 
-      "hh-ao1-r-s r-ae2 d-ih0-sh", "ˈhɔɹsˌɹæ dɪʃ",
+      "hh-ao1-r-s r-ae2 d-ih0-sh", "ˈhɔːɹsˌɹæ dɪʃ",
       "ah1 ow", "ˈʌ əʊ",
       "b-ah1 t-er0", "ˈbʌ tə",
       "th-ih1-s ah0-l", "ˈθɪs əl",
 
       // from https://en.wikipedia.org/wiki/arpabet
-      "ao1-f", "ɔf", 
-      "f-ao1-l", "fɔl", "f-r-ao1-s-t", "fɹɔst",
+      "ao1-f", "ɔːf", 
+      "f-ao1-l", "fɔːl", "f-r-ao1-s-t", "fɹɔːst",
       "f-aa1 dh-er", "ˈfɑː ðə", "k-aa1-t", "kɑːt",
       "b-iy1", "biː", "sh-iy1", "ʃiː",
       "n-uw1", "nuː", "f-uw1-d", "fuːd",
@@ -199,13 +192,13 @@ public class PhonemeTests implements Constants {
       "sh-ow1", "ʃəʊ", "k-ow1-t", "kəʊt",
       "hh-aw1", "haʊ", "n-aw1", "naʊ",
       "b-oy1", "bɔɪ", "t-oy1", "tɔɪ",
-      "hh-er0", "hə", "b-er1-d", "bəd", "hh-er1-t", "hət", 
-      "n-er1-s", "nəs",
+      "hh-er0", "hə", "b-er1-d", "bəːd", "hh-er1-t", "həːt", 
+      "n-er1-s", "nəːs",
       "k-aw1 er-d", "ˈkaʊ əd",
       "eh1-r", "ɛɹ", "w-eh1-r", "wɛɹ", "hh-eh1-r", "hɛɹ",
       "k-y-uh1-r", "kjʊɹ", "b-y-uh1 r-ow0", "ˈbjʊ ɹəʊ", 
-      "d-ih0 t-er1", "dɪˈtə",
-      "m-ao1-r", "mɔɹ", "b-ao1-r-d", "bɔɹd", "k-ao1-r-d", "kɔɹd",
+      "d-ih0 t-er1", "dɪˈtəː",
+      "m-ao1-r", "mɔːɹ", "b-ao1-r-d", "bɔːɹd", "k-ao1-r-d", "kɔːɹd",
       "l-aa1-r-jh", "lɑːɹdʒ", "hh-aa1-r-d", "hɑːɹd",
       "iy1-r", "iːɹ", "n-ih1-r", "nɪɹ",
       "f-l-aw1 r", "ˈflaʊ ɹ",
@@ -213,10 +206,10 @@ public class PhonemeTests implements Constants {
       "k-iy1", "kiː", "g-ow1", "gəʊ",
       "ch-eh1-r", "tʃɛɹ",
       "jh-ah1-s-t", "dʒʌst", "jh-ih1-m", "dʒɪm",
-      "f-ao1-r", "fɔɹ",
+      "f-ao1-r", "fɔːɹ",
       "v-eh1 r-iy0", "ˈvɛ ɹi",
-      "th-ae1-ng-k-s", "θæŋks", // // ɑː or æ 
-      "th-er1-z d-ey2", "ˈθəzˌdeɪ", // or "ˈθɜrzdi"
+      "th-ae1-ng-k-s", "θæŋks", // ɑː or æ 
+      "th-er1-z d-ey2", "ˈθəːzˌdeɪ", // or "ˈθɜrzdi"
       "dh-ae1-t", "ðæt", // ɑː or æ 
       "dh-ah0", "ðə", 
       "dh-eh1-m", "ðɛm",
