@@ -165,13 +165,6 @@ public class KnownIssuesTest implements Constants
      */
   }
 
-  @Test
-  public void testAlliterations()
-  {
-    String[] result = new RiLexicon().alliterations("apples");
-    //RiTa.out(result);
-    ok(result.length > 0);
-  }
 
   @Test
   public void testRandomIterator()
