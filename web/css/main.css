@@ -880,9 +880,16 @@ code {
 a{
     color:#006B8F;
     text-decoration: none;
-
 }
-   a:hover{
+
+a.nodec{
+    color:#333;
+}
+a.nodec:hover{
+    text-decoration: none !important;
+}
+
+a:hover{
     text-decoration:underline;
 }
 

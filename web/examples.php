@@ -24,43 +24,43 @@
  
               
               <div class="exampleitem gd-4  mgd-6 sgd-12">
-                <p>HaikuGrammar</p>
-                &nbsp;<img class="example-img" src="img/sshaiku.png" alt="">&nbsp;
+               <a class="nodec" href="examples/p5js/HaikuGrammar" target="_blank"> <p>HaikuGrammar</p>
+                &nbsp;<img class="example-img" src="img/sshaiku.png" alt=""></a> &nbsp;
                 <p>
                   <a href="examples/p5js/HaikuGrammar" target="_blank">p5js</a> <a href="examples/p5js/HaikuGrammar/index.html#source">(source)</a>
                   <br>
-                  <a href="examples/dom/HaikuGrammar" target="_blank">dom </a> <a href="examples/dom/HaikuGrammar/index.html#source">(source)</a>
+                  <a href="examples/dom/HaikuGrammar" target="_blank">dom</a> <a href="examples/dom/HaikuGrammar/index.html#source">(source)</a>
                 </p>
               </div>
               <div class="exampleitem gd-4  mgd-6 sgd-12">
-                <p>Kafgenstein (RiMarkov) </p>
-                &nbsp;<img src="img/sskafgenstein.png" alt="">&nbsp;
+                <a class="nodec" href="examples/p5js/Kafgenstein" target="_blank"><p>Kafgenstein (RiMarkov) </p>
+                &nbsp;<img src="img/sskafgenstein.png" alt=""></a>&nbsp;
                 <p> <a href="examples/p5js/Kafgenstein" target="_blank">p5js</a> <a href="examples/p5js/Kafgenstein/index.html#source">(source)</a>
                   <br>
-                  <a href="examples/dom/Kafgenstein" target="_blank">dom </a> <a href="examples/dom/Kafgenstein/index.html#source">(source)</a></p>
+                  <a href="examples/dom/Kafgenstein" target="_blank">dom</a> <a href="examples/dom/Kafgenstein/index.html#source">(source)</a></p>
               </div>
               <div class="exampleitem gd-4  mgd-6 sgd-12">
-                <p>KeyWordsInContext </p>
-                &nbsp;<img src="img/sskwic.png" alt="">&nbsp;
+                 <a class="nodec" href="examples/p5js/KWICmodel" target="_blank"><p>KeyWordsInContext </p>
+                &nbsp;<img src="img/sskwic.png" alt=""></a>&nbsp;
                 <p> <a href="examples/p5js/KWICmodel" target="_blank">p5js</a> <a href="examples/p5js/KWICmodel/index.html#source">(source)</a>
                   <br>
-                  <a href="examples/dom/KWICmodel" target="_blank">dom </a> <a href="examples/dom/KWICmodel/index.html#source">(source)</a></p>
+                  <a href="examples/dom/KWICmodel" target="_blank">dom</a> <a href="examples/dom/KWICmodel/index.html#source">(source)</a></p>
               </div>
               
               <div class="exampleitem gd-4  mgd-6 sgd-12">
-                <p>FeatureAnalysis</p>
-                &nbsp;<img src="img/analysisExample.png" alt="">&nbsp;
+                <a class="nodec" href="examples/p5js/Analysis" target="_blank"><p>FeatureAnalysis</p>
+                &nbsp;<img src="img/analysisExample.png" alt=""></a>&nbsp;
                 <p> <a href="examples/p5js/Analysis" target="_blank">p5js</a> <a href="examples/p5js/Analysis/index.html#source">(source)</a>
                   <br>
-                  <a href="examples/dom/Analysis" target="_blank">dom </a> <a href="examples/dom/Analysis/index.html#source">(source)</a></p>
+                  <a href="examples/dom/Analysis" target="_blank">dom</a> <a href="examples/dom/Analysis/index.html#source">(source)</a></p>
               </div>
 
               <div class="exampleitem gd-4  mgd-6 sgd-12">
-                <p>RandomRhymes</p>
-                &nbsp;<img src="img/randomRhymesExample.png" alt="">&nbsp;
+                <a class="nodec" href="examples/p5js/RandomRhymes" target="_blank"><p>RandomRhymes</p>
+                &nbsp;<img src="img/randomRhymesExample.png" alt=""></a>&nbsp;
                 <p> <a href="examples/p5js/RandomRhymes" target="_blank">p5js</a> <a href="examples/p5js/RandomRhymes/index.html#source">(source)</a>
                   <br>
-                  <a href="examples/dom/RandomRhymes" target="_blank">dom </a> <a href="examples/dom/RandomRhymes/index.html#source">(source)</a></p>
+                  <a href="examples/dom/RandomRhymes" target="_blank">dom</a> <a href="examples/dom/RandomRhymes/index.html#source">(source)</a></p>
               </div>
               
               <br>&nbsp;

@@ -133,6 +133,10 @@ public class RiLexiconTest {
     result = new String[] {};
     result = lex.alliterations("dog");
     ok(result.length > 1000);
+    
+    result = new String[] {};
+    result = lex.alliterations("apples");
+    ok(result.length > 1000);
 
     result = new String[] {};
     result = lex.alliterations("URL");
