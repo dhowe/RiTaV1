@@ -9,7 +9,7 @@ public class DictFromCMU {
   
   static String DICT_FILE = "js/src/rita_dict.js";
   static String SYLL_FILE = "js/src/cmudict-0.6syll";
-  static String OUTPUT_FILE = "js/src/rita_newerdict.js";
+  static String OUTPUT_FILE = "/tmp/rita_newerdict.js"; // change me
   
   static String keepers = "|earful|schoolgirl|sugarcane|outdoorsman|exorcism|gigolo|google|";
   static String header, footer;
@@ -39,19 +39,14 @@ public class DictFromCMU {
       
       // remove words not in CMU, unless in keepers
       if (cmuPhones == null) {
-	if (!keepers.contains("|"+word+"|")) {
-//	  pruned++;
+	if (!keepers.contains("|"+word+"|")) 
 	  continue;	  
-	}
+	
 	System.out.println("KEEP(missing): "+word);
-
 	cmuPhones = ritaPhones;
       }
       
-      
       if (isPluralNounWithDifferentSingular(rdata, word, ritaPos)) {
-	//System.out.println("Prune-plural: " + word);
-//	pruned++;
 	continue;
       }
       
@@ -79,7 +74,9 @@ public class DictFromCMU {
 
   static boolean isConjugatedVerb(HashMap rdata, String word, String pos) {
     
-    if (pos.matches("^vbz")) {    }
+    if (pos.matches("^vbz")) {  
+      // 
+    }
     
     if (pos.matches("^vb[a-z]( vb[a-z])*$")) {
 	String sing = RiTa.singularize(word);
@@ -95,9 +92,11 @@ public class DictFromCMU {
     }
     return false;
   }
+  
   static boolean isPluralNounWithDifferentSingular(HashMap rdata, String word, String pos) {
     
     if (pos.equals("nns")) {
+      
 	String singular = RiTa.singularize(word);
 	String[] posTags = (String[]) rdata.get(singular);
 	  
@@ -108,12 +107,10 @@ public class DictFromCMU {
 	  if (!(posTags[1].contains("vb ") || posTags[1].endsWith("vb"))) {
 	    return true;
 	  }
-	  else {
-	    //System.out.println("KEEP(nns): "+word+" / "+singular+" -> "+ posTags[1]);
-	    //pruned++;
-	  }
+	  //else System.out.println("KEEP(nns): "+word+" / "+singular+" -> "+ posTags[1]);
 	}
 	else {
+	  
 	  pruned++;
 	  System.out.println("KEEP(nns): "+word);
 	}
