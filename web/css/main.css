@@ -1260,6 +1260,7 @@ td h3{
 }
 .examples .exampleitem{
     text-align: center;
+    margin-bottom: 30px;
 }
 /*Tutorial*/
 .gd-section.tutorial p{
