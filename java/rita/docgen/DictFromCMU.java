@@ -112,7 +112,7 @@ public class DictFromCMU {
 	else {
 	  
 	  pruned++;
-	  System.out.println("KEEP(nns): "+word);
+	  System.out.println("REMOVE(nns): "+word);
 	}
     }    
     return false;
