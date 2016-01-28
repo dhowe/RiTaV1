@@ -127,7 +127,13 @@ public class RiLexicon implements Constants {
   boolean _isAlliteration(String firstConsOfFirstStressed, String wordB, boolean useLTS) {
 
     if (wordB != null && firstConsOfFirstStressed != null) {
-
+       //Alliteration of vowels
+      char c = firstConsOfFirstStressed.charAt(0);
+      if (VOWELS.indexOf(c) != -1) {
+        char cB = wordB.charAt(0);
+        if (c == cB)
+        return true;
+      }
       String fcB = firstConsonant(firstStressedSyllable(wordB, useLTS));
 
       // System.out.println(fcA+" ?= "+fcB);
@@ -901,7 +907,9 @@ public class RiLexicon implements Constants {
 
     String firstStressedSyllable = firstStressedSyllable(input, useLTS);
     String fC = firstConsonant(firstStressedSyllable);
-
+    //for alliterations of vowel sound
+    if(fC == null && firstStressedSyllable != null) fC = firstStressedSyllable.substring(0, 1);
+    
     if (input != null && (input.indexOf(' ') < 0) && fC != null) {
 
       Map<String, String> m = lexicalData();
