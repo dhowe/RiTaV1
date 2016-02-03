@@ -102,7 +102,7 @@ public class Concorder {
     if (value == null) return new String[0];
     
     Integer[] idxs = value.indexes.toArray(new Integer[0]);
-    String[] result = new String[idxs.length];
+    List<String> result = new ArrayList<String>();
 
     // Now create a phrase for each index, by appending numWords to either side of the target word
     for (int i = 0; i < idxs.length; i++) {
@@ -112,11 +112,11 @@ public class Concorder {
       
       // What to do if the word appears more than once in our sub-list? (issue #169)
       // that is, if the next idx is less than numWords ahead...
-      
-      result[i] = RiTa.untokenize(sub.toArray(new String[0]));
+      if (i < 1 || (idxs[i] - idxs[i - 1]) > numWords)
+	result.add(RiTa.untokenize(sub.toArray(new String[0]))); 
     }
     
-    return result;
+    return result.toArray(new String[result.size()]);
   }
 
   // /////////////////////////////End-API//////////////////////////////////////

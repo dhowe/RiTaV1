@@ -1497,7 +1497,7 @@ public class RiTaTest
     m.put("ignorePunctuation", false);
     String txt = RiTa.loadString("kafka.txt");
     lines = RiTa.kwic(txt,",",m);
-    equal(lines.length,1292);
+    equal(lines.length,1091);
     m.put("ignorePunctuation", true);
     lines = RiTa.kwic(txt,",",m);
     equal(lines.length,0);
@@ -1533,6 +1533,11 @@ public class RiTaTest
     equal(lines.length,0);
     lines = RiTa.kwic(txt,"sister",m);
     equal(lines.length,0);
+    
+    // test against issue #169
+    m.put("wordCount", 5);
+    lines = RiTa.kwic(txt,"door",m);
+    equal(lines.length,86);
   }
   
   @Test
