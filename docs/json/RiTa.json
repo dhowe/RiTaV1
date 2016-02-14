@@ -608,7 +608,7 @@
     "note": ""
   }, {
     "name": "RiTa.singularize",
-    "example": "<br>singular = RiTa.pluralize(\"dogs\"); // returns \"dog\"<br><br>singular = RiTa.pluralize(\"mice\"); // returns \"mouse\"<br><br>",
+    "example": "<br>singular = RiTa.singularize(\"dogs\"); // returns \"dog\"<br><br>singular = RiTa.singularize(\"mice\"); // returns \"mouse\"<br><br>",
     "description": "Singularize a word according to singularization rules",
     "syntax": "RiTa.singularize(word);",
     "parameters": [{

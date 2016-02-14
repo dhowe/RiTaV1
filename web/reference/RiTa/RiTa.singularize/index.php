@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin"><br>singular = RiTa.pluralize("dogs"); // returns "dog"<br><br>singular = RiTa.pluralize("mice"); // returns "mouse"<br><br></pre>
+								<pre class="margin"><br>singular = RiTa.singularize("dogs"); // returns "dog"<br><br>singular = RiTa.singularize("mice"); // returns "mouse"<br><br></pre>
 							</div></td>
 						</tr>
 
