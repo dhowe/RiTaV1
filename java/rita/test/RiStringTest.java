@@ -97,6 +97,12 @@ public class RiStringTest implements Constants
     equal(features.get(PHONEMES), "dh-ah l-ae-g-ih-n d-r-ae-g-ah-n");
     equal(features.get(SYLLABLES), "dh-ah l-ae/g-ih-n d-r-ae/g-ah-n");
     equal(features.get(STRESSES), "0 1/1 1/0");
+    
+    features = new RiString("Tomatoes and apricots").analyze().features();
+    ok(features);
+    equal(features.get(PHONEMES), "t-ah-m-ey-t-ow-z ae-n-d ae-p-r-ah-k-aa-t-s");
+    equal(features.get(SYLLABLES), "t-ah/m-ey/t-ow-z ae-n-d ae/p-r-ah/k-aa-t-s");
+    equal(features.get(STRESSES), "0/1/0 1 1/0/0");
 
     features = new RiString("dog").analyze().features();
     ok(features);
@@ -326,6 +332,21 @@ public class RiStringTest implements Constants
     equal(st, "0 1/1 1/0");
 
     // fail("Needs more"); refer to tests in analyze()
+    
+    rs = new RiString("Tomatoes and apricots").analyze();
+    ph = rs.get(RiTa.PHONEMES);
+    sy = rs.get(RiTa.SYLLABLES);
+    st = rs.get(RiTa.STRESSES);
+    
+    ok(ph);
+    ok(sy);
+    ok(st);
+    
+    if (!RiLexicon.enabled) return; 
+
+    equal(ph, "t-ah-m-ey-t-ow-z ae-n-d ae-p-r-ah-k-aa-t-s");
+    equal(sy, "t-ah/m-ey/t-ow-z ae-n-d ae/p-r-ah/k-aa-t-s");
+    equal(st, "0/1/0 1 1/0/0");
   }
 
   @Test
@@ -631,6 +652,11 @@ public class RiStringTest implements Constants
     String[] result = rs.pos();
     String[] answer = new String[] { "nns" };    
     deepEqual(answer, result);
+    
+    rs = new RiString("teeth");
+    result = rs.pos();
+    answer = new String[] { "nns" };    
+    deepEqual(answer, result);
       
     rs = new RiString("asdfaasd");
     result = rs.pos();
@@ -676,7 +702,11 @@ public class RiStringTest implements Constants
     RiString rs = new RiString("The emperor had no clothes on.");
     String result = rs.posAt(4);
     equal("nns", result);
-
+    
+    rs = new RiString("She bought a few knives.");
+    result = rs.posAt(4);
+    equal("nns", result);
+    
     rs = new RiString("There is a cat.");
     result = rs.posAt(3);
     equal("nn", result);

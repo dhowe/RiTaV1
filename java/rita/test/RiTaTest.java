@@ -787,6 +787,14 @@ public class RiTaTest
     result = RiTa.getPhonemes("The.");
     answer = "dh-ah .";
     equal(result, answer);
+    
+    result = RiTa.getPhonemes("flowers");
+    answer = "f-l-aw-er-z";
+    equal(result, answer);
+    
+    result = RiTa.getPhonemes("mice");
+    answer = "m-ay-s";
+    equal(result, answer);
 
     result = RiTa.getPhonemes("The boy jumped over the wild dog.");
     answer = "dh-ah b-oy jh-ah-m-p-t ow-v-er dh-ah w-ay-l-d d-ao-g .";
@@ -1081,6 +1089,10 @@ public class RiTaTest
     answerArr = new String[] {"nns"};
     deepEqual(answerArr,resultArr);
     
+    resultArr = RiTa.getPosTags("teeth");
+    answerArr = new String[] {"nns"};
+    deepEqual(answerArr,resultArr);
+    
     resultArr = RiTa.getPosTags("Dave");
     answerArr = new String[] {"nnp"};
     deepEqual(answerArr,resultArr);
@@ -1297,6 +1309,11 @@ public class RiTaTest
     txtArr = new String[] { "clothes" };
     result = RiTa.getPosTagsInline(txtArr);
     answer = "clothes/nns";
+    deepEqual(result, answer);
+    
+    txtArr = new String[] { "teeth" };
+    result = RiTa.getPosTagsInline(txtArr);
+    answer = "teeth/nns";
     deepEqual(result, answer);
 
     txtArr = new String[] { "There", "is", "a", "cat." };
