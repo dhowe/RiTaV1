@@ -1,7 +1,10 @@
 #!/bin/sh
 
-# first update version numbers:
-# resources/build.properties && js/package.json)
+# DO FIRST:
+# 1. pull any changes from rita/rita.js
+# 2. update version numbers:
+#      resources/build.properties && js/package.json)
+#
 
 set -e
 
@@ -16,16 +19,14 @@ WEB_ONLY=0
 while [ $# -ge 1 ]; do
     #echo arg: $1
     case $1 in
-        -w) 
-          WEB_ONLY=1  
+        -w)
+          WEB_ONLY=1
           echo "Web-only: true"
           ;;
     esac
     shift
 done
 echo
-
-#ssh $RED "cd ~/git/RiTa && git stash && cd web && ln -fs RiTa-${VERSION}.zip rita.zip && ls -l"
 
 ant -f resources/build.xml build.js
 ant -f resources/build.xml build
@@ -35,7 +36,7 @@ git add web/RiTa-${VERSION}.zip  # add newly created zip file
 
 if [ $WEB_ONLY = 1 ]
 then
-    echo "*** Updating web only (no tags or npm) ***" 
+    echo "*** Updating web only (no tags or npm) ***"
     git commit -am "Update to v$VERSION"
     git push
 else
@@ -45,9 +46,11 @@ else
     ant -f resources/build.xml npm.publish
 fi
 
-exit
-
-# pull from github and link rita.zip
-echo Updating remote server... 
+read -p "Do you really want to publish this version? " -n 1 -r
 echo
-ssh $RED "cd ~/git/RiTa && git stash && cd web && ln -fs RiTa-${VERSION}.zip rita.zip && ls -l"
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+      # pull from github and link rita.zip
+      echo Updating remote server...
+      ssh $RED "cd ~/git/RiTa && git stash && git pull && ./create-symlinks.sh ${VERSION}"
+fi
