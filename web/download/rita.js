@@ -4034,7 +4034,9 @@ Concorder.prototype = {
       for (var i = 0; i < idxs.length; i++) {
           var sub = this.words.slice(Math.max(0,idxs[i] - numWords),
             Math.min(this.words.length, idxs[i] + numWords+1));
-  	      result[i] = RiTa.untokenize(sub);
+            
+          if (i < 1 || (idxs[i] - idxs[i - 1]) > numWords)
+            result.push(RiTa.untokenize(sub));
       }
     }
     return result;

@@ -15,7 +15,7 @@ function setup()
 
 function draw() 
 {  
-  background(40);
+  background(100);
 
   textAlign(RIGHT);
   textSize(36);

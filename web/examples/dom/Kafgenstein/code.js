@@ -12,7 +12,7 @@ $(document).ready(function () {
   });
 
   $('.textarea').text("click to (re)generate!");
-  $('.result').click(generate);
+  $('div').click(generate);
 });
 
 function generate() {

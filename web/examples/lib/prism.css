@@ -267,3 +267,14 @@ pre{
 
 }
 .code:target { display: block; }
+
+/* link css for examples */
+a{
+text-decoration: none;
+color:grey;
+font-size: 12px !important;
+font-family: sans-serif!important;
+}
+a:hover{
+text-decoration: underline;
+}

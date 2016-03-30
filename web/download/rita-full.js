@@ -4034,7 +4034,9 @@ Concorder.prototype = {
       for (var i = 0; i < idxs.length; i++) {
           var sub = this.words.slice(Math.max(0,idxs[i] - numWords),
             Math.min(this.words.length, idxs[i] + numWords+1));
-  	      result[i] = RiTa.untokenize(sub);
+            
+          if (i < 1 || (idxs[i] - idxs[i - 1]) > numWords)
+            result.push(RiTa.untokenize(sub));
       }
     }
     return result;
@@ -4953,7 +4955,7 @@ _RiTa_LTS=[
 'STATE 4 w 109 108',
 'STATE 4 d 28 110',
 'STATE 1 o 111 107',
-'PHONE ax',
+'PHONE ah',
 'STATE 2 y 68 112',
 'STATE 2 p 42 113',
 'STATE 1 t 72 42',
@@ -8344,7 +8346,7 @@ _RiTa_LTS=[
 'STATE 4 d 3444 3393',
 'STATE 4 m 3385 3494',
 'STATE 4 n 3389 3495',
-'PHONE ax',
+'PHONE ah',
 'STATE 1 0 3497 3496',
 'STATE 5 t 3498 3393',
 'STATE 3 t 3500 3499',
@@ -11001,7 +11003,7 @@ _RiTa_LTS=[
 'STATE 2 r 6107 6130',
 'STATE 3 e 6072 6131',
 'PHONE ih',
-'PHONE ax',
+'PHONE ah',
 'STATE 4 o 6132 6077',
 'STATE 3 d 6072 6069',
 'STATE 2 o 6107 6133',
@@ -12683,7 +12685,7 @@ _RiTa_LTS=[
 'STATE 3 t 7795 7794',
 'STATE 3 l 7782 7796',
 'STATE 2 # 7782 7797',
-'PHONE ax-l',
+'PHONE ah-l',
 'STATE 6 k 7774 7798',
 'STATE 4 m 7800 7799',
 'STATE 6 0 7782 7801',
@@ -12861,12 +12863,12 @@ _RiTa_LTS=[
 'STATE 5 e 7966 7965',
 'STATE 3 h 7967 7960',
 'STATE 4 s 7964 7968',
-'PHONE ax-m',
+'PHONE ah-m',
 'STATE 5 i 7970 7969',
 'STATE 6 l 7970 7971',
 'STATE 2 t 7972 7960',
 'STATE 5 r 7973 7960',
-'PHONE m-ax',
+'PHONE m-ah',
 'PHONE m-ae1',
 'STATE 6 n 7970 7969',
 'STATE 6 0 7964 7960',
@@ -13059,7 +13061,7 @@ _RiTa_LTS=[
 'STATE 5 e 8192 8191',
 'STATE 2 t 8160 8193',
 'STATE 3 s 8195 8194',
-'PHONE ax',
+'PHONE ah',
 'STATE 5 t 8197 8196',
 'STATE 2 o 8096 8198',
 'STATE 3 t 8120 8199',
@@ -16905,7 +16907,7 @@ _RiTa_LTS=[
 'STATE 3 e 12031 12030',
 'STATE 3 r 12000 12032',
 'STATE 4 m 12000 12033',
-'PHONE ax',
+'PHONE ah',
 'STATE 3 h 11961 11942',
 'STATE 3 s 11961 12034',
 'STATE 4 i 11957 12035',
@@ -17033,7 +17035,7 @@ _RiTa_LTS=[
 'STATE 6 n 11943 12167',
 'STATE 3 c 12128 12168',
 'STATE 3 g 12128 12169',
-'PHONE y-ax',
+'PHONE y-ah',
 'STATE 3 d 12000 12128',
 'STATE 3 p 12171 12170',
 'STATE 6 o 12017 12172',
@@ -17106,7 +17108,7 @@ _RiTa_LTS=[
 'STATE 6 y 11961 12237',
 'STATE 3 d 11961 12238',
 'STATE 3 l 12104 12239',
-'PHONE ax-w',
+'PHONE ah-w',
 'STATE 6 # 11920 11957',
 'STATE 3 m 12241 12240',
 'STATE 5 n 11957 12017',
@@ -17826,7 +17828,7 @@ _RiTa_LTS=[
 'STATE 3 k 12856 12928',
 'STATE 5 e 12875 12916',
 'PHONE ih1',
-'PHONE ax',
+'PHONE ah',
 'STATE 2 l 12863 12853',
 'STATE 2 p 12853 12875',
 'STATE 1 a 12863 12929',
@@ -51515,12 +51517,14 @@ RiLexicon.prototype = {
   },
 
   isRhyme: function(word1, word2, useLTS) {
+    var phones1 = this._getRawPhones(word1, useLTS),
+        phones2 = this._getRawPhones(word2, useLTS);
 
-    if (!strOk(word1) || !strOk(word2) || equalsIgnoreCase(word1, word2))
+    if (!strOk(word1) || !strOk(word2) || equalsIgnoreCase(word1, word2) || phones2 === phones1)
       return false;
 
-    var p1 = this._lastStressedPhoneToEnd(word1, useLTS),
-      p2 = this._lastStressedPhoneToEnd(word2, useLTS);
+    var p1 = this._lastStressedVowelPhonemeToEnd(word1, useLTS),
+      p2 = this._lastStressedVowelPhonemeToEnd(word2, useLTS);
 
     return (strOk(p1) && strOk(p2) && p1 === p2);
   },
@@ -51750,7 +51754,7 @@ RiLexicon.prototype = {
 
       phones = this._letterToSound().getPhones(word);
 
-      //console.log("phones="+RiTa.asList(phones));
+      // console.log("phones="+RiTa.asList(phones));
       if (phones && phones.length)
         return RiString.syllabify(phones);
 
@@ -51792,6 +51796,30 @@ RiLexicon.prototype = {
       }
     }
     return E; // return null?
+  },
+
+  _lastStressedVowelPhonemeToEnd: function(word, useLTS) {
+
+    if (!strOk(word)) return E; // return null?
+
+    
+    var raw = this._lastStressedPhoneToEnd(word, useLTS);
+    if (!strOk(raw)) return E; // return null?
+
+    var syllables = raw.split(" ");
+    var lastSyllable = syllables[syllables.length - 1];
+    lastSyllable = lastSyllable.replace("[^a-z-1 ]", "");
+    
+    var idx = -1;
+    for (var i = 0; i < lastSyllable.length; i++) {
+      var c = lastSyllable.charAt(i);
+      if(this._isVowel(c)){
+        idx = i;
+        break;
+      }
+    }
+  word + " " + raw + " last:" + lastSyllable + " idx=" + idx + " result:" + lastSyllable.substring(idx)
+   return lastSyllable.substring(idx);  
   },
 
   _lastStressedPhoneToEnd: function(word, useLTS) {
