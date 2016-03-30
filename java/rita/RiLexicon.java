@@ -402,12 +402,27 @@ public class RiLexicon implements Constants {
 
   public boolean isNoun(String s) {
     String[] posTags = lexImpl.getPosArr(s);
-
+    
+    boolean result = false;
+    
     for (int i = 0; posTags != null && i < posTags.length; i++) {
       if (PosTagger.isNoun(posTags[i]))
-	return true;
+  result = true;
     }
-    return false;
+    
+    //check whether it is plural
+    if (!result) {
+     String singular = RiTa.singularize(s);
+     if (singular != s) {
+      posTags = lexImpl.getPosArr(singular);
+      for (int i = 0; posTags != null && i < posTags.length; i++) {
+  if (PosTagger.isNoun(posTags[i]))   result = true;
+      }
+       System.out.println("found plural noun: "+ s +" (" + singular + ")");
+     }
+    }
+    
+    return result;
   }
 
   public boolean isVerb(String s) {
