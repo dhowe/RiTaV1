@@ -140,7 +140,7 @@ RiLexicon.prototype.init = function() {
 
 var RiTa = {
 
-  VERSION: '1.1.31',
+  VERSION: '1.1.32',
 
   LEXICON: null, // static RiLexicon instance
 
@@ -243,23 +243,66 @@ var RiTa = {
     delim = delim || SP;
     adjustPunctuationSpacing = adjustPunctuationSpacing || 1;
 
+    var dbug = 0;
+    var punct = /^[,\.\;\:\?\!\)""“”’‘`']+$/;
+    var quotes = /^[\(""“”’‘`']+$/;
+
     if (adjustPunctuationSpacing) {
 
       var newStr = arr[0] || E;
+      var inMiddleOfSentence = false;
+      var quotationStarted;
+      var quotationJustFinished = false;
+      
+      if (arr[0])
+        quotationStarted = quotes.test(arr[0]);
+      else 
+        quotationStarted = false;
+      
       for (var i = 1; i < arr.length; i++) {
 
         if (arr[i]) {
 
-          if (!RiTa.isPunctuation(arr[i]))
-            newStr += delim;
+          var thisPunct = punct.test(arr[i]);
+          var lastPunct = punct.test(arr[i - 1]);
+          var thisQuote = quotes.test(arr[i]);
+          var lastQuote = quotes.test(arr[i -1]);
+          var thisComma = arr[i].match(/,/);
+          var lastComma = arr[i - 1].match(/,/);
 
+          if (dbug) {
+            console.log(i+") CHECK: "+arr[i]+" "+arr[i-1]+ " "+thisPunct+" "+lastPunct + " " +thisQuote);
+          }
+          
+          if (quotationStarted && thisQuote) {
+            // skip adding delim and mark qutation as ended
+            quotationJustFinished = true;
+            quotationStarted = false;
+          } else if (quotationJustFinished) {
+            newStr += delim;
+            quotationJustFinished = false;
+          } else if (lastQuote && thisComma) {
+            inMiddleOfSentence = true;
+          } else if (inMiddleOfSentence && lastComma) {
+            newStr += delim;
+            inMiddleofSentence = false;
+          } else if (i != arr.length - 1 && thisPunct && lastPunct) {
+            if (dbug) console.log(i + ") HIT1: " + arr[i]);
+            newStr += delim;
+          } else if (!thisPunct && !lastQuote) {
+            if (dbug) console.log(i+") HIT2: "+arr[i]+" "+arr[i-1]+ " "+thisPunct+" "+lastQuote);
+            newStr += delim;
+          } else {
+            if (dbug) console.log(i + ") MISS: " + arr[i]);
+          }
           newStr += arr[i];
         }
       }
-      return newStr.trim();
+      return newStr.trim();//.replace(//);
     }
 
     return arr.join(delim);
+    //var punct = /^[,\.\;\:\?\!\)"“”’‘`']+$/;
   },
 
   random: function() {
