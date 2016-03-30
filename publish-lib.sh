@@ -2,9 +2,9 @@
 
 # DO FIRST:
 # 1. pull any changes from rita/rita.js
-# 2. update version numbers:
-#      resources/build.properties && js/package.json)
-#
+# 2. update version numbers: (git status should show 2 files changed:
+#      resources/build.properties && js/package.json
+# 3. run this script
 
 set -e
 
