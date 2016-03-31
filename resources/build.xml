@@ -199,6 +199,7 @@
 		<replace file="${project.dist}/${project.name}/src/rita/RiTa.java" token="##version##" value="${project.version}" />
 
 		<javac srcdir="${project.dist}/${project.name}/src" excludes="**/test/sketches/**" destdir="${dist.bin}" 
+			encoding="UTF-8"
 			source="${java.target.version}" 
 			target="${java.target.version}" 
 			includeantruntime="false" 
