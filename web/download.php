@@ -60,30 +60,30 @@
 -->
 
 <div class="downloadbox mini">
-  <a href="download/rita.min.js"><span></span></a>
+  <a href="download/rita.min.js" download="rita.min.js"><span></span></a>
   rita.min.js
-  <span>core (no lexicon), minimized, 84k</span>
+  <span>core (no lexicon), minimized, 85k</span>
 </div>
 
 
 <div class="downloadbox mini">
-  <a href="download/rita.js"><span></span></a>
+  <a href="download/rita.js" download="rita.js"><span></span></a>
 rita.js
-<span>core (no lexicon), source, 163k</span>
+<span>core (no lexicon), source, 151k</span>
  </div>
 
 
 <div class="downloadbox mini">
-   <a href="download/rita-full.min.js"><span></span></a>
+   <a href="download/rita-full.min.js" download="rita-full.min.js"><span></span></a>
 rita-full.min.js
-<span>complete, minimized, 1.6m</span>
+<span>complete, minimized, 1.5m</span>
 </div>
 
 
 <div class="downloadbox mini">
-  <a href="download/rita-full.js"><span></span></a>
+  <a href="download/rita-full.js" download="rita-full.js"><span></span></a>
 rita-full.js
-<span>complete (w' lexicon & lts-rules) 1.8m</span>
+<span>complete (w' lexicon & lts-rules) 1.6m</span>
 </div>
 
 </div>
@@ -92,23 +92,23 @@ rita-full.js
 
 
     <div class="downloadbox mini">
-       <a href="download/rita_dict.js"> <span></span></a>
+       <a href="download/rita_dict.js" download="rita_dict.js"> <span></span></a>
       rita_dict.js
-      <span>the lexicon, 1.3m</span>
+      <span>the lexicon, 1.2m</span>
     </div>
 
 
 
     <div class="downloadbox mini">
-        <a href="http://www.rednoise.org/rita-archive/rita_lts.js"> <span></span> </a>
+        <a href="http://www.rednoise.org/rita-archive/rita_lts.js" download="rita_lts.js"> <span></span> </a>
       rita_lts.js
-    <span>letter-to-sound rules, 294k</span>
+    <span>letter-to-sound rules, 301k</span>
     </div>
 
 
 
     <div class="downloadbox mini">
-        <a href="http://www.rednoise.org/rita-archive/lancaster.min.js"><span></span> </a>
+        <a href="http://www.rednoise.org/rita-archive/lancaster.min.js" download="lancaster.min.js"><span></span> </a>
       lancaster stemmer
     <span>alternate stemmer, 8k</span>
     </div>
@@ -116,9 +116,9 @@ rita-full.js
 
 
     <div class="downloadbox mini">
-       <a href="http://www.rednoise.org/rita-archive/ritext.min.js"> <span></span> </a>
+       <a href="http://www.rednoise.org/rita-archive/ritext.min.js" download="ritext.min.js"> <span></span> </a>
       ritext.min.js
-    <span>renderer, deprecated, 32k</span>
+    <span>renderer, deprecated, 33k</span>
     </div>
 
 
