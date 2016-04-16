@@ -18,7 +18,7 @@ textarea {
 }
 
 #view-src a{
-    color:#222 !important;
+   -moz-user-select: none; /* Firefox */
 }
 
 #version-div a:hover{
@@ -1252,6 +1252,13 @@ td p{
 td h3{
     text-align: left!important;
 }
+.refbar{
+    margin-left:-40px!important;
+    margin-right:0!important;
+    padding:0!important;
+    width:140!important;
+    text-align: left;
+}
 /*Examples page*/
 .examples img{
     width:150px;
@@ -1696,7 +1703,9 @@ html, body {
     height:100%!important;
     width:auto!important;
 }
-
+.refbar{
+    margin-left:0px!important;
+}
 
 }
 
