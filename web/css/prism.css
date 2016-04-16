@@ -51,7 +51,6 @@ code[class*="language"] {
 	height: 100%;
 	padding: 0 1em;
 	display: block;
-	overflow: auto;
 }
 
 /* Margin bottom to accomodate shadow */
