@@ -16,6 +16,8 @@ VERSION=`sed -n 's/^project.version=\(.*\)$/\1/p' $BUILDPROPS`
 echo "Version: $VERSION"
 WEB_ONLY=0
 
+#TODO: does WEB_ONLY option still make sense?
+
 while [ $# -ge 1 ]; do
     #echo arg: $1
     case $1 in

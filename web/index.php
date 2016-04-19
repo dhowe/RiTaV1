@@ -174,8 +174,8 @@ with or without Processing<br>(also in Android)</p>
       </span>
 
     <span class="gallery_home_item gd-4 mgd-6 sgd-12">
-      <a href="http://lab-lamp.scm.cityu.edu.hk/MemoryJS/" target="new"><img src="img/memory.gif" width="180"></a><br>
-      <a href="http://lab-lamp.scm.cityu.edu.hk/MemoryJS/" target="new">Memoire Involontaire No. 1</a>
+      <a href="./gallery/MemoireInvolontaireNo1" target="new"><img src="img/memory.gif" width="180"></a><br>
+      <a href="./gallery/MemoireInvolontaireNo1" target="new">Memoire Involontaire No. 1</a>
           <p>by A. Braxton Soderman</p>
       <p class="gallery_home_spacer">&nbsp;</p>
     </span>
