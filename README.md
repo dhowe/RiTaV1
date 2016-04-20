@@ -52,18 +52,22 @@ To install:
 Create an example sketch as follows (and/or see the included examples):
 ```java
 import rita.*;
+import java.util.*;
 
 void setup() {
 
-  size(200, 200);
+  size(600, 130);
   background(50);
   textSize(20);
   noStroke();
 
-  String[] words = RiTa.tokenize("The elephant took a bite!");
-  for (int i=0; i < words.length; i++) {
-    text(words[i], 50, 50 + i*20);
-  }
+  RiString rs = new RiString("The elephant took a bite!");
+
+  float y = 0;
+  Map<String, String> map = rs.features();
+  println(map);
+  for (Map.Entry<String, String> entry : map.entrySet())
+    text(entry.getKey() + "/" + entry.getValue(), 0, y+=20);
 }
 ```
 
@@ -81,18 +85,22 @@ void setup() {
 Create an example sketch as follows:
 ```java
 import rita.*;
+import java.util.*;
 
 void setup() {
 
-  size(200, 200);
+  size(600, 130);
   background(50);
   textSize(20);
   noStroke();
 
-  String[] words = RiTa.tokenize("The elephant took a bite!");
-  for (int i=0; i < words.length; i++) {
-    text(words[i], 50, 50 + i*20);
-  }
+  RiString rs = new RiString("The elephant took a bite!");
+
+  float y = 0;
+  Map<String, String> map = rs.features();
+  println(map);
+  for (Map.Entry<String, String> entry : map.entrySet())
+    text(entry.getKey() + "/" + entry.getValue(), 0, y+=20);
 }
 ```
 
