@@ -49,25 +49,51 @@ To install:
 1. Open Processing and select 'Sketch' menu > 'Import Library...' > 'Add Library...'
 2. Search for 'RiTa' and then install it
 
-Create a simple test sketch as follows (and/or see the included examples):
-```
+Create an example sketch as follows (and/or see the included examples):
+```java
 import rita.*;
 
-println(RiTa.tokenize("The elephant took a bite!"));
+void setup() {
+
+  size(200, 200);
+  background(50);
+  textSize(20);
+  noStroke();
+
+  String[] words = RiTa.tokenize("The elephant took a bite!");
+  for (int i=0; i < words.length; i++) {
+    text(words[i], 50, 50 + i*20);
+  }
+}
 ```
 
 #### In Processing (Android-mode)
 --------
-1. Follow these [instructions](https://github.com/processing/processing-android/wiki#Instructions) to setup your environment
-2. To add RiTa to your Processing project, select  'Menu' > 'Tools' > 'Import Library' > 'Manage Libraries'
-3. Find RiTa inside the 'Library Manager', via 'Menu' > 'Get Libraries' or simply  download ['RiTa.zip'](http://rednoise.org/rita/rita.zip) then select 'Install Compressed Library' to manually install the zip file.
+1. If RiTa library is not instailled, open Processing and select 'Sketch' menu > 'Import Library...' > 'Add Library...'
+2. Search for 'RiTa' and then install it
+3. Follow these [instructions](https://github.com/processing/processing-android/wiki#android-mode) to setup your environment or follow the steps 4 to 6 instead 
+4. Switch to Android mode in Processing 3.0 on PC or Mac by clicking the 'Java' button on the upperright on the UI, then select 'Add Mode...'
+5. Select 'Android Mode' from 'Contribution Manager' window and then install it and its required Android SDK when prompted
+6. Restart Processing and save the following example sketch
+7. Switch to 'Android' mode by clicking the 'Java' button
+8. Connect your Android device to your PC or Mac by USB cable and then run (cmd + r) the example sketch
 
-Create a simple test sketch as follows:
-```
+Create an example sketch as follows:
+```java
 import rita.*;
 
-println(RiTa.tokenize("The elephant took a bite!"));
+void setup() {
 
+  size(200, 200);
+  background(50);
+  textSize(20);
+  noStroke();
+
+  String[] words = RiTa.tokenize("The elephant took a bite!");
+  for (int i=0; i < words.length; i++) {
+    text(words[i], 50, 50 + i*20);
+  }
+}
 ```
 
 <!--
