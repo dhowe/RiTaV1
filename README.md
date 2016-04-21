@@ -73,34 +73,35 @@ void setup() {
 
 #### In Processing (Android-mode)
 --------
-1. If RiTa library is not instailled, open Processing and select 'Sketch' menu > 'Import Library...' > 'Add Library...'
+1. If RiTa library is not installed, open Processing and select 'Sketch' menu > 'Import Library...' > 'Add Library...'
 2. Search for 'RiTa' and then install it
-3. Follow these [instructions](https://github.com/processing/processing-android/wiki#android-mode) to setup your environment or follow the steps 4 to 6 instead 
-4. Switch to Android mode in Processing 3.0 on PC or Mac by clicking the 'Java' button on the upperright on the UI, then select 'Add Mode...'
-5. Select 'Android Mode' from 'Contribution Manager' window and then install it and its required Android SDK when prompted
-6. Restart Processing and save the following example sketch
+3. Follow these [instructions](https://github.com/processing/processing-android/wiki#android-mode) to setup your environment, OR follow steps 4-6 below
+4. Switch to Android mode in Processing 3.x on PC or Mac by clicking the 'Java' button on the upper-right of the UI, then select 'Add Mode...'
+5. Select 'Android Mode' from 'Contribution Manager' window and then install it and the required Android SDK when prompted
+6. Restart Processing and input the example sketch below
 7. Switch to 'Android' mode by clicking the 'Java' button
-8. Connect your Android device to your PC or Mac by USB cable and then run (cmd + r) the example sketch
+8. Connect your Android device to your PC via a USB cable and then run the example sketch
 
-Create an example sketch as follows:
+An example sketch:
 ```java
 import rita.*;
 import java.util.*;
 
 void setup() {
 
-  size(600, 130);
+  size(600, 200);
   background(50);
   textSize(20);
   noStroke();
 
   RiString rs = new RiString("The elephant took a bite!");
+  Map data = rs.features();
 
-  float y = 0;
-  Map<String, String> map = rs.features();
-  println(map);
-  for (Map.Entry<String, String> entry : map.entrySet())
-    text(entry.getKey() + ": " + entry.getValue(), 0, y+=20);
+  float y = 15;
+  for (Iterator it = data.keySet().iterator(); it.hasNext();) {
+    String key = (String) it.next();
+    text(key + ": " + data.get(key), 25, y += 26);
+  }
 }
 ```
 
@@ -157,7 +158,7 @@ If you don't feel like coding but still want to contribute, please send a twitte
    b. Click the 'Add buildfile' button to add a buildfile in the newly added Ant panel, and navigate to RiTa/resources/build.xml
 
    c. Click to expand the 'RiTa' menu and reveal the various tasks, then double-click 'build' (or run ```$ cd RiTa/resources && ant build``` from the terminal)
-   
+
    d. (Optional) Ignore this step if you are on Mac or step 9a to c if you are on Windows, install [ant](http://dita-ot.sourceforge.net/doc/ot-userguide13/xhtml/installing/windows_installingant.html) and use [cygwin](http://cygwin.com/install.html) to run the command ```$ cd RiTa/resources && ant build```.
 
    e. When the build is complete, project resources can be found in RiTa/dist
