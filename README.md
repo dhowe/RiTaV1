@@ -67,7 +67,7 @@ void setup() {
   Map<String, String> map = rs.features();
   println(map);
   for (Map.Entry<String, String> entry : map.entrySet())
-    text(entry.getKey() + "/" + entry.getValue(), 0, y+=20);
+    text(entry.getKey() + ": " + entry.getValue(), 0, y+=20);
 }
 ```
 
@@ -100,7 +100,7 @@ void setup() {
   Map<String, String> map = rs.features();
   println(map);
   for (Map.Entry<String, String> entry : map.entrySet())
-    text(entry.getKey() + "/" + entry.getValue(), 0, y+=20);
+    text(entry.getKey() + ": " + entry.getValue(), 0, y+=20);
 }
 ```
 
