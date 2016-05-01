@@ -140,7 +140,7 @@ RiLexicon.prototype.init = function() {
 
 var RiTa = {
 
-  VERSION: '1.1.35',
+  VERSION: '1.1.37',
 
   LEXICON: null, // static RiLexicon instance
 
@@ -253,12 +253,12 @@ var RiTa = {
       var inMiddleOfSentence = false;
       var quotationStarted;
       var quotationJustFinished = false;
-      
+
       if (arr[0])
         quotationStarted = quotes.test(arr[0]);
-      else 
+      else
         quotationStarted = false;
-      
+
       for (var i = 1; i < arr.length; i++) {
 
         if (arr[i]) {
@@ -273,7 +273,7 @@ var RiTa = {
           if (dbug) {
             console.log(i+") CHECK: "+arr[i]+" "+arr[i-1]+ " "+thisPunct+" "+lastPunct + " " +thisQuote);
           }
-          
+
           if (quotationStarted && thisQuote) {
             // skip adding delim and mark qutation as ended
             quotationJustFinished = true;
@@ -914,8 +914,6 @@ var RiTa = {
 for (var i = 0; i < RiTa._FEATURES.length; i++)
   RiTa[RiTa._FEATURES[i].toUpperCase()] = RiTa._FEATURES[i];
 
-//for (var name in Type) RiTa[name] = Type[name];// needed?
-
 // ////////////////////////////////////////////////////////////
 // RiMarkov
 // ////////////////////////////////////////////////////////////
@@ -1066,7 +1064,8 @@ RiMarkov.prototype = {
 
     // uh-oh, we failed
     if (tries >= maxTries)
-      err(BN+"RiMarkov failed to complete after " + tries + " attempts"+BN);
+      err(BN+"RiMarkov failed to complete after " + tries + " attempts." +
+      "You may need to add more text to your model..."+BN);
 
     return tokens;
 
@@ -1100,8 +1099,8 @@ RiMarkov.prototype = {
 
     // uh-oh, looks like we failed...
     if (tokens.length < targetNumber) {
-      err('\nRiMarkov failed to complete after ' + tries + ' tries, ' +
-        'with only ' + tokens.length + ' successful generations...\n');
+
+      this._onGenerationIncomplete(tries, tokens.length);
     }
 
     var res = [];
@@ -1370,7 +1369,7 @@ RiMarkov.prototype = {
       for (var i = 0, j = nodes.length; i < j; i++) {
 
         pTotal += nodes[i].probability();
-        if (current.isRoot() && (this.isSentenceAware && !nodes[i].isSentenceStart())) {
+        if (current.isRoot() && (this.isSentenceAware && !nodes[i].isSentenceStart)) {
           continue;
         }
         if (selector < pTotal) {
@@ -1395,8 +1394,9 @@ RiMarkov.prototype = {
 
   _onGenerationIncomplete: function(tries, successes) {
 
-    warn('\nRiMarkov failed to complete after ' + tries +
-      ' tries\n       Giving up after ' + successes + ' successful generations\n');
+    warn(BN+'RiMarkov failed to complete after ' + tries +
+      ' tries and ' + successes + ' successful generations.' +
+      ' You may need to add more text to the model...'+BN);
   },
 
   // Loads a sentence[] into the model; each element must be a single sentence
@@ -2414,7 +2414,6 @@ RiGrammar.prototype = {
         return s;
     }
     err("RiGrammar failed to complete after " + tries + " tries" + BN);
-
   },
 
   expand: function(context) {
@@ -4077,7 +4076,7 @@ Concorder.prototype = {
       for (var i = 0; i < idxs.length; i++) {
           var sub = this.words.slice(Math.max(0,idxs[i] - numWords),
             Math.min(this.words.length, idxs[i] + numWords+1));
-            
+
           if (i < 1 || (idxs[i] - idxs[i - 1]) > numWords)
             result.push(RiTa.untokenize(sub));
       }
