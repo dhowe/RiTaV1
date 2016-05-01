@@ -56,18 +56,19 @@ import java.util.*;
 
 void setup() {
 
-  size(600, 130);
+  size(600, 200);
   background(50);
   textSize(20);
   noStroke();
 
   RiString rs = new RiString("The elephant took a bite!");
+  Map data = rs.features();
 
-  float y = 0;
-  Map<String, String> map = rs.features();
-  println(map);
-  for (Map.Entry<String, String> entry : map.entrySet())
-    text(entry.getKey() + ": " + entry.getValue(), 0, y+=20);
+  float y = 15;
+  for (Iterator it = data.keySet().iterator(); it.hasNext();) {
+    String key = (String) it.next();
+    text(key + ": " + data.get(key), 25, y += 26);
+  }
 }
 ```
 
