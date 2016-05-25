@@ -140,7 +140,7 @@ RiLexicon.prototype.init = function() {
 
 var RiTa = {
 
-  VERSION: '1.1.38',
+  VERSION: '1.1.39',
 
   LEXICON: null, // static RiLexicon instance
 
@@ -4923,7 +4923,7 @@ var PLURAL_RULES = [
 
 // ///////////////////////////// End Functions ////////////////////////////////////
 
-if (!RiTa.SILENT && console)
+if (!RiTa.SILENT && !isNode() && console)
   console.log('[INFO] RiTaJS.version [' + RiTa.VERSION + ']');
 
 _RiTa_LTS=[
