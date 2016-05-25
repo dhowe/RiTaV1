@@ -11,3 +11,4 @@ orig*
 target
 hs_err_pid*
 build.txt
+/dicts/
