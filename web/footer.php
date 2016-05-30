@@ -5,8 +5,14 @@
   <div class="col10">
 <div class="gd-4 sgd-9 sfl">
   <div class="footercol">
+  <h5>Author</h5>
+  <p><span class="col">
+  Daniel C. Howe
+  </p></span><br>
   <h5>Donate</h5>
-   <a class="coinbase-button" data-code="583bdb779d2a040a8622b91c9f414d1a" data-button-style="custom_small" href="https://www.coinbase.com/checkouts/583bdb779d2a040a8622b91c9f414d1a">Donate!</a><script src="https://www.coinbase.com/assets/button.js"></script>
+   <a class="coinbase-button" data-code="583bdb779d2a040a8622b91c9f414d1a"
+   data-button-style="custom_small" href="https://www.coinbase.com/checkouts/583bdb779d2a040a8622b91c9f414d1a">Donate</a>
+   <script src="https://www.coinbase.com/assets/button.js"></script>
 </div>
 </div>
 
