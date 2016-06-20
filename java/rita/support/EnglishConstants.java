@@ -88,13 +88,12 @@ public interface EnglishConstants
   // ----------------------------------------------------------------------
   
   String[] QUESTION_STARTS = {
-    "Was", "What", "When", "Where", "How", "Which", "If",  
-    "Who", "Is", "Could", "Might", "Will", "Does", "Why", "Are", 
+      "Was", "What", "When", "Where", "Which", "Why", "Who", "Will", "Would",
+      "How", "If", "Who", "Is", "Could", "Might", "Does", "Are", "Have"
   };  
   
   String[] W_QUESTION_STARTS = {
-    "Was", "What", "When", "Where", "How", "Which",
-    "Why", "Who", "Will", 
+      "Was", "What", "When", "Where", "Which", "Why", "Who", "Will", "Would"
   };
    
   public static final String[] STOP_WORDS = { ".", ",", "the", 
