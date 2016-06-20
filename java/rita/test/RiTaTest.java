@@ -226,6 +226,8 @@ public class RiTaTest
     ok(RiTa.isQuestion("Does it?"));
     ok(RiTa.isQuestion("Is this yours?"));
 
+    // "How", "If", "Who", "Is", "Could", "Might", "Does", "Are", "Have"
+    
     ok(RiTa.isQuestion("Are you done?")); // if "is" is true, "Are" should
     // also be True (NICE!)
 
@@ -234,6 +236,9 @@ public class RiTaTest
     ok(RiTa.isQuestion("what is   this?")); // extra double space
     ok(RiTa.isQuestion("what    is  this?")); // extra tab
     ok(RiTa.isQuestion("what is this? , where is that?"));
+    ok(RiTa.isQuestion("Have you a smoke?"));
+    ok(RiTa.isQuestion("How is it going?"));
+    
     ok(!RiTa.isQuestion("That is not a toy This is an apple"));
     ok(!RiTa.isQuestion("string"));
     ok(!RiTa.isQuestion("?"));
@@ -257,11 +262,13 @@ public class RiTaTest
 
     ok(RiTa.isW_Question("What the"));
     ok(RiTa.isW_Question("What is it"));
-    ok(RiTa.isW_Question("how is it?"));
     ok(RiTa.isW_Question("will is it."));
     ok(RiTa.isW_Question("Where is it?"));
-    ok(RiTa.isW_Question("How is it."));
-
+    ok(RiTa.isW_Question("When is it?"));
+    ok(RiTa.isW_Question("Why is it?"));
+    
+    ok(!RiTa.isW_Question("how is it?"));
+    ok(!RiTa.isW_Question("How is it."));
     ok(!RiTa.isW_Question("Does it?"));
     ok(!RiTa.isW_Question("Is this yours?"));
     ok(!RiTa.isW_Question("Are you done?"));
