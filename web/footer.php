@@ -10,8 +10,8 @@
   <p><span class="col">
   Daniel C. Howe
   </p></span><br>
-  <a href="http://twitter.com/RiTaSoftware" data-show-count="false" class="twitter-follow-button" >Follow @RiTaSoftware</a>
-  <script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
+  <a href="https://twitter.com/RiTaSoftware" data-show-count="false" class="twitter-follow-button" >Follow @RiTaSoftware</a>
+  <script src="https://platform.twitter.com/widgets.js" type="text/javascript"></script>
   <!--h5>Donate</h5>
    <a class="coinbase-button" data-code="583bdb779d2a040a8622b91c9f414d1a"
    data-button-style="custom_small" href="https://www.coinbase.com/checkouts/583bdb779d2a040a8622b91c9f414d1a">Donate</a>
