@@ -23,7 +23,7 @@
   <div class="col10">
      <h3 style="margin-left:-20px">Tutorials</h3>
 <ul class="tutorialList">
-    <li><a href="">A Tutorial on RiTa.js <span style="font-size:.8em">by Daniel Shiffman</span> </a> <span class="videoTag">video</span></li>
+    <li><a href="https://www.youtube.com/watch?v=lIPEvh8HbGQ" target="_blank">A Tutorial on RiTa.js <span style="font-size:.8em">by Daniel Shiffman</span> </a> <span class="videoTag">video</span></li>
     <li><a href="analyzing.php">Analyzing text</a>
     <ul>
         <li><a href="analyzing.php#Phonemes">Phonemes</a></li>
