@@ -1315,6 +1315,17 @@ td h3{
 .tutorialList ul li{
     font-size: 1rem;
 }
+.videoTag{
+    margin-left: .5em;
+    padding:.1em .6em;
+    font-size: .8em;
+    background-color: #0A7FBF;
+    color:white;
+    border-radius: .3em;
+}
+.videoTag:hover{
+    text-decoration: none !important;
+}
 .tutorial .col8{
     max-width: 650px;
 }
