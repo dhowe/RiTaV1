@@ -3,6 +3,7 @@
   <div class="row">
 <div class="col1"></div>
   <div class="col10">
+
 <div class="gd-4 sgd-9 sfl">
   <div class="footercol">
   <h5>Author</h5>
@@ -27,7 +28,6 @@
   <a href="<?php echo $path.'/cite.php'; ?>">How to cite RiTa</a><br>
   <a href="https://github.com/dhowe/RiTa"><span class="source">RiTa on Github</span></a> <br>
   <a href="https://github.com/dhowe/RiTaJS"><span class="source">RiTa.js on Github</span></a>
-
 </p>
      </div>
    </div>

@@ -23,6 +23,7 @@
   <div class="col10">
      <h3 style="margin-left:-20px">Tutorials</h3>
 <ul class="tutorialList">
+    <li><a href="https://www.youtube.com/watch?v=lIPEvh8HbGQ" target="_blank">A Tutorial on RiTa.js <span style="font-size:.8em">by Daniel Shiffman</span> </a> <span class="videoTag">video</span></li>
     <li><a href="analyzing.php">Analyzing text</a>
     <ul>
         <li><a href="analyzing.php#Phonemes">Phonemes</a></li>
@@ -43,7 +44,7 @@
     <li><a href="grammars.php">Generating with grammars</a></li>
     <li><a href="ngrams.php">Generating with n-grams</a></li>
     <li><a href="concordance.php">Concordance and Key-Word-In-Context</a></li>
-</ul>
+    </ul>
 
 <!--a href="sketch.html">Kitchen Sink sketch</a-->
 
