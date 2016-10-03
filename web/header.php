@@ -8,8 +8,8 @@
 ?>
 
 <nav class="site-navigation clearfix">
-     <div class="logo"><a href="index.php"><img src="<?php echo $path.'/img/ritalogo.png'; ?>" alt="RiTa"></a></div>
-
+   <div class="logo"><a href="<?php echo $path.'/index.php'; ?>"><img src="<?php echo $path.'/img/ritalogo.png'; ?>" alt="RiTa"></a></div>
+  <div class="gd-center">
     <ul id="nav" class="menu">
 
       <li><a href="<?php echo $path.'/index.php'; ?>">Home</a></li>
@@ -57,4 +57,5 @@
   })();
 
 </script>
+</div>
   </nav>

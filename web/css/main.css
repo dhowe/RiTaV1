@@ -87,12 +87,8 @@ background: linear-gradient(to bottom, rgba(56,66,90,1) 0%, rgba(15,20,41,1) 65%
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#38425a', endColorstr='#0f1429', GradientType=0 );
 }
           .menu {
-            margin-left:auto;
-            margin-right:auto;
-            text-align:right;
-            float:right;
-            position: relative;
-            margin-right:140px;
+            margin:0 auto;
+            width:600px;
         }
         .toggle-nav {
          display:none;
@@ -110,16 +106,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#38425a', end
         * html .clearfix { height: 1%; }
         .clearfix { display: block; }
         /* close commented backslash hack */
-
-        nav ul,
-        nav ol,
-        nav li {
+     
+        nav ul, nav li {
             margin: 0;
             padding-left: 0.1em;
-            float: left;
             letter-spacing: 0.1em;
             font-weight: 400;
-
+        }
+        nav li{
+            float: left;
         }
         nav a {
             display: block;
@@ -179,6 +174,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#38425a', end
         }
 
 @media screen and (max-width: 900px) {
+    nav ul ul{
+        position:relative;
+        display: block;
+        width:100px;
+        margin:0 0 0 1em;
+        background-color: transparent;
+    }
     ul.menu {
         display:none;
     }
@@ -194,7 +196,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#38425a', end
          text-align: left;
     }
     .menu {
-        width:auto;
+        width:100px;
         position:absolute;
         top:100%;
         left:0px;
@@ -214,6 +216,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#38425a', end
         color:rgb(250,250,250);
         font-size:20px;
         transition:color linear 0.15s;
+    }
+    a.toggle-nav{
+        outline: 0;
     }
 
     .toggle-nav:hover, .toggle-nav.active {
