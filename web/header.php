@@ -8,7 +8,7 @@
 ?>
 
 <nav class="site-navigation clearfix">
-     <div class="logo"><a href="index.php"><img src="<?php echo $path.'/img/ritalogo.png'; ?>" alt="RiTa"></a></div>
+     <div class="logo"><a href="<?php echo $path.'/index.php'; ?>"><img src="<?php echo $path.'/img/ritalogo.png'; ?>" alt="RiTa"></a></div>
 
     <ul id="nav" class="menu">
 
