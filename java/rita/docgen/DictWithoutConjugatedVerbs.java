@@ -1,3 +1,4 @@
+
 package rita.docgen;
 
 import java.io.FileWriter;
@@ -44,13 +45,17 @@ public class DictWithoutConjugatedVerbs {
     for (Iterator<String> it = rdata.keySet().iterator(); it.hasNext();){
       String word = it.next();
       String[] rval = (String[]) rdata.get(word);
+      String phones = rval[0];
+      String pos = rval[1];
+	
+      if(!isConjugatedVerb(rdata, word, rval[1])){
+	  newdata.put(word, "['"+ phones +"','"+ pos +"']");
+	  entries ++;
+      }else {
+//	System.out.println("[Delete] " + word + ":" + pos );
+	deleted ++;
+      }
 
-	 if(!isConjugatedVerb(rdata, word, rval[1])){
-	    newdata.put(word, "['"+ rval[0] +"','"+ rval[1] +"']");
-	    entries ++;
-	  }else {
-	    deleted ++;
-	  }
       }
   
     return newdata;
@@ -102,38 +107,66 @@ public class DictWithoutConjugatedVerbs {
   }
   
   static boolean isConjugatedVerb(HashMap rdata, String word, String pos) {
-
-    if (pos.matches("^vb[a-z]( vb[a-z])*$")) {
-        matches++;
-//	System.out.println("Matches: "+ word + " " + pos);
-	String vb="";
-	String vbm="";
-	
-	String sing = RiTa.singularize(word);
-	if (word.endsWith("s")) 
-	  sing = word.replaceAll("s$", "");
-	
-	 if (pos.matches("^vbz")) vb = sing;
-         if (word.endsWith("ing")) vb = word.substring(0, word.length()-3);
-         if (word.endsWith("ed")) vb = word.substring(0, word.length()-2);
-         if (word.endsWith("ied")) vb = word.replaceAll("ied", "y");
-         if (word.endsWith("ies")) vb = word.replaceAll("ies", "y");
-         
-         if(vb!= "") {
-           vbm = vb.substring(0, vb.length()-1);
-           if (rdata.containsKey(vb) || rdata.containsKey(vb+"e") || rdata.containsKey(vbm)) {
-	       System.err.println(deleted+1 + " " + word + " " + vb + " " + pos);
-               return true;
-	    }
-	    else {
-//	     System.out.println("KEEP: "+word+"/"+ vb + " " + pos);
-            }
-         }
+    //only matches words whose tags consist only of vb*
+    if(pos.matches("^vb[a-z]( vb[a-z])*$")) {
+      matches++;
+      String vb= getvb(word, pos); 
+      if(vb == ""){
+	System.err.println("[Keep] Can't get the vb of word:" + word + " " + pos);
+	 /** Case 1: vbp
+	  *  Case 2: stand - stood
+	    **/
+	return false;
+      }
+      
+      if(rdata.containsKey(vb)) return true;
+      else{
+	//deal with vb that should end with "e" Ex: removed -> remove
+	//any better solution?
+	if(!vb.endsWith("e") && rdata.containsKey(vb+"e")) return true;
+      }
+      System.out.println("[Keep] " + word + " "+ vb + " " + pos );
     }
+    
     return false;
   }
   
-  }
+  static String getvb(String word, String pos){
+    String vb="";
+    
+    //3rd person singular present
+    if (pos.contains("vbz")){
+      if (word.endsWith("ies"))  vb = word.replaceAll("ies$", "y");
+      else if (word.endsWith("es")) vb = word.substring(0, word.length()-2);
+      else if (word.endsWith("s"))  vb = word.substring(0, word.length()-1);
+    }
+    
+    //past tense or past participle
+    if (pos.contains("vbn") || pos.matches("vbd")){
+      if (word.endsWith("ied"))  vb = word.replaceAll("ied$", "y");
+      else if (word.endsWith("ed")) vb = word.substring(0, word.length()-2);
+    }
+    
+    //present participle
+    if (pos.contains("vbg") && word.endsWith("ing"))
+       vb = word.substring(0, word.length()-3);
+   
+    //non-3rd person singular present
+    /** Can we convert the only vbp ones to vb?
+     * Special cases:
+     * --not sure how to handle these
+     * damped:vbn vbd vbp  
+     * obtained:vbn vbd vbp
+     * totaled:vbd vbn vbp
+     * helped:vbd vbn vbp
+    **/
+    if (pos.contains("vbp"))
+       System.err.println("!" + word + ":" + pos);
 
-//dublicateLetter = Pattern.compile("(.)\1{1,}$").matcher(vb);
-//if(dublicateLetter.find()) 
+
+    //deal with repeated ending
+    if(vb != "" && vb.charAt(vb.length()-1) == vb.charAt(vb.length()-2))  vb = vb.substring(0, vb.length()-1);
+    return vb;
+  }
+  
+  }
