@@ -1,26 +1,29 @@
 package rita.test;
 
-import static rita.support.QUnitStubs.deepEqual;
-import static rita.support.QUnitStubs.equal;
-import static rita.support.QUnitStubs.ok;
-import static rita.support.QUnitStubs.setEqual;
+import static rita.support.QUnitStubs.*;
 
-import java.util.Arrays;
-import java.util.Map;
+import java.util.*;
 
 import org.junit.Test;
 
-import rita.RiGrammar;
-import rita.RiLexicon;
-import rita.RiString;
-import rita.RiTa;
-import rita.RiWordNet;
-import rita.support.Constants;
-import rita.support.JSONLexicon;
-import rita.support.LetterToSound;
+import rita.*;
+import rita.support.*;
 
 public class KnownIssuesTest implements Constants
 {
+  @Test
+  public void testGetPosTags()
+  {
+    deepEqual(RiTa.getPosTags("flunk"), new String[] { "vb" });
+    deepEqual(RiTa.getPosTags("flunks"), new String[] { "vbz" });
+    //System.out.println(Arrays.asList(RiTa.getPosTags("He flunks the test")));
+    deepEqual(RiTa.getPosTags("He flunks the test"), new String[] { "prp", "vbn",  "dt", "nn"});
+    
+    deepEqual(RiTa.getPosTags("outnumber"), new String[] { "vb" });
+    deepEqual(RiTa.getPosTags("outnumbers"), new String[] { "vbz" });
+    deepEqual(RiTa.getPosTags("He outnumbers us"), new String[] { "prp", "vbn",  "prp"});
+  }
+  
   @Test
   public void testUntokenize()
   {

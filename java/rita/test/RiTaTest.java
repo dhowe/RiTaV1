@@ -1181,12 +1181,12 @@ public class RiTaTest
   @Test
   public void testGetPosTagsStringBoolean()
   {
-    String[] result = RiTa.getPosTags("asfaasd", true); // TODO CHECK ANSWER
+    String[] result = RiTa.getPosTags("asfaasd", true); // default to n on unknown word
     String[] answer = new String[] { "n" };
     deepEqual(result, answer);
 
     result = RiTa.getPosTags("asfaasd", false);
-    answer = new String[] { "nn" };
+    answer = new String[] { "nn" }; // default to nn on unknown word
     deepEqual(result, answer);
     
     result = RiTa.getPosTags("testing", false);
@@ -1225,6 +1225,33 @@ public class RiTaTest
     result = RiTa.getPosTags("", false);
     answer = new String[] {  };
     deepEqual(result, answer);
+    
+    // Tests for verb conjugation
+
+    deepEqual(RiTa.getPosTags("is"), new String[] { "vbz" });
+    deepEqual(RiTa.getPosTags("am"), new String[] { "vbp" });
+    deepEqual(RiTa.getPosTags("be"), new String[] { "vb"  });
+    
+    result = RiTa.getPosTags("There is a cat.");
+    answer = new String[] { "ex", "vbz", "dt", "nn", "." };
+    deepEqual(result, answer); 
+
+    result = RiTa.getPosTags("There was a cat.");
+    answer = new String[] { "ex", "vbd", "dt", "nn", "." };
+    deepEqual(result, answer);
+    
+    result = RiTa.getPosTags("I am a cat.");
+    answer = new String[] { "prp", "vbp", "dt", "nn", "." };
+    deepEqual(result, answer);
+    
+    result = RiTa.getPosTags("I was a cat.");
+    answer = new String[] { "prp", "vbd", "dt", "nn", "." };
+    deepEqual(result, answer);
+    
+    deepEqual(RiTa.getPosTags("he"), new String[] { "prp" });
+    deepEqual(RiTa.getPosTags("I outnumber you"), new String[] { "prp", "vbp", "prp", });
+    deepEqual(RiTa.getPosTags("I outnumbered you"), new String[] { "prp", "vbd", "prp" });
+    deepEqual(RiTa.getPosTags("She outnumbered us"), new String[] { "prp", "vbd", "prp"});
   }
 
   @Test
