@@ -430,15 +430,18 @@ public class BrillPosTagger implements Constants
     BrillPosTagger ft = new BrillPosTagger();
     for (int i = 0; i < tests.length; i+=2)
     {
+      System.out.print(i/2+": ");
       String[] words = RiTa.tokenize(tests[i]);
       String tags = RiTa.join(ft.tag(words));
       String expected = tests[i+1]; 
+      
       if (!tags.equals(expected )) {
-        System.err.println("FAILED: expected '"+expected+"'  -> "
-          +RiTa.asList(words)+"\n        but got: '"+tags+"'");
+        System.out.println(RiTa.asList(words)+"\nFAILED: expected '"+expected+"'\n        but got: '"+tags+"'");
         failed = true;
+//      break;
       }
-      //  break;
+      else 
+	System.out.println("ok");
     }       
     if (!failed)
       System.out.println("\n       All Tests OK!\n");
