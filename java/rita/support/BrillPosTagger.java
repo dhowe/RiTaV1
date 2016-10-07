@@ -404,9 +404,8 @@ public class BrillPosTagger implements Constants {
   }
   
   private void customTagged(String i, String from, String to) {
-    if (!DBUG) return;
-    System.out.print("\n  Custom(" + i + ") tagged '" + from + "' -> '"
-	+ to + "'\n\n");
+    if (DBUG) System.out.print("\n  Custom(" + i + ") tagged '" + 
+	from + "' -> '" + to + "'\n\n");
   }
 
   // Is this tag in the array of tags ?
