@@ -81,12 +81,9 @@ import rita.RiTaException;
  */
 public class BrillPosTagger implements Constants {
 
-  static final boolean DBUG = true;
+  static final boolean DBUG = false;
 
   static final Pattern number = Pattern.compile("[0-9\\.][0-9\\.]*");
-
-  private static final String[] NOUN = { "nn" };
-  private static final String[] NOUNP = { "nn", "nns" };
 
   private static JSONLexicon lexicon;
   private static BrillPosTagger instance;
@@ -263,101 +260,143 @@ public class BrillPosTagger implements Constants {
     // Apply transformations
     for (int i = 0; i < words.length; i++) {
       
-      if (DBUG) System.out.println("  "+i + ") preTransform: " + words[i] + " -> "
-	    + result[i]);
-
+      String word = words[i], tag = result[i];
+      
+      if (DBUG) System.out.println("  "+i + ") pre: " + word + " -> " + tag);
+            
       // transform 1a: DT, {VBD | VBP | VB} --> DT, NN
       if (i > 0 && result[i - 1].equals("dt")) {
-	if (result[i].startsWith("vb")) {
+	if (tag.startsWith("vb")) {
 
-	  result[i] = "nn";
-	  customTagged("1a", words[i], result[i]);
+	  tag = "nn";
+	  customTagged("1a", word, tag);
 	}
 
 	// transform 1b: DT, {RB | RBR | RBS} --> DT, {JJ | JJR | JJS}
-	else if (result[i].startsWith("rb")) {// added -dch
+	else if (tag.startsWith("rb")) {// added -dch
 
-	  result[i] = "jj";
+	  tag = "jj";
 
-	  if (result[i].length() > 2)
-	    result[i] += result[i].charAt(2);
+	  if (tag.length() > 2)
+	    tag += tag.charAt(2);
 
-	  customTagged("1b", words[i], result[i]);
+	  customTagged("1b", word, tag);
 	}
       }
       // transform 2: convert a noun to a number (cd)
       // if it is all digits and/or a decimal "."
-      if (result[i].startsWith("n") && choices[i] == null) {
-	if (isNum(words[i]))
-	  result[i] = "cd"; // mods: dch (add choice check above)
+      if (tag.startsWith("n") && choices[i] == null) {
+	if (isNum(word))
+	  tag = "cd"; // mods: dch (add choice check above)
       }
 
-      // transform 3: convert a noun to a past participle if words[i] ends with
-      // "ed"
-      if (result[i].startsWith("n") && words[i].endsWith("ed"))
-	result[i] = "vbn";
+      // transform 3: convert a noun to a past participle if word ends with "ed"
+      if (tag.startsWith("n") && word.endsWith("ed")) {
+	tag = "vbn";
+      }
 
       // transform 4: convert any type to adverb if it ends in "ly";
-      if (words[i].endsWith("ly"))
-	result[i] = "rb";
+      if (word.endsWith("ly")) {
+	tag = "rb";
+      }
 
       // transform 5: convert a common noun (NN or NNS) to a adjective if it
       // ends with "al"
-      if (result[i].startsWith("nn") && words[i].endsWith("al")
-	  && !words[i].equals("mammal"))
-	result[i] = "jj"; // special-case for mammal
+      if (tag.startsWith("nn") && word.endsWith("al")
+	  && !word.equals("mammal"))
+	tag = "jj"; // special-case for mammal
 
       // transform 6: convert a noun to a verb if the preceding word is "would"
-      if (i > 0 && result[i].startsWith("nn")
+      if (i > 0 && tag.startsWith("nn")
 	  && words[i - 1].equalsIgnoreCase("would"))
-	result[i] = "vb";
+	tag = "vb";
 
       // transform 7: if a word has been categorized as a common noun and it
       // ends with "s", then set its type to plural common noun (NNS)
-      if (result[i].equals("nn") && words[i].matches(".*[^s]s$")) { // added dch
-	if (!NULL_PLURALS.applies(words[i])) // added dch
-	  result[i] = "nns";
+      if (tag.equals("nn") && word.matches(".*[^s]s$")) { // added dch
+		  
+	if (!NULL_PLURALS.applies(word)) // added dch
+	  tag = "nns";
       }
 
-      // transform 8: convert a common noun to a present participle verb (i.e.,
-      // a gerund)
-      if (result[i].startsWith("nn") && words[i].endsWith("ing")) {
+      // transform 8: convert a common noun to a present participle verb (i.e., a gerund)
+      if (tag.startsWith("nn") && word.endsWith("ing")) {
 
 	// DH: fix here -- added check on choices for any verb: eg 'morning'
 	if (hasTag(choices[i], "vb")) {
-	  result[i] = "vbg";
-	  customTagged(8, words[i], result[i]);
+	  tag = "vbg";
+	  customTagged(8, word, tag);
 	}
       }
 
       // transform 9(dch): convert plural nouns (which are also 3sg-verbs) to
       // 3sg-verbs when following a singular noun (the boy jumps, the dog
       // dances)
-      if (i > 0 && result[i].equals("nns") && hasTag(choices[i], "vbz") && in(result[i - 1], "nn", "prp", "cc", "nnp")) {
-	result[i] = "vbz";
-	customTagged(9, words[i], result[i]);
+      if (i > 0 && tag.equals("nns") && hasTag(choices[i], "vbz") && in(result[i - 1], "nn", "prp", "cc", "nnp")) {
+	tag = "vbz";
+	customTagged(9, word, tag);
       }
 
       // transform 10 (dch): convert common nouns to proper nouns when they
       // start w' a capital (and are not a sentence start)
-      if (/* i > 0 && */result[i].startsWith("nn")
-	  && Character.isUpperCase(words[i].charAt(0))) {
+      if ((i != 0 || words.length == 1) && tag.startsWith("nn")
+	  && Character.isUpperCase(word.charAt(0))) {
 
-	result[i] = result[i].endsWith("s") ? "nnps" : "nnp";
-	customTagged(10, words[i], result[i]);
+	tag = tag.endsWith("s") ? "nnps" : "nnp";
+	customTagged(10, word, tag);
       }
 
-      // DISABLED: transform 12(dch): convert plural nouns (which are also
+      // transform 11(dch): convert plural nouns (which are also
       // 3sg-verbs) to 3sg-verbs when followed by an adverb (jumps, dances)
-      // NO-TEST-CASE FOR THIS
-      if (i < result.length - 1 && result[i].equals("nns")
+      if (i < result.length - 1 && tag.equals("nns")
 	  && result[i + 1].startsWith("rb") && hasTag(choices[i], "vbz")) {
 
-	result[i] = "vbz";
-	customTagged(12, words[i], result[i]);
+	tag = "vbz";
+	customTagged(11, word, tag);
+      }  
+      
+      // transform 12(dch): convert plural nouns which have an entry for their base form to vbz
+      if (i > 0 && tag.equals("nns") && in(result[i - 1], "nn", "prp", "cc", "nnp")) {
+	
+        // if word is ends with s or es and is 'nns' and has a vb
+	if (word.endsWith("s") && lexContains(RiPos.VB, word.substring(0, word.length()-1)) ||
+	  word.endsWith("es") && lexContains(RiPos.VB, word.substring(0, word.length()-2))) 
+	{  
+	  tag = "vbz";
+	  customTagged(12, word, tag);
+	}
       }
-
+      result[i] = tag;
     }
+  }
+
+  boolean lexContains(String ... words) {
+   return lexContains(null, words);
+  }
+
+  boolean lexContains(RiPos pos, String ... words) {
+    
+    for (int i = 0; i < words.length; i++) {
+      
+      if (lexicon.contains(words[i])) {
+	
+	if (pos == null) return true;
+	
+	String[] tags = lexicon.getPosArr(words[i]);
+	for (int j = 0; j < tags.length; j++) {
+	  
+	  if (pos == RiPos.N && RiPos.isNoun(tags[j])   ||
+	      pos == RiPos.V && RiPos.isVerb(tags[j])   ||
+	      pos == RiPos.R && RiPos.isAdverb(tags[j]) ||
+	      pos == RiPos.A && RiPos.isAdj(tags[j])    ||
+	      pos.getTag().equals(tags[j])) 
+	  {
+	    return true;
+	  }
+	}
+      }
+    }
+    return false;
   }
 
   private void customTagged(int i, String from, String to) {
@@ -469,7 +508,11 @@ public class BrillPosTagger implements Constants {
   public static void main(String[] args) {
     BrillPosTagger ft = new BrillPosTagger();
     RiTa.out(ft.tag("He flunks the test".split(" ")));
-    // System.out.println(ft.tag("I"));
+//    System.out.println(ft.lexContains("flunked","flunking"));
+//    System.out.println(ft.lexContains(RiPos.V, "flunked","flunking"));
+//    System.out.println(ft.lexContains(RiPos.V, "flunkedx","flunkingx"));
+//    System.out.println(ft.lexContains(RiPos.VBD, "flunked","flunking"));
+//    // System.out.println(ft.tag("I"));
     //tests();
 
     if (1 == 1) return;
