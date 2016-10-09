@@ -1303,6 +1303,8 @@ public class RiTaTest
     //System.out.println(RiTa.asList(result));
     deepEqual(result, answer);
     
+    deepEqual(RiTa.getPosTags("he"), new String[] { "prp" });
+    
     // Tests for verb conjugation
 
     deepEqual(RiTa.getPosTags("is"), new String[] { "vbz" });
@@ -1325,14 +1327,17 @@ public class RiTaTest
     answer = new String[] { "prp", "vbd", "dt", "nn", "." };
     deepEqual(result, answer);
     
-    deepEqual(RiTa.getPosTags("he"), new String[] { "prp" });
-    deepEqual(RiTa.getPosTags("I outnumber you"), new String[] { "prp", "vbp", "prp", });
+    deepEqual(RiTa.getPosTags("outnumber"), new String[] { "vb" });
+    deepEqual(RiTa.getPosTags("outnumbers"), new String[] { "vbz" });
+    deepEqual(RiTa.getPosTags("He outnumbers us"), new String[] { "prp", "vbz",  "prp"});
     deepEqual(RiTa.getPosTags("I outnumbered you"), new String[] { "prp", "vbd", "prp" });
     deepEqual(RiTa.getPosTags("She outnumbered us"), new String[] { "prp", "vbd", "prp"});
     
     deepEqual(RiTa.getPosTags("flunk"), new String[] {  "vb" });
-    //console.log(RiTa.getPosTags("He flunks the test"));
+    deepEqual(RiTa.getPosTags("flunks"), new String[] {  "vbz" });
     deepEqual(RiTa.getPosTags("He flunks the test"), new String[] { "prp", "vbz",  "dt", "nn"});
+    deepEqual(RiTa.getPosTags("I flunked the test"), new String[] { "prp", "vbd",  "dt", "nn"});
+    deepEqual(RiTa.getPosTags("She flunked the test"), new String[] { "prp", "vbd",  "dt", "nn"});
   }
 
   @Test

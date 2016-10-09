@@ -14,20 +14,17 @@ public class KnownIssuesTest implements Constants
   @Test
   public void testGetPosTags()
   {
-    // TODO
-    deepEqual(RiTa.getPosTags("flunks"), new String[] {  "vbz" });
+    String[] resultArr, answerArr;
 
-    String[] resultArr = RiTa.getPosTags("Dave dances");
-    String[] answerArr = new String[] { "nnp", "vbz"};
-    deepEqual(answerArr, resultArr); 
+    deepEqual(RiTa.getPosTags("I outnumber you"), new String[] { "prp", "vbp", "prp", });
     
     resultArr = RiTa.getPosTags("Elephants dance");
     answerArr = new String[] { "nns", "vbp"};
     deepEqual(answerArr, resultArr);
     
-    deepEqual(RiTa.getPosTags("outnumber"), new String[] { "vb" });
-    deepEqual(RiTa.getPosTags("outnumbers"), new String[] { "vbz" });
-    deepEqual(RiTa.getPosTags("He outnumbers us"), new String[] { "prp", "vbz",  "prp"});
+    resultArr = RiTa.getPosTags("Dave dances");
+    answerArr = new String[] { "nnp", "vbz"};
+    deepEqual(answerArr, resultArr);
   }
   
   @Test

@@ -356,15 +356,20 @@ public class BrillPosTagger implements Constants {
       }  
       
       // transform 12(dch): convert plural nouns which have an entry for their base form to vbz
-      if (i > 0 && tag.equals("nns") && in(result[i - 1], "nn", "prp", "cc", "nnp")) {
-	
-        // if word is ends with s or es and is 'nns' and has a vb
-	if (word.endsWith("s") && lexContains(RiPos.VB, word.substring(0, word.length()-1)) ||
-	  word.endsWith("es") && lexContains(RiPos.VB, word.substring(0, word.length()-2))) 
-	{  
-	  tag = "vbz";
-	  customTagged(12, word, tag);
-	}
+      if (tag.equals("nns")) {
+		
+	 // if only word and not in lexicon OR word is preceded by ["nn", "prp", "cc", "nnp"]
+        if ((words.length == 1 && choices[i] == null) || 
+          (i > 0 && in(result[i - 1], "nn", "prp", "cc", "nnp"))) 
+        {
+          // if word is ends with es or s and is 'nns' and has a vb
+  	  if (word.endsWith("es") && lexContains(RiPos.VB, word.substring(0, word.length()-2)) ||
+  	    word.matches(".*[^e]s$") && lexContains(RiPos.VB, word.substring(0, word.length()-1))) 
+  	  {  
+  	    tag = "vbz";
+  	    customTagged(12, word, tag);
+  	  }
+        }
       }
       result[i] = tag;
     }
@@ -506,7 +511,8 @@ public class BrillPosTagger implements Constants {
 
   public static void main(String[] args) {
     BrillPosTagger ft = new BrillPosTagger();
-    RiTa.out(ft.tag("He flunks the test".split(" ")));
+    RiTa.out(ft.tag("flunks".split(" ")));
+    //RiTa.out(ft.tag("He flunks the test".split(" ")));
 //    System.out.println(ft.lexContains("flunked","flunking"));
 //    System.out.println(ft.lexContains(RiPos.V, "flunked","flunking"));
 //    System.out.println(ft.lexContains(RiPos.V, "flunkedx","flunkingx"));
