@@ -15,7 +15,8 @@ public class KnownIssuesTest implements Constants
   public void testGetPosTags()
   {
     String[] resultArr, answerArr;
-
+    deepEqual(RiTa.getPosTags("outnumbers"), new String[] { "vbz" });
+    deepEqual(RiTa.getPosTags("flunks"), new String[] { "vbz" });
     deepEqual(RiTa.getPosTags("I outnumber you"), new String[] { "prp", "vbp", "prp", });
     
     resultArr = RiTa.getPosTags("Elephants dance");

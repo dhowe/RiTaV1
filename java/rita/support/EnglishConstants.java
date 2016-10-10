@@ -40,12 +40,13 @@ public interface EnglishConstants
 
   RegexRule[] PLURAL_RULES = new RegexRule[] {
       NULL_PLURALS,
+      new RegexRule("^concerto$", 1, "i"),
       new RegexRule("^(piano|photo|solo|ego|tobacco|cargo|golf|grief)$", 0,"s"),
       new RegexRule("^(wildlife)$", 0, "s"),
       new RegexRule(C + "o$", 0, "es"),
       new RegexRule(C + "y$", 1, "ies"),
       new RegexRule("^ox$", 0, "en"),
-      new RegexRule("^(stimulus|alumnus)$", 2, "i"),
+      new RegexRule("^(stimul|alumn|termin)us$", 2, "i"),
       new RegexRule("^corpus$", 2, "ora"),
       new RegexRule("(xis|sis)$", 2, "es"),
       new RegexRule("([zsx]|ch|sh)$", 0, "es"),
@@ -62,7 +63,7 @@ public interface EnglishConstants
       new RegexRule("schema$", 0, "ta"),
       new RegexRule("^bus$", 0, "ses"),
       new RegexRule("child$", 0, "ren"),
-      new RegexRule("^(curi|formul|vertebr|larv|uln|alumn|signor|alg)a$", 0,"e"),
+      new RegexRule("^(curi|formul|vertebr|larv|uln|alumn|signor|alg|minuti)a$", 0,"e"),
       new RegexRule("^(maharaj|raj|myn|mull)a$", 0, "hs"),
       new RegexRule("^aide-de-camp$", 8, "s-de-camp"),
       new RegexRule("^apex|cortex$", 2, "ices"),
@@ -78,6 +79,7 @@ public interface EnglishConstants
       new RegexRule("^(taxi|chief|proof|ref|relief|roof|belief)$", 0, "s"),
       new RegexRule("^(co|no)$", 0, "'s"),
       new RegexRule("^blond$", 0, "es"),
+      new RegexRule("^(medi|millenni|consorti|sept|memorabili|ser)um$", 2, "a"),
 
       // Latin stems
       new RegexRule("^(memorandum|bacterium|curriculum|minimum|"
@@ -266,7 +268,8 @@ public interface EnglishConstants
    "soli",
    "soprani",
    "tempi",
-   "virtuosi"
+   "virtuosi",
+   "concerti"
   );
 
   /**

@@ -202,11 +202,31 @@ public class BrillPosTagger implements Constants {
 
       if (DBUG) System.out.println("  "+words[i] + " -> " + RiTa.asList(data) + " "
 	    + data.length);
-
+      
+   // use stemmer categories if no lexicon
       if (data == null || data.length == 0) {
-
+        
 	// choices[i] = word.endsWith("s") ? NOUNP : NOUN;
 	result[i] = word.endsWith("s") ? "nns" : "nn";
+
+          if (word.endsWith("s")) {
+              String sub = word.substring(0,words[i].length() - 1);
+              String sub2 = word.endsWith("es") ? words[i].substring(0,words[i].length() - 2) : null;
+              if(lexContains(sub) || lexContains(sub2)){
+                choices[i]= new String [] {"nns"};
+              } else {
+                String sing = RiTa.singularize(word);
+                if(lexContains(sing)) choices[i]= new String [] {"nns"};
+              }
+
+          } else {
+              String sing = RiTa.singularize(word);
+              if(lexContains(sing)) {
+        	choices[i]= new String [] {"nns"};
+                result[i] = "nns";
+              }
+          }
+          
       } else {
 
 	result[i] = data[0];
