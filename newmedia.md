@@ -10,6 +10,8 @@
 - [Longest Common Phrase algorithm (pdf)](http://rednoise.org/pubs/the_readers_project-reading_writing_resisting-howe_cayley.pdf)
 - [AdLiPo](http://rednoise.org/adlipo/)
 
+<br>
+
 ### [RiTa tools](http://rednoise.org/rita/)
 
 #### [Gallery](http://rednoise.org/rita/gallery)
