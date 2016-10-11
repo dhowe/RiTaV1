@@ -8,7 +8,7 @@
 
 ### Conceptual / Political
 - [How It Is in Common Tongues](http://www.ubu.com/contemp/cayley/) [(pdf)](http://www.ubu.com/contemp/cayley/Cayley-Howe_How-It-Is-In-Common-Tongues.pdf)
-- [Longest Common Phrase algorithm (pdf)](https://rednoise.org/pubs/the_readers_project-reading_writing_resisting-howe_cayley.pdf)
+- [Longest Common Phrase algorithm](https://rednoise.org/lcp.png) [(pdf)](https://rednoise.org/pubs/the_readers_project-reading_writing_resisting-howe_cayley.pdf)
 - [AdLiPo](https://rednoise.org/adlipo/)
 - [AdNauseam](https://adnauseam.io)
 
