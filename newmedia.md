@@ -12,7 +12,7 @@
 
 <br>
 
-### [RiTa tools](http://rednoise.org/rita/)
+### [The RiTa toolkit](http://rednoise.org/rita/)
 
 #### [Gallery](http://rednoise.org/rita/gallery)
   - Cornell's Yoke
