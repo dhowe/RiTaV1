@@ -1,28 +1,28 @@
-### Writing for New Media
+## Writing for New Media
 
+### Substitution / Recombination
+- [Memory](http://rednoise.org/rita/gallery/Memory/)
+- [Automatype](http://rednoise.org/~dhowe/automatype/)
+- [Roulette](http://www.cddc.vt.edu/journals/newriver/08Spring/)
 
-#### Substitution / Recombination
-- Memory 'I made Tea'
-- Automatype
-- Roulette 
+### Conceptual / Political
+- [How It Is in Common Tongues](http://thereadersproject.org/?hiiict2012)
+- [Longest Common Phrase algorithm (pdf)](http://rednoise.org/pubs/the_readers_project-reading_writing_resisting-howe_cayley.pdf)
+- [AdLiPo](http://rednoise.org/adlipo/)
 
-#### Conceptual / Political
-- How It Is in Common Tongues
-- Longest Common Phrase algorithm
-- AdLiPo
+### [RiTa tools](http://rednoise.org/rita/)
 
-#### RiTa tools
-
-##### Gallery
+#### [Gallery](http://rednoise.org/rita/gallery)
   - Cornell's Yoke
   - Spin State
   - Readers Project
   
-##### Examples
+#### [Examples](http://rednoise.org/rita/examples)
   - Haiku
   - Analysis
 
-##### Learning
-  - Shiffman tutorial
-  - Grammar Tutorial
+#### Learning
+  - [Setup guides](http://rednoise.org/rita/quickstart.php)
+  - [Shiffman tutorial](http://rednoise.org/rita/tutorial/index.php)
+  - [Grammar Tutorial](http://rednoise.org/rita/tutorial/grammars.php)
 
