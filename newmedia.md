@@ -32,6 +32,6 @@
 -------------------
 
 ### Other Resources
-[My website](https://rednoise.org/daniel)
-[The UbuWeb archive](http://www.ubu.com)
-[Electronic Literature Collections](http://collection.eliterature.org/)
+- [My website](https://rednoise.org/daniel)
+- [The UbuWeb archive](http://www.ubu.com)
+- [Electronic Literature Collections](http://collection.eliterature.org/)
