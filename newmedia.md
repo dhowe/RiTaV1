@@ -1,6 +1,7 @@
 # Writing for New Media
 
 ### Substitution / Recombination
+- [Queneau](http://www.bevrowe.info/Queneau/QueneauRandom_v5.html)
 - [Memory](https://rednoise.org/rita/gallery/Memory/)
 - [Automatype](https://rednoise.org/~dhowe/automatype/)
 - [Roulette](https://www.cddc.vt.edu/journals/newriver/08Spring/)
