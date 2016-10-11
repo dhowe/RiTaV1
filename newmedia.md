@@ -35,4 +35,6 @@
 ### Other Resources
 - [My website](https://rednoise.org/daniel)
 - [The UbuWeb archive](http://www.ubu.com)
+- [iloveepoetry.com](http://iloveepoetry.com/)
 - [Electronic Literature Collections](http://collection.eliterature.org/)
+
