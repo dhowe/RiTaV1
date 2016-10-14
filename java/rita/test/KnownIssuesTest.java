@@ -15,17 +15,29 @@ public class KnownIssuesTest implements Constants
   public void testGetPosTags()
   {
     String[] resultArr, answerArr;
-    deepEqual(RiTa.getPosTags("outnumbers"), new String[] { "vbz" });
-    deepEqual(RiTa.getPosTags("flunks"), new String[] { "vbz" });
+    
+    System.out.println("[Pos]" + Arrays.toString(RiTa.getPosTags("freed")));
     deepEqual(RiTa.getPosTags("I outnumber you"), new String[] { "prp", "vbp", "prp", });
     
+    resultArr = RiTa.getPosTags("by illegal means");
+    answerArr = new String[] {"in", "jj", "nn"};
+    deepEqual(answerArr,resultArr);
+    
+    resultArr = RiTa.getPosTags("freed");
+    answerArr = new String[] {"jj"};
+    deepEqual(answerArr,resultArr);
+    
+    resultArr = RiTa.getPosTags("They feed the cat");
+    answerArr = new String[] {"prp", "vbp", "dt", "nn"};
+    deepEqual(answerArr,resultArr);
+     
     resultArr = RiTa.getPosTags("Elephants dance");
     answerArr = new String[] { "nns", "vbp"};
     deepEqual(answerArr, resultArr);
     
-    resultArr = RiTa.getPosTags("Dave dances");
-    answerArr = new String[] { "nnp", "vbz"};
-    deepEqual(answerArr, resultArr);
+//    deepEqual(RiTa.getPosTags("outnumbers"), new String[] { "vbz" });
+//    deepEqual(RiTa.getPosTags("flunks"), new String[] { "vbz" });
+
   }
   
   @Test

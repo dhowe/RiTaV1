@@ -1067,7 +1067,31 @@ public class RiTaTest
     resultArr = RiTa.getPosTags("He dances");
     answerArr = new String[] { "prp", "vbz"};
     deepEqual(answerArr, resultArr); 
-        
+    
+    resultArr = RiTa.getPosTags("Dave dances");
+    answerArr = new String[] { "nnp", "vbz"};
+    deepEqual(answerArr, resultArr); 
+    
+    resultArr = RiTa.getPosTags("the top seed");
+    answerArr = new String[] {"dt", "jj", "nn"};
+    deepEqual(answerArr,resultArr);
+    
+    resultArr = RiTa.getPosTags("biped");
+    answerArr = new String[] {"nn"};
+    deepEqual(answerArr,resultArr);
+    
+    resultArr = RiTa.getPosTags("greed");
+    answerArr = new String[] {"nn"};
+    deepEqual(answerArr,resultArr);
+    
+    resultArr = RiTa.getPosTags("creed");
+    answerArr = new String[] {"nn"};
+    deepEqual(answerArr,resultArr);
+    
+    resultArr = RiTa.getPosTags("weed");
+    answerArr = new String[] {"nn"};
+    deepEqual(answerArr,resultArr);
+    
     resultArr = RiTa.getPosTags("mammal"); // special case
     answerArr = new String[] {"nn"};
     deepEqual(answerArr,resultArr);
