@@ -1068,6 +1068,10 @@ public class RiTaTest
     answerArr = new String[] { "prp", "vbz"};
     deepEqual(answerArr, resultArr); 
     
+    resultArr = RiTa.getPosTags("Elephants dance");
+    answerArr = new String[] { "nns", "vbp" };
+    deepEqual(answerArr, resultArr);
+    
     resultArr = RiTa.getPosTags("Dave dances");
     answerArr = new String[] { "nnp", "vbz"};
     deepEqual(answerArr, resultArr); 
@@ -1075,6 +1079,10 @@ public class RiTaTest
     resultArr = RiTa.getPosTags("the top seed");
     answerArr = new String[] {"dt", "jj", "nn"};
     deepEqual(answerArr,resultArr);
+    
+    resultArr = RiTa.getPosTags("by illegal means");
+    answerArr = new String[] { "in", "jj", "nn" };
+    deepEqual(answerArr, resultArr);
     
     resultArr = RiTa.getPosTags("biped");
     answerArr = new String[] {"nn"};
@@ -1091,6 +1099,10 @@ public class RiTaTest
     resultArr = RiTa.getPosTags("weed");
     answerArr = new String[] {"nn"};
     deepEqual(answerArr,resultArr);
+    
+    resultArr = RiTa.getPosTags("freed");
+    answerArr = new String[] { "jj" };
+    deepEqual(answerArr, resultArr);
     
     resultArr = RiTa.getPosTags("mammal"); // special case
     answerArr = new String[] {"nn"};
@@ -1292,20 +1304,20 @@ public class RiTaTest
     //System.out.println(RiTa.asList(result));
     deepEqual(result, answer);
 
-    result = RiTa.getPosTags("There is a cat.");
-    answer = new String[] { "ex", "vbz", "dt", "nn", "." };
-    //System.out.println(RiTa.asList(result));
-    deepEqual(result, answer); // TODO check result
+//    result = RiTa.getPosTags("There is a cat.");
+//    answer = new String[] { "ex", "vbz", "dt", "nn", "." };
+//    //System.out.println(RiTa.asList(result));
+//    deepEqual(result, answer); // TODO check result
     
     result = RiTa.getPosTags("I am a boy.");
     answer = new String[] { "prp", "vbp", "dt", "nn", "." };
     //System.out.println(RiTa.asList(result));
     deepEqual(result, answer); // TODO check result
     
-    result = RiTa.getPosTags("He is a boy.");
-    answer = new String[] { "prp", "vbz", "dt", "nn", "." };
-    //System.out.println(RiTa.asList(result));
-    deepEqual(result, answer); // TODO check result
+//    result = RiTa.getPosTags("He is a boy.");
+//    answer = new String[] { "prp", "vbz", "dt", "nn", "." };
+//    //System.out.println(RiTa.asList(result));
+//    deepEqual(result, answer); // TODO check result
 
     String txtArr = "bronchitis" ;
     String[] resultArr = RiTa.getPosTags(txtArr, false);
@@ -1352,13 +1364,14 @@ public class RiTaTest
     deepEqual(result, answer);
     
     deepEqual(RiTa.getPosTags("outnumber"), new String[] { "vb" });
-//    deepEqual(RiTa.getPosTags("outnumbers"), new String[] { "vbz" }); Please check Knownissue
+    deepEqual(RiTa.getPosTags("outnumbers"), new String[] { "vbz" }); 
+    deepEqual(RiTa.getPosTags("I outnumber you"), new String[] { "prp", "vbp", "prp", });
     deepEqual(RiTa.getPosTags("He outnumbers us"), new String[] { "prp", "vbz",  "prp"});
     deepEqual(RiTa.getPosTags("I outnumbered you"), new String[] { "prp", "vbd", "prp" });
     deepEqual(RiTa.getPosTags("She outnumbered us"), new String[] { "prp", "vbd", "prp"});
     
     deepEqual(RiTa.getPosTags("flunk"), new String[] {  "vb" });
-//    deepEqual(RiTa.getPosTags("flunks"), new String[] {  "vbz" });Please check Knownissue
+    deepEqual(RiTa.getPosTags("flunks"), new String[] {  "vbz" });
     deepEqual(RiTa.getPosTags("He flunks the test"), new String[] { "prp", "vbz",  "dt", "nn"});
     deepEqual(RiTa.getPosTags("I flunked the test"), new String[] { "prp", "vbd",  "dt", "nn"});
     deepEqual(RiTa.getPosTags("She flunked the test"), new String[] { "prp", "vbd",  "dt", "nn"});

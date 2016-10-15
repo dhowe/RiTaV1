@@ -941,7 +941,7 @@ public class RiLexicon implements Constants {
 
   public static void main(String[] args) {
     RiLexicon rl = new RiLexicon();
-    System.out.println(rl.randomWord("n"));
+    System.out.println(rl.randomWord("nn"));
     if (1==1) return;
     // System.out.println(rl.lastStressedPhoneToEnd("mellow",true));
     System.out.println(rl.lastStressedPhoneToEnd("toy", true));

@@ -215,17 +215,17 @@ public class BrillPosTagger implements Constants {
 	  String sub = word.substring(0, words[i].length() - 1);
 	  String sub2 = word.endsWith("es")
 	      ? words[i].substring(0, words[i].length() - 2) : null;
-	  if (lexContains(sub) || lexContains(sub2)) {
+	  if (lexContains(RiPos.N, sub) || lexContains(RiPos.N, sub2)) {
 	    choices[i] = new String[] { "nns" };
 	  } else {
 	    String sing = RiTa.singularize(word);
-	    if (lexContains(sing))
+	    if (lexContains(RiPos.N, sing))
 	      choices[i] = new String[] { "nns" };
 	  }
 
 	} else {
 	  String sing = RiTa.singularize(word);
-	  if (lexContains(sing)) {
+	  if (lexContains(RiPos.N, sing)) {
 	    choices[i] = new String[] { "nns" };
 	    result[i] = "nns";
 	  }
@@ -278,7 +278,7 @@ public class BrillPosTagger implements Constants {
    */
   protected void applyContext(String[] words, String[] result,
       String[][] choices) {
-
+  
     if (DBUG)
       System.out.println("  applyContext(" + Arrays.asList(words) + ","
 	  + Arrays.asList(result) + ")");
@@ -370,7 +370,7 @@ public class BrillPosTagger implements Constants {
       if (tag.startsWith("nn") && Character.isUpperCase(word.charAt(0))) {
         //if it is not at the start of a sentence or it is the only word
 	//or when it is at the start of a sentence but can't be found in the dictionary
-	if(i != 0 || words.length == 1 || (i == 0 && !lexContains("nn", word))){
+	if(i != 0 || words.length == 1 || (i == 0 && !lexContains(RiPos.N, RiTa.singularize(word).toLowerCase()))){
 	tag = tag.endsWith("s") ? "nnps" : "nnp";
 	customTagged(10, word, tag);
 	}
@@ -384,19 +384,21 @@ public class BrillPosTagger implements Constants {
 	tag = "vbz";
 	customTagged(11, word, tag);
       }
-
+     
       // transform 12(dch): convert plural nouns which have an entry for their
       // base form to vbz
       if (tag.equals("nns")) {
-
+	
 	// if only word and not in lexicon OR word is preceded by ["nn", "prp",
 	// "cc", "nnp"]
+
 	if ((words.length == 1 && choices[i] == null)
 	    || (i > 0 && in(result[i - 1], "nn", "prp", "cc", "nnp"))) {
 	  // if word is ends with es or s and is 'nns' and has a vb
+	 
 	  if (word.endsWith("es")
 	      && lexContains(RiPos.VB, word.substring(0, word.length() - 2))
-	      || word.matches(".*s$") && lexContains(RiPos.VB,
+	      || word.endsWith("s") && lexContains(RiPos.VB,
 		  word.substring(0, word.length() - 1))) {
 	    tag = "vbz";
 	    customTagged(12, word, tag);
@@ -404,15 +406,14 @@ public class BrillPosTagger implements Constants {
 	}
       }
       
-      //transform 13(cqx): convert a vb/ potential vb to vbp when following nns (Elephants dance, they dance)
-      if (tag == "vb" || (tag.equals("nn") && hasTag(choices[i], "vb"))){
+      //transform 13(cqx): convert a vb/ potential vb to vbp when following nns (Elephants dance, they dance) 
+      if (tag.equals("vb") || (tag.equals("nn") && hasTag(choices[i], "vb"))){
           if (i > 0 && result[i - 1].matches("^(nns|nnps|prp)$")){
           tag = "vbp";
           customTagged(13, word, tag);
           }
         }
-      
-      
+           
       result[i] = tag;
     }
   }
