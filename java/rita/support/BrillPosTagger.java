@@ -81,7 +81,7 @@ import rita.RiTaException;
  */
 public class BrillPosTagger implements Constants {
 
-  static final boolean DBUG = true;
+  static final boolean DBUG = false;
 
   static final Pattern number = Pattern.compile("[0-9\\.][0-9\\.]*");
 

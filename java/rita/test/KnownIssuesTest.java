@@ -54,8 +54,14 @@ public class KnownIssuesTest implements Constants {
 
   @Test
   public void testIsVerbString() {
+    //-> vbz tag issue
     RiLexicon lex = new RiLexicon();
-    ok(lex.isVerb("ducks")); // +n -> vbz tag issue
+    ok(lex.isVerb("ducks")); // +n 
+    ok(lex.isVerb("dogs"));
+    ok(!lex.isVerb("dolls"));
+    ok(!lex.isVerb("frogs"));
+    ok(!lex.isVerb("flowers"));
+
   }
 
   @Test
