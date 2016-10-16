@@ -279,16 +279,26 @@ public class BrillPosTagger implements Constants {
 
     // Apply transformations
     for (int i = 0; i < words.length; i++) {
-      
+
       String word = words[i], tag = result[i];
-      
-      if (DBUG) System.out.println("  "+i + ") pre: " + word + " -> " + tag);
-            
+
+      if (DBUG)
+	System.out.println("  " + i + ") pre: " + word + " -> " + tag);
+
       // transform 1a: DT, {VBD | VBP | VB} --> DT, NN
       if (i > 0 && result[i - 1].equals("dt")) {
 	if (tag.startsWith("vb")) {
 
 	  tag = "nn";
+
+	  // transform 7: if a word has been categorized as a common noun and it
+	  // ends with "s", then set its type to plural common noun (NNS)
+	  if (word.matches(".*[^s]s$")) { // added dch
+
+	    if (!NULL_PLURALS.applies(word)) // added dch
+	      tag = "nns";
+	  }
+
 	  customTagged("1a", word, tag);
 	}
 
@@ -311,7 +321,8 @@ public class BrillPosTagger implements Constants {
       }
 
       // transform 3: convert a noun to a past participle if word ends with "ed"
-      if (tag.startsWith("n") && word.endsWith("ed")) {
+      if (i > 0 && tag.startsWith("n") && word.endsWith("ed")
+	  && in(result[i - 1], "nn", "nns", "nnp", "nnps", "prp")) {
 	tag = "vbn";
       }
 
@@ -322,24 +333,15 @@ public class BrillPosTagger implements Constants {
 
       // transform 5: convert a common noun (NN or NNS) to a adjective if it
       // ends with "al"
-      if (tag.startsWith("nn") && word.endsWith("al")
-	  && !word.equals("mammal"))
+      if (tag.startsWith("nn") && word.endsWith("al") && !word.equals("mammal"))
 	tag = "jj"; // special-case for mammal
 
       // transform 6: convert a noun to a verb if the preceding word is "would"
-      if (i > 0 && tag.startsWith("nn")
-	  && words[i - 1].equalsIgnoreCase("would"))
+      if (i > 0 && tag.startsWith("nn") && result[i - 1].startsWith("md"))
 	tag = "vb";
 
-      // transform 7: if a word has been categorized as a common noun and it
-      // ends with "s", then set its type to plural common noun (NNS)
-      if (tag.equals("nn") && word.matches(".*[^s]s$")) { // added dch
-		  
-	if (!NULL_PLURALS.applies(word)) // added dch
-	  tag = "nns";
-      }
-
-      // transform 8: convert a common noun to a present participle verb (i.e., a gerund)
+      // transform 8: convert a common noun to a present participle verb (i.e.,
+      // a gerund)
       if (tag.startsWith("nn") && word.endsWith("ing")) {
 
 	// DH: fix here -- added check on choices for any verb: eg 'morning'
@@ -352,18 +354,23 @@ public class BrillPosTagger implements Constants {
       // transform 9(dch): convert plural nouns (which are also 3sg-verbs) to
       // 3sg-verbs when following a singular noun (the boy jumps, the dog
       // dances)
-      if (i > 0 && tag.equals("nns") && hasTag(choices[i], "vbz") && in(result[i - 1], "nn", "prp", "cc", "nnp")) {
+      if (i > 0 && tag.equals("nns") && hasTag(choices[i], "vbz")
+	  && in(result[i - 1], "nn", "prp", "cc", "nnp")) {
 	tag = "vbz";
 	customTagged(9, word, tag);
       }
 
       // transform 10 (dch): convert common nouns to proper nouns when they
-      // start w' a capital (and are not a sentence start)
-      if ((i != 0 || words.length == 1) && tag.startsWith("nn")
-	  && Character.isUpperCase(word.charAt(0))) {
-
-	tag = tag.endsWith("s") ? "nnps" : "nnp";
-	customTagged(10, word, tag);
+      // start w' a capital
+      if (tag.startsWith("nn") && Character.isUpperCase(word.charAt(0))) {
+	// if it is not at the start of a sentence or it is the only word
+	// or when it is at the start of a sentence but can't be found in the
+	// dictionary
+	if (i != 0 || words.length == 1 || (i == 0
+	    && !lexContains(RiPos.N, RiTa.singularize(word).toLowerCase()))) {
+	  tag = tag.endsWith("s") ? "nnps" : "nnp";
+	  customTagged(10, word, tag);
+	}
       }
 
       // transform 11(dch): convert plural nouns (which are also
@@ -373,24 +380,38 @@ public class BrillPosTagger implements Constants {
 
 	tag = "vbz";
 	customTagged(11, word, tag);
-      }  
-      
-      // transform 12(dch): convert plural nouns which have an entry for their base form to vbz
-      if (tag.equals("nns")) {
-		
-	 // if only word and not in lexicon OR word is preceded by ["nn", "prp", "cc", "nnp"]
-        if ((words.length == 1 && choices[i] == null) || 
-          (i > 0 && in(result[i - 1], "nn", "prp", "cc", "nnp"))) 
-        {
-          // if word is ends with es or s and is 'nns' and has a vb
-  	  if (word.endsWith("es") && lexContains(RiPos.VB, word.substring(0, word.length()-2)) ||
-  	    word.matches(".*[^e]s$") && lexContains(RiPos.VB, word.substring(0, word.length()-1))) 
-  	  {  
-  	    tag = "vbz";
-  	    customTagged(12, word, tag);
-  	  }
-        }
       }
+
+      // transform 12(dch): convert plural nouns which have an entry for their
+      // base form to vbz
+      if (tag.equals("nns")) {
+
+	// if only word and not in lexicon OR word is preceded by ["nn", "prp",
+	// "cc", "nnp"]
+
+	if ((words.length == 1 && choices[i] == null)
+	    || (i > 0 && in(result[i - 1], "nn", "prp", "cc", "nnp"))) {
+	  // if word is ends with es or s and is 'nns' and has a vb
+
+	  if (word.endsWith("es")
+	      && lexContains(RiPos.VB, word.substring(0, word.length() - 2))
+	      || word.endsWith("s") && lexContains(RiPos.VB,
+		  word.substring(0, word.length() - 1))) {
+	    tag = "vbz";
+	    customTagged(12, word, tag);
+	  }
+	}
+      }
+
+      // transform 13(cqx): convert a vb/ potential vb to vbp when following nns
+      // (Elephants dance, they dance)
+      if (tag.equals("vb") || (tag.equals("nn") && hasTag(choices[i], "vb"))) {
+	if (i > 0 && result[i - 1].matches("^(nns|nnps|prp)$")) {
+	  tag = "vbp";
+	  customTagged(13, word, tag);
+	}
+      }
+
       result[i] = tag;
     }
   }
