@@ -209,31 +209,34 @@ public class BrillPosTagger implements Constants {
 	// choices[i] = word.endsWith("s") ? NOUNP : NOUN;
 	result[i] = word.endsWith("s") ? "nns" : "nn";
 
-          if (word.endsWith("s")) {
-              String sub = word.substring(0,words[i].length() - 1);
-              String sub2 = word.endsWith("es") ? words[i].substring(0,words[i].length() - 2) : null;
-              if(lexContains(sub) || lexContains(sub2)){
-                choices[i]= new String [] {"nns"};
-              } else {
-                String sing = RiTa.singularize(word);
-                if(lexContains(sing)) choices[i]= new String [] {"nns"};
-              }
+	if (word.endsWith("s")) {
+	  String sub = word.substring(0, words[i].length() - 1);
+	  String sub2 = word.endsWith("es")
+	      ? words[i].substring(0, words[i].length() - 2) : null;
+	  if (lexContains(RiPos.N, sub) || lexContains(RiPos.N, sub2)) {
+	    choices[i] = new String[] { "nns" };
+	  } else {
+	    String sing = RiTa.singularize(word);
+	    if (lexContains(RiPos.N, sing))
+	      choices[i] = new String[] { "nns" };
+	  }
 
-          } else {
-              String sing = RiTa.singularize(word);
-              if(lexContains(sing)) {
-        	choices[i]= new String [] {"nns"};
-                result[i] = "nns";
-              }
-          }
-          
+	} else {
+	  String sing = RiTa.singularize(word);
+	  if (lexContains(RiPos.N, sing)) {
+	    choices[i] = new String[] { "nns" };
+	    result[i] = "nns";
+	  }
+	}
+
       } else {
 
 	result[i] = data[0];
 	choices[i] = data;
+
       }
     }
-
+  
     // adjust pos according to transformation rules
     this.applyContext(words, result, choices);
 
@@ -276,7 +279,7 @@ public class BrillPosTagger implements Constants {
     
     if (DBUG) System.out.println("  applyContext(" + Arrays.asList(words)
 	  + "," + Arrays.asList(result) + ")");
-
+   
     // Apply transformations
     for (int i = 0; i < words.length; i++) {
 
