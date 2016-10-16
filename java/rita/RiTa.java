@@ -51,8 +51,8 @@ public class RiTa implements Constants {
 
   /** For tokenization, Can't -> Can not, etc. */
   public static boolean SPLIT_CONTRACTIONS = false;
-
-  /** For Phonemization: ARPA or IPA */
+  
+  /** For Phonemization: ARPA or IPA   */
   public static int PHONEME_TYPE = ARPA;
 
   /** Stops all RiTa output to the console */
@@ -107,7 +107,7 @@ public class RiTa implements Constants {
   public static String getPhonemes(String[] s) {
     return getFeature(s, PHONEMES);
   }
-
+  
   public static String getStresses(String s) {
     return getFeature(s, STRESSES);
   }
@@ -233,20 +233,18 @@ public class RiTa implements Constants {
     return untokenize(arr, delim, true);
   }
 
-  public static String untokenize(String[] arr,
-      boolean adjustPunctuationSpacing) {
+  public static String untokenize(String[] arr, boolean adjustPunctuationSpacing) {
     return untokenize(arr, ' ', adjustPunctuationSpacing);
   }
 
   public static Method _findCallback(Object parent, String callbackName) {
     try {
-      return (callbackName == null)
-	  ? _findMethod(parent, DEFAULT_CALLBACK,
-	      new Class[] { RiTaEvent.class }, false)
-	  : _findMethod(parent, callbackName, new Class[] {}, false);
+      return (callbackName == null) ? _findMethod(parent, DEFAULT_CALLBACK,
+	  new Class[] { RiTaEvent.class }, false) : _findMethod(parent,
+	  callbackName, new Class[] {}, false);
     } catch (RiTaException e) {
-      String msg = (callbackName == null) ? DEFAULT_CALLBACK + "(RiTaEvent re);"
-	  : callbackName + "();";
+      String msg = (callbackName == null) ? DEFAULT_CALLBACK
+	  + "(RiTaEvent re);" : callbackName + "();";
       System.err.println("[WARN] Expected callback not found: "
 	  + shortName(parent) + "." + msg);
       return null;
@@ -362,8 +360,8 @@ public class RiTa implements Constants {
    * @see RiTokenizer
    */
   public static String[] tokenize(String line, String regex) {
-    return (regex == null) ? tokenize(line)
-	: RiTokenizer.getRegexInstance(regex).tokenize(line);
+    return (regex == null) ? tokenize(line) : RiTokenizer.getRegexInstance(
+	regex).tokenize(line);
   }
 
   /**
@@ -381,9 +379,10 @@ public class RiTa implements Constants {
     Matcher m = punctPattern.matcher(token);
     boolean match = m.find();
     if (!match || m.groupCount() < 1) {
-      System.err.println(
-	  "[WARN] RiTa.trimPunctuation(): invalid regex state for String "
-	      + "\n       '" + token
+      System.err
+	  .println("[WARN] RiTa.trimPunctuation(): invalid regex state for String "
+	      + "\n       '"
+	      + token
 	      + "', perhaps an unexpected byte-order mark?");
       return token;
     }
@@ -422,8 +421,8 @@ public class RiTa implements Constants {
     while (resultSize > 0 && matchList.get(resultSize - 1).equals(""))
       resultSize--;
 
-    return (String[]) matchList.subList(0, resultSize)
-	.toArray(new String[resultSize]);
+    return (String[]) matchList.subList(0, resultSize).toArray(
+	new String[resultSize]);
   }
 
   public static String pluralize(String noun) {
@@ -580,8 +579,8 @@ public class RiTa implements Constants {
    */
   public static boolean isQuestion(String sentence) {
     for (int i = 0; i < QUESTION_STARTS.length; i++)
-      if ((sentence.trim().toUpperCase())
-	  .startsWith(QUESTION_STARTS[i].toUpperCase()))
+      if ((sentence.trim().toUpperCase()).startsWith(QUESTION_STARTS[i]
+	  .toUpperCase()))
 	return true;
     return false;
   }
@@ -592,8 +591,8 @@ public class RiTa implements Constants {
    */
   public static boolean isW_Question(String sentence) {
     for (int i = 0; i < W_QUESTION_STARTS.length; i++)
-      if ((sentence.trim().toUpperCase())
-	  .startsWith(W_QUESTION_STARTS[i].toUpperCase()))
+      if ((sentence.trim().toUpperCase()).startsWith(W_QUESTION_STARTS[i]
+	  .toUpperCase()))
 	return true;
     return false;
   }
@@ -620,8 +619,8 @@ public class RiTa implements Constants {
       return false;
 
     if (cWL > 2
-	&& ((currentWord.charAt(0) == '\'' && currentWord.charAt(1) == '\'')
-	    || (currentWord.charAt(0) == '`' && currentWord.charAt(1) == '`'))
+	&& ((currentWord.charAt(0) == '\'' && currentWord.charAt(1) == '\'') || (currentWord
+	    .charAt(0) == '`' && currentWord.charAt(1) == '`'))
 	&& RiTa.isAbbreviation(currentWord.substring(2))) {
       return false;
     }
@@ -639,17 +638,15 @@ public class RiTa implements Constants {
     // [`'"([{<] + upper case, `` + upper case, or < -> middle of sent.
     if (!(Character.isUpperCase(nextToken0)
 	|| (Character.isUpperCase(nextToken1) && isIn(nextToken0, "`'\"([{<"))
-	|| (Character.isUpperCase(nextToken2)
-	    && ((nextToken0 == '`' && nextToken1 == '`')
-		|| (nextToken0 == '\'' && nextToken1 == '\'')))
+	|| (Character.isUpperCase(nextToken2) && ((nextToken0 == '`' && nextToken1 == '`') || (nextToken0 == '\'' && nextToken1 == '\'')))
 	|| nextWord.equals("_") || nextToken0 == '<'))
       return false;
 
     // ends with ?, !, [!?.]["'}>)], or [?!.]'' -> end of sentence
-    if (currentToken0 == '?' || currentToken0 == '!'
+    if (currentToken0 == '?'
+	|| currentToken0 == '!'
 	|| (isIn(currentToken1, "?!.") && isIn(currentToken0, "\"'}>)"))
-	|| (isIn(currentToken2, "?!.") && currentToken1 == '\''
-	    && currentToken0 == '\''))
+	|| (isIn(currentToken2, "?!.") && currentToken1 == '\'' && currentToken0 == '\''))
       return true;
 
     // last char not "." -> middle of sentence
@@ -665,9 +662,10 @@ public class RiTa implements Constants {
       return false;
 
     // double initial (X.Y.) -> middle of sentence << added for ACE
-    if (cWL == 4 && currentToken2 == '.'
-	&& (Character.isUpperCase(currentToken1)
-	    && Character.isUpperCase(currentWord.charAt(0))))
+    if (cWL == 4
+	&& currentToken2 == '.'
+	&& (Character.isUpperCase(currentToken1) && Character
+	    .isUpperCase(currentWord.charAt(0))))
       return false;
 
     // U.S. or U.N. -> middle of sentence
@@ -857,9 +855,7 @@ public class RiTa implements Constants {
 
   public static Object invoke(Object callee, String methodName,
       Class[] argTypes, Object[] args) {
-    // System.out.println("INVOKE:
-    // "+callee.getClass()+"."+methodName+"(types="+asList(argTypes)+",
-    // vals="+asList(args)+")");
+    // System.out.println("INVOKE: "+callee.getClass()+"."+methodName+"(types="+asList(argTypes)+", vals="+asList(args)+")");
     return _invoke(callee, _findMethod(callee, methodName, argTypes, true),
 	args);
   }
@@ -893,8 +889,7 @@ public class RiTa implements Constants {
 
   public static Object _invoke(Object callee, Method m, Object[] args) {
     try {
-      // System.out.println("INVOKE:
-      // "+callee+"."+m.getName()+"("+asList(args)+")");
+      // System.out.println("INVOKE: "+callee+"."+m.getName()+"("+asList(args)+")");
       return m.invoke(callee, args);
     } catch (Throwable e) {
       Throwable cause = e.getCause();
@@ -902,9 +897,9 @@ public class RiTa implements Constants {
 	e = cause;
 	cause = e.getCause();
       }
-      System.err.println(
-	  "[WARN] Invoke error on " + RiTa.shortName(callee) + "." + m.getName()
-	      + "(" + asList(args) + ")\n  " + _exceptionToString(e));
+      System.err.println("[WARN] Invoke error on " + RiTa.shortName(callee)
+	  + "." + m.getName() + "(" + asList(args) + ")\n  "
+	  + _exceptionToString(e));
 
       throw new RiTaException(e);
     }
@@ -918,8 +913,7 @@ public class RiTa implements Constants {
   /** @exclude */
   public static Method _findMethod(Object callee, String methodName,
       Class[] argTypes, boolean isPublic) {
-    // System.err.println("RiTa.findMethod("+callee+"."+methodName+"(),
-    // "+isPublic+")");
+    // System.err.println("RiTa.findMethod("+callee+"."+methodName+"(), "+isPublic+")");
 
     if (callee == null)
       throw new RiTaException("Method not found: null." + methodName + "()");
@@ -958,8 +952,8 @@ public class RiTa implements Constants {
     } catch (SecurityException e) {
       throw new RuntimeException(e);
     } catch (NoSuchMethodException e) {
-      throw new RiTaException("Method not found: " + callee.getClass().getName()
-	  + "." + methodName + "()", e);
+      throw new RiTaException("Method not found: "
+	  + callee.getClass().getName() + "." + methodName + "()", e);
     }
 
     return m;
@@ -1016,13 +1010,15 @@ public class RiTa implements Constants {
 
   /*
    * public static InputStream _openStreamP5(PApplet p, String fileName) {
-   * return openStreamLocal(fileName); //System.err.println("openStream("+p+", "
-   * +fileName+")"); InputStream is = null; try { if (p != null) { is =
-   * p.createInput(fileName); } else is = openStreamLocal(fileName);
+   * return openStreamLocal(fileName);
+   * //System.err.println("openStream("+p+", "+fileName+")"); InputStream is =
+   * null; try { if (p != null) { is = p.createInput(fileName); } else is =
+   * openStreamLocal(fileName);
    * 
    * if (is == null) throw new RiTaException("null IS"); } catch (RiTaException
-   * e) { throw new RiTaException("Unable to open stream: "+fileName+
-   * " with pApplet="+p); } return is;//new UnicodeInputStream(is); }
+   * e) { throw new
+   * RiTaException("Unable to open stream: "+fileName+" with pApplet="+p); }
+   * return is;//new UnicodeInputStream(is); }
    */
 
   protected static String[] includedFiles = new String[] { "addenda.txt",
@@ -1170,9 +1166,9 @@ public class RiTa implements Constants {
 	  PAppletIF pApplet = (PAppletIF) RiDynamic.cast(parent,
 	      PAppletIF.class);
 	  return pApplet.loadStrings(fileName);
-	}
-	System.err.println("[WARN] RiTa.loadString(s): Expecting a PApplet"
-	    + " as 2nd argument, but found: " + parent.getClass());
+	} 
+	System.err.println("[WARN] RiTa.loadString(s): Expecting a PApplet" +
+	    " as 2nd argument, but found: " + parent.getClass());
       }
     }
 
@@ -1197,8 +1193,8 @@ public class RiTa implements Constants {
       throw new RiTaException("Null input stream!");
 
     try {
-      BufferedReader reader = new BufferedReader(
-	  new InputStreamReader(input, "UTF-8"));
+      BufferedReader reader = new BufferedReader(new InputStreamReader(input,
+	  "UTF-8"));
 
       String lines[] = new String[numLines];
       int lineCount = 0;
@@ -1239,7 +1235,9 @@ public class RiTa implements Constants {
     if (methodName != null) { // else do nothing
 
       System.err
-	  .println("[WARN] Unable to load: '" + file + "', please double-check "
+	  .println("[WARN] Unable to load: '"
+	      + file
+	      + "', please double-check "
 	      + "the location.\n\nIf you are using the Processing IDE, try passing 'this' as the 2nd "
 	      + "argument to " + methodName + ":\n\n    " + methodName + "("
 	      + file + ", this);\n");
@@ -1258,11 +1256,13 @@ public class RiTa implements Constants {
 	  fs += ", ";
       }
 
-      System.err.println("[WARN] Unable to load files " + RiTa.asList(files)
-	  + ", please double-check "
-	  + "the locations.\n\nIf you are using the Processing IDE, try passing 'this' as the 2nd "
-	  + "argument to " + methodName + ":\n\n    " + methodName
-	  + "(new String[]{" + fs + "}, this);\n");
+      System.err
+	  .println("[WARN] Unable to load files "
+	      + RiTa.asList(files)
+	      + ", please double-check "
+	      + "the locations.\n\nIf you are using the Processing IDE, try passing 'this' as the 2nd "
+	      + "argument to " + methodName + ":\n\n    " + methodName
+	      + "(new String[]{" + fs + "}, this);\n");
 
       throw new RiTaException();
     }
@@ -1288,8 +1288,7 @@ public class RiTa implements Constants {
     return loadString(files, lbc, "RiTa.loadString");
   }
 
-  static String loadString(String url, String lbc,
-      String methodNameForConsole) {
+  static String loadString(String url, String lbc, String methodNameForConsole) {
     String[] str = null;
     try {
       str = loadStrings(openStream(url));
@@ -1307,8 +1306,7 @@ public class RiTa implements Constants {
 
   static String loadString(String[] files, String lbc,
       String methodNameForConsole) {
-    // System.out.println("RiTa.loadString("+files.length+",
-    // "+methodNameForConsole+")");
+    // System.out.println("RiTa.loadString("+files.length+", "+methodNameForConsole+")");
     String s = E;
     try {
       for (int i = 0; i < files.length; i++) {
@@ -1610,7 +1608,7 @@ public class RiTa implements Constants {
       }
     }.start();
   }
-
+  
   public static String[] kwic(String text, String word, Map options) {
     return Concorder.cachedKwic(text, word, options);
   }
@@ -1635,8 +1633,7 @@ public class RiTa implements Constants {
     return new MinEditDist().computeRaw(s1, s2);
   }
 
-  public static float minEditDistance(String s1, String s2,
-      boolean normalized) {
+  public static float minEditDistance(String s1, String s2, boolean normalized) {
     return (!normalized) ? new MinEditDist().computeRaw(s1, s2)
 	: new MinEditDist().computeAdjusted(s1, s2);
   }

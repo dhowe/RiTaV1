@@ -179,9 +179,8 @@ public class BrillPosTagger implements Constants {
    * @return String[]
    */
   public String[] tag(String[] words) {
-
-    if (DBUG)
-      System.out.println("Tagging: " + RiTa.asList(words));
+    
+    if (DBUG) System.out.println("Tagging: " + RiTa.asList(words));
 
     String[] result = new String[words.length];
     String[][] choices = new String[words.length][];
@@ -200,37 +199,34 @@ public class BrillPosTagger implements Constants {
       }
 
       String[] data = lookup(word);
- 
-      if (DBUG)
-	System.out.println(
-	    "  " + words[i] + " -> " + RiTa.asList(data) + " " + data.length);
 
-      // use stemmer categories if no lexicon
+      if (DBUG) System.out.println("  "+words[i] + " -> " + RiTa.asList(data) + " "
+	    + data.length);
+      
+   // use stemmer categories if no lexicon
       if (data == null || data.length == 0) {
-
+        
 	// choices[i] = word.endsWith("s") ? NOUNP : NOUN;
 	result[i] = word.endsWith("s") ? "nns" : "nn";
 
-	if (word.endsWith("s")) {
-	  String sub = word.substring(0, words[i].length() - 1);
-	  String sub2 = word.endsWith("es")
-	      ? words[i].substring(0, words[i].length() - 2) : null;
-	  if (lexContains(RiPos.N, sub) || lexContains(RiPos.N, sub2)) {
-	    choices[i] = new String[] { "nns" };
-	  } else {
-	    String sing = RiTa.singularize(word);
-	    if (lexContains(RiPos.N, sing))
-	      choices[i] = new String[] { "nns" };
-	  }
+          if (word.endsWith("s")) {
+              String sub = word.substring(0,words[i].length() - 1);
+              String sub2 = word.endsWith("es") ? words[i].substring(0,words[i].length() - 2) : null;
+              if(lexContains(sub) || lexContains(sub2)){
+                choices[i]= new String [] {"nns"};
+              } else {
+                String sing = RiTa.singularize(word);
+                if(lexContains(sing)) choices[i]= new String [] {"nns"};
+              }
 
-	} else {
-	  String sing = RiTa.singularize(word);
-	  if (lexContains(RiPos.N, sing)) {
-	    choices[i] = new String[] { "nns" };
-	    result[i] = "nns";
-	  }
-	}
-
+          } else {
+              String sing = RiTa.singularize(word);
+              if(lexContains(sing)) {
+        	choices[i]= new String [] {"nns"};
+                result[i] = "nns";
+              }
+          }
+          
       } else {
 
 	result[i] = data[0];
@@ -264,11 +260,11 @@ public class BrillPosTagger implements Constants {
   public String[] lookup(String word) {
     if (lexicon == null)
       return null;
-    
+
     String[] posArr = lexicon.getPosArr(word);
 
-    if (DBUG)
-      System.out.println("  lookup(" + word + ") -> " + RiTa.asList(posArr));
+    if (DBUG) System.out.println("  lookup(" + word + ") -> "
+	  + RiTa.asList(posArr));
 
     return posArr;
   }
@@ -276,12 +272,10 @@ public class BrillPosTagger implements Constants {
   /**
    * Applies a customized subset of the Brill transformations
    */
-  protected void applyContext(String[] words, String[] result,
-      String[][] choices) {
-  
-    if (DBUG)
-      System.out.println("  applyContext(" + Arrays.asList(words) + ","
-	  + Arrays.asList(result) + ")");
+  protected void applyContext(String[] words, String[] result, String[][] choices) {
+    
+    if (DBUG) System.out.println("  applyContext(" + Arrays.asList(words)
+	  + "," + Arrays.asList(result) + ")");
 
     // Apply transformations
     for (int i = 0; i < words.length; i++) {
@@ -304,7 +298,7 @@ public class BrillPosTagger implements Constants {
 	    if (!NULL_PLURALS.applies(word)) // added dch
 	      tag = "nns";
 	  }
-	  
+
 	  customTagged("1a", word, tag);
 	}
 
@@ -327,7 +321,8 @@ public class BrillPosTagger implements Constants {
       }
 
       // transform 3: convert a noun to a past participle if word ends with "ed"
-      if (i > 0 && tag.startsWith("n") && word.endsWith("ed") && in(result[i - 1], "nn", "nns", "nnp", "nnps", "prp")) {
+      if (i > 0 && tag.startsWith("n") && word.endsWith("ed")
+	  && in(result[i - 1], "nn", "nns", "nnp", "nnps", "prp")) {
 	tag = "vbn";
       }
 
@@ -342,8 +337,7 @@ public class BrillPosTagger implements Constants {
 	tag = "jj"; // special-case for mammal
 
       // transform 6: convert a noun to a verb if the preceding word is "would"
-      if (i > 0 && tag.startsWith("nn")
-	  && result[i - 1].startsWith("md"))
+      if (i > 0 && tag.startsWith("nn") && result[i - 1].startsWith("md"))
 	tag = "vb";
 
       // transform 8: convert a common noun to a present participle verb (i.e.,
@@ -366,13 +360,16 @@ public class BrillPosTagger implements Constants {
 	customTagged(9, word, tag);
       }
 
-      // transform 10 (dch): convert common nouns to proper nouns when they start w' a capital 
+      // transform 10 (dch): convert common nouns to proper nouns when they
+      // start w' a capital
       if (tag.startsWith("nn") && Character.isUpperCase(word.charAt(0))) {
-        //if it is not at the start of a sentence or it is the only word
-	//or when it is at the start of a sentence but can't be found in the dictionary
-	if(i != 0 || words.length == 1 || (i == 0 && !lexContains(RiPos.N, RiTa.singularize(word).toLowerCase()))){
-	tag = tag.endsWith("s") ? "nnps" : "nnp";
-	customTagged(10, word, tag);
+	// if it is not at the start of a sentence or it is the only word
+	// or when it is at the start of a sentence but can't be found in the
+	// dictionary
+	if (i != 0 || words.length == 1 || (i == 0
+	    && !lexContains(RiPos.N, RiTa.singularize(word).toLowerCase()))) {
+	  tag = tag.endsWith("s") ? "nnps" : "nnp";
+	  customTagged(10, word, tag);
 	}
       }
 
@@ -384,18 +381,18 @@ public class BrillPosTagger implements Constants {
 	tag = "vbz";
 	customTagged(11, word, tag);
       }
-     
+
       // transform 12(dch): convert plural nouns which have an entry for their
       // base form to vbz
       if (tag.equals("nns")) {
-	
+
 	// if only word and not in lexicon OR word is preceded by ["nn", "prp",
 	// "cc", "nnp"]
 
 	if ((words.length == 1 && choices[i] == null)
 	    || (i > 0 && in(result[i - 1], "nn", "prp", "cc", "nnp"))) {
 	  // if word is ends with es or s and is 'nns' and has a vb
-	 
+
 	  if (word.endsWith("es")
 	      && lexContains(RiPos.VB, word.substring(0, word.length() - 2))
 	      || word.endsWith("s") && lexContains(RiPos.VB,
@@ -405,40 +402,41 @@ public class BrillPosTagger implements Constants {
 	  }
 	}
       }
-      
-      //transform 13(cqx): convert a vb/ potential vb to vbp when following nns (Elephants dance, they dance) 
-      if (tag.equals("vb") || (tag.equals("nn") && hasTag(choices[i], "vb"))){
-          if (i > 0 && result[i - 1].matches("^(nns|nnps|prp)$")){
-          tag = "vbp";
-          customTagged(13, word, tag);
-          }
-        }
-           
+
+      // transform 13(cqx): convert a vb/ potential vb to vbp when following nns
+      // (Elephants dance, they dance)
+      if (tag.equals("vb") || (tag.equals("nn") && hasTag(choices[i], "vb"))) {
+	if (i > 0 && result[i - 1].matches("^(nns|nnps|prp)$")) {
+	  tag = "vbp";
+	  customTagged(13, word, tag);
+	}
+      }
+
       result[i] = tag;
     }
   }
 
-  boolean lexContains(String... words) {
-    return lexContains(null, words);
+  boolean lexContains(String ... words) {
+   return lexContains(null, words);
   }
 
-  boolean lexContains(RiPos pos, String... words) {
-
+  boolean lexContains(RiPos pos, String ... words) {
+    
     for (int i = 0; i < words.length; i++) {
-
+      
       if (lexicon.contains(words[i])) {
-
-	if (pos == null)
-	  return true;
-
+	
+	if (pos == null) return true;
+	
 	String[] tags = lexicon.getPosArr(words[i]);
 	for (int j = 0; j < tags.length; j++) {
-
-	  if (pos == RiPos.N && RiPos.isNoun(tags[j])
-	      || pos == RiPos.V && RiPos.isVerb(tags[j])
-	      || pos == RiPos.R && RiPos.isAdverb(tags[j])
-	      || pos == RiPos.A && RiPos.isAdj(tags[j])
-	      || pos.getTag().equals(tags[j])) {
+	  
+	  if (pos == RiPos.N && RiPos.isNoun(tags[j])   ||
+	      pos == RiPos.V && RiPos.isVerb(tags[j])   ||
+	      pos == RiPos.R && RiPos.isAdverb(tags[j]) ||
+	      pos == RiPos.A && RiPos.isAdj(tags[j])    ||
+	      pos.getTag().equals(tags[j])) 
+	  {
 	    return true;
 	  }
 	}
@@ -448,13 +446,12 @@ public class BrillPosTagger implements Constants {
   }
 
   private void customTagged(int i, String from, String to) {
-    customTagged(i + "", from, to);
+     customTagged(i+"", from, to);
   }
-
+  
   private void customTagged(String i, String from, String to) {
-    if (DBUG)
-      System.out.print(
-	  "\n  Custom(" + i + ") tagged '" + from + "' -> '" + to + "'\n\n");
+    if (DBUG) System.out.print("\n  Custom(" + i + ") tagged '" + 
+	from + "' -> '" + to + "'\n\n");
   }
 
   // Is this tag in the array of tags ?
@@ -539,12 +536,15 @@ public class BrillPosTagger implements Constants {
 
   static String[] tests = {
 
-      "I run to school.", "prp vb to nn .", "I went for a run.",
+      "I run to school.",
+      "prp vb to nn .",
+      "I went for a run.",
       "prp vbd in dt nn .",
       // "Red is a beautiful color", "nn vbz dt jj nn", // fails!
       "The little boy jumps quickly over the great fence and dances happily.",
-      "dt jj nn vbz rb in dt jj nn cc vbz rb .", "The little boy jumps quickly",
-      "dt jj nn vbz rb", "The little boy dances happily", "dt jj nn vbz rb",
+      "dt jj nn vbz rb in dt jj nn cc vbz rb .",
+      "The little boy jumps quickly", "dt jj nn vbz rb",
+      "The little boy dances happily", "dt jj nn vbz rb",
       "The little boy jumped 3 times", "dt jj nn vbd cd nns",
       "The little boy jumps", "dt jj nn vbz", "The little boy jumps wildly",
       "dt jj nn vbz rb", "The little boy jumps rope", "dt jj nn vbz nn",
@@ -553,16 +553,15 @@ public class BrillPosTagger implements Constants {
   public static void main(String[] args) {
     BrillPosTagger ft = new BrillPosTagger();
     RiTa.out(ft.tag("flunks".split(" ")));
-    // RiTa.out(ft.tag("He flunks the test".split(" ")));
-    // System.out.println(ft.lexContains("flunked","flunking"));
-    // System.out.println(ft.lexContains(RiPos.V, "flunked","flunking"));
-    // System.out.println(ft.lexContains(RiPos.V, "flunkedx","flunkingx"));
-    // System.out.println(ft.lexContains(RiPos.VBD, "flunked","flunking"));
-    // // System.out.println(ft.tag("I"));
-    // tests();
+    //RiTa.out(ft.tag("He flunks the test".split(" ")));
+//    System.out.println(ft.lexContains("flunked","flunking"));
+//    System.out.println(ft.lexContains(RiPos.V, "flunked","flunking"));
+//    System.out.println(ft.lexContains(RiPos.V, "flunkedx","flunkingx"));
+//    System.out.println(ft.lexContains(RiPos.VBD, "flunked","flunking"));
+//    // System.out.println(ft.tag("I"));
+    //tests();
 
-    if (1 == 1)
-      return;
+    if (1 == 1) return;
     System.out.println(ft.tag("bronchitis"));
     System.out.println(ft.tag("cleanliness"));
     System.out.println(ft.tag("orderliness"));
@@ -591,3 +590,4 @@ public class BrillPosTagger implements Constants {
 
   }
 }// end
+
