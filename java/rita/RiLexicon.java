@@ -112,7 +112,8 @@ public class RiLexicon implements Constants {
 
       if (wordB.equals(wordA))
 	return true;
-
+      // should not check firstStressedSyllable
+      // see KnownIssuesTest
       String fcA = firstConsonant(firstStressedSyllable(wordA, true));
       String fcB = firstConsonant(firstStressedSyllable(wordB, true));
 
