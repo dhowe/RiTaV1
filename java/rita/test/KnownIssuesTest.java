@@ -20,18 +20,6 @@ public class KnownIssuesTest implements Constants {
 
   }
   
-  @Test
-  public void testAlliterations() {
-    //alliterations of "withdraw" should start with letter 'w'
-    
-    RiLexicon lex = new RiLexicon();
-    String[] result = lex.alliterations("withdraw");
-    System.out.println(result[0]);
-    ok(result[0].startsWith("w"));
-    
-   
-
-  }
 
   @Test
   public void testGetRawPhonesStringBoolean() {

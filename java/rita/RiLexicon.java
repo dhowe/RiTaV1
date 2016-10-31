@@ -114,8 +114,8 @@ public class RiLexicon implements Constants {
 	return true;
       // should not check firstStressedSyllable
       // see KnownIssuesTest
-      String fcA = firstConsonant(firstStressedSyllable(wordA, true));
-      String fcB = firstConsonant(firstStressedSyllable(wordB, true));
+      String fcA = firstConsonant(firstSyllable(wordA, true));
+      String fcB = firstConsonant(firstSyllable(wordB, true));
 
       // System.out.println(fcA+" ?= "+fcB);
       if (fcA != null && fcB != null && fcA.equals(fcB))
@@ -730,7 +730,15 @@ public class RiLexicon implements Constants {
   }
 
   // PRIVATES
-
+ private String firstSyllable(String word, boolean useLTS) {
+   if (word.indexOf(' ') > -1)
+     return null;
+   
+   String raw = getRawPhones(word, useLTS);
+   String[] syllables = raw.split(" ");
+   
+   return syllables[0]; 
+ }
   private String firstStressedSyllable(String word, boolean useLTS) {
     
     if (word.indexOf(' ') > -1)
@@ -920,11 +928,16 @@ public class RiLexicon implements Constants {
   }
 
   private void alliterations(String input, Set result, int minLength, boolean useLTS) {
-
-    String firstStressedSyllable = firstStressedSyllable(input, useLTS);
-    String fC = firstConsonant(firstStressedSyllable);
-    //for alliterations of vowel sound
-    if(fC == null && firstStressedSyllable != null) fC = firstStressedSyllable.substring(0, 1);
+    if(input.length() == 0) return;
+    if(input.matches("[^a-zA-Z0-9]")) return;
+    
+    input = input.toLowerCase();
+    if(Phoneme.isVowel("" + input.charAt(0))) return;
+    
+    String firstSyllable = firstSyllable(input, useLTS);
+    String fC = firstConsonant(firstSyllable);
+    System.out.println(fC);
+    if(fC == null && firstSyllable != null) fC = firstSyllable.substring(0, 1);
     
     if (input != null && (input.indexOf(' ') < 0) && fC != null) {
 
@@ -943,12 +956,14 @@ public class RiLexicon implements Constants {
   public static void main(String[] args) {
     RiLexicon rl = new RiLexicon();
     System.out.println(rl.randomWord("nn"));
+    System.out.println(rl.isAlliteration("withdraw", "wind"));
     if (1==1) return;
     // System.out.println(rl.lastStressedPhoneToEnd("mellow",true));
     System.out.println(rl.lastStressedPhoneToEnd("toy", true));
     System.out.println(rl.lastStressedPhoneToEnd("boy", true));
     System.out.println(rl.lastStressedPhoneToEnd("wellow", true));
     // System.out.println(rl.lexicalData().get("dry"));
+   
   }
 
 }

@@ -127,23 +127,19 @@ public class RiLexiconTest {
   public void testAlliterationsString() {
     RiLexicon lex = new RiLexicon();
     String[] result = lex.alliterations("accidentally");
-    ok(result.length > 1000);
-
+    ok(result.length == 0);
+    
+    result = lex.alliterations("goxgle");
+    ok(result.length > 100);
+    
     result = new String[] {};
     result = lex.alliterations("dog",10);
-
 //    ok(result.length > 1000);
     
     result = new String[] {};
     result = lex.alliterations("apples");
-    ok(result.length > 1000);
-
-    result = new String[] {};
-    result = lex.alliterations("URL");
     ok(result.length == 0);
 
-    result = lex.alliterations("goxgle");
-    ok(result.length > 100);
 
     result = new String[] {};
     result = lex.alliterations("no stress");
@@ -626,6 +622,7 @@ public class RiLexiconTest {
     ok(lex.isAlliteration("sea", "seven"));
     ok(lex.isAlliteration("silly", "seven"));
     ok(lex.isAlliteration("sea", "sally"));
+    ok(lex.isAlliteration("withdraw", "wind"));
     
     ok(lex.isAlliteration("big", "bad"));
     ok(lex.isAlliteration("bad", "big")); // swap position
@@ -636,12 +633,18 @@ public class RiLexiconTest {
     
     ok(!lex.isAlliteration("big ", "bad")); // Word with space False
     ok(!lex.isAlliteration("big    ", "bad")); // Word with tab space
+    
+   
+    ok(!lex.isAlliteration("octopus", "oblong"));//Vowels
+    ok(!lex.isAlliteration("omen", "open"));
+    ok(!lex.isAlliteration("amicable", "atmosphere"));
 
     // False
     ok(lex.isAlliteration("this", "these"));
     ok(!lex.isAlliteration("solo", "tomorrow"));
     ok(!lex.isAlliteration("solo", "yoyo"));
     ok(!lex.isAlliteration("yoyo", "jojo"));
+    
 
     try {
       lex.isAlliteration("", "");
