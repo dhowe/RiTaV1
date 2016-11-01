@@ -10,6 +10,15 @@ import rita.*;
 import rita.support.*;
 
 public class KnownIssuesTest implements Constants {
+  
+  @Test
+  public void testAlliterationsString() {
+    RiLexicon lex = new RiLexicon();
+    String[] result = new String[] {};
+    result = lex.alliterations("#$%^&*");
+    ok(result.length == 0); 
+  }
+ 
   @Test
   public void testGetPosTags() {
     String[] resultArr, answerArr;
@@ -19,7 +28,6 @@ public class KnownIssuesTest implements Constants {
     deepEqual(answerArr, resultArr);
 
   }
-  
 
   @Test
   public void testGetRawPhonesStringBoolean() {

@@ -145,10 +145,14 @@ public class RiLexiconTest {
     result = lex.alliterations("no stress");
     // RiTa.out(result);
     ok(result.length == 0);
-
-    result = new String[] {};
-    result = lex.alliterations("#$%^&*");
+    
+    result = lex.alliterations("URL");
+    System.out.println(result);
     ok(result.length == 0);
+    
+//    result = new String[] {};
+//    result = lex.alliterations("#$%^&*");
+//    ok(result.length == 0); -> Known Issue
 
     result = new String[] {};
     result = lex.alliterations("");
