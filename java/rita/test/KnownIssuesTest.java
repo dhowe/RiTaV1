@@ -10,6 +10,15 @@ import rita.*;
 import rita.support.*;
 
 public class KnownIssuesTest implements Constants {
+  
+  @Test
+  public void testAlliterationsString() {
+    RiLexicon lex = new RiLexicon();
+    String[] result = new String[] {};
+    result = lex.alliterations("#$%^&*");
+    ok(result.length == 0); 
+  }
+ 
   @Test
   public void testGetPosTags() {
     String[] resultArr, answerArr;
@@ -17,19 +26,6 @@ public class KnownIssuesTest implements Constants {
     resultArr = RiTa.getPosTags("They feed the cat");
     answerArr = new String[] { "prp", "vbp", "dt", "nn" };
     deepEqual(answerArr, resultArr);
-
-  }
-  
-  @Test
-  public void testAlliterations() {
-    //alliterations of "withdraw" should start with letter 'w'
-    
-    RiLexicon lex = new RiLexicon();
-    String[] result = lex.alliterations("withdraw");
-    System.out.println(result[0]);
-    ok(result[0].startsWith("w"));
-    
-   
 
   }
 
