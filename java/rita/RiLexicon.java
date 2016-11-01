@@ -928,17 +928,17 @@ public class RiLexicon implements Constants {
   }
 
   private void alliterations(String input, Set result, int minLength, boolean useLTS) {
-    if(input.length() == 0) return;
+    if (input.length() == 0) return;
 //    System.out.println(input.matches("[(^a-zA-Z)*]"));
-    if(input.matches("[^a-zA-Z]")) return;
+    if (input.matches("[^a-zA-Z]")) return;
     
     input = input.toLowerCase();
-    if(Phoneme.isVowel("" + input.charAt(0))) return;
+    if (Phoneme.isVowel("" + input.charAt(0))) return;
     
     String firstSyllable = firstSyllable(input, useLTS);
     String fC = firstConsonant(firstSyllable);
 
-    if(fC == null && firstSyllable != null) fC = firstSyllable.substring(0, 1);
+    if (fC == null && firstSyllable != null) fC = firstSyllable.substring(0, 1);
     
     if (input != null && (input.indexOf(' ') < 0) && fC != null) {
 
