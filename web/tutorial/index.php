@@ -23,7 +23,12 @@
   <div class="col10">
      <h3 style="margin-left:-20px">Tutorials</h3>
 <ul class="tutorialList">
-    <li><a href="https://www.youtube.com/watch?v=lIPEvh8HbGQ" target="_blank">A Video Tutorial on RiTa.js <span style="font-size:.8em">by Dan Shiffman</span> </a> </li>
+    <li>Video Tutorials on RiTa.js <span style="font-size:.7em">by Dan Shiffman</span>
+      <ul>
+        <li><a href="https://www.youtube.com/watch?v=lIPEvh8HbGQ" target="_blank">The Basics of RiTa.js Library</a></li>
+        <li><a href="https://www.youtube.com/watch?v=VaAoIaZ3YKs" target="_blank">Context-Free Grammar</a></li>
+      </ul>
+    </li>
     <li><a href="analyzing.php">Analyzing text</a>
     <ul>
         <li><a href="analyzing.php#Phonemes">Phonemes</a></li>
