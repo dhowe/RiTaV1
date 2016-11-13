@@ -73,7 +73,7 @@
 							<th scope="row">Syntax</th>
 
 							<!-- SYNTAX  -->
-							<td><pre>expandWith(literal, symbol);<br/>expandWith(literal, symbol,callbackObject);</pre></td>
+							<td><pre>expandWith(literal, symbol);<br/>expandWith(literal, symbol, callbackObject);</pre></td>
 						</tr>
 
 
@@ -100,11 +100,11 @@
 							</table></td>
 						</tr>
 
-						<tr class='Related' style='display:none'>
+						<tr class='Related'>
 							<th scope="row">Related</th>
 
 							<!-- RELATED  -->
-							<td>tmp_related</td>
+							<td><a href='../expandFrom/'>expandFrom()</a>, <a href='../expand/'>expand()</a></td>
 						</tr>
 
 						<tr class='Note' style='display:none'>

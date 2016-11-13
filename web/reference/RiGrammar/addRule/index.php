@@ -66,7 +66,7 @@
 							<th scope="row">Description</th>
 
 							<!-- DESCRIPTION  -->
-							<td>Adds a rule to the existing grammar, replacing any existing rule with the same name </td>
+							<td>Adds a rule to the existing grammar, replacing any existing rule with the same name</td>
 						</tr>
 
 						<tr class='Syntax'>
@@ -113,14 +113,14 @@
 							<td>tmp_note</td>
 						</tr>
 
-						<tr class='Example' style='display:none'>
+						<tr class='Example'>
 							<th scope='row'>Example</th>
 							<td>
 							<div class="example">
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">tmp_example</pre>
+								<pre class="margin">addRule("&lt;start&gt;", "animal");<br>addRule("animal", "cat | dog | chicken");</pre>
 							</div></td>
 						</tr>
 

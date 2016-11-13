@@ -2,8 +2,8 @@
   "class": "rita.RiGrammar",
   "fields": [{
     "name": "addRule",
-    "example": "",
-    "description": "Adds a rule to the existing grammar, replacing any existing rule with the same name ",
+    "example": "addRule(\"&lt;start&gt;\", \"animal\");<br>addRule(\"animal\", \"cat | dog | chicken\");",
+    "description": "Adds a rule to the existing grammar, replacing any existing rule with the same name",
     "syntax": "addRule(name, ruleStr, weight);",
     "parameters": [{
         "type": "String",
@@ -29,7 +29,7 @@
   }, {
     "name": "expand",
     "example": "",
-    "description": "Expands a grammar from its '&#60;start&#62;' symbol",
+    "description": "Expands a grammar from its '&#60;start&#62;' symbol. Note: if the grammar does not include a '&#60;start&#62;' symbol, use &nbsp;<code>expandFrom(\"ruleName\")</code>&nbsp; instead, to start from the rule of your choice)",
     "syntax": "expand();<br/>expand(callbackObject);",
     "parameters": [{
       "type": "Object",
@@ -37,9 +37,9 @@
     }],
     "returns": [{
       "type": "String",
-      "desc": "the result of the expansion"
+      "desc": "the result of the expansion (or an error if no <start> rule is found)"
     }],
-    "related": "",
+    "related": "<a href='../expandFrom/'>expandFrom()</a>, <a href='../expandWith/'>expandWith()</a>",
     "platform": "Java / Javascript",
     "note": ""
   }, {
@@ -60,14 +60,14 @@
       "type": "String",
       "desc": "the result of the expansion"
     }],
-    "related": "",
+    "related": "<a href='../expand/'>expand()</a>, <a href='../expandWith/'>expandWith()</a>",
     "platform": "Java / Javascript",
     "note": ""
   }, {
     "name": "expandWith",
     "example": "",
     "description": "Expands the grammar after replacing an instance of the non-terminal 'symbol' with the String in 'literal'.<br/>&nbsp;<br/>Guarantees that 'literal' will be in the final expanded String, assuming at least one instance of 'symbol' in the Grammar.",
-    "syntax": "expandWith(literal, symbol);<br/>expandWith(literal, symbol,callbackObject);",
+    "syntax": "expandWith(literal, symbol);<br/>expandWith(literal, symbol, callbackObject);",
     "parameters": [{
       "type": "String",
       "desc": "a literal"
@@ -82,7 +82,7 @@
       "type": "String",
       "desc": "the result of the expansion"
     }],
-    "related": "",
+    "related": "<a href='../expandFrom/'>expandFrom()</a>, <a href='../expand/'>expand()</a>",
     "platform": "Java / Javascript",
     "note": ""
   }, {

@@ -66,7 +66,7 @@
 							<th scope="row">Description</th>
 
 							<!-- DESCRIPTION  -->
-							<td>Expands a grammar from its '&#60;start&#62;' symbol</td>
+							<td>Expands a grammar from its '&#60;start&#62;' symbol. Note: if the grammar does not include a '&#60;start&#62;' symbol, use &nbsp;<code>expandFrom("ruleName")</code>&nbsp; instead, to start from the rule of your choice)</td>
 						</tr>
 
 						<tr class='Syntax'>
@@ -96,15 +96,15 @@
 							<!-- RETURNS/TYPE (for variables)  -->
 
 							<table cellpadding="0" cellspacing="0" border="0" class="sub-table">
-								<tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>the result of the expansion</td></tr>
+								<tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>the result of the expansion (or an error if no <start> rule is found)</td></tr>
 							</table></td>
 						</tr>
 
-						<tr class='Related' style='display:none'>
+						<tr class='Related'>
 							<th scope="row">Related</th>
 
 							<!-- RELATED  -->
-							<td>tmp_related</td>
+							<td><a href='../expandFrom/'>expandFrom()</a>, <a href='../expandWith/'>expandWith()</a></td>
 						</tr>
 
 						<tr class='Note' style='display:none'>

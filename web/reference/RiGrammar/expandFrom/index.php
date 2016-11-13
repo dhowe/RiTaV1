@@ -100,11 +100,11 @@
 							</table></td>
 						</tr>
 
-						<tr class='Related' style='display:none'>
+						<tr class='Related'>
 							<th scope="row">Related</th>
 
 							<!-- RELATED  -->
-							<td>tmp_related</td>
+							<td><a href='../expand/'>expand()</a>, <a href='../expandWith/'>expandWith()</a></td>
 						</tr>
 
 						<tr class='Note' style='display:none'>

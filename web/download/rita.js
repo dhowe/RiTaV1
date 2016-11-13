@@ -685,7 +685,6 @@ var RiTa = {
     var sentenceArr = RiTa.tokenize(sentence);
 
     for (var i = 0; i < QUESTION_STARTS.length; i++) {
-  console.log(sentenceArr[0], QUESTION_STARTS[i]);
       if (equalsIgnoreCase(sentenceArr[0], QUESTION_STARTS[i]))
         return true;
     }
@@ -1890,6 +1889,7 @@ RiString.prototype = {
     if (typeof arg === S) {
 
       return arg.toLowerCase() === this._text.toLowerCase();
+
     } else {
 
       return arg.text().toLowerCase() === this._text.toLowerCase();
@@ -3133,9 +3133,6 @@ Conjugator.prototype = {
 // ////////////////////////////////////////////////////////////
 var PosTagger = {
 
-  // Penn Pos types ------------------------------ (40+UKNOWN)
-
-  UNKNOWN: ['???', 'unknown'],
   N: ['n', 'NOUN_KEY'],
   V: ['v', 'VERB_KEY'],
   R: ['r', 'ADVERB_KEY'],
@@ -3176,20 +3173,19 @@ var PosTagger = {
   WP: ['wp', 'Wh-pronoun'],
   WP$: ['wp$', 'Possessive wh-pronoun (prolog version WP-S)'],
   WRB: ['wrb', 'Wh-adverb'],
-
   TAGS: ['cc', 'cd', 'dt', 'ex', 'fw', 'in', 'jj',
     'jjr', 'jjs', 'ls', 'md', 'nn', 'nns', 'nnp',
     'nnps', 'pdt', 'pos', 'prp', 'prp$', 'rb',
-    'rbr', 'rbs', 'rp', 'sym', 'to',
-    'uh', 'vb', 'vbd', 'vbg', 'vbn', 'vbp', 'vbz', 'wdt',
-    'wp', 'wp$', 'wrb', 'unknown'
+    'rbr', 'rbs', 'rp', 'sym', 'to', 'uh', 'vb',
+    'vbd', 'vbg', 'vbn', 'vbp', 'vbz', 'wdt',
+    'wp', 'wp$', 'wrb'
   ],
-
   NOUNS: ['nn', 'nns', 'nnp', 'nnps'],
   VERBS: ['vb', 'vbd', 'vbg', 'vbn', 'vbp', 'vbz'],
   ADJ: ['jj', 'jjr', 'jjs'],
   ADV: ['rb', 'rbr', 'rbs', 'rp'],
-  NOLEX_WARNED: false,
+  NOLEX_WARNED: 0,
+  DBUG: 0,
 
   isVerb: function(tag) {
     return inArray(this.VERBS, tag);
@@ -3226,7 +3222,8 @@ var PosTagger = {
     if (RiLexicon.enabled) {
       lex = RiTa._lexicon();
     }
-    else if (!RiTa.SILENT && !this.NOLEX_WARNED){
+    else if (!RiTa.SILENT && !this.NOLEX_WARNED) {
+
       this.NOLEX_WARNED = true;
       console.warn('No RiLexicon found: ' +
         'part-of-speech tagging will be inaccurate!');
@@ -3235,11 +3232,6 @@ var PosTagger = {
     words = is(words, A) ? words : [words];
 
     for (var i = 0, l = words.length; i < l; i++) {
-
-      /*if (!words[i]) {
-				choices2d[i] = [];
-				continue;
-			}*/
 
       if (words[i].length < 1) {
 
@@ -3254,11 +3246,41 @@ var PosTagger = {
       }
 
       var data = lex && lex._getPosArr(words[i]);
-
       if (!data || !data.length) {
 
         choices2d[i] = [];
-        result.push((endsWith(words[i], 's') ? 'nns' : 'nn'));
+        var tag = 'nn';
+        if (endsWith(words[i],'s')) {
+          tag = 'nns';
+        }
+
+        // use stemmer categories if no lexicon
+        if(!lex.containsWord(words[i])){
+
+          if (endsWith(words[i],'s')) {
+              var sub = words[i].substring(0,words[i].length - 1), sub2;
+              if (endsWith(words[i],'es')) sub2 = words[i].substring(0,words[i].length - 2)
+              if (this._lexHas("n", sub) || this._lexHas("n", sub2)){
+                choices2d.push("nns");
+              } else {
+                var sing = RiTa.singularize(words[i]);
+                if (this._lexHas("n", sing)) choices2d.push("nns");
+              }
+
+          } else {
+              var sing = RiTa.singularize(words[i]);
+              if (this._lexHas("n", sing)) {
+                choices2d.push("nns");
+                tag = 'nns';
+              }
+          }
+
+        }
+
+        if (!RiLexicon.enabled && checkPluralNoLex(words[i])) {
+          tag = 'nns';
+        }
+        result.push(tag);
 
       } else {
 
@@ -3276,123 +3298,187 @@ var PosTagger = {
     var result = c;
 
     if (c === 'a' || c === 'A')
-      result = "dt";
+      result = 'dt';
     else if (c === 'I')
-      result = "prp";
+      result = 'prp';
     else if (c >= '0' && c <= '9')
-      result = "cd";
-
-    //System.out.println("handleSingleLetter("+word+") :: "+result);
+      result = 'cd';
 
     return result;
+  },
+
+  _ct: function(i, frm, to) { // log custom tag
+
+    if (this.DBUG) console.log("\n  Custom(" +
+      i + ") tagged '" + frm + "' -> '"+ to + "'\n\n");
   },
 
   // Applies a customized subset of the Brill transformations
   _applyContext: function(words, result, choices) {
 
-    //log("_applyContext("+words+","+result+","+choices+")");
-
-    var sW = startsWith, eW = endsWith,
-      PRINT_CUSTOM_TAGS = (0 && !RiTa.SILENT);
+    (this.DBUG) && console.log("ac("+words+","+result+","+choices+")");
+    var sW = startsWith, eW = endsWith, eic = equalsIgnoreCase;
 
     // Apply transformations
     for (var i = 0, l = words.length; i < l; i++) {
 
-      // transform 1: DT, {VBD | VBP | VB} --> DT, NN
+      var word = words[i], tag = result[i];
+
+      // transform 1a: DT, {VBD | VBP | VB} --> DT, NN
       if (i > 0 && (result[i - 1] == "dt")) {
 
-        if (sW(result[i], "vb")) {
-          if (PRINT_CUSTOM_TAGS) {
-            log("PosTagger: changing verb to noun: " + words[i]);
-          }
-          result[i] = "nn";
+        if (sW(tag, "vb")) {
+          tag = "nn";
+
+        // transform 7: if a word has been categorized as a
+        // common noun and it ends with "s", then set its type to plural common noun (NNS)
+        if (word.match(/^.*[^s]s$/)) {
+            if (!NULL_PLURALS.applies(word))
+            tag = "nns";
         }
 
-        // transform 1: DT, {RB | RBR | RBS} --> DT, {JJ |
-        // JJR | JJS}
-        else if (sW(result[i], "rb")) {
+          this._ct("1a", word, tag);
+        }
 
-          if (PRINT_CUSTOM_TAGS)
-            log("PosTagger: custom tagged '" + words[i] + "', " + result[i]);
-          result[i] = (result[i].length > 2) ? "jj" + result[i].charAt(2) : "jj";
-          if (PRINT_CUSTOM_TAGS) {
-            log(" -> " + result[i]);
-          }
+        // transform 1b: DT, {RB | RBR | RBS} --> DT, {JJ |
+        // JJR | JJS}
+        else if (sW(tag, "rb")) {
+
+          tag = (tag.length > 2) ? "jj" + tag.charAt(2) : "jj";
+	        this._ct("1b", word, tag);
         }
       }
 
       // transform 2: convert a noun to a number (cd) if it is
       // all digits and/or a decimal "."
-      if (sW(result[i], "n") && !choices[i]) {
-        if (isNum(words[i])) {
-          result[i] = "cd";
+      if (sW(tag, "n") && !choices[i]) {
+        if (isNum(word)) {
+          tag = "cd";
         } // mods: dch (add choice check above) <---- ? >
       }
 
       // transform 3: convert a noun to a past participle if
-      // words[i] ends with "ed"
-      if (sW(result[i], "n") && eW(words[i], "ed")) {
-        result[i] = "vbn";
+      // word ends with "ed" and (following any nn or prp?)
+      if (i > 0 && sW(tag, "n") && eW(word, "ed") && result[i - 1].match(/^(nn|prp)$/)) {
+        tag = "vbn";
       }
 
       // transform 4: convert any type to adverb if it ends in "ly";
-      if (eW(words[i], "ly")) {
-        result[i] = "rb";
+      if (eW(word, "ly")) {
+        tag = "rb";
       }
 
       // transform 5: convert a common noun (NN or NNS) to a
       // adjective if it ends with "al", special-case for mammal
-      if (sW(result[i], "nn") && eW(words[i], "al") && words[i] != 'mammal') {
-        result[i] = "jj";
+      if (sW(tag, "nn") && eW(word, "al") && word != 'mammal') {
+        tag = "jj";
       }
 
       // transform 6: convert a noun to a verb if the
-      // preceeding word is "would"
-      if (i > 0 && sW(result[i], "nn") && equalsIgnoreCase(words[i - 1], "would")) {
-        result[i] = "vb";
-      }
-
-      // transform 7: if a word has been categorized as a
-      // common noun and it ends with "s", then set its type to plural common noun (NNS)
-      if ((result[i] == "nn") && words[i].match(/^.*[^s]s$/)) {
-        if (!NULL_PLURALS.applies(words[i]))
-          result[i] = "nns";
+      // preceeding word is modal
+      if (i > 0 && sW(tag, "nn") && sW(result[i - 1], "md")) {
+        tag = "vb";
       }
 
       // transform 8: convert a common noun to a present
       // participle verb (i.e., a gerund)
-      if (sW(result[i], "nn") && eW(words[i], "ing")) {
+      if (sW(tag, "nn") && eW(word, "ing")) {
+
         // DH: fixed here -- add check on choices for any verb: eg. // 'morning'
         if (this.hasTag(choices[i], "vb")) {
-          result[i] = "vbg";
-        } else if (PRINT_CUSTOM_TAGS) {
-          log("[RiTa] PosTagger tagged '" + words[i] + "' as " + result[i]);
+          tag = "vbg";
+          this._ct(8, word, tag);
         }
       }
 
       // transform 9(dch): convert plural nouns (which are also 3sg-verbs) to
       // 3sg-verbs when following a singular noun (the dog dances, Dave dances, he dances)
-      if (i > 0 && result[i] == "nns" && this.hasTag(choices[i], "vbz") && result[i - 1].match(/^(nn|prp|nnp)$/)) {
-        result[i] = "vbz";
+      if (i > 0 && tag == "nns" && this.hasTag(choices[i], "vbz") && result[i - 1].match(/^(nn|prp|nnp)$/)) {
+        tag = "vbz";
+        this._ct(9, word, tag);
       }
 
       // transform 10(dch): convert common nouns to proper
-      // nouns when they start w' a capital and (?are not a
-      // sentence start?)
-      if ( /*i > 0 && */ sW(result[i], "nn") && (words[i].charAt(0) == words[i].charAt(0).toUpperCase())) {
-        result[i] = eW(result[i], "s") ? "nnps" : "nnp";
+      // nouns when they start w' a capital
+      if (sW(tag, "nn") && (word.charAt(0)===word.charAt(0).toUpperCase())) {
+        //if it is not at the start of a sentence or it is the only word
+        // or when it is at the start of a sentence but can't be found in the dictionary
+        if(i != 0 || words.length===1 || (i == 0 && !this._lexHas('nn', RiTa.singularize(word).toLowerCase()))){
+           tag = eW(tag, "s") ? "nnps" : "nnp";
+           this._ct(10, word, tag);
+        }
       }
 
-      // DISABLED: transform 10(dch): convert plural nouns (which are
+
+      // transform 11(dch): convert plural nouns (which are
       // also 3sg-verbs) to 3sg-verbs when followed by adverb
-      /*if (i < result.length - 1 && result[i] == "nns" && sW(result[i + 1], "rb")
+      if (i < result.length - 1 && tag == "nns" && sW(result[i + 1], "rb")
 					&& this.hasTag(choices[i], "vbz")) {
-				result[i] = "vbz";
-			}*/
+				tag = "vbz";
+        this._ct(11, word, tag);
+			}
+
+      // transform 12(dch): convert plural nouns which have an entry for their base form to vbz
+      if (tag==="nns") {
+
+        // if only word and not in lexicon OR
+        if ((words.length === 1 && !choices[i].length) ||
+          // is preceded by one of the following
+          (i > 0 && ["nn", "prp", "cc", "nnp"].indexOf(result[i - 1]) > -1)) {
+
+        // if word is ends with s or es and is 'nns' and has a vb
+          if (word.match(/es$/) && this._lexHas('vb', word.substring(0, word.length-2)) ||
+              word.match(/s$/) && this._lexHas('vb', word.substring(0, word.length-1)))
+          {
+            tag = "vbz";
+            this._ct(12, word, tag);
+          }
+        }
+      }
+
+      //transform 13(cqx): convert a vb/ potential vb to vbp when following nns (Elephants dance, they dance)
+      if (tag === "vb" || (tag === "nn" && this.hasTag(choices[i], "vb"))) {
+          if (i > 0 && result[i - 1].match(/^(nns|nnps|prp)$/)) {
+          tag = "vbp";
+          this._ct(13, word, tag);
+          }
+        }
+
+      result[i] = tag;
     }
 
     return result;
+  },
+
+  _lexHas: function(pos, words) { // takes ([n|v|a|r] or a full tag)
+
+    if (!RiLexicon.enabled) return false;
+
+    var lex = RiTa._lexicon(), words = is(words, A) || [words];
+
+    for (var i = 0; i < words.length; i++) {
+
+      if (lex.containsWord(words[i])) {
+
+        if (pos == null) return true;
+
+        var tags = lex._getPosArr(words[i]);
+        for (var j = 0; j < tags.length; j++) {
+
+          if (pos === 'n' && isNoun(tags[j]) ||
+              pos === 'v' && isVerb(tags[j]) ||
+              pos === 'r' && isAdverb(tags[j]) ||
+              pos === 'a' && isAdj(tags[j]) ||
+              pos === tags[j])
+          {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
   }
+
 }; // end PosTagger
 
 // Stemming demo/comparison - http://text-processing.com/demo/stem/
@@ -3584,59 +3670,77 @@ RiTa.stem_Porter = (function() {
 
 })();
 
+// PlingStemmer categories
+
+/* Words that are both singular and plural */
+var categorySP = ['acoustics', 'aestetics', 'aquatics', 'basics', 'ceramics', 'classics', 'cosmetics', 'dermatoglyphics', 'dialectics', 'deer', 'dynamics', 'esthetics', 'ethics', 'harmonics', 'heroics', 'isometrics', 'mechanics', 'metrics', 'statistics', 'optic', 'people', 'physics', 'polemics', 'propaedeutics', 'pyrotechnics', 'quadratics', 'quarters', 'statistics', 'tactics', 'tropics'];
+
+/* Words that end in '-se' in their plural forms (like 'nurse' etc.) */
+var categorySE_SES = ['nurses', 'cruises'];
+
+/* Words that do not have a distinct plural form (like 'atlas' etc.) */
+var category00 = ['alias', 'asbestos', 'atlas', 'barracks', 'bathos', 'bias', 'breeches', 'britches', 'canvas', 'chaos', 'clippers', 'contretemps', 'corps', 'cosmos', 'crossroads', 'diabetes', 'ethos', 'gallows', 'gas', 'graffiti', 'headquarters', 'herpes', 'high-jinks', 'innings', 'jackanapes', 'lens', 'means', 'measles', 'mews', 'mumps', 'news', 'pathos', 'pincers', 'pliers', 'proceedings', 'rabies', 'rhinoceros', 'sassafras', 'scissors', 'series', 'shears', 'species', 'tuna'];
+
+/* Words that change from '-um' to '-a' (like 'curriculum' etc.), listed in their plural forms */
+var categoryUM_A = ['addenda', 'agenda', 'aquaria', 'bacteria', 'candelabra', 'compendia', 'consortia', 'crania', 'curricula', 'data', 'desiderata', 'dicta', 'emporia', 'enconia', 'errata', 'extrema', 'gymnasia', 'honoraria', 'interregna', 'lustra', 'maxima', 'media', 'memoranda', 'millenia', 'minima', 'momenta', 'optima', 'ova', 'phyla', 'quanta', 'rostra', 'spectra', 'specula', 'stadia', 'strata', 'symposia', 'trapezia', 'ultimata', 'vacua', 'vela'];
+
+/* Words that change from '-on' to '-a' (like 'phenomenon' etc.), listed in their plural forms */
+var categoryON_A = ['aphelia', 'asyndeta', 'automata', 'criteria', 'hyperbata', 'noumena', 'organa', 'perihelia', 'phenomena', 'prolegomena','referenda'];
+
+/* Words that change from '-o' to '-i' (like 'libretto' etc.), listed in their plural forms */
+var categoryO_I = ['alti', 'bassi', 'canti', 'contralti', 'crescendi', 'libretti', 'soli', 'soprani', 'tempi', 'virtuosi'];
+
+/*  Words that change from '-us' to '-i' (like 'fungus' etc.), listed in their plural forms		 */
+var categoryUS_I = ['alumni', 'bacilli', 'cacti', 'foci', 'fungi', 'genii', 'hippopotami', 'incubi', 'nimbi', 'nuclei', 'nucleoli', 'octopi', 'radii', 'stimuli', 'styli', 'succubi', 'syllabi', 'termini', 'tori', 'umbilici', 'uteri'];
+
+/* Words that change from '-ix' to '-ices' (like 'appendix' etc.), listed in their plural forms */
+var categoryIX_ICES = ['appendices', 'cervices'];
+
+/* Words that change from '-is' to '-es' (like 'axis' etc.), listed in their plural forms, plus everybody ending in theses */
+var categoryIS_ES = ['analyses', 'axes', 'bases','crises', 'diagnoses', 'ellipses', 'em_PHASEs', 'neuroses', 'oases', 'paralyses', 'prognoses', 'synopses'];
+
+/* Words that change from '-oe' to '-oes' (like 'toe' etc.), listed in their plural forms*/
+var categoryOE_OES = ['aloes', 'backhoes', 'beroes', 'canoes', 'chigoes', 'cohoes', 'does', 'felloes', 'floes', 'foes', 'gumshoes', 'hammertoes', 'hoes', 'hoopoes', 'horseshoes', 'leucothoes', 'mahoes', 'mistletoes', 'oboes', 'overshoes', 'pahoehoes', 'pekoes', 'roes', 'shoes', 'sloes', 'snowshoes', 'throes', 'tic-tac-toes', 'tick-tack-toes', 'ticktacktoes', 'tiptoes', 'tit-tat-toes', 'toes', 'toetoes', 'tuckahoes', 'woes'];
+
+/* Words that change from '-ex' to '-ices' (like 'index' etc.), listed in their plural forms*/
+var categoryEX_ICES = ['apices', 'codices', 'cortices', 'indices', 'latices', 'murices', 'pontifices', 'silices', 'simplices', 'vertices', 'vortices'];
+
+/* Words that change from '-u' to '-us' (like 'emu' etc.), listed in their plural forms*/
+var categoryU_US = [ 'menus', 'gurus', 'apercus', 'barbus', 'cornus', 'ecrus', 'emus', 'fondus', 'gnus', 'iglus', 'mus', 'nandus', 'napus', 'poilus', 'quipus', 'snafus', 'tabus', 'tamandus', 'tatus', 'timucus', 'tiramisus', 'tofus', 'tutus'];
+
+/* Words that change from '-sse' to '-sses' (like 'finesse' etc.), listed in their plural forms,plus those ending in mousse*/
+var categorySSE_SSES = ['bouillabaisses', 'coulisses', 'crevasses', 'crosses', 'cuisses', 'demitasses', 'ecrevisses', 'fesses', 'finesses', 'fosses', 'impasses', 'lacrosses', 'largesses', 'masses', 'noblesses', 'palliasses', 'pelisses', 'politesses', 'posses', 'tasses', 'wrasses'];
+
+/* Words that change from '-che' to '-ches' (like 'brioche' etc.), listed in their plural forms*/
+var categoryCHE_CHES = ['adrenarches', 'attaches', 'avalanches', 'barouches', 'brioches', 'caches', 'caleches', 'caroches', 'cartouches', 'cliches', 'cloches', 'creches', 'demarches', 'douches', 'gouaches', 'guilloches', 'headaches', 'heartaches', 'huaraches', 'menarches', 'microfiches', 'moustaches', 'mustaches', 'niches', 'panaches', 'panoches', 'pastiches', 'penuches', 'pinches', 'postiches', 'psyches', 'quiches', 'schottisches', 'seiches', 'soutaches', 'synecdoches', 'thelarches', 'troches'];
+
+/* Words that end with '-ics' and do not exist as nouns without the 's' (like 'aerobics' etc.)*/
+var categoryICS = ['aerobatics', 'aerobics', 'aerodynamics', 'aeromechanics', 'aeronautics', 'alphanumerics', 'animatronics', 'apologetics', 'architectonics', 'astrodynamics', 'astronautics', 'astrophysics', 'athletics', 'atmospherics', 'autogenics', 'avionics', 'ballistics', 'bibliotics', 'bioethics', 'biometrics', 'bionics', 'bionomics', 'biophysics', 'biosystematics', 'cacogenics', 'calisthenics', 'callisthenics', 'catoptrics', 'civics', 'cladistics', 'cryogenics', 'cryonics', 'cryptanalytics', 'cybernetics', 'cytoarchitectonics', 'cytogenetics', 'diagnostics', 'dietetics', 'dramatics', 'dysgenics', 'econometrics', 'economics', 'electromagnetics', 'electronics', 'electrostatics', 'endodontics', 'enterics', 'ergonomics', 'eugenics', 'eurhythmics', 'eurythmics', 'exodontics', 'fibreoptics', 'futuristics', 'genetics', 'genomics', 'geographics', 'geophysics', 'geopolitics', 'geriatrics', 'glyptics', 'graphics', 'gymnastics', 'hermeneutics', 'histrionics', 'homiletics', 'hydraulics', 'hydrodynamics', 'hydrokinetics', 'hydroponics', 'hydrostatics', 'hygienics', 'informatics', 'kinematics', 'kinesthetics', 'kinetics', 'lexicostatistics', 'linguistics', 'lithoglyptics', 'liturgics', 'logistics', 'macrobiotics', 'macroeconomics', 'magnetics', 'magnetohydrodynamics', 'mathematics', 'metamathematics', 'metaphysics', 'microeconomics', 'microelectronics', 'mnemonics', 'morphophonemics', 'neuroethics', 'neurolinguistics', 'nucleonics', 'numismatics', 'obstetrics', 'onomastics', 'orthodontics', 'orthopaedics', 'orthopedics', 'orthoptics', 'paediatrics', 'patristics', 'patristics', 'pedagogics', 'pediatrics', 'periodontics', 'pharmaceutics', 'pharmacogenetics', 'pharmacokinetics', 'phonemics', 'phonetics', 'phonics', 'photomechanics', 'physiatrics', 'pneumatics', 'poetics', 'politics', 'pragmatics', 'prosthetics', 'prosthodontics', 'proteomics', 'proxemics', 'psycholinguistics', 'psychometrics', 'psychonomics', 'psychophysics', 'psychotherapeutics', 'robotics', 'semantics', 'semiotics', 'semitropics', 'sociolinguistics', 'stemmatics', 'strategics', 'subtropics', 'systematics', 'tectonics', 'telerobotics', 'therapeutics', 'thermionics', 'thermodynamics', 'thermostatics'];
+
+/* Words that change from '-ie' to '-ies' (like 'auntie' etc.), listed in their plural forms*/
+var categoryIE_IES = ['aeries', 'anomies', 'aunties', 'baddies', 'beanies', 'birdies', 'boccies', 'bogies', 'bolshies', 'bombies', 'bonhomies', 'bonxies', 'booboisies', 'boogies', 'boogie-woogies', 'bookies', 'booties', 'bosies', 'bourgeoisies', 'brasseries', 'brassies', 'brownies', 'budgies', 'byrnies', 'caddies', 'calories', 'camaraderies', 'capercaillies', 'capercailzies', 'cassies', 'catties', 'causeries', 'charcuteries', 'chinoiseries', 'collies', 'commies', 'cookies', 'coolies', 'coonties', 'cooties', 'corries', 'coteries', 'cowpies', 'cowries', 'cozies', 'crappies', 'crossties', 'curies', 'dachsies', 'darkies', 'dassies', 'dearies', 'dickies', 'dies', 'dixies', 'doggies', 'dogies', 'dominies', 'dovekies', 'eyries', 'faeries', 'falsies', 'floozies', 'folies', 'foodies', 'freebies', 'gaucheries', 'gendarmeries', 'genies', 'ghillies', 'gillies', 'goalies', 'goonies', 'grannies', 'grotesqueries', 'groupies', 'hankies', 'hippies', 'hoagies', 'honkies', 'hymies', 'indies', 'junkies', 'kelpies', 'kilocalories', 'knobkerries', 'koppies', 'kylies', 'laddies', 'lassies', 'lies', 'lingeries', 'magpies', 'magpies', 'marqueteries', 'mashies', 'mealies', 'meanies', 'menageries', 'millicuries', 'mollies', 'facts1', 'moxies', 'neckties', 'newbies', 'nighties', 'nookies', 'oldies', 'organdies', 'panties', 'parqueteries', 'passementeries', 'patisseries', 'pies', 'pinkies', 'pixies', 'porkpies', 'potpies', 'prairies', 'preemies', 'premies', 'punkies', 'pyxies', 'quickies', 'ramies', 'reveries', 'rookies', 'rotisseries', 'scrapies', 'sharpies', 'smoothies', 'softies', 'stoolies', 'stymies', 'swaggies', 'sweeties', 'talkies', 'techies', 'ties', 'tooshies', 'toughies', 'townies', 'veggies', 'walkie-talkies', 'wedgies', 'weenies', 'weirdies', 'yardies', 'yuppies', 'zombies'];
+
+/* Maps irregular Germanic English plural nouns to their singular form */
+var categoryIRR = [ 'blondes', 'blonde', 'teeth', 'tooth', 'beefs', 'beef', 'brethren', 'brother', 'busses', 'bus', 'cattle', 'cow', 'children', 'child', 'corpora', 'corpus', 'ephemerides', 'ephemeris', 'genera', 'genus', 'genies', 'genie', 'genii', 'genie', 'lice', 'louse', 'mice', 'mouse', 'mongooses', 'mongoose', 'monies', 'money', 'mythoi', 'mythos', 'octopodes', 'octopus',  'oxen', 'ox', 'people', 'person', 'soliloquies', 'soliloquy', 'taxis', 'taxi', 'throes', 'throes', 'trilbys', 'trilby', 'innings', 'inning', 'alibis', 'alibi', 'skis', 'ski' ];
+
+function checkPluralNoLex(s) {
+  var cats = [
+    categoryUM_A,
+    categoryON_A,
+    categoryO_I,
+    categoryUS_I,
+    categoryIX_ICES
+  ];
+  for (var i = 0; i < cats.length; i++) {
+    if (cats[i].indexOf(s) > -1)
+      return true;
+  }
+  var idx = categoryIRR.indexOf(s); // plurals at even indices
+  return (idx%2 === 0) ? true : false;
+}
+
 /* From the PlingStemmer impl in the Java Tools package (see http://mpii.de/yago-naga/javatools). */
 RiTa.stem_Pling = (function() {
-
-  /* Words that are both singular and plural */
-  var categorySP = ['acoustics', 'aestetics', 'aquatics', 'basics', 'ceramics', 'classics', 'cosmetics', 'dermatoglyphics', 'dialectics', 'deer', 'dynamics', 'esthetics', 'ethics', 'harmonics', 'heroics', 'isometrics', 'mechanics', 'metrics', 'statistics', 'optic', 'people', 'physics', 'polemics', 'propaedeutics', 'pyrotechnics', 'quadratics', 'quarters', 'statistics', 'tactics', 'tropics'];
-
-  /* Words that end in '-se' in their plural forms (like 'nurse' etc.) */
-  var categorySE_SES = ['nurses', 'cruises'];
-
-  /* Words that do not have a distinct plural form (like 'atlas' etc.) */
-  var category00 = ['alias', 'asbestos', 'atlas', 'barracks', 'bathos', 'bias', 'breeches', 'britches', 'canvas', 'chaos', 'clippers', 'contretemps', 'corps', 'cosmos', 'crossroads', 'diabetes', 'ethos', 'gallows', 'gas', 'graffiti', 'headquarters', 'herpes', 'high-jinks', 'innings', 'jackanapes', 'lens', 'means', 'measles', 'mews', 'mumps', 'news', 'pathos', 'pincers', 'pliers', 'proceedings', 'rabies', 'rhinoceros', 'sassafras', 'scissors', 'series', 'shears', 'species', 'tuna'];
-
-  /* Words that change from '-um' to '-a' (like 'curriculum' etc.), listed in their plural forms */
-  var categoryUM_A = ['addenda', 'agenda', 'aquaria', 'bacteria', 'candelabra', 'compendia', 'consortia', 'crania', 'curricula', 'data', 'desiderata', 'dicta', 'emporia', 'enconia', 'errata', 'extrema', 'gymnasia', 'honoraria', 'interregna', 'lustra', 'maxima', 'media', 'memoranda', 'millenia', 'minima', 'momenta', 'optima', 'ova', 'phyla', 'quanta', 'rostra', 'spectra', 'specula', 'stadia', 'strata', 'symposia', 'trapezia', 'ultimata', 'vacua', 'vela'];
-
-  /* Words that change from '-on' to '-a' (like 'phenomenon' etc.), listed in their plural forms */
-  var categoryON_A = ['aphelia', 'asyndeta', 'automata', 'criteria', 'hyperbata', 'noumena', 'organa', 'perihelia', 'phenomena', 'prolegomena'];
-
-  /* Words that change from '-o' to '-i' (like 'libretto' etc.), listed in their plural forms */
-  var categoryO_I = ['alti', 'bassi', 'canti', 'contralti', 'crescendi', 'libretti', 'soli', 'soprani', 'tempi', 'virtuosi'];
-
-  /*  Words that change from '-us' to '-i' (like 'fungus' etc.), listed in their plural forms		 */
-  var categoryUS_I = ['alumni', 'bacilli', 'cacti', 'foci', 'fungi', 'genii', 'hippopotami', 'incubi', 'nimbi', 'nuclei', 'nucleoli', 'octopi', 'radii', 'stimuli', 'styli', 'succubi', 'syllabi', 'termini', 'tori', 'umbilici', 'uteri'];
-
-  /* Words that change from '-ix' to '-ices' (like 'appendix' etc.), listed in their plural forms */
-  var categoryIX_ICES = ['appendices', 'cervices'];
-
-  /* Words that change from '-is' to '-es' (like 'axis' etc.), listed in their plural forms, plus everybody ending in theses */
-  var categoryIS_ES = ['analyses', 'axes', 'bases', 'crises', 'diagnoses', 'ellipses', 'em_PHASEs', 'neuroses', 'oases', 'paralyses', 'synopses'];
-
-  /* Words that change from '-oe' to '-oes' (like 'toe' etc.), listed in their plural forms*/
-  var categoryOE_OES = ['aloes', 'backhoes', 'beroes', 'canoes', 'chigoes', 'cohoes', 'does', 'felloes', 'floes', 'foes', 'gumshoes', 'hammertoes', 'hoes', 'hoopoes', 'horseshoes', 'leucothoes', 'mahoes', 'mistletoes', 'oboes', 'overshoes', 'pahoehoes', 'pekoes', 'roes', 'shoes', 'sloes', 'snowshoes', 'throes', 'tic-tac-toes', 'tick-tack-toes', 'ticktacktoes', 'tiptoes', 'tit-tat-toes', 'toes', 'toetoes', 'tuckahoes', 'woes'];
-
-  /* Words that change from '-ex' to '-ices' (like 'index' etc.), listed in their plural forms*/
-  var categoryEX_ICES = ['apices', 'codices', 'cortices', 'indices', 'latices', 'murices', 'pontifices', 'silices', 'simplices', 'vertices', 'vortices'];
-
-  /* Words that change from '-u' to '-us' (like 'emu' etc.), listed in their plural forms*/
-  var categoryU_US = [ 'menus', 'gurus', 'apercus', 'barbus', 'cornus', 'ecrus', 'emus', 'fondus', 'gnus', 'iglus', 'mus', 'nandus', 'napus', 'poilus', 'quipus', 'snafus', 'tabus', 'tamandus', 'tatus', 'timucus', 'tiramisus', 'tofus', 'tutus'];
-
-  /* Words that change from '-sse' to '-sses' (like 'finesse' etc.), listed in their plural forms,plus those ending in mousse*/
-  var categorySSE_SSES = ['bouillabaisses', 'coulisses', 'crevasses', 'crosses', 'cuisses', 'demitasses', 'ecrevisses', 'fesses', 'finesses', 'fosses', 'impasses', 'lacrosses', 'largesses', 'masses', 'noblesses', 'palliasses', 'pelisses', 'politesses', 'posses', 'tasses', 'wrasses'];
-
-  /* Words that change from '-che' to '-ches' (like 'brioche' etc.), listed in their plural forms*/
-  var categoryCHE_CHES = ['adrenarches', 'attaches', 'avalanches', 'barouches', 'brioches', 'caches', 'caleches', 'caroches', 'cartouches', 'cliches', 'cloches', 'creches', 'demarches', 'douches', 'gouaches', 'guilloches', 'headaches', 'heartaches', 'huaraches', 'menarches', 'microfiches', 'moustaches', 'mustaches', 'niches', 'panaches', 'panoches', 'pastiches', 'penuches', 'pinches', 'postiches', 'psyches', 'quiches', 'schottisches', 'seiches', 'soutaches', 'synecdoches', 'thelarches', 'troches'];
-
-  /* Words that end with '-ics' and do not exist as nouns without the 's' (like 'aerobics' etc.)*/
-  var categoryICS = ['aerobatics', 'aerobics', 'aerodynamics', 'aeromechanics', 'aeronautics', 'alphanumerics', 'animatronics', 'apologetics', 'architectonics', 'astrodynamics', 'astronautics', 'astrophysics', 'athletics', 'atmospherics', 'autogenics', 'avionics', 'ballistics', 'bibliotics', 'bioethics', 'biometrics', 'bionics', 'bionomics', 'biophysics', 'biosystematics', 'cacogenics', 'calisthenics', 'callisthenics', 'catoptrics', 'civics', 'cladistics', 'cryogenics', 'cryonics', 'cryptanalytics', 'cybernetics', 'cytoarchitectonics', 'cytogenetics', 'diagnostics', 'dietetics', 'dramatics', 'dysgenics', 'econometrics', 'economics', 'electromagnetics', 'electronics', 'electrostatics', 'endodontics', 'enterics', 'ergonomics', 'eugenics', 'eurhythmics', 'eurythmics', 'exodontics', 'fibreoptics', 'futuristics', 'genetics', 'genomics', 'geographics', 'geophysics', 'geopolitics', 'geriatrics', 'glyptics', 'graphics', 'gymnastics', 'hermeneutics', 'histrionics', 'homiletics', 'hydraulics', 'hydrodynamics', 'hydrokinetics', 'hydroponics', 'hydrostatics', 'hygienics', 'informatics', 'kinematics', 'kinesthetics', 'kinetics', 'lexicostatistics', 'linguistics', 'lithoglyptics', 'liturgics', 'logistics', 'macrobiotics', 'macroeconomics', 'magnetics', 'magnetohydrodynamics', 'mathematics', 'metamathematics', 'metaphysics', 'microeconomics', 'microelectronics', 'mnemonics', 'morphophonemics', 'neuroethics', 'neurolinguistics', 'nucleonics', 'numismatics', 'obstetrics', 'onomastics', 'orthodontics', 'orthopaedics', 'orthopedics', 'orthoptics', 'paediatrics', 'patristics', 'patristics', 'pedagogics', 'pediatrics', 'periodontics', 'pharmaceutics', 'pharmacogenetics', 'pharmacokinetics', 'phonemics', 'phonetics', 'phonics', 'photomechanics', 'physiatrics', 'pneumatics', 'poetics', 'politics', 'pragmatics', 'prosthetics', 'prosthodontics', 'proteomics', 'proxemics', 'psycholinguistics', 'psychometrics', 'psychonomics', 'psychophysics', 'psychotherapeutics', 'robotics', 'semantics', 'semiotics', 'semitropics', 'sociolinguistics', 'stemmatics', 'strategics', 'subtropics', 'systematics', 'tectonics', 'telerobotics', 'therapeutics', 'thermionics', 'thermodynamics', 'thermostatics'];
-
-  /* Words that change from '-ie' to '-ies' (like 'auntie' etc.), listed in their plural forms*/
-  var categoryIE_IES = ['aeries', 'anomies', 'aunties', 'baddies', 'beanies', 'birdies', 'boccies', 'bogies', 'bolshies', 'bombies', 'bonhomies', 'bonxies', 'booboisies', 'boogies', 'boogie-woogies', 'bookies', 'booties', 'bosies', 'bourgeoisies', 'brasseries', 'brassies', 'brownies', 'budgies', 'byrnies', 'caddies', 'calories', 'camaraderies', 'capercaillies', 'capercailzies', 'cassies', 'catties', 'causeries', 'charcuteries', 'chinoiseries', 'collies', 'commies', 'cookies', 'coolies', 'coonties', 'cooties', 'corries', 'coteries', 'cowpies', 'cowries', 'cozies', 'crappies', 'crossties', 'curies', 'dachsies', 'darkies', 'dassies', 'dearies', 'dickies', 'dies', 'dixies', 'doggies', 'dogies', 'dominies', 'dovekies', 'eyries', 'faeries', 'falsies', 'floozies', 'folies', 'foodies', 'freebies', 'gaucheries', 'gendarmeries', 'genies', 'ghillies', 'gillies', 'goalies', 'goonies', 'grannies', 'grotesqueries', 'groupies', 'hankies', 'hippies', 'hoagies', 'honkies', 'hymies', 'indies', 'junkies', 'kelpies', 'kilocalories', 'knobkerries', 'koppies', 'kylies', 'laddies', 'lassies', 'lies', 'lingeries', 'magpies', 'magpies', 'marqueteries', 'mashies', 'mealies', 'meanies', 'menageries', 'millicuries', 'mollies', 'facts1', 'moxies', 'neckties', 'newbies', 'nighties', 'nookies', 'oldies', 'organdies', 'panties', 'parqueteries', 'passementeries', 'patisseries', 'pies', 'pinkies', 'pixies', 'porkpies', 'potpies', 'prairies', 'preemies', 'premies', 'punkies', 'pyxies', 'quickies', 'ramies', 'reveries', 'rookies', 'rotisseries', 'scrapies', 'sharpies', 'smoothies', 'softies', 'stoolies', 'stymies', 'swaggies', 'sweeties', 'talkies', 'techies', 'ties', 'tooshies', 'toughies', 'townies', 'veggies', 'walkie-talkies', 'wedgies', 'weenies', 'weirdies', 'yardies', 'yuppies', 'zombies'];
-
-  /* Maps irregular Germanic English plural nouns to their singular form */
-  var categoryIRR = [ 'blondes', 'blonde', 'beefs', 'beef', 'beeves', 'beef', 'brethren', 'brother', 'busses', 'bus', 'cattle', 'cattlebeast', 'children', 'child', 'corpora', 'corpus', 'ephemerides', 'ephemeris', 'genera', 'genus', 'genies', 'genie', 'genii', 'genie', 'kine', 'cow', 'lice', 'louse', 'mice', 'mouse', 'mongooses', 'mongoose', 'monies', 'money', 'mythoi', 'mythos', 'octopodes', 'octopus',  'oxen', 'ox', 'people', 'person', 'soliloquies', 'soliloquy', 'taxis', 'taxi', 'throes', 'throes', 'trilbys', 'trilby', 'innings', 'inning', 'alibis', 'alibi', 'skis', 'ski' ];
 
   /* Tells whether a noun is plural. */
   function isPlural(s) {
@@ -3817,7 +3921,7 @@ RiTa.stem_Pling = (function() {
     // -[aeo]lf to -ves  exceptions: valve, solve
     // -[^d]eaf to -ves  exceptions: heave, weave
     // -arf to -ves      no exception
-    if (s._endsWith("alves") && !s._endsWith("valves") || s._endsWith("olves") && !s._endsWith("solves") || s._endsWith("eaves") && !s._endsWith("heaves") && !s._endsWith("weaves") || s._endsWith("arves"))
+    if (s._endsWith("alves") && !s._endsWith("valves") || s._endsWith("olves") && !s._endsWith("solves") || s._endsWith("eaves") && !s._endsWith("heaves") && !s._endsWith("weaves") || s._endsWith("arves") || s._endsWith("shelves")|| s._endsWith("selves"))
       return (cut(s, "ves") + "f");
 
     // -y to -ies
@@ -3852,7 +3956,7 @@ RiTa.stem_Pling = (function() {
 })();
 
 Array.prototype._arrayContains = function(ele) {
-  return (Array.prototype.indexOf(ele) > -1);
+  return (this.indexOf(ele) > -1);
 };
 
 String.prototype._endsWith = function(suffix) {
@@ -4184,57 +4288,54 @@ var NULL_PLURALS = RE( // these don't change for plural/singular
 
 var SINGULAR_RULES = [
   NULL_PLURALS,
-  RE("^(oxen|buses|octopuses)$", 2),
-  RE("^(toes|taxis|menus|gurus)$", 1),
+  RE("whizzes", 3),
+  RE("^(buses|octopuses)$", 2),
+  RE("^(toes|wheezes)$", 1),
   RE("(men|women)$", 2, "an"),
   RE("^[lm]ice$", 3, "ouse"),
   RE("^children", 3),
   RE("^(appendices|indices|matrices)", 3, "x"),
-  RE("^(stimuli|alumni)$", 1, "us"),
   RE("^(data)$", 1, "um"),
-  RE("^(memoranda|bacteria|curricula|minima|" + "maxima|referenda|spectra|phenomena|criteria)$", 1, "um"),
-  RE("monies", 3, "ey"),
   RE("people", 4, "rson"),
   RE("^meninges|phalanges$", 3, "x"),
   RE("schemata$", 2, "s"),
   RE("^corpora$", 3, "us"),
-  RE("^(curi|formul|vertebr|larv|uln|alumn|signor|alg)ae$", 1),
+  RE("^(curi|formul|vertebr|larv|uln|alumn|signor|alg|minuti)ae$", 1),
   RE("^apices|cortices$", 4, "ex"),
-  RE("^teeth$", 4, "ooth"),
-  RE("^feet$", 3, "oot"),
   RE("femora", 3, "ur"),
-  RE("geese", 4, "oose"),
-  RE("crises", 2, "is"),
+  RE("^(medi|millenni|consorti|sept|memorabili)a$", 1, "um"),
+  RE("concerti", 1, "o")
 ];
 
 var C = "[bcdfghjklmnpqrstvwxyz]",
   VL = "[lraeiou]";
 
 var PLURAL_RULES = [
+    RE("prognosis", 2, "es"),
     NULL_PLURALS,
     RE("^(piano|photo|solo|ego|tobacco|cargo|golf|grief)$", 0, "s"),
     RE("^(wildlife)$", 0, "s"),
+    RE("^concerto$", 1, "i"),
     RE(C + "o$", 0, "es"),
     RE(C + "y$", 1, "ies"),
     RE("^ox$", 0, "en"),
-    RE("^(stimulus|alumnus)$", 2, "i"),
+    RE("^(stimul|alumn|termin)us$", 2, "i"),
     RE("^corpus$", 2, "ora"),
     RE("(xis|sis)$", 2, "es"),
+    RE("whiz$", 0, "zes"),
     RE("([zsx]|ch|sh)$", 0, "es"),
     RE(VL + "fe$", 2, "ves"),
     RE(VL + "f$", 1, "ves"),
     RE("(eu|eau)$", 0, "x"),
-
     RE("(man|woman)$", 2, "en"),
     RE("money$", 2, "ies"),
     RE("person$", 4, "ople"),
     RE("motif$", 0, "s"),
     RE("^meninx|phalanx$", 1, "ges"),
-
     RE("schema$", 0, "ta"),
     RE("^bus$", 0, "ses"),
     RE("child$", 0, "ren"),
-    RE("^(curi|formul|vertebr|larv|uln|alumn|signor|alg)a$", 0, "e"),
+    RE("^(curi|formul|vertebr|larv|uln|alumn|signor|alg|minuti)a$", 0, "e"),
     RE("^(maharaj|raj|myn|mull)a$", 0, "hs"),
     RE("^aide-de-camp$", 8, "s-de-camp"),
     RE("^apex|cortex$", 2, "ices"),
@@ -4250,6 +4351,7 @@ var PLURAL_RULES = [
     RE("^(taxi|chief|proof|ref|relief|roof|belief)$", 0, "s"),
     RE("^(co|no)$", 0, "'s"),
     RE("^blond$", 0, "es"),
+    RE("^(medi|millenni|consorti|sept|memorabili)um$", 2, "a"),
 
     // Latin stems
     RE("^(memorandum|bacterium|curriculum|minimum|" + "maximum|referendum|spectrum|phenomenon|criterion)$", 2, "a"),

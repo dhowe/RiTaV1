@@ -10,7 +10,7 @@
                  return '&#'+i.charCodeAt(0)+';';
           });
           $(id).html(encoded); 
-          Prism.highlightElement($(id)[0]);
+          if($(id).length > 0) Prism.highlightElement($(id)[0]);
         }
       });
 
