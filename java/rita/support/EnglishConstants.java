@@ -97,27 +97,44 @@ public interface EnglishConstants
   String[] W_QUESTION_STARTS = {
       "Was", "What", "When", "Where", "Which", "Why", "Who", "Will", "Would"
   };
-   
-  public static final String[] STOP_WORDS = { ".", ",", "the", 
-    "and", "a", "of", "\"", "in", "i", ":", "you", "is", "to",
-    "that", ")", "(", "it", "for", "on", "!", "have", "with", "?",
-    "this", "be", "...", "not", "are", "as", "was", "but", "or", "from",
-    "my", "at", "if", "they", "your", "all", "he", "by", "one",
-    "me", "what", "so", "can", "will", "do", "an", "about", "we", "just",
-    "would", "there", "no", "like", "out", "his", "has", "up", "more", "who",
-    "when", "don't", "some", "had", "them", "any", "their", "it's", "only",
-    ";", "which", "i'm", "been", "other", "were", "how", "then", "now",
-    "her", "than", "she", "well", "also", "us", "very", "because",
-    "am", "here", "could", "even", "him", "into", "our", "much",
-    "too", "did", "should", "over", "want", "these", "may", "where", "most",
-    "many", "those", "does", "why", "please", "off", "going", "its", "i've",
-    "down", "that's", "can't", "you're", "didn't", "another", "around",
-    "must",  "few", "doesn't", "every", "yes", "each", "maybe",
-    "i'll", "away", "doing", "oh", "else", "isn't", "he's", "there's", "hi",
-    "won't", "ok", "they're", "yeah", "mine", "we're", "what's", "shall",
-    "she's", "hello", "okay", "here's", "-", "less"
-  };
-  
+
+  public static final String[] STOP_WORDS = { ".", ",", "the", "and", "a",
+      "of", "\"", "in", "i", ":", "you", "is", "to", "that", ")", "(", "it",
+      "for", "on", "!", "have", "with", "?", "this", "be", "...", "not", "are",
+      "as", "was", "but", "or", "from", "my", "at", "if", "they", "your",
+      "all", "he", "by", "one", "me", "what", "so", "can", "will", "do", "an",
+      "about", "we", "just", "would", "there", "no", "like", "out", "his",
+      "has", "up", "more", "who", "when", "don't", "some", "had", "them",
+      "any", "their", "it's", "only", ";", "which", "i'm", "been", "other",
+      "were", "how", "then", "now", "her", "than", "she", "well", "also", "us",
+      "very", "because", "am", "here", "could", "even", "him", "into", "our",
+      "much", "too", "did", "should", "over", "want", "these", "may", "where",
+      "most", "many", "those", "does", "why", "please", "off", "going", "its",
+      "i've", "down", "that's", "can't", "you're", "didn't", "another",
+      "around", "must", "few", "doesn't", "every", "yes", "each", "maybe",
+      "i'll", "away", "doing", "oh", "else", "isn't", "he's", "there's", "hi",
+      "won't", "ok", "they're", "yeah", "mine", "we're", "what's", "shall",
+      "she's", "hello", "okay", "here's", "-", "less" };
+
+  public static final String[] CLOSED_CLASS_WORDS = { ".", ",", "the", "and",
+    "a", "of", "\"", "in", "i", ":", "you", "is", "to", "that", ")", "(",
+    "it", "for", "on", "!", "have", "with", "?", "this", "be", "...", "not",
+    "are", "as", "was", "but", "or", "from", "my", "at", "if", "they",
+    "your", "all", "he", "by", "one", "me", "what", "so", "can", "will",
+    "do", "an", "about", "we", "just", "would", "there", "no", "like", "out",
+    "his", "has", "up", "more", "who", "when", "don't", "some", "had",
+    "them", "any", "their", "it's", "only", ";", "which", "i'm", "been",
+    "other", "were", "how", "then", "now", "her", "than", "she", "well",
+    "also", "us", "very", "because", "am", "here", "could", "even", "him",
+    "into", "our", "much", "too", "did", "should", "over", "want", "these",
+    "may", "where", "most", "many", "those", "does", "why", "please", "off",
+    "going", "its", "i've", "down", "that's", "can't", "you're", "didn't",
+    "another", "around", "must", "few", "doesn't", "every", "yes", "each",
+    "maybe", "i'll", "away", "doing", "oh", "else", "isn't", "he's",
+    "there's", "hi", "won't", "ok", "they're", "yeah", "mine", "we're",
+    "what's", "shall", "she's", "hello", "okay", "here's", "-", "less" };
+
+
   // Stemmer
   
   /** 
