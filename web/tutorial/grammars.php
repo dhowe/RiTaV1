@@ -92,7 +92,7 @@
 
 <pre><code class="language-yaml">
 
-  &lt;start&gt;: &lt;subject&gt;, &lt;verb&gt;, &lt;object&gt;
+  &lt;start&gt;: &lt;subject&gt; &lt;verb&gt; &lt;object&gt;
   &lt;subject&gt;: I | You | They
   &lt;verb&gt;: want | hate | like | love
   &lt;object&gt;: &lt;food&gt; | &lt;animals&gt;
