@@ -155,12 +155,14 @@ An example, in JavaScript:
                 ...), it does not end a sentence. A period following a single capitalized letter is assumed to be a person's initial, and is not considered the end of a sentence.
               </p>
               <p><a href="../reference/RiTa/RiTa.splitSentences/index.php"><b>RiTa.splitSentences</b></a> splits 'text' into sentences according to the PENN Treebank conventions.
-                <pre><code class="language-javascript">RiTa.splitSentences("'What's happened to me?' he thought. It wasn't a dream. His room, a proper human room although a little too small,lay peacefully between its four familiar walls.");</code></pre>
+                <pre><code class="language-javascript">RiTa.splitSentences("'What's happened to me?' he thought. It wasn't a dream. \
+  His room, a proper human room although a little too small, lay peacefully \
+  between its four familiar walls.");</code></pre>
               <p>This will return an array of three sentences:</p>
               <div class="example">
                [0] 'What's happened to me?' he thought. <br />
                [1] It wasn't a dream. <br />
-               [2] His room, a proper human room although a little too small,lay peacefully between its four familiar walls. 
+               [2] His room, a proper human room although a little too small, lay peacefully between its four familiar walls.
 
 
               </div>
@@ -176,7 +178,7 @@ An example, in JavaScript:
               <h5 class="sub">Tokenizing/Untokenizing</h5>
               <h5>Tokenizing</h5>
 
-              <p>Tokenizing is the task of chopping a text up into smaller pieces, called tokens. In RiTa, such tokens are usually words. There are different tokenizing conventions in use, but the one RiTa uses is called the Penn Treebank conventions.
+              <p>Tokenizing is the task of chopping a text up into smaller pieces called tokens. In RiTa such tokens are usually words (and punctuation characters). There are different tokenizing conventions, but the one RiTa uses is called the Penn Treebank convention.
               </p>
               <p>
                 <span class="ref">See: <a href="http://www.cis.upenn.edu/~treebank/tokenization.html">http://www.cis.upenn.edu/~treebank/tokenization.html
@@ -184,15 +186,15 @@ An example, in JavaScript:
               </p>
 
               <p>An example of tokenizing in RiTa looks like this:</p>
-              <pre><code class="language-javascript">RiTa.tokenize("I want to have a cup of coffee.");</code></pre>
+              <pre><code class="language-javascript">  RiTa.tokenize("I want to have a cup of coffee.");</code></pre>
                 <p>The output will be: [ 'I', 'want', 'to', 'have', 'a', 'cup', 'of', 'coffee', '.' ]</p>
 
 
               <p>The default <a href="../reference/RiTa/RiTa.tokenize/index.php"><b>RiTa.tokenize</b></a> function will
                  split a line of text into words and punctuation. You can also choose to use a RegexTokenizer (with a regular expression pattern of your choice):</p>
-              <pre><code class="language-javascript">RiTa.tokenize(words, regex);</code></pre>
+              <pre><code class="language-javascript">  RiTa.tokenize(words, regex);</code></pre>
               <p>
-                To go in the other direction, from an array of words and punctuation to a sentence, you can use <a href="../reference/RiTa/RiTa.untokenize/index.php"><b>RiTa.untokenize</b></a>;</p>
+                To go in the other direction, from an array of words and punctuation to a sentence, you can use <a href="../reference/RiTa/RiTa.untokenize/index.php"><b>RiTa.untokenize</b></a>.</p>
 </br>
               <h5>Untokenizing</h5>
 
@@ -200,18 +202,22 @@ An example, in JavaScript:
 
               <p><a href="../reference/RiTa/RiTa.untokenize/index.php"><b>RiTa.untokenize</b></a> takes an array of word and punctuation and joins them together into a sentence, preserving punctuation position and adding spaces as necessary.
               </p>
-             
+
               <p>An example of untokenizing in RiTa:</p>
-              <pre><code class="language-javascript">var wordArray={'I', 'want', 'to', 'have', 'a', 'cup', 'of', 'coffee'}
-RiTa.untokenize(wordArray);</code></pre>
+              <pre><code class="language-javascript">  var words = ['I', 'want', 'to', 'have', 'a', 'cup', 'of', 'coffee', '.'];
+  RiTa.untokenize(words);</code></pre>
 
                 <p>
-                  The output will be: "I want to have a cup of coffee”
+                  The output will be: "I want to have a cup of coffee.”
 
                   </p>
 
             </div>
+            <hr/>
 
+            <div id="Next" class="pad-small">
+              <p>NEXT > see <a href="grammars.php"><b>Generating with grammars</b></a></p>
+            </div>
 
           </div>
           <div class="col2"></div>

@@ -100,16 +100,22 @@
   &lt;animals&gt;: cats |dogs | fish
 </code></pre>
 
-
             <p>Now you might get “You love coffee” or “They want fish”.</p><br>
-
             <p>To get a better sense of how it all works, check out <a href="../examples/p5js/HaikuGrammar/index.html">this example sketch</a> using RiTa grammars...</p>
 
+            <hr/>
+
+            <div id="Next" class="pad-small">
+              <p>NEXT > see <a href="ngrams.php"><b>Generating with n-grams</b></a></p>
+            </div>
+            
           </div>
+
           <div class="col2"></div>
         </div>
       </div>
     </div>
+
 
 
     <?php include("../footer.php"); ?>

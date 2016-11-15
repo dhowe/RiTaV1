@@ -49,7 +49,7 @@ pre[class*="language-"] {
 code[class*="language"] {
 	max-height: inherit;
 	height: 100%;
-	padding: 0 1em;
+	padding: 1em 1em 1em 0em;
 	display: block;
 }
 

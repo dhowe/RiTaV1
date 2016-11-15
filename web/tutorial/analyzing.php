@@ -108,7 +108,7 @@
               </p>
 
               <p>You can use <a href="../reference/RiTa/RiTa.getPosTags/index.php"><b>RiTa.getPosTags</b></a> to
-                 analyze the part-of-speech (or POS) for you. 
+                 analyze the part-of-speech (or POS) for you.
               </p>
                <pre><code class="language-javascript">RiTa.getPosTags("I am hungry");</code></pre>
                <p>The outcome would be: ["prp", "nn", "nn"]</p>
@@ -133,11 +133,9 @@
 
             <hr/>
 
-            <div id="Tokens" class="pad-small">
-              <h5 class="sub">Tokens</h5>
-              <p>Tokens are the units for text tokenization. Tokens can be words or numbers or punctuation marks. See <a href="transform.php#Tokenizing/Untokenizing"><b>Tokenizing.</b></a></p>
+            <div id="Next" class="pad-small">
+              <p>NEXT > see <a href="transform.php"><b>Transformation</b></a></p>
             </div>
-
 
           </div>
           <div class="col2"></div>
@@ -147,9 +145,6 @@
 
 
     <?php include("../footer.php"); ?>
-      <!--
-End Site Content
--->
 
 </body>
 

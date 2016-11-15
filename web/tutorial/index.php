@@ -26,7 +26,7 @@
     <li>Video Tutorials on RiTa.js <span style="font-size:.7em">by Dan Shiffman</span>
       <ul>
         <li><a href="https://www.youtube.com/watch?v=lIPEvh8HbGQ" target="_blank">The Basics of RiTa.js Library</a></li>
-        <li><a href="https://www.youtube.com/watch?v=VaAoIaZ3YKs" target="_blank">Context-Free Grammar</a></li>
+        <li><a href="https://www.youtube.com/watch?v=VaAoIaZ3YKs" target="_blank">Generating with Grammars</a></li>
       </ul>
     </li>
     <li><a href="analyzing.php">Analyzing text</a>
