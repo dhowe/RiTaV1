@@ -140,7 +140,7 @@ RiLexicon.prototype.init = function() {
 
 var RiTa = {
 
-  VERSION: '1.1.40',
+  VERSION: '1.1.50',
 
   LEXICON: null, // static RiLexicon instance
 
@@ -46542,16 +46542,21 @@ RiLexicon.prototype = {
 
   alliterations: function(word, matchMinLength, useLTS) {
 
+    if (word.indexOf(" ") > -1) return [];
+    if (!this._isVowel(word.charAt(0))) return [];
+
     matchMinLength = matchMinLength || 4;
 
     var c2, results = [],
-      c1 = this._firstConsonant(this._firstStressedSyllable(word, useLTS));
+      c1 = this._firstConsonant(this._firstSyllable(word, useLTS));
+     
+     console.log(this._firstSyllable(word, useLTS), c1);
 
     for (var i = 0; i < this.keys.length; i++) {
 
       c2 = this._firstConsonant(
-          this._firstStressedSyllable(this.keys[i], useLTS));
-
+          this._firstSyllable(this.keys[i], useLTS));
+      
       if (c2 && c1 === c2 && this.keys[i].length > matchMinLength) {
         results.push(this.keys[i]);
       }
@@ -46561,14 +46566,24 @@ RiLexicon.prototype = {
 
   isAlliteration: function(word1, word2, useLTS) {
 
+    if (word1.indexOf(" ") > -1 || word2.indexOf(" ") > -1) return false;
+
     if (!strOk(word1) || !strOk(word2)) return false;
 
     if (equalsIgnoreCase(word1, word2)) return true;
 
-    var c1 = this._firstConsonant(this._firstStressedSyllable(word1, useLTS)),
-      c2 = this._firstConsonant(this._firstStressedSyllable(word2, useLTS));
+    var c1 = this._firstConsonant(this._firstSyllable(word1, useLTS)),
+      c2 = this._firstConsonant(this._firstSyllable(word2, useLTS));
 
     return (strOk(c1) && strOk(c2) && c1 === c2);
+  },
+  
+  _firstSyllable: function(word, useLTS) {
+     var raw = this._getRawPhones(word, useLTS);
+     if (!strOk(raw)) return E; 
+     console.log(raw);
+     var syllables = raw.split(" ");
+     return syllables[0];
   },
 
   _firstStressedSyllable: function(word, useLTS) {
