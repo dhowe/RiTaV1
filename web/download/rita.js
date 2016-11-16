@@ -140,7 +140,7 @@ RiLexicon.prototype.init = function() {
 
 var RiTa = {
 
-  VERSION: '1.1.50',
+  VERSION: '1.1.51',
 
   LEXICON: null, // static RiLexicon instance
 
@@ -3256,7 +3256,7 @@ var PosTagger = {
 
         // use stemmer categories if no lexicon
         if(!lex.containsWord(words[i])){
-
+    
           if (endsWith(words[i],'s')) {
               var sub = words[i].substring(0,words[i].length - 1), sub2;
               if (endsWith(words[i],'es')) sub2 = words[i].substring(0,words[i].length - 2)
@@ -3269,7 +3269,9 @@ var PosTagger = {
 
           } else {
               var sing = RiTa.singularize(words[i]);
+             
               if (this._lexHas("n", sing)) {
+
                 choices2d.push("nns");
                 tag = 'nns';
               }
@@ -3419,21 +3421,25 @@ var PosTagger = {
 			}
 
       // transform 12(dch): convert plural nouns which have an entry for their base form to vbz
-      if (tag==="nns") {
+      if (tag === "nns") {
 
-        // if only word and not in lexicon OR
-        if ((words.length === 1 && !choices[i].length) ||
           // is preceded by one of the following
-          (i > 0 && ["nn", "prp", "cc", "nnp"].indexOf(result[i - 1]) > -1)) {
+          if (i > 0 && ["nn", "prp", "cc", "nnp"].indexOf(result[i - 1]) > -1) {
+              // if word is ends with s or es and is 'nns' and has a vb
+              if (this._lexHas('vb', RiTa.singularize(word))) {
+                  tag = "vbz";
+                  this._ct(12, word, tag);
+              }
+          } // if only word and not in lexicon
+          else if (words.length === 1 && !choices[i].length) {
+              // if the stem of a single word could be both nn and vb, return nns 
+              // only return vbz when the stem is vb but not nn
+              if (!this._lexHas('nn', RiTa.singularize(word)) && this._lexHas('vb', RiTa.singularize(word))) {
+                  tag = "vbz";
+                  this._ct(12, word, tag);
+              }
 
-        // if word is ends with s or es and is 'nns' and has a vb
-          if (word.match(/es$/) && this._lexHas('vb', word.substring(0, word.length-2)) ||
-              word.match(/s$/) && this._lexHas('vb', word.substring(0, word.length-1)))
-          {
-            tag = "vbz";
-            this._ct(12, word, tag);
           }
-        }
       }
 
       //transform 13(cqx): convert a vb/ potential vb to vbp when following nns (Elephants dance, they dance)
@@ -3451,9 +3457,9 @@ var PosTagger = {
   },
 
   _lexHas: function(pos, words) { // takes ([n|v|a|r] or a full tag)
-
+    
     if (!RiLexicon.enabled) return false;
-
+  
     var lex = RiTa._lexicon(), words = is(words, A) || [words];
 
     for (var i = 0; i < words.length; i++) {
@@ -3463,12 +3469,13 @@ var PosTagger = {
         if (pos == null) return true;
 
         var tags = lex._getPosArr(words[i]);
+ 
         for (var j = 0; j < tags.length; j++) {
 
-          if (pos === 'n' && isNoun(tags[j]) ||
-              pos === 'v' && isVerb(tags[j]) ||
-              pos === 'r' && isAdverb(tags[j]) ||
-              pos === 'a' && isAdj(tags[j]) ||
+          if (pos === 'n' && PosTagger.isNoun(tags[j]) ||
+              pos === 'v' && PosTagger.isVerb(tags[j]) ||
+              pos === 'r' && PosTagger.isAdverb(tags[j]) ||
+              pos === 'a' && PosTagger.isAdj(tags[j]) ||
               pos === tags[j])
           {
             return true;
@@ -3784,10 +3791,13 @@ RiTa.stem_Pling = (function() {
   function stem(s) {
 
     // Handle irregular ones
-    var irreg = categoryIRR[s];
-
-    if (irreg) return (irreg);
-
+    if (categoryIRR._arrayContains(s)) {
+        var index = categoryIRR.indexOf(s),
+            irreg;
+        if (index % 2 == 0)
+            irreg = categoryIRR[index + 1];
+        return (irreg);
+    }
     // -on to -a
     if (categoryON_A._arrayContains(s))
       return (cut(s, "a") + "on");
