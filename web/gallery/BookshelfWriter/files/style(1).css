@@ -1,0 +1,38 @@
+/* toggle
+----------------------------------------------- */
+.azc_tsh_toggle, .azc_tsh_toggle_open, .azc_tsh_toggle_active, .azc_tsh_toggle_open_active {
+    margin: 5px 0px 0px 0px !important;
+	border: 1px solid #007fff;
+    font-weight:600;
+    font-size: 14px;
+    padding: 10px 10px 10px 30px;
+    background-repeat: no-repeat;
+	background-position: 10px 10px;
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+}
+.azc_tsh_toggle {
+    background-image: url('images/azure_plus.png') ;
+}
+.azc_tsh_toggle_open {
+    background-image: url('images/azure_plus.png') !important;
+}
+.azc_tsh_toggle_active {
+    background-image: url('images/azure_minus.png') !important;
+}
+.azc_tsh_toggle_open_active {
+    background-image: url('images/azure_minus.png');
+}
+.azc_tsh_toggle a,.azc_tsh_toggle_open a, .azc_tsh_toggle_open_active a {
+	color: #000;
+}
+.azc_tsh_toggle_container, .azc_tsh_toggle_container_open {
+	margin: auto;
+    margin-bottom: 5px !important;
+	padding: 5px 15px;
+	border-right: 1px solid #007fff;
+	border-bottom: 1px solid #007fff;
+	border-left: 1px solid #007fff;
+	overflow: auto;
+}

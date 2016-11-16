@@ -16,7 +16,9 @@ select,
 textarea {
     color: #222;
 }
-
+a:active, a:focus{
+   outline: 0;
+}
 #view-src a{
    -moz-user-select: none; /* Firefox */
 }
@@ -1231,6 +1233,9 @@ span.spacing{
     filter: grayscale(100%);
     filter: gray;
 }
+.gray:hover{
+ filter: none;
+}
 
 .gallery_home_item{
   text-align: center;
@@ -1240,7 +1245,6 @@ span.spacing{
 .gallery_home_item img{
     width:180px;
     height:45px;
-
 }
 .gallery_home_item p{
     font-size: 0.875rem;
