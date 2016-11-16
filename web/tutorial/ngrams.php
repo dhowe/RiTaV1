@@ -75,7 +75,7 @@ With a longer text sample we could experiment with different <em>n</em>-values. 
 </p>
 <p>First, construct a Markov-chain and set its n-factor (the # of elements to consider). Let’s start with n=4...
 </p>
-<pre><code class="language-javascript">var rm = new RiMarkov(4);</code></pre>
+<pre><code class="language-javascript">  var rm = new RiMarkov(4);</code></pre>
 <p><br>Second, provide some text for RiTa to analyse. There are three functions to achieve this: <em>loadFrom()</em>,  <em>loadText()</em> and  <em>loadTokens()</em>. Let's start with <em>loadText()</em>.
 </p>
 <pre><code class="language-javascript">  var rm = new RiMarkov(4);
