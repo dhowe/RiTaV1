@@ -17,6 +17,9 @@
   }
 
 $(function() {
-  getcode("../../data/haiku.yaml","#grammar");
+  
   getcode("code.js","#source-code");
+  if ($('#grammar').length > 0) 
+    getcode("../../data/haiku.yaml", "#grammar");
+  
 });  
