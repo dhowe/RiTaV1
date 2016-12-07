@@ -2,7 +2,7 @@ import rita.*;
 
 RiMarkov markov;
 String line = "click to (re)generate!";
-String[] files = { "../data/wittgenstein.txt", "../data/kafka.txt" };
+String[] files = { "wittgenstein.txt", "kafka.txt" };
 int x = 160, y = 240;
 
 void setup()
@@ -23,7 +23,7 @@ void draw()
   text(line, x, y, 400, 400);
 }
 
-void mouseClicked()
+void mouseReleased()
 {
   if (!markov.ready()) return;
 

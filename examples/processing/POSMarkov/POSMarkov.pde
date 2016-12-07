@@ -6,7 +6,7 @@ import java.util.List;
 RiMarkov markov;
 Map<String, List<String>> dictionary = new HashMap <String, List<String>>();
 
-String[] files = { "../data/wittgenstein.txt", "../data/kafka.txt" };
+String[] files = { "wittgenstein.txt", "kafka.txt" };
 int x = 160, y = 240;
 String[] vocabulary;
 
