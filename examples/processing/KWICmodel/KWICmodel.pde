@@ -18,7 +18,7 @@ void setup() {
   args.put("ignoreStopWords", true);
   args.put("wordCount", 6);
 
-  data = RiTa.loadString("../data/kafka.txt", this);
+  data = RiTa.loadString("kafka.txt", this);
 }
 
 void draw() {
@@ -67,7 +67,7 @@ void drawButtons() {
   }
 }
 
-void mouseClicked() {
+void mouseReleased() {
 
   float posX = buttonX, tw;
   for (int i = 0; i < buttons.length; i++) {

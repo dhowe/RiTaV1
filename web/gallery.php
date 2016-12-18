@@ -35,17 +35,10 @@ Add your site or application content here
   <div class="gallery_home">
       <div class="row">
 
-     <span class="gallery_home_item gd-4  mgd-6 sgd-12">
-        <a href="./gallery/InvokeObject" target="new"><img class="gray" src="img/invokeObject.png" ></a><br>
-        <a href="./gallery/InvokeObject" target="new">invoke(Object object);</a>
-        <p>by Ben Nicholson</p>
-        <p class="gallery_home_spacer">&nbsp;</p>
-      </span>
-
       <span class="gallery_home_item gd-4  mgd-6 sgd-12">
         <a href="./gallery/BookshelfWriter" target="new"><img class="gray" src="img/bookshelfWriter.jpg" ></a><br>
         <a href="./gallery/BookshelfWriter" target="new">Bookshelf Writer</a>
-        <p><span style="font-size:10px;">by A.REFSGAARD K. SOLVÅG R. CERESER</span></p>
+        <p><span style="font-size:10px;">by A.Refsgaard K. Solvåg R. Cereser</span></p>
         <p class="gallery_home_spacer">&nbsp;</p>
       </span>
 
@@ -57,7 +50,7 @@ Add your site or application content here
       </span>
 
       <span class="gallery_home_item gd-4  mgd-6 sgd-12">
-        <a href="https://elmcip.net/creative-work/mirroring-tears-visages" target="new"><img class="gray" src="img/mirroringTears.png" ></a><br>
+        <a href="https://elmcip.net/creative-work/mirroring-tears-visages" target="new"><img src="img/mirroringTears.png" ></a><br>
         <a href="https://elmcip.net/creative-work/mirroring-tears-visages" target="new">Mirroring Tears: Visages</a>
         <p>by John Cayley Penny Florence</p>
         <p class="gallery_home_spacer">&nbsp;</p>
@@ -92,7 +85,7 @@ Add your site or application content here
     </span>
 
     <span class="gallery_home_item gd-4 mgd-6 sgd-12">
-      <a href="./gallery/CornellsYokeMachine" target="new"><img class="gray" src="img/cornell.jpg" ></a><br>
+      <a href="./gallery/CornellsYokeMachine" target="new"><img src="img/cornell.jpg" ></a><br>
       <a href="./gallery/CornellsYokeMachine" target="new">Cornell's Yoke Machine</a>
       <p>by Janalyn Guo</p>
       <p class="gallery_home_spacer">&nbsp;</p>
@@ -114,7 +107,7 @@ Add your site or application content here
       </span>
 
       <span class="gallery_home_item gd-4 mgd-6 sgd-12">
-        <a href="./gallery/AboutNothingPlaces" target="new"><img class="gray" src="img/creeley270.jpg" ></a><br>
+        <a href="./gallery/AboutNothingPlaces" target="new"><img src="img/creeley270.jpg" ></a><br>
         <a href="./gallery/AboutNothingPlaces" target="new">about nothing, places...</a>
         <p>by Patricia Tomaszek</p>
         <p class="gallery_spacer">&nbsp;</p>
@@ -154,6 +147,13 @@ Add your site or application content here
         <a href="./gallery/Zuckifier/" target="new">Zuckifier</a>
         <p>by Sam Lavigne</p>
         <p class="gallery_spacer">&nbsp;</p>
+      </span>
+
+        <span class="gallery_home_item gd-4  mgd-6 sgd-12">
+        <a href="./gallery/InvokeObject" target="new"><img src="img/invokeObject.png" ></a><br>
+        <a href="./gallery/InvokeObject" target="new">invoke(Object object);</a>
+        <p>by Ben Nicholson</p>
+        <p class="gallery_home_spacer">&nbsp;</p>
       </span>
 <!--       <span class="gallery_home_item gd-4 mgd-6 sgd-12">
         <a href="https://play.google.com/store/apps/details?id=processing.test.jumping_wild" target="new"><img src="img/jumping.png" ></a><br>
