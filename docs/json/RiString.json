@@ -120,6 +120,41 @@
     "platform": "Java / Javascript",
     "note": ""
   }, {
+    "name": "get",
+    "example": "",
+    "description": "Returns the value for the feature with 'name' or null if not found",
+    "syntax": "get(string);",
+    "parameters": [{
+      "type": "String",
+      "desc": "The name of the feature"
+    }],
+    "returns": [{
+      "type": "String",
+      "desc": "the value of the feature or null if not found"
+    }],
+    "related": "RiString.set()",
+    "platform": "Java / Javascript",
+    "note": ""
+  },{
+    "name": "set",
+    "example": "",
+    "description": "Sets the value for the feature with 'name'",
+    "syntax": "set(string, string);",
+    "parameters": [{
+      "type": "String",
+      "desc": "The name of the feature"
+    },{
+      "type": "String",
+      "desc": "The value of the feature"
+    }],
+    "returns": [{
+      "type": "RiString",
+      "desc": "this RiString"
+    }],
+    "related": "RiString.get()",
+    "platform": "Java / Javascript",
+    "note": ""
+  },{
     "name": "indexOf",
     "example": "",
     "description": "Returns the index within this string of the first occurrence of the 'searchstring'",

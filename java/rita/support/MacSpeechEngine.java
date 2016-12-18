@@ -198,7 +198,7 @@ public class MacSpeechEngine {
 
   public static void main(String[] args) {
     System.out.println(RiTa.asList(querySystemForVoices()));
-    new MacSpeechEngine().speak("Hello");
+    new MacSpeechEngine().speak("Dinner at the Y");
   }
 
 }// end

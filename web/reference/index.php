@@ -121,6 +121,8 @@
                     <br>
                     <a href="RiString/features/index.php">features()</a>
                     <br>
+                    <a href="RiString/get/index.php">get()</a>
+                    <br>
                     <a href="RiString/indexOf/index.php">indexOf()</a>
                     <br>
                     <a href="RiString/insertWord/index.php">insertWord()</a>
@@ -144,6 +146,8 @@
                     <a href="RiString/replaceFirst/index.php">replaceFirst()</a>
                     <br>
                     <a href="RiString/replaceWord/index.php">replaceWord()</a>
+                    <br>
+                    <a href="RiString/set/index.php">set()</a>
                     <br>
                     <a href="RiString/slice/index.php">slice()</a>
                     <br>
