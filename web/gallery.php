@@ -36,21 +36,21 @@ Add your site or application content here
       <div class="row">
 
        <span class="gallery_home_item gd-4  mgd-6 sgd-12">
-        <a href="./gallery/HW00/hw00.html" target="new"><img class="gray" src="img/hm.jpg" ></a><br>
+        <a href="./gallery/HW00/hw00.html" target="new"><img src="img/hm.jpg" ></a><br>
         <a href="./gallery/HW00/hw00.html" target="new">HW-PM-R-00</a>
         <p><span style="font-size:10px;">by David Hale</span></p>
         <p class="gallery_home_spacer">&nbsp;</p>
       </span>
 
       <span class="gallery_home_item gd-4  mgd-6 sgd-12">
-        <a href="./gallery/BookshelfWriter" target="new"><img class="gray" src="img/bookshelfWriter.jpg" ></a><br>
+        <a href="./gallery/BookshelfWriter" target="new"><img src="img/bookshelfWriter.jpg" ></a><br>
         <a href="./gallery/BookshelfWriter" target="new">Bookshelf Writer</a>
         <p><span style="font-size:10px;">by A.Refsgaard K. Solvåg R. Cereser</span></p>
         <p class="gallery_home_spacer">&nbsp;</p>
       </span>
 
       <span class="gallery_home_item gd-4  mgd-6 sgd-12">
-        <a href="http://sarahmak.es/nightTweets" target="new"><img class="gray" src="img/nightTweet.png" ></a><br>
+        <a href="http://sarahmak.es/nightTweets" target="new"><img src="img/nightTweet.png" ></a><br>
         <a href="http://sarahmak.es/nightTweets" target="new">#nightTweets</a>
         <p>by Sarah K Hallacher</p>
         <p class="gallery_home_spacer">&nbsp;</p>
@@ -64,28 +64,28 @@ Add your site or application content here
       </span>
 
     <span class="gallery_home_item gd-4  mgd-6 sgd-12">
-        <a href="./gallery/TheWholeBrilliantEnterprise" target="new"><img class="gray" src="img/enterprise_sm.png" ></a><br>
+        <a href="./gallery/TheWholeBrilliantEnterprise" target="new"><img src="img/enterprise_sm.png" ></a><br>
         <a href="./gallery/TheWholeBrilliantEnterprise" target="new">The Whole Brilliant Enterprise</a>
         <p>by Office for Creative Research</p>
         <p class="gallery_home_spacer">&nbsp;</p>
       </span>
 
     <span class="gallery_home_item gd-4 mgd-6 sgd-12">
-      <a href="./gallery/MemoireInvolontaireNo1" target="new"><img class="gray" src="img/memory.gif" ></a><br>
+      <a href="./gallery/MemoireInvolontaireNo1" target="new"><img src="img/memory.gif" ></a><br>
       <a href="./gallery/MemoireInvolontaireNo1" target="new">Memoire Involontaire No. 1</a>
           <p>by A. Braxton Soderman</p>
       <p class="gallery_home_spacer">&nbsp;</p>
     </span>
 
     <span class="gallery_home_item gd-4 mgd-6 sgd-12">
-        <a href="./gallery/VisualGrammars" target="new"><img class="gray" src="img/visgram.jpg" ></a>
+        <a href="./gallery/VisualGrammars" target="new"><img src="img/visgram.jpg" ></a>
         <a href="./gallery/VisualGrammars" target="new"><br>Visual Grammars</a>
         <p>by Angela Ferraiolo</p>
         <p class="gallery_home_spacer">&nbsp;</p>
       </span>
 <!-- row2-->
     <span class="gallery_home_item gd-4 mgd-6 sgd-12">
-      <a href="./gallery/GameDefinitions" target="new"><img class="gray" src="img/gamedefs.png" ></a><br>
+      <a href="./gallery/GameDefinitions" target="new"><img src="img/gamedefs.png" ></a><br>
       <a href="./gallery/GameDefinitions" target="new">Game Definitions</a>
       <p>by MolleIndustria</p>
       <p class="gallery_home_spacer">&nbsp;</p>
@@ -99,7 +99,7 @@ Add your site or application content here
     </span>
 
     <span class="gallery_home_item gd-4 mgd-6 sgd-12">
-      <a href="./gallery/ShanShui" target="new"><img class="gray" src="img/shanshui.jpg" ></a><br>
+      <a href="./gallery/ShanShui" target="new"><img src="img/shanshui.jpg" ></a><br>
       <a href="./gallery/ShanShui" target="new">Shan Shui</a>
       <p>by Chen Qianxun</p>
       <p class="gallery_home_spacer">&nbsp;</p>
@@ -107,7 +107,7 @@ Add your site or application content here
   <!-- row3-->
 
       <span class="gallery_home_item gd-4 mgd-6 sgd-12">
-        <a href="./gallery/TheGodardFilmGenerator" target="new"><img class="gray" src="img/godard.png" ></a><br>
+        <a href="./gallery/TheGodardFilmGenerator" target="new"><img src="img/godard.png" ></a><br>
         <a href="./gallery/TheGodardFilmGenerator" target="new">The Godard Film Generator</a>
         <p>by Mark Sample</p>
         <p class="gallery_spacer">&nbsp;</p>
@@ -121,21 +121,21 @@ Add your site or application content here
       </span>
 
        <span class="gallery_home_item gd-4 mgd-6 sgd-12">
-        <a href="./gallery/RiTaTwitterbots"target="new"><img class="gray" src="img/twitterbots.gif" ></a><br>
+        <a href="./gallery/RiTaTwitterbots"target="new"><img src="img/twitterbots.gif" ></a><br>
         <a href="./gallery/RiTaTwitterbots"target="new">RiTa Twitterbots</a>
         <p>by Mark Sample</p>
         <p class="gallery_spacer">&nbsp;</p>
       </span>
   <!-- row4-->
       <span class="gallery_home_item gd-4 mgd-6 sgd-12">
-        <a href="./gallery/SpinState"target="new"><img class="gray" src="img/spin_state2.png" ></a><br>
+        <a href="./gallery/SpinState"target="new"><img src="img/spin_state2.png" ></a><br>
         <a href="./gallery/SpinState"target="new">SpinState</a>
         <p>by Michael Coppola</p>
         <p class="gallery_spacer">&nbsp;</p>
       </span>
 
       <span class="gallery_home_item gd-4 mgd-6 sgd-12">
-        <a href="./gallery/Automatype" target="new"><img class="gray" src="img/automatype.jpg" ></a><br>
+        <a href="./gallery/Automatype" target="new"><img src="img/automatype.jpg" ></a><br>
         <a href="./gallery/Automatype" target="new">Automatype</a>
         <p>by Daniel C. Howe</p>
         <p class="gallery_spacer">&nbsp;</p>
@@ -143,14 +143,14 @@ Add your site or application content here
 
 
       <span class="gallery_home_item gd-4 mgd-6 sgd-12">
-        <a href="./gallery/HarryPotterBookGenerator" target="new"><img class="gray" src="img/HarryPotterGenerator.png" ></a><br>
+        <a href="./gallery/HarryPotterBookGenerator" target="new"><img src="img/HarryPotterGenerator.png" ></a><br>
         <a href="./gallery/HarryPotterBookGenerator" target="new">Harry Potter Book Generator</a>
         <p>by Rob Clouth</p>
         <p class="gallery_spacer">&nbsp;</p>
       </span>
       
       <span class="gallery_home_item gd-4 mgd-6 sgd-12">
-        <a href="./gallery/Zuckifier/" target="new"><img class="gray" src="img/zuckbaby.jpg" ></a><br>
+        <a href="./gallery/Zuckifier/" target="new"><img src="img/zuckbaby.jpg" ></a><br>
         <a href="./gallery/Zuckifier/" target="new">Zuckifier</a>
         <p>by Sam Lavigne</p>
         <p class="gallery_spacer">&nbsp;</p>
