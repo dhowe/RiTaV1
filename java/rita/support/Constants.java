@@ -214,5 +214,5 @@ public interface Constants extends EnglishConstants
   String INTERNAL = EventType.Internal.name();
   String DATA_LOADED = EventType.DataLoaded.name();
   String UNKNOWN = EventType.Unknown.name();
-  
 }
+

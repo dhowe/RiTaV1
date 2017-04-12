@@ -577,7 +577,7 @@
         "desc": "the word to analyze"
       }, {
         "type": "String",
-        "desc": "Choose RiTa.LANCASTER (the default), RiTa.PORTER, or RiTa.PLING, to specify the stemming algorithm to use"
+        "desc": "Choose RiTa.PORTER (the default), RiTa.LANCASTER, or RiTa.PLING, to specify the stemming algorithm to use"
       }
 
     ],

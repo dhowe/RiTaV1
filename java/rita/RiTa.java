@@ -1647,5 +1647,6 @@ public class RiTa implements Constants {
   public static void main(String[] args) {
     RiTa.PHONEME_TYPE = RiTa.IPA;
     System.out.println(RiTa.getPhonemes("become"));
+    System.out.println(RiTa.INTERNAL);
   }
 }

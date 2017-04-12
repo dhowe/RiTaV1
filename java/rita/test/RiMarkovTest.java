@@ -102,7 +102,7 @@ public class RiMarkovTest
   }
 
   @Test
-  public void testLoadFromUrl()
+  public void testLoadFromUrl() // Note: will fail without network
   {
     RiMarkov rm = new RiMarkov(4);
     rm.loadFrom("http://rednoise.org/testfiles/kafka-short.txt");

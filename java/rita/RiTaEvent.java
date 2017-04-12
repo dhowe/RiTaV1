@@ -26,8 +26,8 @@ public class RiTaEvent implements Constants
   public RiTaEvent(Object source, EventType type, Object data)
   {
     this.data = data;
+    this.type = type;
     this.source = source;
-    this.type = type;//checkType(type);
   }
   
   public boolean fire(Object parent) {
@@ -38,6 +38,11 @@ public class RiTaEvent implements Constants
   public boolean isType(EventType theType) {
     
     return theType == this.type;
+  }
+  
+  public boolean isType(String theType) { // added, 4/12/17
+    
+    return theType.equals(this.type.name());
   }
 
   protected boolean fire(Object parent, boolean isPublic) {
