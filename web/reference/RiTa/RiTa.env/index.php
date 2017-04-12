@@ -66,7 +66,7 @@
 							<th scope="row">Description</th>
 
 							<!-- DESCRIPTION  -->
-							<td>Returns one of the following constants, depending on the runtime environment (RiTa.JAVA, RiTa.JS, RiTa.NODE) </td>
+							<td>Returns one of the following constants, depending on the runtime environment (RiTa.JAVA, RiTa.JS, RiTa.ANDROID, RiTa.NODE) </td>
 						</tr>
 
 						<tr class='Syntax'>
@@ -96,7 +96,7 @@
 							<!-- RETURNS/TYPE (for variables)  -->
 
 							<table cellpadding="0" cellspacing="0" border="0" class="sub-table">
-								<tr class=''><th width='25%' scope='row' class=nobold>int</th><td width='75%'>Returns RiTa.JAVA, RiTa.JS, or RiTa.NODE, depending on the runtime environment</td></tr>
+								<tr class=''><th width='25%' scope='row' class=nobold>int</th><td width='75%'>Returns RiTa.JAVA, RiTa.JS, RiTa.ANDROID or RiTa.NODE, depending on the runtime environment</td></tr>
 							</table></td>
 						</tr>
 

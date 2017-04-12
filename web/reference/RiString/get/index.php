@@ -104,7 +104,7 @@
 							<th scope="row">Related</th>
 
 							<!-- RELATED  -->
-							<td>set</td>
+							<td>RiString.set()</td>
 						</tr>
 
 						<tr class='Note' style='display:none'>

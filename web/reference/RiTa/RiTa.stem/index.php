@@ -84,7 +84,7 @@
 							<!-- PARAMETERS  -->
 
 							<table cellpadding="0" cellspacing="0" border="0" class="sub-table">
-								<tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>the word to analyze</td></tr><tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>Choose RiTa.LANCASTER (the default), RiTa.PORTER, or RiTa.PLING, to specify the stemming algorithm to use</td></tr>
+								<tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>the word to analyze</td></tr><tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>Choose RiTa.PORTER (the default), RiTa.LANCASTER, or RiTa.PLING, to specify the stemming algorithm to use</td></tr>
 							</table></td>
 						</tr>
 

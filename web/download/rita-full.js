@@ -2,8 +2,8 @@
 
 (function(window, undefined) {
 
-var E= '', SP= ' ', EA= [], N= 'number', S= 'string', O= 'object',
-  A= 'array', B= 'boolean', R= 'regexp', F= 'function', BN = '\n';
+var E = '', SP = ' ', EA = [], N = 'number', S = 'string', O = 'object',
+  A = 'array', B = 'boolean', R = 'regexp', F = 'function', BN = '\n';
 
 function makeClass() { // from: Resig, TODO: make work with strict
   return function(args) {
@@ -127,6 +127,33 @@ function get(obj) {
     return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
 }
 
+function tagForPENN(words) {
+  if (!words || !words.length) return EA;
+  var arr = is(words, S) ? RiTa.tokenize(words) : words;
+  return PosTagger.tag(arr);
+}
+
+function tagForWordNet(words) {
+  var pos, posArr = tagForPENN(words);
+  if (words && posArr.length) {
+    for (var i = 0; i < posArr.length; i++) {
+      pos = posArr[i];
+      posArr[i] = '-'; // default=other
+      if (PosTagger.isNoun(pos)) posArr[i] = 'n';
+      else if (PosTagger.isVerb(pos)) posArr[i] = 'v';
+      else if (PosTagger.isAdverb(pos)) posArr[i] = 'r';
+      else if (PosTagger.isAdj(pos)) posArr[i] = 'a';
+    }
+    return posArr;
+  }
+  return EA;
+}
+
+function getLexicon() {
+  RiTa.LEXICON = RiTa.LEXICON || new RiLexicon();
+  return RiTa.LEXICON;
+}
+
 'use strict';
 
 var RiLexicon = makeClass(); // stub
@@ -138,9 +165,12 @@ RiLexicon.prototype.init = function() {
       'if needed, make sure to include rilexicon.js');
 };
 
+var FEATURES = [ 'tokens', 'stresses', 'phonemes', 'syllables', 'pos', 'text' ],
+  DATA_LOADED = 'DataLoaded', INTERNAL = 'Internal', UNKNOWN = 'Unknown';
+
 var RiTa = {
 
-  VERSION: '1.1.51',
+  VERSION: '1.1.52',
 
   LEXICON: null, // static RiLexicon instance
 
@@ -148,8 +178,6 @@ var RiTa = {
   SPLIT_CONTRACTIONS: false,
 
   JAVA: 1, JS: 2, NODE: 3,
-
-  _FEATURES: [ 'tokens', 'stresses', 'phonemes', 'syllables', 'pos', 'text' ],
 
   // For Conjugator =================================
 
@@ -191,18 +219,10 @@ var RiTa = {
   /* Set to true to disable all console output */
   SILENT: false,
 
-  /* Stemmer type: Lancaster */
+  /* Stemmer types */
   LANCASTER: "Lancaster",
-
-  /* Stemmer type: Porter */
   PORTER: "Porter",
-
-  /* Stemmer type: Pling */
   PLING: "Pling",
-
-  DATA_LOADED: 'DataLoaded',
-  INTERNAL: 'Internal',
-  UNKNOWN: 'Unknown',
 
   NON_BREAKING_SPACE: '<sp/>',
 	PARAGRAPH_BREAK: '<p/>',  //   regex: /<p\/?>/g;
@@ -228,15 +248,9 @@ var RiTa = {
     "she's", "hello", "okay", "here's", "-", "less"
   ],
 
+  stemmers: {},
+
   // Start functions =================================
-
-  _lexicon: function() {
-
-    if (!RiTa.LEXICON) {
-      RiTa.LEXICON = new RiLexicon();
-    }
-    return RiTa.LEXICON;
-  },
 
   untokenize: function(arr, delim, adjustPunctuationSpacing) {
 
@@ -321,32 +335,8 @@ var RiTa = {
     return Math.sqrt(dx * dx + dy * dy);
   },
 
-  _tagForPENN: function(words) {
-    if (!words || !words.length) return EA;
-    var arr = is(words, S) ? RiTa.tokenize(words) : words;
-    return PosTagger.tag(arr);
-  },
-
-  _tagForWordNet: function(words) {
-
-    var pos, posArr = RiTa._tagForPENN(words);
-    if (words && posArr.length) {
-
-      for (var i = 0; i < posArr.length; i++) {
-        pos = posArr[i];
-        posArr[i] = '-'; // default=other
-        if (PosTagger.isNoun(pos)) posArr[i] = 'n';
-        else if (PosTagger.isVerb(pos)) posArr[i] = 'v';
-        else if (PosTagger.isAdverb(pos)) posArr[i] = 'r';
-        else if (PosTagger.isAdj(pos)) posArr[i] = 'a';
-      }
-      return posArr;
-    }
-    return EA;
-  },
-
   getPosTags: function(words, useWordNetTags) {
-    return (useWordNetTags) ? RiTa._tagForWordNet(words) : RiTa._tagForPENN(words);
+    return (useWordNetTags) ? tagForWordNet(words) : tagForPENN(words);
   },
 
   getPosTagsInline: function(words, delimiter) {
@@ -490,117 +480,75 @@ var RiTa = {
 
   isAbbreviation: function(input, caseSensitive) {
 
+    // Converts 'input' to Titlecase (1st letter upper, rest lower)
+    var titleCase = function(input) {
+
+      if (!input || !input.length) return input;
+      return input.substring(0, 1).toUpperCase() + input.substring(1);
+    };
+
     caseSensitive = caseSensitive || false;
-    input = caseSensitive ? input : RiTa._titleCase(input);
+    input = caseSensitive ? input : titleCase(input);
+
     return inArray(this.ABBREVIATIONS, input);
-  },
-
-  _loadStringsNode: function(url, callback) {
-
-    var data = '', isUrl = /.+?:\/\/.+/.test(url), me = this;
-
-    function processResponse(data) {
-      data = data.toString('utf-8').trim();
-      var lines = data.split(/(\r\n|\n)/gm);
-      me.fireDataLoaded(url, callback, lines);
-    }
-    //log("Using Node for: "+url +" isUrl="+isUrl);
-
-    if (isUrl) {
-
-      var httpcb = function(response) {
-        response.on('data', function(chunk) {
-          data += chunk;
-        });
-        response.on('error', function(e) {
-          throw e;
-        });
-        response.on('end', function() {
-          processResponse(data);
-        });
-      };
-
-      var req = require('http').request(url, httpcb);
-      req.on('socket', function(socket) { // shouldnt be needed
-
-        socket.setTimeout(5000); // ?
-        socket.on('timeout', function() {
-          req.abort();
-          throw Error("[RiTa] loadString timed-out and aborted request");
-        });
-      });
-      req.end();
-
-    } else {
-
-      // try with node file-system
-      var rq = require('fs');
-      rq.readFile(url, function(e, data) {
-        if (e || !data) {
-          err("[Node] Error reading file: " + url + BN + e);
-          throw e;
-        }
-        processResponse(data);
-      });
-    }
-    //return data;
-  },
-
-  _loadStringNode: function(url, callback, linebreakChars) {
-
-    var data = '', lb = linebreakChars || BN,
-      isUrl = /.+?:\/\/.+/.test(url), me = this;
-
-    //log("Using Node for: "+url +" isUrl="+isUrl);
-
-    if (isUrl) {
-
-      var httpcb = function(response) {
-        response.on('data', function(chunk) {
-          data += chunk;
-        });
-        response.on('error', function(e) {
-          throw e;
-        });
-        response.on('end', function() {
-          data = data.toString('utf-8').replace(/[\r\n]+/g, lb).trim();
-          me.fireDataLoaded(url, callback, data);
-        });
-      };
-
-      var req = require('http').request(url, httpcb);
-      req.on('socket', function(socket) { // shouldnt be needed
-
-        socket.setTimeout(5000); // ?
-        socket.on('timeout', function() {
-          req.abort();
-          throw Error("[RiTa] loadString timed-out and aborted request");
-        });
-      });
-      req.end();
-
-    } else {
-
-      // try with node file-system
-      var rq = require('fs');
-      rq.readFile(url, function(e, data) {
-        if (e || !data) {
-          err("[Node] Error reading file: " + url + BN + e);
-          throw e;
-        }
-        data = data.toString('utf-8').replace(/[\r\n]+/g, lb).trim();
-        me.fireDataLoaded(url, callback, data);
-      });
-    }
-    //return data;
   },
 
   loadString: function(url, callback, linebreakChars) {
 
+    var loadStringNode = function(url, callback, linebreakChars) {
+
+      var data = '', lb = linebreakChars || BN,
+        isUrl = /.+?:\/\/.+/.test(url), me = this;
+
+      //log("Using Node for: "+url +" isUrl="+isUrl);
+
+      if (isUrl) {
+
+        var httpcb = function(response) {
+          response.on('data', function(chunk) {
+            data += chunk;
+          });
+          response.on('error', function(e) {
+            throw e;
+          });
+          response.on('end', function() {
+            data = data.toString('utf-8').replace(/[\r\n]+/g, lb).trim();
+            me.fireDataLoaded(url, callback, data);
+          });
+        };
+
+        var req = require('http').request(url, httpcb);
+        req.on('socket', function(socket) { // shouldnt be needed
+
+          socket.setTimeout(5000); // ?
+          socket.on('timeout', function() {
+            req.abort();
+            throw Error("[RiTa] loadString timed-out and aborted request");
+          });
+        });
+
+        req.end();
+
+      } else {
+
+        // try with node file-system
+        var rq = require('fs');
+        rq.readFile(url, function(e, data) {
+          if (e || !data) {
+            err("[Node] Error reading file: " + url + BN + e);
+            throw e;
+          }
+          data = data.toString('utf-8').replace(/[\r\n]+/g, lb).trim();
+          me.fireDataLoaded(url, callback, data);
+        });
+      }
+      //return data;
+    };
+
     ok(url, S);
 
     if (isNode()) {
-      return this._loadStringNode.apply(this, arguments);
+      return loadStringNode.apply(this, arguments);
     }
 
     var me = this, res = '', lb = linebreakChars || BN,
@@ -635,10 +583,62 @@ var RiTa = {
   // TODO: update 'return' value in docs (for preload())
   loadStrings: function(url, callback, linebreakChars) {
 
+
+    var loadStringsNode = function(url, callback) {
+
+      var data = '', isUrl = /.+?:\/\/.+/.test(url), me = this;
+
+      function processResponse(data) {
+        data = data.toString('utf-8').trim();
+        var lines = data.split(/(\r\n|\n)/gm);
+        me.fireDataLoaded(url, callback, lines);
+      }
+      //log("Using Node for: "+url +" isUrl="+isUrl);
+
+      if (isUrl) {
+
+        var httpcb = function(response) {
+          response.on('data', function(chunk) {
+            data += chunk;
+          });
+          response.on('error', function(e) {
+            throw e;
+          });
+          response.on('end', function() {
+            processResponse(data);
+          });
+        };
+
+        var req = require('http').request(url, httpcb);
+        req.on('socket', function(socket) { // shouldnt be needed
+
+          socket.setTimeout(5000); // ?
+          socket.on('timeout', function() {
+            req.abort();
+            throw Error("[RiTa] loadString timed-out and aborted request");
+          });
+        });
+        req.end();
+
+      } else {
+
+        // try with node file-system
+        var rq = require('fs');
+        rq.readFile(url, function(e, data) {
+          if (e || !data) {
+            err("[Node] Error reading file: " + url + BN + e);
+            throw e;
+          }
+          processResponse(data);
+        });
+      }
+      //return data;
+    };
+
     ok(url, S);
 
     if (isNode()) {
-      return this._loadStringsNode.apply(this, arguments);
+      return loadStringsNode.apply(this, arguments);
     }
 
     var me = this, res = '', lb = linebreakChars || BN,
@@ -677,7 +677,7 @@ var RiTa = {
       RiTaEvent({
         name: 'RiTaLoader',
         urls: is(url, S) ? [ url ] : url
-      }, RiTa.DATA_LOADED, data)._fire();
+      }, DATA_LOADED, data)._fire();
   },
 
   isQuestion: function(sentence) {
@@ -857,14 +857,12 @@ var RiTa = {
 
   stem: function(word, type) {
 
-    type = type || 'Pling';
+    type = type || 'Porter';
 
     if (type != 'Lancaster' && type != 'Porter' && type != 'Pling')
       err('Bad stemmer type: ' + type);
 
-    var stemImpl = RiTa['stem_' + type];
-
-    if (word.indexOf(SP) < 0) return stemImpl(word);
+    if (word.indexOf(SP) < 0) return RiTa.stemmers[type](word);
 
     // remove non-words && white-space chars
     word = word.replace(/[^\w]/g, SP).replace(/\s+/g, SP);
@@ -874,16 +872,10 @@ var RiTa = {
 
     for (var i = 0; i < words.length; i++) {
 
-      res.push(stemImpl(words[i]));
+      res.push(RiTa.stemmers[type](words[i]));
     }
+
     return res.join(SP);
-  },
-
-  // Converts 'input' to Titlecase (1st letter upper, rest lower)
-  _titleCase: function(input) {
-
-    if (!input || !input.length) return input;
-    return input.substring(0, 1).toUpperCase() + input.substring(1);
   },
 
   /*
@@ -894,25 +886,14 @@ var RiTa = {
 
     var func = adjusted ? MinEditDist.computeAdjusted : MinEditDist.computeRaw;
     return func.call(MinEditDist, a, b);
-  },
-
-  _makeClass: function() { // By John Resig (MIT Licensed)
-
-    return function(args) {
-      if (this instanceof arguments.callee) {
-        if (typeof this.init == "function") {
-          this.init.apply(this, args && args.callee ? args : arguments);
-        }
-      } else {
-        return new arguments.callee(arguments);
-      }
-    };
   }
+
 }; // end RiTa object
 
 // set additional properties/functions on RiTa
-for (var i = 0; i < RiTa._FEATURES.length; i++)
-  RiTa[RiTa._FEATURES[i].toUpperCase()] = RiTa._FEATURES[i];
+for (var i = 0; i < FEATURES.length; i++) {
+  RiTa[FEATURES[i].toUpperCase()] = FEATURES[i];
+}
 
 // ////////////////////////////////////////////////////////////
 // RiMarkov
@@ -1791,7 +1772,7 @@ RiString.prototype = {
 
     if (RiLexicon.enabled) {
 
-      lex = RiTa._lexicon();
+      lex = getLexicon();
       for (var i = 0, l = words.length; i < l; i++) {
 
         useRaw = false;
@@ -1857,7 +1838,7 @@ RiString.prototype = {
     var s = this._features[featureName];
 
     //console.log(featureName,tracked.indexOf(featureName));
-    if (!s && (RiTa._FEATURES.indexOf(featureName) > -1) &&
+    if (!s && (FEATURES.indexOf(featureName) > -1) &&
       (!this._features.hasOwnProperty(featureName)))
     {
       this.analyze();
@@ -3220,7 +3201,7 @@ var PosTagger = {
     var result = [], choices2d = [], lex;
 
     if (RiLexicon.enabled) {
-      lex = RiTa._lexicon();
+      lex = getLexicon();
     }
     else if (!RiTa.SILENT && !this.NOLEX_WARNED) {
 
@@ -3256,7 +3237,7 @@ var PosTagger = {
 
         // use stemmer categories if no lexicon
         if(!lex.containsWord(words[i])){
-    
+
           if (endsWith(words[i],'s')) {
               var sub = words[i].substring(0,words[i].length - 1), sub2;
               if (endsWith(words[i],'es')) sub2 = words[i].substring(0,words[i].length - 2)
@@ -3269,7 +3250,7 @@ var PosTagger = {
 
           } else {
               var sing = RiTa.singularize(words[i]);
-             
+
               if (this._lexHas("n", sing)) {
 
                 choices2d.push("nns");
@@ -3432,7 +3413,7 @@ var PosTagger = {
               }
           } // if only word and not in lexicon
           else if (words.length === 1 && !choices[i].length) {
-              // if the stem of a single word could be both nn and vb, return nns 
+              // if the stem of a single word could be both nn and vb, return nns
               // only return vbz when the stem is vb but not nn
               if (!this._lexHas('nn', RiTa.singularize(word)) && this._lexHas('vb', RiTa.singularize(word))) {
                   tag = "vbz";
@@ -3457,10 +3438,10 @@ var PosTagger = {
   },
 
   _lexHas: function(pos, words) { // takes ([n|v|a|r] or a full tag)
-    
+
     if (!RiLexicon.enabled) return false;
-  
-    var lex = RiTa._lexicon(), words = is(words, A) || [words];
+
+    var lex = getLexicon(), words = is(words, A) || [words];
 
     for (var i = 0; i < words.length; i++) {
 
@@ -3469,7 +3450,7 @@ var PosTagger = {
         if (pos == null) return true;
 
         var tags = lex._getPosArr(words[i]);
- 
+
         for (var j = 0; j < tags.length; j++) {
 
           if (pos === 'n' && PosTagger.isNoun(tags[j]) ||
@@ -3495,9 +3476,10 @@ var PosTagger = {
  *  Ported from Porter, 1980, An algorithm for suffix stripping, Program, Vol. 14,
  *  no. 3, pp 130-137, see also http:www.tartarus.org/~martin/PorterStemmer
  *
- *  Porter is default Stemmer: for Lancaster or Pling, include the specific file
+ *  Porter is the default Stemmer (Pling is also included).
+ *  For Lancaster (in JS), include lancaster.js
  */
-RiTa.stem_Porter = (function() {
+RiTa.stemmers.Porter = (function() {
 
   var step2list = {
       'ational': 'ate',
@@ -3669,8 +3651,9 @@ RiTa.stem_Porter = (function() {
     }
 
     // and turn initial Y back to y
-
-    (firstch == "y") && (w = firstch.toLowerCase() + w.substr(1));
+    if (firstch == "y") {
+      w = firstch.toLowerCase() + w.substr(1);
+    }
 
     return w;
   };
@@ -3747,7 +3730,7 @@ function checkPluralNoLex(s) {
 }
 
 /* From the PlingStemmer impl in the Java Tools package (see http://mpii.de/yago-naga/javatools). */
-RiTa.stem_Pling = (function() {
+RiTa.stemmers.Pling = (function() {
 
   /* Tells whether a noun is plural. */
   function isPlural(s) {
@@ -47259,12 +47242,13 @@ if (window) { // for browser
   module.exports['RiWordNet'] = RiWordNet;
   module.exports['RiLexicon'] = RiLexicon;
   module.exports['RiTaEvent'] = RiTaEvent;
-}
 
-// if (typeof p5 !== 'undefined') {
-//   p5.prototype.registerPreloadMethod('loadFrom', RiGrammar.prototype);
-//   p5.prototype.registerPreloadMethod('loadFrom', RiMarkov.prototype);
-// }
+  // add RiTa.* functions to returned object // ADDED: 4/11/17
+  var funs = Object.keys(RiTa);
+  for (var i = 0; i < funs.length; i++) {
+    module.exports[funs[i]] = RiTa[funs[i]];
+  }
+}
 
 /*jshint +W069 */
 

@@ -104,7 +104,7 @@
 							<th scope="row">Related</th>
 
 							<!-- RELATED  -->
-							<td>get</td>
+							<td>RiString.get()</td>
 						</tr>
 
 						<tr class='Note' style='display:none'>

@@ -101,7 +101,7 @@ public class RiMarkovTest
     }
   }
 
-  @Test
+  
   public void testLoadFromUrl() // Note: will fail without network
   {
     RiMarkov rm = new RiMarkov(4);
