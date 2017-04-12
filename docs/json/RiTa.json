@@ -63,12 +63,12 @@
   }, {
     "name": "RiTa.env",
     "example": "",
-    "description": "Returns one of the following constants, depending on the runtime environment (RiTa.JAVA, RiTa.JS, RiTa.NODE) ",
+    "description": "Returns one of the following constants, depending on the runtime environment (RiTa.JAVA, RiTa.JS, RiTa.ANDROID, RiTa.NODE) ",
     "syntax": "RiTa.env();",
     "parameters": [],
     "returns": [{
         "type": "int",
-        "desc": "Returns RiTa.JAVA, RiTa.JS, or RiTa.NODE, depending on the runtime environment"
+        "desc": "Returns RiTa.JAVA, RiTa.JS, RiTa.ANDROID or RiTa.NODE, depending on the runtime environment"
       }
 
     ],
