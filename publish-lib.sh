@@ -15,7 +15,7 @@ VERSION=`sed -n 's/^project.version=\(.*\)$/\1/p' $BUILDPROPS`
 
 echo "Version: $VERSION"
 WEB_ONLY=0
-NO_ACTION=0
+DRY_RUN=0
 
 #TODO: does WEB_ONLY option still make sense?
 
@@ -26,9 +26,9 @@ while [ $# -ge 1 ]; do
           WEB_ONLY=1
           echo "Web-only: true"
           ;;
-        -n)
-          NO_ACTION=1
-          echo "No-action: true"
+        -d)
+          DRY_RUN=1
+          echo "Dry-run: no git or publish"
           ;;
     esac
     shift
@@ -37,6 +37,14 @@ echo
 
 ant -f resources/build.xml build.js
 ant -f resources/build.xml build
+
+if [ $DRY_RUN = 1 ]
+then
+  echo
+  echo "Exiting dry-run: no commits, tags or publish"
+  echo
+  exit
+fi
 
 git add -u                       # add all tracked files
 git add web/RiTa-${VERSION}.zip  # add newly created zip file
