@@ -15,6 +15,7 @@ VERSION=`sed -n 's/^project.version=\(.*\)$/\1/p' $BUILDPROPS`
 
 echo "Version: $VERSION"
 WEB_ONLY=0
+NO_ACTION=0
 
 #TODO: does WEB_ONLY option still make sense?
 
@@ -24,6 +25,10 @@ while [ $# -ge 1 ]; do
         -w)
           WEB_ONLY=1
           echo "Web-only: true"
+          ;;
+        -n)
+          NO_ACTION=1
+          echo "No-action: true"
           ;;
     esac
     shift
