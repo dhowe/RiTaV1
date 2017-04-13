@@ -170,7 +170,7 @@ var FEATURES = [ 'tokens', 'stresses', 'phonemes', 'syllables', 'pos', 'text' ],
 
 var RiTa = {
 
-  VERSION: '1.1.52',
+  VERSION: '1.1.53',
 
   LEXICON: null, // static RiLexicon instance
 
