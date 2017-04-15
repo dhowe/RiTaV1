@@ -1,52 +1,19 @@
 package rita;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.io.Writer;
+import java.io.*;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.*;
+import java.util.regex.*;
 
-import rita.support.Concorder;
-import rita.support.Conjugator;
-import rita.support.Constants;
-import rita.support.EntityLookup;
-import rita.support.JSONLexicon;
-import rita.support.LetterToSound;
-import rita.support.MinEditDist;
-import rita.support.PAppletIF;
-import rita.support.Pluralizer;
-import rita.support.PosTagger;
-import rita.support.RiDynamic;
-import rita.support.RiTimer;
-import rita.support.RiTokenizer;
-import rita.support.Splitter;
-import rita.support.Stemmer;
+import rita.support.*;
 
 /**
  * A set of static properties and utility functions for the package
  */
 public class RiTa implements Constants {
+  
   public final static String VERSION = "##version##";
 
   /** For tokenization, Can't -> Can not, etc. */
@@ -173,6 +140,139 @@ public class RiTa implements Constants {
   public static String trim(String s) {
 
     return s.trim();
+  }
+  
+  /* 
+    RiLexicon delegates:
+      rhymes
+      similarBySound
+      similarByLetter
+      similarBySoundAndLetter
+      isAlliteration
+      alliterations
+      isAdjective
+      isNoun
+      isAdjective
+      isVerb
+  */
+  public static boolean isAlliteration(String wordA, String wordB) {
+    return getLexicon().isAlliteration(wordA, wordB);
+  }
+  
+  public static String[] getRhymes(String input) {
+    return getLexicon().rhymes(input);
+  }
+  
+  public static String[] getAlliterations(String input) {
+    return getLexicon().alliterations(input);
+  }
+  
+  public static String[] alliterations(String input, int minLength) {
+    return getLexicon().alliterations(input, minLength);
+  }
+  
+  public String randomWord() {
+    return getLexicon().randomWord();
+  }
+
+  public String randomWord(String pos) {
+    return getLexicon().randomWord(pos);
+  }
+
+  public String randomWord(int syllableCount) {
+    return getLexicon().randomWord(syllableCount);
+  }
+
+  public String randomWord(String pos, int syllableCount) {
+    return getLexicon().randomWord(pos, syllableCount);
+  }
+
+  public boolean isAdverb(String s) {
+    return getLexicon().isAdverb(s);
+  }
+
+  public boolean isNoun(String s) {
+    return getLexicon().isNoun(s);
+  }
+
+  public boolean isVerb(String s) {
+    return getLexicon().isVerb(s);
+  }
+
+  public boolean isAdjective(String s) {
+    return getLexicon().isAdjective(s);
+  }
+
+  public boolean isRhyme(String wordA, String wordB) {
+    return getLexicon().isRhyme(wordA, wordB);
+  }
+
+  public boolean isRhyme(String wordA, String wordB, boolean useLTS) {
+    return getLexicon().isRhyme(wordA, wordB, useLTS);
+  }
+
+  public String[] similarByLetter(String input) {
+    return getLexicon().similarByLetter(input);
+  }
+
+  public String[] similarBySound(String input) {
+    return getLexicon().similarBySound(input);
+  }
+
+  public String[] similarBySoundAndLetter(String input) {
+    return getLexicon().similarBySoundAndLetter(input);
+  }
+
+  public String[] substrings(String input) {
+    return getLexicon().substrings(input);
+  }
+
+  public String[] substrings(String input, int minLength) {
+    return getLexicon().substrings(input, minLength);
+  }
+
+  public void substrings(String input, Set result) {
+    getLexicon().substrings(input, result);
+  }
+
+  public void substrings(String input, Set result, int minLength) {
+    getLexicon().substrings(input, result, minLength);
+  }
+
+  public String[] superstrings(String input) {
+    return getLexicon().superstrings(input);
+  }
+
+  public void superstrings(String input, Set result) {
+    getLexicon().superstrings(input, result);
+  }
+
+  public void superstrings(String input, Set result, int minLength) {
+    getLexicon().superstrings(input, result, minLength);
+  }
+
+  public String[] similarByLetter(String s, int minEditDistance) {
+    return getLexicon().similarByLetter(s, minEditDistance);
+  }
+
+  public String[] similarByLetter(String input, int minEditDistance,
+      boolean preserveLength) {
+    return getLexicon().similarByLetter(input, minEditDistance, preserveLength);
+  }
+
+  public String[] similarBySound(String input, int minDist) {
+    return getLexicon().similarBySound(input, minDist);
+  }
+
+  public String[] alliterations(String input) {
+    return getLexicon().alliterations(input);
+  }
+
+  static RiLexicon lexicon;
+  static RiLexicon getLexicon() {
+    if (lexicon == null)
+      lexicon = new RiLexicon();
+    return lexicon; 
   }
 
   public static int getWordCount(String s) {
