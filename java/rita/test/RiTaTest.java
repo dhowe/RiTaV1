@@ -1139,6 +1139,10 @@ public class RiTaTest
     resultArr = RiTa.getPosTags("Dave");
     answerArr = new String[] {"nnp"};
     deepEqual(answerArr,resultArr);
+
+    resultArr = RiTa.getPosTags("They feed the cat");
+    answerArr = new String[] {"prp", "vbp", "dt", "nn"};
+    deepEqual(answerArr,resultArr);
     
     txtArr = new String[] { "There", "is", "a", "cat." };
     resultArr = RiTa.getPosTags(txtArr, false);
