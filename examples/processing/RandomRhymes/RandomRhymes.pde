@@ -3,18 +3,18 @@ import rita.*;
 String syns="", word = "";
 RiLexicon lexicon;
 
-void setup() 
+void setup()
 {
-  size(300, 300);    
+  size(300, 300);
   fill(255);
   textFont(createFont("Georgia", 36));
-  
+
   lexicon = new RiLexicon();
   RiTa.timer(this, 2); // every 2 sec
 }
 
-void draw() 
-{  
+void draw()
+{
   background(40);
 
   textAlign(RIGHT);
@@ -27,15 +27,15 @@ void draw()
   text(syns, 30, 73);
 }
 
-void onRiTaEvent(RiTaEvent re) { // valled by timer
+void onRiTaEvent(RiTaEvent re) { // called by timer
 
-  String[] tmp = {};    
+  String[] tmp = {};
   while (tmp.length < 3) {
 
     word = lexicon.randomWord();
     tmp = lexicon.rhymes(word);
-  }    
-  
+  }
+
   text(word, 280, 40); // max of 13 words
-  syns = RiTa.join(subset(tmp, 0, min(tmp.length, 13)), "\n"); 
+  syns = RiTa.join(subset(tmp, 0, min(tmp.length, 13)), "\n");
 }

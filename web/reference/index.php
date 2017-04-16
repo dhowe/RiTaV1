@@ -289,15 +289,15 @@
                     <a href="RiLexicon/words/index.php">words()</a>
                 </div>
 
-                <div class="category"><a href="RiTaEvent.php"><b>RiTaEvent</b></a>
+                <!--div class="category"><a href="RiTaEvent.php"><b>RiTaEvent</b></a>
                     <a href="RiTaEvent/isType/index.php">isType()</a>
                     <br>
-                    <!--a href="RiTaEvent/data/index.php">data()</a>
+                    <a href="RiTaEvent/data/index.php">data()</a>
                     <br>
                     <a href="RiTaEvent/source/index.php">source()</a>
                     <br>
-                    <a href="RiTaEvent/type/index.php">type()</a-->
-                </div>
+                    <a href="RiTaEvent/type/index.php">type()</a>
+                </div-->
 
                     <div class="category">
                     <a href="RiWordNet.php">
