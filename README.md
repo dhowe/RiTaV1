@@ -148,21 +148,21 @@ If you don't feel like coding but still want to contribute, please send a twitte
 
 8. To run the tests:
 
-   a. Navigate to the RiTa/resources directory and right-click on 'build.xml'
+    a. Navigate to the RiTa/resources directory and right-click on 'build.xml'
 
-   b. Select 'Run as' > 'Ant Build' to compile and run the tests in JUnit.
+    b. Select 'Run as' > 'Ant Build' to compile and run the tests in JUnit.
 
 9. To build the project:
 
-   a. In the Eclipse menu, select 'Window' > 'Show View' -> 'Ant
+    a. In the Eclipse menu, select 'Window' > 'Show View' -> 'Ant
 
-   b. Click the 'Add buildfile' button to add a buildfile in the newly added Ant panel, and navigate to RiTa/resources/build.xml
+    b. Click the 'Add buildfile' button to add a buildfile in the newly added Ant panel, and navigate to RiTa/resources/build.xml
 
-   c. Click to expand the 'RiTa' menu and reveal the various tasks, then double-click 'build' (or run ```$ cd RiTa/resources && ant build``` from the terminal)
+    c. Click to expand the 'RiTa' menu and reveal the various tasks, then double-click 'build' (or run ```$ cd RiTa/resources && ant build``` from the terminal)
 
-   d. (Optional) Ignore this step if you are on Mac or step 9a to c if you are on Windows, install [ant](http://dita-ot.sourceforge.net/doc/ot-userguide13/xhtml/installing/windows_installingant.html) and use [cygwin](http://cygwin.com/install.html) to run the command ```$ cd RiTa/resources && ant build```.
+    d. (Optional) Ignore this step if you are on Mac or step 9a to c if you are on Windows, install [ant](http://dita-ot.sourceforge.net/doc/ot-userguide13/xhtml/installing/windows_installingant.html) and use [cygwin](http://cygwin.com/install.html) to run the command ```$ cd RiTa/resources && ant build```.
 
-   e. When the build is complete, project resources can be found in RiTa/dist
+    e. When the build is complete, project resources can be found in RiTa/dist
 
 10. Work on an existing [issue](https://github.com/dhowe/RiTa/issues?q=is%3Aopen+is%3Aissue), then [submit a pull request...](https://help.github.com/articles/creating-a-pull-request)
 
