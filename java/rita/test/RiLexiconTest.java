@@ -211,7 +211,6 @@ public class RiLexiconTest {
   @Test
   public void testRandomWord() {
   
-    
     RiLexicon lex = new RiLexicon();
 
     String result = lex.randomWord();
