@@ -1,5 +1,7 @@
 package rita.support;
 
+import rita.*;
+
 
 /**
  * Enumerated types for various Part-of-Speech representations.
@@ -196,6 +198,14 @@ public class RiPos implements Constants
   public boolean equals(Object obj)
   {
     return this.tag.equals(((RiPos)obj).getTag());
+  }
+  
+  public static void main(String[] args) {
+    RiLexicon rl = new RiLexicon();
+    for (int i = 0; i < PENN_TAGS.length; i++) {
+      System.out.print(PENN_TAGS[i].toString()+": ");
+      System.out.println(rl.randomWord(PENN_TAGS[i].toString()));
+    }
   }
   
 }// end

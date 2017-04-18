@@ -145,6 +145,7 @@ public class RiTa implements Constants {
   /* 
     RiLexicon delegates:
       rhymes
+      randomWord
       similarBySound
       similarByLetter
       similarBySoundAndLetter
@@ -155,10 +156,6 @@ public class RiTa implements Constants {
       isAdjective
       isVerb
   */
-  public static boolean isAlliteration(String wordA, String wordB) {
-    return getLexicon().isAlliteration(wordA, wordB);
-  }
-  
   public static String[] getRhymes(String input) {
     return getLexicon().rhymes(input);
   }
@@ -185,6 +182,10 @@ public class RiTa implements Constants {
 
   public String randomWord(String pos, int syllableCount) {
     return getLexicon().randomWord(pos, syllableCount);
+  }
+  
+  public static boolean isAlliteration(String wordA, String wordB) {
+    return getLexicon().isAlliteration(wordA, wordB);
   }
 
   public boolean isAdverb(String s) {
@@ -255,9 +256,8 @@ public class RiTa implements Constants {
     return getLexicon().similarByLetter(s, minEditDistance);
   }
 
-  public String[] similarByLetter(String input, int minEditDistance,
-      boolean preserveLength) {
-    return getLexicon().similarByLetter(input, minEditDistance, preserveLength);
+  public String[] similarByLetter(String input, int med, boolean preserveLength) {
+    return getLexicon().similarByLetter(input, med, preserveLength);
   }
 
   public String[] similarBySound(String input, int minDist) {
@@ -268,12 +268,11 @@ public class RiTa implements Constants {
     return getLexicon().alliterations(input);
   }
 
-  static RiLexicon lexicon;
   static RiLexicon getLexicon() {
     if (lexicon == null)
       lexicon = new RiLexicon();
     return lexicon; 
-  }
+  } static RiLexicon lexicon;
 
   public static int getWordCount(String s) {
     return RiTa.tokenize(s).length;

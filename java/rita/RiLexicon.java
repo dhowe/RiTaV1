@@ -163,11 +163,13 @@ public class RiLexicon implements Constants {
 
   /**
    * Returns a random word from the lexicon with the specified part-of-speech
-   * 
    * @see PosTagger
    */
   public String randomWord(String pos) {
-    return randomWordByLength(pos, -1);
+    String word = randomWordByLength(pos, -1);
+    if (word == null)
+      throw new RiTaException("No words with pos="+pos+" found");
+    return word;
   }
 
   /**
@@ -186,15 +188,23 @@ public class RiLexicon implements Constants {
    */
   public String randomWord(String pos, int syllableCount) {
     
+    boolean pluralize = pos.equals("nns");
+    
+    if (pos.equals("v")) pos = "vb";
+    if (pos.equals("r")) pos = "rb";
+    if (pos.equals("a")) pos = "jj";
+    if (pos.equals("n") || pos.equals("nns")) 
+      pos = "nn";
+    
     Iterator<String> it = getIterator(pos);
 
     if (it != null) {
 
-      if (syllableCount < 0)
-	return it.next(); // ignore syllable-count
+      if (syllableCount < 0) { // ignore syllable-count
+	return pluralize ? RiTa.pluralize(it.next()) : it.next(); 
+      }
 
       Map<String, String> lookup = lexImpl.getLexicalData();
-
       while (it.hasNext()) {
 
 	String word = it.next();
@@ -205,17 +215,19 @@ public class RiLexicon implements Constants {
 	}
 
 	String sylStr = data.split("\\|")[0].trim();
-	if (sylStr.split(SP).length == syllableCount)
-	  return word;
+	
+	if (sylStr.split(SP).length == syllableCount) {  
+	  return pluralize ? RiTa.pluralize(word) : word; 
+	}
       }
     }
-
+    
     return E;
   }
 
   private Iterator<String> getIterator(String pos) {
-    Iterator<String> it = (pos == null) ? lexImpl.randomIterator() : 
-      	lexImpl.randomPosIterator(pos);
+    Iterator<String> it = (pos == null) ? lexImpl.randomIterator() : lexImpl
+	.randomPosIterator(pos);
     return it;
   }
 
@@ -229,13 +241,20 @@ public class RiLexicon implements Constants {
 
     Iterator<String> it = getIterator(pos);
 
-    if (targetLength < 0)
-      return it.next();
+    try {
+      
+      if (targetLength < 0) {
+        return it.next();
+      }
 
-    while (it.hasNext()) {
-      String s = it.next();
-      if (s.length() == targetLength)
-	return s;
+      while (it.hasNext()) {
+        String s = it.next();
+        if (s.length() == targetLength)
+          return s;
+      }
+      
+    } catch (Exception e) {
+      return null;
     }
 
     return E;
