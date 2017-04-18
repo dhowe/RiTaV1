@@ -18,16 +18,6 @@ public class KnownIssuesTest implements Constants {
     result = lex.alliterations("#$%^&*");
     ok(result.length == 0); 
   }
- 
-  @Test
-  public void testGetPosTags() {
-    String[] resultArr, answerArr;
-    
-    resultArr = RiTa.getPosTags("They feed the cat");
-    answerArr = new String[] { "prp", "vbp", "dt", "nn" };
-    deepEqual(answerArr, resultArr);
-
-  }
 
   @Test
   public void testGetRawPhonesStringBoolean() {

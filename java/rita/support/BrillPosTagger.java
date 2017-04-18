@@ -324,7 +324,7 @@ public class BrillPosTagger implements Constants {
       }
 
       // transform 3: convert a noun to a past participle if word ends with "ed"
-      if (i > 0 && tag.startsWith("n") && word.endsWith("ed")
+      if (i > 0 && tag.startsWith("n") && word.endsWith("ed") && !word.endsWith("eed")
 	  && in(result[i - 1], "nn", "nns", "nnp", "nnps", "prp")) {
 	tag = "vbn";
       }
