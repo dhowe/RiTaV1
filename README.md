@@ -19,6 +19,7 @@ Please see https://github.com/dhowe/RiTaJS for the JavaScript implementation of 
 * Reference:      https://rednoise.org/rita/reference
 * Github Repo:    https://github.com/dhowe/RiTa/
 * Issues:    https://github.com/dhowe/RiTa/issues
+* FAQ:    https://github.com/dhowe/RiTa/wiki
 
 &nbsp;
 
