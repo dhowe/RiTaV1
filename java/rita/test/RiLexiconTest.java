@@ -126,39 +126,32 @@ public class RiLexiconTest {
   @Test
   public void testAlliterationsString() {
     RiLexicon lex = new RiLexicon();
-    String[] result = lex.alliterations("accidentally");
-    ok(result.length == 0);
+    String[] result = new String[] {};
+    result = lex.alliterations("dog");
+    ok(result.length > 1000);
     
-    result = lex.alliterations("goxgle");
-    ok(result.length > 100);
-    
-    result = new String[] {};
-    result = lex.alliterations("dog",10);
-//    ok(result.length > 1000);
-    
-    result = new String[] {};
+    result = lex.alliterations("cat");
+    ok(result.length > 1000);
+
     result = lex.alliterations("apples");
     ok(result.length == 0);
 
-
-    result = new String[] {};
     result = lex.alliterations("no stress");
     // RiTa.out(result);
     ok(result.length == 0);
     
-    result = lex.alliterations("URL");
-    System.out.println(result);
-    ok(result.length == 0);
+//    result = lex.alliterations("URL");
+//    System.out.println(result);
+//    ok(result.length == 0);
     
-//    result = new String[] {};
-//    result = lex.alliterations("#$%^&*");
-//    ok(result.length == 0); -> Known Issue
+    result = new String[] {};
+    result = lex.alliterations("#$%^&*");
+    ok(result.length == 0); 
 
     result = new String[] {};
     result = lex.alliterations("");
     ok(result.length == 0);
 
-    // TODO: better tests
   }
 
   @Test
@@ -625,30 +618,41 @@ public class RiLexiconTest {
     ok(lex.isAlliteration("sea", "seven"));
     ok(lex.isAlliteration("silly", "seven"));
     ok(lex.isAlliteration("sea", "sally"));
-    ok(lex.isAlliteration("withdraw", "wind"));
-    
+   
     ok(lex.isAlliteration("big", "bad"));
     ok(lex.isAlliteration("bad", "big")); // swap position
     
     ok(lex.isAlliteration("BIG", "bad")); // CAPITAL LETTERS
     ok(lex.isAlliteration("big", "BAD")); // CAPITAL LETTERS
     ok(lex.isAlliteration("BIG", "BAD")); // CAPITAL LETTERS
+    ok(lex.isAlliteration("this", "these")); 
+    ok(lex.isAlliteration("unsung", "sine")); 
+    ok(lex.isAlliteration("job", "gene")); 
+    ok(lex.isAlliteration("knife", "gnat")); 
+    ok(lex.isAlliteration("knife", "naughty")); 
+    ok(lex.isAlliteration("abet", "better")); 
+    ok(lex.isAlliteration("psychology", "cholera")); 
+    ok(lex.isAlliteration("consult", "sultan")); 
+    ok(lex.isAlliteration("never", "knight")); 
+    ok(lex.isAlliteration("cat", "kitchen")); 
+    ok(lex.isAlliteration("monsoon", "super")); 
     
     ok(!lex.isAlliteration("big ", "bad")); // Word with space False
     ok(!lex.isAlliteration("big    ", "bad")); // Word with tab space
-    
    
     ok(!lex.isAlliteration("octopus", "oblong"));//Vowels
     ok(!lex.isAlliteration("omen", "open"));
     ok(!lex.isAlliteration("amicable", "atmosphere"));
-
+   
     // False
     ok(lex.isAlliteration("this", "these"));
     ok(!lex.isAlliteration("solo", "tomorrow"));
     ok(!lex.isAlliteration("solo", "yoyo"));
     ok(!lex.isAlliteration("yoyo", "jojo"));
+    ok(!lex.isAlliteration("withdraw", "wind"));
+    ok(!lex.isAlliteration("cat", "access"));
     
-
+    
     try {
       lex.isAlliteration("", "");
     } catch (Exception e) {

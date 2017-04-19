@@ -26,7 +26,7 @@ function _dict() { return {
 'abed':['ah b-eh1-d','rb'],
 'aberrant':['ae b-eh1 r-ah-n-t','jj'],
 'aberration':['ae b-er ey1 sh-ah-n','nn'],
-'abet':['ah-b-eh1-t','vb'],
+'abet':['ah b-eh1-t','vb'],
 'abetted':['ah b-eh1 t-ih-d','vbn vbd'],
 'abetting':['ah b-eh1 t-ih-ng','vbg'],
 'abeyance':['ah b-ey1 ah-n-s','nn'],
