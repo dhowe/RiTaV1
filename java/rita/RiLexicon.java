@@ -107,17 +107,20 @@ public class RiLexicon implements Constants {
    * null;
    */
   public boolean isAlliteration(String wordA, String wordB) {
-
+    
     if (wordA != null && wordB != null) {
+      
+      //space
+      if (wordA.indexOf(" ") > -1 || wordB.indexOf(" ") > -1) return false;
 
       if (wordB.equals(wordA))
 	return true;
-      // should not check firstStressedSyllable
-      // see KnownIssuesTest
-      String fcA = firstConsonant(firstSyllable(wordA, true));
-      String fcB = firstConsonant(firstSyllable(wordB, true));
 
-      // System.out.println(fcA+" ?= "+fcB);
+      String fcA = firstPhoneme(firstStressedSyllable(wordA, true));
+      String fcB = firstPhoneme(firstStressedSyllable(wordB, true));
+    
+      if (Phoneme.isVowel("" + fcA.charAt(0)) || Phoneme.isVowel("" + fcB.charAt(0))) return false;
+
       if (fcA != null && fcB != null && fcA.equals(fcB))
 	return true;
     }
@@ -832,6 +835,16 @@ public class RiLexicon implements Constants {
     }
     return null;
   }
+  
+  private static String firstPhoneme(String rawPhones) {
+    if (rawPhones != null) {
+      String[] phones = rawPhones.split(PHONEME_BOUNDARY);
+      if (phones != null) {
+	    return phones[0];
+      }
+    }
+    return null;
+  }
 
   /*
    * Includes the last stressed vowel and all subsequent phonemes
@@ -960,10 +973,10 @@ public class RiLexicon implements Constants {
     input = input.toLowerCase();
     if (Phoneme.isVowel("" + input.charAt(0))) return;
     
-    String firstSyllable = firstSyllable(input, useLTS);
-    String fC = firstConsonant(firstSyllable);
+    String firstStressedSyllable = firstStressedSyllable(input, useLTS);
+    String fC = firstPhoneme(firstStressedSyllable);
 
-    if (fC == null && firstSyllable != null) fC = firstSyllable.substring(0, 1);
+    if (fC == null && firstStressedSyllable != null) fC = firstStressedSyllable.substring(0, 1);
     
     if (input != null && (input.indexOf(' ') < 0) && fC != null) {
 
