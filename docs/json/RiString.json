@@ -28,7 +28,7 @@
     "note": ""
   }, {
     "name": "charAt",
-    "example": "myRiString.charAt(0); //returns the first character from the RiString",
+    "example": "myRiString.charAt(0); // returns the first character from the RiString",
     "description": "Returns the character at the specified 'index'",
     "syntax": "charAt(index);",
     "parameters": [{
