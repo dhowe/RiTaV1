@@ -2,6 +2,7 @@
   "class": "rita.RiTa",
   "fields": [{
     "name": "RiTa.VERSION",
+    "example":"versionNumber = RiTa.VERSION; ",
     "variable": true,
     "description": "the current RiTa version ",
     "syntax": "RiTa.VERSION",
@@ -17,7 +18,7 @@
     "note": ""
   }, {
     "name": "RiTa.isAbbreviation",
-    "example": "",
+    "example": "RiTa.isAbbreviation(\"Prof.\"); returns -> true",
     "description": "Returns true if 'input' is an abbreviation",
     "syntax": "RiTa.isAbbreviation(input);<br/>RiTa.isAbbreviation(input, caseSensitive);",
     "parameters": [{
@@ -41,7 +42,7 @@
 
   }, {
     "name": "RiTa.isQuestion",
-    "example": "",
+    "example": "RiTa.isQuestion(\"what is this\"); //returns -> true",
     "description": "Returns true if sentence starts with a question word",
     "syntax": "RiTa.isQuestion(sentence);",
     "parameters": [{
@@ -101,7 +102,7 @@
 
   }, {
     "name": "RiTa.isW_Question",
-    "example": "",
+    "example": "RiTa.isW_Question(\"what is this\"); //returns -> true",
     "description": "Returns true if sentence starts with a w-question word, eg (who,what,why,where,when,etc.)",
     "syntax": "RiTa.isW_Question(sentence);",
     "parameters": [{
@@ -122,7 +123,7 @@
 
   }, {
     "name": "RiTa.randomItem",
-    "example": "",
+    "example": "String[] arr = {\"apple\",\"banana\",\"peach\"}; <br>RiTa.randomItem(arr);",
     "description": "Returns a random item from an array (or Collection)",
     "syntax": "RiTa.randomItem(myArray);",
     "parameters": [],
@@ -137,7 +138,7 @@
     "note": ""
   }, {
     "name": "RiTa.randomOrdering",
-    "example": "",
+    "example": "array = RiTa.randomOrdering(5);",
     "description": "Returns a randomly ordered array of unique integers from 0 to numElements. <br/>The size of the array will be numElements.",
     "syntax": "RiTa.randomOrdering(numElements);",
     "parameters": [{
@@ -158,7 +159,7 @@
 
   }, {
     "name": "RiTa.splitSentences",
-    "example": "",
+    "example": "RiTa.splitSentences(\"\"The boy went fishing.\", he said. Then he went away.\");",
     "description": "Splits 'text' into sentences (according to PENN Treebank conventions)",
     "syntax": "RiTa.splitSentences(text);<br/>RiTa.splitSentences(text, regex);",
     "parameters": [{
@@ -180,7 +181,7 @@
 
   }, {
     "name": "RiTa.stripPunctuation",
-    "example": "",
+    "example": "RiTa.stripPunctuation(\"5$ is Cheap.\"); // returns -> 5 is Cheap",
     "description": "Strips all punctuation from the input string",
     "syntax": "RiTa.stripPunctuation(text);",
     "parameters": [{
@@ -199,7 +200,7 @@
 
   }, {
     "name": "RiTa.trimPunctuation",
-    "example": "",
+    "example": "RiTa.trimPunctuation(\"5$ is Cheap.\"); // returns -> 5$ is Cheap",
     "description": "Trims punctuation from both ends the input string (does not trim whitespace or internal punctuation)",
     "syntax": "RiTa.trimPunctuation(text);",
     "parameters": [{
@@ -216,7 +217,7 @@
 
   }, {
     "name": "RiTa.isPunctuation",
-    "example": "",
+    "example": "RiTa.isPunctuation(\"?\"); //returns -> true",
     "description": "Returns true if every character of 'text' is a punctuation character",
     "syntax": "RiTa.isPunctuation(text);",
     "parameters": [{
@@ -277,9 +278,9 @@
   },
   {
     "name": "RiTa.minEditDistance",
-    "example": "",
+    "example": "RiTa.minEditDistance(\"Hello\", \"Hell\"); // -> 1<br><br> RiTa.minEditDistance(\"Hello\", \"Hell\", true); // -> 0.2",
     "description": "Takes a pair of strings or string-arrays and returns the minimum edit distance between them (the number of additions, subtractions, or modifications it takes to go from one to the other)",
-    "syntax": "RiTa.minEditDistance(\"Hello\", \"Hell\"); // -> 1",
+    "syntax": "RiTa.minEditDistance(str1, str2);",
     "parameters": [{
       "type": "String",
       "desc": "str1"
@@ -301,7 +302,7 @@
   },
   {
     "name": "RiTa.distance",
-    "example": "",
+    "example": "RiTa.distance(0,3,4,0); // 5.0",
     "description": "Convenience method to get the distance between 2 points",
     "syntax": "RiTa.distance(x1, y1, x2, y2);",
     "parameters": [{
@@ -327,7 +328,7 @@
     "note": ""
   }, {
     "name": "RiTa.getPhonemes",
-    "example": "",
+    "example": "RiTa.getPhonemes(\"apple\"); // returns -> ae-p-ah-l <br> RiTa.getPhonemes(\"two apples\"); // returns -> t-uw ae-p-ah-l-z <br>",
     "description": "Returns a string containing all <a target=_new href='../../PhonemeTags.html'>phonemes</a> for the input text",
     "syntax": "RiTa.getPhonemes(wordStr);<br/>RiTa.getPhonemes(wordArr);",
     "parameters": [{
@@ -345,7 +346,7 @@
     "note": ""
   }, {
     "name": "RiTa.getPosTags",
-    "example": "",
+    "example": "RiTa.getPosTags(\"I am a cat.\"); //[ "prp", "vbp", "dt", "nn", "." ]",
     "description": "Uses the default PosTagger to tag the input with tags from the <a href='../../PennTags.html'>PENN tag set</a> or the simplified WordNet tag set [a, r, v, n]",
     "syntax": "RiTa.getPosTags(word);<br/>RiTa.getPosTags(wordArr);<br/>RiTa.getPosTags(word, bool);<br/>RiTa.getPosTags(wordArr, bool);",
     "parameters": [{
@@ -390,7 +391,7 @@
 
   }, {
     "name": "RiTa.getStresses",
-    "example": "",
+    "example": "RiTa.getStresses(\"apple\"); returns -> 1/0",
     "description": "Analyzes the input and returns a new string containing the stresses for each syllable of the input text ",
     "syntax": "RiTa.getStresses(word);<br/>RiTa.getStresses(wordArr);",
     "parameters": [{
@@ -411,7 +412,7 @@
 
   }, {
     "name": "RiTa.getSyllables",
-    "example": "",
+    "example": "RiTa.getSyllables(\"apple\"); // returns -> ae/p-ah-l",
     "description": "Analyzes the input and returns a String containing the phonemes for each syllable of each word of the input text,  delimited by dashes (phonemes) and spaces (words) ",
     "syntax": "RiTa.getSyllables(word);<br/>RiTa.getSyllables(wordArr);",
     "parameters": [{
@@ -432,7 +433,7 @@
 
   }, {
     "name": "RiTa.getWordCount",
-    "example": "",
+    "example": "RiTa.getWordCount(\"one two three.\"); //returns 4",
     "description": "Returns the # of words in the String according to the default tokenizer",
     "syntax": "RiTa.getWordCount(text);",
     "parameters": [{
@@ -527,7 +528,7 @@
 
   }, {
     "name": "RiTa.getPastParticiple",
-    "example": "",
+    "example": "RiTa.getPastParticiple(\"write\"); //returns -> written",
     "description": "Returns the past participle form of the stemmed or non-stemmed 'verb'",
     "syntax": "RiTa.getPastParticiple(verb);",
     "parameters": [{
@@ -548,7 +549,7 @@
 
   }, {
     "name": "RiTa.getPresentParticiple",
-    "example": "",
+    "example": "RiTa.getPresentParticiple(\"sit\"); // returns -> sitting",
     "description": "Returns the present participle form of the stemmed or non-stemmed 'verb'",
     "syntax": "RiTa.getPresentParticiple(verb);",
     "parameters": [{
@@ -692,9 +693,9 @@
     "note": ""
   }, {
     "name": "RiTa.random",
-    "example": "",
+    "example": "RiTa.random(0,1.0)// to get a float between 0, 1 <br>RiTa.random(10) // to get an int between 0,10",
     "description": "Returns a random number between >= min (default=0) and < max (default=1)",
-    "syntax": "RiTa.random()<br>RiTa.random(min)<br>RiTa.random(min, max);",
+    "syntax": "RiTa.random()<br>RiTa.random(max)<br>RiTa.random(min, max);",
     "parameters": [{
       "type": "int or float",
       "desc": "min-value, (optional, default=0) "
@@ -714,7 +715,7 @@
 
   }, {
     "name": "RiTa.loadString",
-    "example": "",
+    "example": "txt = RiTa.loadString(\"kafka.txt\");",
     "description": "Loads the contents of a file or URL and then calls back to the supplied 'callback' function with the loaded string as an argument.",
     "syntax": "RiTa.loadString(url);<br/>RiTa.loadString(url, callback);<br/>RiTa.loadString(url, pApplet);",
     "parameters": [{
