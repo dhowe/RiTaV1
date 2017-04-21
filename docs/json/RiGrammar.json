@@ -28,7 +28,7 @@
     "note": ""
   }, {
     "name": "expand",
-    "example": "",
+    "example": "rg = new RiGrammar(stringOrObject); <br>result = rg.expand();",
     "description": "Expands a grammar from its '&#60;start&#62;' symbol. Note: if the grammar does not include a '&#60;start&#62;' symbol, use &nbsp;<code>expandFrom(\"ruleName\")</code>&nbsp; instead, to start from the rule of your choice)",
     "syntax": "expand();<br/>expand(callbackObject);",
     "parameters": [{
@@ -44,7 +44,7 @@
     "note": ""
   }, {
     "name": "expandFrom",
-    "example": "",
+    "example": "rg = new RiGrammar(stringOrObject); <br>result = rg.expandFrom('<start>');",
     "description": "Expands the grammar, starting from the given symbol. <br/>&nbsp;<br/>RiGrammar.expand() is equivalent to RiGrammar.expandFrom('&lt;start&gt;').",
     "syntax": "expandFrom(rule);<br/>expandFrom(rule, callbackObject);",
     "parameters": [{
@@ -65,6 +65,7 @@
     "note": ""
   }, {
     "name": "expandWith",
+    "hidden": true,
     "example": "",
     "description": "Expands the grammar after replacing an instance of the non-terminal 'symbol' with the String in 'literal'.<br/>&nbsp;<br/>Guarantees that 'literal' will be in the final expanded String, assuming at least one instance of 'symbol' in the Grammar.",
     "syntax": "expandWith(literal, symbol);<br/>expandWith(literal, symbol, callbackObject);",
@@ -87,7 +88,7 @@
     "note": ""
   }, {
     "name": "load",
-    "example": "",
+    "example": "rg = new RiGrammar(); <br> rg.load(\"<start>: the <pet> | the <action> of the <pet>\");",
     "description": "Loads a grammar from a String or YAML/JSON object",
     "syntax": "load(grammarRules);",
     "parameters": [{
@@ -103,7 +104,7 @@
     "note": ""
   }, {
     "name": "getGrammar",
-    "example": "",
+    "example": "rg = new RiGrammar(); <br> rg.addRule(\"<start>\", \"the <pet> | the <action> of the <pet>\", 1);<br>rg.addRule(\"<pet>\", \"dog | hawk | crow\", 1); <br>rg.addRule(\"<action>\", \"cries | screams | falls\", 1);<br>println(rg.getGrammar());",
     "description": "Gets the current grammar as a String",
     "syntax": "grammar();",
     "parameters": [],
@@ -118,7 +119,7 @@
     "note": ""
   }, {
     "name": "loadFrom",
-    "example": "",
+    "example": "rg = new RiGrammar(); <br> rg.loadFrom(\"grammar.yaml\");",
     "description": "Re-initializes the grammar from a file or URL containing the grammar rules",
     "syntax": "loadFrom(fileOrURL, option);",
     "parameters": [{
@@ -137,7 +138,7 @@
     "note": ""
   }, {
     "name": "hasRule",
-    "example": "",
+    "example": "rg = new RiGrammar(); <br> rg.addRule(\"<start>\", \"the <pet> | the <action> of the <pet>\", 1);<br>rg.addRule(\"<pet>\", \"dog | hawk | crow\", 1); <br>rg.addRule(\"<action>\", \"cries | screams | falls\", 1);<br>rg.hasRule(\"action\") // true",
     "description": "Returns true if the requested rule exists in the grammar, else false",
     "syntax": "hasRule(ruleName);",
     "parameters": [{
@@ -155,7 +156,7 @@
     "note": ""
   }, {
     "name": "print",
-    "example": "",
+    "example": "rg = new RiGrammar(); <br> rg.addRule(\"<start>\", \"the <pet> | the <action> of the <pet>\", 1);<br>rg.addRule(\"<pet>\", \"dog | hawk | crow\", 1); <br>rg.addRule(\"<action>\", \"cries | screams | falls\", 1);<br>rg.print();",
     "description": "Prints the grammar rules to the console in human-readable format (useful for debugging)",
     "syntax": "print();",
     "parameters": [
@@ -172,7 +173,7 @@
     "note": ""
   }, {
     "name": "removeRule",
-    "example": "",
+    "example": "rg = new RiGrammar(); <br>rg.addRule(\"<pet>\", \"dog | hawk | crow\", 1); <br>rg.removeRule(\"pet\");",
     "description": "Deletes the named rule from the grammar",
     "syntax": "removeRule(name);",
     "parameters": [{
@@ -190,7 +191,7 @@
     "note": ""
   }, {
     "name": "ready",
-    "example": "",
+    "example": "rg = new RiGrammar(); <br> rg.ready();",
     "description": "Returns true if there is at least one valid rule, else false",
     "syntax": "ready();",
     "parameters": [],
@@ -205,7 +206,7 @@
     "note": ""
   }, {
     "name": "reset",
-    "example": "",
+    "example": "rg = new RiGrammar(); <br>rg.addRule(\"<pet>\", \"dog | hawk | crow\", 1); <br> rg.reset();",
     "description": "Clears all rules in the current grammar",
     "syntax": "reset();",
     "parameters": [],

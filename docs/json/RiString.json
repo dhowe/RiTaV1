@@ -89,7 +89,7 @@
     "note": ""
   }, {
     "name": "equals",
-    "example": "rs = new RiString(\"The dog was white\"); <br> rs.equals(\"The dog was white\"); //returns true",
+    "example": "rs = new RiString(\"The dog was white\"); <br> rs.equals(\"The dog was white\"); // returns true",
     "description": "Compares this RiString to the specified object. <br/>The result is true if and only if the argument is not null and is a String or RiString object that represents the same sequence of characters as this object.",
     "syntax": "equals(string);<br/>equals(ristring);",
     "parameters": [{
@@ -105,7 +105,7 @@
     "note": ""
   }, {
     "name": "equalsIgnoreCase",
-    "example": "rs = new RiString(\"the dog was white\"); <br> rs.equalsIgnoreCase(\"The dog was white\"); //returns true",
+    "example": "rs = new RiString(\"the dog was white\"); <br> rs.equalsIgnoreCase(\"The dog was white\"); // returns true",
     "description": "Compares this RiString to another RiString or a String, ignoring case considerations",
     "syntax": "equalsIgnoreCase(string);<br/>equalsIgnoreCase(ristring);",
     "parameters": [{
@@ -175,7 +175,7 @@
     "note": ""
   }, {
     "name": "insertWord",
-    "example": "rs = new RiString(\"what did you eat?\"); <br> rs.insertWord(4, \"yesterday\"); // what did you eat yesterday?",
+    "example": "rs = new RiString(\"What did you eat?\"); <br> rs.insertWord(4, \"yesterday\"); // What did you eat yesterday?",
     "description": "Inserts 'newWord' at 'wordIdx' and shifts each subsequent word accordingly.",
     "syntax": "insertWord(newWord, wordIdx);",
     "parameters": [{
@@ -255,7 +255,7 @@
     "note": ""
   }, {
     "name": "removeChar",
-    "example": "myRiString = new RiString(\"apple\"); <br> myRiString.removeChar(4); //returns appl",
+    "example": "myRiString = new RiString(\"apple\"); <br> myRiString.removeChar(4); // returns appl",
     "description": "Removes the character at the specified index",
     "syntax": "removeChar(index);",
     "parameters": [{
@@ -271,7 +271,7 @@
     "note": ""
   }, {
     "name": "replaceChar",
-    "example": "myRiString = new RiString(\"apple\"); <br> myRiString.replaceChar(4,\"y\"); //returns apply",
+    "example": "myRiString = new RiString(\"apple\"); <br> myRiString.replaceChar(4,\"y\"); // returns apply",
     "description": "Replaces the character at 'idx' with 'replaceWith'. <br/>If the specified 'idx' is less than zero, or beyond the length of the current text, there will be no effect",
     "syntax": "replaceChar(idx, replaceWith);",
     "parameters": [{
@@ -363,7 +363,7 @@
     "note": ""
   }, {
     "name": "slice",
-    "example": "myRiString = new RiString(\"He ate the apple.\"); <br> myRiString.slice(0,6); //He ate",
+    "example": "myRiString = new RiString(\"He ate the apple.\"); <br> myRiString.slice(0,6); // He ate",
     "description": "Extracts a part of a string from this RiString",
     "syntax": "slice(begin);<br/>slice(begin, end);",
     "parameters": [{
@@ -399,7 +399,7 @@
     "note": ""
   }, {
     "name": "startsWith",
-    "example": "rs = new RiString(\"Who are you?\"); <br> rs.startsWith(\"W\"); //true",
+    "example": "rs = new RiString(\"Who are you?\"); <br> rs.startsWith(\"W\"); // true",
     "description": "Tests if this string starts with the specified prefix",
     "syntax": "startsWith(substr);",
     "parameters": [{
@@ -415,7 +415,7 @@
     "note": ""
   }, {
     "name": "substring",
-    "example": "myRiString = new RiString(\"He ate the apple.\"); <br> myRiString.substring(0,6); //He ate",
+    "example": "myRiString = new RiString(\"He ate the apple.\"); <br> myRiString.substring(0,6); // He ate",
     "description": "Extracts the characters from a string, between two specified indices, and sets the current text to be that string. ",
     "syntax": "substring(from);<br/>substring(from, to);",
     "parameters": [{
@@ -434,7 +434,7 @@
     "note": ""
   }, {
     "name": "substr",
-    "example": "myRiString = new RiString(\"He ate the apple.\"); <br> myRiString.substr(3,3); //ate",
+    "example": "myRiString = new RiString(\"He ate the apple.\"); <br> myRiString.substr(3,3); // ate",
     "description": "Extracts the characters from this objects contained string, beginning at 'start' and continuing through the specified number of characters, and sets the current text to be that string. (from Javascript String)",
     "syntax": "substr(start);<br/>substr(start, length);",
     "parameters": [{
@@ -453,7 +453,7 @@
     "note": ""
   }, {
     "name": "text",
-    "example": " myRiString.text(\"apple\"); //set the text <br> txt = myRiString.text(); //get the text",
+    "example": " myRiString.text(\"apple\"); // set the text <br> txt = myRiString.text(); // get the text",
     "description": "Gets/sets the text contained by this object",
     "syntax": "text();<br/>text(theText);",
     "parameters": [{
@@ -508,7 +508,7 @@
     "note": ""
   }, {
     "name": "trim",
-    "example": "rs = new RiString(\"   Who are you?  \"); <br> rs.trim(); //Who are you?",
+    "example": "rs = new RiString(\"   Who are you?  \"); <br> rs.trim(); // Who are you?",
     "description": "Removes leading and trailing whitespace from the RiString",
     "syntax": "trim();",
     "parameters": [],
@@ -521,7 +521,7 @@
     "note": ""
   }, {
     "name": "wordAt",
-    "example": "rs = new RiString(\"Who are you?\"); <br> rs.wordAt(0); //Who",
+    "example": "rs = new RiString(\"Who are you?\"); <br> rs.wordAt(0); // Who",
     "description": "Returns the word at 'index', according to RiTa.tokenize()",
     "syntax": "wordAt(index);",
     "parameters": [{
@@ -537,7 +537,7 @@
     "note": ""
   }, {
     "name": "wordCount",
-    "example": "rs = new RiString(\"Who are you?\"); <br> rs.wordCount(); //4",
+    "example": "rs = new RiString(\"Who are you?\"); <br> rs.wordCount(); // 4",
     "description": "Returns the number of words in the object, according to RiTa.tokenize().",
     "syntax": "wordCount();",
     "parameters": [],

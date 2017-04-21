@@ -26,7 +26,7 @@
     "note": ""
   }, {
     "name": "clear",
-    "example": "",
+    "example": "lex = new RiLexicon(); <br> lex.clear(); <br> lex.size(); // returns 0",
     "description": "Clears the lexicon",
     "syntax": "clear();",
     "parameters": [],
@@ -39,7 +39,7 @@
     "note": ""
   }, {
     "name": "containsWord",
-    "example": "",
+    "example": "lex.containsWord(\"apple\");",
     "description": "Returns true if the word exists in the lexicon (case-insensitive)",
     "syntax": "containsWord(word);",
     "parameters": [{
@@ -55,7 +55,7 @@
     "note": ""
   }, {
     "name": "alliterations",
-    "example": "",
+    "example": "lex.alliterations(\"cat\"); <br> lex.alliterations(\"cat\",10);",
     "description": "Finds alliterations by comparing the phonemes of the input string to those of each word in the lexicon",
     "syntax": "alliterations(word);",
     "parameters": [{
@@ -74,7 +74,7 @@
     "note": ""
   }, {
     "name": "lexicalData",
-    "example": "",
+    "example": "lex = new RiLexicon();<br>result = lex.lexicalData();",
     "description": "Allows one to set/get the raw dictionary data used to create the default lexicon. <br/><br/>See RiLexicon.addWord() for data format",
     "syntax": "lexicalData();<br/>lexicalData(dictionaryDataObject);",
     "parameters": [{
@@ -90,7 +90,7 @@
     "note": ""
   }, {
     "name": "randomWord",
-    "example": "",
+    "example": "lex.randomWord(); <br> lex.randomWord(\"nn\"); // returns a random noun",
     "description": "Returns a random word from the lexicon. When arguments are supplied part-of-speech and/or syllable-count will be matched as well",
     "syntax": "randomWord()<br/>randomWord(pos);<br/>randomWord(syllableCount);<br/>randomWord(pos, syllableCount);",
     "parameters": [{
@@ -109,7 +109,7 @@
     "note": ""
   }, {
     "name": "rhymes",
-    "example": "",
+    "example": "lex.rhymes(\"cat\")",
     "description": "Two words rhyme are considered as rhyming if their final stressed vowel and all following phonemes are identical",
     "syntax": "rhymes(word);",
     "parameters": [{
@@ -125,7 +125,7 @@
     "note": ""
   }, {
     "name": "words",
-    "example": "",
+    "example": "lex.words(\"tt\");",
     "description": "Returns the array of all words in the lexicon or those matching a specific regex. <br/>If specified, the order of the result array is randomized before return.",
     "syntax": "words()<br/>words(regex);<br/>words(shuffled);<br/>words(regex, shuffled);",
     "parameters": [{
@@ -144,7 +144,7 @@
     "note": ""
   }, {
     "name": "isAdverb",
-    "example": "",
+    "example": "lex.isAdverb(\"sleepily\");",
     "description": "Returns true if the word has an adverb form. That is, if any of its possible parts of speech are any variant of an adverb in the PENN part-of-speech tag set (e.g. rb, rbr, rbs)",
     "syntax": "isAdverb(word);",
     "parameters": [{
@@ -160,7 +160,7 @@
     "note": ""
   }, {
     "name": "isNoun",
-    "example": "",
+    "example": "lex.isNoun(\"cat\");",
     "description": "Returns true if the word has a noun form. That is, if any of its possible parts of speech are any variant of a noun in the PENN part-of-speech tag set(e.g. nn, nns, nnp, nnps)",
     "syntax": "isNoun(word);",
     "parameters": [{
@@ -176,7 +176,7 @@
     "note": ""
   }, {
     "name": "isVerb",
-    "example": "",
+    "example": "lex.isVerb(\"run\");",
     "description": "Returns true for if word has a verb form. That is, if any of its possible parts of speech are any variant of a verb in the PENN part-of-speech tag set (e.g. vb, vbg, vbd, vbp, vbz)",
     "syntax": "isVerb(word);",
     "parameters": [{
@@ -192,7 +192,7 @@
     "note": ""
   }, {
     "name": "isAdjective",
-    "example": "",
+    "example": "lex.isAdjective(\"cold\");",
     "description": "Returns true if word has an adjective form. That is, if any of its possible parts of speech are any variant of an adjective in the PENN part-of-speech tag set (e.g. jj, jjr, jjs)",
     "syntax": "isAdjective(word);",
     "parameters": [{
@@ -208,7 +208,7 @@
     "note": ""
   }, {
     "name": "isAlliteration",
-    "example": "",
+    "example": "lex.isAlliteration(\"cat\",\"kitchen\");",
     "description": "Returns true if the two words are alliterations (iff the first stressed consonant of the two match). Note: returns true if wordA.equals(wordB) and false if either (or both) are null.",
     "syntax": "isAlliteration(word1, word2);",
     "parameters": [{
@@ -227,7 +227,7 @@
     "note": ""
   }, {
     "name": "isRhyme",
-    "example": "",
+    "example": "lex.isRhyme(\"cat\",\"mat\");",
     "description": "Returns true if the two words rhyme, that is, if their final stressed vowel phoneme and all following phonemes are identical, else false.<br/><br/>Note: returns false if word1.equals(word2) or if either (or both) are null;<br/><br/>",
     "syntax": "isRhyme(word1, word2)<br>isRhyme(word1, word2, useLTS);",
     "parameters": [{
@@ -249,7 +249,7 @@
     "note": ""
   }, {
     "name": "reload",
-    "example": "",
+    "example": "lex = new RiLexicon();<br>lex.removeWord(\"abandon\");<br> lex.reload();",
     "description": "Clears then reloads the lexicon",
     "syntax": "reload();",
     "parameters": [
@@ -302,7 +302,7 @@
     "note": ""
   }, {
     "name": "similarBySound",
-    "example": "",
+    "example": "lex.similarBySound(\"happy\");",
     "description": "Compares the phonemes of the input word (using a version of the min-edit distance algorithm) to each word in the lexicon, returning the set of closest matches.",
     "syntax": "similarBySound(input);<br/>similarByLetter(input, minAllowedDist);",
     "parameters": [{
@@ -321,7 +321,7 @@
     "note": ""
   }, {
     "name": "similarBySoundAndLetter",
-    "example": "",
+    "example": "lex.similarBySoundAndLetter(\"happy\");",
     "description": "First calls similarBySound(), then filters the result set by the algorithm used in similarByLetter();<br/><br/>(useful when similarBySound() returns too large a result set)",
     "syntax": "similarBySoundAndLetter(word);",
     "parameters": [{
@@ -337,7 +337,7 @@
     "note": ""
   }, {
     "name": "size",
-    "example": "",
+    "example": "lex = new RiLexicon(); <br> lex.size();",
     "description": "Returns the number of words currently in the lexicon ",
     "syntax": "size();",
     "parameters": [],
@@ -350,7 +350,7 @@
     "note": ""
   }, {
     "name": "substrings",
-    "example": "",
+    "example": "lex.substrings(\"exhibition\", 5);",
     "description": "Returns all valid substrings of the input word in the lexicon ",
     "syntax": "substrings(word);<br/>substrings(word, minLength);",
     "parameters": [{
@@ -369,7 +369,7 @@
     "note": ""
   }, {
     "name": "superstrings",
-    "example": "",
+    "example": "lex.superstrings(\"puni\")",
     "description": "Returns all valid superstrings of the input word in the lexicon ",
     "syntax": "superstrings(word);",
     "parameters": [{

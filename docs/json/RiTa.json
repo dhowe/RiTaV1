@@ -18,7 +18,7 @@
     "note": ""
   }, {
     "name": "RiTa.isAbbreviation",
-    "example": "RiTa.isAbbreviation(\"Prof.\"); returns -> true",
+    "example": "RiTa.isAbbreviation(\"Prof.\"); // returns -> true",
     "description": "Returns true if 'input' is an abbreviation",
     "syntax": "RiTa.isAbbreviation(input);<br/>RiTa.isAbbreviation(input, caseSensitive);",
     "parameters": [{
@@ -42,7 +42,7 @@
 
   }, {
     "name": "RiTa.isQuestion",
-    "example": "RiTa.isQuestion(\"what is this\"); //returns -> true",
+    "example": "RiTa.isQuestion(\"what is this\"); // returns -> true",
     "description": "Returns true if sentence starts with a question word",
     "syntax": "RiTa.isQuestion(sentence);",
     "parameters": [{
@@ -102,7 +102,7 @@
 
   }, {
     "name": "RiTa.isW_Question",
-    "example": "RiTa.isW_Question(\"what is this\"); //returns -> true",
+    "example": "RiTa.isW_Question(\"what is this\"); // returns -> true",
     "description": "Returns true if sentence starts with a w-question word, eg (who,what,why,where,when,etc.)",
     "syntax": "RiTa.isW_Question(sentence);",
     "parameters": [{
@@ -217,7 +217,7 @@
 
   }, {
     "name": "RiTa.isPunctuation",
-    "example": "RiTa.isPunctuation(\"?\"); //returns -> true",
+    "example": "RiTa.isPunctuation(\"?\"); // returns -> true",
     "description": "Returns true if every character of 'text' is a punctuation character",
     "syntax": "RiTa.isPunctuation(text);",
     "parameters": [{
@@ -346,7 +346,7 @@
     "note": ""
   }, {
     "name": "RiTa.getPosTags",
-    "example": "RiTa.getPosTags(\"I am a cat.\"); //[ "prp", "vbp", "dt", "nn", "." ]",
+    "example": "RiTa.getPosTags(\"I am a cat.\"); // [ \"prp\", \"vbp\", \"dt\", \"nn\", \".\" ]",
     "description": "Uses the default PosTagger to tag the input with tags from the <a href='../../PennTags.html'>PENN tag set</a> or the simplified WordNet tag set [a, r, v, n]",
     "syntax": "RiTa.getPosTags(word);<br/>RiTa.getPosTags(wordArr);<br/>RiTa.getPosTags(word, bool);<br/>RiTa.getPosTags(wordArr, bool);",
     "parameters": [{
@@ -433,7 +433,7 @@
 
   }, {
     "name": "RiTa.getWordCount",
-    "example": "RiTa.getWordCount(\"one two three.\"); //returns 4",
+    "example": "RiTa.getWordCount(\"one two three.\"); // returns 4",
     "description": "Returns the # of words in the String according to the default tokenizer",
     "syntax": "RiTa.getWordCount(text);",
     "parameters": [{
@@ -528,7 +528,7 @@
 
   }, {
     "name": "RiTa.getPastParticiple",
-    "example": "RiTa.getPastParticiple(\"write\"); //returns -> written",
+    "example": "RiTa.getPastParticiple(\"write\"); // returns -> written",
     "description": "Returns the past participle form of the stemmed or non-stemmed 'verb'",
     "syntax": "RiTa.getPastParticiple(verb);",
     "parameters": [{
