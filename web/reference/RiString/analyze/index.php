@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">myRiString.analyze();<br><br>myRiString.get(RiTa.PHONEMES);<br><br>OR<br><br>myRiString.get("phonemes");</pre>
+								<pre class="margin">myRiString.analyze();<br><br>myRiString.get(RiTa.PHONEMES);<br><br>// OR<br><br>myRiString.get("phonemes");</pre>
 							</div></td>
 						</tr>
 

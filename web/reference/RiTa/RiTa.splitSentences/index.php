@@ -113,14 +113,14 @@
 							<td>tmp_note</td>
 						</tr>
 
-						<tr class='Example' style='display:none'>
+						<tr class='Example'>
 							<th scope='row'>Example</th>
 							<td>
 							<div class="example">
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">tmp_example</pre>
+								<pre class="margin">RiTa.splitSentences(""The boy went fishing.", he said. Then he went away.");</pre>
 							</div></td>
 						</tr>
 

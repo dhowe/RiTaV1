@@ -113,14 +113,14 @@
 							<td>tmp_note</td>
 						</tr>
 
-						<tr class='Example' style='display:none'>
+						<tr class='Example'>
 							<th scope='row'>Example</th>
 							<td>
 							<div class="example">
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">tmp_example</pre>
+								<pre class="margin">rg = new RiGrammar(); <br>rg.addRule("&lt;start&gt;", "the &lt;action&gt; of the &lt;pet&gt;", 1);<br>rg.addRule("&lt;pet&gt;", "dog | hawk | crow", 1); <br>rg.addRule("&lt;action&gt;", "cries | screams | falls", 1);<br>println(rg.getGrammar());</pre>
 							</div></td>
 						</tr>
 

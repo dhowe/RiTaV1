@@ -161,16 +161,15 @@ var RiLexicon = makeClass(); // stub
 RiLexicon.enabled = false;
 
 RiLexicon.prototype.init = function() {
-    throw Error('RiLexicon is not available -- ' +
+    warn('RiLexicon is not available -- ' +
       'if needed, make sure to include rilexicon.js');
 };
 
-var FEATURES = [ 'tokens', 'stresses', 'phonemes', 'syllables', 'pos', 'text' ],
-  DATA_LOADED = 'DataLoaded', INTERNAL = 'Internal', UNKNOWN = 'Unknown';
+var FEATURES = [ 'tokens', 'stresses', 'phonemes', 'syllables', 'pos', 'text' ];
 
 var RiTa = {
 
-  VERSION: '1.1.53',
+  VERSION: '1.1.54',
 
   LEXICON: null, // static RiLexicon instance
 
@@ -178,6 +177,8 @@ var RiTa = {
   SPLIT_CONTRACTIONS: false,
 
   JAVA: 1, JS: 2, NODE: 3,
+
+  DATA_LOADED: 'DataLoaded', INTERNAL: 'Internal', UNKNOWN: 'Unknown',
 
   // For Conjugator =================================
 
@@ -1781,7 +1782,7 @@ RiString.prototype = {
 
         if (!phones) {
 
-          if (words[i].match(/[a-zA-Z]+/))
+          if (LetterToSound.RULES && words[i].match(/[a-zA-Z]+/))
             log("[RiTa] Used LTS-rules for '" + words[i] + "'");
 
           lts = lex._letterToSound();
@@ -3114,46 +3115,6 @@ Conjugator.prototype = {
 // ////////////////////////////////////////////////////////////
 var PosTagger = {
 
-  N: ['n', 'NOUN_KEY'],
-  V: ['v', 'VERB_KEY'],
-  R: ['r', 'ADVERB_KEY'],
-  A: ['a', 'ADJECTIVE_KEY'],
-  CC: ['cc', 'Coordinating conjunction'],
-  CD: ['cd', 'Cardinal number'],
-  DT: ['dt', 'Determiner'],
-  EX: ['ex', 'Existential there'],
-  FW: ['fw', 'Foreign word'],
-  IN: ['in', 'Preposition or subordinating conjunction'],
-  JJ: ['jj', 'Adjective'],
-  JJR: ['jjr', 'Adjective, comparative'],
-  JJS: ['jjs', 'Adjective, superlative'],
-  LS: ['ls', 'List item marker'],
-  MD: ['md', 'Modal'],
-  NN: ['nn', 'Noun, singular or mass'],
-  NNS: ['nns', 'Noun, plural'],
-  NNP: ['nnp', 'Proper noun, singular'],
-  NNPS: ['nnps', 'Proper noun, plural'],
-  PDT: ['pdt', 'Predeterminer'],
-  POS: ['pos', 'Possessive ending'],
-  PRP: ['prp', 'Personal pronoun'],
-  PRP$: ['prp$', 'Possessive pronoun (prolog version PRP-S)'],
-  RB: ['rb', 'Adverb'],
-  RBR: ['rbr', 'Adverb, comparative'],
-  RBS: ['rbs', 'Adverb, superlative'],
-  RP: ['rp', 'Particle'],
-  SYM: ['sym', 'Symbol'],
-  TO: ['to', 'to'],
-  UH: ['uh', 'Interjection'],
-  VB: ['vb', 'Verb, base form'],
-  VBD: ['vbd', 'Verb, past tense'],
-  VBG: ['vbg', 'Verb, gerund or present participle'],
-  VBN: ['vbn', 'Verb, past participle'],
-  VBP: ['vbp', 'Verb, non-3rd person singular present'],
-  VBZ: ['vbz', 'Verb, 3rd person singular present'],
-  WDT: ['wdt', 'Wh-determiner'],
-  WP: ['wp', 'Wh-pronoun'],
-  WP$: ['wp$', 'Possessive wh-pronoun (prolog version WP-S)'],
-  WRB: ['wrb', 'Wh-adverb'],
   TAGS: ['cc', 'cd', 'dt', 'ex', 'fw', 'in', 'jj',
     'jjr', 'jjs', 'ls', 'md', 'nn', 'nns', 'nnp',
     'nnps', 'pdt', 'pos', 'prp', 'prp$', 'rb',
@@ -3196,23 +3157,34 @@ var PosTagger = {
 
   // Returns an array of parts-of-speech from the Penn tagset,
   // each corresponding to one word of input
-  tag: function(words) {
+  tag: function (words) {
 
-    var result = [], choices2d = [], lex;
+    var result = [],
+      choices2d = [],
+      lex;
 
     if (RiLexicon.enabled) {
       lex = getLexicon();
-    }
-    else if (!RiTa.SILENT && !this.NOLEX_WARNED) {
+      
+    } else if (!RiTa.SILENT && !this.NOLEX_WARNED) {
 
       this.NOLEX_WARNED = true;
-      console.warn('No RiLexicon found: ' +
-        'part-of-speech tagging will be inaccurate!');
+      if (typeof _RiTa_LTS === 'undefined') {
+        console.warn('No RiLexicon or LTS-rules found: features will be inaccurate!');
+      } 
+      else {
+        console.warn('No RiLexicon found: part-of-speech tagging will be inaccurate!');
+      } 
     }
 
     words = is(words, A) ? words : [words];
 
     for (var i = 0, l = words.length; i < l; i++) {
+
+      if (!this.NOLEX_WARNED && !lex.containsWord(words[i]) && lex.size() < 1000) {
+          this.NOLEX_WARNED = true;
+          warn("A minimal Lexicon is currently in use: for word features outside the lexicon, use a larger version of RiTa.")
+      }
 
       if (words[i].length < 1) {
 
@@ -3229,35 +3201,38 @@ var PosTagger = {
       var data = lex && lex._getPosArr(words[i]);
       if (!data || !data.length) {
 
+        // use stemmer categories if no lexicon
+
         choices2d[i] = [];
         var tag = 'nn';
-        if (endsWith(words[i],'s')) {
+        if (endsWith(words[i], 's')) {
           tag = 'nns';
         }
 
-        // use stemmer categories if no lexicon
-        if(!lex.containsWord(words[i])){
+        if (!lex || !lex.containsWord(words[i])) {
+           
+          if (endsWith(words[i], 's')) {
+            var sub2, sub = words[i].substring(0, words[i].length - 1);
 
-          if (endsWith(words[i],'s')) {
-              var sub = words[i].substring(0,words[i].length - 1), sub2;
-              if (endsWith(words[i],'es')) sub2 = words[i].substring(0,words[i].length - 2)
-              if (this._lexHas("n", sub) || this._lexHas("n", sub2)){
-                choices2d.push("nns");
-              } else {
-                var sing = RiTa.singularize(words[i]);
-                if (this._lexHas("n", sing)) choices2d.push("nns");
-              }
+            if (endsWith(words[i], 'es'))
+              sub2 = words[i].substring(0, words[i].length - 2)
+
+            if (this._lexHas("n", sub) || this._lexHas("n", sub2)) {
+              choices2d.push("nns");
+            } else {
+              var sing = RiTa.singularize(words[i]);
+              if (this._lexHas("n", sing)) choices2d.push("nns");
+            }
 
           } else {
-              var sing = RiTa.singularize(words[i]);
+            var sing = RiTa.singularize(words[i]);
 
-              if (this._lexHas("n", sing)) {
+            if (this._lexHas("n", sing)) {
 
-                choices2d.push("nns");
-                tag = 'nns';
-              }
+              choices2d.push("nns");
+              tag = 'nns';
+            }
           }
-
         }
 
         if (!RiLexicon.enabled && checkPluralNoLex(words[i])) {
@@ -3275,7 +3250,6 @@ var PosTagger = {
     // Adjust pos according to transformation rules
     return this._applyContext(words, result, choices2d);
   },
-
   _handleSingleLetter: function(c) {
 
     var result = c;
@@ -3342,7 +3316,7 @@ var PosTagger = {
 
       // transform 3: convert a noun to a past participle if
       // word ends with "ed" and (following any nn or prp?)
-      if (i > 0 && sW(tag, "n") && eW(word, "ed") && result[i - 1].match(/^(nn|prp)$/)) {
+      if (i > 0 && sW(tag, "n") && eW(word, "ed") && !eW(word,"eed") && result[i - 1].match(/^(nn|prp)$/)) {
         tag = "vbn";
       }
 
@@ -3463,6 +3437,7 @@ var PosTagger = {
           }
         }
       }
+
     }
     return false;
   }
@@ -18181,7 +18156,7 @@ function _dict() { return {
 'abed':['ah b-eh1-d','rb'],
 'aberrant':['ae b-eh1 r-ah-n-t','jj'],
 'aberration':['ae b-er ey1 sh-ah-n','nn'],
-'abet':['ah-b-eh1-t','vb'],
+'abet':['ah b-eh1-t','vb'],
 'abetted':['ah b-eh1 t-ih-d','vbn vbd'],
 'abetting':['ah b-eh1 t-ih-ng','vbg'],
 'abeyance':['ah b-ey1 ah-n-s','nn'],
@@ -46512,7 +46487,6 @@ RiLexicon.prototype = {
 
   rhymes: function(word) {
 
-    if (this.containsWord(word)) {
 
       var p = this._lastStressedPhoneToEnd(word),
         phones, results = [];
@@ -46528,7 +46502,7 @@ RiLexicon.prototype = {
           results.push(this.keys[i]);
       }
       return (results.length > 0) ? results : EA;
-    }
+    
 
     return EA;
   },
@@ -46537,25 +46511,27 @@ RiLexicon.prototype = {
 
     if (word.indexOf(" ") > -1) return [];
 
-    if (!this._isVowel(word.charAt(0))) return [];
+    if (this._isVowel(word.charAt(0))) return [];
+    
 
     matchMinLength = matchMinLength || 4;
 
     var c2, results = [],
-      c1 = this._firstConsonant(this._firstSyllable(word, useLTS));
-
-     console.log(this._firstSyllable(word, useLTS), c1);
+      c1 = this._firstPhoneme(this._firstStressedSyllable(word, useLTS));
 
     for (var i = 0; i < this.keys.length; i++) {
 
-      c2 = this._firstConsonant(
-          this._firstSyllable(this.keys[i], useLTS));
+      c2 = this._firstPhoneme(
+          this._firstStressedSyllable(this.keys[i], useLTS));
 
-      if (c2 && c1 === c2 && this.keys[i].length > matchMinLength) {
+      if(c2._isVowel) return [];
+
+      if (c2 && c1 === c2 && this.keys[i].length >= matchMinLength) {
         results.push(this.keys[i]);
       }
     }
-    return results;
+   
+    return shuffle(results);
   },
 
   isAlliteration: function(word1, word2, useLTS) {
@@ -46566,8 +46542,10 @@ RiLexicon.prototype = {
 
     if (equalsIgnoreCase(word1, word2)) return true;
 
-    var c1 = this._firstConsonant(this._firstSyllable(word1, useLTS)),
-      c2 = this._firstConsonant(this._firstSyllable(word2, useLTS));
+    var c1 = this._firstPhoneme(this._firstStressedSyllable(word1, useLTS)),
+      c2 = this._firstPhoneme(this._firstStressedSyllable(word2, useLTS));
+    
+    if(this._isVowel(c1.charAt(0)) || this._isVowel(c2.charAt(0))) return false;
 
     return (strOk(c1) && strOk(c2) && c1 === c2);
   },
@@ -46575,7 +46553,7 @@ RiLexicon.prototype = {
   _firstSyllable: function(word, useLTS) {
      var raw = this._getRawPhones(word, useLTS);
      if (!strOk(raw)) return E;
-     // console.log(raw);
+     if(word === "URL") console.log(raw);
      var syllables = raw.split(" ");
      return syllables[0];
   },
@@ -46647,11 +46625,14 @@ RiLexicon.prototype = {
       throw Error("[RiTa] _checkType() expects a single word, found: " + word);
 
     var psa = this._getPosArr(word);
+    if(!PosTagger.NOLEX_WARNED && psa.length < 1 && this.size() < 1000)
+      warn("A minimal Lexicon is currently in use. For word features outside the lexicon, use a larger version of RiTa.")
+
     for (var i = 0; i < psa.length; i++) {
       if (tagArray.indexOf(psa[i]) > -1)
         return true;
     }
-
+    
     return false;
   },
 
@@ -46784,6 +46765,17 @@ RiLexicon.prototype = {
     return (pl.length > 0) ? pl[0] : [];
   },
 
+  _firstPhoneme: function(rawPhones) {
+
+    if (!strOk(rawPhones)) return E;
+
+    var phones = rawPhones.split(RiTa.PHONEME_BOUNDARY);
+
+    if (phones) return phones[0];
+
+    return E; // return null?
+  },
+
   _firstConsonant: function(rawPhones) {
 
     if (!strOk(rawPhones)) return E;
@@ -46851,40 +46843,56 @@ RiLexicon.prototype = {
 
   randomWord: function() { // takes nothing, pos, syllableCount, or both
 
-    var i, j, rdata, numSyls,
+    var i, j, rdata, numSyls,pluralize = false,
       ran = Math.floor(Math.random() * this.keys.length),
       found = false, a = arguments, ranWordArr = this.keys;
 
+    if (typeof a[0] === "string") {
+        a[0] = trim(a[0]).toLowerCase();
+
+        if (a[0] === "v")
+            a[0] = "vb";
+        if (a[0] === "r")
+            a[0] = "rb";
+        if (a[0] === "a")
+            a[0] = "jj";
+        if (a[0] === "n" || a[0] === "nns")
+            a[0] = "nn";
+    }
+  
     switch (a.length) {
 
       case 2: // a[0]=pos  a[1]=syllableCount
 
-        a[0] = trim(a[0]).toLowerCase();
+        
         for (i = 0; i < ranWordArr.length; i++) {
           j = (ran + i) % ranWordArr.length;
           rdata = this.data[ranWordArr[j]];
           numSyls = rdata[0].split(SP).length;
           if (numSyls === a[1] && a[0] === rdata[1].split(SP)[0]) {
-            return ranWordArr[j];
+            return pluralize ? RiTa.pluralize(ranWordArr[j]) : ranWordArr[j];
           }
         }
-        return E;
+
+        warn("No words with pos=" + a[0] + " found");
 
       case 1:
 
         if (is(a[0], S)) { // a[0] = pos
 
-          a[0] = trim(a[0]).toLowerCase();
           for (i = 0; i < ranWordArr.length; i++) {
             j = (ran + i) % ranWordArr.length;
             rdata = this.data[ranWordArr[j]];
             if (a[0] === rdata[1].split(SP)[0]) {
-              return ranWordArr[j];
+              return pluralize ? RiTa.pluralize(ranWordArr[j]) : ranWordArr[j];
             }
           }
 
-        } else { // a[0] = syllableCount
+          warn("No words with pos=" + a[0] + " found");
 
+        } else { 
+
+          // a[0] = syllableCount
           for (i = 0; i < ranWordArr.length; i++) {
             j = (ran + i) % ranWordArr.length;
             rdata = this.data[ranWordArr[j]];
@@ -46944,7 +46952,7 @@ function intersect() {
 
 var LetterToSound = makeClass();
 
-LetterToSound.RULES = _RiTa_LTS;
+LetterToSound.RULES = typeof _RiTa_LTS !== 'undefined' ? _RiTa_LTS : false;
 LetterToSound.TOTAL = "TOTAL";
 LetterToSound.INDEX = "INDEX";
 LetterToSound.STATE = "STATE";
@@ -46969,6 +46977,7 @@ LetterToSound.prototype = {
 
   init: function() {
 
+    this.warnedForNoLTS = false;
     this.letterIndex = {};
     this.fval_buff = [];
     this.stateMachine = null;
@@ -47052,8 +47061,18 @@ LetterToSound.prototype = {
     var dig, phoneList = [],
       full_buff, tmp, currentState, startIndex, stateIndex, c;
 
+
     if (!word || !word.length || RiTa.isPunctuation(word))
       return null;
+
+    if (!LetterToSound.RULES) {
+      if (!this.warnedForNoLTS) {
+
+        this.warnedForNoLTS = true;
+        console.log("[WARN] No LTS-rules found: for word features outside the lexicon, use a larger version of RiTa.");
+      }
+      return null;
+    }
 
     word = word.toLowerCase();
 

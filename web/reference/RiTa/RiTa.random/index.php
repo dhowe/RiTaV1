@@ -73,7 +73,7 @@
 							<th scope="row">Syntax</th>
 
 							<!-- SYNTAX  -->
-							<td><pre>RiTa.random()<br>RiTa.random(min)<br>RiTa.random(min, max);</pre></td>
+							<td><pre>RiTa.random()<br>RiTa.random(max)<br>RiTa.random(min, max);</pre></td>
 						</tr>
 
 
@@ -113,14 +113,14 @@
 							<td>if only one parameter is supplied, it is read as the max-value (with min=0)</td>
 						</tr>
 
-						<tr class='Example' style='display:none'>
+						<tr class='Example'>
 							<th scope='row'>Example</th>
 							<td>
 							<div class="example">
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">tmp_example</pre>
+								<pre class="margin"><br>RiTa.random(0,1.0)// to get a float between 0, 1 <br><br>RiTa.random(10) // to get an int between 0,10<br><br></pre>
 							</div></td>
 						</tr>
 

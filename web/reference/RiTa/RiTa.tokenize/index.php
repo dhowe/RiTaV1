@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin"><br>sentence = "The doctors treated dogs";<br>wordArray = RiTa.tokenize(sentence);<br>wordArray = RiTa.tokenize(sentence, "\\s");<br></pre>
+								<pre class="margin"><br>sentence = "The doctors treated dogs";<br>wordArray = RiTa.tokenize(sentence);<br>wordArray = RiTa.tokenize(sentence, "\\s");<br><br></pre>
 							</div></td>
 						</tr>
 

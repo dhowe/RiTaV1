@@ -84,7 +84,7 @@
 							<!-- PARAMETERS  -->
 
 							<table cellpadding="0" cellspacing="0" border="0" class="sub-table">
-								<tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>the filename from which to load the file</td></tr><tr class=''><th width='25%' scope='row' class=nobold>Function (optional: the callback, for JavaScript only)<br> or Object (optional: the PApplet, for Java only)<br></th><td width='75%'>If a function (in JavaScript), it will be called after the file is loaded (with the loaded string as its argument).<br><br>If no callback is supplied, or the argument is a PApplet(in Java), onRiTaEvent(re) will be called instead, with re.type() == RiTa.DATA_LOADED</td></tr><tr class=''><th width='25%' scope='row' class=nobold>String (optional)</th><td width='75%'>the characters with which to join the lines of the string (default = '\n') -- in some cases, a space character may be more useful...</td></tr>
+								<tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>the filename from which to load the file</td></tr><tr class=''><th width='25%' scope='row' class=nobold>Function (optional: the callback, for JavaScript only)<br>or Object (optional: the PApplet, for Java only)<br></th><td width='75%'>If a function (in JavaScript), it will be called after the file is loaded (with the loaded string as its argument).<br><br>If no callback is supplied, or the argument is a PApplet(in Java), onRiTaEvent(re) will be called instead, with re.type() == RiTa.DATA_LOADED</td></tr><tr class=''><th width='25%' scope='row' class=nobold>String (optional)</th><td width='75%'>the characters with which to join the lines of the string (default = '\n') -- in some cases, a space character may be more useful...</td></tr>
 							</table></td>
 						</tr>
 
@@ -113,14 +113,14 @@
 							<td>In Node, uses the node 'filesystem' or 'request' modules; in JavaScript, uses an XMLHttpRequest; in Java, if a Processing PApplet is passed as a 2nd argument, it will be used to locate and check the 'data' folder of the sketch for the specified file</td>
 						</tr>
 
-						<tr class='Example' style='display:none'>
+						<tr class='Example'>
 							<th scope='row'>Example</th>
 							<td>
 							<div class="example">
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">tmp_example</pre>
+								<pre class="margin">txt = RiTa.loadString("kafka.txt");</pre>
 							</div></td>
 						</tr>
 

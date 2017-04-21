@@ -18,7 +18,7 @@
     "note": ""
   }, {
     "name": "RiTa.isAbbreviation",
-    "example": "RiTa.isAbbreviation(\"Prof.\"); returns -> true",
+    "example": "RiTa.isAbbreviation(\"Prof.\"); // returns -> true",
     "description": "Returns true if 'input' is an abbreviation",
     "syntax": "RiTa.isAbbreviation(input);<br/>RiTa.isAbbreviation(input, caseSensitive);",
     "parameters": [{
@@ -42,7 +42,7 @@
 
   }, {
     "name": "RiTa.isQuestion",
-    "example": "RiTa.isQuestion(\"what is this\"); //returns -> true",
+    "example": "RiTa.isQuestion(\"what is this\"); // returns -> true",
     "description": "Returns true if sentence starts with a question word",
     "syntax": "RiTa.isQuestion(sentence);",
     "parameters": [{
@@ -78,7 +78,7 @@
     "note": ""
   }, {
     "name": "RiTa.isSentenceEnd",
-    "example": "",
+    "example": "text = \"The dog ate the small baby. Then it threw up.\";<br>words = text.split(\" \");<br>RiTa.isSentenceEnd(words[5], words[6]); // returns true<br>RiTa.isSentenceEnd(words[3], words[4]); // returns false",
     "description": "Takes two consecutive words and returns true if 'currentWord' is the final word of a sentence (if true, 'nextWord' is generally the first word of the next sentence) ",
     "syntax": "RiTa.isSentenceEnd(currentWord, nextWord);",
     "parameters": [{
@@ -102,7 +102,7 @@
 
   }, {
     "name": "RiTa.isW_Question",
-    "example": "RiTa.isW_Question(\"what is this\"); //returns -> true",
+    "example": "RiTa.isW_Question(\"what is this\"); // returns -> true",
     "description": "Returns true if sentence starts with a w-question word, eg (who,what,why,where,when,etc.)",
     "syntax": "RiTa.isW_Question(sentence);",
     "parameters": [{
@@ -123,7 +123,7 @@
 
   }, {
     "name": "RiTa.randomItem",
-    "example": "String[] arr = {\"apple\",\"banana\",\"peach\"}; <br>RiTa.randomItem(arr);",
+    "example": "arr = {\"apple\",\"banana\",\"peach\"}; <br>RiTa.randomItem(arr);",
     "description": "Returns a random item from an array (or Collection)",
     "syntax": "RiTa.randomItem(myArray);",
     "parameters": [],
@@ -181,7 +181,7 @@
 
   }, {
     "name": "RiTa.stripPunctuation",
-    "example": "RiTa.stripPunctuation(\"5$ is Cheap.\"); // returns -> 5 is Cheap",
+    "example": "RiTa.stripPunctuation(\"Please @ me!\"); // returns -> Please  me",
     "description": "Strips all punctuation from the input string",
     "syntax": "RiTa.stripPunctuation(text);",
     "parameters": [{
@@ -200,7 +200,7 @@
 
   }, {
     "name": "RiTa.trimPunctuation",
-    "example": "RiTa.trimPunctuation(\"5$ is Cheap.\"); // returns -> 5$ is Cheap",
+    "example": "RiTa.trimPunctuation(\"Please @ me!\"); // returns -> Please @ me",
     "description": "Trims punctuation from both ends the input string (does not trim whitespace or internal punctuation)",
     "syntax": "RiTa.trimPunctuation(text);",
     "parameters": [{
@@ -217,7 +217,7 @@
 
   }, {
     "name": "RiTa.isPunctuation",
-    "example": "RiTa.isPunctuation(\"?\"); //returns -> true",
+    "example": "RiTa.isPunctuation(\"?\"); // returns -> true",
     "description": "Returns true if every character of 'text' is a punctuation character",
     "syntax": "RiTa.isPunctuation(text);",
     "parameters": [{
@@ -236,7 +236,7 @@
 
   }, {
     "name": "RiTa.tokenize",
-    "example": "<br>sentence = \"The doctors treated dogs\";<br>wordArray = RiTa.tokenize(sentence);<br>wordArray = RiTa.tokenize(sentence, \"\\\\\\\\s\");<br>",
+    "example": "<br>sentence = \"The doctors treated dogs\";<br>wordArray = RiTa.tokenize(sentence);<br>wordArray = RiTa.tokenize(sentence, \"\\\\\\\\s\");<br><br>",
     "description": "Tokenizes a string (into words) according to Penn Treebank conventions<br/>See: <a href='http://www.cis.upenn.edu/~treebank/tokenization.html'>http://www.cis.upenn.edu/~treebank/tokenization.html</a>",
     "syntax": "RiTa.tokenize(text);<br/>RiTa.tokenize(text, regex);",
     "parameters": [{
@@ -278,7 +278,7 @@
   },
   {
     "name": "RiTa.minEditDistance",
-    "example": "RiTa.minEditDistance(\"Hello\", \"Hell\"); // -> 1<br><br> RiTa.minEditDistance(\"Hello\", \"Hell\", true); // -> 0.2",
+    "example": "<br>RiTa.minEditDistance(\"Hello\", \"Hell\"); // -> 1<br><br>RiTa.minEditDistance(\"Hello\", \"Hell\", true); // -> 0.2<br><br>",
     "description": "Takes a pair of strings or string-arrays and returns the minimum edit distance between them (the number of additions, subtractions, or modifications it takes to go from one to the other)",
     "syntax": "RiTa.minEditDistance(str1, str2);",
     "parameters": [{
@@ -328,7 +328,7 @@
     "note": ""
   }, {
     "name": "RiTa.getPhonemes",
-    "example": "RiTa.getPhonemes(\"apple\"); // returns -> ae-p-ah-l <br> RiTa.getPhonemes(\"two apples\"); // returns -> t-uw ae-p-ah-l-z <br>",
+    "example": "<br>RiTa.getPhonemes(\"apple\"); // returns -> ae-p-ah-l <br><br>RiTa.getPhonemes(\"two apples\"); // returns -> t-uw ae-p-ah-l-z <br><br>",
     "description": "Returns a string containing all <a target=_new href='../../PhonemeTags.html'>phonemes</a> for the input text",
     "syntax": "RiTa.getPhonemes(wordStr);<br/>RiTa.getPhonemes(wordArr);",
     "parameters": [{
@@ -346,7 +346,7 @@
     "note": ""
   }, {
     "name": "RiTa.getPosTags",
-    "example": "RiTa.getPosTags(\"I am a cat.\"); //[ "prp", "vbp", "dt", "nn", "." ]",
+    "example": "<br>RiTa.getPosTags(\"I am a cat.\"); <br>// returns -> [ \"prp\", \"vbp\", \"dt\", \"nn\", \".\" ]<br><br>",
     "description": "Uses the default PosTagger to tag the input with tags from the <a href='../../PennTags.html'>PENN tag set</a> or the simplified WordNet tag set [a, r, v, n]",
     "syntax": "RiTa.getPosTags(word);<br/>RiTa.getPosTags(wordArr);<br/>RiTa.getPosTags(word, bool);<br/>RiTa.getPosTags(wordArr, bool);",
     "parameters": [{
@@ -391,7 +391,7 @@
 
   }, {
     "name": "RiTa.getStresses",
-    "example": "RiTa.getStresses(\"apple\"); returns -> 1/0",
+    "example": "RiTa.getStresses(\"apple\"); // returns -> 1/0",
     "description": "Analyzes the input and returns a new string containing the stresses for each syllable of the input text ",
     "syntax": "RiTa.getStresses(word);<br/>RiTa.getStresses(wordArr);",
     "parameters": [{
@@ -433,7 +433,7 @@
 
   }, {
     "name": "RiTa.getWordCount",
-    "example": "RiTa.getWordCount(\"one two three.\"); //returns 4",
+    "example": "RiTa.getWordCount(\"one two three.\"); // returns 4",
     "description": "Returns the # of words in the String according to the default tokenizer",
     "syntax": "RiTa.getWordCount(text);",
     "parameters": [{
@@ -454,7 +454,7 @@
   },
   {
     "name": "RiTa.concordance",
-    "example": "// Java<br><br>Map args = new HashMap();<br>args.put(\"ignoreCase\", false);<br>args.put(\"ignoreStopWords\", true);<br><br>String c = RiTa.concordance(text, args);<br> <br> <br>// Javascript<br><br>var args = {<br>  ignoreCase: false,<br>  ignoreStopWords: true<br>};<br><br>var c = RiTa.concordance(text, args);<br> <br>",
+    "example": "// Java<br><br>Map args = new HashMap();<br>args.put(\"ignoreCase\", false);<br>args.put(\"ignoreStopWords\", true);<br><br>String c = RiTa.concordance(text, args);<br><br><br>// Javascript<br><br>var args = {<br> ignoreCase: false,<br> ignoreStopWords: true<br>};<br><br>var c = RiTa.concordance(text, args);<br><br>",
     "description": "Creates a concordance, a list of words with their frequency of occurence, from the given text and (optional) options",
     "syntax": "RiTa.concordance(text, args);",
     "parameters": [{
@@ -465,7 +465,7 @@
         "desc": "the word to lookup"
       }, {
         "type": "Object<br>(or Map in Java)",
-        "desc": "options (optional) the relevant options for the KWIK model:<br><br>{int} options.wordCount: <br># of words of context on either side of input word<br><br> {boolean} options.ignoreCase:<br> Ignore upper/lower case in the model <br><br> {boolean} options.ignoreStopWords: <br>Ignore words like 'the', 'and', 'a', 'of', etc, as specified in RiTa.STOP_WORDS<br><br> {boolean} options.ignorePunctuation:<br> Ignore punctuation tokens in the model<br><br> {String[]} options.wordsToIgnore:<br> A set of words (alternative stop-words, for example) to ignore.<br><br>"
+        "desc": "options (optional) the relevant options for the KWIK model:<br><br>{int} options.wordCount: <br># of words of context on either side of input word<br><br>{boolean} options.ignoreCase:<br>Ignore upper/lower case in the model <br><br>{boolean} options.ignoreStopWords: <br>Ignore words like 'the', 'and', 'a', 'of', etc, as specified in RiTa.STOP_WORDS<br><br>{boolean} options.ignorePunctuation:<br>Ignore punctuation tokens in the model<br><br>{String[]} options.wordsToIgnore:<br>A set of words (alternative stop-words, for example) to ignore.<br><br>"
       }
     ],
     "returns": [{
@@ -479,7 +479,7 @@
   },
   {
     "name": "RiTa.kwic",
-    "example": "// Java<br><br>Map args = new HashMap();<br>args.put(\"ignoreCase\", false);<br>args.put(\"ignoreStopWords\", true);<br><br>String[] lines = RiTa.kwic(text, args);<br> <br> <br>// Javascript<br><br>var args = {<br>  ignoreCase: false,<br>  ignoreStopWords: true<br>};<br><br>var lines = RiTa.kwic(text, args);<br> <br>",
+    "example": "// Java<br><br>Map args = new HashMap();<br>args.put(\"ignoreCase\", false);<br>args.put(\"ignoreStopWords\", true);<br><br>String[] lines = RiTa.kwic(text, args);<br><br><br>// Javascript<br><br>var args = {<br> ignoreCase: false,<br> ignoreStopWords: true<br>};<br><br>var lines = RiTa.kwic(text, args);<br><br>",
     "description": "Creates a Key-Word-In-Context (KWIC) model from a given text, a word to lookup, a wordCount and (optional) options",
     "syntax": "RiTa.kwic(text, word, options);",
     "parameters": [{
@@ -490,7 +490,7 @@
         "desc": "the word to lookup"
       }, {
         "type": "Object<br>(or Map in Java)",
-        "desc": "options (optional) the relevant options for the KWIC model:<br><br>{int} options.wordCount: <br># of words/punctuation of context on either side of input word<br><br> {boolean} options.ignoreCase:<br> Ignore upper/lower case in the model <br><br> {boolean} options.ignoreStopWords: <br>Ignore words like 'the', 'and', 'a', 'of', etc, as specified in RiTa.STOP_WORDS<br><br> {boolean} options.ignorePunctuation:<br> Ignore punctuation tokens in the model<br><br> {String[]} options.wordsToIgnore:<br> A set of words (alternative stop-words, for example) to ignore.<br><br>"
+        "desc": "options (optional) the relevant options for the KWIC model:<br><br>{int} options.wordCount: <br># of words/punctuation of context on either side of input word<br><br>{boolean} options.ignoreCase:<br>Ignore upper/lower case in the model <br><br>{boolean} options.ignoreStopWords: <br>Ignore words like 'the', 'and', 'a', 'of', etc, as specified in RiTa.STOP_WORDS<br><br>{boolean} options.ignorePunctuation:<br>Ignore punctuation tokens in the model<br><br>{String[]} options.wordsToIgnore:<br>A set of words (alternative stop-words, for example) to ignore.<br><br>"
       }
     ],
     "returns": [{
@@ -504,7 +504,7 @@
   },
   {
     "name": "RiTa.conjugate",
-    "example": "// Java<br><br>Map args = new HashMap();<br>args.put(\"tense\", RiTa.PAST_TENSE);<br>args.put(\"number\", RiTa.SINGULAR);<br>args.put(\"person\", RiTa.FIRST_PERSON);<br><br>String c = RiTa.conjugate(\"swim\", args);<br> <br> <br>// Javascript<br><br>var args = {<br>  tense: RiTa.PRESENT_TENSE,<br>  number: RiTa.SINGULAR,<br>  person: RiTa.THIRD_PERSON<br>};<br><br>var c = RiTa.conjugate('swim', args);<br> <br>",
+    "example": "// Java<br><br>Map args = new HashMap();<br>args.put(\"tense\", RiTa.PAST_TENSE);<br>args.put(\"number\", RiTa.SINGULAR);<br>args.put(\"person\", RiTa.FIRST_PERSON);<br><br>String c = RiTa.conjugate(\"swim\", args);<br><br><br>// Javascript<br><br>var args = {<br> tense: RiTa.PRESENT_TENSE,<br> number: RiTa.SINGULAR,<br> person: RiTa.THIRD_PERSON<br>};<br><br>var c = RiTa.conjugate('swim', args);<br><br>",
     "description": "Conjugates the 'verb' according to the specified options",
     "syntax": "RiTa.conjugate(verb, args);",
     "parameters": [{
@@ -528,7 +528,7 @@
 
   }, {
     "name": "RiTa.getPastParticiple",
-    "example": "RiTa.getPastParticiple(\"write\"); //returns -> written",
+    "example": "RiTa.getPastParticiple(\"write\"); // returns -> written",
     "description": "Returns the past participle form of the stemmed or non-stemmed 'verb'",
     "syntax": "RiTa.getPastParticiple(verb);",
     "parameters": [{
@@ -570,7 +570,7 @@
 
   }, {
     "name": "RiTa.stem",
-    "example": "String s = RiTa.stem('cakes');\n\nString y = RiTa.stem('cakes', RiTa.PORTER);",
+    "example": "<br>s = RiTa.stem('cakes'); // returns -> cake <br><br>y = RiTa.stem('cakes', RiTa.LANCASTER);<br><br>",
     "description": "Extracts base roots from a word according to the specified stemming algorithm <br/>&nbsp;<br/> Note: see <a href='http://text-processing.com/demo/stem/'>http://text-processing.com/demo/stem/</a> for comparison of Lancaster and Porter algorithms or <a href='http://mpii.de/yago-naga/javatools'>http://mpii.de/yago-naga/javatools</a> for info on PlingStemmer",
     "syntax": "RiTa.stem(word, type);",
     "parameters": [{
@@ -693,7 +693,7 @@
     "note": ""
   }, {
     "name": "RiTa.random",
-    "example": "RiTa.random(0,1.0)// to get a float between 0, 1 <br>RiTa.random(10) // to get an int between 0,10",
+    "example": "<br>RiTa.random(0,1.0)// to get a float between 0, 1 <br><br>RiTa.random(10) // to get an int between 0,10<br><br>",
     "description": "Returns a random number between >= min (default=0) and < max (default=1)",
     "syntax": "RiTa.random()<br>RiTa.random(max)<br>RiTa.random(min, max);",
     "parameters": [{
@@ -722,7 +722,7 @@
       "type": "String",
       "desc": "the filename from which to load the file"
     }, {
-      "type": "Function (optional: the callback, for JavaScript only)<br> or Object (optional: the PApplet, for Java only)<br>",
+      "type": "Function (optional: the callback, for JavaScript only)<br>or Object (optional: the PApplet, for Java only)<br>",
       "desc": "If a function (in JavaScript), it will be called after the file is loaded (with the loaded string as its argument).<br><br>If no callback is supplied, or the argument is a PApplet(in Java), onRiTaEvent(re) will be called instead, with re.type() == RiTa.DATA_LOADED"
     }, {
       "type": "String (optional)",

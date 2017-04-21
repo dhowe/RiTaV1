@@ -96,7 +96,7 @@
 							<!-- RETURNS/TYPE (for variables)  -->
 
 							<table cellpadding="0" cellspacing="0" border="0" class="sub-table">
-								<tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>the result of the expansion (or an error if no <start> rule is found)</td></tr>
+								<tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>the result of the expansion (or an error if no &lt;start&gt; rule is found)</td></tr>
 							</table></td>
 						</tr>
 
@@ -113,14 +113,14 @@
 							<td>tmp_note</td>
 						</tr>
 
-						<tr class='Example' style='display:none'>
+						<tr class='Example'>
 							<th scope='row'>Example</th>
 							<td>
 							<div class="example">
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">tmp_example</pre>
+								<pre class="margin">rg = new RiGrammar(stringOrObject); <br>result = rg.expand();</pre>
 							</div></td>
 						</tr>
 

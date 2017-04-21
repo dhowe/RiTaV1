@@ -113,14 +113,14 @@
 							<td>tmp_note</td>
 						</tr>
 
-						<tr class='Example' style='display:none'>
+						<tr class='Example'>
 							<th scope='row'>Example</th>
 							<td>
 							<div class="example">
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">tmp_example</pre>
+								<pre class="margin">rm = new RiMarkov(3);<br>rm.loadFrom("http://www.rednoise.org/rita/examples/data/wittgenstein.txt"); rm.size();</pre>
 							</div></td>
 						</tr>
 

@@ -73,7 +73,7 @@
 							<th scope="row">Syntax</th>
 
 							<!-- SYNTAX  -->
-							<td><pre>similarBySound(input);<br/>similarByLetter(input, minAllowedDist);</pre></td>
+							<td><pre>similarBySound(input);<br/>similarBySound(input, minAllowedDist);</pre></td>
 						</tr>
 
 
@@ -113,14 +113,14 @@
 							<td>tmp_note</td>
 						</tr>
 
-						<tr class='Example' style='display:none'>
+						<tr class='Example'>
 							<th scope='row'>Example</th>
 							<td>
 							<div class="example">
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">tmp_example</pre>
+								<pre class="margin">lex.similarBySound("happy");</pre>
 							</div></td>
 						</tr>
 
