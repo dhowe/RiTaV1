@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">RiTa.getPosTags("I am a cat."); // [ "prp", "vbp", "dt", "nn", "." ]</pre>
+								<pre class="margin"><br>RiTa.getPosTags("I am a cat."); <br>// returns -> [ "prp", "vbp", "dt", "nn", "." ]<br><br></pre>
 							</div></td>
 						</tr>
 

@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">rs = new RiString("Who are you?"); <br> rs.wordCount(); // 4</pre>
+								<pre class="margin">rs = new RiString("Who are you?"); <br>rs.wordCount(); // 4</pre>
 							</div></td>
 						</tr>
 

@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">rm = new RiMarkov(3);<br> rm.loadFrom("http://www.rednoise.org/rita/examples/data/wittgenstein.txt");<br>rm.print();</pre>
+								<pre class="margin">rm = new RiMarkov(3);<br>rm.loadFrom("http://www.rednoise.org/rita/examples/data/wittgenstein.txt");<br>rm.print();</pre>
 							</div></td>
 						</tr>
 

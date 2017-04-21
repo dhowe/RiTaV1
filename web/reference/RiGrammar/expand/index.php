@@ -96,7 +96,7 @@
 							<!-- RETURNS/TYPE (for variables)  -->
 
 							<table cellpadding="0" cellspacing="0" border="0" class="sub-table">
-								<tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>the result of the expansion (or an error if no <start> rule is found)</td></tr>
+								<tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>the result of the expansion (or an error if no &lt;start&gt; rule is found)</td></tr>
 							</table></td>
 						</tr>
 

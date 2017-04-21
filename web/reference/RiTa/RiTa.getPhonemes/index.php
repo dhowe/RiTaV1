@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">RiTa.getPhonemes("apple"); // returns -> ae-p-ah-l <br> RiTa.getPhonemes("two apples"); // returns -> t-uw ae-p-ah-l-z <br></pre>
+								<pre class="margin"><br>RiTa.getPhonemes("apple"); // returns -> ae-p-ah-l <br><br>RiTa.getPhonemes("two apples"); // returns -> t-uw ae-p-ah-l-z <br><br></pre>
 							</div></td>
 						</tr>
 

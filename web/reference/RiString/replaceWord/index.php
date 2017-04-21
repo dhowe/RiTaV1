@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">myRiString = new RiString("He ate the apple."); <br> myRiString.replaceWord(0,"She"); // returns -> She ate the apple.</pre>
+								<pre class="margin">myRiString = new RiString("He ate the apple."); <br>myRiString.replaceWord(0,"She"); <br>// returns -> She ate the apple.</pre>
 							</div></td>
 						</tr>
 

@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">rs = new RiString("Who are you?"); <br> rs.toUpperCase(); // WHO ARE YOU?</pre>
+								<pre class="margin">rs = new RiString("Who are you?"); <br>rs.toUpperCase(); // WHO ARE YOU?</pre>
 							</div></td>
 						</tr>
 

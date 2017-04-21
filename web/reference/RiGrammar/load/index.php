@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">rg = new RiGrammar(); <br> rg.load("<start>: the <pet> | the <action> of the <pet>");</pre>
+								<pre class="margin">rg = new RiGrammar(); <br>rg.load("&lt;start&gt;: the &lt;pet&gt; | the &lt;action&gt; of the &lt;pet&gt;");</pre>
 							</div></td>
 						</tr>
 

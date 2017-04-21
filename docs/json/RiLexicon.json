@@ -26,7 +26,7 @@
     "note": ""
   }, {
     "name": "clear",
-    "example": "lex = new RiLexicon(); <br> lex.clear(); <br> lex.size(); // returns 0",
+    "example": "lex = new RiLexicon(); <br>lex.clear(); <br>lex.size(); // returns 0",
     "description": "Clears the lexicon",
     "syntax": "clear();",
     "parameters": [],
@@ -55,7 +55,7 @@
     "note": ""
   }, {
     "name": "alliterations",
-    "example": "lex.alliterations(\"cat\"); <br> lex.alliterations(\"cat\",10);",
+    "example": "lex.alliterations(\"cat\"); <br>lex.alliterations(\"cat\",10);",
     "description": "Finds alliterations by comparing the phonemes of the input string to those of each word in the lexicon",
     "syntax": "alliterations(word);",
     "parameters": [{
@@ -90,7 +90,7 @@
     "note": ""
   }, {
     "name": "randomWord",
-    "example": "lex.randomWord(); <br> lex.randomWord(\"nn\"); // returns a random noun",
+    "example": "lex.randomWord(); <br>lex.randomWord(\"nn\"); // returns a random noun",
     "description": "Returns a random word from the lexicon. When arguments are supplied part-of-speech and/or syllable-count will be matched as well",
     "syntax": "randomWord()<br/>randomWord(pos);<br/>randomWord(syllableCount);<br/>randomWord(pos, syllableCount);",
     "parameters": [{
@@ -249,7 +249,7 @@
     "note": ""
   }, {
     "name": "reload",
-    "example": "lex = new RiLexicon();<br>lex.removeWord(\"abandon\");<br> lex.reload();",
+    "example": "lex = new RiLexicon();<br>lex.removeWord(\"abandon\");<br>lex.reload();",
     "description": "Clears then reloads the lexicon",
     "syntax": "reload();",
     "parameters": [
@@ -280,7 +280,7 @@
     "note": ""
   }, {
     "name": "similarByLetter",
-    "example": "",
+    "example": "lex.similarByLetter(\"happy\");",
     "description": "Compares the characters of the input string  (using a version of the min-edit distance algorithm) to each word in the lexicon, returning the set of closest matches.",
     "syntax": "similarByLetter(word);<br/>similarByLetter(word, minAllowedDist);<br/>similarByLetter(word, minAllowedDist, preserveLength);",
     "parameters": [{
@@ -304,7 +304,7 @@
     "name": "similarBySound",
     "example": "lex.similarBySound(\"happy\");",
     "description": "Compares the phonemes of the input word (using a version of the min-edit distance algorithm) to each word in the lexicon, returning the set of closest matches.",
-    "syntax": "similarBySound(input);<br/>similarByLetter(input, minAllowedDist);",
+    "syntax": "similarBySound(input);<br/>similarBySound(input, minAllowedDist);",
     "parameters": [{
       "type": "String",
       "desc": "the word to match"
@@ -337,7 +337,7 @@
     "note": ""
   }, {
     "name": "size",
-    "example": "lex = new RiLexicon(); <br> lex.size();",
+    "example": "lex = new RiLexicon(); <br>lex.size();",
     "description": "Returns the number of words currently in the lexicon ",
     "syntax": "size();",
     "parameters": [],
@@ -369,7 +369,7 @@
     "note": ""
   }, {
     "name": "superstrings",
-    "example": "lex.superstrings(\"puni\")",
+    "example": "lex.superstrings(\"puni\");",
     "description": "Returns all valid superstrings of the input word in the lexicon ",
     "syntax": "superstrings(word);",
     "parameters": [{

@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">rs = new RiString("The dog was white"); <br> rs.equals("The dog was white"); // returns true</pre>
+								<pre class="margin">rs = new RiString("The dog was white"); <br>rs.equals("The dog was white"); // returns true</pre>
 							</div></td>
 						</tr>
 

@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">addRule("&lt;start&gt;", "animal");<br>addRule("animal", "cat | dog | chicken");</pre>
+								<pre class="margin">rg = new RiGrammar();<br>rg.addRule("&lt;start&gt;", "&lt;animal&gt;");<br>rg.addRule("&lt;animal&gt;", "cat | dog | chicken");</pre>
 							</div></td>
 						</tr>
 

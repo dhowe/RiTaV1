@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">String[] arr = {"apple","banana","peach"}; <br>RiTa.randomItem(arr);</pre>
+								<pre class="margin">arr = {"apple","banana","peach"}; <br>RiTa.randomItem(arr);</pre>
 							</div></td>
 						</tr>
 

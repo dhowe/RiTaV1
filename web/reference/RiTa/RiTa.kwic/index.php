@@ -84,7 +84,7 @@
 							<!-- PARAMETERS  -->
 
 							<table cellpadding="0" cellspacing="0" border="0" class="sub-table">
-								<tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>the text</td></tr><tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>the word to lookup</td></tr><tr class=''><th width='25%' scope='row' class=nobold>Object<br>(or Map in Java)</th><td width='75%'>options (optional) the relevant options for the KWIC model:<br><br>{int} options.wordCount: <br># of words/punctuation of context on either side of input word<br><br> {boolean} options.ignoreCase:<br> Ignore upper/lower case in the model <br><br> {boolean} options.ignoreStopWords: <br>Ignore words like 'the', 'and', 'a', 'of', etc, as specified in RiTa.STOP_WORDS<br><br> {boolean} options.ignorePunctuation:<br> Ignore punctuation tokens in the model<br><br> {String[]} options.wordsToIgnore:<br> A set of words (alternative stop-words, for example) to ignore.<br><br></td></tr>
+								<tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>the text</td></tr><tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>the word to lookup</td></tr><tr class=''><th width='25%' scope='row' class=nobold>Object<br>(or Map in Java)</th><td width='75%'>options (optional) the relevant options for the KWIC model:<br><br>{int} options.wordCount: <br># of words/punctuation of context on either side of input word<br><br>{boolean} options.ignoreCase:<br>Ignore upper/lower case in the model <br><br>{boolean} options.ignoreStopWords: <br>Ignore words like 'the', 'and', 'a', 'of', etc, as specified in RiTa.STOP_WORDS<br><br>{boolean} options.ignorePunctuation:<br>Ignore punctuation tokens in the model<br><br>{String[]} options.wordsToIgnore:<br>A set of words (alternative stop-words, for example) to ignore.<br><br></td></tr>
 							</table></td>
 						</tr>
 
@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">// Java<br><br>Map args = new HashMap();<br>args.put("ignoreCase", false);<br>args.put("ignoreStopWords", true);<br><br>String[] lines = RiTa.kwic(text, args);<br> <br> <br>// Javascript<br><br>var args = {<br>  ignoreCase: false,<br>  ignoreStopWords: true<br>};<br><br>var lines = RiTa.kwic(text, args);<br> <br></pre>
+								<pre class="margin">// Java<br><br>Map args = new HashMap();<br>args.put("ignoreCase", false);<br>args.put("ignoreStopWords", true);<br><br>String[] lines = RiTa.kwic(text, args);<br><br><br>// Javascript<br><br>var args = {<br> ignoreCase: false,<br> ignoreStopWords: true<br>};<br><br>var lines = RiTa.kwic(text, args);<br><br></pre>
 							</div></td>
 						</tr>
 

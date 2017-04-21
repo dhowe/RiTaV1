@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">rg = new RiGrammar(stringOrObject); <br>result = rg.expandFrom('<start>');</pre>
+								<pre class="margin">rg = new RiGrammar(stringOrObject); <br>result = rg.expandFrom('&lt;start&gt;');</pre>
 							</div></td>
 						</tr>
 

@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">rs = new RiString("What did you eat?"); <br> rs.insertWord(4, "yesterday"); // What did you eat yesterday?</pre>
+								<pre class="margin">rs = new RiString("What did you eat?"); <br>rs.insertWord(4, "yesterday"); // What did you eat yesterday?</pre>
 							</div></td>
 						</tr>
 

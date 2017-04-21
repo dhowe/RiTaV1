@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">myRiString = new RiString("He ate the apple."); <br> myRiString.posAt(0); // returns -> prp</pre>
+								<pre class="margin">myRiString = new RiString("He ate the apple."); <br>myRiString.posAt(0); // returns -> prp</pre>
 							</div></td>
 						</tr>
 

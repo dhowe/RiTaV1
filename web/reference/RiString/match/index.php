@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">rs = new RiString("The rain in SPAIN stays mainly in the plain");<br>count = rs.match("ain").length; // count equals 3</pre>
+								<pre class="margin">rs = new RiString("The rain stays mainly in the plain");<br>count = rs.match("ain").length; // count equals 3</pre>
 							</div></td>
 						</tr>
 

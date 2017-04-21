@@ -120,9 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">String s = RiTa.stem('cakes');
-
-String y = RiTa.stem('cakes', RiTa.PORTER);</pre>
+								<pre class="margin"><br>s = RiTa.stem('cakes'); // returns -> cake <br><br>y = RiTa.stem('cakes', RiTa.LANCASTER);<br><br></pre>
 							</div></td>
 						</tr>
 

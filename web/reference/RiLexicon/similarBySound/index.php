@@ -73,7 +73,7 @@
 							<th scope="row">Syntax</th>
 
 							<!-- SYNTAX  -->
-							<td><pre>similarBySound(input);<br/>similarByLetter(input, minAllowedDist);</pre></td>
+							<td><pre>similarBySound(input);<br/>similarBySound(input, minAllowedDist);</pre></td>
 						</tr>
 
 

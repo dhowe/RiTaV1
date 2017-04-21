@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">lex.randomWord(); <br> lex.randomWord("nn"); // returns a random noun</pre>
+								<pre class="margin">lex.randomWord(); <br>lex.randomWord("nn"); // returns a random noun</pre>
 							</div></td>
 						</tr>
 

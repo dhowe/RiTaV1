@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">RiTa.stripPunctuation("Please @ me!"); // returns -> Please me</pre>
+								<pre class="margin">RiTa.stripPunctuation("Please @ me!"); // returns -> Please  me</pre>
 							</div></td>
 						</tr>
 

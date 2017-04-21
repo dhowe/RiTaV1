@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">RiTa.random(0,1.0)// to get a float between 0, 1 <br>RiTa.random(10) // to get an int between 0,10</pre>
+								<pre class="margin"><br>RiTa.random(0,1.0)// to get a float between 0, 1 <br><br>RiTa.random(10) // to get an int between 0,10<br><br></pre>
 							</div></td>
 						</tr>
 

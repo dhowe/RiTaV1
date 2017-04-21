@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">rg = new RiGrammar(); <br> rg.addRule("<start>", "the <pet> | the <action> of the <pet>", 1);<br>rg.addRule("<pet>", "dog | hawk | crow", 1); <br>rg.addRule("<action>", "cries | screams | falls", 1);<br>rg.hasRule("action") // true</pre>
+								<pre class="margin">rg = new RiGrammar(); <br>rg.addRule("&lt;start&gt;", "the &lt;action&gt; of the &lt;pet&gt;", 1);<br>rg.addRule("&lt;pet&gt;", "dog | hawk | crow", 1); <br>rg.addRule("&lt;action&gt;", "cries | screams | falls", 1);<br>rg.hasRule("&lt;action&gt;") // true</pre>
 							</div></td>
 						</tr>
 

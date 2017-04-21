@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">lex = new RiLexicon(); <br> lex.clear(); <br> lex.size(); // returns 0</pre>
+								<pre class="margin">lex = new RiLexicon(); <br>lex.clear(); <br>lex.size(); // returns 0</pre>
 							</div></td>
 						</tr>
 

@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">RiTa.getStresses("apple"); returns -> 1/0</pre>
+								<pre class="margin">RiTa.getStresses("apple"); // returns -> 1/0</pre>
 							</div></td>
 						</tr>
 

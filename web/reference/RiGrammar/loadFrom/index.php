@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">rg = new RiGrammar(); <br> rg.loadFrom("grammar.yaml");</pre>
+								<pre class="margin">rg = new RiGrammar(); <br>rg.loadFrom("grammar.yaml");</pre>
 							</div></td>
 						</tr>
 

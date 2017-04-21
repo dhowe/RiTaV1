@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">lex.superstrings("puni")</pre>
+								<pre class="margin">lex.superstrings("puni");</pre>
 							</div></td>
 						</tr>
 

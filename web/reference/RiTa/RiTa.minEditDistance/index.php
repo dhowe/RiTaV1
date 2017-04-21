@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">RiTa.minEditDistance("Hello", "Hell"); // -> 1<br><br> RiTa.minEditDistance("Hello", "Hell", true); // -> 0.2</pre>
+								<pre class="margin"><br>RiTa.minEditDistance("Hello", "Hell"); // -> 1<br><br>RiTa.minEditDistance("Hello", "Hell", true); // -> 0.2<br><br></pre>
 							</div></td>
 						</tr>
 

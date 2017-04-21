@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">rs = new RiString("Who are you? Who is he?"); <br> rs.replaceAll("?", "?!"); // Who are you?! Who is he?!</pre>
+								<pre class="margin">rs = new RiString("Who are you? Who is he?"); <br>rs.replaceAll("?", "?!"); // Who are you?! Who is he?!</pre>
 							</div></td>
 						</tr>
 

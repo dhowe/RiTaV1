@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin"> myRiString.text("apple"); // set the text <br> txt = myRiString.text(); // get the text</pre>
+								<pre class="margin">myRiString.text("apple"); // set the text <br>txt = myRiString.text(); // get the text</pre>
 							</div></td>
 						</tr>
 

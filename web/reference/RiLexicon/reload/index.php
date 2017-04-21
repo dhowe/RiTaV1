@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">lex = new RiLexicon();<br>lex.removeWord("abandon");<br> lex.reload();</pre>
+								<pre class="margin">lex = new RiLexicon();<br>lex.removeWord("abandon");<br>lex.reload();</pre>
 							</div></td>
 						</tr>
 
