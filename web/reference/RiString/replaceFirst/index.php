@@ -113,14 +113,14 @@
 							<td>Global flags on the regular expression argument are ignored</td>
 						</tr>
 
-						<tr class='Example' style='display:none'>
+						<tr class='Example'>
 							<th scope='row'>Example</th>
 							<td>
 							<div class="example">
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">tmp_example</pre>
+								<pre class="margin">rs = new RiString("Who are you?"); <br> rs.replaceFirst("?", "?!"); // Who are you?!</pre>
 							</div></td>
 						</tr>
 

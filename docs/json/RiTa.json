@@ -181,7 +181,7 @@
 
   }, {
     "name": "RiTa.stripPunctuation",
-    "example": "RiTa.stripPunctuation(\"5$ is Cheap.\"); // returns -> 5 is Cheap",
+    "example": "RiTa.stripPunctuation(\"Please @ me!\"); // returns -> Please me",
     "description": "Strips all punctuation from the input string",
     "syntax": "RiTa.stripPunctuation(text);",
     "parameters": [{
@@ -200,7 +200,7 @@
 
   }, {
     "name": "RiTa.trimPunctuation",
-    "example": "RiTa.trimPunctuation(\"5$ is Cheap.\"); // returns -> 5$ is Cheap",
+    "example": "RiTa.trimPunctuation(\"Please @ me!\"); // returns -> Please @ me",
     "description": "Trims punctuation from both ends the input string (does not trim whitespace or internal punctuation)",
     "syntax": "RiTa.trimPunctuation(text);",
     "parameters": [{

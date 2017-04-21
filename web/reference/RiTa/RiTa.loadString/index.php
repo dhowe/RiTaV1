@@ -113,14 +113,14 @@
 							<td>In Node, uses the node 'filesystem' or 'request' modules; in JavaScript, uses an XMLHttpRequest; in Java, if a Processing PApplet is passed as a 2nd argument, it will be used to locate and check the 'data' folder of the sketch for the specified file</td>
 						</tr>
 
-						<tr class='Example' style='display:none'>
+						<tr class='Example'>
 							<th scope='row'>Example</th>
 							<td>
 							<div class="example">
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">tmp_example</pre>
+								<pre class="margin">txt = RiTa.loadString("kafka.txt");</pre>
 							</div></td>
 						</tr>
 

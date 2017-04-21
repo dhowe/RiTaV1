@@ -156,7 +156,7 @@
     "note": ""
   },{
     "name": "indexOf",
-    "example": "myRiString = new RiString(\"apple\"); <br> myRiString.indexOf("a"); // returns 0",
+    "example": "myRiString = new RiString(\"apple\"); <br> myRiString.indexOf(\"a\"); // returns 0",
     "description": "Returns the index within this string of the first occurrence of the 'searchstring'",
     "syntax": "indexOf(searchstring);<br/>indexOf(searchstring, start);",
     "parameters": [{
@@ -194,7 +194,7 @@
     "note": ""
   }, {
     "name": "lastIndexOf",
-    "example": "myRiString = new RiString(\"apple\"); <br> myRiString.lastIndexOf("p"); // returns 2",
+    "example": "myRiString = new RiString(\"apple\"); <br> myRiString.lastIndexOf(\"p\"); // returns 2",
     "description": "Returns the index within this string of the last occurrence of the specified character",
     "syntax": "lastIndexOf(searchstring);<br/>lastIndexOf(searchstring, start);",
     "parameters": [{

@@ -73,7 +73,7 @@
 							<th scope="row">Syntax</th>
 
 							<!-- SYNTAX  -->
-							<td><pre>RiTa.minEditDistance("Hello", "Hell"); // -> 1</pre></td>
+							<td><pre>RiTa.minEditDistance(str1, str2);</pre></td>
 						</tr>
 
 
@@ -113,14 +113,14 @@
 							<td>See <a href="https://en.wikipedia.org/wiki/Edit_distance">https://en.wikipedia.org/wiki/Edit_distance</a></td>
 						</tr>
 
-						<tr class='Example' style='display:none'>
+						<tr class='Example'>
 							<th scope='row'>Example</th>
 							<td>
 							<div class="example">
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">tmp_example</pre>
+								<pre class="margin">RiTa.minEditDistance("Hello", "Hell"); // -> 1<br><br> RiTa.minEditDistance("Hello", "Hell", true); // -> 0.2</pre>
 							</div></td>
 						</tr>
 
