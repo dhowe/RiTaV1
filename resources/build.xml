@@ -98,6 +98,7 @@
 					</fileset>
 				</copy>
 				<copy file="${js.src}/rita_dict.js" tofile="${project.dist}/rita_dict.js" />
+				<copy file="${js.src}/rita_dict_1000.js" tofile="${project.dist}/rita_dict_1000.js" />
 
 
 				<!-- 4 dist files to be zipped into js in complete-download -->
