@@ -158,7 +158,7 @@ function getLexicon() {
 
 var RiLexicon = makeClass(); // stub
 
-RiLexicon.enabled = false;
+RiLexicon._enabled = false;
 
 RiLexicon.prototype.init = function() {
     warn('RiLexicon is not available -- ' +
@@ -903,8 +903,8 @@ for (var i = 0; i < FEATURES.length; i++) {
 var RiMarkov = makeClass();
 
 RiMarkov.MAX_GENERATION_ATTEMPTS = 1000;
-RiMarkov._SSRE = /"?[A-Z][a-z"',;`-]*/;
-RiMarkov._SSDLM = 'D=l1m_';
+var SSRE = /"?[A-Z][a-z"',;`-]*/;
+SSDLM = 'D=l1m_';
 
 RiMarkov.prototype = {
 
@@ -917,7 +917,7 @@ RiMarkov.prototype = {
 
     ok(a[0], N);
 
-    this._n = a[0];
+    this.N = a[0];
     this.pathTrace = [];
     this.sentenceList = [];
     this.sentenceStarts = [];
@@ -953,9 +953,9 @@ RiMarkov.prototype = {
 
     if (is(path, S)) path = [path];
 
-    if (path.length > this._n) {
+    if (path.length > this.N) {
 
-      path = path.slice(Math.max(0, path.length - (this._n - 1)), path.length);
+      path = path.slice(Math.max(0, path.length - (this.N - 1)), path.length);
     }
 
     var probs = {},
@@ -981,7 +981,7 @@ RiMarkov.prototype = {
 
     if (post) { // fill the center
 
-      if (pre.length + post.length > this._n) {
+      if (pre.length + post.length > this.N) {
 
         err('Sum of pre.length && post.length must be < N, was ' + (pre.length + post.length));
       }
@@ -1101,10 +1101,6 @@ RiMarkov.prototype = {
     return this.isSentenceAware;
   },
 
-  getN: function() {
-    return this._n;
-  },
-
   print: function() {
 
     if (console) console.log(this.root.asTree(false));
@@ -1168,7 +1164,7 @@ RiMarkov.prototype = {
     for (var toAdd, k = 0; k < tokens.length; k++) {
       toAdd = [];
 
-      for (var j = 0; j < this._n; j++) {
+      for (var j = 0; j < this.N; j++) {
         if ((k + j) < tokens.length) toAdd[j] = (tokens[k + j]) ? tokens[k + j] : null;
         else toAdd[j] = null;
       }
@@ -1325,7 +1321,7 @@ RiMarkov.prototype = {
   _nextNodeForArr: function(previousTokens) {
 
     // Follow the seed path down the tree
-    var firstLookupIdx = Math.max(0, previousTokens.length - (this._n - 1)),
+    var firstLookupIdx = Math.max(0, previousTokens.length - (this.N - 1)),
       node = this.root.lookup(previousTokens[firstLookupIdx++]);
 
     for (var i = firstLookupIdx; i < previousTokens.length; i++) {
@@ -1413,7 +1409,7 @@ RiMarkov.prototype = {
 
       //log("Added sentence start] " + tokens);
 
-      allWords.push(RiMarkov._SSDLM + tokens[0]); // bad hack for sentence-starts
+      allWords.push(SSDLM + tokens[0]); // bad hack for sentence-starts
 
       for (j = 1; j < tokens.length; j++)
         allWords.push(tokens[j]);
@@ -1421,8 +1417,7 @@ RiMarkov.prototype = {
 
     // ------------------------------------------------
 
-    var toAdd, words = allWords,
-      nFactor = this.getN();
+    var toAdd, words = allWords, nFactor = this.N;
 
     for (i = 0; i < words.length; i++) {
 
@@ -1449,7 +1444,7 @@ RiMarkov.prototype = {
 
   _validSentenceStart: function(word) {
 
-    return (!this.isSentenceAware || word && word.match(RiMarkov._SSRE));
+    return (!this.isSentenceAware || word && word.match(SSRE));
   },
 
   _addSentenceSequence: function(toAdd) {
@@ -1464,9 +1459,9 @@ RiMarkov.prototype = {
 
         var add = toAdd[i];
 
-        if (startsWith(add, RiMarkov._SSDLM)) {
+        if (startsWith(add, SSDLM)) {
 
-          add = add.substring(RiMarkov._SSDLM.length);
+          add = add.substring(SSDLM.length);
           var parent = node;
 
           node = node.addChild(add, 1);
@@ -1500,7 +1495,7 @@ RiMarkov.prototype = {
     if (!path || !is(path, A) || !path.length)
       return null;
 
-    var nFactor = this._n;
+    var nFactor = this.N;
     var numNodes = Math.min(path.length, nFactor - 1);
     var firstLookupIdx = Math.max(0, path.length - (nFactor - 1));
     var node = this.root.lookup(path[firstLookupIdx++]);
@@ -1530,16 +1525,13 @@ var RiWordNet = function() { // stub
 
 var RiString = makeClass();
 
-RiString.phones = {
-
+RiString._phones = {
   consonants: ['b', 'ch', 'd', 'dh', 'f', 'g', 'hh', 'jh', 'k', 'l', 'm',
     'n', 'ng', 'p', 'r', 's', 'sh', 't', 'th', 'v', 'w', 'y', 'z', 'zh'
   ],
-
   vowels: ['aa', 'ae', 'ah', 'ao', 'aw', 'ax', 'ay', 'eh', 'er', 'ey', 'ih',
     'iy', 'ow', 'oy', 'uh', 'uw'
   ],
-
   onsets: ['p', 't', 'k', 'b', 'd', 'g', 'f', 'v', 'th', 'dh', 's', 'z',
     'sh', 'ch', 'jh', 'm', 'n', 'r', 'l', 'hh', 'w', 'y', 'p r', 't r',
     'k r', 'b r', 'd r', 'g r', 'f r', 'th r', 'sh r', 'p l', 'k l', 'b l',
@@ -1548,7 +1540,6 @@ RiString.phones = {
     's k w', 's k l', 'th w', 'zh', 'p y', 'k y', 'b y', 'f y', 'hh y',
     'v y', 'th y', 'm y', 's p y', 's k y', 'g y', 'hh w', ''
   ],
-
   digits: ['z-ih-r-ow', 'w-ah-n', 't-uw', 'th-r-iy', 'f-ao-r', 'f-ay-v',
     's-ih-k-s', 's-eh1-v-ax-n', 'ey-t', 'n-ih-n'
   ]
@@ -1556,30 +1547,50 @@ RiString.phones = {
 
 RiString._syllabify = function(input) { // adapted from FreeTTS
 
-  var dbug, None, internuclei = [],
-    syllables = [], // returned data structure.
+  // Takes a syllabification and turns it into a string of phonemes,
+  // delimited with dashes, with spaces between syllables
+  var stringify = function(syllables) {
+
+    var i, j, ret = [];
+    for (i = 0; i < syllables.length; i++) {
+
+      var syl = syllables[i],stress = syl[0][0],
+        onset = syl[1],nucleus = syl[2],coda = syl[3];
+
+      if (stress !== undefined && nucleus.length) // dch
+        nucleus[0] += (E + stress);
+
+      var data = [];
+      for (j = 0; j < onset.length; j++)
+        data.push(onset[j]);
+      for (j = 0; j < nucleus.length; j++)
+        data.push(nucleus[j]);
+      for (j = 0; j < coda.length; j++)
+        data.push(coda[j]);
+
+      ret.push(data.join('-'));
+    }
+
+    return ret.join(SP);
+  };
+
+  var dbug, None, internuclei = [], syllables = [], // returned data structure.
     sylls = ((typeof(input) == 'string') ? input.split('-') : input);
 
   for (var i = 0; i < sylls.length; i++) {
-
-    var phoneme = sylls[i].trim(),
-      stress = None;
-
+    var phoneme = sylls[i].trim(), stress = None;
     if (!phoneme.length) continue;
-
     if (isNum(last(phoneme))) {
-
       stress = parseInt(last(phoneme));
       phoneme = phoneme.substring(0, phoneme.length - 1);
     }
 
     if (dbug) log(i + ")" + phoneme + ' stress=' + stress + ' inter=' + internuclei.join(':'));
 
-    if (inArray(RiString.phones.vowels, phoneme)) {
+    if (inArray(RiString._phones.vowels, phoneme)) {
 
       // Split the consonants seen since the last nucleus into coda and onset.
-      var coda = None,
-        onset = None;
+      var coda = None, onset = None;
 
       // Make the largest onset we can. The 'split' variable marks the break point.
       for (var split = 0; split < internuclei.length + 1; split++) {
@@ -1594,102 +1605,60 @@ RiString._syllabify = function(input) { // adapted from FreeTTS
         // (in which case an invalid onset is better than a coda that doesn't follow
         // a nucleus), or if we've gone through all of the onsets and we didn't find
         // any that are valid, then split the nonvowels we've seen at this location.
-        var bool = inArray(RiString.phones.onsets, onset.join(" "));
+        var bool = inArray(RiString._phones.onsets, onset.join(" "));
         if (bool || syllables.length === 0 || onset.length === 0) {
           if (dbug) log('  break ' + phoneme);
           break;
         }
       }
 
-      //if (dbug)log('  onset='+join(',',onset)+'  coda='+join(',',coda));
-
-      // Tack the coda onto the coda of the last syllable. Can't do it if this
-      // is the first syllable.
+      // Tack the coda onto the coda of the last syllable.
+      // Can't do it if this is the first syllable.
       if (syllables.length > 0) {
-
-        //syllables[syllables.length-1][3] = syllables[syllables.length-1][3] || [];
-        //log('  len='+syllables[syllables.length-1][3].length);
         extend(syllables[syllables.length - 1][3], coda);
-
         if (dbug) log('  tack: ' + coda + ' -> len=' +
           syllables[syllables.length - 1][3].length + " [" +
           syllables[syllables.length - 1][3] + "]");
       }
 
       // Make a new syllable out of the onset and nucleus.
-
-      var toPush = [
-        [stress], onset, [phoneme],
-        []
-      ];
+      var toPush = [[stress], onset, [phoneme], []];
       syllables.push(toPush);
 
       // At this point we've processed the internuclei list.
       internuclei = [];
     }
-    else if (!inArray(RiString.phones.consonants, phoneme) && phoneme != " ") {
+    else if (!inArray(RiString._phones.consonants, phoneme) && phoneme != " ") {
       throw Error('Invalid phoneme: ' + phoneme);
     }
     else { // a consonant
-
-      //log('inter.push: '+phoneme);
       internuclei.push(phoneme);
     }
   }
 
-
   // Done looping through phonemes. We may have consonants left at the end.
   // We may have even not found a nucleus.
   if (internuclei.length > 0) {
-
     if (syllables.length === 0) {
-
-      syllables.push([
-        [None], internuclei, [],
-        []
-      ]);
+      syllables.push([[None], internuclei, [],[]]);
     } else {
-
       extend(syllables[syllables.length - 1][3], internuclei);
     }
   }
 
-  return RiString._stringify(syllables);
+  return stringify(syllables);
 };
 
-/*
- * Takes a syllabification and turns it into a string of phonemes,
- * delimited with dashes, with spaces between syllables
- */
-RiString._stringify = function(syllables) {
-
-  var i, j, ret = [];
-  for (i = 0; i < syllables.length; i++) {
-
-    var syl = syllables[i];
-    var stress = syl[0][0];
-    var onset = syl[1];
-    var nucleus = syl[2];
-    var coda = syl[3];
-
-    if (stress !== undefined && nucleus.length) // dch
-      nucleus[0] += (E + stress);
-
-    var data = [];
-    for (j = 0; j < onset.length; j++)
-      data.push(onset[j]);
-
-    for (j = 0; j < nucleus.length; j++)
-      data.push(nucleus[j]);
-
-    for (j = 0; j < coda.length; j++)
-      data.push(coda[j]);
-
-    ret.push(data.join('-'));
+function initFeatureMap(rs) { // for RiString
+  if (!rs._features) {
+    rs._features = {};
+  } else {
+    ['tokens', 'stresses', 'phonemes', 'syllables', 'pos'].forEach(function (f) {
+      delete rs._features[f];
+    });
   }
-
-  return ret.join(SP);
-};
+  rs._features.text = rs.text();
+}
 
 // ////////////////////////////////////////////////////////////
 // Member functions
@@ -1739,39 +1708,18 @@ RiString.prototype = {
     return this._features;
   },
 
-  _initFeatureMap: function() {
-
-    if (!this._features) {
-
-      this._features = {};
-
-    } else {
-
-      delete this._features.tokens;
-      delete this._features.stresses;
-      delete this._features.phonemes;
-      delete this._features.syllables;
-      delete this._features.pos;
-      delete this._features.text;
-    }
-
-    //this._features.mutable = "true";
-    this._features.text = this.text();
-  },
-
-
   analyze: function() {
 
     var phonemes = E, syllables = E, stresses = E, slash = '/',
       delim = '-', lex, stressyls, phones, lts, ltsPhones, useRaw,
       words = RiTa.tokenize(this._text);
 
-    if (!this._features) this._initFeatureMap();
+    if (!this._features) initFeatureMap(this);
 
     this._features.tokens = words.join(SP);
     this._features.pos = RiTa.getPosTags(this._text).join(SP);
 
-    if (RiLexicon.enabled) {
+    if (RiLexicon._enabled) {
 
       lex = getLexicon();
       for (var i = 0, l = words.length; i < l; i++) {
@@ -1836,15 +1784,16 @@ RiString.prototype = {
   get: function(featureName) {
 
     this._features || this.analyze();
+
     var s = this._features[featureName];
 
-    //console.log(featureName,tracked.indexOf(featureName));
     if (!s && (FEATURES.indexOf(featureName) > -1) &&
       (!this._features.hasOwnProperty(featureName)))
     {
       this.analyze();
       s = this._features[featureName];
     }
+
     return s;
   },
 
@@ -1882,7 +1831,7 @@ RiString.prototype = {
 
     if (arguments.length > 0) {
       this._text = theText;
-      this._initFeatureMap();
+      initFeatureMap(this);
       return this;
     }
     return this._text;
@@ -2159,11 +2108,11 @@ RiString.prototype = {
 
 var RiGrammar = makeClass();
 
+var OR_PATT = /\s*\|\s*/, STRIP_TICKS = /`([^`]*)`/g,
+  PROB_PATT = /(.*[^\s])\s*\[([0-9.]+)\](.*)/;
+
 RiGrammar.START_RULE = "<start>";
-RiGrammar.PROB_PATT = /(.*[^\s])\s*\[([0-9.]+)\](.*)/;
 RiGrammar.EXEC_PATT = /(.*?)(`[^`]+?\(.*?\);?`)(.*)/;
-RiGrammar.STRIP_TICKS = /`([^`]*)`/g;
-RiGrammar.OR_PATT = /\s*\|\s*/;
 
 RiGrammar.prototype = {
 
@@ -2264,13 +2213,13 @@ RiGrammar.prototype = {
 
     var ruleset = theRule;
     if (!is(theRule, A))
-      ruleset = theRule.split(RiGrammar.OR_PATT);
+      ruleset = theRule.split(OR_PATT);
 
     for (var i = 0; i < ruleset.length; i++) {
 
       var rule = ruleset[i];
       var prob = weight;
-      var m = RiGrammar.PROB_PATT.exec(rule);
+      var m = PROB_PATT.exec(rule);
 
       if (m) // found weighting
       {
@@ -2310,15 +2259,6 @@ RiGrammar.prototype = {
     return this;
   },
 
-  _copy: function() {
-
-    var tmp = RiGrammar();
-    for (var name in this._rules) {
-      tmp._rules[name] = this._rules[name];
-    }
-    return tmp;
-  },
-
   reset: function() {
 
     this._rules = {};
@@ -2327,6 +2267,30 @@ RiGrammar.prototype = {
   },
 
   doRule: function(pre) {
+
+    var getStochasticRule = function(temp) { // map
+
+      var name, dbug = false, p = Math.random(), result, total = 0;
+      if (dbug) log("getStochasticRule(" + temp + ")");
+      for (name in temp) {
+        total += parseFloat(temp[name]);
+      }
+
+      if (dbug) log("total=" + total + "p=" + p);
+      for (name in temp) {
+        if (dbug) log("  name=" + name);
+        var amt = temp[name] / total;
+        if (dbug) log("amt=" + amt);
+        if (p < amt) {
+          result = name;
+          if (dbug) log("hit!=" + name);
+          break;
+        } else {
+          p -= amt;
+        }
+      }
+      return result;
+    }
 
     var cnt = 0,
       name = E,
@@ -2338,7 +2302,7 @@ RiGrammar.prototype = {
 
     if (!cnt) return null;
 
-    return (cnt == 1) ? name : this._getStochasticRule(rules);
+    return (cnt == 1) ? name : getStochasticRule(rules);
   },
 
 
@@ -2372,7 +2336,16 @@ RiGrammar.prototype = {
 
   expandWith: function(literal, symbol) { // TODO: finish
 
-    var name, gr = this._copy(),
+    var copy = function(rs) {
+
+      var tmp = RiGrammar();
+      for (var name in rs._rules) {
+        tmp._rules[name] = rs._rules[name];
+      }
+      return tmp;
+    }
+
+    var name, gr = copy(this),
       match = false;
 
     for (name in gr._rules) {
@@ -2406,6 +2379,74 @@ RiGrammar.prototype = {
 
   expandFrom: function(rule, context) {
 
+    var expandRule = function(g, prod) {
+
+      var entry, idx, pre, expanded, post, dbug = 0;
+      if (dbug) log("expandRule(" + prod + ")");
+
+      for (var name in g._rules) {
+
+        entry = g._rules[name];
+        if (dbug) log("  name=" + name + "  entry=" + entry + "  prod=" + prod + "  idx=" + idx);
+        idx = prod.indexOf(name);
+
+        if (idx >= 0) { // got a match, split into 3 parts
+
+          pre = prod.substring(0, idx) || E;
+          expanded = g.doRule(name) || E;
+          post = prod.substring(idx + name.length) || E;
+
+          if (dbug) log("  pre=" + pre + "  expanded=" + expanded +
+            "  post=" + post + "  result=" + pre + expanded + post);
+          return pre + expanded + post;
+        }
+      }
+
+      return null; // no rules matched
+    }
+
+    var handleExec = function(input, context) { // TODO: list all cases and rewrite
+
+      if (!input || !input.length) return null;
+
+      // strip backticks and eval
+      var res, exec = input.replace(STRIP_TICKS, '$1');
+
+      try {
+        res = eval(exec); // try in global context
+        return res ? res + E : null;
+
+      } catch (e) {
+
+        // TODO: do we still need this for p5.js
+        // TODO: check that we can still access RiTa functins (in js and node)
+        var parts = exec.split('(');
+        if (parts && parts.length == 2) {
+
+          var args, g = context, funName = parts[0], argStr = parts[1].replace(/\)/,E);
+          if (!g && typeof window != 'undefined') g = window;
+          if (g && g[funName] && is(g[funName], F)) {
+            args = argStr.split(',');
+            //log("calling "+funName + "("+argStr+");");
+            res = g[funName].apply(g, args);
+            return res ? res + E : null;
+          }
+        }
+
+        warn("RiGrammar failed parsing: " + input + BN + " -> " + e.message);
+        return null;
+      }
+    }
+
+    var countTicks = function(theCall) {
+      var count = 0;
+      for (var i = 0; i < theCall.length; i++) {
+        if (theCall.charAt(i) == '`')
+          count++;
+      }
+      return count;
+    }
+
     if (!okeys(this._rules).length)
       err("(RiGrammar) No grammar rules found!");
 
@@ -2414,11 +2455,11 @@ RiGrammar.prototype = {
 
     var parts, theCall, callResult, tries = 0,
       maxIterations = 1000;
+
     while (++tries < maxIterations) {
-      var next = this._expandRule(rule);
+      var next = expandRule(this, rule);
 
       if (next && next.length) { // matched a rule
-
         rule = next;
         continue;
       }
@@ -2426,7 +2467,6 @@ RiGrammar.prototype = {
       if (this.execDisabled) break; // return
 
       // finished rules, check for back-ticked exec calls
-
       parts = RiGrammar.EXEC_PATT.exec(rule);
 
       if (!parts || !parts.length) break; // return, no evals
@@ -2435,19 +2475,18 @@ RiGrammar.prototype = {
 
         theCall = parts[2];
 
-        if (this._countTicks(theCall) != 2) {
+        if (countTicks(theCall) != 2) {
 
           warn("Unable to parse recursive exec: " + theCall + "...");
           return null;
         }
 
-        callResult = this._handleExec(theCall, context);
+        callResult = handleExec(theCall, context);
 
         if (!callResult) {
 
           if (0) log("[WARN] (RiGrammar.expandFrom) Unexpected" +
             " state: eval(" + theCall + ") :: returning '" + rule + "'");
-
           break; // return
         }
 
@@ -2461,141 +2500,18 @@ RiGrammar.prototype = {
       log("[WARN] max number of iterations reached: " + maxIterations);
 
     return RiTa.unescapeHTML(rule);
-  },
-
-  _countTicks: function(theCall) {
-
-    var count = 0;
-    for (var i = 0; i < theCall.length; i++) {
-      if (theCall.charAt(i) == '`')
-        count++;
-    }
-    return count;
-  },
-
-  openEditor: function() {
-
-    warn("Editor not yet implemented in JavaScript");
-    return this;
-  },
-
-  _handleExec: function(input, context) { // TODO: list all cases and rewrite
-
-    if (!input || !input.length) return null;
-
-    // strip backticks and eval
-    var res, exec = input.replace(RiGrammar.STRIP_TICKS, '$1');
-
-    try {
-      // TODO: See issue #9 [https://github.com/dhowe/RiTaJS/issues?state=open]
-      // if (typeof module != 'undefined' && module.exports) // for node
-      // 		return require("vm").runInThisContext(exec,context);
-
-      res = eval(exec); // try in global context
-
-      return res ? res + E : null;
-
-    } catch (e) {
-
-      // try with the PApplet context
-      // TODO: clean this up
-      // TODO: do we need to explicitly check window[funName] in the browser?
-      var parts = exec.split('(');
-      if (parts && parts.length == 2) {
-
-        var funName = parts[0];
-        var argStr = parts[1].replace(/\)/,E);
-        var g = context;
-        if (!g && typeof window != 'undefined') g = window;
-        if (g && g[funName] && is(g[funName], F)) {
-
-          var args = argStr.split(',');
-          //log("calling "+funName + "("+argStr+");");
-          res = g[funName].apply(g, args);
-          return res ? res + E : null;
-        }
-      }
-
-      warn("RiGrammar failed parsing: " + input + BN + " -> " + e.message);
-      return null;
-    }
-  },
-
-  _expandRule: function(prod) {
-
-    var entry, idx, pre, expanded, post, dbug = 0;
-
-    if (dbug) log("_expandRule(" + prod + ")");
-
-    for (var name in this._rules) {
-
-      entry = this._rules[name];
-
-      if (dbug) log("  name=" + name + "  entry=" + entry + "  prod=" + prod + "  idx=" + idx);
-
-      idx = prod.indexOf(name);
-
-      if (idx >= 0) { // got a match, split into 3 parts
-
-        pre = prod.substring(0, idx) || E;
-        expanded = this.doRule(name) || E;
-        post = prod.substring(idx + name.length) || E;
-
-        if (dbug) log("  pre=" + pre + "  expanded=" + expanded +
-          "  post=" + post + "  result=" + pre + expanded + post);
-
-        return pre + expanded + post;
-      }
-    }
-
-    return null; // no rules matched
-  },
-
-  _getStochasticRule: function(temp) { // map
-
-    var name, dbug = false;
-
-    if (dbug) log("_getStochasticRule(" + temp + ")");
-
-    var p = Math.random();
-    var result, total = 0;
-    for (name in temp) {
-      total += parseFloat(temp[name]);
-    }
-
-    if (dbug) log("total=" + total + "p=" + p);
-
-    for (name in temp) {
-      if (dbug) log("  name=" + name);
-      var amt = temp[name] / total;
-
-      if (dbug) log("amt=" + amt);
-
-      if (p < amt) {
-        result = name;
-        if (dbug) log("hit!=" + name);
-        break;
-      } else {
-        p -= amt;
-      }
-    }
-    return result;
   }
-
 
 }; // end RiGrammar
 
+var callbacksDisabled = false;
 var RiTaEvent = makeClass();
-
-RiTaEvent._callbacksDisabled = false;
 RiTaEvent.ID = 0;
-
 RiTaEvent.prototype = {
 
   init: function(source, eventType, data) {
 
     is(source, O) || ok(source, S);
-
     this._id = ++RiTaEvent.ID;
     this._data = data;
     this._source = source;
@@ -2603,34 +2519,27 @@ RiTaEvent.prototype = {
   },
 
   toString: function() {
-
     var s = 'RiTaEvent[#' + this._id + ' type=' +
       '(' + this._type + ') source=' + this._source.toString();
-
     s += !this._data ? s += ' data=null' :
       (' data-length=' + this._data.toString().length);
-
     return s + ']';
   },
 
   isType: function(t) {
-
     return this._type === t;
   },
 
   _fire: function(callback) {
 
     callback = callback || window.onRiTaEvent;
-
     if (callback && is(callback, F)) {
       try {
-
         callback(this); // first arg ??
         return this;
 
       } catch (err) {
-
-        RiTaEvent._callbacksDisabled = true;
+        callbacksDisabled = true;
         var msg = "RiTaEvent: error calling '" + callback + "': " + err;
         is(callback, S) && (msg += " Callback must be a function in JS!");
         warn(msg);
@@ -3163,18 +3072,18 @@ var PosTagger = {
       choices2d = [],
       lex;
 
-    if (RiLexicon.enabled) {
+    if (RiLexicon._enabled) {
       lex = getLexicon();
-      
+
     } else if (!RiTa.SILENT && !this.NOLEX_WARNED) {
 
       this.NOLEX_WARNED = true;
-      if (typeof _RiTa_LTS === 'undefined') {
+      if (typeof RiTa._LTS === 'undefined') {
         console.warn('No RiLexicon or LTS-rules found: features will be inaccurate!');
-      } 
+      }
       else {
         console.warn('No RiLexicon found: part-of-speech tagging will be inaccurate!');
-      } 
+      }
     }
 
     words = is(words, A) ? words : [words];
@@ -3210,7 +3119,7 @@ var PosTagger = {
         }
 
         if (!lex || !lex.containsWord(words[i])) {
-           
+
           if (endsWith(words[i], 's')) {
             var sub2, sub = words[i].substring(0, words[i].length - 1);
 
@@ -3228,15 +3137,13 @@ var PosTagger = {
             var sing = RiTa.singularize(words[i]);
 
             if (this._lexHas("n", sing)) {
-
               choices2d.push("nns");
               tag = 'nns';
+            } else if (checkPluralNoLex(words[i])){
+               tag = 'nns';
+              //common plurals
             }
           }
-        }
-
-        if (!RiLexicon.enabled && checkPluralNoLex(words[i])) {
-          tag = 'nns';
         }
         result.push(tag);
 
@@ -3413,7 +3320,7 @@ var PosTagger = {
 
   _lexHas: function(pos, words) { // takes ([n|v|a|r] or a full tag)
 
-    if (!RiLexicon.enabled) return false;
+    if (!RiLexicon._enabled) return false;
 
     var lex = getLexicon(), words = is(words, A) || [words];
 
@@ -4998,7 +4905,7 @@ var PLURAL_RULES = [
 if (!RiTa.SILENT && !isNode() && console)
   console.log('[INFO] RiTaJS.version [' + RiTa.VERSION + ']');
 
-_RiTa_LTS=[
+RiTa._LTS=[
 'TOTAL 13100',
 'INDEX 0 a',
 'STATE 4 r 2 1',
@@ -46225,8 +46132,9 @@ function _dict() { return {
 'zooming':['z-uw1 m-ih-ng','vbg'],
 'zooms':['z-uw1-m-z','vbz']
 }; }
+
 RiLexicon.SILENCE_LTS = false;
-RiLexicon.enabled = true;
+RiLexicon._enabled = true;
 
 RiLexicon.prototype = {
 
@@ -46502,7 +46410,7 @@ RiLexicon.prototype = {
           results.push(this.keys[i]);
       }
       return (results.length > 0) ? results : EA;
-    
+
 
     return EA;
   },
@@ -46512,7 +46420,7 @@ RiLexicon.prototype = {
     if (word.indexOf(" ") > -1) return [];
 
     if (this._isVowel(word.charAt(0))) return [];
-    
+
 
     matchMinLength = matchMinLength || 4;
 
@@ -46530,7 +46438,7 @@ RiLexicon.prototype = {
         results.push(this.keys[i]);
       }
     }
-   
+
     return shuffle(results);
   },
 
@@ -46544,7 +46452,7 @@ RiLexicon.prototype = {
 
     var c1 = this._firstPhoneme(this._firstStressedSyllable(word1, useLTS)),
       c2 = this._firstPhoneme(this._firstStressedSyllable(word2, useLTS));
-    
+
     if(this._isVowel(c1.charAt(0)) || this._isVowel(c2.charAt(0))) return false;
 
     return (strOk(c1) && strOk(c2) && c1 === c2);
@@ -46632,7 +46540,7 @@ RiLexicon.prototype = {
       if (tagArray.indexOf(psa[i]) > -1)
         return true;
     }
-    
+
     return false;
   },
 
@@ -46737,7 +46645,6 @@ RiLexicon.prototype = {
     if (rdata === undefined || (useLTS && !RiTa.SILENT && !RiLexicon.SILENCE_LTS)) {
 
       phones = this._letterToSound().getPhones(word);
-
       if (phones && phones.length)
         return RiString._syllabify(phones);
 
@@ -46859,12 +46766,12 @@ RiLexicon.prototype = {
         if (a[0] === "n" || a[0] === "nns")
             a[0] = "nn";
     }
-  
+
     switch (a.length) {
 
       case 2: // a[0]=pos  a[1]=syllableCount
 
-        
+
         for (i = 0; i < ranWordArr.length; i++) {
           j = (ran + i) % ranWordArr.length;
           rdata = this.data[ranWordArr[j]];
@@ -46890,7 +46797,7 @@ RiLexicon.prototype = {
 
           warn("No words with pos=" + a[0] + " found");
 
-        } else { 
+        } else {
 
           // a[0] = syllableCount
           for (i = 0; i < ranWordArr.length; i++) {
@@ -46952,7 +46859,7 @@ function intersect() {
 
 var LetterToSound = makeClass();
 
-LetterToSound.RULES = typeof _RiTa_LTS !== 'undefined' ? _RiTa_LTS : false;
+LetterToSound.RULES = typeof RiTa._LTS !== 'undefined' ? RiTa._LTS : false;
 LetterToSound.TOTAL = "TOTAL";
 LetterToSound.INDEX = "INDEX";
 LetterToSound.STATE = "STATE";
@@ -47048,12 +46955,25 @@ LetterToSound.prototype = {
     }
 
     for (i = 0; i < input.length; i++) {
-
       ph = this._computePhones(input[i]);
       result[i] = ph ? ph.join(delim) : E;
     }
 
-    return result.join(delim).replace(/ax/g, 'ah');
+    result = result.join(delim).replace(/ax/g, 'ah');
+
+    result.replace("/0/g","");
+
+    if (result.indexOf("1") === -1 && result.indexOf(" ") === -1) {
+          ph = result.split("-");
+          result = "";
+          for (var i = 0; i < ph.length; i++) {
+              if (/[aeiou]/.test(ph[i])) ph[i] += "1";
+              result += ph[i] + "-";
+          }
+          if(ph.length > 1) result = result.substring(0, result.length - 1);
+      }
+
+    return result;
   },
 
   _computePhones: function(word) {
@@ -47069,7 +46989,7 @@ LetterToSound.prototype = {
       if (!this.warnedForNoLTS) {
 
         this.warnedForNoLTS = true;
-        console.log("[WARN] No LTS-rules found: for word features outside the lexicon, use a larger version of RiTa.");
+        console.warn("[WARN] No LTS-rules found: for word features outside the lexicon, use a larger version of RiTa.");
       }
       return null;
     }
@@ -47086,9 +47006,8 @@ LetterToSound.prototype = {
         if (dig < 0 || dig > 9)
           throw Error("Attempt to pass multi-digit number to LTS: '" + word + "'");
 
-        phoneList.push(RiString.phones.digits[dig]);
+        phoneList.push(RiString._phones.digits[dig]);
       }
-
       return phoneList;
     }
 
@@ -47262,10 +47181,11 @@ if (window) { // for browser
   module.exports['RiLexicon'] = RiLexicon;
   module.exports['RiTaEvent'] = RiTaEvent;
 
-  // add RiTa.* functions to returned object // ADDED: 4/11/17
   var funs = Object.keys(RiTa);
   for (var i = 0; i < funs.length; i++) {
-    module.exports[funs[i]] = RiTa[funs[i]];
+    if (!startsWith(funs[i], '_')) {
+      module.exports[funs[i]] = RiTa[funs[i]];
+    }
   }
 }
 

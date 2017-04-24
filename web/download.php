@@ -62,21 +62,34 @@
 <div class="downloadbox mini">
   <a href="download/rita.min.js" download="rita.min.js"><span></span></a>
   rita.min.js
-  <span>core (no lexicon), minimized, 85k</span>
+  <span>core (no lexicon, no LTS), minimized, 86k</span>
 </div>
 
 
 <div class="downloadbox mini">
   <a href="download/rita.js" download="rita.js"><span></span></a>
 rita.js
-<span>core (no lexicon), source, 151k</span>
+<span>core (no lexicon, no LTS), source, 152k</span>
+ </div>
+
+<div class="downloadbox mini">
+  <a href="download/rita-small.min.js" download="rita-small.min.js"><span></span></a>
+  rita-small.min.js
+  <span>core (1k-word lexicon & lts-rules), minimized, 415k</span>
+</div>
+
+
+<div class="downloadbox mini">
+  <a href="download/rita-small.js" download="rita-small.js"><span></span></a>
+rita-small.js
+<span>core (1k-word lexicon & lts-rules), source, 509k</span>
  </div>
 
 
 <div class="downloadbox mini">
    <a href="download/rita-full.min.js" download="rita-full.min.js"><span></span></a>
 rita-full.min.js
-<span>complete, minimized, 1.5m</span>
+<span>complete, minimized, 1.4m</span>
 </div>
 
 
@@ -94,10 +107,14 @@ rita-full.js
     <div class="downloadbox mini">
        <a href="download/rita_dict.js" download="rita_dict.js"> <span></span></a>
       rita_dict.js
-      <span>the lexicon, 1.2m</span>
+      <span>the lexicon, 1.1m</span>
     </div>
 
-
+    <div class="downloadbox mini">
+       <a href="download/rita_dict_1000.js" download="rita_dict_1000.js"> <span></span></a>
+      rita_dict_1000.js
+      <span>the 1k-word lexicon, 32k</span>
+    </div>
 
     <div class="downloadbox mini">
         <a href="http://www.rednoise.org/rita-archive/rita_lts.js" download="rita_lts.js"> <span></span> </a>
