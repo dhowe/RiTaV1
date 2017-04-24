@@ -706,16 +706,16 @@ public class RiLexiconTest {
     equal(s, "hh-ah l-ow1");
 
     s = lex.getRawPhones("coder", true);
-    equal(s, "k-ow1 d-er0");
+    equal(s, "k-ow1 d-er");
 
     s = lex.getRawPhones("washington", true);
-    equal(s, "w-aa1 sh-ih0-ng t-ah0-n");
+    equal(s, "w-aa1 sh-ih-ng t-ah-n");
     
     // s = lex.getRawPhones("hawaii", true);
     // equal(s, "hh-ah0 w-ay1 iy2"); // Moved to KnownIssues
     
     s = lex.getRawPhones("alaska", true);
-    equal(s, "ah0 l-ae1-s k-ah0");
+    equal(s, "ah l-ae1-s k-ah");
     
     // s = lex.getRawPhones("wikipedia", true);
     // equal(s, "w-ih1 k-iy0 p-iy2 d-iy2-ah0"); // Moved to KnownIssues

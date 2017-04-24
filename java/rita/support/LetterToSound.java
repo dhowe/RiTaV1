@@ -493,7 +493,19 @@ public class LetterToSound implements Constants {
 
       cache.put(word, result);
     }
-
+    
+    result = result.replaceAll("0",  "");
+    if (!result.contains("1") && !result.contains("0") && result.length() > 0) {
+      String[] phones = result.split("-");
+      result = "";
+      for (int i = 0; i < phones.length; i++) {
+	if (Phoneme.isVowel(phones[i]))
+	  phones[i] += "1";
+	result += phones[i] + "-";
+      }
+      result = result.substring(0, result.length() - 1);
+    }
+      
     return result;
   }
 
