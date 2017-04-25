@@ -100,10 +100,8 @@ rita-full.js
 </div>
 
 </div>
-<div class="row pad-small">
+<!--div class="row pad-small">
   <h4>JS-components</h4>
-
-
     <div class="downloadbox mini">
        <a href="download/rita_dict.js" download="rita_dict.js"> <span></span></a>
       rita_dict.js
@@ -122,41 +120,37 @@ rita-full.js
     <span>letter-to-sound rules, 301k</span>
     </div>
 
-
-
     <div class="downloadbox mini">
         <a href="http://www.rednoise.org/rita-archive/lancaster.min.js" download="lancaster.min.js"><span></span> </a>
       lancaster stemmer
     <span>alternate stemmer, 8k</span>
-    </div>
+  </div>
 
-
-
-    <div class="downloadbox mini">
-       <a href="http://www.rednoise.org/rita-archive/ritext.min.js" download="ritext.min.js"> <span></span> </a>
-      ritext.min.js
-    <span>renderer, deprecated, 33k</span>
-    </div>
-
-
-</div>
+  <div class="downloadbox mini">
+     <a href="http://www.rednoise.org/rita-archive/ritext.min.js" download="ritext.min.js"> <span></span> </a>
+    ritext.min.js
+  <span>renderer, deprecated, 33k</span>
+  </div>
+</div-->
 
 <div class="row pad-small">
   <h4>RiTa.java<span>(java-jar only)</span></h4>
   <div class="downloadbox mini smallest"><a href="download/rita.jar"><span></span></a>rita.jar</div>
 </div>
+
 <div class="row pad-small">
 <hr/>
+<br>&nbsp;<br>
   <h4>Archived Versions</h4>
   <a href="http://rednoise.org/rita-archive/RiTa-1022.zip">RiTa-alpha.1022.zip</a><br>
   <a href="http://rednoise.org/rita-archive/RiTa.Wordnet-034.zip">RiTa.Wordnet-034.zip</a><br>&nbsp;<br>
 
   <h4>WordNet-3.1 (osx/unix)</h4>
   <a href="http://rednoise.org/rita-archive/WordNet-3.1.zip">WordNet-3.1.zip</a>
-</div>
 
-  </div>
-    <div class="col1"></div>
+  <!--h4>Deprecated</h4>
+  <a href="http://www.rednoise.org/rita-archive/ritext.min.js">ritext.min.js</a-->
+</div>
 
 </div>
 </div>
@@ -166,11 +160,9 @@ rita-full.js
 
 <?php include("footer.php"); ?>
 
-
 <!--
 End Site Content
 -->
-
 
 </body>
 </html>
