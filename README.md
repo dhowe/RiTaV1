@@ -82,7 +82,10 @@ void setup() {
 5. Select 'Android Mode' from 'Contribution Manager' window and then install it and the required Android SDK when prompted
 6. Restart Processing and input the example sketch below
 7. Switch to 'Android' mode by clicking the 'Java' button
-8. Connect your Android device to your PC via a USB cable and then run the example sketch
+8. Connect your Android device to your PC via a USB cable
+9. On your Android device, go to ‘Settings’ - ‘About phone’ and tap on ‘Build number’ for five times to become a developer
+10.Go back to ‘Settings’, go to ‘Developer options’ and switch on ‘USB debugging'
+11. Run the example sketch
 
 An example sketch:
 ```java
