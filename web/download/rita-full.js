@@ -2204,6 +2204,7 @@ RiGrammar.prototype = {
   },
 
   addRule: function(name, theRule, weight) {
+
     var dbug = false;
 
     weight = weight || 1.0; // default
@@ -2326,7 +2327,6 @@ RiGrammar.prototype = {
       console.log(ln + BN + this.getGrammar() + ln);
     }
     return this;
-
   },
 
   hasRule: function(name) {
@@ -2387,11 +2387,12 @@ RiGrammar.prototype = {
       for (var name in g._rules) {
 
         entry = g._rules[name];
-        if (dbug) log("  name=" + name + "  entry=" + entry + "  prod=" + prod + "  idx=" + idx);
+        if (dbug) log("  name=" + name + "  entry=" + JSON.stringify(entry) + "  prod=" + prod + (idx?"  idx=" + idx:''));
         idx = prod.indexOf(name);
 
         if (idx >= 0) { // got a match, split into 3 parts
 
+          if (dbug) log('matched: '+name);
           pre = prod.substring(0, idx) || E;
           expanded = g.doRule(name) || E;
           post = prod.substring(idx + name.length) || E;
@@ -2401,11 +2402,50 @@ RiGrammar.prototype = {
           return pre + expanded + post;
         }
       }
-
       return null; // no rules matched
     }
 
-    var handleExec = function(input, context) { // TODO: list all cases and rewrite
+    var execSingleFunction = function(exec, context) {
+
+      var parts = exec.split('(');
+      if (parts && parts.length == 2) {
+
+        var args, g = context, funName = parts[0], argStr = parts[1].replace(/\)/,E);
+        if (!g && typeof window != 'undefined') g = window;
+        if (g && g[funName] && is(g[funName], F)) {
+
+          args = argStr.split(',');
+          //log("calling "+funName + "("+argStr+");");
+          res = g[funName].apply(g, args);
+          return res ? res + E : null;
+        }
+      }
+
+      warn("RiGrammar failed parsing: " + input + BN + " -> " + e.message);
+
+      return null;
+    }
+
+    var Scope = function() {
+      "use strict";
+      this.names = [];
+      this.eval = function(s) {
+        return eval(s);
+      };
+    }
+
+    Scope.prototype.put = function(name, val) {
+      "use strict";
+      var code = "(function() {\n";
+      code += 'var ' + name + ' = '+val+';\n';
+      code += 'return function(str) {return eval(str)};\n})()';
+      this.eval = this.eval(code);
+      this.names.push(name);
+    }
+
+    var handleExec = function(input, context) {
+
+      // TODO: check that we can still access RiTa functions (in js and node)
 
       if (!input || !input.length) return null;
 
@@ -2413,29 +2453,48 @@ RiGrammar.prototype = {
       var res, exec = input.replace(STRIP_TICKS, '$1');
 
       try {
+
         res = eval(exec); // try in global context
         return res ? res + E : null;
 
       } catch (e) {
 
-        // TODO: do we still need this for p5.js
-        // TODO: check that we can still access RiTa functins (in js and node)
-        var parts = exec.split('(');
-        if (parts && parts.length == 2) {
+        if (context) {
 
-          var args, g = context, funName = parts[0], argStr = parts[1].replace(/\)/,E);
-          if (!g && typeof window != 'undefined') g = window;
-          if (g && g[funName] && is(g[funName], F)) {
-            args = argStr.split(',');
-            //log("calling "+funName + "("+argStr+");");
-            res = g[funName].apply(g, args);
-            return res ? res + E : null;
+          var sandbox = {};
+
+          if (typeof context === 'function') {
+            sandbox[context.name] = context;
           }
+          else if (typeof context === 'object') {
+            Object.keys(context).forEach(function (f) {
+              if (typeof context[f] === 'function')
+                  sandbox[f] = context[f];
+            });
+          }
+
+          var scope = new Scope(); // move into constructor
+          Object.keys(sandbox).forEach(function (f) {
+            scope.put(f, sandbox[f]);
+          });
+
+          try {
+            res = scope.eval(exec);
+            //console.log("GOT: "+(res+''));
+            return res ? res + '' : null;
+          }
+          catch (e) { /* fall through */ }
         }
 
-        warn("RiGrammar failed parsing: " + input + BN + " -> " + e.message);
-        return null;
+        if (typeof p5 !== 'undefined') {
+
+          // TODO: do we still need this for p5.js
+          try {
+            execSingleFunction(exec, p5);
+          } catch (e) { /* give up */ }
+        }
       }
+      return input;
     }
 
     var countTicks = function(theCall) {
@@ -2447,18 +2506,19 @@ RiGrammar.prototype = {
       return count;
     }
 
+    // -----------------------------------------------------
+
     if (!okeys(this._rules).length)
       err("(RiGrammar) No grammar rules found!");
 
     if (!this.hasRule(rule))
       err("Rule not found: " + rule + BN + "Rules:" + BN + JSON.stringify(this._rules));
 
-    var parts, theCall, callResult, tries = 0,
-      maxIterations = 1000;
+    var parts, theCall, callResult, tries = 0, maxIterations = 1000;
 
     while (++tries < maxIterations) {
-      var next = expandRule(this, rule);
 
+      var next = expandRule(this, rule);
       if (next && next.length) { // matched a rule
         rule = next;
         continue;
@@ -2476,13 +2536,11 @@ RiGrammar.prototype = {
         theCall = parts[2];
 
         if (countTicks(theCall) != 2) {
-
           warn("Unable to parse recursive exec: " + theCall + "...");
           return null;
         }
 
         callResult = handleExec(theCall, context);
-
         if (!callResult) {
 
           if (0) log("[WARN] (RiGrammar.expandFrom) Unexpected" +
@@ -2491,8 +2549,7 @@ RiGrammar.prototype = {
         }
 
         rule = parts[1] + callResult;
-
-        (parts.length > 3) && (rule += parts[3]);
+        if (parts.length > 3) rule += parts[3];
       }
     }
 
@@ -2506,6 +2563,7 @@ RiGrammar.prototype = {
 
 var callbacksDisabled = false;
 var RiTaEvent = makeClass();
+
 RiTaEvent.ID = 0;
 RiTaEvent.prototype = {
 
@@ -2548,11 +2606,6 @@ RiTaEvent.prototype = {
     }
   }
 };
-
-
-/////////////////////////////////////////////////////////////////////////
-//StringTokenizer
-/////////////////////////////////////////////////////////////////////////
 
 var StringTokenizer = makeClass();
 
@@ -46962,8 +47015,8 @@ LetterToSound.prototype = {
     result = result.join(delim).replace(/ax/g, 'ah');
 
     result.replace("/0/g","");
-
-    if (result.indexOf("1") === -1 && result.indexOf(" ") === -1) {
+  
+    if (result.length > 0 && result.indexOf("1") === -1 && result.indexOf(" ") === -1) {
           ph = result.split("-");
           result = "";
           for (var i = 0; i < ph.length; i++) {
