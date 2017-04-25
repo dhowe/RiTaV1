@@ -219,8 +219,8 @@
                     <br>
                     <a href="RiMarkov/getCompletions/index.php">getCompletions()</a>
                     <br>
-                    <a href="RiMarkov/getN/index.php">getN()</a>
-                    <br>
+                    <!--a href="RiMarkov/getN/index.php">getN()</a>
+                    <br-->
                     <a href="RiMarkov/getProbabilities/index.php">getProbabilities()</a>
                     <br>
                     <a href="RiMarkov/getProbability/index.php">getProbability()</a>

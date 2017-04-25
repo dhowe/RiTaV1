@@ -151,23 +151,6 @@
     "platform": "Java / Javascript",
     "note": ""
   }, {
-    "name": "getN",
-    "example": "",
-    "description": "Returns the current n-value for the model",
-    "syntax": "getN();",
-    "parameters": [
-
-    ],
-    "returns": [{
-        "type": "int",
-        "desc": ""
-      }
-
-    ],
-    "related": "",
-    "platform": "Java / Javascript",
-    "note": ""
-  }, {
     "name": "getProbabilities",
     "example": "",
     "description": "Returns the full set of possible next tokens as a map, given an array of tokens representing the path down the tree (with length less than n).<br>&nbsp;<br>Note: seed arrays of any size (>0) may be input, but only the last n-1 elements will be considered.   ",

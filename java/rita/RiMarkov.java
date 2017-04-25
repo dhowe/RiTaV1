@@ -45,14 +45,14 @@ public class RiMarkov implements Constants
   protected static final String SS_DELIM = "D=l1m_";
   protected static final int MAX_PROB_MISSES = 100;
 
-  public int minSentenceLength = 6, maxSentenceLength = 35;
+  public int minSentenceLength = 6, maxSentenceLength = 35,  N;
   
   protected TextNode root;
   protected Set sentenceList;
   protected Stack pathTrace;
   protected List sentenceStarts;
 
-  protected int nFactor, wordsPerFile, tokenCount, skippedDups;
+  protected int wordsPerFile, tokenCount, skippedDups;
   protected boolean useSmoothing, ignoreCase, allowDuplicates, printIgnoredText = false;
   protected boolean removeQuotations = true, sentenceAware = true, addSpaces = true, profile = true;
 
@@ -101,7 +101,7 @@ public class RiMarkov implements Constants
       throw new RiTaException("N-factor must be > 0");
     
     this.parent = parent;
-    this.nFactor = nFactor;
+    this.N = nFactor;
     this.sentenceAware = recognizeSentences;
     this.allowDuplicates = allowDuplicates;
     this.root = TextNode.createRoot(ignoreCase);
@@ -576,7 +576,7 @@ if (rawText.length() < 10)
       
       for (int k = 0; k < tokens.length; k++)
       {
-        toAdd = new String[nFactor];
+        toAdd = new String[N];
         for (int j = 0; j < toAdd.length; j++)
         {
           if ((k + j) < tokens.length)
@@ -651,7 +651,7 @@ if (rawText.length() < 10)
    */
   public int getN()
   {
-    return this.nFactor;
+    return this.N;
   }
 
   /**
@@ -684,7 +684,7 @@ if (rawText.length() < 10)
   protected TextNode nextNodeForList(List previousTokens)
   {
     // Follow the seed path down the tree
-    int firstLookupIdx = Math.max(0, previousTokens.size() - (nFactor - 1));
+    int firstLookupIdx = Math.max(0, previousTokens.size() - (N - 1));
     TextNode tn = (previousTokens.size() < 1) ? root.selectChild()
         : (TextNode) previousTokens.get(firstLookupIdx++);
 
@@ -703,7 +703,7 @@ if (rawText.length() < 10)
   protected TextNode nextNodeForArr(String[] seed)
   {
     // Follow the seed path down the tree
-    int firstLookupIdx = Math.max(0, seed.length - (nFactor - 1));
+    int firstLookupIdx = Math.max(0, seed.length - (N - 1));
     TextNode node = root.lookup(seed[firstLookupIdx++]);
     for (int i = firstLookupIdx; i < seed.length; i++)
     {
@@ -730,7 +730,7 @@ if (rawText.length() < 10)
       return EMPTY;
     }
 
-    int firstLookupIdx = Math.max(0, seed.length - (nFactor - 1));
+    int firstLookupIdx = Math.max(0, seed.length - (N - 1));
     TextNode node = root.lookup(seed[firstLookupIdx++]);
     for (int i = firstLookupIdx; i < seed.length; i++)
     {
@@ -815,11 +815,11 @@ if (rawText.length() < 10)
    */
   public String[] getCompletions(String[] pre, String[] post)
   {
-    if (pre == null || pre.length >= nFactor)
+    if (pre == null || pre.length >= N)
       throw new RiTaException("Invalid pre array: " + RiTa.asList(pre));
 
     int postLen = post == null ? 0 : post.length;
-    if (pre.length + postLen > nFactor)
+    if (pre.length + postLen > N)
     {
       throw new RiTaException("Sum of pre.length" + " && post.length must be < N, was "
           + (pre.length + postLen));
@@ -861,7 +861,7 @@ if (rawText.length() < 10)
   {
     Map probs = new HashMap();
 
-    if (path.length == 0 || path.length >= nFactor)
+    if (path.length == 0 || path.length >= N)
       return null;
 
     TextNode tn = findNode(path);
@@ -918,8 +918,8 @@ if (rawText.length() < 10)
    */
   protected TextNode[] nodesOnPath(String[] path)
   {
-    int numNodes = Math.min(path.length, nFactor - 1);
-    int firstLookupIdx = Math.max(0, path.length - (nFactor - 1));
+    int numNodes = Math.min(path.length, N - 1);
+    int firstLookupIdx = Math.max(0, path.length - (N - 1));
     TextNode node = (TextNode) root.lookup(path[firstLookupIdx++]);
     if (node == null)
       return null;
@@ -1013,8 +1013,8 @@ if (rawText.length() < 10)
     words = (String[]) allWords.toArray(new String[allWords.size()]);
     for (int i = 0; i < words.length; i++)
     {
-      toAdd = new String[nFactor]; // use arraycopy?
-      for (int j = 0; j < nFactor; j++)
+      toAdd = new String[N]; // use arraycopy?
+      for (int j = 0; j < N; j++)
       {
         if ((i + j) < words.length)
           toAdd[j] = words[i + j];
