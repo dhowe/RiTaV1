@@ -15,6 +15,31 @@
   <script src="js/vendor/modernizr-2.6.2.min.js"></script>
   <script type="text/javascript" src="js/vendor/jquery-2.1.4.min.js"></script>
   <script language="javascript" src="js/highlight.js"></script>
+  <script>
+  jQuery(document).ready(function ($) {
+     $('.downloadbox.interactive').hover( function() {
+       sizeOnMouseover($(this).find('span.sizes a.mini'));
+     },function(){
+       sizeOnMouseout($(this).find('span.sizes a.mini'));
+     });
+    $('.sizes a').mouseover(function () {
+      sizeOnMouseover(this);
+    });
+    $('.sizes a').mouseout(function () {
+      sizeOnMouseout(this);
+     
+    });
+    var sizeOnMouseover = function(ele) {
+       $(ele).siblings('.sizes a').removeClass("default");
+       $(ele).addClass("default");
+    }
+    var sizeOnMouseout = function(ele) {
+        $(ele).parent().children('a.source').removeClass("default");
+        $(ele).parent().children('a.mini').addClass("default");
+    }
+  });
+  
+  </script>
 </head>
 <body>
 <!--[if lt IE 7]>
@@ -59,44 +84,31 @@
 </form>
 -->
 
-<div class="downloadbox mini">
-  <a href="download/rita.min.js" download="rita.min.js"><span></span></a>
-  rita.min.js
-  <span>core (no lexicon, no LTS), minimized, 86k</span>
+<div class="downloadbox mini interactive">
+  <a href="download/rita.min.js" download="rita.min.js"> <span></span></a>
+  rita.js
+  <span>core (no lexicon, no LTS)</span>
+  <span class="sizes">
+  <a class="mini default" href="download/rita.min.js" download="rita.min.js">minified 86k</a>  |   
+  <a class="source" href="download/rita.js" download="rita.js">source 152k</a> </span>
 </div>
 
-
-<div class="downloadbox mini">
-  <a href="download/rita.js" download="rita.js"><span></span></a>
-rita.js
-<span>core (no lexicon, no LTS), source, 152k</span>
- </div>
-
-<div class="downloadbox mini">
-  <a href="download/rita-small.min.js" download="rita-small.min.js"><span></span></a>
-  rita-small.min.js
-  <span>core (1k-word lexicon & lts-rules), minimized, 415k</span>
+<div class="downloadbox mini interactive">
+  <a href="download/rita-small.min.js" download="rita-small.min.js"> <span></span></a>
+  rita-small.js
+  <span>core (1k-word lexicon & lts-rules)</span>
+  <span class="sizes">
+  <a class="mini default" href="download/rita-small.min.js" download="rita-small.min.js">minified 415k</a>  |  
+  <a class="source" href="download/rita-small.js" download="rita-small.js">source 509k</a> </span>
 </div>
 
-
-<div class="downloadbox mini">
-  <a href="download/rita-small.js" download="rita-small.js"><span></span></a>
-rita-small.js
-<span>core (1k-word lexicon & lts-rules), source, 509k</span>
- </div>
-
-
-<div class="downloadbox mini">
-   <a href="download/rita-full.min.js" download="rita-full.min.js"><span></span></a>
-rita-full.min.js
-<span>complete, minimized, 1.4m</span>
-</div>
-
-
-<div class="downloadbox mini">
-  <a href="download/rita-full.js" download="rita-full.js"><span></span></a>
-rita-full.js
-<span>complete (w' lexicon & lts-rules) 1.6m</span>
+<div class="downloadbox mini interactive">
+  <a href="download/rita-full.min.js" download="rita-full.min.js"> <span></span></a>
+  rita-full.js
+  <span>complete (w' lexicon & lts-rules)</span>
+  <span class="sizes">
+  <a class="mini default" href="download/rita-full.min.js" download="rita-full.min.js">minified 1.4m</a>  |  
+  <a class="source" href="download/rita-full.js" download="rita-full.js">source 1.6m</a> </span>
 </div>
 
 </div>
