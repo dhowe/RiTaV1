@@ -10,7 +10,6 @@
                  return '&#'+i.charCodeAt(0)+';';
           });
           $(id).html(encoded); 
-          console.log($(id)[0]);
           Prism.highlightElement($(id)[0]);
         }
       });
