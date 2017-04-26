@@ -4,7 +4,7 @@
 # 1. pull any changes from rita/rita.js
 # 2. update version numbers: (git status should show 2 files changed:
 #      resources/build.properties && js/package.json
-# 3. run this script (it invoke ant to do the builds)
+# 3. run this script (it invokes ant to do the builds)
 
 set -e
 

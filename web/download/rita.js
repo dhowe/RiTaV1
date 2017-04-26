@@ -162,14 +162,14 @@ RiLexicon._enabled = false;
 
 RiLexicon.prototype.init = function() {
     warn('RiLexicon is not available -- ' +
-      'if needed, make sure to include rilexicon.js');
+      'if needed, use a larger version of RiTa.');
 };
 
 var FEATURES = [ 'tokens', 'stresses', 'phonemes', 'syllables', 'pos', 'text' ];
 
 var RiTa = {
 
-  VERSION: '1.1.54',
+  VERSION: '1.1.60',
 
   LEXICON: null, // static RiLexicon instance
 
@@ -369,18 +369,15 @@ var RiTa = {
     return Conjugator().getPastParticiple(verb);
   },
 
-  // TODO: 2 examples
   concordance: function(text, options) {
     return Concorder(text, options).concordance();
   },
 
-  // TODO: 2 examples (add cache)
   kwic: function(text, word, options) {
     wordCount = (options && options.wordCount) || 4;
     return Concorder(text, options).kwic(word, wordCount);
   },
 
-  // TODO: 2 examples
   conjugate: function(verb, args) {
     return Conjugator().conjugate(verb, args);
   },
@@ -583,7 +580,6 @@ var RiTa = {
 
   // TODO: update 'return' value in docs (for preload())
   loadStrings: function(url, callback, linebreakChars) {
-
 
     var loadStringsNode = function(url, callback) {
 
@@ -2405,48 +2401,39 @@ RiGrammar.prototype = {
       return null; // no rules matched
     }
 
-    var execSingleFunction = function(exec, context) {
-
-      var parts = exec.split('(');
-      if (parts && parts.length == 2) {
-
-        var args, g = context, funName = parts[0], argStr = parts[1].replace(/\)/,E);
-        if (!g && typeof window != 'undefined') g = window;
-        if (g && g[funName] && is(g[funName], F)) {
-
-          args = argStr.split(',');
-          //log("calling "+funName + "("+argStr+");");
-          res = g[funName].apply(g, args);
-          return res ? res + E : null;
-        }
-      }
-
-      warn("RiGrammar failed parsing: " + input + BN + " -> " + e.message);
-
-      return null;
-    }
-
-    var Scope = function() {
+    var Scope = function(context) { // class
       "use strict";
+
       this.names = [];
       this.eval = function(s) {
         return eval(s);
       };
-    }
+      this.put = function(name, val) {
+        "use strict";
+        var code = "(function() {\n";
+        code += 'var ' + name + ' = '+val+';\n';
+        code += 'return function(str) {return eval(str)};\n})()';
+        this.eval = this.eval(code);
+        this.names.push(name);
+      };
 
-    Scope.prototype.put = function(name, val) {
-      "use strict";
-      var code = "(function() {\n";
-      code += 'var ' + name + ' = '+val+';\n';
-      code += 'return function(str) {return eval(str)};\n})()';
-      this.eval = this.eval(code);
-      this.names.push(name);
+      if (context) {
+        var scope = this;
+        if (typeof context === 'function') {
+          scope.put(context.name, context);
+        }
+        else if (typeof context === 'object') {
+          Object.keys(context).forEach(function (f) {
+            if (typeof context[f] === 'function')
+              scope.put(f, context[f]);
+          });
+        }
+      }
     }
 
     var handleExec = function(input, context) {
 
-      // TODO: check that we can still access RiTa functions (in js and node)
-
+      //console.log('handleExec('+input+", ",context+')');
       if (!input || !input.length) return null;
 
       // strip backticks and eval
@@ -2459,39 +2446,13 @@ RiGrammar.prototype = {
 
       } catch (e) {
 
-        if (context) {
-
-          var sandbox = {};
-
-          if (typeof context === 'function') {
-            sandbox[context.name] = context;
-          }
-          else if (typeof context === 'object') {
-            Object.keys(context).forEach(function (f) {
-              if (typeof context[f] === 'function')
-                  sandbox[f] = context[f];
-            });
-          }
-
-          var scope = new Scope(); // move into constructor
-          Object.keys(sandbox).forEach(function (f) {
-            scope.put(f, sandbox[f]);
-          });
+        if (context) { // create sandbox for context args
 
           try {
-            res = scope.eval(exec);
-            //console.log("GOT: "+(res+''));
+            res = new Scope(context).eval(exec);
             return res ? res + '' : null;
           }
           catch (e) { /* fall through */ }
-        }
-
-        if (typeof p5 !== 'undefined') {
-
-          // TODO: do we still need this for p5.js
-          try {
-            execSingleFunction(exec, p5);
-          } catch (e) { /* give up */ }
         }
       }
       return input;
@@ -3411,8 +3372,7 @@ var PosTagger = {
  *  Ported from Porter, 1980, An algorithm for suffix stripping, Program, Vol. 14,
  *  no. 3, pp 130-137, see also http:www.tartarus.org/~martin/PorterStemmer
  *
- *  Porter is the default Stemmer (Pling is also included).
- *  For Lancaster (in JS), include lancaster.js
+ *  Porter is the default Stemmer (Pling and Lancaster are also included).
  */
 RiTa.stemmers.Porter = (function() {
 
@@ -3591,6 +3551,701 @@ RiTa.stemmers.Porter = (function() {
     }
 
     return w;
+  };
+
+})();
+
+RiTa.stemmers.Lancaster = (function() {
+
+  function accept(token) {
+
+    return (token.match(/^[aeiou]/)) ?
+      (token.length > 1) : (token.length > 2 && token.match(/[aeiouy]/));
+  }
+
+  // take a token, look up the applicable rule and do the stem
+  function applyRules(token, intact) {
+
+    var section = token.substr(-1),
+      rules = ruleTable[section],
+      input = token;
+
+    if (rules) {
+
+      for (var i = 0; i < rules.length; i++) {
+
+        // only apply intact rules to intact tokens
+        if ((intact || !rules[i].intact) && token.substr(0 - rules[i].pattern.length) == rules[i].pattern) {
+
+          // hack off only as much as the rule indicates
+          var result = token.substr(0, token.length - rules[i].size);
+
+          // if the rules wants us to apply an appendage do so
+          if (rules[i].appendage) {
+            result += rules[i].appendage;
+          }
+
+          if (accept(result)) {
+
+            token = result;
+
+            // see what the rules wants to do next
+            if (rules[i].continuation) {
+
+              // this rule thinks there still might be stem left. keep at it.
+              // since we've applied a change we'll pass false in for intact
+              return applyRules(result, false);
+
+            } else {
+
+              // the rule thinks we're done stemming. drop out.
+              return result;
+            }
+          }
+        }
+      }
+    }
+    // else // warn('No stemming rules (LancasterImpl) found for: '+input);
+
+    return token;
+  }
+
+  var ruleTable = { // indexed by last character of word
+
+    "a": [{
+      "continuation": false,
+      "intact": true,
+      "pattern": "ia",
+      "size": "2"
+    }, {
+      "continuation": false,
+      "intact": true,
+      "pattern": "a",
+      "size": "1"
+    }],
+    "b": [{
+      "continuation": false,
+      "intact": false,
+      "pattern": "bb",
+      "size": "1"
+    }],
+    "c": [{
+      "appendage": "s",
+      "continuation": false,
+      "intact": false,
+      "pattern": "ytic",
+      "size": "3"
+    }, {
+      "continuation": true,
+      "intact": false,
+      "pattern": "ic",
+      "size": "2"
+    }, {
+      "appendage": "t",
+      "continuation": true,
+      "intact": false,
+      "pattern": "nc",
+      "size": "1"
+    }],
+    "d": [{
+      "continuation": false,
+      "intact": false,
+      "pattern": "dd",
+      "size": "1"
+    }, {
+      "appendage": "y",
+      "continuation": true,
+      "intact": false,
+      "pattern": "ied",
+      "size": "3"
+    }, {
+      "appendage": "s",
+      "continuation": false,
+      "intact": false,
+      "pattern": "ceed",
+      "size": "2"
+    }, {
+      "continuation": false,
+      "intact": false,
+      "pattern": "eed",
+      "size": "1"
+    }, {
+      "continuation": true,
+      "intact": false,
+      "pattern": "ed",
+      "size": "2"
+    }, {
+      "continuation": true,
+      "intact": false,
+      "pattern": "hood",
+      "size": "4"
+    }],
+    "e": [{
+      "continuation": true,
+      "intact": false,
+      "pattern": "e",
+      "size": "1"
+    }],
+    "f": [{
+      "appendage": "v",
+      "continuation": false,
+      "intact": false,
+      "pattern": "lief",
+      "size": "1"
+    }, {
+      "continuation": true,
+      "intact": false,
+      "pattern": "if",
+      "size": "2"
+    }],
+    "g": [{
+      "continuation": true,
+      "intact": false,
+      "pattern": "ing",
+      "size": "3"
+    }, {
+      "appendage": "y",
+      "continuation": false,
+      "intact": false,
+      "pattern": "iag",
+      "size": "3"
+    }, {
+      "continuation": true,
+      "intact": false,
+      "pattern": "ag",
+      "size": "2"
+    }, {
+      "continuation": false,
+      "intact": false,
+      "pattern": "gg",
+      "size": "1"
+    }],
+    "h": [{
+      "continuation": false,
+      "intact": true,
+      "pattern": "th",
+      "size": "2"
+    }, {
+      "appendage": "c",
+      "continuation": false,
+      "intact": false,
+      "pattern": "guish",
+      "size": "5"
+    }, {
+      "continuation": true,
+      "intact": false,
+      "pattern": "ish",
+      "size": "3"
+    }],
+    "i": [{
+      "continuation": false,
+      "intact": true,
+      "pattern": "i",
+      "size": "1"
+    }, {
+      "appendage": "y",
+      "continuation": true,
+      "intact": false,
+      "pattern": "i",
+      "size": "1"
+    }],
+    "j": [{
+      "appendage": "d",
+      "continuation": false,
+      "intact": false,
+      "pattern": "ij",
+      "size": "1"
+    }, {
+      "appendage": "s",
+      "continuation": false,
+      "intact": false,
+      "pattern": "fuj",
+      "size": "1"
+    }, {
+      "appendage": "d",
+      "continuation": false,
+      "intact": false,
+      "pattern": "uj",
+      "size": "1"
+    }, {
+      "appendage": "d",
+      "continuation": false,
+      "intact": false,
+      "pattern": "oj",
+      "size": "1"
+    }, {
+      "appendage": "r",
+      "continuation": false,
+      "intact": false,
+      "pattern": "hej",
+      "size": "1"
+    }, {
+      "appendage": "t",
+      "continuation": false,
+      "intact": false,
+      "pattern": "verj",
+      "size": "1"
+    }, {
+      "appendage": "t",
+      "continuation": false,
+      "intact": false,
+      "pattern": "misj",
+      "size": "2"
+    }, {
+      "appendage": "d",
+      "continuation": false,
+      "intact": false,
+      "pattern": "nj",
+      "size": "1"
+    }, {
+      "appendage": "s",
+      "continuation": false,
+      "intact": false,
+      "pattern": "j",
+      "size": "1"
+    }],
+    "l": [{
+      "continuation": false,
+      "intact": false,
+      "pattern": "ifiabl",
+      "size": "6"
+    }, {
+      "appendage": "y",
+      "continuation": false,
+      "intact": false,
+      "pattern": "iabl",
+      "size": "4"
+    }, {
+      "continuation": true,
+      "intact": false,
+      "pattern": "abl",
+      "size": "3"
+    }, {
+      "continuation": false,
+      "intact": false,
+      "pattern": "ibl",
+      "size": "3"
+    }, {
+      "appendage": "l",
+      "continuation": true,
+      "intact": false,
+      "pattern": "bil",
+      "size": "2"
+    }, {
+      "continuation": false,
+      "intact": false,
+      "pattern": "cl",
+      "size": "1"
+    }, {
+      "appendage": "y",
+      "continuation": false,
+      "intact": false,
+      "pattern": "iful",
+      "size": "4"
+    }, {
+      "continuation": true,
+      "intact": false,
+      "pattern": "ful",
+      "size": "3"
+    }, {
+      "continuation": false,
+      "intact": false,
+      "pattern": "ul",
+      "size": "2"
+    }, {
+      "continuation": true,
+      "intact": false,
+      "pattern": "ial",
+      "size": "3"
+    }, {
+      "continuation": true,
+      "intact": false,
+      "pattern": "ual",
+      "size": "3"
+    }, {
+      "continuation": true,
+      "intact": false,
+      "pattern": "al",
+      "size": "2"
+    }, {
+      "continuation": false,
+      "intact": false,
+      "pattern": "ll",
+      "size": "1"
+    }],
+    "m": [{
+      "continuation": false,
+      "intact": false,
+      "pattern": "ium",
+      "size": "3"
+    }, {
+      "continuation": false,
+      "intact": true,
+      "pattern": "um",
+      "size": "2"
+    }, {
+      "continuation": true,
+      "intact": false,
+      "pattern": "ism",
+      "size": "3"
+    }, {
+      "continuation": false,
+      "intact": false,
+      "pattern": "mm",
+      "size": "1"
+    }],
+    "n": [{
+      "appendage": "j",
+      "continuation": true,
+      "intact": false,
+      "pattern": "sion",
+      "size": "4"
+    }, {
+      "appendage": "c",
+      "continuation": false,
+      "intact": false,
+      "pattern": "xion",
+      "size": "4"
+    }, {
+      "continuation": true,
+      "intact": false,
+      "pattern": "ion",
+      "size": "3"
+    }, {
+      "continuation": true,
+      "intact": false,
+      "pattern": "ian",
+      "size": "3"
+    }, {
+      "continuation": true,
+      "intact": false,
+      "pattern": "an",
+      "size": "2"
+    }, {
+      "continuation": false,
+      "intact": false,
+      "pattern": "een",
+      "size": "0"
+    }, {
+      "continuation": true,
+      "intact": false,
+      "pattern": "en",
+      "size": "2"
+    }, {
+      "continuation": false,
+      "intact": false,
+      "pattern": "nn",
+      "size": "1"
+    }],
+    "p": [{
+      "continuation": true,
+      "intact": false,
+      "pattern": "ship",
+      "size": "4"
+    }, {
+      "continuation": false,
+      "intact": false,
+      "pattern": "pp",
+      "size": "1"
+    }],
+    "r": [{
+      "continuation": true,
+      "intact": false,
+      "pattern": "er",
+      "size": "2"
+    }, {
+      "continuation": false,
+      "intact": false,
+      "pattern": "ear",
+      "size": "0"
+    }, {
+      "continuation": false,
+      "intact": false,
+      "pattern": "ar",
+      "size": "2"
+    }, {
+      "continuation": true,
+      "intact": false,
+      "pattern": "or",
+      "size": "2"
+    }, {
+      "continuation": true,
+      "intact": false,
+      "pattern": "ur",
+      "size": "2"
+    }, {
+      "continuation": false,
+      "intact": false,
+      "pattern": "rr",
+      "size": "1"
+    }, {
+      "continuation": true,
+      "intact": false,
+      "pattern": "tr",
+      "size": "1"
+    }, {
+      "appendage": "y",
+      "continuation": true,
+      "intact": false,
+      "pattern": "ier",
+      "size": "3"
+    }],
+    "s": [{
+      "appendage": "y",
+      "continuation": true,
+      "intact": false,
+      "pattern": "ies",
+      "size": "3"
+    }, {
+      "continuation": false,
+      "intact": false,
+      "pattern": "sis",
+      "size": "2"
+    }, {
+      "continuation": true,
+      "intact": false,
+      "pattern": "is",
+      "size": "2"
+    }, {
+      "continuation": true,
+      "intact": false,
+      "pattern": "ness",
+      "size": "4"
+    }, {
+      "continuation": false,
+      "intact": false,
+      "pattern": "ss",
+      "size": "0"
+    }, {
+      "continuation": true,
+      "intact": false,
+      "pattern": "ous",
+      "size": "3"
+    }, {
+      "continuation": false,
+      "intact": true,
+      "pattern": "us",
+      "size": "2"
+    }, {
+      "continuation": true,
+      "intact": true,
+      "pattern": "s",
+      "size": "1"
+    }, {
+      "continuation": false,
+      "intact": false,
+      "pattern": "s",
+      "size": "0"
+    }],
+    "t": [{
+      "appendage": "y",
+      "continuation": false,
+      "intact": false,
+      "pattern": "plicat",
+      "size": "4"
+    }, {
+      "continuation": true,
+      "intact": false,
+      "pattern": "at",
+      "size": "2"
+    }, {
+      "continuation": true,
+      "intact": false,
+      "pattern": "ment",
+      "size": "4"
+    }, {
+      "continuation": true,
+      "intact": false,
+      "pattern": "ent",
+      "size": "3"
+    }, {
+      "continuation": true,
+      "intact": false,
+      "pattern": "ant",
+      "size": "3"
+    }, {
+      "appendage": "b",
+      "continuation": false,
+      "intact": false,
+      "pattern": "ript",
+      "size": "2"
+    }, {
+      "appendage": "b",
+      "continuation": false,
+      "intact": false,
+      "pattern": "orpt",
+      "size": "2"
+    }, {
+      "continuation": false,
+      "intact": false,
+      "pattern": "duct",
+      "size": "1"
+    }, {
+      "continuation": false,
+      "intact": false,
+      "pattern": "sumpt",
+      "size": "2"
+    }, {
+      "appendage": "i",
+      "continuation": false,
+      "intact": false,
+      "pattern": "cept",
+      "size": "2"
+    }, {
+      "appendage": "v",
+      "continuation": false,
+      "intact": false,
+      "pattern": "olut",
+      "size": "2"
+    }, {
+      "continuation": false,
+      "intact": false,
+      "pattern": "sist",
+      "size": "0"
+    }, {
+      "continuation": true,
+      "intact": false,
+      "pattern": "ist",
+      "size": "3"
+    }, {
+      "continuation": false,
+      "intact": false,
+      "pattern": "tt",
+      "size": "1"
+    }],
+    "u": [{
+      "continuation": false,
+      "intact": false,
+      "pattern": "iqu",
+      "size": "3"
+    }, {
+      "continuation": false,
+      "intact": false,
+      "pattern": "ogu",
+      "size": "1"
+    }],
+    "v": [{
+      "appendage": "j",
+      "continuation": true,
+      "intact": false,
+      "pattern": "siv",
+      "size": "3"
+    }, {
+      "continuation": false,
+      "intact": false,
+      "pattern": "eiv",
+      "size": "0"
+    }, {
+      "continuation": true,
+      "intact": false,
+      "pattern": "iv",
+      "size": "2"
+    }],
+    "y": [{
+      "continuation": true,
+      "intact": false,
+      "pattern": "bly",
+      "size": "1"
+    }, {
+      "appendage": "y",
+      "continuation": true,
+      "intact": false,
+      "pattern": "ily",
+      "size": "3"
+    }, {
+      "continuation": false,
+      "intact": false,
+      "pattern": "ply",
+      "size": "0"
+    }, {
+      "continuation": true,
+      "intact": false,
+      "pattern": "ly",
+      "size": "2"
+    }, {
+      "continuation": false,
+      "intact": false,
+      "pattern": "ogy",
+      "size": "1"
+    }, {
+      "continuation": false,
+      "intact": false,
+      "pattern": "phy",
+      "size": "1"
+    }, {
+      "continuation": false,
+      "intact": false,
+      "pattern": "omy",
+      "size": "1"
+    }, {
+      "continuation": false,
+      "intact": false,
+      "pattern": "opy",
+      "size": "1"
+    }, {
+      "continuation": true,
+      "intact": false,
+      "pattern": "ity",
+      "size": "3"
+    }, {
+      "continuation": true,
+      "intact": false,
+      "pattern": "ety",
+      "size": "3"
+    }, {
+      "continuation": false,
+      "intact": false,
+      "pattern": "lty",
+      "size": "2"
+    }, {
+      "continuation": false,
+      "intact": false,
+      "pattern": "istry",
+      "size": "5"
+    }, {
+      "continuation": true,
+      "intact": false,
+      "pattern": "ary",
+      "size": "3"
+    }, {
+      "continuation": true,
+      "intact": false,
+      "pattern": "ory",
+      "size": "3"
+    }, {
+      "continuation": false,
+      "intact": false,
+      "pattern": "ify",
+      "size": "3"
+    }, {
+      "appendage": "t",
+      "continuation": true,
+      "intact": false,
+      "pattern": "ncy",
+      "size": "2"
+    }, {
+      "continuation": true,
+      "intact": false,
+      "pattern": "acy",
+      "size": "3"
+    }],
+    "z": [{
+      "continuation": true,
+      "intact": false,
+      "pattern": "iz",
+      "size": "2"
+    }, {
+      "appendage": "s",
+      "continuation": false,
+      "intact": false,
+      "pattern": "yz",
+      "size": "1"
+    }]
+  };
+
+  return function(token) {
+
+    return applyRules(token.toLowerCase(), true);
   };
 
 })();
