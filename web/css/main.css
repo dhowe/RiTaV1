@@ -1017,7 +1017,7 @@ b{
     max-width:210px;
 }
 .downloadbox span{
-    margin-top: 0.2rem;
+    margin-top: 0rem;
     font-size: 12px;
     display:block;
     color:grey;
@@ -1059,17 +1059,32 @@ b{
     display:block;
 }
 
-#version-div a{
-    color:#222 !important;
-}
-
-#version-div a:hover{
-   text-decoration:none!important;
+/*#version-div a{
+    color:#222;
+}*/
+.downloadbox {
+    font-size: 18px;
 }
 .downloadbox:hover{
     text-decoration: none;
     color:#00a7fd;
     border-color:#00a7fd;
+}
+.downloadbox span.sizes{
+   padding-top: 1em;
+}
+span.sizes a {
+    /*color:#006B8F !important;*/
+    background-color: rgb(200,200,200);
+    color:white;
+    padding:1px 2px;
+}
+.downloadbox:hover a.default{
+    background-color: #00a7fd;
+    color:white !important;
+}
+.downloadbox:hover a:not(.default){
+    color:rgb(200,200,200)!important;
 }
 .downloadbox:hover >span{
     color:#00a7fd;
