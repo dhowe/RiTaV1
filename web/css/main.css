@@ -1260,6 +1260,10 @@ span.spacing{
 .gallery_home_item img{
     width:180px;
     height:45px;
+    border-style: solid;
+    border-width:1px;
+    border-color:#DDD;
+    border-radius: 4px;
 }
 .gallery_home_item p{
     font-size: 0.875rem;
