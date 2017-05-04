@@ -38,14 +38,14 @@ Add your site or application content here
        <span class="gallery_home_item gd-4  mgd-6 sgd-12">
         <a href="./gallery/HW00/hw00.html" target="new"><img src="img/hm.jpg" ></a><br>
         <a href="./gallery/HW00/hw00.html" target="new">HW-PM-R-00</a>
-        <p><span style="font-size:10px;">by David Hale</span></p>
+        <p><span>by David Hale</span></p>
         <p class="gallery_home_spacer">&nbsp;</p>
       </span>
 
       <span class="gallery_home_item gd-4  mgd-6 sgd-12">
         <a href="./gallery/BookshelfWriter" target="new"><img src="img/bookshelfWriter.jpg" ></a><br>
         <a href="./gallery/BookshelfWriter" target="new">Bookshelf Writer</a>
-        <p><span style="font-size:10px;">by A.Refsgaard K. Solvåg R. Cereser</span></p>
+        <p><span style="font-size:11px;">by A.Refsgaard K. Solvåg R. Cereser</span></p>
         <p class="gallery_home_spacer">&nbsp;</p>
       </span>
 
