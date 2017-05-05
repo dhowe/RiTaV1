@@ -991,6 +991,7 @@ b{
     border-width:2px;
     max-width:300px;
     margin:1rem  auto 4rem;
+    border-radius: 5px;
 }
 .downloadbox a span
 {
