@@ -1,3 +1,4 @@
 language: java
 before_script: "cd resources"
 script: "ant"
+group: deprecated-2017Q1
