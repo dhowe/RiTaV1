@@ -88,9 +88,9 @@ background: -ms-linear-gradient(top, rgba(56,66,90,1) 0%, rgba(15,20,41,1) 65%, 
 background: linear-gradient(to bottom, rgba(56,66,90,1) 0%, rgba(15,20,41,1) 65%, rgba(15,20,41,1) 100%);
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#38425a', endColorstr='#0f1429', GradientType=0 );
 }
-          .menu {
+        .menu {
             margin:0 auto;
-            width:600px;
+            width:620px;
         }
         .toggle-nav {
          display:none;
@@ -1342,6 +1342,9 @@ td h3{
 }
 .tutorialList ul li{
     font-size: 1rem;
+}
+.tutorialList ul li span{
+    font-size: .7em !important;
 }
 .videoTag{
     margin-left: .5em;
