@@ -23,10 +23,12 @@
   <div class="col10">
      <h3 style="margin-left:-20px">Tutorials</h3>
 <ul class="tutorialList">
-    <li>Video Tutorials on RiTa.js <span style="font-size:.7em">by Dan Shiffman</span>
+    <li>Video Tutorials on RiTa.js 
       <ul>
-        <li><a href="https://www.youtube.com/watch?v=lIPEvh8HbGQ" target="_blank">An Introduction to RiTa</a></li>
-        <li><a href="https://www.youtube.com/watch?v=VaAoIaZ3YKs" target="_blank">Generating with Grammars</a></li>
+        
+        <li><a href="https://egghead.io/lessons/node-js-make-a-bot-that-sounds-like-you-with-rita-js" target="_blank">Make A Bot That Sounds Like You with RiTa.js <span>by Hannah Davis</span></a></li>
+        <li><a href="https://www.youtube.com/watch?v=lIPEvh8HbGQ" target="_blank">An Introduction to RiTa <span>by Dan Shiffman</span></a></li>
+        <li><a href="https://www.youtube.com/watch?v=VaAoIaZ3YKs" target="_blank">Generating with Grammars <span>by Dan Shiffman</span></a></li>
       </ul>
     </li>
     <li><a href="analyzing.php">Analyzing text</a>
