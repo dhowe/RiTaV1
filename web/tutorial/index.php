@@ -25,7 +25,7 @@
 <ul class="tutorialList">
     <li>Video Tutorials on RiTa.js 
       <ul>
-        
+        <li><a href="https://egghead.io/lessons/node-js-make-a-twitter-audio-bot-that-composes-a-song-based-on-a-tweet" target="_blank">Make a Twitter Audio Bot That Composes a Song Based on a Tweet <span>by Hannah Davis</span></a></li>
         <li><a href="https://egghead.io/lessons/node-js-make-a-bot-that-sounds-like-you-with-rita-js" target="_blank">Make A Bot That Sounds Like You with RiTa.js <span>by Hannah Davis</span></a></li>
         <li><a href="https://www.youtube.com/watch?v=lIPEvh8HbGQ" target="_blank">An Introduction to RiTa <span>by Dan Shiffman</span></a></li>
         <li><a href="https://www.youtube.com/watch?v=VaAoIaZ3YKs" target="_blank">Generating with Grammars <span>by Dan Shiffman</span></a></li>
