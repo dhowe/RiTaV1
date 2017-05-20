@@ -1,3 +1,2 @@
-core.jar: 2.2.1
+core.jar: 3.3.2
 junit.jar: 4.10
-json.jar: ???
