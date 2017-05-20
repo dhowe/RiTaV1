@@ -1093,7 +1093,7 @@ public class RiLexViaRiTa {
     ok(result.length == 0);
 
     result = RiTa.substrings("thousand");
-    String[] answer = { "sand", "thou" };
+    String[] answer = { "sand" };
     deepEqual(result, answer);
 
     String[] result3 = RiTa.substrings("exhibition");
@@ -1117,7 +1117,7 @@ public class RiLexViaRiTa {
  // only 1 per test needed
 
     String[] result = RiTa.substrings("thousand", 4); // min-length=4
-    String[] answer = new String[] { "sand", "thou" };
+    String[] answer = new String[] { "sand" };
     deepEqual(result, answer);
 
     result = RiTa.substrings("thousand", 5); // min-length=5

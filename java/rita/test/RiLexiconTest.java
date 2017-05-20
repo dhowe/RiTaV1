@@ -1133,7 +1133,7 @@ public class RiLexiconTest {
     ok(result.length == 0);
 
     result = lex.substrings("thousand");
-    String[] answer = { "sand", "thou" };
+    String[] answer = { "sand" };
     deepEqual(result, answer);
 
     String[] result3 = lex.substrings("exhibition");
@@ -1157,7 +1157,7 @@ public class RiLexiconTest {
     RiLexicon lex = new RiLexicon(); // only 1 per test needed
 
     String[] result = lex.substrings("thousand", 4); // min-length=4
-    String[] answer = new String[] { "sand", "thou" };
+    String[] answer = new String[] { "sand"};
     deepEqual(result, answer);
 
     result = lex.substrings("thousand", 5); // min-length=5
