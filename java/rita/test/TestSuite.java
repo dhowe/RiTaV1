@@ -9,7 +9,7 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ RiLexiconTest.class, RiStringTest.class,
     RiTextTest.class, RiTaTest.class, RiMarkovTest.class, RiGrammarTest.class,
-    RiTaEventTest.class, RiWordNetTest.class,
+    RiTaEventTest.class, RiWordNetTest.class, RiLexViaRiTa.class
 // RiWordNetIteratorsTest.class, // TOO SLOW!
 // KnownIssuesTest.class,
 })

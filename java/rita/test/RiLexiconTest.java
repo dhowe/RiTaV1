@@ -66,18 +66,11 @@ public class RiLexiconTest {
     // TODO: check that these tests are the same in RiTaJS
     RiLexicon lex = new RiLexicon();
     ok(lex.containsWord("banana"));
-    lex.removeWord("banana");
-    ok(!lex.containsWord("banana"));
+    ok(!lex.containsWord("wonderfullyy"));
 
-    lex.clear();
-    ok(lex.size() == 0);
-    lex.reload();
-
-    ok(lex.containsWord("banana"));
-    ok(lex.containsWord("funny"));
 
     HashMap obj = new HashMap();
-    obj.put("wonderfullyy", new String[] { "w-ah1-n-d er-f ah-l iy", "rb" });
+    obj.put("wonderfullyy", "w-ah1-n-d er-f ah-l iy | rb");
     lex.lexicalData(obj);
  
     ok(lex.size() == 1);
@@ -103,8 +96,9 @@ public class RiLexiconTest {
 
   @Test
   public void testContainsWordString() {
+    
     RiLexicon lex = new RiLexicon();
-
+    
     ok(lex.containsWord("cat"));
     ok(!lex.containsWord("cated"));
     ok(lex.containsWord("funny"));
@@ -114,13 +108,28 @@ public class RiLexiconTest {
     ok(lex.containsWord("hello"));
     ok(lex.containsWord("HeLLo"));
     ok(lex.containsWord("HELLO"));
-    ok(lex.containsWord("a"));
-    ok(lex.containsWord("A"));
-    ok(lex.containsWord("zooms"));
-//
-//    lex.lexicalData().put("hello", null);
-//    ok(!lex.containsWord("hello"));
-//    ok(!lex.containsWord(""));
+
+    // plurals
+    ok(lex.containsWord("cats"));
+    ok(lex.containsWord("boxes"));
+    ok(lex.containsWord("teeth"));
+    ok(lex.containsWord("apples"));
+    ok(lex.containsWord("buses"));
+    ok(lex.containsWord("oxen"));
+    ok(lex.containsWord("theses"));
+    ok(lex.containsWord("stimuli"));
+    ok(lex.containsWord("crises"));
+    ok(lex.containsWord("media"));
+    //ok(lex.containsWord("prognoses")); // TODO: failing in java
+
+
+    //vb* ?
+    ok(lex.containsWord("runs"));
+    ok(lex.containsWord("running"));
+    ok(lex.containsWord("ran"));
+    ok(lex.containsWord("moved"));
+    ok(lex.containsWord("went"));
+    ok(lex.containsWord("spent"));
   }
 
   @Test
@@ -189,12 +198,9 @@ public class RiLexiconTest {
     expected = "dh-ah|dt";
     deepEqual(returned, expected);
 
-    String answer = (String) result.get("aback");
-    deepEqual("ah b-ae1-k|rb", answer);
-
     // System.out.println("lexicalData containsKey('a'): "+result.containsKey("a"));
     // System.out.println("lexicalData : "+result.get("a"));
-    answer = (String) result.get("a");
+    String answer = (String) result.get("a");
     deepEqual(answer, "ey1|dt");
 
 //    lex.lexicalData().put("hello", null);
@@ -261,7 +267,7 @@ public class RiLexiconTest {
     
     RiLexicon lex = new RiLexicon();
 
-    String[] pos = { "nn", "jj", "jjr" };
+    String[] pos = { "nn", "jj" };
 
     for (int j = 0; j < pos.length; j++) {
       for (int k = 2; k < 5; k++) {
@@ -663,11 +669,12 @@ public class RiLexiconTest {
 
   @Test
   public void testGetRawPhonesStringBoolean() {
+    
     RiLexicon lex = new RiLexicon();
 
     String s = lex.getRawPhones("dragging", false);
     equal(s, "d-r-ae1 g-ih-ng");
-
+    
     s = lex.getRawPhones("wellow", false);
     ok(s.length() == 0);
 
@@ -867,20 +874,24 @@ public class RiLexiconTest {
       ok(!lex.isRhyme(notRhymes[i+1], notRhymes[i]));  // either way should be the same
     }
   }
+  
+  public void removeWord(RiLexicon lex, String s) {
+    lex.lexicalData().remove(s.toLowerCase());
+  }
 
   @Test
   public void testRemoveWordString() {
     RiLexicon lex = new RiLexicon();
     int size1 = lex.size();
     ok(lex.containsWord("banana"));
-    lex.removeWord("banana");
+    removeWord(lex, "banana");
     ok(!lex.containsWord("banana"));
 
     ok(lex.containsWord("are")); // check that others r still there
-    lex.removeWord("aaa");
+    removeWord(lex, "aaa");
     ok(!lex.containsWord("aaa"));
 
-    lex.removeWord("");
+    removeWord(lex, "");
 
     int size2 = lex.size();
 
@@ -905,8 +916,7 @@ public class RiLexiconTest {
 
     RiLexicon lex = new RiLexicon();
     String[] result = lex.similarByLetter("banana");
-    String[] answer = { "lantana", "wanna", "manna", "cabana", "banal",
-	"bonanza" };
+    String[] answer = { "manna", "cabana", "banal","bonanza" };
     deepEqual(result, answer);
 
     result = lex.similarByLetter("tornado");
@@ -1100,9 +1110,9 @@ public class RiLexiconTest {
     int originalSize = lex.size();
     
     ok(lex.containsWord("cat"));
-    lex.removeWord("cat");
+    removeWord(lex, "cat");
     ok(lex.containsWord("are"));
-    lex.removeWord("are");
+    removeWord(lex, "are");
 	
     int removeTwoWordSize = lex.size();
     ok(removeTwoWordSize < originalSize);

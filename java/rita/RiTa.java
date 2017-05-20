@@ -13,13 +13,13 @@ import rita.support.*;
  * A set of static properties and utility functions for the package
  */
 public class RiTa implements Constants {
-  
+
   public final static String VERSION = "##version##";
 
   /** For tokenization, Can't -> Can not, etc. */
   public static boolean SPLIT_CONTRACTIONS = false;
-  
-  /** For Phonemization: ARPA or IPA   */
+
+  /** For Phonemization: ARPA or IPA */
   public static int PHONEME_TYPE = ARPA;
 
   /** Stops all RiTa output to the console */
@@ -74,7 +74,7 @@ public class RiTa implements Constants {
   public static String getPhonemes(String[] s) {
     return getFeature(s, PHONEMES);
   }
-  
+
   public static String getStresses(String s) {
     return getFeature(s, STRESSES);
   }
@@ -141,134 +141,190 @@ public class RiTa implements Constants {
 
     return s.trim();
   }
+
+  // RiLexicon delegates ====================================================
+
+  public static RiLexicon addWord(String word, String pronunciation, String partsOfSpeech) {
+    return getLexicon().addWord(word, pronunciation, partsOfSpeech);
+  }
   
-  /* 
-    RiLexicon delegates: (TODO: check full list, update API)
-      rhymes
-      randomWord
-      similarBySound
-      similarByLetter
-      similarBySoundAndLetter
-      isAlliteration
-      alliterations
-      isAdjective
-      isNoun
-      isAdjective
-      isVerb
-  */
+  public static String getBestPos(String word) { // niapi, for tests
+    return getLexicon().lexImpl.getBestPos(word);
+  }
+
+  public static RiLexicon reload() {
+    return getLexicon().reload();
+  }
+
+  public static RiLexicon clear() {
+    return getLexicon().clear();
+  }
+
+  public static boolean containsWord(String word) {
+    return getLexicon().containsWord(word);
+  }
+
+  public static HashMap<String, String> lexicalData() {
+    return getLexicon().lexicalData();
+  }
+
+  public static RiLexicon lexicalData(HashMap m) {
+    return getLexicon().lexicalData(m);
+  }
+
+  public static String randomWordByLength(String pos, int targetLength) {
+    return getLexicon().randomWordByLength(pos, targetLength);
+  }
+
+  public static String randomWordByLength(int targetLength) {
+    return getLexicon().randomWordByLength(targetLength);
+  }
+
+  public static String getRawPhones(String word) {
+    return getLexicon().getRawPhones(word);
+  }
+
+  public static String getRawPhones(String word, boolean useLTS) {
+    return getLexicon().getRawPhones(word, useLTS);
+  }
+
+  public static String[] words() {
+    return getLexicon().words();
+  }
+
+  public static String[] words(String regex) {
+    return getLexicon().words(regex);
+  }
+
+  public static String[] words(boolean shuffled) {
+    return getLexicon().words(shuffled);
+  }
+
+  public static String[] words(String regex, boolean sorted) {
+    return getLexicon().words(regex, sorted);
+  }
+
+  public static String[] words(Pattern regex, boolean sorted) {
+    return getLexicon().words(regex, sorted);
+  }
+
+  public static int size() {
+    return getLexicon().size();
+  }
+
   public static String[] rhymes(String input) {
     return getLexicon().rhymes(input);
   }
-  
-  public String[] alliterations(String input) {
+
+  public static String[] alliterations(String input) {
     return getLexicon().alliterations(input);
   }
 
   public static String[] alliterations(String input, int minLength) {
     return getLexicon().alliterations(input, minLength);
   }
-  
-  public String randomWord() {
+
+  public static String randomWord() {
     return getLexicon().randomWord();
   }
 
-  public String randomWord(String pos) {
+  public static String randomWord(String pos) {
     return getLexicon().randomWord(pos);
   }
 
-  public String randomWord(int syllableCount) {
+  public static String randomWord(int syllableCount) {
     return getLexicon().randomWord(syllableCount);
   }
 
-  public String randomWord(String pos, int syllableCount) {
+  public static String randomWord(String pos, int syllableCount) {
     return getLexicon().randomWord(pos, syllableCount);
   }
-  
+
   public static boolean isAlliteration(String wordA, String wordB) {
     return getLexicon().isAlliteration(wordA, wordB);
   }
 
-  public boolean isAdverb(String s) {
+  public static boolean isAdverb(String s) {
     return getLexicon().isAdverb(s);
   }
 
-  public boolean isNoun(String s) {
+  public static boolean isNoun(String s) {
     return getLexicon().isNoun(s);
   }
 
-  public boolean isVerb(String s) {
+  public static boolean isVerb(String s) {
     return getLexicon().isVerb(s);
   }
 
-  public boolean isAdjective(String s) {
+  public static boolean isAdjective(String s) {
     return getLexicon().isAdjective(s);
   }
 
-  public boolean isRhyme(String wordA, String wordB) {
+  public static boolean isRhyme(String wordA, String wordB) {
     return getLexicon().isRhyme(wordA, wordB);
   }
 
-  public boolean isRhyme(String wordA, String wordB, boolean useLTS) {
+  public static boolean isRhyme(String wordA, String wordB, boolean useLTS) {
     return getLexicon().isRhyme(wordA, wordB, useLTS);
   }
 
-  public String[] similarByLetter(String input) {
+  public static String[] similarByLetter(String input) {
     return getLexicon().similarByLetter(input);
   }
 
-  public String[] similarBySound(String input) {
+  public static String[] similarBySound(String input) {
     return getLexicon().similarBySound(input);
   }
 
-  public String[] similarBySoundAndLetter(String input) {
+  public static String[] similarBySoundAndLetter(String input) {
     return getLexicon().similarBySoundAndLetter(input);
   }
 
-  public String[] substrings(String input) {
+  public static String[] substrings(String input) {
     return getLexicon().substrings(input);
   }
 
-  public String[] substrings(String input, int minLength) {
+  public static String[] substrings(String input, int minLength) {
     return getLexicon().substrings(input, minLength);
   }
 
-  public void substrings(String input, Set result) {
+  public static void substrings(String input, Set result) {
     getLexicon().substrings(input, result);
   }
 
-  public void substrings(String input, Set result, int minLength) {
+  public static void substrings(String input, Set result, int minLength) {
     getLexicon().substrings(input, result, minLength);
   }
 
-  public String[] superstrings(String input) {
+  public static String[] superstrings(String input) {
     return getLexicon().superstrings(input);
   }
 
-  public void superstrings(String input, Set result) {
-    getLexicon().superstrings(input, result);
-  }
-
-  public void superstrings(String input, Set result, int minLength) {
+  public static void superstrings(String input, Set result, int minLength) {
     getLexicon().superstrings(input, result, minLength);
   }
 
-  public String[] similarByLetter(String s, int minEditDistance) {
+  public static String[] similarByLetter(String s, int minEditDistance) {
     return getLexicon().similarByLetter(s, minEditDistance);
   }
 
-  public String[] similarByLetter(String input, int med, boolean preserveLength) {
+  public static String[] similarByLetter(String input, int med, boolean preserveLength) {
     return getLexicon().similarByLetter(input, med, preserveLength);
   }
 
-  public String[] similarBySound(String input, int minDist) {
+  public static String[] similarBySound(String input, int minDist) {
     return getLexicon().similarBySound(input, minDist);
   }
+  
+  // =============================================================================
 
   static RiLexicon getLexicon() {
     if (lexicon == null)
       lexicon = new RiLexicon();
-    return lexicon; 
-  } static RiLexicon lexicon;
+    return lexicon;
+  }
+
+  static RiLexicon lexicon;
 
   public static int getWordCount(String s) {
     return RiTa.tokenize(s).length;
@@ -285,7 +341,7 @@ public class RiTa implements Constants {
   }
 
   /**
-   * Packs an array of floats (size 4) representing (a,r,g,b) color values into
+   * Packs an array of floats (size 4) representing (a,getLexicon(),g,b) color values into
    * a single integer
    */
   public static int pack(int a, int r, int g, int b) {
@@ -309,7 +365,7 @@ public class RiTa implements Constants {
   }
 
   /**
-   * Unpacks a integer into an array of floats (size 4) representing (a,r,g,b)
+   * Unpacks a integer into an array of floats (size 4) representing (a,getLexicon(),g,b)
    * color values
    */
   public static int[] unpack(int pix) {
@@ -1261,9 +1317,9 @@ public class RiTa implements Constants {
 	  PAppletIF pApplet = (PAppletIF) RiDynamic.cast(parent,
 	      PAppletIF.class);
 	  return pApplet.loadStrings(fileName);
-	} 
-	System.err.println("[WARN] RiTa.loadString(s): Expecting a PApplet" +
-	    " as 2nd argument, but found: " + parent.getClass());
+	}
+	System.err.println("[WARN] RiTa.loadString(s): Expecting a PApplet"
+	    + " as 2nd argument, but found: " + parent.getClass());
       }
     }
 
@@ -1703,7 +1759,7 @@ public class RiTa implements Constants {
       }
     }.start();
   }
-  
+
   public static String[] kwic(String text, String word, Map options) {
     return Concorder.cachedKwic(text, word, options);
   }

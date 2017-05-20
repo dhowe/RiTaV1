@@ -26,7 +26,7 @@ import rita.support.*;
  * Note: For performance, the data for all RiLexicon instances is shared.
  */
 public class RiLexicon implements Constants {
-  
+
   static {
     RiTa.init();
   }
@@ -51,7 +51,7 @@ public class RiLexicon implements Constants {
    */
   public RiLexicon(Object parent) // ignore parent
   {
-    this((HashMap)null);
+    this((HashMap) null);
   }
 
   /**
@@ -61,18 +61,13 @@ public class RiLexicon implements Constants {
    * (there is only 1 copy)
    */
   public RiLexicon() {
-    this((HashMap)null);
+    this((HashMap) null);
   }
 
   public RiLexicon(HashMap data) {
     this.lexImpl = JSONLexicon.getInstance();
     if (data != null)
       this.lexImpl.setLexicalData(data);
-  }
-
-  public RiLexicon removeWord(String s) {
-    lexicalData().remove(s.toLowerCase());
-    return this;
   }
 
   public RiLexicon addWord(String word, String pronunciation,
@@ -92,11 +87,35 @@ public class RiLexicon implements Constants {
     return this;
   }
 
+  private boolean isPlural(String word) {
+
+    String stem = RiTa.stem(word, RiTa.PLING);
+    if (stem.equals(word)) return false;
+    
+    String lookup = lexicalData().get(RiTa.singularize(word));
+    if (lookup == null) return false;
+    
+    String[] data = lookup.split("\\|");
+    //RiTa.out(data);
+    if (data != null && data.length == 2) {
+      String[] pos = data[1].split(SP);
+      for (int i = 0; i < pos.length; i++) {
+        if (pos[i].equals("nn"))
+          return true;
+      }
+    }
+    return false;
+  }
+
   /**
    * Returns true if the word exists in the lexicon (case-insensitive)
    */
   public boolean containsWord(String word) {
-    return lexicalData().get(word.toLowerCase()) != null;
+    if (word == null || word.length() < 1) 
+      	return false;
+    word = word.toLowerCase();
+    String data = lexicalData().get(word);
+    return (data != null) ? true : isPlural(word); 
   }
 
   /**
@@ -107,19 +126,22 @@ public class RiLexicon implements Constants {
    * null;
    */
   public boolean isAlliteration(String wordA, String wordB) {
-    
+
     if (wordA != null && wordB != null) {
-      
-      //space
-      if (wordA.indexOf(" ") > -1 || wordB.indexOf(" ") > -1) return false;
+
+      // space
+      if (wordA.indexOf(" ") > -1 || wordB.indexOf(" ") > -1)
+	return false;
 
       if (wordB.equals(wordA))
 	return true;
 
       String fcA = firstPhoneme(firstStressedSyllable(wordA, true));
       String fcB = firstPhoneme(firstStressedSyllable(wordB, true));
-    
-      if (Phoneme.isVowel("" + fcA.charAt(0)) || Phoneme.isVowel("" + fcB.charAt(0))) return false;
+
+      if (Phoneme.isVowel("" + fcA.charAt(0))
+	  || Phoneme.isVowel("" + fcB.charAt(0)))
+	return false;
 
       if (fcA != null && fcB != null && fcA.equals(fcB))
 	return true;
@@ -128,15 +150,16 @@ public class RiLexicon implements Constants {
   }
 
   // NOTE: this is just an optimization of the above
-  boolean _isAlliteration(String firstConsOfFirstStressed, String wordB, boolean useLTS) {
+  boolean _isAlliteration(String firstConsOfFirstStressed, String wordB,
+      boolean useLTS) {
 
     if (wordB != null && firstConsOfFirstStressed != null) {
-       //Alliteration of vowels
+      // Alliteration of vowels
       char c = firstConsOfFirstStressed.charAt(0);
       if (VOWELS.indexOf(c) != -1) {
-        char cB = wordB.charAt(0);
-        if (c == cB)
-        return true;
+	char cB = wordB.charAt(0);
+	if (c == cB)
+	  return true;
       }
       String fcB = firstConsonant(firstStressedSyllable(wordB, useLTS));
 
@@ -148,12 +171,12 @@ public class RiLexicon implements Constants {
   }
 
   public HashMap<String, String> lexicalData() {
-    
+
     return lexImpl != null ? lexImpl.getLexicalData() : new HashMap();
   }
 
   public RiLexicon lexicalData(HashMap m) {
-    if (lexImpl == null) 
+    if (lexImpl == null)
       throw new RuntimeException("Null lexicon");
     lexImpl.setLexicalData(m);
     return this;
@@ -166,12 +189,13 @@ public class RiLexicon implements Constants {
 
   /**
    * Returns a random word from the lexicon with the specified part-of-speech
+   * 
    * @see PosTagger
    */
   public String randomWord(String pos) {
     String word = randomWordByLength(pos, -1);
     if (word == null)
-      throw new RiTaException("No words with pos="+pos+" found");
+      throw new RiTaException("No words with pos=" + pos + " found");
     return word;
   }
 
@@ -190,9 +214,9 @@ public class RiLexicon implements Constants {
    * @see PosTagger
    */
   public String randomWord(String pos, int syllableCount) {
-    
+
     boolean pluralize = false;
-    
+
     if (pos != null) {
       pluralize = pos.equals("nns");
       if (pos.equals("v"))
@@ -204,13 +228,13 @@ public class RiLexicon implements Constants {
       if (pos.equals("n") || pos.equals("nns"))
 	pos = "nn";
     }
-    
+
     Iterator<String> it = getIterator(pos);
 
     if (it != null) {
 
       if (syllableCount < 0) { // ignore syllable-count
-	return pluralize ? RiTa.pluralize(it.next()) : it.next(); 
+	return pluralize ? RiTa.pluralize(it.next()) : it.next();
       }
 
       Map<String, String> lookup = lexImpl.getLexicalData();
@@ -224,13 +248,13 @@ public class RiLexicon implements Constants {
 	}
 
 	String sylStr = data.split("\\|")[0].trim();
-	
-	if (sylStr.split(SP).length == syllableCount) {  
-	  return pluralize ? RiTa.pluralize(word) : word; 
+
+	if (sylStr.split(SP).length == syllableCount) {
+	  return pluralize ? RiTa.pluralize(word) : word;
 	}
       }
     }
-    
+
     return E;
   }
 
@@ -251,17 +275,17 @@ public class RiLexicon implements Constants {
     Iterator<String> it = getIterator(pos);
 
     try {
-      
+
       if (targetLength < 0) {
-        return it.next();
+	return it.next();
       }
 
       while (it.hasNext()) {
-        String s = it.next();
-        if (s.length() == targetLength)
-          return s;
+	String s = it.next();
+	if (s.length() == targetLength)
+	  return s;
       }
-      
+
     } catch (Exception e) {
       return null;
     }
@@ -323,7 +347,7 @@ public class RiLexicon implements Constants {
    * are identical.
    */
   private void rhymes(String word, Set result) {
-    
+
     String input = RiTa.trimPunctuation(word);
     String lss = lastStressedPhoneToEnd(input, true);
     if (lss == null)
@@ -331,47 +355,48 @@ public class RiLexicon implements Constants {
 
     for (Iterator it = lexicalData().keySet().iterator(); it.hasNext();) {
       String cand = (String) it.next();
-      
+
       if (cand.equals(input))
 	continue;
 
       String chck = getRawPhones(cand);
-      
+
       if (chck != null && chck.endsWith(lss))
 	result.add(cand);
     }
   }
-  
+
   // NOTE: Default is NOT to use LTS
   public String getRawPhones(String word) {
-    
+
     return getRawPhones(word, false); // Default is NOT to use LTS
   }
-  
+
   public String getRawPhones(String word, boolean useLTS) {
-    
+
     return getRawPhones(this.lexImpl, word, useLTS);
   }
-  
+
   public static String getRawPhones(JSONLexicon lex, String word) {
-    
+
     return getRawPhones(lex, word, false);
   }
 
   // Only uses LTS if useLTS is true AND the word is NOT found in the dictionary
   public static String getRawPhones(JSONLexicon lex, String word, boolean useLTS) {
-    
-    if (word == null || word.length() < 1) return E;
+
+    if (word == null || word.length() < 1)
+      return E;
 
     String data = null;
     if (lex != null)
       data = lex.lookupRaw(word);
 
-    if (data == null && useLTS) {  // try LTS rules
+    if (data == null && useLTS) { // try LTS rules
 
       String phones = LetterToSound.getInstance().getPhones(word);
       if (phones != null && phones.length() > 0) {
-	
+
 	if (!RiTa.SILENT && !RiLexicon.SILENCE_LTS && RiLexicon.enabled)
 	  System.out.println("[RiTa] Using letter-to-sound rules for: " + word);
 
@@ -381,7 +406,6 @@ public class RiLexicon implements Constants {
 
     return data == null ? E : data.split(DATA_DELIM)[0].trim();
   }
-
 
   public String[] words() {
     return this.words(false);
@@ -431,26 +455,27 @@ public class RiLexicon implements Constants {
 
   public boolean isNoun(String s) {
     String[] posTags = lexImpl.getPosArr(s);
-    
+
     boolean result = false;
-    
+
     for (int i = 0; posTags != null && i < posTags.length; i++) {
       if (PosTagger.isNoun(posTags[i]))
-  result = true;
+	result = true;
     }
-    
-    //check whether it is plural
+
+    // check whether it is plural
     if (!result) {
-     String singular = RiTa.singularize(s);
-     if (singular != s) {
-      posTags = lexImpl.getPosArr(singular);
-      for (int i = 0; posTags != null && i < posTags.length; i++) {
-  if (PosTagger.isNoun(posTags[i]))   result = true;
+      String singular = RiTa.singularize(s);
+      if (singular != s) {
+	posTags = lexImpl.getPosArr(singular);
+	for (int i = 0; posTags != null && i < posTags.length; i++) {
+	  if (PosTagger.isNoun(posTags[i]))
+	    result = true;
+	}
+	//System.out.println("found plural noun: " + s + " (" + singular + ")");
       }
-       System.out.println("found plural noun: "+ s +" (" + singular + ")");
-     }
     }
-    
+
     return result;
   }
 
@@ -475,18 +500,18 @@ public class RiLexicon implements Constants {
   }
 
   /**
-   * Returns true if the two words rhyme (that is, if their final stressed
-   * vowel phoneme and all following phonemes are identical). 
-   * Note: returns false if wordA.equals(wordB) or if either are null.
+   * Returns true if the two words rhyme (that is, if their final stressed vowel
+   * phoneme and all following phonemes are identical). Note: returns false if
+   * wordA.equals(wordB) or if either are null.
    */
   public boolean isRhyme(String wordA, String wordB) {
-    return isRhyme(wordA, wordB, true); 
+    return isRhyme(wordA, wordB, true);
   }
 
   /**
-   * Returns true if the two words rhyme (that is, if their final stressed
-   * vowel phoneme and all following phonemes are identical). 
-   * Note: returns false if wordA.equals(wordB) or if either are null;
+   * Returns true if the two words rhyme (that is, if their final stressed vowel
+   * phoneme and all following phonemes are identical). Note: returns false if
+   * wordA.equals(wordB) or if either are null;
    * <p>
    * Note: will only use letter-to-sound engine for words not found in lexicon
    * if useLTS=true
@@ -494,25 +519,31 @@ public class RiLexicon implements Constants {
   public boolean isRhyme(String wordA, String wordB, boolean useLTS) {
     boolean dbug = false;
 
-    if (dbug) System.out.println("RiLexicon.isRhyme('" + wordA + "' ?= '" + wordB + "') ->");
-    
+    if (dbug)
+      System.out.println("RiLexicon.isRhyme('" + wordA + "' ?= '" + wordB
+	  + "') ->");
+
     boolean result = false;
     String phonesA = getRawPhones(wordA, useLTS);
     String phonesB = getRawPhones(wordB, useLTS);
-    
-    if (wordA != null && wordB != null && !wordB.equalsIgnoreCase(wordA) &&  !phonesB.equals(phonesA)) {
+
+    if (wordA != null && wordB != null && !wordB.equalsIgnoreCase(wordA)
+	&& !phonesB.equals(phonesA)) {
 
       String lspA = lastStressedVowelPhonemeToEnd(wordA, useLTS);
       String lspB = lastStressedVowelPhonemeToEnd(wordB, useLTS);
-      
-      if (dbug) System.out.println("RiLexicon.isRhyme('" + lspA + "' ?= '" + lspB + "') ->");
-      
+
+      if (dbug)
+	System.out.println("RiLexicon.isRhyme('" + lspA + "' ?= '" + lspB
+	    + "') ->");
+
       if (lspA != null && lspB != null && lspA.equals(lspB))
 	result = true;
     }
 
-    if (dbug) System.out.println("  " + result);
-    
+    if (dbug)
+      System.out.println("  " + result);
+
     return result;
   }
 
@@ -697,8 +728,9 @@ public class RiLexicon implements Constants {
   }
 
   public void substrings(String input, Set result, int minLength) {
-    
-    if (minLength < 0) minLength = MATCH_MIN_LENGTH;
+
+    if (minLength < 0)
+      minLength = MATCH_MIN_LENGTH;
 
     // List partials = getPartialCandidates(input, minLength);
     for (Iterator j = lexImpl.iterator(); j.hasNext();) {
@@ -727,8 +759,9 @@ public class RiLexicon implements Constants {
   }
 
   public void superstrings(String input, Set result, int minLength) {
-    
-    if (minLength < 0) minLength = MATCH_MIN_LENGTH;
+
+    if (minLength < 0)
+      minLength = MATCH_MIN_LENGTH;
 
     for (Iterator j = lexImpl.iterator(); j.hasNext();) {
       String candidate = (String) j.next();
@@ -758,17 +791,18 @@ public class RiLexicon implements Constants {
   }
 
   // PRIVATES
- private String firstSyllable(String word, boolean useLTS) {
-   if (word.indexOf(' ') > -1)
-     return null;
-   
-   String raw = getRawPhones(word, useLTS);
-   String[] syllables = raw.split(" ");
-   
-   return syllables[0]; 
- }
+  private String firstSyllable(String word, boolean useLTS) {
+    if (word.indexOf(' ') > -1)
+      return null;
+
+    String raw = getRawPhones(word, useLTS);
+    String[] syllables = raw.split(" ");
+
+    return syllables[0];
+  }
+
   private String firstStressedSyllable(String word, boolean useLTS) {
-    
+
     if (word.indexOf(' ') > -1)
       return null;
 
@@ -835,23 +869,23 @@ public class RiLexicon implements Constants {
     }
     return null;
   }
-  
+
   private static String firstPhoneme(String rawPhones) {
     if (rawPhones != null) {
       String[] phones = rawPhones.split(PHONEME_BOUNDARY);
       if (phones != null) {
-	    return phones[0];
+	return phones[0];
       }
     }
     return null;
   }
 
   /*
-   * Includes the last stressed vowel and all subsequent phonemes
-   * If none is found, return null 
+   * Includes the last stressed vowel and all subsequent phonemes If none is
+   * found, return null
    */
   public String lastStressedVowelPhonemeToEnd(String word, boolean useLTS) {
-    
+
     String raw = lastStressedPhoneToEnd(word, useLTS);
     if (raw == null)
       return null;
@@ -859,7 +893,7 @@ public class RiLexicon implements Constants {
     String[] syllables = raw.split(" ");
     String lastSyllable = syllables[syllables.length - 1];
     lastSyllable = lastSyllable.replaceAll("[^a-z-1 ]", "");
-    
+
     int idx = -1;
 
     for (int i = 0; i < lastSyllable.length(); i++) {
@@ -870,8 +904,9 @@ public class RiLexicon implements Constants {
       }
     }
 
-//    System.out.println(word + " " + raw + " last:" + lastSyllable + " idx=" + idx + " result:" + lastSyllable.substring(idx));
-    
+    // System.out.println(word + " " + raw + " last:" + lastSyllable + " idx=" +
+    // idx + " result:" + lastSyllable.substring(idx));
+
     return lastSyllable.substring(idx);
   }
 
@@ -892,15 +927,14 @@ public class RiLexicon implements Constants {
 
     if (dbug)
       System.out.print("idx=" + idx);
-    
-    //if only one syllable, return all
+
+    // if only one syllable, return all
     String[] syllables = raw.split(" ");
-    if(idx < 0 && syllables.length == 1)
+    if (idx < 0 && syllables.length == 1)
       return raw;
-    
+
     if (idx < 0)
       return null;
-    
 
     /*
      * if (idx == raw.length()-1) { // edge case
@@ -965,19 +999,24 @@ public class RiLexicon implements Constants {
     alliterations(input, result, minLength, true); // Will use LTS for now
   }
 
-  private void alliterations(String input, Set result, int minLength, boolean useLTS) {
-    if (input.length() == 0) return;
-//    System.out.println(input.matches("[(^a-zA-Z)*]"));
-    if (input.matches("[^a-zA-Z]")) return;
-    
+  private void alliterations(String input, Set result, int minLength,
+      boolean useLTS) {
+    if (input.length() == 0)
+      return;
+    // System.out.println(input.matches("[(^a-zA-Z)*]"));
+    if (input.matches("[^a-zA-Z]"))
+      return;
+
     input = input.toLowerCase();
-    if (Phoneme.isVowel("" + input.charAt(0))) return;
-    
+    if (Phoneme.isVowel("" + input.charAt(0)))
+      return;
+
     String firstStressedSyllable = firstStressedSyllable(input, useLTS);
     String fC = firstPhoneme(firstStressedSyllable);
 
-    if (fC == null && firstStressedSyllable != null) fC = firstStressedSyllable.substring(0, 1);
-    
+    if (fC == null && firstStressedSyllable != null)
+      fC = firstStressedSyllable.substring(0, 1);
+
     if (input != null && (input.indexOf(' ') < 0) && fC != null) {
 
       Map<String, String> m = lexicalData();
@@ -991,12 +1030,13 @@ public class RiLexicon implements Constants {
       }
     }
   }
-  
+
   public static void main(String[] args) {
     RiLexicon rl = new RiLexicon();
     System.out.println(rl.randomWord("nn"));
     System.out.println(rl.isAlliteration("withdraw", "wind"));
-    if (1==1) return;
+    if (1 == 1)
+      return;
     // System.out.println(rl.lastStressedPhoneToEnd("mellow",true));
     System.out.println(rl.lastStressedPhoneToEnd("toy", true));
     System.out.println(rl.lastStressedPhoneToEnd("boy", true));

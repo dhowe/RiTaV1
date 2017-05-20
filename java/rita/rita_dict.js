@@ -13840,7 +13840,6 @@ function _dict() { return {
 'languishes':['l-ae1-ng g-w-ih sh-ih-z','vbz'],
 'languishing':['l-ae1-ng g-w-ih sh-ih-ng','vbg jj'],
 'lanky':['l-ae1-ng k-iy','jj'],
-'lantana':['l-ae-n t-ae1 n-ah','nn'],
 'lantern':['l-ae1-n t-er-n','nn'],
 'lanthanum':['l-ae1-n th-ah n-ah-m','nn'],
 'lap':['l-ae1-p','nn'],

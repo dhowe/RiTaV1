@@ -20,6 +20,11 @@ public class KnownIssuesTest implements Constants {
   }
 
   @Test
+  public void testContainsWordString() {
+    ok(RiTa.containsWord("prognoses")); 
+  }
+  
+  @Test
   public void testGetRawPhonesStringBoolean() {
     RiLexicon lex = new RiLexicon();
 

@@ -34,6 +34,10 @@ public class RiLexiconClearTest
     lex.reload();
   }
 
+  public void removeWord(RiLexicon lex, String s) {
+    lex.lexicalData().remove(s.toLowerCase());
+  }
+  
   @Test
   public void testRemoveWordString()
   {
@@ -42,16 +46,16 @@ public class RiLexiconClearTest
     int size = lex.size();
 
     ok(lex.containsWord("banana"));
-    lex.removeWord("banana");
+    removeWord(lex, "banana");
     ok(!lex.containsWord("banana"));
 
-    lex.removeWord("a");
+    removeWord(lex, "a");
     ok(!lex.containsWord("a"));
     ok(lex.containsWord("are")); // check that others r still there
-    lex.removeWord("aaa");
+    removeWord(lex, "aaa");
     ok(!lex.containsWord("aaa"));
 
-    lex.removeWord("");
+    removeWord(lex, "");
 
     lex.reload();
 
