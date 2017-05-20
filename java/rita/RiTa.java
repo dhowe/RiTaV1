@@ -143,7 +143,7 @@ public class RiTa implements Constants {
   }
   
   /* 
-    RiLexicon delegates:
+    RiLexicon delegates: (TODO: check full list, update API)
       rhymes
       randomWord
       similarBySound
@@ -156,14 +156,14 @@ public class RiTa implements Constants {
       isAdjective
       isVerb
   */
-  public static String[] getRhymes(String input) {
+  public static String[] rhymes(String input) {
     return getLexicon().rhymes(input);
   }
   
-  public static String[] getAlliterations(String input) {
+  public String[] alliterations(String input) {
     return getLexicon().alliterations(input);
   }
-  
+
   public static String[] alliterations(String input, int minLength) {
     return getLexicon().alliterations(input, minLength);
   }
@@ -262,10 +262,6 @@ public class RiTa implements Constants {
 
   public String[] similarBySound(String input, int minDist) {
     return getLexicon().similarBySound(input, minDist);
-  }
-
-  public String[] alliterations(String input) {
-    return getLexicon().alliterations(input);
   }
 
   static RiLexicon getLexicon() {
@@ -1747,5 +1743,6 @@ public class RiTa implements Constants {
     RiTa.PHONEME_TYPE = RiTa.IPA;
     System.out.println(RiTa.getPhonemes("become"));
     System.out.println(RiTa.INTERNAL);
+
   }
 }
