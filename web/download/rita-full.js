@@ -15,12 +15,10 @@ function makeClass() { // from: Resig, TODO: make work with strict
   };
 }
 
-// Returns true if the object is of type 'type', otherwise false
 function is(obj, type) {
   return get(obj) === type;
 }
 
-// Throws TypeError if not the correct type, else returns true
 function ok(obj, type) {
   if (get(obj) != type) {
     throw TypeError('Expected ' + (type ? type.toUpperCase() : type + E) +
@@ -70,12 +68,12 @@ function trim(str) {
   return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
 }
 
-function last(word) { // last char of string
+function last(word) {
   if (!word || !word.length) return E;
   return word.charAt(word.length - 1);
 }
 
-function extend(l1, l2) { // python extend
+function extend(l1, l2) {
   for (var i = 0; i < l2.length; i++)
     l1.push(l2[i]);
 }
@@ -95,7 +93,6 @@ function equalsIgnoreCase(str1, str2) {
     (str1.toLowerCase() === str2.toLowerCase()) : false;
 }
 
-// Returns true if NodeJS is the current environment
 function isNode() {
   return (typeof module != 'undefined' && module.exports);
 }
@@ -149,29 +146,13 @@ function tagForWordNet(words) {
   return EA;
 }
 
-function getLexicon() {
-  RiTa.LEXICON = RiTa.LEXICON || new RiLexicon();
-  return RiTa.LEXICON;
-}
-
 'use strict';
-
-var RiLexicon = makeClass(); // stub
-
-RiLexicon._enabled = false;
-
-RiLexicon.prototype.init = function() {
-    warn('RiLexicon is not available -- ' +
-      'if needed, use a larger version of RiTa.');
-};
 
 var FEATURES = [ 'tokens', 'stresses', 'phonemes', 'syllables', 'pos', 'text' ];
 
 var RiTa = {
 
-  VERSION: '1.1.61',
-
-  LEXICON: null, // static RiLexicon instance
+  VERSION: '1.1.72',
 
   /* For tokenization, Can't -> Can not, etc. */
   SPLIT_CONTRACTIONS: false,
@@ -181,7 +162,6 @@ var RiTa = {
   DATA_LOADED: 'DataLoaded', INTERNAL: 'Internal', UNKNOWN: 'Unknown',
 
   // For Conjugator =================================
-
   FIRST_PERSON: 1,
   SECOND_PERSON: 2,
   THIRD_PERSON: 3,
@@ -201,6 +181,8 @@ var RiTa = {
   VOWELS: "aeiou",
   ABBREVIATIONS: ["Adm.", "Capt.", "Cmdr.", "Col.", "Dr.", "Gen.", "Gov.", "Lt.", "Maj.", "Messrs.", "Mr.", "Mrs.", "Ms.", "Prof.", "Rep.", "Reps.", "Rev.", "Sen.", "Sens.", "Sgt.", "Sr.", "St.", "a.k.a.", "c.f.", "i.e.", "e.g.", "vs.", "v.", "Jan.", "Feb.", "Mar.", "Apr.", "Mar.", "Jun.", "Jul.", "Aug.", "Sept.", "Oct.", "Nov.", "Dec."],
   ALL_PHONES: ['aa','ae','ah','ao','aw','ay','b','ch','d','dh','eh','er','ey','f','g','hh','ih','iy','jh', 'k','l', 'm','n','ng','ow','oy','p','r','s','sh','t','th','uh', 'uw','v','w','y','z','zh'],
+  LEX_WARN: "A minimal Lexicon is currently in use. For word features outside the lexicon, use a larger version of RiTa.",
+  LTS_WARN: 'No LTS-rules found: features/tagging may be inaccurate!',
 
   /* The infinitive verb form  - 'to eat an apple' */
   INFINITIVE: 1,
@@ -421,8 +403,6 @@ var RiTa = {
         return rule.fire(word);
       }
     }
-    ////////////////////////////////////////
-
     return this.stem(word, 'Pling');
   },
 
@@ -876,8 +856,8 @@ var RiTa = {
   },
 
   /*
-   * Takes pair of strings or string-arrays and returns the min-edit distance
-   * @param normalized based on max-length if 3rd (optional) parameter is true (default=f).
+   * Takes pair of strings or string-arrays and returns the med
+   * @param normalized based on max-length if 3rd (optional) parameter is true
    */
   minEditDistance: function(a, b, adjusted) {
 
@@ -887,14 +867,747 @@ var RiTa = {
 
 }; // end RiTa object
 
-// set additional properties/functions on RiTa
+// set feature names (PHONEMES, SYLLABLES, etc.) as RiTa constants
 for (var i = 0; i < FEATURES.length; i++) {
   RiTa[FEATURES[i].toUpperCase()] = FEATURES[i];
 }
 
-// ////////////////////////////////////////////////////////////
-// RiMarkov
-// ////////////////////////////////////////////////////////////
+var RiLexicon = makeClass();
+
+RiLexicon.SILENCE_LTS = false;
+
+RiLexicon.prototype = {
+
+  init: function() {
+
+    if (typeof _dict === 'undefined') {
+      this.data = {};
+      this.keys = [];
+    }
+    else
+      this.reload();
+  },
+
+  clear: function() {
+
+    this.data = {};
+    this.keys = [];
+  },
+
+  reload: function() {
+    if (typeof _dict != 'undefined') {
+        this.data = _dict();
+        this.keys = okeys(this.data); // cache
+    }
+  },
+
+  addWord: function(word, pronunciationData, posData) {
+
+    this.data[word.toLowerCase()] = [
+      pronunciationData.toLowerCase(),
+      posData.toLowerCase()
+    ];
+    this.keys = okeys(this.data);
+    return this;
+  },
+
+  similarByLetter: function(input, minAllowedDist, preserveLength) {
+
+    var minVal = Number.MAX_VALUE,
+      minLen = 2,
+      result = [];
+
+    if (!(input && input.length)) return EA;
+
+    if (arguments.length == 2 && is(minAllowedDist,B))  { // (input, preserveLength)
+      preserveLength = minAllowedDist;
+      minAllowedDist = 1;
+    }
+
+    input = input.toLowerCase();
+    minAllowedDist = minAllowedDist || 1;
+    preserveLength = preserveLength || false;
+
+    var med, inputS = input + 's',
+      inputES = input + 'es',
+      inputLen = input.length;
+
+    for (var i = 0; i < this.keys.length; i++) {
+
+      var entry = this.keys[i];
+
+      if (entry.length < minLen)
+        continue;
+
+      if (preserveLength && (entry.length != inputLen))
+        continue;
+
+      if (entry === input || entry === inputS || entry === inputES)
+        continue;
+
+      med = MinEditDist.computeRaw(entry, input);
+
+      // we found something even closer
+      if (med >= minAllowedDist && med < minVal) {
+
+        minVal = med;
+        result = [entry];
+      }
+
+      // we have another best to add
+      else if (med === minVal) {
+
+        result.push(entry);
+      }
+    }
+
+    return result;
+  },
+
+  similarBySound: function(input, minEditDist, minimumWordLen) {
+
+    minEditDist = minEditDist || 1;
+
+    var minVal = Number.MAX_VALUE,
+      entry, result = [], minLen = minimumWordLen || 2,
+      phonesArr, phones = RiTa.getPhonemes(input), med,
+      targetPhonesArr = phones ? phones.split('-') : [],
+      input_s = input + 's', input_es = input + 'es';
+
+    if (!targetPhonesArr[0] || !(input && input.length)) return EA;
+
+    //console.log("TARGET "+targetPhonesArr);
+
+    for (var i = 0; i < this.keys.length; i++) {
+
+      entry = this.keys[i];
+
+      if (entry.length < minLen) continue;
+
+      // entry = entry.toLowerCase(); // all lowercase
+
+      if (entry === input || entry === input_s || entry === input_es)
+        continue;
+
+      phones = this.data[entry][0];
+      //if (i<10) console.log(phones+" :: "+);
+      phonesArr = phones.replace(/1/g, E).replace(/ /g, '-').split('-');
+
+      med = MinEditDist.computeRaw(phonesArr, targetPhonesArr);
+
+      // found something even closer
+      if (med >= minEditDist && med < minVal) {
+
+        minVal = med;
+        result = [entry];
+        //console.log("BEST "+entry + " "+med + " "+phonesArr);
+      }
+
+      // another best to add
+      else if (med === minVal) {
+
+        //console.log("TIED "+entry + " "+med + " "+phonesArr);
+        result.push(entry);
+      }
+    }
+
+    return result;
+  },
+
+  similarBySoundAndLetter: function(word) {
+
+    function intersect() { // https://gist.github.com/lovasoa/3361645
+      var i, all, n, len, ret = [], obj={}, shortest = 0,
+        nOthers = arguments.length-1, nShortest = arguments[0].length;
+      for (i=0; i<=nOthers; i++){
+        n = arguments[i].length;
+        if (n < nShortest) {
+          shortest = i;
+          nShortest = n;
+        }
+      }
+      for (i=0; i <= nOthers; i++) {
+        n = (i ===  shortest)? 0 : (i || shortest);
+        len = arguments[n].length;
+        for (var j=0; j < len; j++) {
+          var elem = arguments[n][j];
+          if (obj[elem] === i - 1) {
+            if (i === nOthers) {
+              ret.push(elem);
+              obj[elem] = 0;
+            } else {
+              obj[elem] = i;
+            }
+          } else if (i === 0) {
+            obj[elem] = 0;
+          }
+        }
+      }
+      return ret;
+    }
+
+    var result = [], simSound, simLetter = this.similarByLetter(word);
+
+    if (simLetter.length < 1)
+      return result;
+
+    simSound = this.similarBySound(word);
+
+    if (simSound.length < 1)
+      return result;
+
+    return intersect(simSound, simLetter);
+  },
+
+  substrings: function(word, minLength) {
+
+    minLength = minLength || (minLength === 0) || 4;
+
+    var result = [];
+    for (var i = 0; i < this.keys.length; i++) {
+
+      if (this.keys[i] === word || this.keys[i].length < minLength)
+        continue;
+      if (word.indexOf(this.keys[i]) >= 0)
+        result.push(this.keys[i]);
+    }
+
+    return result;
+  },
+
+  superstrings: function(word) {
+
+    var result = [];
+
+    for (var i = 0; i < this.keys.length; i++) {
+
+      if (this.keys[i] === word) continue;
+      if (this.keys[i].indexOf(word) >= 0)
+        result.push(this.keys[i]);
+    }
+
+    return result;
+  },
+
+  words: function() {
+
+    var a = arguments,
+      shuffled = false,
+      regex, wordArr = [];
+
+    switch (a.length) {
+
+      case 2:
+
+        if (is(a[0], B)) {
+
+          shuffled = a[0];
+          regex = (is(a[1], R)) ? a[1] : new RegExp(a[1]);
+        } else {
+
+          shuffled = a[1];
+          regex = (is(a[0], R)) ? a[0] : new RegExp(a[0]);
+        }
+
+        break;
+
+      case 1:
+
+        if (is(a[0], B)) {
+          return a[0] ? shuffle(this.keys) : this.keys;
+        }
+
+        regex = (is(a[0], R)) ? a[0] : new RegExp(a[0]);
+
+        break;
+
+      case 0:
+
+        return this.keys;
+    }
+
+    for (var i = 0; i < this.keys.length; i++) {
+
+      if (regex.test(this.keys[i])) {
+
+        wordArr.push(this.keys[i]);
+      }
+    }
+
+    return shuffled ? shuffle(wordArr) : wordArr;
+  },
+
+  _isVowel: function(c) {
+
+    return (strOk(c) && RiTa.VOWELS.indexOf(c) > -1);
+  },
+
+  _isConsonant: function(p) {
+
+    return (typeof p === S && p.length === 1 &&
+      RiTa.VOWELS.indexOf(p) < 0 && /^[a-z\u00C0-\u00ff]+$/.test(p));
+  },
+
+  _isPlural: function(word) {
+
+    var stem = RiTa.stem(word, 'Pling');
+    if (stem === word) return false;
+    var data = this.data[RiTa.singularize(word)];
+    if (data && data.length === 2) {
+      var pos = data[1].split(SP);
+      for (var i = 0; i < pos.length; i++) {
+        if (pos[i] === 'nn')
+          return true;
+      }
+    }
+    return false;
+  },
+
+  containsWord: function(word) {
+
+    if (!this.data || !strOk(word)) return false;
+    word = word.toLowerCase();
+    return this.data[word] || this._isPlural(word);
+  },
+
+  isRhyme: function(word1, word2, useLTS) {
+    var phones1 = this._getRawPhones(word1, useLTS),
+        phones2 = this._getRawPhones(word2, useLTS);
+
+    if (!strOk(word1) || !strOk(word2) || equalsIgnoreCase(word1, word2) || phones2 === phones1)
+      return false;
+
+    var p1 = this._lastStressedVowelPhonemeToEnd(word1, useLTS),
+      p2 = this._lastStressedVowelPhonemeToEnd(word2, useLTS);
+
+    return (strOk(p1) && strOk(p2) && p1 === p2);
+  },
+
+  rhymes: function(word) {
+
+
+      var p = this._lastStressedPhoneToEnd(word),
+        phones, results = [];
+
+      for (var i = 0; i < this.keys.length; i++) {
+
+        if (this.keys[i] === word)
+          continue;
+
+        phones = this.data[this.keys[i]][0];
+
+        if (endsWith(phones, p))
+          results.push(this.keys[i]);
+      }
+      return (results.length > 0) ? results : EA;
+
+
+    return EA;
+  },
+
+  alliterations: function(word, matchMinLength, useLTS) {
+
+    if (word.indexOf(" ") > -1) return [];
+
+    if (this._isVowel(word.charAt(0))) return [];
+
+
+    matchMinLength = matchMinLength || 4;
+
+    var c2, results = [],
+      c1 = this._firstPhoneme(this._firstStressedSyllable(word, useLTS));
+
+    for (var i = 0; i < this.keys.length; i++) {
+
+      c2 = this._firstPhoneme(
+          this._firstStressedSyllable(this.keys[i], useLTS));
+
+      if(c2._isVowel) return [];
+
+      if (c2 && c1 === c2 && this.keys[i].length >= matchMinLength) {
+        results.push(this.keys[i]);
+      }
+    }
+
+    return shuffle(results);
+  },
+
+  isAlliteration: function(word1, word2, useLTS) {
+
+    if (!strOk(word1) || !strOk(word2) || word1.indexOf(" ") > -1 || word2.indexOf(" ") > -1)
+      return false;
+
+    var c1 = this._firstPhoneme(this._firstStressedSyllable(word1, useLTS)),
+      c2 = this._firstPhoneme(this._firstStressedSyllable(word2, useLTS));
+
+    if (this._isVowel(c1.charAt(0)) || this._isVowel(c2.charAt(0)))
+      return false;
+
+    return strOk(c1) && strOk(c2) && c1 === c2;
+  },
+
+  _firstSyllable: function(word, useLTS) {
+     var raw = this._getRawPhones(word, useLTS);
+     if (!strOk(raw)) return E;
+     if(word === "URL") console.log(raw);
+     var syllables = raw.split(" ");
+     return syllables[0];
+  },
+
+  _firstStressedSyllable: function(word, useLTS) {
+
+    var raw = this._getRawPhones(word, useLTS),
+      idx = -1, c, firstToEnd;
+
+    if (!strOk(raw)) return E; // return null?
+
+    idx = raw.indexOf(RiTa.STRESSED);
+
+    if (idx < 0) return E; // no stresses... return null?
+
+    c = raw.charAt(--idx);
+
+    while (c != ' ') {
+      if (--idx < 0) {
+        // single-stressed syllable
+        idx = 0;
+        break;
+      }
+      c = raw.charAt(idx);
+    }
+
+    firstToEnd = idx === 0 ? raw : trim(raw.substring(idx));
+    idx = firstToEnd.indexOf(' ');
+
+    return idx < 0 ? firstToEnd : firstToEnd.substring(0, idx);
+  },
+
+  isVerb: function(word) {
+
+    return this._checkType(word, PosTagger.VERBS);
+  },
+
+  isNoun: function(word) {
+
+    var result = this._checkType(word, PosTagger.NOUNS);
+    if (!result) {
+      var singular = RiTa.singularize(word);
+      if (singular !== word) {
+        result = this._checkType(singular, PosTagger.NOUNS);
+      }
+    }
+    return result;
+  },
+
+  isAdverb: function(word) {
+
+    return this._checkType(word, PosTagger.ADV);
+  },
+
+  isAdjective: function(word) {
+
+    return this._checkType(word, PosTagger.ADJ);
+  },
+
+  size: function() {
+
+    return this.keys.length;
+  },
+
+  _checkType: function(word, tagArray) {
+
+    if (word && word.indexOf(SP) != -1)
+      throw Error("[RiTa] _checkType() expects a single word, found: " + word);
+
+    var psa = this._getPosArr(word);
+    if (RiTa.LEX_WARN && psa.length < 1 && this.size() <= 1000) {
+      warn(RiTa.LEX_WARN);
+      RiTa.LEX_WARN = 0; // only once
+    }
+
+    for (var i = 0; i < psa.length; i++) {
+      if (tagArray.indexOf(psa[i]) > -1)
+        return true;
+    }
+
+    return false;
+  },
+
+  _getSyllables: function(word) {
+
+    // TODO: use feature cache?
+    if (!strOk(word)) return E;
+
+    var wordArr = RiTa.tokenize(word), raw = [];
+    for (var i = 0; i < wordArr.length; i++)
+      raw[i] = this._getRawPhones(wordArr[i]).replace(/\s/g, '/');
+    // console.log("[RiTa] syllables" + " " + word + " " + raw);
+    return RiTa.untokenize(raw).replace(/1/g, E).trim();
+  },
+
+  _getPhonemes: function(word) {
+
+    if (!strOk(word)) return E;
+
+    var wordArr = RiTa.tokenize(word), raw = [];
+
+    for (var i = 0; i < wordArr.length; i++) {
+
+      if (RiTa.isPunctuation(wordArr[i])) continue;
+
+      raw[i] = this._getRawPhones(wordArr[i]);
+
+      if (!raw[i].length) return E;
+
+      raw[i] = raw[i].replace(/ /g, "-");
+    }
+
+    return RiTa.untokenize(raw).replace(/1/g, E).trim();
+  },
+
+  _getStresses: function(word) {
+
+    var i, stresses = [], phones, raw = [],
+      wordArr = is(word, A) ? word : RiTa.tokenize(word);
+
+    if (!strOk(word)) return E;
+
+    for (i = 0; i < wordArr.length; i++) {
+
+      if (!RiTa.isPunctuation(wordArr[i]))
+        raw[i] = this._getRawPhones(wordArr[i]);
+    }
+
+    for (i = 0; i < raw.length; i++) {
+
+      if (raw[i]) { // ignore undefined array items (eg Punctuation)
+
+        phones = raw[i].split(SP);
+        for (var j = 0; j < phones.length; j++) {
+
+          var isStress = (phones[j].indexOf(RiTa.STRESSED) > -1) ?
+            RiTa.STRESSED : RiTa.UNSTRESSED;
+
+          if (j > 0) isStress = "/" + isStress;
+
+          stresses.push(isStress);
+        }
+      }
+    }
+
+    return stresses.join(SP).replace(/ \//g, "/");
+  },
+
+  lexicalData: function(dictionaryDataObject) {
+
+    if (arguments.length === 1) {
+      this.data = dictionaryDataObject;
+      return this;
+    }
+
+    return this.data;
+  },
+
+  /* Returns the raw (RiTa-format) dictionary entry for the given word   */
+  _lookupRaw: function(word) {
+
+    word = word.toLowerCase();
+    if (this.data && this.data[word])
+      return this.data[word];
+    //log("[RiTa] No lexicon entry for '" + word + "'");
+  },
+
+  _getRawPhones: function(word, useLTS) {
+
+    var phones, lts, rdata = this._lookupRaw(word);
+    useLTS = useLTS || false;
+
+    if (rdata === undefined || (useLTS && !RiTa.SILENT && !RiLexicon.SILENCE_LTS)) {
+
+      lts = this._letterToSound();
+      phones = lts && lts.getPhones(word);
+      if (phones && phones.length)
+        return RiString._syllabify(phones);
+
+    }
+    return (rdata && rdata.length === 2) ? rdata[0] : E;
+  },
+
+  _getPosData: function(word) {
+
+    var rdata = this._lookupRaw(word);
+    return (rdata && rdata.length === 2) ? rdata[1] : E;
+  },
+
+
+  _getPosArr: function(word) {
+
+    var pl = this._getPosData(word);
+    if (!strOk(pl)) return EA;
+    return pl.split(SP);
+  },
+
+  _getBestPos: function(word) {
+
+    var pl = this._getPosArr(word);
+    return (pl.length > 0) ? pl[0] : [];
+  },
+
+  _firstPhoneme: function(rawPhones) {
+
+    if (!strOk(rawPhones)) return E;
+
+    var phones = rawPhones.split(RiTa.PHONEME_BOUNDARY);
+
+    if (phones) return phones[0];
+
+    return E; // return null?
+  },
+
+  _firstConsonant: function(rawPhones) {
+
+    if (!strOk(rawPhones)) return E;
+
+    var phones = rawPhones.split(RiTa.PHONEME_BOUNDARY);
+
+    if (phones) {
+
+      for (var j = 0; j < phones.length; j++) {
+        if (this._isConsonant(phones[j].charAt(0))) // first letter only
+          return phones[j];
+      }
+    }
+    return E; // return null?
+  },
+
+  _lastStressedVowelPhonemeToEnd: function(word, useLTS) {
+
+    if (!strOk(word)) return E; // return null?
+
+
+    var raw = this._lastStressedPhoneToEnd(word, useLTS);
+    if (!strOk(raw)) return E; // return null?
+
+    var syllables = raw.split(" ");
+    var lastSyllable = syllables[syllables.length - 1];
+    lastSyllable = lastSyllable.replace("[^a-z-1 ]", "");
+
+    var idx = -1;
+    for (var i = 0; i < lastSyllable.length; i++) {
+      var c = lastSyllable.charAt(i);
+      if(this._isVowel(c)){
+        idx = i;
+        break;
+      }
+    }
+  word + " " + raw + " last:" + lastSyllable + " idx=" + idx + " result:" + lastSyllable.substring(idx)
+   return lastSyllable.substring(idx);
+  },
+
+  _lastStressedPhoneToEnd: function(word, useLTS) {
+
+    if (!strOk(word)) return E; // return null?
+
+    var idx, c, result;
+    var raw = this._getRawPhones(word, useLTS);
+
+    if (!strOk(raw)) return E; // return null?
+
+    idx = raw.lastIndexOf(RiTa.STRESSED);
+
+    if (idx < 0) return E; // return null?
+
+    c = raw.charAt(--idx);
+    while (c != '-' && c != ' ') {
+      if (--idx < 0) {
+        return raw; // single-stressed syllable
+      }
+      c = raw.charAt(idx);
+    }
+    result = raw.substring(idx + 1);
+
+    return result;
+  },
+
+  randomWord: function() { // takes nothing, pos, syllableCount, or both
+
+    var i, j, rdata, numSyls, pluralize = false,
+      ran = Math.floor(Math.random() * this.keys.length),
+      found = false, a = arguments, ranWordArr = this.keys;
+
+    if (typeof a[0] === "string") {
+        a[0] = trim(a[0]).toLowerCase();
+
+        if (a[0] === "v")
+            a[0] = "vb";
+        if (a[0] === "r")
+            a[0] = "rb";
+        if (a[0] === "a")
+            a[0] = "jj";
+        if (a[0] === "n" || a[0] === "nns")
+            a[0] = "nn";
+    }
+    else if (typeof a[0] === "object") {
+
+    }
+    switch (a.length) {
+
+      case 2: // a[0]=pos  a[1]=syllableCount
+
+
+        for (i = 0; i < ranWordArr.length; i++) {
+          j = (ran + i) % ranWordArr.length;
+          rdata = this.data[ranWordArr[j]];
+          numSyls = rdata[0].split(SP).length;
+          if (numSyls === a[1] && a[0] === rdata[1].split(SP)[0]) {
+            return pluralize ? RiTa.pluralize(ranWordArr[j]) : ranWordArr[j];
+          }
+        }
+
+        warn("No words with pos=" + a[0] + " found");
+
+      case 1:
+
+        if (is(a[0], S)) { // a[0] = pos
+
+          for (i = 0; i < ranWordArr.length; i++) {
+            j = (ran + i) % ranWordArr.length;
+            rdata = this.data[ranWordArr[j]];
+            if (a[0] === rdata[1].split(SP)[0]) {
+              return pluralize ? RiTa.pluralize(ranWordArr[j]) : ranWordArr[j];
+            }
+          }
+
+          warn("No words with pos=" + a[0] + " found");
+
+        } else {
+
+          // a[0] = syllableCount
+          for (i = 0; i < ranWordArr.length; i++) {
+            j = (ran + i) % ranWordArr.length;
+            rdata = this.data[ranWordArr[j]];
+            if (rdata[0].split(SP).length === a[0]) {
+              return ranWordArr[j];
+            }
+          }
+        }
+        return E;
+
+      case 0:
+        return ranWordArr[ran];
+    }
+    return E;
+  },
+
+  _letterToSound: function() { // lazy load
+    if (!this.lts) {
+      if (typeof LetterToSound !== 'undefined')
+        this.lts = new LetterToSound();
+    }
+    return this.lts;
+  }
+
+};
 
 var RiMarkov = makeClass();
 
@@ -904,9 +1617,6 @@ SSDLM = 'D=l1m_';
 
 RiMarkov.prototype = {
 
-  /*
-   * Construct a Markov chain (or n-gram) model and set its n-Factor
-   */
   init: function(nFactor, recognizeSentences, allowDuplicates) {
 
     var a = this._initArgs.apply(this, arguments);
@@ -1515,10 +2225,6 @@ var RiWordNet = function() { // stub
     throw Error("RiWordNet is not yet implemented in JavaScript!");
 };
 
-////////////////////////////////////////////////////////////////
-// RiString
-////////////////////////////////////////////////////////////////
-
 var RiString = makeClass();
 
 RiString._phones = {
@@ -1656,10 +2362,6 @@ function initFeatureMap(rs) { // for RiString
   rs._features.text = rs.text();
 }
 
-// ////////////////////////////////////////////////////////////
-// Member functions
-// ////////////////////////////////////////////////////////////
-
 RiString.prototype = {
 
   init: function(text) {
@@ -1707,68 +2409,62 @@ RiString.prototype = {
   analyze: function() {
 
     var phonemes = E, syllables = E, stresses = E, slash = '/',
-      delim = '-', lex, stressyls, phones, lts, ltsPhones, useRaw,
-      words = RiTa.tokenize(this._text);
+      delim = '-', stressyls, phones, lts, ltsPhones, useRaw,
+      words = RiTa.tokenize(this._text), lex = RiTa.lexicon;
 
     if (!this._features) initFeatureMap(this);
 
     this._features.tokens = words.join(SP);
     this._features.pos = RiTa.getPosTags(this._text).join(SP);
 
-    if (RiLexicon._enabled) {
+    for (var i = 0, l = words.length; i < l; i++) {
 
-      lex = getLexicon();
-      for (var i = 0, l = words.length; i < l; i++) {
+      useRaw = false;
+      phones = lex._getRawPhones(words[i]);
 
-        useRaw = false;
+      if (!phones) {
 
-        phones = lex && lex._getRawPhones(words[i]);
+        lts = lex._letterToSound();
+        ltsPhones = lts && lts.getPhones(words[i]);
+        if (ltsPhones && ltsPhones.length > 0) {
 
-        if (!phones) {
-
-          if (LetterToSound.RULES && words[i].match(/[a-zA-Z]+/))
+          if (words[i].match(/[a-zA-Z]+/))
             log("[RiTa] Used LTS-rules for '" + words[i] + "'");
 
-          lts = lex._letterToSound();
+          phones = RiString._syllabify(ltsPhones);
 
-          ltsPhones = lts.getPhones(words[i]);
-
-          if (ltsPhones && ltsPhones.length > 0) {
-
-            phones = RiString._syllabify(ltsPhones);
-
-          } else {
-            phones = words[i];
-            useRaw = true;
-          }
-        }
-
-        phonemes += phones.replace(/[0-2]/g, E).replace(/ /g, delim) + SP;
-        syllables += phones.replace(/ /g, slash).replace(/1/g, E) + SP;
-
-        if (!useRaw) {
-          stressyls = phones.split(SP);
-          for (var j = 0; j < stressyls.length; j++) {
-
-            if (!stressyls[j].length) continue;
-
-            stresses += (stressyls[j].indexOf(RiTa.STRESSED) > -1) ?
-              RiTa.STRESSED : RiTa.UNSTRESSED;
-
-            if (j < stressyls.length - 1) stresses += slash;
-          }
         } else {
 
-          stresses += words[i];
+          phones = words[i];
+          useRaw = true;
         }
-
-        if (!endsWith(stresses, SP)) stresses += SP;
       }
 
-      stresses = stresses.trim();
-      phonemes = phonemes.trim().replace(/\\s+/, SP);
-      syllables = syllables.trim().replace(/\\s+/, SP);
+      phonemes += phones.replace(/[0-2]/g, E).replace(/ /g, delim) + SP;
+      syllables += phones.replace(/ /g, slash).replace(/1/g, E) + SP;
+
+      if (!useRaw) {
+        stressyls = phones.split(SP);
+        for (var j = 0; j < stressyls.length; j++) {
+
+          if (!stressyls[j].length) continue;
+
+          stresses += (stressyls[j].indexOf(RiTa.STRESSED) > -1) ?
+            RiTa.STRESSED : RiTa.UNSTRESSED;
+
+          if (j < stressyls.length - 1) stresses += slash;
+        }
+      } else {
+
+        stresses += words[i];
+      }
+
+      if (!endsWith(stresses, SP)) stresses += SP;
     }
+
+    stresses = stresses.trim();
+    phonemes = phonemes.trim().replace(/\\s+/, SP);
+    syllables = syllables.trim().replace(/\\s+/, SP);
 
     this._features.stresses = stresses;
     this._features.phonemes = phonemes;
@@ -2098,10 +2794,6 @@ RiString.prototype = {
   }
 };
 
-// ////////////////////////////////////////////////////////////
-// RiGrammar
-// ////////////////////////////////////////////////////////////
-
 var RiGrammar = makeClass();
 
 var OR_PATT = /\s*\|\s*/, STRIP_TICKS = /`([^`]*)`/g,
@@ -2423,7 +3115,7 @@ RiGrammar.prototype = {
           scope.put(context.name, context);
         }
         else if (typeof context === 'object') {
-          Object.keys(context).forEach(function (f) {
+          okeys(context).forEach(function (f) {
             if (typeof context[f] === 'function')
               scope.put(f, context[f]);
           });
@@ -2585,12 +3277,6 @@ StringTokenizer.prototype = {
     return (this.idx < this.tokens.length) ? this.tokens[this.idx++] : null;
   }
 };
-
-////////////////////////// PRIVATE CLASSES ///////////////////////////////
-
-// ////////////////////////////////////////////////////////////
-// TextNode
-// ////////////////////////////////////////////////////////////
 
 var TextNode = makeClass();
 
@@ -2782,10 +3468,6 @@ TextNode.prototype = {
   }
 };
 
-// ////////////////////////////////////////////////////////////
-// Conjugator
-// ////////////////////////////////////////////////////////////
-
 var Conjugator = makeClass();
 
 Conjugator.prototype = {
@@ -2881,7 +3563,6 @@ Conjugator.prototype = {
 
     s = E;
     for (var i = 0; i < conjs.length; i++) {
-
       s = conjs[i] + " " + s;
     }
 
@@ -2928,8 +3609,7 @@ Conjugator.prototype = {
   },
 
   doubleFinalConsonant: function(word) {
-    var letter = word.charAt(word.length - 1);
-    return word + letter;
+    return word + word.charAt(word.length - 1);
   },
 
   getPast: function(theVerb, pers, numb) {
@@ -2960,9 +3640,7 @@ Conjugator.prototype = {
       }
     }
 
-    var got = this.checkRules(PAST_TENSE_RULESET, theVerb);
-
-    return got;
+    return this.checkRules(PAST_TENSE_RULESET, theVerb);
   },
 
   getPresent: function(theVerb, person, number) {
@@ -3005,23 +3683,18 @@ Conjugator.prototype = {
 
   getPastParticiple: function(theVerb) {
 
-    var res = strOk(theVerb) ? this.checkRules(PAST_PARTICIPLE_RULESET, theVerb) : E;
-    return res;
+    return strOk(theVerb) ? this.checkRules(PAST_PARTICIPLE_RULESET, theVerb) : E;
   },
 
   getVerbForm: function(theVerb, tense, person, number) {
 
     switch (tense) {
-
       case RiTa.PRESENT_TENSE:
         return this.getPresent(theVerb, person, number);
-
       case RiTa.PAST_TENSE:
         return this.getPast(theVerb, person, number);
-
-      default:
-        return theVerb;
     }
+    return theVerb;
   },
 
   toString: function() {
@@ -3033,10 +3706,7 @@ Conjugator.prototype = {
   }
 };
 
-// ////////////////////////////////////////////////////////////
-// PosTagger  (singleton)
-// ////////////////////////////////////////////////////////////
-var PosTagger = {
+var PosTagger = { // singleton
 
   TAGS: ['cc', 'cd', 'dt', 'ex', 'fw', 'in', 'jj',
     'jjr', 'jjs', 'ls', 'md', 'nn', 'nns', 'nnp',
@@ -3049,7 +3719,6 @@ var PosTagger = {
   VERBS: ['vb', 'vbd', 'vbg', 'vbn', 'vbp', 'vbz'],
   ADJ: ['jj', 'jjr', 'jjs'],
   ADV: ['rb', 'rbr', 'rbs', 'rp'],
-  NOLEX_WARNED: 0,
   DBUG: 0,
 
   isVerb: function(tag) {
@@ -3084,30 +3753,12 @@ var PosTagger = {
 
     var result = [],
       choices2d = [],
-      lex;
-
-    if (RiLexicon._enabled) {
-      lex = getLexicon();
-
-    } else if (!RiTa.SILENT && !this.NOLEX_WARNED) {
-
-      this.NOLEX_WARNED = true;
-      if (typeof RiTa._LTS === 'undefined') {
-        console.warn('No RiLexicon or LTS-rules found: features will be inaccurate!');
-      }
-      else {
-        console.warn('No RiLexicon found: part-of-speech tagging will be inaccurate!');
-      }
-    }
+      lex = RiTa.lexicon;
 
     words = is(words, A) ? words : [words];
 
     for (var i = 0, l = words.length; i < l; i++) {
 
-      if (!this.NOLEX_WARNED && !lex.containsWord(words[i]) && lex.size() < 1000) {
-          this.NOLEX_WARNED = true;
-          warn("A minimal Lexicon is currently in use: for word features outside the lexicon, use a larger version of RiTa.")
-      }
 
       if (words[i].length < 1) {
 
@@ -3122,7 +3773,7 @@ var PosTagger = {
       }
 
       var data = lex && lex._getPosArr(words[i]);
-      if (!data || !data.length) {
+      if (!data.length) {
 
         // use stemmer categories if no lexicon
 
@@ -3132,33 +3783,43 @@ var PosTagger = {
           tag = 'nns';
         }
 
-        if (!lex || !lex.containsWord(words[i])) {
-
-          if (endsWith(words[i], 's')) {
-            var sub2, sub = words[i].substring(0, words[i].length - 1);
-
-            if (endsWith(words[i], 'es'))
-              sub2 = words[i].substring(0, words[i].length - 2)
-
-            if (this._lexHas("n", sub) || this._lexHas("n", sub2)) {
-              choices2d.push("nns");
-            } else {
-              var sing = RiTa.singularize(words[i]);
-              if (this._lexHas("n", sing)) choices2d.push("nns");
-            }
-
-          } else {
-            var sing = RiTa.singularize(words[i]);
-
-            if (this._lexHas("n", sing)) {
-              choices2d.push("nns");
-              tag = 'nns';
-            } else if (checkPluralNoLex(words[i])){
-               tag = 'nns';
-              //common plurals
-            }
+        if (!RiTa.SILENT) { // warn
+          if (RiTa.LEX_WARN && lex.size() <= 1000) {
+            warn(RiTa.LEX_WARN);
+            RiTa.LEX_WARN = false;
+          }
+          if (RiTa.LTS_WARN && typeof LetterToSound === 'undefined') {
+            warn(RiTa.LTS_WARN);
+            RiTa.LTS_WARN = false;
           }
         }
+
+        if (endsWith(words[i], 's')) {
+          var sub2, sub = words[i].substring(0, words[i].length - 1);
+
+          if (endsWith(words[i], 'es'))
+            sub2 = words[i].substring(0, words[i].length - 2)
+
+          if (this._lexHas("n", sub) || (sub2 && this._lexHas("n", sub2))) {
+            choices2d.push("nns");
+          } else {
+            var sing = RiTa.singularize(words[i]);
+            if (this._lexHas("n", sing)) choices2d.push("nns");
+          }
+
+        } else {
+
+          var sing = RiTa.singularize(words[i]);
+
+          if (this._lexHas("n", sing)) {
+            choices2d.push("nns");
+            tag = 'nns';
+          } else if (checkPluralNoLex(words[i])){
+             tag = 'nns';
+            //common plurals
+          }
+        }
+
         result.push(tag);
 
       } else {
@@ -3171,6 +3832,7 @@ var PosTagger = {
     // Adjust pos according to transformation rules
     return this._applyContext(words, result, choices2d);
   },
+
   _handleSingleLetter: function(c) {
 
     var result = c;
@@ -3334,17 +3996,15 @@ var PosTagger = {
 
   _lexHas: function(pos, words) { // takes ([n|v|a|r] or a full tag)
 
-    if (!RiLexicon._enabled) return false;
-
-    var lex = getLexicon(), words = is(words, A) || [words];
+    var words = is(words, A) || [words];
 
     for (var i = 0; i < words.length; i++) {
 
-      if (lex.containsWord(words[i])) {
+      if (RiTa.lexicon.containsWord(words[i])) {
 
         if (pos == null) return true;
 
-        var tags = lex._getPosArr(words[i]);
+        var tags = RiTa.lexicon._getPosArr(words[i]);
 
         for (var j = 0; j < tags.length; j++) {
 
@@ -3358,22 +4018,14 @@ var PosTagger = {
           }
         }
       }
-
     }
-    return false;
   }
 
 }; // end PosTagger
 
-// Stemming demo/comparison - http://text-processing.com/demo/stem/
 
-/*
- *  Porter stemmer in Javascript: from https://github.com/kristopolous/Porter-Stemmer
- *  Ported from Porter, 1980, An algorithm for suffix stripping, Program, Vol. 14,
- *  no. 3, pp 130-137, see also http:www.tartarus.org/~martin/PorterStemmer
- *
- *  Porter is the default Stemmer (Pling and Lancaster are also included).
- */
+ // Default Stemmer (adapted from https://github.com/kristopolous/Porter-Stemmer)
+ // Stemming demo/comparison - http://text-processing.com/demo/stem/
 RiTa.stemmers.Porter = (function() {
 
   var step2list = {
@@ -4322,31 +4974,20 @@ function checkPluralNoLex(s) {
 /* From the PlingStemmer impl in the Java Tools package (see http://mpii.de/yago-naga/javatools). */
 RiTa.stemmers.Pling = (function() {
 
-  /* Tells whether a noun is plural. */
   function isPlural(s) {
     return s !== stem(s);
   }
 
-  /*
-	 * Tells whether a word form is singular. Note that a word can be both
-	 * plural and singular
-	 */
+  // Note that a word can be both plural and singular
   function isSingular(s) {
     return (categorySP._arrayContains(s.toLowerCase()) || !isPlural(s));
   }
 
-  /*
-	 * Tells whether a word form is the singular form of one word and at the
-	 * same time the plural form of another.
-	 */
   function isSingularAndPlural(s) {
     return (categorySP._arrayContains(s.toLowerCase()));
   }
 
-  /*
-	 * Cuts a suffix from a string (that is the number of chars given by the
-	 * suffix)
-	 */
+  // Cuts a suffix from a string (that is the number of chars given by the
   function cut(s, suffix) {
     return (s.substring(0, s.length - suffix.length));
   }
@@ -4418,7 +5059,7 @@ RiTa.stemmers.Pling = (function() {
 
     // -a to -ae
     // No other common words end in -ae
-    if (s._endsWith("ae"))
+    if (s._endsWith("ae") && s !== 'pleae') // special case
       return (cut(s, "e"));
 
     // -a to -ata
@@ -4546,14 +5187,6 @@ String.prototype._endsWith = function(suffix) {
   return this.indexOf(suffix, this.length - suffix.length) !== -1;
 };
 
-/*
- * Minimum-Edit-Distance (or Levenshtein distance) is a measure of the similarity
- * between two strings, the source string and the target string (t). The distance
- * is the number of deletions, insertions, or substitutions required to transform
- * the source into the target / avg_string_length<p>
- *
- * Adapted from Michael Gilleland's algorithm
- */
 var MinEditDist = {
 
   _min3: function(a, b, c) {
@@ -4564,7 +5197,7 @@ var MinEditDist = {
     return min;
   },
 
-  /* Computes min-edit-distance between 2 string arrays where each array element either matches or does not */
+  // med where each array element either matches or does not
   _computeRawArray: function(srcArr, trgArr) {
 
     //log((srcArr)+" "+(trgArr));
@@ -4623,9 +5256,7 @@ var MinEditDist = {
   },
 
 
-  /*
-   * Compute min-edit-distance between 2 strings (or 2 arrays)
-   */
+  // med for 2 strings (or 2 arrays)
   computeRaw: function(source, target) {
 
     //log('computeRaw: '+arguments.length+ " "+Type.get(source));
@@ -4686,10 +5317,7 @@ var MinEditDist = {
 
   },
 
-  /*
-   * Compute min-edit-distance between 2 strings (or 2 arrays of strings)
-   * divided by the max of their lengths.
-   */
+  // med 2 strings (or 2 string arrays) divided by max of their lengths
   computeAdjusted: function(source, target) {
 
     var st = get(source), tt = get(source);
@@ -4708,10 +5336,6 @@ var MinEditDist = {
     err('Unexpected args: ' + source + "/" + target);
   }
 };
-
-////////////////////////////////////////////////////////////////
-//////// Concorder
-////////////////////////////////////////////////////////////////
 
 var Concorder = makeClass();
 
@@ -4772,8 +5396,6 @@ Concorder.prototype = {
     return result;
   },
 
-  /////////////////// helpers ////////////////////////////
-
   build: function() {
 
     if (!this.words) throw Error('No text in model');
@@ -4822,10 +5444,6 @@ Concorder.prototype = {
   }
 };
 
-//////////////////////////////////////////////////////////////////
-//////// RE
-////////////////////////////////////////////////////////////////
-
 var RE = makeClass();
 
 RE.prototype = {
@@ -4852,8 +5470,6 @@ RE.prototype = {
     return (this.offset === 0) ? word : word.substr(0, word.length - this.offset);
   }
 };
-
-////////////////////////////////// End Classes ///////////////////////////////////
 
 var QUESTION_STARTS =   [ "Was", "What", "When", "Where", "Which", "Why", "Who", "Will", "Would",
                           "How", "If", "Who", "Is", "Could", "Might", "Does", "Are", "Have" ];
@@ -5608,12 +6224,253 @@ var PLURAL_RULES = [
     doubling: false
   };
 
-// ///////////////////////////// End Functions ////////////////////////////////////
-
 if (!RiTa.SILENT && !isNode() && console)
   console.log('[INFO] RiTaJS.version [' + RiTa.VERSION + ']');
 
-RiTa._LTS=[
+
+var LetterToSound = makeClass(); // (adapted from FreeTTS)
+
+LetterToSound.prototype = {
+
+  init: function() {
+    this.warnedForNoLTS = false;
+    this.letterIndex = {};
+    this.fval_buff = [];
+    this.stateMachine = null;
+    this.numStates = 0;
+    for (var i = 0; i < LetterToSound.RULES.length; i++)
+      this.parseAndAdd(LetterToSound.RULES[i]);
+  },
+
+  _createState: function(type, tokenizer) {
+
+    if (type === "STATE") {
+      var index = parseInt(tokenizer.nextToken());
+      var c = tokenizer.nextToken();
+      var qtrue = parseInt(tokenizer.nextToken());
+      var qfalse = parseInt(tokenizer.nextToken());
+
+      return new DecisionState(index, c.charAt(0), qtrue, qfalse);
+
+    } else if (type === "PHONE") {
+
+      return new FinalState(tokenizer.nextToken());
+    }
+
+    throw Error("Unexpected type: " + type);
+  },
+
+  // Creates a word from an input line and adds it to the state machine
+  parseAndAdd: function(line) {
+    var tokenizer = new StringTokenizer(line, SP);
+    var type = tokenizer.nextToken();
+
+    if (type === "STATE" || type === "PHONE") {
+      this.stateMachine[this.numStates++] = this._createState(type, tokenizer);
+    } else if (type === "INDEX") {
+      var index = parseInt(tokenizer.nextToken());
+      if (index != this.numStates) {
+        throw Error("Bad INDEX in file.");
+      } else {
+        var c = tokenizer.nextToken();
+        this.letterIndex[c] = index;
+      }
+      //log(type+" : "+c+" : "+index + " "+this.letterIndex[c]);
+    } else if (type == "TOTAL") {
+      this.stateMachine = [];
+      this.stateMachineSize = parseInt(tokenizer.nextToken());
+    }
+  },
+
+  getPhones: function(input, delim) {
+
+    var i, ph, result = [];
+
+    delim = delim || '-';
+
+    if (is(input, S)) {
+
+      if (!input.length) return E;
+
+      input = RiTa.tokenize(input);
+    }
+
+    for (i = 0; i < input.length; i++) {
+      ph = this._computePhones(input[i]);
+      result[i] = ph ? ph.join(delim) : E;
+    }
+
+    result = result.join(delim).replace(/ax/g, 'ah');
+
+    result.replace("/0/g","");
+
+    if (result.length > 0 && result.indexOf("1") === -1 && result.indexOf(" ") === -1) {
+          ph = result.split("-");
+          result = "";
+          for (var i = 0; i < ph.length; i++) {
+              if (/[aeiou]/.test(ph[i])) ph[i] += "1";
+              result += ph[i] + "-";
+          }
+          if(ph.length > 1) result = result.substring(0, result.length - 1);
+      }
+
+    return result;
+  },
+
+  _computePhones: function(word) {
+
+    var dig, phoneList = [], windowSize = 4,
+      full_buff, tmp, currentState, startIndex, stateIndex, c;
+
+
+    if (!word || !word.length || RiTa.isPunctuation(word))
+      return null;
+
+    if (!LetterToSound.RULES) {
+      if (!this.warnedForNoLTS) {
+
+        this.warnedForNoLTS = true;
+        console.warn("[WARN] No LTS-rules found: for word features outside the lexicon, use a larger version of RiTa.");
+      }
+      return null;
+    }
+
+    word = word.toLowerCase();
+
+    if (isNum(word)) {
+
+      word = (word.length > 1) ? word.split(E) : [word];
+
+      for (var k = 0; k < word.length; k++) {
+
+        dig = parseInt(word[k]);
+        if (dig < 0 || dig > 9)
+          throw Error("Attempt to pass multi-digit number to LTS: '" + word + "'");
+
+        phoneList.push(RiString._phones.digits[dig]);
+      }
+      return phoneList;
+    }
+
+    // Create "000#word#000", uggh
+    tmp = "000#" + word.trim() + "#000", full_buff = tmp.split(E);
+
+    for (var pos = 0; pos < word.length; pos++) {
+
+      for (var i = 0; i < windowSize; i++) {
+
+        this.fval_buff[i] = full_buff[pos + i];
+        this.fval_buff[i + windowSize] =
+          full_buff[i + pos + 1 + windowSize];
+      }
+
+      c = word.charAt(pos);
+      startIndex = this.letterIndex[c];
+
+      // must check for null here, not 0 (and not ===)
+      if (!isNum(startIndex)) {
+        warn("Unable to generate LTS for '" + word + "'\n       No LTS index for character: '" +
+          c + "', isDigit=" + isNum(c) + ", isPunct=" + RiTa.isPunctuation(c));
+        return null;
+      }
+
+      stateIndex = parseInt(startIndex);
+
+      currentState = this.getState(stateIndex);
+
+      while (!(currentState instanceof FinalState)) {
+
+        stateIndex = currentState.getNextState(this.fval_buff);
+        currentState = this.getState(stateIndex);
+      }
+
+      currentState.append(phoneList);
+    }
+
+    return phoneList;
+  },
+
+  getState: function(i) {
+
+    if (is(i, N)) {
+      var state = null;
+      if (is(this.stateMachine[i], S)) {
+        state = this.getState(this.stateMachine[i]);
+      } else
+        state = this.stateMachine[i];
+      return state;
+    } else {
+      var tokenizer = new StringTokenizer(i, " ");
+      return this.getState(tokenizer.nextToken(), tokenizer);
+    }
+  }
+};
+
+// DecisionState
+
+var DecisionState = makeClass();
+
+DecisionState.TYPE = 1;
+
+DecisionState.prototype = {
+
+  init: function(index, c, qtrue, qfalse) {
+
+    this.c = c;
+    this.index = index;
+    this.qtrue = qtrue;
+    this.qfalse = qfalse;
+  },
+
+  type: function() {
+    return "DecisionState";
+  },
+
+  getNextState: function(chars) {
+
+    return (chars[this.index] == this.c) ? this.qtrue : this.qfalse;
+  }
+};
+
+// FinalState
+
+var FinalState = makeClass();
+
+FinalState.TYPE = 2;
+
+FinalState.prototype = {
+
+  // "epsilon" is used to indicate an empty list.
+  init: function(phones) {
+
+    this.phoneList = [];
+
+    if (phones === ("epsilon")) {
+      this.phoneList = null;
+    } else if (is(phones, A)) {
+      this.phoneList = phones;
+    } else {
+      var i = phones.indexOf('-');
+      if (i != -1) {
+        this.phoneList[0] = phones.substring(0, i);
+        this.phoneList[1] = phones.substring(i + 1);
+      } else {
+        this.phoneList[0] = phones;
+      }
+    }
+  },
+
+  type: function() { return "FinalState"; },
+
+  append: function(array) {
+
+    if (!this.phoneList) return;
+    for (var i = 0; i < this.phoneList.length; i++)
+      array.push(this.phoneList[i]);
+  }
+};
+
+LetterToSound.RULES=[
 'TOTAL 13100',
 'INDEX 0 a',
 'STATE 4 r 2 1',
@@ -18745,7 +19602,6 @@ RiTa._LTS=[
 
 function _dict() { return {
 'a':['ey1','dt'],
-'aback':['ah b-ae1-k','rb'],
 'abalone':['ae b-ah l-ow1 n-iy','nn'],
 'abandon':['ah b-ae1-n d-ah-n','vb nn vbp'],
 'abandoned':['ah b-ae1-n d-ah-n-d','vbn vbd jj'],
@@ -18768,7 +19624,6 @@ function _dict() { return {
 'abduct':['ae-b-d-ah1-k-t','vb'],
 'abducted':['ae-b d-ah1-k t-ih-d','vbn nn'],
 'abduction':['ae-b d-ah1-k sh-ah-n','nn'],
-'abed':['ah b-eh1-d','rb'],
 'aberrant':['ae b-eh1 r-ah-n-t','jj'],
 'aberration':['ae b-er ey1 sh-ah-n','nn'],
 'abet':['ah b-eh1-t','vb'],
@@ -18785,8 +19640,6 @@ function _dict() { return {
 'abject':['ae1-b jh-eh-k-t','jj'],
 'ablaze':['ah b-l-ey1-z','jj rb'],
 'able':['ey1 b-ah-l','jj'],
-'abler':['ey1 b-ah-l er','jjr'],
-'ably':['ey1 b-l-iy','rb'],
 'abnormal':['ae-b n-ao1-r m-ah-l','jj'],
 'abnormality':['ae-b n-ao-r m-ae1 l-ah t-iy','nn'],
 'abnormally':['ae-b n-ao1-r m-ah l-iy','rb'],
@@ -19397,7 +20250,7 @@ function _dict() { return {
 'aisle':['ay1-l','nn'],
 'ajar':['ah jh-aa1-r','rb'],
 'akin':['ah k-ih1-n','jj rb'],
-'alabaster':['ae1 l-ah b-ae s-t-er','nn jjr'],
+'alabaster':['ae1 l-ah b-ae s-t-er','jj'],
 'alarm':['ah l-aa1-r-m','nn vb'],
 'alarmed':['ah l-aa1-r-m-d','vbn jj'],
 'alarming':['ah l-aa1-r m-ih-ng','jj vbg'],
@@ -19634,7 +20487,7 @@ function _dict() { return {
 'amusement':['ah m-y-uw1-z m-ah-n-t','nn'],
 'amusing':['ah m-y-uw1 z-ih-ng','jj'],
 'amusingly':['ah m-y-uw1 z-ih-ng l-iy','rb'],
-'an':['ae1-n','dt cc jj nnp'],
+'an':['ae1-n','dt cc jj'],
 'anachronism':['ah n-ae1 k-r-ah n-ih z-ah-m','nn'],
 'anachronistic':['ah n-ae k-r-ah n-ih1 s-t-ih-k','jj'],
 'anaconda':['ae n-ah k-aa1-n d-ah','nn'],
@@ -19677,7 +20530,7 @@ function _dict() { return {
 'anchovy':['ae-n ch-ow1 v-iy','nn'],
 'ancient':['ey1-n ch-ah-n-t','jj nn'],
 'ancillary':['ae1-n s-ah l-eh r-iy','jj'],
-'and':['ae1-n-d','cc jj rb nnp'],
+'and':['ae1-n-d','cc'],
 'anecdotal':['ae n-ah-k d-ow1 t-ah-l','jj'],
 'anecdote':['ae1 n-ah-k d-ow-t','nn'],
 'anemia':['ah n-iy1 m-iy ah','nn'],
@@ -19693,7 +20546,6 @@ function _dict() { return {
 'angering':['ae1-ng g-er ih-ng','vbg'],
 'angers':['ae1-ng g-er-z','vbz'],
 'angina':['ae-n jh-ay1 n-ah','nn'],
-'angiotensin':['ae-n jh-iy ow t-eh1-n s-ih-n','nn'],
 'angle':['ae1-ng g-ah-l','nn vb'],
 'angler':['ae1-ng g-l-er','nn'],
 'angling':['ae1-ng g-l-ih-ng','vbg nn'],
@@ -19793,22 +20645,15 @@ function _dict() { return {
 'antifreeze':['ae1-n t-iy f-r-iy-z','nn'],
 'antigen':['ae1-n t-ah jh-ah-n','nn'],
 'antihistamine':['ae-n t-iy hh-ih1 s-t-ah m-ah-n','nn'],
-'antilock':['ae1-n t-iy l-aa1-k','jj'],
-'antimissile':['ae-n t-ay m-ih1 s-ah-l','jj'],
 'antipathy':['ae-n t-ih1 p-ah th-iy','nn'],
 'antiquated':['ae1-n t-ah k-w-ey t-ah-d','jj'],
 'antique':['ae-n t-iy1-k','jj nn'],
 'antiquity':['ae-n t-ih1 k-w-ah t-iy','nn'],
 'antiseptic':['ae-n t-ah s-eh1-p t-ih-k','jj nn'],
-'antismoking':['ae1-n t-iy-s m-ow1 k-ih-ng','jj'],
 'antisocial':['ae-n t-ih s-ow1 sh-ah-l','jj'],
-'antisubmarine':['ae-n t-ih s-ah1-b m-er iy-n','jj'],
-'antitakeover':['ae-n t-iy t-ey1-k ow v-er','jjr'],
 'antithesis':['ae-n t-ih1 th-ah s-ah-s','nn'],
 'antithetical':['ae-n t-ah th-eh1 t-ih k-ah-l','jj'],
-'antitrust':['ae-n t-ay t-r-ah1-s-t','jj nn'],
-'antiviral':['ae-n t-iy v-ay1 r-ah-l','jj'],
-'antiwar':['ae-n t-ay w-ao1-r','jj'],
+'antiviral':['ae-n t-iy v-ay1 r-ah-l','jj nn'],
 'antsy':['ae1-n-t s-iy','jj rb'],
 'anvil':['ae1-n v-ah-l','nn'],
 'anxiety':['ae-ng z-ay1 ah t-iy','nn'],
@@ -19956,11 +20801,10 @@ function _dict() { return {
 'approximates':['ah p-r-aa1-k s-ah m-ah-t-s','vbz'],
 'approximation':['ah p-r-aa-k s-ah m-ey1 sh-ah-n','nn'],
 'apricot':['ey1 p-r-ah k-aa-t','nn'],
-'april':['ey1 p-r-ah-l','nnp'],
+'april':['ey1 p-r-ah-l','nn'],
 'apron':['ey1 p-r-ah-n','nn'],
 'apt':['ae1-p-t','jj'],
 'aptitude':['ae1-p t-ah t-uw-d','nn'],
-'aptly':['ae1-p-t l-iy','rb'],
 'aquamarine':['aa k-w-ah m-er iy1-n','nn'],
 'aquarium':['ah k-w-eh1 r-iy ah-m','nn'],
 'aquatic':['ah k-w-aa1 t-ih-k','jj'],
@@ -19969,12 +20813,8 @@ function _dict() { return {
 'aquifer':['ae1 k-w-ah f-er','nn'],
 'arabic':['ae1 r-ah b-ih-k','jj'],
 'arable':['eh1 r-ah b-ah-l','jj'],
-'aramid':['eh1 r-ah m-ih-d','nn'],
-'arb':['aa1-r-b','nn'],
 'arbiter':['aa1-r b-ih t-er','nn'],
 'arbitrage':['aa1-r b-ih t-r-aa-zh','nn'],
-'arbitrager':['aa1-r b-ih t-r-aa zh-er','nn'],
-'arbitrageur':['aa1-r b-ih t-r-aa zh-er','nn'],
 'arbitrarily':['aa1-r b-ih t-r-eh r-ah l-iy','rb'],
 'arbitrary':['aa1-r b-ah t-r-eh r-iy','jj'],
 'arbitrate':['aa1-r b-ah t-r-ey-t','vb'],
@@ -20014,7 +20854,7 @@ function _dict() { return {
 'ardently':['aa1-r d-ah-n-t l-iy','rb'],
 'ardor':['aa1-r d-er','nn'],
 'arduous':['aa1-r jh-uw ah-s','jj'],
-'are':['aa1-r','vbp nnp'],
+'are':['aa1-r','vbp'],
 'area':['eh1 r-iy ah','nn'],
 'arena':['er iy1 n-ah','nn'],
 'argon':['aa1-r g-aa-n','nn'],
@@ -20113,7 +20953,7 @@ function _dict() { return {
 'artsy':['aa1-r-t s-iy1','jj'],
 'artwork':['aa1-r-t w-er-k','nn'],
 'arty':['aa1-r t-iy','jj'],
-'as':['ae1-z','in nnp jj rb'],
+'as':['ae1-z','in rb'],
 'asbestos':['ae-s b-eh1 s-t-ah-s','nn'],
 'asbestosis':['ae-s b-eh s-t-ow1 s-ah-s','nn'],
 'ascend':['ah s-eh1-n-d','vb'],
@@ -20489,7 +21329,6 @@ function _dict() { return {
 'ayatollah':['ay ah t-ow1 l-ah','nn'],
 'azalea':['ah z-ey1 l-y-ah','nn'],
 'azure':['ae1 zh-er','jj'],
-'b':['b-iy1','nn ls'],
 'babble':['b-ae1 b-ah-l','nn vb'],
 'babbled':['b-ae1 b-ah-l-d','vbd'],
 'babe':['b-ey1-b','nn'],
@@ -20736,7 +21575,6 @@ function _dict() { return {
 'basking':['b-ae1 s-k-ih-ng','vbg'],
 'bass':['b-ae1-s','nn'],
 'bassist':['b-ey1 s-ih-s-t','nn'],
-'basso':['b-ae1 s-ow','nn'],
 'bassoon':['b-ah s-uw1-n','nn'],
 'bastard':['b-ae1 s-t-er-d','nn'],
 'bastion':['b-ae1 s-ch-ah-n','nn'],
@@ -20754,7 +21592,6 @@ function _dict() { return {
 'baton':['b-ah t-aa1-n','nn'],
 'battalion':['b-ah t-ae1 l-y-ah-n','nn'],
 'batted':['b-ae1 t-ih-d','vbd vbn'],
-'batten':['b-ae1 t-ah-n','nn'],
 'batter':['b-ae1 t-er','nn vb'],
 'battered':['b-ae1 t-er-d','vbn vbd jj'],
 'battering':['b-ae1 t-er ih-ng','vbg nn'],
@@ -20774,7 +21611,6 @@ function _dict() { return {
 'bay':['b-ey1','nn vb'],
 'bayed':['b-ey1-d','vbd vbn'],
 'baying':['b-ey1 ih-ng','vbg'],
-'bayly':['b-ey1 l-iy','nn'],
 'bayonet':['b-ey1 ah n-eh-t','nn'],
 'bazaar':['b-ah z-aa1-r','nn'],
 'be':['b-iy1','vb'],
@@ -20852,7 +21688,7 @@ function _dict() { return {
 'beehive':['b-iy1 hh-ay-v','nn'],
 'been':['b-ih1-n','vbn'],
 'beep':['b-iy1-p','nn'],
-'beeper':['b-iy1 p-er','nn jjr'],
+'beeper':['b-iy1 p-er','nn'],
 'beer':['b-ih1-r','nn'],
 'beet':['b-iy1-t','nn'],
 'beetle':['b-iy1 t-ah-l','nn'],
@@ -20921,7 +21757,6 @@ function _dict() { return {
 'belied':['b-ih l-ay1-d','vbd'],
 'belief':['b-ih l-iy1-f','nn'],
 'belies':['b-ih l-ay1-z','vbz'],
-'believability':['b-ah l-iy v-ah b-ih1 l-ih t-iy','nn'],
 'believable':['b-ah l-iy1 v-ah b-ah-l','jj'],
 'believe':['b-ih l-iy1-v','vbp vb'],
 'believed':['b-ih l-iy1-v-d','vbd vbn'],
@@ -21849,7 +22684,7 @@ function _dict() { return {
 'bummed':['b-ah1-m-d','vbn'],
 'bump':['b-ah1-m-p','vb nn vbp'],
 'bumped':['b-ah1-m-p-t','vbd vbn'],
-'bumper':['b-ah1-m p-er','nn jj jjr'],
+'bumper':['b-ah1-m p-er','nn jj'],
 'bumping':['b-ah1-m p-ih-ng','vbg'],
 'bumpy':['b-ah1-m p-iy','jj'],
 'bun':['b-ah1-n','nn'],
@@ -21922,10 +22757,9 @@ function _dict() { return {
 'busier':['b-ih1 z-iy er','jjr'],
 'busiest':['b-ih1 z-iy ah-s-t','jjs'],
 'busily':['b-ih1 z-ah l-iy','rb'],
-'business':['b-ih1-z n-ah-s','nn nnp'],
+'business':['b-ih1-z n-ah-s','nn'],
 'businesslike':['b-ih1-z n-ih-s l-ay-k','jj'],
 'businessman':['b-ih1-z n-ah-s m-ae-n','nn'],
-'businesspeople':['b-ih1-z n-ah-s p-iy1 p-ah-l','nn'],
 'businesswoman':['b-ih1-z n-ih-s w-uh m-ah-n','nn'],
 'busing':['b-ah1 s-ih-ng','vbg'],
 'busload':['b-ah-s l-ow1-d','nn'],
@@ -22187,7 +23021,7 @@ function _dict() { return {
 'careen':['k-er iy1-n','vb'],
 'careened':['k-er iy1-n-d','vbd'],
 'careening':['k-er iy1 n-ih-ng','vbg'],
-'career':['k-er ih1-r','nn nnp'],
+'career':['k-er ih1-r','nn'],
 'careerist':['k-er ih1 r-ih-s-t','nn'],
 'carefree':['k-eh1-r f-r-iy','jj'],
 'careful':['k-eh1-r f-ah-l','jj'],
@@ -22608,7 +23442,6 @@ function _dict() { return {
 'chewed':['ch-uw1-d','vbd vbn'],
 'chewing':['ch-uw1 ih-ng','vbg jj nn'],
 'chic':['sh-iy1-k','jj nn'],
-'chicago':['sh-ah k-aa1 g-ow','nnp'],
 'chicanery':['sh-ih k-ey1 n-er iy','nn'],
 'chick':['ch-ih1-k','nn'],
 'chicken':['ch-ih1 k-ah-n','nn'],
@@ -22621,7 +23454,7 @@ function _dict() { return {
 'chiefly':['ch-iy1-f l-iy','rb'],
 'chieftain':['ch-iy1-f t-ah-n','nn'],
 'child':['ch-ay1-l-d','nn'],
-'childbearing':['ch-ay1-l-d b-eh r-ih-ng','vbg nn'],
+'childbearing':['ch-ay1-l-d b-eh r-ih-ng','vbg'],
 'childbirth':['ch-ay1-l-d b-er-th','nn'],
 'childcare':['ch-ay1-l-d k-eh-r','nn'],
 'childhood':['ch-ay1-l-d hh-uh-d','nn'],
@@ -22725,7 +23558,7 @@ function _dict() { return {
 'chump':['ch-ah1-m-p','nn'],
 'chunk':['ch-ah1-ng-k','nn'],
 'chunky':['ch-ah1-ng k-iy','jj'],
-'church':['ch-er1-ch','nn nnp'],
+'church':['ch-er1-ch','nn'],
 'churchgoer':['ch-er1-ch g-ow er','nn'],
 'churchyard':['ch-er1-ch y-aa-r-d','nn'],
 'churn':['ch-er1-n','vb vbp'],
@@ -23270,7 +24103,7 @@ function _dict() { return {
 'commodity':['k-ah m-aa1 d-ah t-iy','nn'],
 'common':['k-aa1 m-ah-n','jj nn'],
 'commonality':['k-aa m-ah n-ae1 l-ah t-iy','nn'],
-'commoner':['k-aa1 m-ah n-er','jjr'],
+'commoner':['k-aa1 m-ah n-er','nn'],
 'commonly':['k-aa1 m-ah-n l-iy','rb'],
 'commonplace':['k-aa1 m-ah-n p-l-ey-s','jj nn'],
 'commons':['k-aa1 m-ah-n-z','nn'],
@@ -24583,7 +25416,6 @@ function _dict() { return {
 'cystic':['s-ih1 s-t-ih-k','jj'],
 'cytoplasm':['s-ay1 t-ah p-l-ae z-ah-m','nn'],
 'czar':['z-aa1-r','nn'],
-'d':['d-iy1','ls nn'],
 'dabble':['d-ae1 b-ah-l','vb'],
 'dabbled':['d-ae1 b-ah-l-d','vbd'],
 'dabbles':['d-ae1 b-ah-l-z','vbz'],
@@ -24718,7 +25550,7 @@ function _dict() { return {
 'dealing':['d-iy1 l-ih-ng','vbg nn'],
 'dealmaker':['d-iy1-l m-ey k-er','nn'],
 'dealt':['d-eh1-l-t','vbn vbd'],
-'dean':['d-iy1-n','nn nnp'],
+'dean':['d-iy1-n','nn'],
 'dear':['d-ih1-r','jj nn rb uh'],
 'dearest':['d-ih1 r-ah-s-t','jjs'],
 'dearly':['d-ih1-r l-iy','rb'],
@@ -25093,7 +25925,7 @@ function _dict() { return {
 'demure':['d-ih m-y-uh1-r','jj'],
 'demurred':['d-ih m-er1-d','vbd'],
 'demurs':['d-ih m-er1-z','vbz'],
-'den':['d-eh1-n','nn nnp'],
+'den':['d-eh1-n','nn'],
 'denationalization':['d-iy n-ae sh-ah-n ah l-ih z-ey1 sh-ah-n','nn'],
 'denationalize':['d-ih-n-ae1-sh-ah-n-ah-l-ay-z','vb'],
 'denationalized':['d-ih n-ae1 sh-ah-n ah l-ay-z-d','vbn'],
@@ -25544,7 +26376,7 @@ function _dict() { return {
 'diminutive':['d-ih m-ih1 n-y-ah t-ih-v','jj'],
 'dimly':['d-ih1-m l-iy','rb'],
 'dimmed':['d-ih1-m-d','vbn vbd'],
-'dimmer':['d-ih1 m-er','rb jjr'],
+'dimmer':['d-ih1 m-er','nn jjr'],
 'dimming':['d-ih1 m-ih-ng','vbg'],
 'din':['d-ih1-n','nn'],
 'dine':['d-ay1-n','vb'],
@@ -25559,8 +26391,6 @@ function _dict() { return {
 'dinnertime':['d-ih1 n-er t-ay-m','nn'],
 'dinnerware':['d-ih1 n-er w-eh-r','nn'],
 'dinosaur':['d-ay1 n-ah s-ao-r','nn'],
-'diocesan':['d-ay aa1 s-ah s-ah-n','jj'],
-'diocese':['d-ay1 ah s-iy-z','nn'],
 'dioxide':['d-ay aa1-k s-ay-d','nn'],
 'dioxin':['d-ay aa1-k s-ih-n','nn'],
 'dip':['d-ih1-p','nn vbp vb'],
@@ -26482,7 +27312,6 @@ function _dict() { return {
 'dyslexia':['d-ih-s l-eh1-k s-iy ah','nn'],
 'dysplasia':['d-ih s-p-l-ey1 zh-ah','nn'],
 'dystrophy':['d-ih1-s t-r-ah f-iy','nn'],
-'e':['iy1','nn nnp'],
 'each':['iy1-ch','dt'],
 'eager':['iy1 g-er','jj'],
 'eagerly':['iy1 g-er l-iy','rb'],
@@ -26942,7 +27771,7 @@ function _dict() { return {
 'endearment':['ih-n d-ih1-r m-ah-n-t','nn'],
 'endeavor':['ih-n d-eh1 v-er','nn vb'],
 'endeavored':['ih-n d-eh1 v-er-d','vbd vbn'],
-'endeavour':['ih-n d-eh1 v-er','nn'],
+'endeavor':['ih-n d-eh1 v-er','nn'],
 'ended':['eh1-n d-ah-d','vbd jj vb vbn'],
 'endemic':['eh-n d-eh1 m-ih-k','jj'],
 'ending':['eh1-n d-ih-ng','vbg jj nn vbn'],
@@ -27564,7 +28393,7 @@ function _dict() { return {
 'exigency':['eh-k s-ih1 jh-ah-n s-iy','nn'],
 'exile':['eh1-g z-ay-l','nn vb'],
 'exiled':['eh1-g z-ay-l-d','vbn vbd jj'],
-'exist':['ih-g z-ih1-s-t','vb vbp nnp'],
+'exist':['ih-g z-ih1-s-t','vb vbp'],
 'existed':['ih-g z-ih1 s-t-ah-d','vbd vbn'],
 'existence':['eh-g z-ih1 s-t-ah-n-s','nn'],
 'existent':['eh-g z-ih1 s-t-ah-n-t','jj nn'],
@@ -28596,7 +29425,7 @@ function _dict() { return {
 'footstep':['f-uh1-t s-t-eh-p','nn'],
 'footwear':['f-uh1-t w-eh-r','nn'],
 'footwork':['f-uh1-t w-er-k','nn'],
-'for':['f-ao1-r','in nnp cc jj rb rp'],
+'for':['f-ao1-r','in cc jj rb rp'],
 'forage':['f-ao1 r-ih-jh','nn vb'],
 'foraging':['f-ao1 r-ih jh-ih-ng','vbg'],
 'foray':['f-ao1 r-ey','nn'],
@@ -28606,7 +29435,7 @@ function _dict() { return {
 'forbidden':['f-ao1-r b-ih d-ah-n','vbn jj'],
 'forbidding':['f-er b-ih1 d-ih-ng','vbg jj'],
 'forbids':['f-er b-ih1-d-z','vbz'],
-'force':['f-ao1-r-s','nn vb nnp vbp'],
+'force':['f-ao1-r-s','nn vb vbp'],
 'forced':['f-ao1-r-s-t','vbn jj vbd'],
 'forceful':['f-ao1-r-s f-ah-l','jj'],
 'forcefully':['f-ao1-r-s f-ah l-iy','rb'],
@@ -28766,7 +29595,6 @@ function _dict() { return {
 'foursome':['f-ao1-r s-ah-m','nn'],
 'fourteenth':['f-ao1-r t-iy1-n-th','jj'],
 'fourth':['f-ao1-r-th','jj rb'],
-'fourthquarter':['f-ao1-r-th k-w-ao1-r t-er','nn'],
 'fowl':['f-aw1-l','nn'],
 'fox':['f-aa1-k-s','nn'],
 'foxhole':['f-aa1-k-s hh-ow-l','nn'],
@@ -28861,7 +29689,6 @@ function _dict() { return {
 'freshly':['f-r-eh1-sh l-iy','rb'],
 'freshman':['f-r-eh1-sh m-ah-n','nn'],
 'freshness':['f-r-eh1-sh n-ah-s','nn'],
-'freshwater':['f-r-eh1-sh w-ao t-er','jjr'],
 'fret':['f-r-eh1-t','vbp nn vb'],
 'frets':['f-r-eh1-t-s','vbz'],
 'fretted':['f-r-eh1 t-ih-d','vbd'],
@@ -28947,7 +29774,6 @@ function _dict() { return {
 'fuel':['f-y-uw1 ah-l','nn vbp vb'],
 'fueled':['f-y-uw1 ah-l-d','vbn vbd'],
 'fueling':['f-y-uw1 l-ih-ng','vbg nn'],
-'fuer':['f-y-uw1-r','nnp'],
 'fugitive':['f-y-uw1 jh-ah t-ih-v','jj nn'],
 'fulcrum':['f-uh1-l k-r-ah-m','nn'],
 'fulfill':['f-uh-l f-ih1-l','vb vbp'],
@@ -29014,7 +29840,7 @@ function _dict() { return {
 'furrier':['f-er1 iy er','nn'],
 'furrow':['f-er1 ow','nn'],
 'furry':['f-er1 iy','jj'],
-'further':['f-er1 dh-er','jj rb rbr jjr vb'],
+'further':['f-er1 dh-er','jj vb'],
 'furthered':['f-er1 dh-er-d','vbd vbn'],
 'furthering':['f-er1 dh-er ih-ng','vbg'],
 'furthermore':['f-er1 dh-er m-ao-r','rb'],
@@ -29041,8 +29867,6 @@ function _dict() { return {
 'fuzz':['f-ah1-z','nn'],
 'fuzzier':['f-ah1 z-iy er','jjr'],
 'fuzzy':['f-ah1 z-iy','jj'],
-'g':['jh-iy1','nn'],
-'gab':['g-ae1-b','nn'],
 'gabardine':['g-ae1 b-er d-iy-n','nn'],
 'gabbing':['g-ae1 b-ih-ng','vbg'],
 'gable':['g-ey1 b-ah-l','nn'],
@@ -29061,7 +29885,7 @@ function _dict() { return {
 'gainful':['g-ey1-n f-ah-l','jj'],
 'gaining':['g-ey1 n-ih-ng','vbg'],
 'gait':['g-ey1-t','nn'],
-'gal':['g-ae1-l','nn jj'],
+'gal':['g-ae1-l','nn'],
 'gala':['g-ae1 l-ah','jj nn'],
 'galactic':['g-ah l-ae1-k t-ih-k','jj'],
 'galaxy':['g-ae1 l-ah-k s-iy','nn'],
@@ -29870,7 +30694,6 @@ function _dict() { return {
 'gyration':['jh-ay r-ey1 sh-ah-n','nn'],
 'gyro':['jh-ay1 r-ow','nn'],
 'gyroscope':['jh-ay1 r-ah s-k-ow-p','nn'],
-'h':['ey1-ch','nn'],
 'haberdashery':['hh-ae1 b-er d-ae sh-er iy','nn'],
 'habit':['hh-ae1 b-ah-t','nn'],
 'habitable':['hh-ae1 b-ah t-ah b-ah-l','jj'],
@@ -30150,7 +30973,6 @@ function _dict() { return {
 'headlong':['hh-eh1-d l-ao-ng','rb'],
 'headmaster':['hh-eh1-d m-ae1 s-t-er','nn'],
 'headphone':['hh-eh1-d f-ow-n','nn'],
-'headquarter':['hh-eh1-d-k-w-ao-r-t-er','vb'],
 'headquartered':['hh-eh1-d k-ao-r t-er-d','vbn'],
 'headquarters':['hh-eh1-d k-w-ao-r t-er-z','nn'],
 'headrest':['hh-eh1-d r-eh-s-t','nn'],
@@ -30289,7 +31111,7 @@ function _dict() { return {
 'henceforth':['hh-eh1-n-s f-ao1-r-th','rb'],
 'henchman':['hh-eh1-n-ch m-ah-n','nn'],
 'henpecked':['hh-eh1-n p-eh-k-t','jj'],
-'hepatitis':['hh-eh p-ah t-ay1 t-ah-s','nn nnp'],
+'hepatitis':['hh-eh p-ah t-ay1 t-ah-s','nn'],
 'her':['hh-er','prp$'],
 'herald':['hh-eh1 r-ah-l-d','vb vbp'],
 'heralded':['hh-eh1 r-ah-l d-ih-d','vbn vbd'],
@@ -30490,8 +31312,7 @@ function _dict() { return {
 'homely':['hh-ow1-m l-iy','jj'],
 'homemade':['hh-ow1-m m-ey1-d','jj'],
 'homemaker':['hh-ow1-m m-ey k-er','nn'],
-'homeowner':['hh-ow1 m-ow n-er','nn jjr'],
-'homeownership':['hh-ow1 m-ow n-er sh-ih-p','nn'],
+'homeowner':['hh-ow1 m-ow n-er','nn'],
 'homer':['hh-ow1 m-er','nn vb'],
 'homesick':['hh-ow1-m s-ih-k','jj'],
 'homesickness':['hh-ow1-m s-ih-k n-ah-s','nn'],
@@ -30504,7 +31325,6 @@ function _dict() { return {
 'homicidal':['hh-aa m-ah s-ay1 d-ah-l','jj'],
 'homicide':['hh-aa1 m-ah s-ay-d','nn'],
 'homily':['hh-ow1 m-ah l-iy','nn'],
-'homing':['hh-ow1 m-ih-ng','jj vbg'],
 'homogeneity':['hh-aa m-ah jh-ah n-iy1 ah t-iy','nn'],
 'homogeneous':['hh-ow m-ah jh-iy1 n-iy ah-s','jj'],
 'homogenize':['hh-ow-m-aa1-jh-ah-n-ay-z','vb'],
@@ -30514,8 +31334,6 @@ function _dict() { return {
 'homophobia':['hh-ow m-ah f-ow1 b-iy ah','nn'],
 'homosexual':['hh-ow m-ow s-eh1-k sh-ah w-ah-l','jj nn'],
 'homosexuality':['hh-ow m-ow s-eh-k sh-ah-w ae1 l-ah t-iy','nn'],
-'homozygous':['hh-ow m-ow z-ay1 g-ah-s','jj'],
-'hon':['hh-aa1-n','nn'],
 'hone':['hh-ow1-n','vb vbp nn'],
 'honed':['hh-ow1-n-d','vbn jj'],
 'honest':['aa1 n-ah-s-t','jj'],
@@ -31146,7 +31964,7 @@ function _dict() { return {
 'imputation':['ih-m p-y-ah t-ey1 sh-ah-n','nn'],
 'impute':['ih-m-p-y-uw1-t','vb'],
 'imputed':['ih-m p-y-uw1 t-ih-d','vbn jj'],
-'in':['ih-n','in nn rb rp nnp rbr'],
+'in':['ih-n','in nn rb rp rbr'],
 'inability':['ih-n ah b-ih1 l-ih t-iy','nn'],
 'inaccessible':['ih-n ah-k s-eh1 s-ah b-ah-l','jj'],
 'inaccuracy':['ih-n ae1 k-y-er ah s-iy','nn'],
@@ -32178,7 +32996,6 @@ function _dict() { return {
 'itself':['ih-t s-eh1-l-f','prp'],
 'ivory':['ay1 v-er iy','nn jj'],
 'ivy':['ay1 v-iy','nn'],
-'j':['jh-ey1','nn'],
 'jab':['jh-ae1-b','nn'],
 'jabbed':['jh-ae1-b-d','vbd'],
 'jabbing':['jh-ae1 b-ih-ng','vbg'],
@@ -32387,7 +33204,6 @@ function _dict() { return {
 'juxtapose':['jh-ah-k-s-t-ah-p-ow1-z','vb'],
 'juxtaposed':['jh-ah-k s-t-ah p-ow1-z-d','vbn'],
 'juxtaposition':['jh-ah-k s-t-ah p-ah z-ih1 sh-ah-n','nn'],
-'k':['k-ey1','nn'],
 'kale':['k-ey1-l','nn'],
 'kaleidoscope':['k-ah l-ay1 d-ah s-k-ow-p','nn'],
 'kamikaze':['k-aa m-ah k-aa1 z-iy','nn'],
@@ -32458,7 +33274,6 @@ function _dict() { return {
 'kimono':['k-ah m-ow1 n-ah','nn'],
 'kin':['k-ih1-n','nn'],
 'kind':['k-ay1-n-d','nn jj rb'],
-'kinda':['k-ih1-n d-ah','rb'],
 'kinder':['k-ay1-n d-er','jjr'],
 'kindergarten':['k-ih1-n d-er g-aa-r t-ah-n','nn'],
 'kindest':['k-ay1-n d-ah-s-t','jjs'],
@@ -32545,7 +33360,6 @@ function _dict() { return {
 'laboring':['l-ey1 b-er ih-ng','vbg'],
 'laborious':['l-ah b-ao1 r-iy ah-s','jj'],
 'laboriously':['l-ah b-ao1 r-iy ah-s l-iy','rb'],
-'labour':['l-ey1 b-aw-r','nn'],
 'labyrinth':['l-ae1 b-er ih-n-th','nn'],
 'lace':['l-ey1-s','nn vb'],
 'laced':['l-ey1-s-t','vbn vbd jj'],
@@ -32621,7 +33435,6 @@ function _dict() { return {
 'languishes':['l-ae1-ng g-w-ih sh-ih-z','vbz'],
 'languishing':['l-ae1-ng g-w-ih sh-ih-ng','vbg jj'],
 'lanky':['l-ae1-ng k-iy','jj'],
-'lantana':['l-ae-n t-ae1 n-ah','nn'],
 'lantern':['l-ae1-n t-er-n','nn'],
 'lanthanum':['l-ae1-n th-ah n-ah-m','nn'],
 'lap':['l-ae1-p','nn'],
@@ -32667,7 +33480,7 @@ function _dict() { return {
 'latecomer':['l-ey1-t k-ah m-er','nn'],
 'lately':['l-ey1-t l-iy','rb'],
 'latent':['l-ey1 t-ah-n-t','jj nn'],
-'later':['l-ey1 t-er','rb jj rp jjr rbr'],
+'later':['l-ey1 t-er','rb rp jjr rbr'],
 'lateral':['l-ae1 t-er ah-l','jj'],
 'latest':['l-ey1 t-ah-s-t','jjs jj'],
 'latex':['l-ey1 t-eh-k-s','nn'],
@@ -32865,7 +33678,7 @@ function _dict() { return {
 'leprosy':['l-eh1 p-r-ah s-iy','nn'],
 'lesbian':['l-eh1-z b-iy ah-n','nn'],
 'lesion':['l-iy1 zh-ah-n','nn'],
-'less':['l-eh1-s','jjr jjs cc rb rbr rbs'],
+'less':['l-eh1-s','jjs cc rb rbr rbs'],
 'lessen':['l-eh1 s-ah-n','vb'],
 'lessened':['l-eh1 s-ah-n-d','vbn jj vbd'],
 'lessening':['l-eh1 s-ah-n ih-ng','nn vbg'],
@@ -33271,7 +34084,7 @@ function _dict() { return {
 'louse':['l-aw1-s','vb nn'],
 'lousy':['l-aw1 z-iy','jj'],
 'lovable':['l-ah1 v-ah b-ah-l','jj'],
-'love':['l-ah1-v','nn nnp vb vbp'],
+'love':['l-ah1-v','nn vb vbp'],
 'loved':['l-ah1-v-d','vbd vbn jj'],
 'lovely':['l-ah1-v l-iy','jj'],
 'lover':['l-ah1 v-er','nn'],
@@ -33370,7 +34183,6 @@ function _dict() { return {
 'lyrical':['l-ih1 r-ih k-ah-l','jj'],
 'lyricism':['l-ih1 r-ih s-ih z-ah-m','nn'],
 'lyricist':['l-ih1 r-ih s-ih-s-t','nn'],
-'m':['eh1-m','nn'],
 'macabre':['m-ah k-aa1 b-r-ah','jj'],
 'macaroni':['m-ae k-er ow1 n-iy','nn'],
 'macaw':['m-ah k-ao1','nn'],
@@ -33644,7 +34456,6 @@ function _dict() { return {
 'marshaling':['m-aa1-r sh-ah-l ih-ng','vbg'],
 'marshalled':['m-aa1-r sh-ah-l-d','vbd'],
 'marshmallow':['m-aa1-r-sh m-eh l-ow','nn'],
-'mart':['m-aa1-r-t','nnp nn'],
 'martial':['m-aa1-r sh-ah-l','jj'],
 'martingale':['m-aa1-r t-ih ng-ey-l','nn'],
 'martini':['m-aa-r t-iy1 n-iy','nn'],
@@ -33678,7 +34489,7 @@ function _dict() { return {
 'massive':['m-ae1 s-ih-v','jj'],
 'massively':['m-ae1 s-ih-v l-iy','rb'],
 'mast':['m-ae1-s-t','nn'],
-'master':['m-ae1 s-t-er','nn jj vb jjr'],
+'master':['m-ae1 s-t-er','nn vb'],
 'mastered':['m-ae1 s-t-er-d','vbn vbd'],
 'masterful':['m-ae1 s-t-er f-ah-l','jj'],
 'masterfully':['m-ae1 s-t-er f-ah l-iy','rb'],
@@ -33730,7 +34541,7 @@ function _dict() { return {
 'matting':['m-ae1 t-ih-ng','nn'],
 'mattress':['m-ae1 t-r-ah-s','nn'],
 'maturation':['m-ae ch-er ey1 sh-ah-n','nn'],
-'mature':['m-ah ch-uh1-r','jj vb nnp vbp'],
+'mature':['m-ah ch-uh1-r','jj vb vbp'],
 'matured':['m-ah t-y-uh1-r-d','vbd vbn'],
 'matures':['m-ah ch-uh1-r-z','vbz'],
 'maturing':['m-ah ch-uh1 r-ih-ng','vbg'],
@@ -33753,7 +34564,7 @@ function _dict() { return {
 'maximizes':['m-ae1-k s-ah m-ay z-ih-z','vbz'],
 'maximizing':['m-ae1-k s-ah m-ay z-ih-ng','vbg'],
 'maximum':['m-ae1-k s-ah m-ah-m','jj nn'],
-'may':['m-ey1','md nnp'],
+'may':['m-ey1','md'],
 'maybe':['m-ey1 b-iy','rb'],
 'mayhem':['m-ey1 hh-eh-m','nn'],
 'mayonnaise':['m-ey1 ah n-ey-z','nn'],
@@ -33995,29 +34806,22 @@ function _dict() { return {
 'microbiology':['m-ay k-r-ow b-ay aa1 l-ah jh-iy','nn'],
 'microchip':['m-ay1 k-r-ow ch-ih1-p','nn jj'],
 'microcircuit':['m-ay1 k-r-ow s-er k-ah-t','nn'],
-'microcomputer':['m-ay1 k-r-ow k-ah-m p-y-uw1 t-er','nn jjr'],
 'microcosm':['m-ay1 k-r-ah k-aa z-ah-m','nn'],
 'microeconomic':['m-ay k-r-ow eh k-ah n-aa1 m-ih-k','jj'],
 'microeconomics':['m-ay k-r-ow eh k-ah n-aa1 m-ih-k-s','nn'],
-'microelectronic':['m-ay k-r-ow ih l-eh-k t-r-aa1 n-ih-k','jj'],
-'microelectronics':['m-ay k-r-ow ih l-eh-k t-r-aa1 n-ih-k-s','nn'],
 'microfilm':['m-ay1 k-r-ah f-ih-l-m','nn'],
-'microfossil':['m-ay1 k-r-ow f-aa1 s-ah-l','nn'],
 'microgram':['m-ay1 k-r-ow g-r-ae-m','nn'],
-'micrographics':['m-ay k-r-ow g-r-ae1 f-ih-k-s','nn'],
 'micromanage':['m-ay k-r-ow m-ae1 n-ih-jh','nn'],
 'micromanagement':['m-ay k-r-ow m-ae1 n-ih-jh m-ah-n-t','nn'],
 'micrometer':['m-ay k-r-aa1 m-ah t-er','nn'],
 'micron':['m-ay1 k-r-aa-n','nn'],
 'microorganism':['m-ay k-r-ow ao1-r g-ah n-ih z-ah-m','nn'],
 'microphone':['m-ay1 k-r-ah f-ow-n','nn'],
-'microprocessor':['m-ay k-r-ow-p r-aa1 s-eh s-er','nn'],
 'microscope':['m-ay1 k-r-ah-s k-ow-p','nn'],
 'microscopic':['m-ay k-r-ah s-k-aa1 p-ih-k','jj'],
 'microwavable':['m-ay k-r-ow w-ey1 v-ah b-ah-l','jj'],
 'microwave':['m-ay1 k-r-ah w-ey-v','nn vb'],
 'microwaved':['m-ay1 k-r-ow w-ey-v-d','vbn'],
-'mid':['m-ih1-d','jj'],
 'midafternoon':['m-ih1-d ae-f t-er n-uw-n','nn'],
 'midair':['m-ih1-d eh1-r','nn'],
 'midcontinent':['m-ih-d k-aa1-n t-ih n-ah-n-t','jj'],
@@ -34047,14 +34851,13 @@ function _dict() { return {
 'midwestern':['m-ih-d w-eh1 s-t-er-n','jj'],
 'midwife':['m-ih1-d w-ay-f','nn'],
 'midwinter':['m-ih1-d w-ih1-n t-er','nn'],
-'midyear':['m-ih1 d-y-ih-r','nn jj'],
+'midyear':['m-ih1 d-y-ih-r','nn'],
 'mien':['m-iy1-n','nn'],
-'miffed':['m-ih1-f-t','vbn vbd jj'],
+'miffed':['m-ih1-f-t','jj'],
 'might':['m-ay1-t','md nn'],
 'mightiest':['m-ay1 t-iy ah-s-t','jjs'],
 'mightily':['m-ay1 t-ah l-iy','rb'],
 'mighty':['m-ay1 t-iy','jj rb'],
-'mignon':['m-ih1-g n-ah-n','nn'],
 'migraine':['m-ay1 g-r-ey-n','nn'],
 'migrant':['m-ay1 g-r-ah-n-t','jj nn'],
 'migrate':['m-ay1 g-r-ey-t','vb vbp'],
@@ -34071,11 +34874,9 @@ function _dict() { return {
 'milestone':['m-ay1-l s-t-ow-n','nn'],
 'milieu':['m-ih l-y-uh1','nn'],
 'militancy':['m-ih1 l-ah t-ah-n s-iy','nn'],
-'militant':['m-ih1 l-ah t-ah-n-t','jj'],
-'militarily':['m-ih l-ah t-eh1 r-ah l-iy','rb'],
+'militant':['m-ih1 l-ah t-ah-n-t','nn jj'],
 'militarism':['m-ih1 l-ah t-er ih z-ah-m','nn'],
 'military':['m-ih1 l-ah t-eh r-iy','jj nn'],
-'militate':['m-ih1 l-ih t-ey-t','vb'],
 'militia':['m-ah l-ih1 sh-ah','nn'],
 'milk':['m-ih1-l-k','nn vb'],
 'milked':['m-ih1-l-k-t','vbd vbn'],
@@ -34119,7 +34920,6 @@ function _dict() { return {
 'miniaturize':['m-ih1-n-ih-ch-er-ay-z','vb'],
 'miniaturized':['m-ih1 n-ih ch-er ay-z-d','vbn'],
 'minicar':['m-ih1 n-iy k-aa-r','nn'],
-'minicomputer':['m-ih1 n-iy k-ah-m p-y-uw1 t-er','nn'],
 'minimal':['m-ih1 n-ah m-ah-l','jj'],
 'minimalism':['m-ih1 n-ah m-ah l-ih z-ah-m','nn'],
 'minimalist':['m-ih1 n-ah m-ah l-ih-s-t','jj nn'],
@@ -34135,11 +34935,10 @@ function _dict() { return {
 'miniscule':['m-ih1 n-ih s-k-y-uw-l','jj nn'],
 'miniseries':['m-ih1 n-ih s-eh r-iy-z','nn'],
 'miniskirt':['m-ih1 n-iy s-k-er-t','nn'],
-'minister':['m-ih1 n-ah s-t-er','nn nnp'],
+'minister':['m-ih1 n-ah s-t-er','nn'],
 'ministerial':['m-ih n-ih s-t-iy1 r-iy ah-l','jj'],
 'ministration':['m-ih n-ah-s t-r-ey1 sh-ah-n','nn'],
 'ministry':['m-ih1 n-ah-s t-r-iy','nn'],
-'minisupercomputer':['m-ih n-iy s-uw1 p-er k-ah-m p-y-uw t-er','nn'],
 'minivan':['m-ih1 n-iy v-ae1-n','nn'],
 'mink':['m-ih1-ng-k','nn'],
 'minor':['m-ay1 n-er','jj nn'],
@@ -34323,7 +35122,7 @@ function _dict() { return {
 'mockery':['m-aa1 k-er iy','nn'],
 'mocking':['m-aa1 k-ih-ng','vbg jj'],
 'mode':['m-ow1-d','nn'],
-'model':['m-aa1 d-ah-l','nn jj vb nnp'],
+'model':['m-aa1 d-ah-l','nn vb'],
 'modeled':['m-aa1 d-ah-l-d','vbn vbd jj'],
 'modeling':['m-aa1 d-ah-l ih-ng','nn jj vbg'],
 'modem':['m-ow1 d-ah-m','nn'],
@@ -34407,7 +35206,6 @@ function _dict() { return {
 'mono':['m-ow1 n-ow','jj nn'],
 'monochromatic':['m-aa n-ah k-r-ow m-ae1 t-ih-k','jj'],
 'monochrome':['m-aa1 n-ah k-r-ow-m','jj'],
-'monoclinic':['m-aa n-ah k-l-ih1 n-ih-k','jj'],
 'monoclonal':['m-aa n-ah k-l-ow1 n-ah-l','jj'],
 'monogamous':['m-ah n-aa1 g-ah m-ah-s','jj'],
 'monogrammed':['m-aa1 n-ah g-r-ae-m-d','jj'],
@@ -34417,7 +35215,6 @@ function _dict() { return {
 'monolithic':['m-aa n-ah l-ih1 th-ih-k','jj'],
 'monologue':['m-aa1 n-ah l-ao-g','nn'],
 'monomer':['m-aa1 n-ah m-er','nn'],
-'mononuclear':['m-aa n-ah n-uw1-k l-iy er','jj'],
 'monophonic':['m-aa n-ah f-aa1 n-ih-k','jj'],
 'monopolistic':['m-ah n-aa p-ah l-ih1 s-t-ih-k','jj'],
 'monopolization':['m-ah n-aa p-ah l-ih z-ey1 sh-ah-n','nn'],
@@ -34428,8 +35225,6 @@ function _dict() { return {
 'monotone':['m-aa1 n-ah t-ow-n','jj nn'],
 'monotonous':['m-ah n-aa1 t-ah-n ah-s','jj'],
 'monotony':['m-ah n-aa1 t-ah-n iy','nn'],
-'monoxide':['m-ah n-aa1-k s-ay-d','nn'],
-'monsieur':['m-ah s-y-er1','nn'],
 'monsoon':['m-aa-n s-uw1-n','nn'],
 'monster':['m-aa1-n s-t-er','nn'],
 'monstrosity':['m-aa-n-s t-r-aa1 s-ah t-iy','nn'],
@@ -34454,7 +35249,6 @@ function _dict() { return {
 'mop':['m-aa1-p','vb nn'],
 'mopped':['m-aa1-p-t','vbd vbn'],
 'mopping':['m-aa1 p-ih-ng','vbg'],
-'mor':['m-ao1-r','jjr'],
 'moraine':['m-er ey1-n','nn'],
 'moral':['m-ao1 r-ah-l','jj nn'],
 'morale':['m-er ae1-l','nn'],
@@ -34707,11 +35501,8 @@ function _dict() { return {
 'muzzled':['m-ah1 z-ah-l-d','vbn'],
 'my':['m-ay1','prp$'],
 'mycology':['m-ay k-aa1 l-ah jh-iy','nn'],
-'myocardial':['m-ay ah k-aa1-r d-iy ah-l','jj'],
-'myocardium':['m-ay ah k-aa1-r d-iy ah-m','nn'],
 'myopia':['m-ay ow1 p-iy ah','nn'],
 'myopic':['m-ay aa1 p-ih-k','jj'],
-'myosin':['m-ay1 ah s-ah-n','nn'],
 'myriad':['m-ih1 r-iy ah-d','jj nn'],
 'myrrh':['m-er1','nn'],
 'myrtle':['m-er1 t-ah-l','nn'],
@@ -34730,8 +35521,6 @@ function _dict() { return {
 'mythical':['m-ih1 th-ah k-ah-l','jj'],
 'mythological':['m-ih th-ah l-aa1 jh-ih k-ah-l','jj'],
 'mythology':['m-ah th-aa1 l-ah jh-iy','nn'],
-'n':['eh1-n','nn cc'],
-'na':['n-aa1','to vbg'],
 'nab':['n-ae1-b','vb'],
 'nabbed':['n-ae1-b-d','vbn'],
 'nabbing':['n-ae1 b-ih-ng','vbg'],
@@ -34755,7 +35544,6 @@ function _dict() { return {
 'naming':['n-ey1 m-ih-ng','vbg nn'],
 'nanny':['n-ae1 n-iy','nn'],
 'nap':['n-ae1-p','nn vb vbp'],
-'naphtha':['n-ae1-f th-ah','nn'],
 'napkin':['n-ae1-p k-ih-n','nn'],
 'napped':['n-ae1-p-t','vbd'],
 'napping':['n-ae1 p-ih-ng','vbg'],
@@ -34882,8 +35670,8 @@ function _dict() { return {
 'negotiating':['n-ih g-ow1 sh-iy ey t-ih-ng','vbg jj nn'],
 'negotiation':['n-ih g-ow sh-iy ey1 sh-ah-n','nn'],
 'negotiator':['n-ah g-ow1 sh-iy ey t-er','nn'],
-'negro':['n-iy1 g-r-ow','nnp'],
-'negroes':['n-iy1 g-r-ow-z','nnps'],
+'negro':['n-iy1 g-r-ow','nn'],
+'negroes':['n-iy1 g-r-ow-z','nns'],
 'neighbor':['n-ey1 b-er','nn vb'],
 'neighborhood':['n-ey1 b-er hh-uh-d','nn'],
 'neighboring':['n-ey1 b-er ih-ng','vbg jj'],
@@ -35060,68 +35848,41 @@ function _dict() { return {
 'noncompliance':['n-aa-n k-ah-m p-l-ay1 ah-n-s','nn'],
 'nonconformist':['n-aa-n k-ah-n f-ao1-r m-ih-s-t','nn'],
 'noncontroversial':['n-aa-n k-aa-n t-r-ah v-er1 sh-ah-l','jj'],
-'nonconvertible':['n-aa-n k-ah-n v-er1 t-ah b-ah-l','jj'],
 'nondescript':['n-aa1-n d-ih s-k-r-ih1-p-t','jj'],
-'nondiscrimination':['n-aa-n d-ih s-k-r-ih m-ih n-ey1 sh-ah-n','nn'],
 'nondiscriminatory':['n-aa1-n d-ih s-k-r-ih1 m-ah n-ah t-ao r-iy','jj'],
 'nondurable':['n-aa-n d-uh1 r-ah b-ah-l','jj'],
 'none':['n-ah1-n','nn'],
-'noneconomic':['n-aa-n eh k-ah n-aa1 m-ih-k','jj'],
-'nonelectrical':['n-aa-n ih l-eh1-k t-r-ih k-ah-l','jj'],
 'nonentity':['n-aa-n eh1-n t-ah t-iy','nn'],
 'nonessential':['n-aa-n ih s-eh1-n ch-ah-l','jj'],
 'nonetheless':['n-ah-n dh-ah l-eh1-s','rb'],
 'nonevent':['n-aa1-n ih v-eh1-n-t','nn'],
-'nonexecutive':['n-aa1-n ih-g z-eh1 k-y-ah t-ih-v','jj'],
 'nonexistent':['n-aa-n ah-g z-ih1 s-t-ah-n-t','jj'],
-'nonfarm':['n-aa1-n f-aa1-r-m','jj'],
 'nonfat':['n-aa1-n f-ae1-t','jj'],
 'nonferrous':['n-aa-n f-eh1 r-ah-s','jj'],
 'nonfiction':['n-aa-n f-ih1-k sh-ah-n','nn'],
 'nonfinancial':['n-aa-n f-ah n-ae1-n sh-ah-l','jj'],
-'nonfood':['n-aa1-n f-uw1-d','nn'],
-'noninflationary':['n-aa-n ih-n f-l-ey1 sh-ah-n eh r-iy','jj'],
-'noninterest':['n-aa-n ih1-n t-r-ah-s-t','jj'],
-'noninterference':['n-aa-n ih-n t-er f-ih1 r-ah-n-s','nn'],
-'nonintervention':['n-aa-n ih-n t-er v-eh1-n ch-ah-n','nn'],
 'nonlethal':['n-aa-n l-iy1 th-ah-l','jj'],
 'nonmember':['n-aa-n m-eh1-m b-er','nn'],
 'nonoperating':['n-aa1-n ao1 p-er ey t-ih-ng','vbg jj nn'],
 'nonpartisan':['n-aa-n p-aa1-r t-ah z-ah-n','jj'],
 'nonpaying':['n-aa-n p-ey1 ih-ng','jj'],
 'nonpayment':['n-aa-n p-ey1 m-ah-n-t','nn'],
-'nonperforming':['n-aa-n p-er f-ao1-r m-ih-ng','jj vbg nn'],
 'nonpoisonous':['n-aa-n p-oy1 z-ah n-ah-s','jj'],
-'nonpolitical':['n-aa-n p-ah l-ih1 t-ih k-ah-l','jj'],
-'nonprescription':['n-aa-n p-r-ah s-k-r-ih1-p sh-ah-n','nn'],
 'nonproductive':['n-aa-n p-r-ah d-ah1-k t-ih-v','jj'],
-'nonprofit':['n-aa-n p-r-aa1 f-ah-t','jj'],
-'nonproliferation':['n-aa-n p-r-ah l-ih f-er ey1 sh-ah-n','nn'],
-'nonpublic':['n-aa-n p-ah1 b-l-ih-k','jj'],
-'nonqualified':['n-aa-n k-w-aa1 l-ah f-ay-d','vbn'],
-'nonracial':['n-aa-n r-ey1 sh-ah-l','jj'],
+'nonprofit':['n-aa-n p-r-aa1 f-ah-t','nn jj'],
 'nonrecurring':['n-aa-n r-ih k-er1 ih-ng','jj'],
 'nonrefundable':['n-aa-n r-ih f-ah1-n d-ah b-ah-l','jj'],
-'nonregulated':['n-aa-n r-eh1 g-y-ah l-ey t-ih-d','jj'],
-'nonresident':['n-aa-n r-eh1 z-ah d-ah-n-t','jj'],
-'nonresidential':['n-aa-n r-eh z-ah d-eh1-n sh-ah-l','jj'],
 'nonsense':['n-aa1-n s-eh-n-s','nn jj'],
 'nonsensical':['n-aa-n s-eh1-n s-ih k-ah-l','jj'],
 'nonsmoker':['n-aa-n s-m-ow1 k-er','nn'],
 'nonspecific':['n-aa-n s-p-ah s-ih1 f-ih-k','jj'],
 'nonstandard':['n-aa-n s-t-ae1-n d-er-d','jj'],
 'nonstop':['n-aa-n s-t-aa1-p','jj nn rb'],
-'nonstrategic':['n-aa-n s-t-r-ah t-iy1 jh-ih-k','jj'],
-'nonsurgical':['n-aa-n s-er1 jh-ih k-ah-l','jj'],
 'nontoxic':['n-aa-n t-aa1-k s-ih-k','jj'],
 'nontraditional':['n-aa-n t-r-ah d-ih1 sh-ah n-ah-l','jj'],
-'nontransferable':['n-aa-n t-r-ae-n-s f-er1 ah b-ah-l','jj'],
-'nonunion':['n-aa-n y-uw1 n-y-ah-n','jj'],
-'nonunionized':['n-aa-n y-uw1 n-y-ah n-ay-z-d','vbn'],
 'nonviolence':['n-aa-n v-ay1 ah l-ah-n-s','nn'],
 'nonviolent':['n-aa-n v-ay1 ah l-ah-n-t','jj'],
 'nonvoting':['n-aa-n v-ow1 t-ih-ng','jj'],
-'nonwhite':['n-aa1-n w-ay1-t','jj'],
 'noodle':['n-uw1 d-ah-l','nn'],
 'nook':['n-uh1-k','nn'],
 'noon':['n-uw1-n','nn'],
@@ -35137,7 +35898,6 @@ function _dict() { return {
 'normalizing':['n-ao1-r m-ah l-ay z-ih-ng','vbg'],
 'normally':['n-ao1-r m-ah l-iy','rb'],
 'normative':['n-ao1-r m-ah t-ih-v','jj'],
-'norske':['n-ao1-r-s k-iy','nnp'],
 'north':['n-ao1-r-th','rb jj nn'],
 'northeast':['n-ao-r-th iy1-s-t','nn jj rb'],
 'northeastern':['n-ao-r-th iy1 s-t-er-n','jj'],
@@ -35192,8 +35952,6 @@ function _dict() { return {
 'nourish':['n-er1 ih-sh','vb'],
 'nourished':['n-er1 ih-sh-t','vbn jj'],
 'nourishment':['n-er1 ih-sh m-ah-n-t','nn'],
-'nouveau':['n-uw v-ow1','jj'],
-'nouvelle':['n-uw v-eh1-l','jj'],
 'novel':['n-aa1 v-ah-l','nn jj'],
 'novelist':['n-aa1 v-ah l-ah-s-t','nn'],
 'novelistic':['n-aa v-ah l-ih1 s-t-ih-k','jj'],
@@ -35258,7 +36016,6 @@ function _dict() { return {
 'nylon':['n-ay1 l-aa-n','nn'],
 'nymph':['n-ih1-m-f','nn'],
 'nymphomaniac':['n-ih-m f-ah m-ey1 n-iy ae-k','nn jj'],
-'o':['ow1','in nn rb'],
 'oak':['ow1-k','nn'],
 'oasis':['ow ey1 s-ih-s','nn'],
 'oat':['ow1-t','nn'],
@@ -35395,7 +36152,7 @@ function _dict() { return {
 'odor':['ow1 d-er','nn'],
 'odyssey':['aa1 d-ah s-iy','nn'],
 'oedipal':['eh1 d-ah p-ah-l','jj'],
-'of':['ah1-v','in rb rp nnp'],
+'of':['ah1-v','in rb rp'],
 'off':['ao1-f','in rb jj nn rp'],
 'offbeat':['ao1-f b-iy1-t','jj'],
 'offend':['ah f-eh1-n-d','vb'],
@@ -35473,10 +36230,9 @@ function _dict() { return {
 'omnipresence':['aa-m n-ah p-r-eh1 z-ah-n-s','nn'],
 'omnipresent':['aa-m n-ih p-r-eh1 z-ah-n-t','jj'],
 'omniscient':['aa-m n-ih1 sh-ah-n-t','jj'],
-'on':['aa1-n','in nnp rbr jj rb rp'],
+'on':['aa1-n','in rbr jj rb rp'],
 'onboard':['aa1-n b-ao-r-d','nn'],
 'once':['w-ah1-n-s','rb in'],
-'oncogene':['aa1-ng k-ow jh-iy-n','nn'],
 'oncologist':['aa-ng k-aa1 l-ah jh-ih-s-t','nn'],
 'oncology':['aa-ng k-aa1 l-ah jh-iy','nn'],
 'oncoming':['ao1-n k-ah m-ih-ng','jj'],
@@ -35503,13 +36259,9 @@ function _dict() { return {
 'onwards':['aa1-n w-er-d-z','rb'],
 'onyx':['aa1 n-ih-k-s','nn'],
 'oodles':['uw1 d-ah-l-z','nn'],
-'ooh':['uw1','nn'],
-'oomph':['uw1-m-f','nn'],
-'oops':['uw1-p-s','uh'],
 'ooze':['uw1-z','nn vb'],
 'oozed':['uw1-z-d','vbd'],
 'oozing':['uw1 z-ih-ng','vbg'],
-'op':['aa1-p','nnp nn'],
 'opaque':['ow p-ey1-k','jj'],
 'open':['ow1 p-ah-n','jj vbp nn rb rp vb'],
 'opened':['ow1 p-ah-n-d','vbd vbn'],
@@ -35545,7 +36297,7 @@ function _dict() { return {
 'opportunist':['aa p-er t-uw1 n-ih-s-t','nn'],
 'opportunistic':['aa p-er t-uw n-ih1 s-t-ih-k','jj'],
 'opportunity':['aa p-er t-uw1 n-ah t-iy','nn'],
-'oppose':['ah p-ow1-z','vb nnps vbp'],
+'oppose':['ah p-ow1-z','vb vbp'],
 'opposed':['ah p-ow1-z-d','vbn jj vbd'],
 'opposes':['ah p-ow1 z-ih-z','vbz'],
 'opposing':['ah p-ow1 z-ih-ng','vbg jj'],
@@ -35579,7 +36331,7 @@ function _dict() { return {
 'opulence':['aa1 p-y-ah l-ah-n-s','nn'],
 'opulent':['aa1 p-y-ah l-ah-n-t','jj'],
 'opus':['ow1 p-ah-s','nn'],
-'or':['ao1-r','cc nnp'],
+'or':['ao1-r','cc'],
 'oracle':['ao1 r-ah k-ah-l','nn'],
 'oral':['ao1 r-ah-l','jj'],
 'orally':['ao1 r-ah l-iy','rb'],
@@ -36028,13 +36780,9 @@ function _dict() { return {
 'oxidation':['aa-k s-ah d-ey1 sh-ah-n','nn'],
 'oxide':['aa1-k s-ay-d','nn'],
 'oxidized':['aa1-k s-ah d-ay-z-d','jj'],
-'oxidizer':['aa1-k s-ih d-ay z-er','nn'],
 'oxygen':['aa1-k s-ah jh-ah-n','nn'],
 'oyster':['oy1 s-t-er','nn'],
-'oz':['aa1-z','nn'],
 'ozone':['ow1 z-ow-n','nn'],
-'p':['p-iy1','nn'],
-'pa':['p-aa1','nn'],
 'pace':['p-ey1-s','nn vb vbp'],
 'paced':['p-ey1-s-t','vbd vbn'],
 'pacemaker':['p-ey1-s m-ey k-er','nn'],
@@ -36464,7 +37212,7 @@ function _dict() { return {
 'peels':['p-iy1-l-z','vbz'],
 'peep':['p-iy1-p','nn vb'],
 'peeping':['p-iy1 p-ih-ng','vbg'],
-'peer':['p-ih1-r','nn vbp jjr vb'],
+'peer':['p-ih1-r','nn vbp vb'],
 'peered':['p-ih1-r-d','vbd vbn'],
 'peering':['p-iy1 r-ih-ng','vbg'],
 'peerless':['p-ih1-r l-ih-s','jj'],
@@ -36525,7 +37273,7 @@ function _dict() { return {
 'pepperoni':['p-eh p-er ow1 n-iy','nn'],
 'peppy':['p-eh1 p-iy','jj'],
 'peptide':['p-eh1-p t-ay-d','nn'],
-'per':['p-er1','in rp nnp'],
+'per':['p-er1','in rp'],
 'perceive':['p-er s-iy1-v','vb vbp'],
 'perceived':['p-er s-iy1-v-d','vbn vbd jj'],
 'perceives':['p-er s-iy1-v-z','vbz'],
@@ -36632,7 +37380,7 @@ function _dict() { return {
 'persists':['p-er s-ih1-s-t-s','vbz'],
 'person':['p-er1 s-ah-n','nn'],
 'persona':['p-er s-ow1 n-ah','nn'],
-'personal':['p-er1 s-ih n-ih-l','jj nn nnp'],
+'personal':['p-er1 s-ih n-ih-l','jj nn'],
 'personality':['p-er s-ah n-ae1 l-ih t-iy','nn'],
 'personalize':['p-er1 s-ah-n ah l-ay-z','vb'],
 'personalized':['p-er1 s-ah-n ah l-ay-z-d','vbn jj'],
@@ -37202,7 +37950,7 @@ function _dict() { return {
 'pooled':['p-uw1-l-d','vbn jj'],
 'pooling':['p-uw1 l-ih-ng','vbg nn'],
 'poolside':['p-uw1-l s-ay-d','nn'],
-'poor':['p-uh1-r','jj nn nnp'],
+'poor':['p-uh1-r','jj nn'],
 'poorer':['p-uh1 r-er','jjr rbr'],
 'poorest':['p-uh1 r-ih-s-t','jjs'],
 'poorly':['p-uh1-r l-iy','rb'],
@@ -37554,7 +38302,7 @@ function _dict() { return {
 'preside':['p-r-ih z-ay1-d','vb'],
 'presided':['p-r-ih z-ay1 d-ih-d','vbd vbn'],
 'presidency':['p-r-eh1 z-ah d-ah-n s-iy','nn'],
-'president':['p-r-eh1 z-ah d-eh-n-t','nn nnp'],
+'president':['p-r-eh1 z-ah d-eh-n-t','nn'],
 'presidential':['p-r-eh z-ah d-eh1-n ch-ah-l','jj'],
 'presides':['p-r-ih z-ay1-d-z','vbz'],
 'presiding':['p-r-ih z-ay1 d-ih-ng','vbg'],
@@ -38307,9 +39055,7 @@ function _dict() { return {
 'quoted':['k-w-ow1 t-ah-d','vbn jj vbd'],
 'quotient':['k-w-ow1 t-ih ah-n-t','nn'],
 'quoting':['k-w-ow1 t-ih-ng','vbg'],
-'r':['aa1-r','nn'],
 'rabbi':['r-ae1 b-ay','nn'],
-'rabbinical':['r-ah b-ih1 n-ih k-ah-l','jj'],
 'rabbit':['r-ae1 b-ah-t','nn'],
 'rabble':['r-ae1 b-ah-l','nn'],
 'rabid':['r-ae1 b-ih-d','jj'],
@@ -39087,8 +39833,6 @@ function _dict() { return {
 'rein':['r-ey1-n','vb nn'],
 'reincarnate':['r-iy-ih-n-k-aa1-r-n-ey-t','vb'],
 'reincarnated':['r-iy ih-n k-aa1-r n-ey t-ih-d','vbd vbn'],
-'reincorporate':['r-iy-ih-n-k-ao1-r-p-er-ey-t','vb'],
-'reincorporating':['r-iy ih-n k-ao1-r p-er ey t-ih-ng','vbg'],
 'reined':['r-ey1-n-d','vbd vbn'],
 'reinforce':['r-iy ih-n f-ao1-r-s','vb vbp'],
 'reinforced':['r-iy ih-n f-ao1-r-s-t','vbn vbd jj'],
@@ -39105,7 +39849,6 @@ function _dict() { return {
 'reinsurance':['r-iy ih-n sh-uh1 r-ah-n-s','nn'],
 'reinsure':['r-iy ih-n sh-uh1-r','vb'],
 'reinsured':['r-iy ih-n sh-uh1-r-d','vbn'],
-'reinsurer':['r-iy ih-n sh-uh1 r-er','jjr'],
 'reintegrate':['r-iy-ih1-n-t-ah-g-r-ey-t','vb'],
 'reintegrated':['r-iy ih1-n t-ah g-r-ey t-ih-d','vbn'],
 'reinterpret':['r-iy ih-n t-er1 p-r-ah-t','vb'],
@@ -39285,7 +40028,7 @@ function _dict() { return {
 'removing':['r-iy m-uw1 v-ih-ng','vbg'],
 'remuneration':['r-ih m-y-uw n-er ey1 sh-ah-n','nn'],
 'remunerative':['r-iy m-y-uw1 n-er ah t-ih-v','jj'],
-'renaissance':['r-eh n-ah s-aa1-n-s','nn nnp'],
+'renaissance':['r-eh n-ah s-aa1-n-s','nn'],
 'renal':['r-iy1 n-ah-l','jj'],
 'rename':['r-iy n-ey1-m','vb'],
 'renamed':['r-iy n-ey1-m-d','vbn vbd'],
@@ -39506,7 +40249,7 @@ function _dict() { return {
 'researcher':['r-iy1 s-er ch-er','nn'],
 'researching':['r-iy s-er1 ch-ih-ng','vbg'],
 'resell':['r-iy s-eh1-l','vb vbp jj'],
-'reseller':['r-iy s-eh1 l-er','jjr jj nn'],
+'reseller':['r-iy s-eh1 l-er','jj nn'],
 'reselling':['r-iy s-eh1 l-ih-ng','vbg'],
 'resells':['r-iy s-eh1-l-z','vbz'],
 'resemblance':['r-ih z-eh1-m b-l-ah-n-s','nn'],
@@ -40243,7 +40986,6 @@ function _dict() { return {
 'ruthlessness':['r-uw1-th l-ah-s n-ah-s','nn'],
 'rutted':['r-ah1 t-ih-d','jj'],
 'rye':['r-ay1','nn'],
-'s':['eh1-s','prp nn'],
 'sabbatical':['s-ah b-ae1 t-ih k-ah-l','nn jj'],
 'saber':['s-ey1 b-er','nn'],
 'sable':['s-ey1 b-ah-l','nn'],
@@ -40441,8 +41183,8 @@ function _dict() { return {
 'sax':['s-ae1-k-s','nn'],
 'saxophone':['s-ae1-k s-ah f-ow-n','nn'],
 'saxophonist':['s-ae1-k s-ah f-ow n-ih-s-t','nn'],
-'say':['s-ey1','vbp nn nnp vb uh'],
-'sayed':['s-aa y-eh1-d','vbd'],
+'say':['s-ey1','vbp nn vb uh'],
+'said':['s-aa y-eh1-d','vbd'],
 'saying':['s-ey1 ih-ng','vbg nn'],
 'scab':['s-k-ae1-b','nn'],
 'scabbard':['s-k-ae1 b-er-d','nn'],
@@ -40722,7 +41464,7 @@ function _dict() { return {
 'secretly':['s-iy1 k-r-ih-t l-iy','rb'],
 'sect':['s-eh1-k-t','nn'],
 'sectarian':['s-eh-k t-eh1 r-iy ah-n','jj nn'],
-'section':['s-eh1-k sh-ah-n','nn nnp'],
+'section':['s-eh1-k sh-ah-n','nn'],
 'sectional':['s-eh1-k sh-ah n-ah-l','jj'],
 'sector':['s-eh1-k t-er','nn'],
 'secular':['s-eh1 k-y-ah l-er','jj'],
@@ -40992,7 +41734,6 @@ function _dict() { return {
 'shallow':['sh-ae1 l-ow','jj nn'],
 'shallower':['sh-ae1 l-ow er','jjr'],
 'shallowness':['sh-ae1 l-ow n-ah-s','nn'],
-'shalt':['sh-ae1-l-t','vb'],
 'sham':['sh-ae1-m','nn jj'],
 'shambles':['sh-ae1-m b-ah-l-z','nn'],
 'shame':['sh-ey1-m','nn vb'],
@@ -41347,7 +42088,7 @@ function _dict() { return {
 'silliness':['s-ih1 l-iy n-ah-s','nn'],
 'silly':['s-ih1 l-iy','jj nn rb'],
 'silo':['s-ay1 l-ow','nn'],
-'silver':['s-ih1-l v-er','nn jj jjr'],
+'silver':['s-ih1-l v-er','nn jj'],
 'silverware':['s-ih1-l v-er w-eh-r','nn'],
 'silvery':['s-ih1-l v-er iy','jj'],
 'simian':['s-ih1 m-iy ah-n','jj'],
@@ -41537,13 +42278,12 @@ function _dict() { return {
 'slavery':['s-l-ey1 v-er iy','nn'],
 'slavish':['s-l-ey1 v-ih-sh','jj'],
 'slavishly':['s-l-ae1 v-ih-sh l-iy','rb'],
-'slaw':['s-l-ao1','nn'],
 'slay':['s-l-ey1','vb'],
 'slaying':['s-l-ey1 ih-ng','nn vbg'],
 'sleaze':['s-l-iy1-z','nn'],
 'sleazy':['s-l-iy1 z-iy','jj'],
 'sled':['s-l-eh1-d','vb'],
-'sledding':['s-l-eh1 d-ih-ng','nn vbg'],
+'sledding':['s-l-eh1 d-ih-ng','vbg'],
 'sleek':['s-l-iy1-k','jj'],
 'sleep':['s-l-iy1-p','vb nn vbp'],
 'sleeper':['s-l-iy1 p-er','nn'],
@@ -41558,7 +42298,7 @@ function _dict() { return {
 'sleet':['s-l-iy1-t','nn'],
 'sleeve':['s-l-iy1-v','nn'],
 'sleight':['s-l-ay1-t','nn'],
-'slender':['s-l-eh1-n d-er','jj jjr'],
+'slender':['s-l-eh1-n d-er','jj'],
 'slept':['s-l-eh1-p-t','vbd vbn'],
 'sleuth':['s-l-uw1-th','nn'],
 'sleuthing':['s-l-uw1 th-ih-ng','nn'],
@@ -41569,7 +42309,7 @@ function _dict() { return {
 'slick':['s-l-ih1-k','jj nn'],
 'slicker':['s-l-ih1 k-er','nn'],
 'slickly':['s-l-ih1-k l-iy','rb'],
-'slid':['s-l-ih1-d','vbd nnp vbn'],
+'slid':['s-l-ih1-d','vbd vbn'],
 'slide':['s-l-ay1-d','nn vbp vb'],
 'sliding':['s-l-ay1 d-ih-ng','vbg jj'],
 'slight':['s-l-ay1-t','jj vb vbp nn'],
@@ -41579,8 +42319,7 @@ function _dict() { return {
 'slightly':['s-l-ay1-t l-iy','rb'],
 'slim':['s-l-ih1-m','jj vb'],
 'slime':['s-l-ay1-m','nn'],
-'slimmed':['s-l-ih1-m-d','vbn'],
-'slimmer':['s-l-ih1 m-er','jjr rb'],
+'slimmer':['s-l-ih1 m-er','rb'],
 'slimming':['s-l-ih1 m-ih-ng','vbg'],
 'slimy':['s-l-ay1 m-iy','jj'],
 'sling':['s-l-ih1-ng','nn vb'],
@@ -41599,9 +42338,7 @@ function _dict() { return {
 'slithering':['s-l-ih1 dh-er ih-ng','vbg'],
 'sliver':['s-l-ih1 v-er','nn'],
 'slob':['s-l-aa1-b','nn'],
-'sloe':['s-l-ow1','nn'],
 'slog':['s-l-aa1-g','vb'],
-'slogan':['s-l-ow1 g-ah-n','nn'],
 'slogging':['s-l-aa1 g-ih-ng','vbg'],
 'sloop':['s-l-uw1-p','nn'],
 'slop':['s-l-aa1-p','nn vb'],
@@ -42767,7 +43504,6 @@ function _dict() { return {
 'strengthens':['s-t-r-eh1-ng th-ah-n-z','vbz'],
 'strenuous':['s-t-r-eh1 n-y-uw ah-s','jj'],
 'strenuously':['s-t-r-eh1 n-y-uw ah-s l-iy','rb'],
-'streptokinase':['s-t-r-eh-p t-ah k-ay1 n-ey-s','nnp'],
 'stress':['s-t-r-eh1-s','nn vbp vb'],
 'stressed':['s-t-r-eh1-s-t','vbd jj vbn'],
 'stressful':['s-t-r-eh1-s f-ah-l','jj'],
@@ -43476,7 +44212,6 @@ function _dict() { return {
 'systematically':['s-ih s-t-ah m-ae1 t-ih-k l-iy','rb'],
 'systemic':['s-ih-s t-eh1 m-ih-k','jj'],
 'systemwide':['s-ih1 s-t-ah-m w-ay-d','jj'],
-'t':['t-iy1','nn'],
 'tab':['t-ae1-b','nn'],
 'tabby':['t-ae1 b-iy','jj nn'],
 'table':['t-ey1 b-ah-l','nn vb'],
@@ -43544,7 +44279,7 @@ function _dict() { return {
 'talking':['t-ao1 k-ih-ng','vbg nn'],
 'talky':['t-ao1 k-iy','jj'],
 'tall':['t-ao1-l','jj'],
-'taller':['t-ao1 l-er','jjr rbr'],
+'taller':['t-ao1 l-er','jjr'],
 'tallest':['t-ao1 l-ih-s-t','jjs'],
 'tallied':['t-ae1 l-iy-d','vbn vbd'],
 'tallow':['t-ae1 l-ow','nn'],
@@ -43923,7 +44658,7 @@ function _dict() { return {
 'thickened':['th-ih1 k-ah-n-d','vbn vbd'],
 'thickening':['th-ih1 k-ah n-ih-ng','vbg'],
 'thickens':['th-ih1 k-ah-n-z','vbz'],
-'thicker':['th-ih1 k-er','jjr rb rbr'],
+'thicker':['th-ih1 k-er','jjr'],
 'thicket':['th-ih1 k-ih-t','nn'],
 'thickly':['th-ih1-k l-iy','rb'],
 'thickness':['th-ih1-k n-ah-s','nn'],
@@ -43946,13 +44681,11 @@ function _dict() { return {
 'thinnest':['th-ih1 n-ih-s-t','jjs'],
 'thinning':['th-ih1 n-ih-ng','vbg'],
 'third':['th-er1-d','nn jj rb'],
-'thirdquarter':['th-er-d k-w-ao1-r t-er','jj nn'],
 'thirst':['th-er1-s-t','nn'],
 'thirsty':['th-er1 s-t-iy','jj'],
 'thirteenth':['th-er1 t-iy1-n-th','jj nn'],
 'thirtieth':['th-er1 t-iy ah-th','jj'],
 'thirty':['th-er1 t-iy','nn'],
-'thirtysomething':['th-er1 t-iy s-ah-m th-ih-ng','nn nnp jj'],
 'this':['dh-ih1-s','dt rb pdt'],
 'thistle':['th-ih1 s-ah-l','nn'],
 'thong':['th-ao1-ng','nn'],
@@ -43964,7 +44697,6 @@ function _dict() { return {
 'thoroughly':['th-er1 ow l-iy','rb'],
 'thoroughness':['th-er1 ow n-ah-s','nn'],
 'those':['dh-ow1-z','dt'],
-'thou':['dh-aw1','prp'],
 'though':['dh-ow1','in rb'],
 'thought':['th-ao1-t','vbd nn vbn'],
 'thoughtful':['th-ao1-t f-ah-l','jj'],
@@ -44276,7 +45008,7 @@ function _dict() { return {
 'totalled':['t-ow1 t-ah-l-d','vbd vbn'],
 'totalling':['t-ow1 t-ah-l ih-ng','vbg'],
 'totally':['t-ow1 t-ah-l iy','rb'],
-'tote':['t-ow1-t','vb nnp'],
+'tote':['t-ow1-t','vb'],
 'toted':['t-ow1 t-ih-d','vbn'],
 'totem':['t-ow1 t-ah-m','nn'],
 'toting':['t-ow1 t-ih-ng','vbg'],
@@ -44800,13 +45532,11 @@ function _dict() { return {
 'tyrannical':['t-er ae1 n-ih k-ah-l','jj'],
 'tyranny':['t-ih1 r-ah n-iy','nn'],
 'tyrant':['t-ay1 r-ah-n-t','nn'],
-'u':['y-uw1','prp nn'],
 'ubiquitous':['y-uw b-ih1 k-w-ih t-ah-s','jj'],
 'ubiquity':['y-uw b-ih1 k-w-ih t-iy','nn'],
 'uglier':['ah1-g l-iy er','jjr'],
 'ugliness':['ah1-g l-iy n-ah-s','nn'],
 'ugly':['ah1-g l-iy','jj'],
-'uh':['ah1','uh'],
 'ulcer':['ah1-l s-er','nn'],
 'ultimate':['ah1-l t-ah m-ah-t','jj'],
 'ultimately':['ah1-l t-ah m-ah-t l-iy','rb'],
@@ -44994,7 +45724,7 @@ function _dict() { return {
 'undergoes':['ah1-n d-er g-ow-z','vbz'],
 'undergoing':['ah-n d-er g-ow1 ih-ng','vbg'],
 'undergone':['ah-n d-er g-ao1-n','vbn'],
-'undergraduate':['ah-n d-er g-r-ae1 jh-ah-w ah-t','jj nnp nn'],
+'undergraduate':['ah-n d-er g-r-ae1 jh-ah-w ah-t','jj nn'],
 'underground':['ah1-n d-er g-r-aw-n-d','jj nn rb'],
 'undergrowth':['ah1-n d-er g-r-ow-th','nn'],
 'underhanded':['ah1-n d-er hh-ae1-n d-ih-d','jj'],
@@ -45530,7 +46260,7 @@ function _dict() { return {
 'unworthy':['ah-n w-er1 dh-iy','jj nn'],
 'unwritten':['ah-n r-ih1 t-ah-n','jj'],
 'unyielding':['ah-n y-iy1-l d-ih-ng','jj'],
-'up':['ah1-p','in jj rb rp vb nnp rbr'],
+'up':['ah1-p','in'],
 'upbeat':['ah1-p b-iy-t','jj nn'],
 'upbringing':['ah1-p b-r-ih ng-ih-ng','nn'],
 'upcoming':['ah1-p k-ah m-ih-ng','jj'],
@@ -45556,7 +46286,7 @@ function _dict() { return {
 'upmarket':['ah1-p m-aa-r k-ah-t','jj'],
 'upon':['ah p-aa1-n','in rb rp'],
 'upped':['ah1-p-t','vbd vbn'],
-'upper':['ah1 p-er','jj jjr rb'],
+'upper':['ah1 p-er','jj'],
 'uppermost':['ah1 p-er m-ow-s-t','jjs jj rb'],
 'upright':['ah-p r-ay1-t','rb jj'],
 'uprising':['ah p-r-ay1 z-ih-ng','nn'],
@@ -45689,7 +46419,7 @@ function _dict() { return {
 'valuing':['v-ae1-l y-uw ih-ng','vbg'],
 'valve':['v-ae1-l-v','nn'],
 'vampire':['v-ae1-m p-ay-r','nn'],
-'van':['v-ae1-n','nnp nn'],
+'van':['v-ae1-n','nn'],
 'vandal':['v-ae1-n d-ah-l','nn'],
 'vandalism':['v-ae1-n d-ah l-ih z-ah-m','nn'],
 'vandalize':['v-ae1-n-d-ah-l-ay-z','vb'],
@@ -45992,7 +46722,7 @@ function _dict() { return {
 'voluntarily':['v-aa l-ah-n t-eh1 r-ah l-iy','rb'],
 'voluntarism':['v-ow l-ah1-n t-er ih z-ah-m','nn'],
 'voluntary':['v-aa1 l-ah-n t-eh r-iy','jj'],
-'volunteer':['v-aa l-ah-n t-ih1-r','nn vb jjr vbp'],
+'volunteer':['v-aa l-ah-n t-ih1-r','nn vb vbp'],
 'volunteered':['v-aa l-ah-n t-ih1-r-d','vbd vbn'],
 'volunteering':['v-ao l-ah-n t-ih1 r-ih-ng','vbg nn'],
 'volunteerism':['v-ao l-ah-n t-ih1 r-ih z-ah-m','nn'],
@@ -46019,7 +46749,6 @@ function _dict() { return {
 'vulnerable':['v-ah1-l n-er ah b-ah-l','jj'],
 'vulture':['v-ah1-l ch-er','nn'],
 'vying':['v-ay1 ih-ng','vbg'],
-'w':['d-ah1 b-ah-l y-uw','in'],
 'wacky':['w-ae1 k-iy','jj'],
 'wad':['w-aa1-d','nn vb'],
 'wadded':['w-aa1 d-ah-d','vbd'],
@@ -46096,13 +46825,11 @@ function _dict() { return {
 'wangle':['w-ae1-ng-g-ah-l','vb'],
 'wangled':['w-ae1-ng g-ah-l-d','vbd'],
 'waning':['w-ey1 n-ih-ng','vbg'],
-'wanna':['w-aa1 n-ah','vb vbp'],
 'want':['w-aa1-n-t','vbp vb nn'],
-'wanta':['w-aa1-n t-ah','vb'],
 'wanted':['w-aa1-n t-ah-d','vbd jj vbn'],
 'wanting':['w-aa1-n t-ih-ng','vbg'],
 'wanton':['w-ao1-n t-ah-n','jj'],
-'war':['w-ao1-r','nn nnp vb'],
+'war':['w-ao1-r','nn'],
 'warble':['w-ao1-r-b-ah-l','vb'],
 'warbling':['w-ao1-r b-ah-l ih-ng','vbg'],
 'ward':['w-ao1-r-d','nn vb'],
@@ -46120,8 +46847,8 @@ function _dict() { return {
 'warlord':['w-ao1-r l-ao-r-d','nn'],
 'warm':['w-ao1-r-m','jj vb'],
 'warmed':['w-ao1-r-m-d','vbd vbn'],
-'warmer':['w-ao1-r m-er','jjr rbr'],
-'warming':['w-ao1-r m-ih-ng','nn vbg'],
+'warmer':['w-ao1-r m-er','jjr'],
+'warming':['w-ao1-r m-ih-ng','vbg'],
 'warmish':['w-ao1-r m-ih-sh','jj'],
 'warmly':['w-ao1-r-m l-iy','rb'],
 'warms':['w-ao1-r-m-z','vbz'],
@@ -46353,7 +47080,6 @@ function _dict() { return {
 'whirling':['w-er1 l-ih-ng','vbg jj nn'],
 'whirlpool':['w-er1-l p-uw-l','nn'],
 'whirlwind':['w-er1-l w-ih-n-d','nn jj'],
-'whirr':['w-er1','vb nn'],
 'whirring':['w-er1 ih-ng','vbg'],
 'whisk':['w-ih1-s-k','vb'],
 'whisked':['w-ih1-s-k-t','vbn'],
@@ -46368,7 +47094,6 @@ function _dict() { return {
 'whistleblower':['w-ih1 s-ah-l b-l-ow er','nn'],
 'whistled':['w-ih1 s-ah-l-d','vbd vbn'],
 'whistling':['w-ih1 s-l-ih-ng','vbg'],
-'whit':['w-ih1-t','nn'],
 'white':['w-ay1-t','jj nn'],
 'whitely':['w-ay1-t l-iy','rb'],
 'whiteness':['w-ay1-t n-ah-s','nn'],
@@ -46577,14 +47302,13 @@ function _dict() { return {
 'womanizing':['w-uh1 m-ah n-ay z-ih-ng','vbg'],
 'womb':['w-uw1-m','nn'],
 'won':['w-ah1-n','vbd nn vbn'],
-'wonder':['w-ah1-n d-er','nn vbp jj vb jjr'],
+'wonder':['w-ah1-n d-er','nn vbp jj vb'],
 'wondered':['w-ah1-n d-er-d','vbd vbn'],
 'wonderful':['w-ah1-n d-er f-ah-l','jj'],
 'wonderfully':['w-ah1-n d-er f-ah l-iy','rb'],
 'wonderfulness':['w-ah1-n d-er f-ah-l n-ah-s','nn'],
 'wondering':['w-ah1-n d-er ih-ng','vbg nn'],
 'wonderland':['w-ah1-n d-er l-ae-n-d','nn'],
-'wonderment':['w-ah1-n d-er m-ah-n-t','nn'],
 'wondrous':['w-ah1-n d-r-ah-s','jj'],
 'woo':['w-uw1','vb vbp'],
 'wood':['w-uh1-d','nn'],
@@ -46603,8 +47327,6 @@ function _dict() { return {
 'woolly':['w-uh1 l-iy','jj'],
 'woos':['w-uw1-z','vbz'],
 'woozy':['w-uw1 z-iy','jj'],
-'wop':['w-aa1-p','vb'],
-'wops':['w-aa1-p-s','vbz'],
 'word':['w-er1-d','nn vb'],
 'worded':['w-er1 d-ih-d','vbn jj vbd'],
 'wording':['w-er1 d-ih-ng','nn'],
@@ -46641,7 +47363,7 @@ function _dict() { return {
 'worrisome':['w-er1 iy s-ah-m','jj'],
 'worry':['w-er1 iy','vb nn vbp'],
 'worrying':['w-er1 iy ih-ng','vbg jj'],
-'worse':['w-er1-s','jjr jj rbr'],
+'worse':['w-er1-s','jj'],
 'worsen':['w-er1 s-ah-n','vb'],
 'worsened':['w-er1 s-ah-n-d','vbd vbn'],
 'worsening':['w-er1 s-ah-n ih-ng','vbg jj nn'],
@@ -46731,11 +47453,9 @@ function _dict() { return {
 'wryly':['r-ay1 l-iy','rb'],
 'wryness':['r-ay1 n-ah-s','nn'],
 'wynne':['w-ih1-n','vb'],
-'x':['eh1-k-s','nn'],
 'xenon':['z-iy1 n-aa-n','nn'],
 'xenophobia':['z-eh n-ah f-ow1 b-iy ah','nn'],
 'xenophobic':['z-eh n-ah f-aa1 b-ih-k','jj'],
-'y':['w-ay1','nnp nn'],
 'yacht':['y-aa1-t','nn'],
 'yachter':['y-aa1 t-er','nn'],
 'yachting':['y-aa1 t-ih-ng','nn'],
@@ -46820,9 +47540,7 @@ function _dict() { return {
 'zigzag':['z-ih1-g-z-ae-g','vb'],
 'zigzagging':['z-ih1-g z-ae g-ih-ng','vbg'],
 'zilch':['z-ih1-l-ch','nn jj'],
-'zillion':['z-ih1 l-y-ah-n','nn'],
 'zinc':['z-ih1-ng-k','nn'],
-'zing':['z-ih1-ng','nnp'],
 'zip':['z-ih1-p','nn vbp vb'],
 'zipped':['z-ih1-p-t','vbd'],
 'zipper':['z-ih1 p-er','nn'],
@@ -46841,1033 +47559,19 @@ function _dict() { return {
 'zooms':['z-uw1-m-z','vbz']
 }; }
 
-RiLexicon.SILENCE_LTS = false;
-RiLexicon._enabled = true;
-
-RiLexicon.prototype = {
-
-  init: function() {
-
-    this.reload();
-  },
-
-  clear: function() {
-
-    this.data = {};
-    this.keys = [];
-  },
-
-  reload: function() {
-
-    this.data = _dict();
-    this.keys = okeys(this.data);
-  },
-
-  addWord: function(word, pronunciationData, posData) {
-
-    this.data[word.toLowerCase()] = [
-      pronunciationData.toLowerCase(),
-      posData.toLowerCase()
-    ];
-    this.keys = okeys(this.data);
-    return this;
-  },
-
-  removeWord: function(word) {
-
-    delete this.data[word.toLowerCase()];
-    this.keys = okeys(this.data);
-    return this;
-  },
-
-  similarByLetter: function(input, minAllowedDist, preserveLength) {
-
-    var minVal = Number.MAX_VALUE,
-      minLen = 2,
-      result = [];
-
-    if (!(input && input.length)) return EA;
-
-    input = input.toLowerCase();
-    minAllowedDist = minAllowedDist || 1;
-    preserveLength = preserveLength || false;
-
-    var med, inputS = input + 's',
-      inputES = input + 'es',
-      inputLen = input.length;
-
-    for (var i = 0; i < this.keys.length; i++) {
-
-      var entry = this.keys[i];
-
-      if (entry.length < minLen)
-        continue;
-
-      if (preserveLength && (entry.length != inputLen))
-        continue;
-
-      if (entry === input || entry === inputS || entry === inputES)
-        continue;
-
-      med = MinEditDist.computeRaw(entry, input);
-
-      // we found something even closer
-      if (med >= minAllowedDist && med < minVal) {
-
-        minVal = med;
-        result = [entry];
-      }
-
-      // we have another best to add
-      else if (med === minVal) {
-
-        result.push(entry);
-      }
-    }
-
-    return result;
-  },
-
-  similarBySound: function(input, minEditDist, minimumWordLen) {
-
-    minEditDist = minEditDist || 1;
-
-    var minVal = Number.MAX_VALUE,
-      entry, result = [], minLen = minimumWordLen || 2,
-      phonesArr, phones = RiTa.getPhonemes(input), med,
-      targetPhonesArr = phones ? phones.split('-') : [],
-      input_s = input + 's', input_es = input + 'es',
-      lts = this._letterToSound();
-
-    if (!targetPhonesArr[0] || !(input && input.length)) return EA;
-
-    //console.log("TARGET "+targetPhonesArr);
-
-    for (var i = 0; i < this.keys.length; i++) {
-
-      entry = this.keys[i];
-
-      if (entry.length < minLen) continue;
-
-      // entry = entry.toLowerCase(); // all lowercase
-
-      if (entry === input || entry === input_s || entry === input_es)
-        continue;
-
-      phones = this.data[entry][0];
-      //if (i<10) console.log(phones+" :: "+);
-      phonesArr = phones.replace(/1/g, E).replace(/ /g, '-').split('-');
-
-      med = MinEditDist.computeRaw(phonesArr, targetPhonesArr);
-
-      // found something even closer
-      if (med >= minEditDist && med < minVal) {
-
-        minVal = med;
-        result = [entry];
-        //console.log("BEST "+entry + " "+med + " "+phonesArr);
-      }
-
-      // another best to add
-      else if (med === minVal) {
-
-        //console.log("TIED "+entry + " "+med + " "+phonesArr);
-        result.push(entry);
-      }
-    }
-
-    return result;
-  },
-
-  similarBySoundAndLetter: function(word) {
-
-    var result = [], simSound, simLetter = this.similarByLetter(word);
-
-    if (simLetter.length < 1)
-      return result;
-
-    simSound = this.similarBySound(word);
-
-    if (simSound.length < 1)
-      return result;
-
-    return intersect(simSound, simLetter);
-  },
-
-  substrings: function(word, minLength) {
-
-    minLength = minLength || (minLength === 0) || 4;
-
-    var result = [];
-    for (var i = 0; i < this.keys.length; i++) {
-
-      if (this.keys[i] === word || this.keys[i].length < minLength)
-        continue;
-      if (word.indexOf(this.keys[i]) >= 0)
-        result.push(this.keys[i]);
-    }
-
-    return result;
-  },
-
-  superstrings: function(word) {
-
-    var result = [];
-
-    for (var i = 0; i < this.keys.length; i++) {
-
-      if (this.keys[i] === word) continue;
-      if (this.keys[i].indexOf(word) >= 0)
-        result.push(this.keys[i]);
-    }
-
-    return result;
-  },
-
-  words: function() {
-
-    var a = arguments,
-      shuffled = false,
-      regex, wordArr = [];
-
-    switch (a.length) {
-
-      case 2:
-
-        if (is(a[0], B)) {
-
-          shuffled = a[0];
-          regex = (is(a[1], R)) ? a[1] : new RegExp(a[1]);
-        } else {
-
-          shuffled = a[1];
-          regex = (is(a[0], R)) ? a[0] : new RegExp(a[0]);
-        }
-
-        break;
-
-      case 1:
-
-        if (is(a[0], B)) {
-          return a[0] ? shuffle(this.keys) : this.keys;
-        }
-
-        regex = (is(a[0], R)) ? a[0] : new RegExp(a[0]);
-
-        break;
-
-      case 0:
-
-        return this.keys;
-    }
-
-    for (var i = 0; i < this.keys.length; i++) {
-
-      if (regex.test(this.keys[i])) {
-
-        wordArr.push(this.keys[i]);
-      }
-    }
-
-    return shuffled ? shuffle(wordArr) : wordArr;
-  },
-
-  _isVowel: function(c) {
-
-    return (strOk(c) && RiTa.VOWELS.indexOf(c) > -1);
-  },
-
-  _isConsonant: function(p) {
-
-    return (typeof p === S && p.length === 1 &&
-      RiTa.VOWELS.indexOf(p) < 0 && /^[a-z\u00C0-\u00ff]+$/.test(p));
-  },
-
-  containsWord: function(word) {
-
-    return (strOk(word) && this.data && this.data[word.toLowerCase()]);
-  },
-
-  isRhyme: function(word1, word2, useLTS) {
-    var phones1 = this._getRawPhones(word1, useLTS),
-        phones2 = this._getRawPhones(word2, useLTS);
-
-    if (!strOk(word1) || !strOk(word2) || equalsIgnoreCase(word1, word2) || phones2 === phones1)
-      return false;
-
-    var p1 = this._lastStressedVowelPhonemeToEnd(word1, useLTS),
-      p2 = this._lastStressedVowelPhonemeToEnd(word2, useLTS);
-
-    return (strOk(p1) && strOk(p2) && p1 === p2);
-  },
-
-  rhymes: function(word) {
-
-
-      var p = this._lastStressedPhoneToEnd(word),
-        phones, results = [];
-
-      for (var i = 0; i < this.keys.length; i++) {
-
-        if (this.keys[i] === word)
-          continue;
-
-        phones = this.data[this.keys[i]][0];
-
-        if (endsWith(phones, p))
-          results.push(this.keys[i]);
-      }
-      return (results.length > 0) ? results : EA;
-
-
-    return EA;
-  },
-
-  alliterations: function(word, matchMinLength, useLTS) {
-
-    if (word.indexOf(" ") > -1) return [];
-
-    if (this._isVowel(word.charAt(0))) return [];
-
-
-    matchMinLength = matchMinLength || 4;
-
-    var c2, results = [],
-      c1 = this._firstPhoneme(this._firstStressedSyllable(word, useLTS));
-
-    for (var i = 0; i < this.keys.length; i++) {
-
-      c2 = this._firstPhoneme(
-          this._firstStressedSyllable(this.keys[i], useLTS));
-
-      if(c2._isVowel) return [];
-
-      if (c2 && c1 === c2 && this.keys[i].length >= matchMinLength) {
-        results.push(this.keys[i]);
-      }
-    }
-
-    return shuffle(results);
-  },
-
-  isAlliteration: function(word1, word2, useLTS) {
-
-    if (word1.indexOf(" ") > -1 || word2.indexOf(" ") > -1) return false;
-
-    if (!strOk(word1) || !strOk(word2)) return false;
-
-    if (equalsIgnoreCase(word1, word2)) return true;
-
-    var c1 = this._firstPhoneme(this._firstStressedSyllable(word1, useLTS)),
-      c2 = this._firstPhoneme(this._firstStressedSyllable(word2, useLTS));
-
-    if(this._isVowel(c1.charAt(0)) || this._isVowel(c2.charAt(0))) return false;
-
-    return (strOk(c1) && strOk(c2) && c1 === c2);
-  },
-
-  _firstSyllable: function(word, useLTS) {
-     var raw = this._getRawPhones(word, useLTS);
-     if (!strOk(raw)) return E;
-     if(word === "URL") console.log(raw);
-     var syllables = raw.split(" ");
-     return syllables[0];
-  },
-
-  _firstStressedSyllable: function(word, useLTS) {
-
-    var raw = this._getRawPhones(word, useLTS),
-      idx = -1, c, firstToEnd;
-
-    if (!strOk(raw)) return E; // return null?
-
-    idx = raw.indexOf(RiTa.STRESSED);
-
-    if (idx < 0) return E; // no stresses... return null?
-
-    c = raw.charAt(--idx);
-
-    while (c != ' ') {
-      if (--idx < 0) {
-        // single-stressed syllable
-        idx = 0;
-        break;
-      }
-      c = raw.charAt(idx);
-    }
-
-    firstToEnd = idx === 0 ? raw : trim(raw.substring(idx));
-    idx = firstToEnd.indexOf(' ');
-
-    return idx < 0 ? firstToEnd : firstToEnd.substring(0, idx);
-  },
-
-  isVerb: function(word) {
-
-    return this._checkType(word, PosTagger.VERBS);
-  },
-
-  isNoun: function(word) {
-
-    var result = this._checkType(word, PosTagger.NOUNS);
-    if (!result) {
-      var singular = RiTa.singularize(word);
-      if (singular !== word) {
-        result = this._checkType(singular, PosTagger.NOUNS);
-        //result && console.log('found plural noun: '+word+' ('+singular+')');
-      }
-    }
-    return result;
-  },
-
-  isAdverb: function(word) {
-
-    return this._checkType(word, PosTagger.ADV);
-  },
-
-  isAdjective: function(word) {
-
-    return this._checkType(word, PosTagger.ADJ);
-  },
-
-  size: function() {
-
-    return this.keys.length;
-  },
-
-  _checkType: function(word, tagArray) {
-
-    if (word && word.indexOf(SP) != -1)
-      throw Error("[RiTa] _checkType() expects a single word, found: " + word);
-
-    var psa = this._getPosArr(word);
-    if(!PosTagger.NOLEX_WARNED && psa.length < 1 && this.size() < 1000)
-      warn("A minimal Lexicon is currently in use. For word features outside the lexicon, use a larger version of RiTa.")
-
-    for (var i = 0; i < psa.length; i++) {
-      if (tagArray.indexOf(psa[i]) > -1)
-        return true;
-    }
-
-    return false;
-  },
-
-  /*
-   * Returns a String containing the phonemes for each syllable of each word of the input text,
-   * delimited by dashes (phonemes) and semi-colons (words).
-   * For example, the 4 syllables of the phrase
-   * 'The dog ran fast' are "dh-ax:d-ao-g:r-ae-n:f-ae-s-t".
-   */
-  _getSyllables: function(word) {
-
-    // TODO: use feature cache?
-
-    if (!strOk(word)) return E;
-
-    var wordArr = RiTa.tokenize(word), raw = [];
-    for (var i = 0; i < wordArr.length; i++)
-      raw[i] = this._getRawPhones(wordArr[i]).replace(/\s/g, '/');
-    // console.log("[RiTa] syllables" + " " + word + " " + raw);
-    return RiTa.untokenize(raw).replace(/1/g, E).trim();
-  },
-
-  _getPhonemes: function(word) {
-
-    // TODO: use feature cache?
-
-    if (!strOk(word)) return E;
-
-    var wordArr = RiTa.tokenize(word), raw = [];
-
-    for (var i = 0; i < wordArr.length; i++) {
-
-      if (RiTa.isPunctuation(wordArr[i])) continue;
-
-      raw[i] = this._getRawPhones(wordArr[i]);
-
-      if (!raw[i].length) return E;
-
-      raw[i] = raw[i].replace(/ /g, "-");
-    }
-
-    return RiTa.untokenize(raw).replace(/1/g, E).trim();
-  },
-
-  _getStresses: function(word) {
-
-    var i, stresses = [], phones, raw = [],
-      wordArr = is(word, A) ? word : RiTa.tokenize(word);
-
-    if (!strOk(word)) return E;
-
-    for (i = 0; i < wordArr.length; i++) {
-
-      if (!RiTa.isPunctuation(wordArr[i]))
-        raw[i] = this._getRawPhones(wordArr[i]);
-    }
-
-    for (i = 0; i < raw.length; i++) {
-
-      if (raw[i]) { // ignore undefined array items (eg Punctuation)
-
-        phones = raw[i].split(SP);
-        for (var j = 0; j < phones.length; j++) {
-
-          var isStress = (phones[j].indexOf(RiTa.STRESSED) > -1) ?
-            RiTa.STRESSED : RiTa.UNSTRESSED;
-
-          if (j > 0) isStress = "/" + isStress;
-
-          stresses.push(isStress);
-        }
-      }
-    }
-
-    return stresses.join(SP).replace(/ \//g, "/");
-  },
-
-  lexicalData: function(dictionaryDataObject) {
-
-    if (arguments.length === 1) {
-      this.data = dictionaryDataObject;
-      return this;
-    }
-
-    return this.data;
-  },
-
-  /* Returns the raw (RiTa-format) dictionary entry for the given word   */
-  _lookupRaw: function(word) {
-
-    word = word.toLowerCase();
-    if (this.data && this.data[word])
-      return this.data[word];
-    //log("[RiTa] No lexicon entry for '" + word + "'");
-  },
-
-  _getRawPhones: function(word, useLTS) {
-
-    var phones, rdata = this._lookupRaw(word);
-    useLTS = useLTS || false;
-
-    if (rdata === undefined || (useLTS && !RiTa.SILENT && !RiLexicon.SILENCE_LTS)) {
-
-      phones = this._letterToSound().getPhones(word);
-      if (phones && phones.length)
-        return RiString._syllabify(phones);
-
-    }
-    return (rdata && rdata.length === 2) ? rdata[0] : E;
-  },
-
-  _getPosData: function(word) {
-
-    var rdata = this._lookupRaw(word);
-    return (rdata && rdata.length === 2) ? rdata[1] : E;
-  },
-
-
-  _getPosArr: function(word) {
-
-    var pl = this._getPosData(word);
-    if (!strOk(pl)) return EA;
-    return pl.split(SP);
-  },
-
-  _getBestPos: function(word) {
-
-    var pl = this._getPosArr(word);
-    return (pl.length > 0) ? pl[0] : [];
-  },
-
-  _firstPhoneme: function(rawPhones) {
-
-    if (!strOk(rawPhones)) return E;
-
-    var phones = rawPhones.split(RiTa.PHONEME_BOUNDARY);
-
-    if (phones) return phones[0];
-
-    return E; // return null?
-  },
-
-  _firstConsonant: function(rawPhones) {
-
-    if (!strOk(rawPhones)) return E;
-
-    var phones = rawPhones.split(RiTa.PHONEME_BOUNDARY);
-
-    if (phones) {
-
-      for (var j = 0; j < phones.length; j++) {
-        if (this._isConsonant(phones[j].charAt(0))) // first letter only
-          return phones[j];
-      }
-    }
-    return E; // return null?
-  },
-
-  _lastStressedVowelPhonemeToEnd: function(word, useLTS) {
-
-    if (!strOk(word)) return E; // return null?
-
-
-    var raw = this._lastStressedPhoneToEnd(word, useLTS);
-    if (!strOk(raw)) return E; // return null?
-
-    var syllables = raw.split(" ");
-    var lastSyllable = syllables[syllables.length - 1];
-    lastSyllable = lastSyllable.replace("[^a-z-1 ]", "");
-
-    var idx = -1;
-    for (var i = 0; i < lastSyllable.length; i++) {
-      var c = lastSyllable.charAt(i);
-      if(this._isVowel(c)){
-        idx = i;
-        break;
-      }
-    }
-  word + " " + raw + " last:" + lastSyllable + " idx=" + idx + " result:" + lastSyllable.substring(idx)
-   return lastSyllable.substring(idx);
-  },
-
-  _lastStressedPhoneToEnd: function(word, useLTS) {
-
-    if (!strOk(word)) return E; // return null?
-
-    var idx, c, result;
-    var raw = this._getRawPhones(word, useLTS);
-
-    if (!strOk(raw)) return E; // return null?
-
-    idx = raw.lastIndexOf(RiTa.STRESSED);
-
-    if (idx < 0) return E; // return null?
-
-    c = raw.charAt(--idx);
-    while (c != '-' && c != ' ') {
-      if (--idx < 0) {
-        return raw; // single-stressed syllable
-      }
-      c = raw.charAt(idx);
-    }
-    result = raw.substring(idx + 1);
-
-    return result;
-  },
-
-  randomWord: function() { // takes nothing, pos, syllableCount, or both
-
-    var i, j, rdata, numSyls,pluralize = false,
-      ran = Math.floor(Math.random() * this.keys.length),
-      found = false, a = arguments, ranWordArr = this.keys;
-
-    if (typeof a[0] === "string") {
-        a[0] = trim(a[0]).toLowerCase();
-
-        if (a[0] === "v")
-            a[0] = "vb";
-        if (a[0] === "r")
-            a[0] = "rb";
-        if (a[0] === "a")
-            a[0] = "jj";
-        if (a[0] === "n" || a[0] === "nns")
-            a[0] = "nn";
-    }
-
-    switch (a.length) {
-
-      case 2: // a[0]=pos  a[1]=syllableCount
-
-
-        for (i = 0; i < ranWordArr.length; i++) {
-          j = (ran + i) % ranWordArr.length;
-          rdata = this.data[ranWordArr[j]];
-          numSyls = rdata[0].split(SP).length;
-          if (numSyls === a[1] && a[0] === rdata[1].split(SP)[0]) {
-            return pluralize ? RiTa.pluralize(ranWordArr[j]) : ranWordArr[j];
-          }
-        }
-
-        warn("No words with pos=" + a[0] + " found");
-
-      case 1:
-
-        if (is(a[0], S)) { // a[0] = pos
-
-          for (i = 0; i < ranWordArr.length; i++) {
-            j = (ran + i) % ranWordArr.length;
-            rdata = this.data[ranWordArr[j]];
-            if (a[0] === rdata[1].split(SP)[0]) {
-              return pluralize ? RiTa.pluralize(ranWordArr[j]) : ranWordArr[j];
-            }
-          }
-
-          warn("No words with pos=" + a[0] + " found");
-
-        } else {
-
-          // a[0] = syllableCount
-          for (i = 0; i < ranWordArr.length; i++) {
-            j = (ran + i) % ranWordArr.length;
-            rdata = this.data[ranWordArr[j]];
-            if (rdata[0].split(SP).length === a[0]) {
-              return ranWordArr[j];
-            }
-          }
-        }
-        return E;
-
-      case 0:
-        return ranWordArr[ran];
-    }
-    return E;
-  },
-
-  _letterToSound: function() { // lazy load
-    if (!this.lts)
-      this.lts = new LetterToSound();
-    return this.lts;
-  }
-
-};
-
-// from: https://gist.github.com/lovasoa/3361645
-function intersect() {
-  var i, all, n, len, ret = [], obj={}, shortest = 0,
-    nOthers = arguments.length-1, nShortest = arguments[0].length;
-  for (i=0; i<=nOthers; i++){
-    n = arguments[i].length;
-    if (n<nShortest) {
-      shortest = i;
-      nShortest = n;
-    }
-  }
-  for (i=0; i<=nOthers; i++) {
-    n = (i===shortest)?0:(i||shortest);
-    len = arguments[n].length;
-    for (var j=0; j<len; j++) {
-        var elem = arguments[n][j];
-        if(obj[elem] === i-1) {
-          if(i === nOthers) {
-            ret.push(elem);
-            obj[elem]=0;
-          } else {
-            obj[elem]=i;
-          }
-        }else if (i===0) {
-          obj[elem]=0;
-        }
-    }
-  }
-  return ret;
-}
-
-// RiLetterToSound (adapted from FreeTTS text-to-speech)
-
-var LetterToSound = makeClass();
-
-LetterToSound.RULES = typeof RiTa._LTS !== 'undefined' ? RiTa._LTS : false;
-LetterToSound.TOTAL = "TOTAL";
-LetterToSound.INDEX = "INDEX";
-LetterToSound.STATE = "STATE";
-LetterToSound.PHONE = "PHONE";
-
-/*
- * If true, the state string is tokenized when it is first read. The side
- * effects of this are quicker lookups, but more memory usage and a longer
- * startup time.
- */
-LetterToSound.tokenizeOnLoad = true;
-
-/*
- * If true, the state string is tokenized the first time it is referenced. The
- * side effects of this are quicker lookups, but more memory usage.
- */
-LetterToSound.tokenizeOnLookup = false;
-
-LetterToSound.WINDOW_SIZE = 4;
-
-LetterToSound.prototype = {
-
-  init: function() {
-
-    this.warnedForNoLTS = false;
-    this.letterIndex = {};
-    this.fval_buff = [];
-    this.stateMachine = null;
-    this.numStates = 0;
-
-    // add the rules to the object (static?)
-    for (var i = 0; i < LetterToSound.RULES.length; i++) {
-      this.parseAndAdd(LetterToSound.RULES[i]);
-    }
-  },
-
-  _createState: function(type, tokenizer) {
-
-    if (type === LetterToSound.STATE) {
-      var index = parseInt(tokenizer.nextToken());
-      var c = tokenizer.nextToken();
-      var qtrue = parseInt(tokenizer.nextToken());
-      var qfalse = parseInt(tokenizer.nextToken());
-
-      return new DecisionState(index, c.charAt(0), qtrue, qfalse);
-    } else if (type === LetterToSound.PHONE) {
-      return new FinalState(tokenizer.nextToken());
-    }
-
-    throw Error("Unexpected type: " + type);
-  },
-
-  // Creates a word from an input line and adds it to the state machine
-  parseAndAdd: function(line) {
-
-    var tokenizer = new StringTokenizer(line, SP);
-    var type = tokenizer.nextToken();
-
-    if (type == LetterToSound.STATE || type == LetterToSound.PHONE) {
-      if (LetterToSound.tokenizeOnLoad) {
-        this.stateMachine[this.numStates] = this._createState(type, tokenizer);
-      } else {
-        this.stateMachine[this.numStates] = line;
-      }
-      this.numStates++;
-    } else if (type == LetterToSound.INDEX) {
-      var index = parseInt(tokenizer.nextToken());
-      if (index != this.numStates) {
-        throw Error("Bad INDEX in file.");
-      } else {
-        var c = tokenizer.nextToken();
-        this.letterIndex[c] = index;
-
-      }
-      //log(type+" : "+c+" : "+index + " "+this.letterIndex[c]);
-    } else if (type == LetterToSound.TOTAL) {
-      this.stateMachine = [];
-      this.stateMachineSize = parseInt(tokenizer.nextToken());
-    }
-  },
-
-  getPhones: function(input, delim) {
-
-    var i, ph, result = [];
-
-    delim = delim || '-';
-
-    if (is(input, S)) {
-
-      if (!input.length) return E;
-
-      input = RiTa.tokenize(input);
-    }
-
-    for (i = 0; i < input.length; i++) {
-      ph = this._computePhones(input[i]);
-      result[i] = ph ? ph.join(delim) : E;
-    }
-
-    result = result.join(delim).replace(/ax/g, 'ah');
-
-    result.replace("/0/g","");
-  
-    if (result.length > 0 && result.indexOf("1") === -1 && result.indexOf(" ") === -1) {
-          ph = result.split("-");
-          result = "";
-          for (var i = 0; i < ph.length; i++) {
-              if (/[aeiou]/.test(ph[i])) ph[i] += "1";
-              result += ph[i] + "-";
-          }
-          if(ph.length > 1) result = result.substring(0, result.length - 1);
-      }
-
-    return result;
-  },
-
-  _computePhones: function(word) {
-
-    var dig, phoneList = [],
-      full_buff, tmp, currentState, startIndex, stateIndex, c;
-
-
-    if (!word || !word.length || RiTa.isPunctuation(word))
-      return null;
-
-    if (!LetterToSound.RULES) {
-      if (!this.warnedForNoLTS) {
-
-        this.warnedForNoLTS = true;
-        console.warn("[WARN] No LTS-rules found: for word features outside the lexicon, use a larger version of RiTa.");
-      }
-      return null;
-    }
-
-    word = word.toLowerCase();
-
-    if (isNum(word)) {
-
-      word = (word.length > 1) ? word.split(E) : [word];
-
-      for (var k = 0; k < word.length; k++) {
-
-        dig = parseInt(word[k]);
-        if (dig < 0 || dig > 9)
-          throw Error("Attempt to pass multi-digit number to LTS: '" + word + "'");
-
-        phoneList.push(RiString._phones.digits[dig]);
-      }
-      return phoneList;
-    }
-
-    // Create "000#word#000", uggh
-    tmp = "000#" + word.trim() + "#000", full_buff = tmp.split(E);
-
-    for (var pos = 0; pos < word.length; pos++) {
-
-      for (var i = 0; i < LetterToSound.WINDOW_SIZE; i++) {
-
-        this.fval_buff[i] = full_buff[pos + i];
-        this.fval_buff[i + LetterToSound.WINDOW_SIZE] =
-          full_buff[i + pos + 1 + LetterToSound.WINDOW_SIZE];
-      }
-
-      c = word.charAt(pos);
-      startIndex = this.letterIndex[c];
-
-      // must check for null here, not 0 (and not ===)
-      if (!isNum(startIndex)) {
-        warn("Unable to generate LTS for '" + word + "'\n       No LTS index for character: '" +
-          c + "', isDigit=" + isNum(c) + ", isPunct=" + RiTa.isPunctuation(c));
-        return null;
-      }
-
-      stateIndex = parseInt(startIndex);
-
-      currentState = this.getState(stateIndex);
-
-      while (!(currentState instanceof FinalState)) {
-
-        stateIndex = currentState.getNextState(this.fval_buff);
-        currentState = this.getState(stateIndex);
-      }
-
-      currentState.append(phoneList);
-    }
-
-    return phoneList;
-  },
-
-  getState: function(i) {
-
-    if (is(i, N)) {
-
-      var state = null;
-
-      // WORKING HERE: this check should fail :: see java
-      if (is(this.stateMachine[i], S)) {
-
-        state = this.getState(this.stateMachine[i]);
-        if (LetterToSound.tokenizeOnLookup)
-          this.stateMachine[i] = state;
-      } else
-        state = this.stateMachine[i];
-
-      return state;
-    } else {
-
-      var tokenizer = new StringTokenizer(i, " ");
-      return this.getState(tokenizer.nextToken(), tokenizer);
-    }
-  }
-};
-
-// DecisionState
-
-var DecisionState = makeClass();
-
-DecisionState.TYPE = 1;
-
-DecisionState.prototype = {
-
-  init: function(index, c, qtrue, qfalse) {
-
-    this.c = c;
-    this.index = index;
-    this.qtrue = qtrue;
-    this.qfalse = qfalse;
-  },
-
-  type: function() {
-    return "DecisionState";
-  },
-
-  getNextState: function(chars) {
-
-    return (chars[this.index] == this.c) ? this.qtrue : this.qfalse;
-  },
-
-
-  toString: function() {
-    return this.STATE + " " + this.index + " " + this.c + " " + this.qtrue + " " + this.qfalse;
-  }
-
-};
-
-// FinalState
-
-var FinalState = makeClass();
-
-FinalState.TYPE = 2;
-
-FinalState.prototype = {
-
-  // "epsilon" is used to indicate an empty list.
-  init: function(phones) {
-
-    this.phoneList = [];
-
-    if (phones === ("epsilon")) {
-      this.phoneList = null;
-    } else if (is(phones, A)) {
-      this.phoneList = phones;
-    } else {
-      var i = phones.indexOf('-');
-      if (i != -1) {
-        this.phoneList[0] = phones.substring(0, i);
-        this.phoneList[1] = phones.substring(i + 1);
-      } else {
-        this.phoneList[0] = phones;
-      }
-    }
-  },
-
-  type: function() { return "FinalState"; },
-
-  /*
-   * Appends the phone list for this state to the given <code>ArrayList</code>.
-   */
-  append: function(array) {
-
-    if (!this.phoneList) return;
-
-    for (var i = 0; i < this.phoneList.length; i++)
-      array.push(this.phoneList[i]);
-  },
-
-  toString: function() {
-
-    if (!this.phoneList) {
-      return LetterToSound.PHONE + " epsilon";
-    } else if (this.phoneList.length == 1) {
-      return LetterToSound.PHONE + " " + this.phoneList[0];
-    } else {
-      return LetterToSound.PHONE + " " + this.phoneList[0] + "-" + this.phoneList[1];
-    }
-  }
-};
-
 
 /*jshint -W069 */
+
+RiTa.lexicon = RiLexicon(); // create the lexicon
+
+// add RiLexicon member functions to RiTa object
+var funs = okeys(RiTa.lexicon);
+for (var i = 0; i < funs.length; i++) {
+  if (!startsWith(funs[i], '_')) {
+    var f = RiTa.lexicon[funs[i]];
+    is(f,F) && (RiTa[funs[i]] = f.bind(RiTa.lexicon));
+  }
+}
 
 if (window) { // for browser
 
@@ -47879,6 +47583,8 @@ if (window) { // for browser
   window['RiLexicon'] = RiLexicon;
   window['RiTaEvent'] = RiTaEvent;
 
+  var rlfuns = okeys();
+
 } else if (typeof module !== 'undefined') { // for node
 
   module.exports['RiTa'] = RiTa;
@@ -47889,7 +47595,8 @@ if (window) { // for browser
   module.exports['RiLexicon'] = RiLexicon;
   module.exports['RiTaEvent'] = RiTaEvent;
 
-  var funs = Object.keys(RiTa);
+  // add RiTa.* functions directly to exported object
+  var funs = okeys(RiTa);
   for (var i = 0; i < funs.length; i++) {
     if (!startsWith(funs[i], '_')) {
       module.exports[funs[i]] = RiTa[funs[i]];
