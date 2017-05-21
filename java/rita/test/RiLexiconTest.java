@@ -99,6 +99,9 @@ public class RiLexiconTest {
     
     RiLexicon lex = new RiLexicon();
     
+    ok(lex.containsWord("veils"));
+    ok(!lex.containsWord("shalls"));
+
     ok(lex.containsWord("cat"));
     ok(!lex.containsWord("cated"));
     ok(lex.containsWord("funny"));
@@ -120,8 +123,6 @@ public class RiLexiconTest {
     ok(lex.containsWord("stimuli"));
     ok(lex.containsWord("crises"));
     ok(lex.containsWord("media"));
-    //ok(lex.containsWord("prognoses")); // TODO: failing in java
-
 
     //vb* ?
     ok(lex.containsWord("runs"));
@@ -130,6 +131,11 @@ public class RiLexiconTest {
     ok(lex.containsWord("moved"));
     ok(lex.containsWord("went"));
     ok(lex.containsWord("spent"));
+
+    // nonsense
+    ok(!lex.containsWord("pleae"));
+    
+    //ok(lex.containsWord("prognoses")); // TODO: failing in java
   }
 
   @Test

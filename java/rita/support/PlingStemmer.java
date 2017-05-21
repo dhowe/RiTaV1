@@ -117,9 +117,9 @@ public class PlingStemmer implements StemmerIF, Constants
      if(s.endsWith("ina")) return (lastNounStemmed=cut(s,"en"));
 
      // -a to -ae
-     // No other common words end in -ae
-     if(s.endsWith("ae")) return (lastNounStemmed=cut(s,"e"));
-
+     // No other common words end in -ae (special case for 'pleae')
+     if(s.endsWith("ae") && !s.equals("pleae")) return (lastNounStemmed=cut(s,"e"));
+     
      // -a to -ata
      // No other common words end in -ata
      if(s.endsWith("ata")) return (lastNounStemmed=cut(s,"ta"));

@@ -2096,6 +2096,7 @@ public class RiTaTest
   @Test
   public void testSingularize()
   {
+    equal("pleae", RiTa.singularize("pleae"));
     equal("eye", RiTa.singularize("eyes"));
     equal("blonde", RiTa.singularize("blondes"));
     
