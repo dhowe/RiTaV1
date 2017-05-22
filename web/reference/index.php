@@ -103,7 +103,11 @@
             <!-- end span4ref -->
 
             <div class="gd-3">
-                  <div class="category"><b><span class="special">Lexicon-related</span></b>
+                  <div class="category"><b><span > &nbsp </span></b>
+                    
+                    <span class="empty" style=" line-height:32px; visibility:hidden">
+                        <br>
+                    </span> 
                     <a href="RiTa/RiTa.addWord/index.php">RiTa.addWord()</a>
                     <br>
                     <a href="RiTa/RiTa.alliterations/index.php">RiTa.alliterations()</a>
@@ -137,8 +141,6 @@
                     <a href="RiTa/RiTa.similarBySound/index.php">RiTa.similarBySound()</a>
                     <br>
                     <a href="RiTa/RiTa.similarBySoundAndLetter/index.php">RiTa.similarBySoundAndLetter()</a>
-                    <br>
-                    <a href="RiTa/RiTa.size/index.php">RiTa.size()</a>
                     <br>
                     <a href="RiTa/RiTa.substrings/index.php">RiTa.substrings()</a>
                     <br>
