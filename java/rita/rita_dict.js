@@ -22562,7 +22562,6 @@ function _dict() { return {
 'situate':['s-ih1-ch-uw-ey-t','vb'],
 'situated':['s-ih1 ch-uw ey t-ih-d','vbn'],
 'situation':['s-ih ch-uw ey1 sh-ah-n','nn'],
-'situs':['s-ay1 t-ah-s','nn'],
 'six':['s-ih1-k-s','cd'],
 'sixfold':['s-ih1-k-s f-ow-l-d','rb jj'],
 'sixteenth':['s-ih-k-s t-iy1-n-th','jj'],
