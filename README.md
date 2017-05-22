@@ -13,13 +13,13 @@ Please see https://github.com/dhowe/RiTaJS for the JavaScript implementation of 
 #### About the project
 --------
 * Author:         [Daniel C. Howe](https://rednoise.org/~dhowe)
-* Related:			  [RiTaJS](https://github.com/dhowe/RiTaJS)
-* License:			  GPL (see included [LICENSE](https://github.com/dhowe/RiTa/blob/master/LICENSE) file)
+* License:			  GPLv3 (see included [LICENSE](https://github.com/dhowe/RiTa/blob/master/LICENSE) file)
 * Web Site:       https://rednoise.org/rita
 * Reference:      https://rednoise.org/rita/reference
 * Github Repo:    https://github.com/dhowe/RiTa/
 * Issues:    https://github.com/dhowe/RiTa/issues
 * FAQ:    https://github.com/dhowe/RiTa/wiki
+* Related:			  [RiTaJS](https://github.com/dhowe/RiTaJS)
 
 &nbsp;
 
@@ -119,6 +119,8 @@ void setup() {
 3. Right-click: RiTa project > Configure > Convert to Maven Project
 -->
 
+<br/>
+
 #### Can I contribute?
 --------
 Please! We are looking for more coders to help out... Just press *Fork* at the top of this page and get started, or follow the instructions below...
@@ -132,6 +134,9 @@ If you don't feel like coding but still want to contribute, please send a twitte
 1. in Eclipse > Package Explorer, right click on pom.xml from the project
 2. select > 'Run As' > '5 Maven Install'
 -->
+
+
+<br/>
 
 #### Development Setup (in Eclipse)
 --------
@@ -164,7 +169,7 @@ If you don't feel like coding but still want to contribute, please send a twitte
 
     c. Click to expand the 'RiTa' menu and reveal the various tasks, then double-click 'build' (or run ```$ cd RiTa/resources && ant build``` from the terminal)
 
-    d. (Optional) Ignore this step if you are on Mac or step 9a to c if you are on Windows, install [ant](http://dita-ot.sourceforge.net/doc/ot-userguide13/xhtml/installing/windows_installingant.html) and use [cygwin](http://cygwin.com/install.html) to run the command ```$ cd RiTa/resources && ant build```.
+    d. (Optional) if you are on Windows, you can use [cygwin](http://cygwin.com/install.html), by installing [ant](http://dita-ot.sourceforge.net/doc/ot-userguide13/xhtml/installing/windows_installingant.html) and using it to run the command ```$ cd RiTa/resources && ant build```.
 
     e. When the build is complete, project resources can be found in RiTa/dist
 
