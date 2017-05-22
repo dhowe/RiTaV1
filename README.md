@@ -13,13 +13,13 @@ Please see https://github.com/dhowe/RiTaJS for the JavaScript implementation of 
 #### About the project
 --------
 * Author:         [Daniel C. Howe](https://rednoise.org/~dhowe)
-* Related:			  [RiTaJS](https://github.com/dhowe/RiTaJS)
-* License:			  GPL (see included [LICENSE](https://github.com/dhowe/RiTa/blob/master/LICENSE) file)
+* License:			  GPLv3 (see included [LICENSE](https://github.com/dhowe/RiTa/blob/master/LICENSE) file)
 * Web Site:       https://rednoise.org/rita
 * Reference:      https://rednoise.org/rita/reference
 * Github Repo:    https://github.com/dhowe/RiTa/
 * Issues:    https://github.com/dhowe/RiTa/issues
 * FAQ:    https://github.com/dhowe/RiTa/wiki
+* Related:			  [RiTaJS](https://github.com/dhowe/RiTaJS)
 
 &nbsp;
 
