@@ -758,7 +758,7 @@ public class LetterToSound implements Constants {
     LetterToSound text = LetterToSound.getInstance();
     String phones = text.getPhones("washington");
     System.out.println(phones + "\t\t"
-	+ (phones.equals("w-aa1 sh-ih0-ng t-ah0-n") ? "OK" : "FAIL"));
+	+ (phones.equals("w-aa1 sh-ih-ng t-ah-n") ? "OK" : "FAIL"));
 
     // System.out.println(Arrays.asList(text.getPhones("laggin")));
     // System.out.println(Arrays.asList(text.getPhones("dragon")));

@@ -1287,8 +1287,11 @@ text-transform: none;
     font-family:"HelveticaNeue-Light", "Helvetica Neue Light","Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight:bold;
 }
-.category b span{
+.category b span:not(.special){
     font-weight:normal!important;
+}
+.category b span.special{
+    opacity: .7;
 }
 table {
   width: 100%;

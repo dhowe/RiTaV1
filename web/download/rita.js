@@ -15,12 +15,10 @@ function makeClass() { // from: Resig, TODO: make work with strict
   };
 }
 
-// Returns true if the object is of type 'type', otherwise false
 function is(obj, type) {
   return get(obj) === type;
 }
 
-// Throws TypeError if not the correct type, else returns true
 function ok(obj, type) {
   if (get(obj) != type) {
     throw TypeError('Expected ' + (type ? type.toUpperCase() : type + E) +
@@ -70,12 +68,12 @@ function trim(str) {
   return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
 }
 
-function last(word) { // last char of string
+function last(word) {
   if (!word || !word.length) return E;
   return word.charAt(word.length - 1);
 }
 
-function extend(l1, l2) { // python extend
+function extend(l1, l2) {
   for (var i = 0; i < l2.length; i++)
     l1.push(l2[i]);
 }
@@ -95,7 +93,6 @@ function equalsIgnoreCase(str1, str2) {
     (str1.toLowerCase() === str2.toLowerCase()) : false;
 }
 
-// Returns true if NodeJS is the current environment
 function isNode() {
   return (typeof module != 'undefined' && module.exports);
 }
@@ -149,29 +146,13 @@ function tagForWordNet(words) {
   return EA;
 }
 
-function getLexicon() {
-  RiTa.LEXICON = RiTa.LEXICON || new RiLexicon();
-  return RiTa.LEXICON;
-}
-
 'use strict';
-
-var RiLexicon = makeClass(); // stub
-
-RiLexicon._enabled = false;
-
-RiLexicon.prototype.init = function() {
-    warn('RiLexicon is not available -- ' +
-      'if needed, use a larger version of RiTa.');
-};
 
 var FEATURES = [ 'tokens', 'stresses', 'phonemes', 'syllables', 'pos', 'text' ];
 
 var RiTa = {
 
-  VERSION: '1.1.61',
-
-  LEXICON: null, // static RiLexicon instance
+  VERSION: '1.1.72',
 
   /* For tokenization, Can't -> Can not, etc. */
   SPLIT_CONTRACTIONS: false,
@@ -181,7 +162,6 @@ var RiTa = {
   DATA_LOADED: 'DataLoaded', INTERNAL: 'Internal', UNKNOWN: 'Unknown',
 
   // For Conjugator =================================
-
   FIRST_PERSON: 1,
   SECOND_PERSON: 2,
   THIRD_PERSON: 3,
@@ -201,6 +181,8 @@ var RiTa = {
   VOWELS: "aeiou",
   ABBREVIATIONS: ["Adm.", "Capt.", "Cmdr.", "Col.", "Dr.", "Gen.", "Gov.", "Lt.", "Maj.", "Messrs.", "Mr.", "Mrs.", "Ms.", "Prof.", "Rep.", "Reps.", "Rev.", "Sen.", "Sens.", "Sgt.", "Sr.", "St.", "a.k.a.", "c.f.", "i.e.", "e.g.", "vs.", "v.", "Jan.", "Feb.", "Mar.", "Apr.", "Mar.", "Jun.", "Jul.", "Aug.", "Sept.", "Oct.", "Nov.", "Dec."],
   ALL_PHONES: ['aa','ae','ah','ao','aw','ay','b','ch','d','dh','eh','er','ey','f','g','hh','ih','iy','jh', 'k','l', 'm','n','ng','ow','oy','p','r','s','sh','t','th','uh', 'uw','v','w','y','z','zh'],
+  LEX_WARN: "A minimal Lexicon is currently in use. For word features outside the lexicon, use a larger version of RiTa.",
+  LTS_WARN: 'No LTS-rules found: features/tagging may be inaccurate!',
 
   /* The infinitive verb form  - 'to eat an apple' */
   INFINITIVE: 1,
@@ -421,8 +403,6 @@ var RiTa = {
         return rule.fire(word);
       }
     }
-    ////////////////////////////////////////
-
     return this.stem(word, 'Pling');
   },
 
@@ -876,8 +856,8 @@ var RiTa = {
   },
 
   /*
-   * Takes pair of strings or string-arrays and returns the min-edit distance
-   * @param normalized based on max-length if 3rd (optional) parameter is true (default=f).
+   * Takes pair of strings or string-arrays and returns the med
+   * @param normalized based on max-length if 3rd (optional) parameter is true
    */
   minEditDistance: function(a, b, adjusted) {
 
@@ -887,14 +867,747 @@ var RiTa = {
 
 }; // end RiTa object
 
-// set additional properties/functions on RiTa
+// set feature names (PHONEMES, SYLLABLES, etc.) as RiTa constants
 for (var i = 0; i < FEATURES.length; i++) {
   RiTa[FEATURES[i].toUpperCase()] = FEATURES[i];
 }
 
-// ////////////////////////////////////////////////////////////
-// RiMarkov
-// ////////////////////////////////////////////////////////////
+var RiLexicon = makeClass();
+
+RiLexicon.SILENCE_LTS = false;
+
+RiLexicon.prototype = {
+
+  init: function() {
+
+    if (typeof _dict === 'undefined') {
+      this.data = {};
+      this.keys = [];
+    }
+    else
+      this.reload();
+  },
+
+  clear: function() {
+
+    this.data = {};
+    this.keys = [];
+  },
+
+  reload: function() {
+    if (typeof _dict != 'undefined') {
+        this.data = _dict();
+        this.keys = okeys(this.data); // cache
+    }
+  },
+
+  addWord: function(word, pronunciationData, posData) {
+
+    this.data[word.toLowerCase()] = [
+      pronunciationData.toLowerCase(),
+      posData.toLowerCase()
+    ];
+    this.keys = okeys(this.data);
+    return this;
+  },
+
+  similarByLetter: function(input, minAllowedDist, preserveLength) {
+
+    var minVal = Number.MAX_VALUE,
+      minLen = 2,
+      result = [];
+
+    if (!(input && input.length)) return EA;
+
+    if (arguments.length == 2 && is(minAllowedDist,B))  { // (input, preserveLength)
+      preserveLength = minAllowedDist;
+      minAllowedDist = 1;
+    }
+
+    input = input.toLowerCase();
+    minAllowedDist = minAllowedDist || 1;
+    preserveLength = preserveLength || false;
+
+    var med, inputS = input + 's',
+      inputES = input + 'es',
+      inputLen = input.length;
+
+    for (var i = 0; i < this.keys.length; i++) {
+
+      var entry = this.keys[i];
+
+      if (entry.length < minLen)
+        continue;
+
+      if (preserveLength && (entry.length != inputLen))
+        continue;
+
+      if (entry === input || entry === inputS || entry === inputES)
+        continue;
+
+      med = MinEditDist.computeRaw(entry, input);
+
+      // we found something even closer
+      if (med >= minAllowedDist && med < minVal) {
+
+        minVal = med;
+        result = [entry];
+      }
+
+      // we have another best to add
+      else if (med === minVal) {
+
+        result.push(entry);
+      }
+    }
+
+    return result;
+  },
+
+  similarBySound: function(input, minEditDist, minimumWordLen) {
+
+    minEditDist = minEditDist || 1;
+
+    var minVal = Number.MAX_VALUE,
+      entry, result = [], minLen = minimumWordLen || 2,
+      phonesArr, phones = RiTa.getPhonemes(input), med,
+      targetPhonesArr = phones ? phones.split('-') : [],
+      input_s = input + 's', input_es = input + 'es';
+
+    if (!targetPhonesArr[0] || !(input && input.length)) return EA;
+
+    //console.log("TARGET "+targetPhonesArr);
+
+    for (var i = 0; i < this.keys.length; i++) {
+
+      entry = this.keys[i];
+
+      if (entry.length < minLen) continue;
+
+      // entry = entry.toLowerCase(); // all lowercase
+
+      if (entry === input || entry === input_s || entry === input_es)
+        continue;
+
+      phones = this.data[entry][0];
+      //if (i<10) console.log(phones+" :: "+);
+      phonesArr = phones.replace(/1/g, E).replace(/ /g, '-').split('-');
+
+      med = MinEditDist.computeRaw(phonesArr, targetPhonesArr);
+
+      // found something even closer
+      if (med >= minEditDist && med < minVal) {
+
+        minVal = med;
+        result = [entry];
+        //console.log("BEST "+entry + " "+med + " "+phonesArr);
+      }
+
+      // another best to add
+      else if (med === minVal) {
+
+        //console.log("TIED "+entry + " "+med + " "+phonesArr);
+        result.push(entry);
+      }
+    }
+
+    return result;
+  },
+
+  similarBySoundAndLetter: function(word) {
+
+    function intersect() { // https://gist.github.com/lovasoa/3361645
+      var i, all, n, len, ret = [], obj={}, shortest = 0,
+        nOthers = arguments.length-1, nShortest = arguments[0].length;
+      for (i=0; i<=nOthers; i++){
+        n = arguments[i].length;
+        if (n < nShortest) {
+          shortest = i;
+          nShortest = n;
+        }
+      }
+      for (i=0; i <= nOthers; i++) {
+        n = (i ===  shortest)? 0 : (i || shortest);
+        len = arguments[n].length;
+        for (var j=0; j < len; j++) {
+          var elem = arguments[n][j];
+          if (obj[elem] === i - 1) {
+            if (i === nOthers) {
+              ret.push(elem);
+              obj[elem] = 0;
+            } else {
+              obj[elem] = i;
+            }
+          } else if (i === 0) {
+            obj[elem] = 0;
+          }
+        }
+      }
+      return ret;
+    }
+
+    var result = [], simSound, simLetter = this.similarByLetter(word);
+
+    if (simLetter.length < 1)
+      return result;
+
+    simSound = this.similarBySound(word);
+
+    if (simSound.length < 1)
+      return result;
+
+    return intersect(simSound, simLetter);
+  },
+
+  substrings: function(word, minLength) {
+
+    minLength = minLength || (minLength === 0) || 4;
+
+    var result = [];
+    for (var i = 0; i < this.keys.length; i++) {
+
+      if (this.keys[i] === word || this.keys[i].length < minLength)
+        continue;
+      if (word.indexOf(this.keys[i]) >= 0)
+        result.push(this.keys[i]);
+    }
+
+    return result;
+  },
+
+  superstrings: function(word) {
+
+    var result = [];
+
+    for (var i = 0; i < this.keys.length; i++) {
+
+      if (this.keys[i] === word) continue;
+      if (this.keys[i].indexOf(word) >= 0)
+        result.push(this.keys[i]);
+    }
+
+    return result;
+  },
+
+  words: function() {
+
+    var a = arguments,
+      shuffled = false,
+      regex, wordArr = [];
+
+    switch (a.length) {
+
+      case 2:
+
+        if (is(a[0], B)) {
+
+          shuffled = a[0];
+          regex = (is(a[1], R)) ? a[1] : new RegExp(a[1]);
+        } else {
+
+          shuffled = a[1];
+          regex = (is(a[0], R)) ? a[0] : new RegExp(a[0]);
+        }
+
+        break;
+
+      case 1:
+
+        if (is(a[0], B)) {
+          return a[0] ? shuffle(this.keys) : this.keys;
+        }
+
+        regex = (is(a[0], R)) ? a[0] : new RegExp(a[0]);
+
+        break;
+
+      case 0:
+
+        return this.keys;
+    }
+
+    for (var i = 0; i < this.keys.length; i++) {
+
+      if (regex.test(this.keys[i])) {
+
+        wordArr.push(this.keys[i]);
+      }
+    }
+
+    return shuffled ? shuffle(wordArr) : wordArr;
+  },
+
+  _isVowel: function(c) {
+
+    return (strOk(c) && RiTa.VOWELS.indexOf(c) > -1);
+  },
+
+  _isConsonant: function(p) {
+
+    return (typeof p === S && p.length === 1 &&
+      RiTa.VOWELS.indexOf(p) < 0 && /^[a-z\u00C0-\u00ff]+$/.test(p));
+  },
+
+  _isPlural: function(word) {
+
+    var stem = RiTa.stem(word, 'Pling');
+    if (stem === word) return false;
+    var data = this.data[RiTa.singularize(word)];
+    if (data && data.length === 2) {
+      var pos = data[1].split(SP);
+      for (var i = 0; i < pos.length; i++) {
+        if (pos[i] === 'nn')
+          return true;
+      }
+    }
+    return false;
+  },
+
+  containsWord: function(word) {
+
+    if (!this.data || !strOk(word)) return false;
+    word = word.toLowerCase();
+    return this.data[word] || this._isPlural(word);
+  },
+
+  isRhyme: function(word1, word2, useLTS) {
+    var phones1 = this._getRawPhones(word1, useLTS),
+        phones2 = this._getRawPhones(word2, useLTS);
+
+    if (!strOk(word1) || !strOk(word2) || equalsIgnoreCase(word1, word2) || phones2 === phones1)
+      return false;
+
+    var p1 = this._lastStressedVowelPhonemeToEnd(word1, useLTS),
+      p2 = this._lastStressedVowelPhonemeToEnd(word2, useLTS);
+
+    return (strOk(p1) && strOk(p2) && p1 === p2);
+  },
+
+  rhymes: function(word) {
+
+
+      var p = this._lastStressedPhoneToEnd(word),
+        phones, results = [];
+
+      for (var i = 0; i < this.keys.length; i++) {
+
+        if (this.keys[i] === word)
+          continue;
+
+        phones = this.data[this.keys[i]][0];
+
+        if (endsWith(phones, p))
+          results.push(this.keys[i]);
+      }
+      return (results.length > 0) ? results : EA;
+
+
+    return EA;
+  },
+
+  alliterations: function(word, matchMinLength, useLTS) {
+
+    if (word.indexOf(" ") > -1) return [];
+
+    if (this._isVowel(word.charAt(0))) return [];
+
+
+    matchMinLength = matchMinLength || 4;
+
+    var c2, results = [],
+      c1 = this._firstPhoneme(this._firstStressedSyllable(word, useLTS));
+
+    for (var i = 0; i < this.keys.length; i++) {
+
+      c2 = this._firstPhoneme(
+          this._firstStressedSyllable(this.keys[i], useLTS));
+
+      if(c2._isVowel) return [];
+
+      if (c2 && c1 === c2 && this.keys[i].length >= matchMinLength) {
+        results.push(this.keys[i]);
+      }
+    }
+
+    return shuffle(results);
+  },
+
+  isAlliteration: function(word1, word2, useLTS) {
+
+    if (!strOk(word1) || !strOk(word2) || word1.indexOf(" ") > -1 || word2.indexOf(" ") > -1)
+      return false;
+
+    var c1 = this._firstPhoneme(this._firstStressedSyllable(word1, useLTS)),
+      c2 = this._firstPhoneme(this._firstStressedSyllable(word2, useLTS));
+
+    if (this._isVowel(c1.charAt(0)) || this._isVowel(c2.charAt(0)))
+      return false;
+
+    return strOk(c1) && strOk(c2) && c1 === c2;
+  },
+
+  _firstSyllable: function(word, useLTS) {
+     var raw = this._getRawPhones(word, useLTS);
+     if (!strOk(raw)) return E;
+     if(word === "URL") console.log(raw);
+     var syllables = raw.split(" ");
+     return syllables[0];
+  },
+
+  _firstStressedSyllable: function(word, useLTS) {
+
+    var raw = this._getRawPhones(word, useLTS),
+      idx = -1, c, firstToEnd;
+
+    if (!strOk(raw)) return E; // return null?
+
+    idx = raw.indexOf(RiTa.STRESSED);
+
+    if (idx < 0) return E; // no stresses... return null?
+
+    c = raw.charAt(--idx);
+
+    while (c != ' ') {
+      if (--idx < 0) {
+        // single-stressed syllable
+        idx = 0;
+        break;
+      }
+      c = raw.charAt(idx);
+    }
+
+    firstToEnd = idx === 0 ? raw : trim(raw.substring(idx));
+    idx = firstToEnd.indexOf(' ');
+
+    return idx < 0 ? firstToEnd : firstToEnd.substring(0, idx);
+  },
+
+  isVerb: function(word) {
+
+    return this._checkType(word, PosTagger.VERBS);
+  },
+
+  isNoun: function(word) {
+
+    var result = this._checkType(word, PosTagger.NOUNS);
+    if (!result) {
+      var singular = RiTa.singularize(word);
+      if (singular !== word) {
+        result = this._checkType(singular, PosTagger.NOUNS);
+      }
+    }
+    return result;
+  },
+
+  isAdverb: function(word) {
+
+    return this._checkType(word, PosTagger.ADV);
+  },
+
+  isAdjective: function(word) {
+
+    return this._checkType(word, PosTagger.ADJ);
+  },
+
+  size: function() {
+
+    return this.keys.length;
+  },
+
+  _checkType: function(word, tagArray) {
+
+    if (word && word.indexOf(SP) != -1)
+      throw Error("[RiTa] _checkType() expects a single word, found: " + word);
+
+    var psa = this._getPosArr(word);
+    if (RiTa.LEX_WARN && psa.length < 1 && this.size() <= 1000) {
+      warn(RiTa.LEX_WARN);
+      RiTa.LEX_WARN = 0; // only once
+    }
+
+    for (var i = 0; i < psa.length; i++) {
+      if (tagArray.indexOf(psa[i]) > -1)
+        return true;
+    }
+
+    return false;
+  },
+
+  _getSyllables: function(word) {
+
+    // TODO: use feature cache?
+    if (!strOk(word)) return E;
+
+    var wordArr = RiTa.tokenize(word), raw = [];
+    for (var i = 0; i < wordArr.length; i++)
+      raw[i] = this._getRawPhones(wordArr[i]).replace(/\s/g, '/');
+    // console.log("[RiTa] syllables" + " " + word + " " + raw);
+    return RiTa.untokenize(raw).replace(/1/g, E).trim();
+  },
+
+  _getPhonemes: function(word) {
+
+    if (!strOk(word)) return E;
+
+    var wordArr = RiTa.tokenize(word), raw = [];
+
+    for (var i = 0; i < wordArr.length; i++) {
+
+      if (RiTa.isPunctuation(wordArr[i])) continue;
+
+      raw[i] = this._getRawPhones(wordArr[i]);
+
+      if (!raw[i].length) return E;
+
+      raw[i] = raw[i].replace(/ /g, "-");
+    }
+
+    return RiTa.untokenize(raw).replace(/1/g, E).trim();
+  },
+
+  _getStresses: function(word) {
+
+    var i, stresses = [], phones, raw = [],
+      wordArr = is(word, A) ? word : RiTa.tokenize(word);
+
+    if (!strOk(word)) return E;
+
+    for (i = 0; i < wordArr.length; i++) {
+
+      if (!RiTa.isPunctuation(wordArr[i]))
+        raw[i] = this._getRawPhones(wordArr[i]);
+    }
+
+    for (i = 0; i < raw.length; i++) {
+
+      if (raw[i]) { // ignore undefined array items (eg Punctuation)
+
+        phones = raw[i].split(SP);
+        for (var j = 0; j < phones.length; j++) {
+
+          var isStress = (phones[j].indexOf(RiTa.STRESSED) > -1) ?
+            RiTa.STRESSED : RiTa.UNSTRESSED;
+
+          if (j > 0) isStress = "/" + isStress;
+
+          stresses.push(isStress);
+        }
+      }
+    }
+
+    return stresses.join(SP).replace(/ \//g, "/");
+  },
+
+  lexicalData: function(dictionaryDataObject) {
+
+    if (arguments.length === 1) {
+      this.data = dictionaryDataObject;
+      return this;
+    }
+
+    return this.data;
+  },
+
+  /* Returns the raw (RiTa-format) dictionary entry for the given word   */
+  _lookupRaw: function(word) {
+
+    word = word.toLowerCase();
+    if (this.data && this.data[word])
+      return this.data[word];
+    //log("[RiTa] No lexicon entry for '" + word + "'");
+  },
+
+  _getRawPhones: function(word, useLTS) {
+
+    var phones, lts, rdata = this._lookupRaw(word);
+    useLTS = useLTS || false;
+
+    if (rdata === undefined || (useLTS && !RiTa.SILENT && !RiLexicon.SILENCE_LTS)) {
+
+      lts = this._letterToSound();
+      phones = lts && lts.getPhones(word);
+      if (phones && phones.length)
+        return RiString._syllabify(phones);
+
+    }
+    return (rdata && rdata.length === 2) ? rdata[0] : E;
+  },
+
+  _getPosData: function(word) {
+
+    var rdata = this._lookupRaw(word);
+    return (rdata && rdata.length === 2) ? rdata[1] : E;
+  },
+
+
+  _getPosArr: function(word) {
+
+    var pl = this._getPosData(word);
+    if (!strOk(pl)) return EA;
+    return pl.split(SP);
+  },
+
+  _getBestPos: function(word) {
+
+    var pl = this._getPosArr(word);
+    return (pl.length > 0) ? pl[0] : [];
+  },
+
+  _firstPhoneme: function(rawPhones) {
+
+    if (!strOk(rawPhones)) return E;
+
+    var phones = rawPhones.split(RiTa.PHONEME_BOUNDARY);
+
+    if (phones) return phones[0];
+
+    return E; // return null?
+  },
+
+  _firstConsonant: function(rawPhones) {
+
+    if (!strOk(rawPhones)) return E;
+
+    var phones = rawPhones.split(RiTa.PHONEME_BOUNDARY);
+
+    if (phones) {
+
+      for (var j = 0; j < phones.length; j++) {
+        if (this._isConsonant(phones[j].charAt(0))) // first letter only
+          return phones[j];
+      }
+    }
+    return E; // return null?
+  },
+
+  _lastStressedVowelPhonemeToEnd: function(word, useLTS) {
+
+    if (!strOk(word)) return E; // return null?
+
+
+    var raw = this._lastStressedPhoneToEnd(word, useLTS);
+    if (!strOk(raw)) return E; // return null?
+
+    var syllables = raw.split(" ");
+    var lastSyllable = syllables[syllables.length - 1];
+    lastSyllable = lastSyllable.replace("[^a-z-1 ]", "");
+
+    var idx = -1;
+    for (var i = 0; i < lastSyllable.length; i++) {
+      var c = lastSyllable.charAt(i);
+      if(this._isVowel(c)){
+        idx = i;
+        break;
+      }
+    }
+  word + " " + raw + " last:" + lastSyllable + " idx=" + idx + " result:" + lastSyllable.substring(idx)
+   return lastSyllable.substring(idx);
+  },
+
+  _lastStressedPhoneToEnd: function(word, useLTS) {
+
+    if (!strOk(word)) return E; // return null?
+
+    var idx, c, result;
+    var raw = this._getRawPhones(word, useLTS);
+
+    if (!strOk(raw)) return E; // return null?
+
+    idx = raw.lastIndexOf(RiTa.STRESSED);
+
+    if (idx < 0) return E; // return null?
+
+    c = raw.charAt(--idx);
+    while (c != '-' && c != ' ') {
+      if (--idx < 0) {
+        return raw; // single-stressed syllable
+      }
+      c = raw.charAt(idx);
+    }
+    result = raw.substring(idx + 1);
+
+    return result;
+  },
+
+  randomWord: function() { // takes nothing, pos, syllableCount, or both
+
+    var i, j, rdata, numSyls, pluralize = false,
+      ran = Math.floor(Math.random() * this.keys.length),
+      found = false, a = arguments, ranWordArr = this.keys;
+
+    if (typeof a[0] === "string") {
+        a[0] = trim(a[0]).toLowerCase();
+
+        if (a[0] === "v")
+            a[0] = "vb";
+        if (a[0] === "r")
+            a[0] = "rb";
+        if (a[0] === "a")
+            a[0] = "jj";
+        if (a[0] === "n" || a[0] === "nns")
+            a[0] = "nn";
+    }
+    else if (typeof a[0] === "object") {
+
+    }
+    switch (a.length) {
+
+      case 2: // a[0]=pos  a[1]=syllableCount
+
+
+        for (i = 0; i < ranWordArr.length; i++) {
+          j = (ran + i) % ranWordArr.length;
+          rdata = this.data[ranWordArr[j]];
+          numSyls = rdata[0].split(SP).length;
+          if (numSyls === a[1] && a[0] === rdata[1].split(SP)[0]) {
+            return pluralize ? RiTa.pluralize(ranWordArr[j]) : ranWordArr[j];
+          }
+        }
+
+        warn("No words with pos=" + a[0] + " found");
+
+      case 1:
+
+        if (is(a[0], S)) { // a[0] = pos
+
+          for (i = 0; i < ranWordArr.length; i++) {
+            j = (ran + i) % ranWordArr.length;
+            rdata = this.data[ranWordArr[j]];
+            if (a[0] === rdata[1].split(SP)[0]) {
+              return pluralize ? RiTa.pluralize(ranWordArr[j]) : ranWordArr[j];
+            }
+          }
+
+          warn("No words with pos=" + a[0] + " found");
+
+        } else {
+
+          // a[0] = syllableCount
+          for (i = 0; i < ranWordArr.length; i++) {
+            j = (ran + i) % ranWordArr.length;
+            rdata = this.data[ranWordArr[j]];
+            if (rdata[0].split(SP).length === a[0]) {
+              return ranWordArr[j];
+            }
+          }
+        }
+        return E;
+
+      case 0:
+        return ranWordArr[ran];
+    }
+    return E;
+  },
+
+  _letterToSound: function() { // lazy load
+    if (!this.lts) {
+      if (typeof LetterToSound !== 'undefined')
+        this.lts = new LetterToSound();
+    }
+    return this.lts;
+  }
+
+};
 
 var RiMarkov = makeClass();
 
@@ -904,9 +1617,6 @@ SSDLM = 'D=l1m_';
 
 RiMarkov.prototype = {
 
-  /*
-   * Construct a Markov chain (or n-gram) model and set its n-Factor
-   */
   init: function(nFactor, recognizeSentences, allowDuplicates) {
 
     var a = this._initArgs.apply(this, arguments);
@@ -1515,10 +2225,6 @@ var RiWordNet = function() { // stub
     throw Error("RiWordNet is not yet implemented in JavaScript!");
 };
 
-////////////////////////////////////////////////////////////////
-// RiString
-////////////////////////////////////////////////////////////////
-
 var RiString = makeClass();
 
 RiString._phones = {
@@ -1656,10 +2362,6 @@ function initFeatureMap(rs) { // for RiString
   rs._features.text = rs.text();
 }
 
-// ////////////////////////////////////////////////////////////
-// Member functions
-// ////////////////////////////////////////////////////////////
-
 RiString.prototype = {
 
   init: function(text) {
@@ -1707,68 +2409,62 @@ RiString.prototype = {
   analyze: function() {
 
     var phonemes = E, syllables = E, stresses = E, slash = '/',
-      delim = '-', lex, stressyls, phones, lts, ltsPhones, useRaw,
-      words = RiTa.tokenize(this._text);
+      delim = '-', stressyls, phones, lts, ltsPhones, useRaw,
+      words = RiTa.tokenize(this._text), lex = RiTa.lexicon;
 
     if (!this._features) initFeatureMap(this);
 
     this._features.tokens = words.join(SP);
     this._features.pos = RiTa.getPosTags(this._text).join(SP);
 
-    if (RiLexicon._enabled) {
+    for (var i = 0, l = words.length; i < l; i++) {
 
-      lex = getLexicon();
-      for (var i = 0, l = words.length; i < l; i++) {
+      useRaw = false;
+      phones = lex._getRawPhones(words[i]);
 
-        useRaw = false;
+      if (!phones) {
 
-        phones = lex && lex._getRawPhones(words[i]);
+        lts = lex._letterToSound();
+        ltsPhones = lts && lts.getPhones(words[i]);
+        if (ltsPhones && ltsPhones.length > 0) {
 
-        if (!phones) {
-
-          if (LetterToSound.RULES && words[i].match(/[a-zA-Z]+/))
+          if (words[i].match(/[a-zA-Z]+/))
             log("[RiTa] Used LTS-rules for '" + words[i] + "'");
 
-          lts = lex._letterToSound();
+          phones = RiString._syllabify(ltsPhones);
 
-          ltsPhones = lts.getPhones(words[i]);
-
-          if (ltsPhones && ltsPhones.length > 0) {
-
-            phones = RiString._syllabify(ltsPhones);
-
-          } else {
-            phones = words[i];
-            useRaw = true;
-          }
-        }
-
-        phonemes += phones.replace(/[0-2]/g, E).replace(/ /g, delim) + SP;
-        syllables += phones.replace(/ /g, slash).replace(/1/g, E) + SP;
-
-        if (!useRaw) {
-          stressyls = phones.split(SP);
-          for (var j = 0; j < stressyls.length; j++) {
-
-            if (!stressyls[j].length) continue;
-
-            stresses += (stressyls[j].indexOf(RiTa.STRESSED) > -1) ?
-              RiTa.STRESSED : RiTa.UNSTRESSED;
-
-            if (j < stressyls.length - 1) stresses += slash;
-          }
         } else {
 
-          stresses += words[i];
+          phones = words[i];
+          useRaw = true;
         }
-
-        if (!endsWith(stresses, SP)) stresses += SP;
       }
 
-      stresses = stresses.trim();
-      phonemes = phonemes.trim().replace(/\\s+/, SP);
-      syllables = syllables.trim().replace(/\\s+/, SP);
+      phonemes += phones.replace(/[0-2]/g, E).replace(/ /g, delim) + SP;
+      syllables += phones.replace(/ /g, slash).replace(/1/g, E) + SP;
+
+      if (!useRaw) {
+        stressyls = phones.split(SP);
+        for (var j = 0; j < stressyls.length; j++) {
+
+          if (!stressyls[j].length) continue;
+
+          stresses += (stressyls[j].indexOf(RiTa.STRESSED) > -1) ?
+            RiTa.STRESSED : RiTa.UNSTRESSED;
+
+          if (j < stressyls.length - 1) stresses += slash;
+        }
+      } else {
+
+        stresses += words[i];
+      }
+
+      if (!endsWith(stresses, SP)) stresses += SP;
     }
+
+    stresses = stresses.trim();
+    phonemes = phonemes.trim().replace(/\\s+/, SP);
+    syllables = syllables.trim().replace(/\\s+/, SP);
 
     this._features.stresses = stresses;
     this._features.phonemes = phonemes;
@@ -2098,10 +2794,6 @@ RiString.prototype = {
   }
 };
 
-// ////////////////////////////////////////////////////////////
-// RiGrammar
-// ////////////////////////////////////////////////////////////
-
 var RiGrammar = makeClass();
 
 var OR_PATT = /\s*\|\s*/, STRIP_TICKS = /`([^`]*)`/g,
@@ -2423,7 +3115,7 @@ RiGrammar.prototype = {
           scope.put(context.name, context);
         }
         else if (typeof context === 'object') {
-          Object.keys(context).forEach(function (f) {
+          okeys(context).forEach(function (f) {
             if (typeof context[f] === 'function')
               scope.put(f, context[f]);
           });
@@ -2585,12 +3277,6 @@ StringTokenizer.prototype = {
     return (this.idx < this.tokens.length) ? this.tokens[this.idx++] : null;
   }
 };
-
-////////////////////////// PRIVATE CLASSES ///////////////////////////////
-
-// ////////////////////////////////////////////////////////////
-// TextNode
-// ////////////////////////////////////////////////////////////
 
 var TextNode = makeClass();
 
@@ -2782,10 +3468,6 @@ TextNode.prototype = {
   }
 };
 
-// ////////////////////////////////////////////////////////////
-// Conjugator
-// ////////////////////////////////////////////////////////////
-
 var Conjugator = makeClass();
 
 Conjugator.prototype = {
@@ -2881,7 +3563,6 @@ Conjugator.prototype = {
 
     s = E;
     for (var i = 0; i < conjs.length; i++) {
-
       s = conjs[i] + " " + s;
     }
 
@@ -2928,8 +3609,7 @@ Conjugator.prototype = {
   },
 
   doubleFinalConsonant: function(word) {
-    var letter = word.charAt(word.length - 1);
-    return word + letter;
+    return word + word.charAt(word.length - 1);
   },
 
   getPast: function(theVerb, pers, numb) {
@@ -2960,9 +3640,7 @@ Conjugator.prototype = {
       }
     }
 
-    var got = this.checkRules(PAST_TENSE_RULESET, theVerb);
-
-    return got;
+    return this.checkRules(PAST_TENSE_RULESET, theVerb);
   },
 
   getPresent: function(theVerb, person, number) {
@@ -3005,23 +3683,18 @@ Conjugator.prototype = {
 
   getPastParticiple: function(theVerb) {
 
-    var res = strOk(theVerb) ? this.checkRules(PAST_PARTICIPLE_RULESET, theVerb) : E;
-    return res;
+    return strOk(theVerb) ? this.checkRules(PAST_PARTICIPLE_RULESET, theVerb) : E;
   },
 
   getVerbForm: function(theVerb, tense, person, number) {
 
     switch (tense) {
-
       case RiTa.PRESENT_TENSE:
         return this.getPresent(theVerb, person, number);
-
       case RiTa.PAST_TENSE:
         return this.getPast(theVerb, person, number);
-
-      default:
-        return theVerb;
     }
+    return theVerb;
   },
 
   toString: function() {
@@ -3033,10 +3706,7 @@ Conjugator.prototype = {
   }
 };
 
-// ////////////////////////////////////////////////////////////
-// PosTagger  (singleton)
-// ////////////////////////////////////////////////////////////
-var PosTagger = {
+var PosTagger = { // singleton
 
   TAGS: ['cc', 'cd', 'dt', 'ex', 'fw', 'in', 'jj',
     'jjr', 'jjs', 'ls', 'md', 'nn', 'nns', 'nnp',
@@ -3049,7 +3719,6 @@ var PosTagger = {
   VERBS: ['vb', 'vbd', 'vbg', 'vbn', 'vbp', 'vbz'],
   ADJ: ['jj', 'jjr', 'jjs'],
   ADV: ['rb', 'rbr', 'rbs', 'rp'],
-  NOLEX_WARNED: 0,
   DBUG: 0,
 
   isVerb: function(tag) {
@@ -3084,30 +3753,12 @@ var PosTagger = {
 
     var result = [],
       choices2d = [],
-      lex;
-
-    if (RiLexicon._enabled) {
-      lex = getLexicon();
-
-    } else if (!RiTa.SILENT && !this.NOLEX_WARNED) {
-
-      this.NOLEX_WARNED = true;
-      if (typeof RiTa._LTS === 'undefined') {
-        console.warn('No RiLexicon or LTS-rules found: features will be inaccurate!');
-      }
-      else {
-        console.warn('No RiLexicon found: part-of-speech tagging will be inaccurate!');
-      }
-    }
+      lex = RiTa.lexicon;
 
     words = is(words, A) ? words : [words];
 
     for (var i = 0, l = words.length; i < l; i++) {
 
-      if (!this.NOLEX_WARNED && !lex.containsWord(words[i]) && lex.size() < 1000) {
-          this.NOLEX_WARNED = true;
-          warn("A minimal Lexicon is currently in use: for word features outside the lexicon, use a larger version of RiTa.")
-      }
 
       if (words[i].length < 1) {
 
@@ -3122,7 +3773,7 @@ var PosTagger = {
       }
 
       var data = lex && lex._getPosArr(words[i]);
-      if (!data || !data.length) {
+      if (!data.length) {
 
         // use stemmer categories if no lexicon
 
@@ -3132,33 +3783,43 @@ var PosTagger = {
           tag = 'nns';
         }
 
-        if (!lex || !lex.containsWord(words[i])) {
-
-          if (endsWith(words[i], 's')) {
-            var sub2, sub = words[i].substring(0, words[i].length - 1);
-
-            if (endsWith(words[i], 'es'))
-              sub2 = words[i].substring(0, words[i].length - 2)
-
-            if (this._lexHas("n", sub) || this._lexHas("n", sub2)) {
-              choices2d.push("nns");
-            } else {
-              var sing = RiTa.singularize(words[i]);
-              if (this._lexHas("n", sing)) choices2d.push("nns");
-            }
-
-          } else {
-            var sing = RiTa.singularize(words[i]);
-
-            if (this._lexHas("n", sing)) {
-              choices2d.push("nns");
-              tag = 'nns';
-            } else if (checkPluralNoLex(words[i])){
-               tag = 'nns';
-              //common plurals
-            }
+        if (!RiTa.SILENT) { // warn
+          if (RiTa.LEX_WARN && lex.size() <= 1000) {
+            warn(RiTa.LEX_WARN);
+            RiTa.LEX_WARN = false;
+          }
+          if (RiTa.LTS_WARN && typeof LetterToSound === 'undefined') {
+            warn(RiTa.LTS_WARN);
+            RiTa.LTS_WARN = false;
           }
         }
+
+        if (endsWith(words[i], 's')) {
+          var sub2, sub = words[i].substring(0, words[i].length - 1);
+
+          if (endsWith(words[i], 'es'))
+            sub2 = words[i].substring(0, words[i].length - 2)
+
+          if (this._lexHas("n", sub) || (sub2 && this._lexHas("n", sub2))) {
+            choices2d.push("nns");
+          } else {
+            var sing = RiTa.singularize(words[i]);
+            if (this._lexHas("n", sing)) choices2d.push("nns");
+          }
+
+        } else {
+
+          var sing = RiTa.singularize(words[i]);
+
+          if (this._lexHas("n", sing)) {
+            choices2d.push("nns");
+            tag = 'nns';
+          } else if (checkPluralNoLex(words[i])){
+             tag = 'nns';
+            //common plurals
+          }
+        }
+
         result.push(tag);
 
       } else {
@@ -3171,6 +3832,7 @@ var PosTagger = {
     // Adjust pos according to transformation rules
     return this._applyContext(words, result, choices2d);
   },
+
   _handleSingleLetter: function(c) {
 
     var result = c;
@@ -3334,17 +3996,15 @@ var PosTagger = {
 
   _lexHas: function(pos, words) { // takes ([n|v|a|r] or a full tag)
 
-    if (!RiLexicon._enabled) return false;
-
-    var lex = getLexicon(), words = is(words, A) || [words];
+    var words = is(words, A) || [words];
 
     for (var i = 0; i < words.length; i++) {
 
-      if (lex.containsWord(words[i])) {
+      if (RiTa.lexicon.containsWord(words[i])) {
 
         if (pos == null) return true;
 
-        var tags = lex._getPosArr(words[i]);
+        var tags = RiTa.lexicon._getPosArr(words[i]);
 
         for (var j = 0; j < tags.length; j++) {
 
@@ -3358,22 +4018,14 @@ var PosTagger = {
           }
         }
       }
-
     }
-    return false;
   }
 
 }; // end PosTagger
 
-// Stemming demo/comparison - http://text-processing.com/demo/stem/
 
-/*
- *  Porter stemmer in Javascript: from https://github.com/kristopolous/Porter-Stemmer
- *  Ported from Porter, 1980, An algorithm for suffix stripping, Program, Vol. 14,
- *  no. 3, pp 130-137, see also http:www.tartarus.org/~martin/PorterStemmer
- *
- *  Porter is the default Stemmer (Pling and Lancaster are also included).
- */
+ // Default Stemmer (adapted from https://github.com/kristopolous/Porter-Stemmer)
+ // Stemming demo/comparison - http://text-processing.com/demo/stem/
 RiTa.stemmers.Porter = (function() {
 
   var step2list = {
@@ -4322,31 +4974,20 @@ function checkPluralNoLex(s) {
 /* From the PlingStemmer impl in the Java Tools package (see http://mpii.de/yago-naga/javatools). */
 RiTa.stemmers.Pling = (function() {
 
-  /* Tells whether a noun is plural. */
   function isPlural(s) {
     return s !== stem(s);
   }
 
-  /*
-	 * Tells whether a word form is singular. Note that a word can be both
-	 * plural and singular
-	 */
+  // Note that a word can be both plural and singular
   function isSingular(s) {
     return (categorySP._arrayContains(s.toLowerCase()) || !isPlural(s));
   }
 
-  /*
-	 * Tells whether a word form is the singular form of one word and at the
-	 * same time the plural form of another.
-	 */
   function isSingularAndPlural(s) {
     return (categorySP._arrayContains(s.toLowerCase()));
   }
 
-  /*
-	 * Cuts a suffix from a string (that is the number of chars given by the
-	 * suffix)
-	 */
+  // Cuts a suffix from a string (that is the number of chars given by the
   function cut(s, suffix) {
     return (s.substring(0, s.length - suffix.length));
   }
@@ -4418,7 +5059,7 @@ RiTa.stemmers.Pling = (function() {
 
     // -a to -ae
     // No other common words end in -ae
-    if (s._endsWith("ae"))
+    if (s._endsWith("ae") && s !== 'pleae') // special case
       return (cut(s, "e"));
 
     // -a to -ata
@@ -4546,14 +5187,6 @@ String.prototype._endsWith = function(suffix) {
   return this.indexOf(suffix, this.length - suffix.length) !== -1;
 };
 
-/*
- * Minimum-Edit-Distance (or Levenshtein distance) is a measure of the similarity
- * between two strings, the source string and the target string (t). The distance
- * is the number of deletions, insertions, or substitutions required to transform
- * the source into the target / avg_string_length<p>
- *
- * Adapted from Michael Gilleland's algorithm
- */
 var MinEditDist = {
 
   _min3: function(a, b, c) {
@@ -4564,7 +5197,7 @@ var MinEditDist = {
     return min;
   },
 
-  /* Computes min-edit-distance between 2 string arrays where each array element either matches or does not */
+  // med where each array element either matches or does not
   _computeRawArray: function(srcArr, trgArr) {
 
     //log((srcArr)+" "+(trgArr));
@@ -4623,9 +5256,7 @@ var MinEditDist = {
   },
 
 
-  /*
-   * Compute min-edit-distance between 2 strings (or 2 arrays)
-   */
+  // med for 2 strings (or 2 arrays)
   computeRaw: function(source, target) {
 
     //log('computeRaw: '+arguments.length+ " "+Type.get(source));
@@ -4686,10 +5317,7 @@ var MinEditDist = {
 
   },
 
-  /*
-   * Compute min-edit-distance between 2 strings (or 2 arrays of strings)
-   * divided by the max of their lengths.
-   */
+  // med 2 strings (or 2 string arrays) divided by max of their lengths
   computeAdjusted: function(source, target) {
 
     var st = get(source), tt = get(source);
@@ -4708,10 +5336,6 @@ var MinEditDist = {
     err('Unexpected args: ' + source + "/" + target);
   }
 };
-
-////////////////////////////////////////////////////////////////
-//////// Concorder
-////////////////////////////////////////////////////////////////
 
 var Concorder = makeClass();
 
@@ -4772,8 +5396,6 @@ Concorder.prototype = {
     return result;
   },
 
-  /////////////////// helpers ////////////////////////////
-
   build: function() {
 
     if (!this.words) throw Error('No text in model');
@@ -4822,10 +5444,6 @@ Concorder.prototype = {
   }
 };
 
-//////////////////////////////////////////////////////////////////
-//////// RE
-////////////////////////////////////////////////////////////////
-
 var RE = makeClass();
 
 RE.prototype = {
@@ -4852,8 +5470,6 @@ RE.prototype = {
     return (this.offset === 0) ? word : word.substr(0, word.length - this.offset);
   }
 };
-
-////////////////////////////////// End Classes ///////////////////////////////////
 
 var QUESTION_STARTS =   [ "Was", "What", "When", "Where", "Which", "Why", "Who", "Will", "Would",
                           "How", "If", "Who", "Is", "Could", "Might", "Does", "Are", "Have" ];
@@ -5608,13 +6224,22 @@ var PLURAL_RULES = [
     doubling: false
   };
 
-// ///////////////////////////// End Functions ////////////////////////////////////
-
 if (!RiTa.SILENT && !isNode() && console)
   console.log('[INFO] RiTaJS.version [' + RiTa.VERSION + ']');
 
 
 /*jshint -W069 */
+
+RiTa.lexicon = RiLexicon(); // create the lexicon
+
+// add RiLexicon member functions to RiTa object
+var funs = okeys(RiTa.lexicon);
+for (var i = 0; i < funs.length; i++) {
+  if (!startsWith(funs[i], '_')) {
+    var f = RiTa.lexicon[funs[i]];
+    is(f,F) && (RiTa[funs[i]] = f.bind(RiTa.lexicon));
+  }
+}
 
 if (window) { // for browser
 
@@ -5626,6 +6251,8 @@ if (window) { // for browser
   window['RiLexicon'] = RiLexicon;
   window['RiTaEvent'] = RiTaEvent;
 
+  var rlfuns = okeys();
+
 } else if (typeof module !== 'undefined') { // for node
 
   module.exports['RiTa'] = RiTa;
@@ -5636,7 +6263,8 @@ if (window) { // for browser
   module.exports['RiLexicon'] = RiLexicon;
   module.exports['RiTaEvent'] = RiTaEvent;
 
-  var funs = Object.keys(RiTa);
+  // add RiTa.* functions directly to exported object
+  var funs = okeys(RiTa);
   for (var i = 0; i < funs.length; i++) {
     if (!startsWith(funs[i], '_')) {
       module.exports[funs[i]] = RiTa[funs[i]];

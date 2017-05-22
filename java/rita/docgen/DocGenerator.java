@@ -34,7 +34,7 @@ public class DocGenerator extends PApplet
   
   static String[] CLASS_NAMES = { 
     "RiTa", "RiString","RiText","RiGrammar",
-    "RiMarkov","RiLexicon","RiTaEvent","RiWordNet" 
+    "RiMarkov","RiTaEvent","RiWordNet" 
   };
 
   static boolean DBUG = false;

@@ -18,7 +18,7 @@
 
 <div class="gd-section pad-large">
 <div class="gd-center pad-large">
-<div class="row">
+<div class="row" style="width:1020px;">
         <div class="reference">
         <h3>Reference</h3>
 
@@ -103,7 +103,62 @@
             <!-- end span4ref -->
 
             <div class="gd-3">
-                  <div class="category"> <a href="RiString.php"><b>RiString</b></a>
+                  <div class="category"><b><span > &nbsp </span></b>
+                    
+                    <span class="empty" style=" line-height:32px; visibility:hidden">
+                        <br>
+                    </span> 
+                    <a href="RiTa/RiTa.addWord/index.php">RiTa.addWord()</a>
+                    <br>
+                    <a href="RiTa/RiTa.alliterations/index.php">RiTa.alliterations()</a>
+                    <br>
+                    <a href="RiTa/RiTa.clear/index.php">RiTa.clear()</a>
+                    <br>
+                    <a href="RiTa/RiTa.containsWord/index.php">RiTa.containsWord()</a>
+                    <br>
+                    <a href="RiTa/RiTa.isAdjective/index.php">RiTa.isAdjective()</a>
+                    <br>
+                    <a href="RiTa/RiTa.isAdverb/index.php">RiTa.isAdverb()</a>
+                    <br>
+                    <a href="RiTa/RiTa.isAlliteration/index.php">RiTa.isAlliteration()</a>
+                    <br>
+                    <a href="RiTa/RiTa.isNoun/index.php">RiTa.isNoun()</a>
+                    <br>
+                    <a href="RiTa/RiTa.isRhyme/index.php">RiTa.isRhyme()</a>
+                    <br>
+                    <a href="RiTa/RiTa.isVerb/index.php">RiTa.isVerb()</a>
+                    <br>
+                    <a href="RiTa/RiTa.lexicalData/index.php">RiTa.lexicalData()</a>
+                    <br>
+                    <a href="RiTa/RiTa.randomWord/index.php">RiTa.randomWord()</a>
+                    <br>
+                    <a href="RiTa/RiTa.reload/index.php">RiTa.reload()</a>
+                    <br>
+                    <a href="RiTa/RiTa.rhymes/index.php">RiTa.rhymes()</a>
+                    <br>
+                    <a href="RiTa/RiTa.similarByLetter/index.php">RiTa.similarByLetter()</a>
+                    <br>
+                    <a href="RiTa/RiTa.similarBySound/index.php">RiTa.similarBySound()</a>
+                    <br>
+                    <a href="RiTa/RiTa.similarBySoundAndLetter/index.php">RiTa.similarBySoundAndLetter()</a>
+                    <br>
+                    <a href="RiTa/RiTa.substrings/index.php">RiTa.substrings()</a>
+                    <br>
+                    <a href="RiTa/RiTa.superstrings/index.php">RiTa.superstrings()</a>
+                    <br>
+                    <a href="RiTa/RiTa.words/index.php">RiTa.words()</a>
+                </div>
+                  
+
+
+
+
+
+
+            </div>
+            <!-- end span4ref -->
+            <div class="gd-3">
+                <div class="category"> <a href="RiString.php"><b>RiString</b></a>
 
                     <a href="RiString/analyze/index.php">analyze()</a>
                     <br>
@@ -174,14 +229,12 @@
                     <a href="RiString/words/index.php">words()</a>
                 </div>
 
-
-
-
+                
 
 
             </div>
-            <!-- end span4ref -->
             <div class="gd-3">
+
                     <div class="category"><a href="RiGrammar.php"><b>RiGrammar</b></a>
 
                     <a href="RiGrammar/addRule/index.php">addRule()</a>
@@ -240,54 +293,6 @@
                     <a href="RiMarkov/size/index.php">size()</a>
                 </div>
 
-
-            </div>
-            <div class="gd-3">
-                 <div class="category"><a href="RiLexicon.php"><b>RiLexicon</b></a>
-                    <a href="RiLexicon/addWord/index.php">addWord()</a>
-                    <br>
-                    <a href="RiLexicon/alliterations/index.php">alliterations()</a>
-                    <br>
-                    <a href="RiLexicon/clear/index.php">clear()</a>
-                    <br>
-                    <a href="RiLexicon/containsWord/index.php">containsWord()</a>
-                    <br>
-                    <a href="RiLexicon/isAdjective/index.php">isAdjective()</a>
-                    <br>
-                    <a href="RiLexicon/isAdverb/index.php">isAdverb()</a>
-                    <br>
-                    <a href="RiLexicon/isAlliteration/index.php">isAlliteration()</a>
-                    <br>
-                    <a href="RiLexicon/isNoun/index.php">isNoun()</a>
-                    <br>
-                    <a href="RiLexicon/isRhyme/index.php">isRhyme()</a>
-                    <br>
-                    <a href="RiLexicon/isVerb/index.php">isVerb()</a>
-                    <br>
-                    <a href="RiLexicon/lexicalData/index.php">lexicalData()</a>
-                    <br>
-                    <a href="RiLexicon/randomWord/index.php">randomWord()</a>
-                    <br>
-                    <a href="RiLexicon/reload/index.php">reload()</a>
-                    <br>
-                    <a href="RiLexicon/removeWord/index.php">removeWord()</a>
-                    <br>
-                    <a href="RiLexicon/rhymes/index.php">rhymes()</a>
-                    <br>
-                    <a href="RiLexicon/similarByLetter/index.php">similarByLetter()</a>
-                    <br>
-                    <a href="RiLexicon/similarBySound/index.php">similarBySound()</a>
-                    <br>
-                    <a href="RiLexicon/similarBySoundAndLetter/index.php">similarBySoundAndLetter()</a>
-                    <br>
-                    <a href="RiLexicon/size/index.php">size()</a>
-                    <br>
-                    <a href="RiLexicon/substrings/index.php">substrings()</a>
-                    <br>
-                    <a href="RiLexicon/superstrings/index.php">superstrings()</a>
-                    <br>
-                    <a href="RiLexicon/words/index.php">words()</a>
-                </div>
 
                 <!--div class="category"><a href="RiTaEvent.php"><b>RiTaEvent</b></a>
                     <a href="RiTaEvent/isType/index.php">isType()</a>
