@@ -164,7 +164,7 @@ If you don't feel like coding but still want to contribute, please send a twitte
 
     c. Click to expand the 'RiTa' menu and reveal the various tasks, then double-click 'build' (or run ```$ cd RiTa/resources && ant build``` from the terminal)
 
-    d. (Optional) Ignore this step if you are on Mac or step 9a to c if you are on Windows, install [ant](http://dita-ot.sourceforge.net/doc/ot-userguide13/xhtml/installing/windows_installingant.html) and use [cygwin](http://cygwin.com/install.html) to run the command ```$ cd RiTa/resources && ant build```.
+    d. (Optional) if you are on Windows, you can use [cygwin](http://cygwin.com/install.html), by installing [ant](http://dita-ot.sourceforge.net/doc/ot-userguide13/xhtml/installing/windows_installingant.html) and using it to run the command ```$ cd RiTa/resources && ant build```.
 
     e. When the build is complete, project resources can be found in RiTa/dist
 
