@@ -119,6 +119,8 @@ void setup() {
 3. Right-click: RiTa project > Configure > Convert to Maven Project
 -->
 
+<br/>
+
 #### Can I contribute?
 --------
 Please! We are looking for more coders to help out... Just press *Fork* at the top of this page and get started, or follow the instructions below...
@@ -132,6 +134,9 @@ If you don't feel like coding but still want to contribute, please send a twitte
 1. in Eclipse > Package Explorer, right click on pom.xml from the project
 2. select > 'Run As' > '5 Maven Install'
 -->
+
+
+<br/>
 
 #### Development Setup (in Eclipse)
 --------
