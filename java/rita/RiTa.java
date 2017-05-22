@@ -144,20 +144,20 @@ public class RiTa implements Constants {
 
   // RiLexicon delegates ====================================================
 
-  public static RiLexicon addWord(String word, String pronunciation, String partsOfSpeech) {
-    return getLexicon().addWord(word, pronunciation, partsOfSpeech);
+  public static void addWord(String word, String pronunciation, String partsOfSpeech) {
+    getLexicon().addWord(word, pronunciation, partsOfSpeech);
   }
   
   public static String getBestPos(String word) { // niapi, for tests
     return getLexicon().lexImpl.getBestPos(word);
   }
 
-  public static RiLexicon reload() {
-    return getLexicon().reload();
+  public static void reload() {
+    getLexicon().reload();
   }
 
-  public static RiLexicon clear() {
-    return getLexicon().clear();
+  public static void clear() {
+    getLexicon().clear();
   }
 
   public static boolean containsWord(String word) {
@@ -168,8 +168,8 @@ public class RiTa implements Constants {
     return getLexicon().lexicalData();
   }
 
-  public static RiLexicon lexicalData(HashMap m) {
-    return getLexicon().lexicalData(m);
+  public static void lexicalData(HashMap m) {
+    getLexicon().lexicalData(m);
   }
 
   public static String randomWordByLength(String pos, int targetLength) {
@@ -208,7 +208,7 @@ public class RiTa implements Constants {
     return getLexicon().words(regex, sorted);
   }
 
-  public static int size() {
+  public static int size() { // niapi
     return getLexicon().size();
   }
 
@@ -1799,6 +1799,7 @@ public class RiTa implements Constants {
     RiTa.PHONEME_TYPE = RiTa.IPA;
     System.out.println(RiTa.getPhonemes("become"));
     System.out.println(RiTa.INTERNAL);
+    RiTa.out(RiTa.join(RiTa.tokenize("The cat ate the stinky cheese."),","));
 
   }
 }

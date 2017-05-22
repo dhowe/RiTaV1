@@ -66,7 +66,7 @@
 							<th scope="row">Description</th>
 
 							<!-- DESCRIPTION  -->
-							<td>Clears then reloads the lexicon</td>
+							<td>Clears then reloads the default lexicon</td>
 						</tr>
 
 						<tr class='Syntax'>
@@ -96,7 +96,7 @@
 							<!-- RETURNS/TYPE (for variables)  -->
 
 							<table cellpadding="0" cellspacing="0" border="0" class="sub-table">
-								<tr class=''><th width='25%' scope='row' class=nobold>RiLexicon</th><td width='75%'>this object</td></tr>
+								<tr class=''><th width='25%' scope='row' class=nobold>void</th><td width='75%'></td></tr>
 							</table></td>
 						</tr>
 

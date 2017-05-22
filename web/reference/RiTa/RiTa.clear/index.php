@@ -96,7 +96,7 @@
 							<!-- RETURNS/TYPE (for variables)  -->
 
 							<table cellpadding="0" cellspacing="0" border="0" class="sub-table">
-								<tr class=''><th width='25%' scope='row' class=nobold>RiLexicon</th><td width='75%'>this RiLexicon object</td></tr>
+								<tr class=''><th width='25%' scope='row' class=nobold>void</th><td width='75%'></td></tr>
 							</table></td>
 						</tr>
 

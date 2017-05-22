@@ -56,7 +56,8 @@
 	      <th scope="row">Description</th>
 	      <!-- DESCRIPTION  -->
 	      <td>
-			A collection of static functions for the RiTa library<br /></td>
+			A collection of (static) functions for the RiTa library. <br /><br />
+      Note: as of v1.2, RiLexicon.* functions should be accessed via the RiTa object as well.<br /></td>
         </tr>
 		<tr class="">
           <th scope="row">Examples</th>
@@ -64,9 +65,11 @@
 
 <pre class="margin">
 
-theVersion = RiTa.VERSION;
+theVersion = RiTa.VERSION;                            // 1.2
 
-tokens = RiTa.tokenize("The cat ate the stinky cheese.");
+tokens = RiTa.tokenize("The cat ate stinky cheese."); // The,cat,ate,stinky,cheese,.
+
+rhymes = RiTa.rhymes("apple");                        //  chapel,grapple
 
 ...
 </pre>

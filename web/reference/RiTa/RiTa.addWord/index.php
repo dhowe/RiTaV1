@@ -96,7 +96,7 @@
 							<!-- RETURNS/TYPE (for variables)  -->
 
 							<table cellpadding="0" cellspacing="0" border="0" class="sub-table">
-								<tr class=''><th width='25%' scope='row' class=nobold>RiLexicon</th><td width='75%'>this RiLexicon</td></tr>
+								<tr class=''><th width='25%' scope='row' class=nobold>void</th><td width='75%'></td></tr>
 							</table></td>
 						</tr>
 
@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">lexicon.addWord('abandon','ax-b ae1-n-d ax-n','vb nn vbp');</pre>
+								<pre class="margin">lexicon.addWord("abandon","ax-b ae1-n-d ax-n","vb nn vbp");</pre>
 							</div></td>
 						</tr>
 

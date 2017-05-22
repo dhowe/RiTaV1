@@ -173,7 +173,6 @@
         "type": "String[]",
         "desc": "array of sentences"
       }
-
     ],
     "related": "",
     "platform": "Java / Javascript",
@@ -570,7 +569,7 @@
 
   }, {
     "name": "RiTa.stem",
-    "example": "<br>s = RiTa.stem('cakes'); // returns -> cake <br><br>y = RiTa.stem('cakes', RiTa.LANCASTER);<br><br>",
+    "example": "<br>s = RiTa.stem(\"cakes\"); // returns -> cake <br><br>y = RiTa.stem(\"cakes\", RiTa.LANCASTER);<br><br>",
     "description": "Extracts base roots from a word according to the specified stemming algorithm <br/>&nbsp;<br/> Note: see <a href='http://text-processing.com/demo/stem/'>http://text-processing.com/demo/stem/</a> for comparison of Lancaster and Porter algorithms or <a href='http://mpii.de/yago-naga/javatools'>http://mpii.de/yago-naga/javatools</a> for info on PlingStemmer",
     "syntax": "RiTa.stem(word, type);",
     "parameters": [{
@@ -751,7 +750,7 @@
     "note": ""
   }, {
     "name": "RiTa.addWord",
-    "example": "lexicon.addWord('abandon','ax-b ae1-n-d ax-n','vb nn vbp');",
+    "example": "lexicon.addWord(\"abandon\",\"ax-b ae1-n-d ax-n\",\"vb nn vbp\");",
     "description": "Adds a word to the current lexicon. Note: will replace the word if it already exists",
     "syntax": "RiTa.addWord(word, pronunciationData, posData);",
     "parameters": [{
@@ -767,8 +766,8 @@
 
     ],
     "returns": [{
-      "type": "RiLexicon",
-      "desc": "this RiLexicon"
+      "type": "void",
+      "desc": ""
     }],
     "related": "",
     "platform": "Java / Javascript",
@@ -780,8 +779,8 @@
     "syntax": "RiTa.clear();",
     "parameters": [],
     "returns": [{
-      "type": "RiLexicon",
-      "desc": "this RiLexicon object"
+      "type": "void",
+      "desc": ""
     }],
     "related": "",
     "platform": "Java / Javascript",
@@ -823,16 +822,16 @@
     "note": ""
   }, {
     "name": "RiTa.lexicalData",
-    "example": "result = RiTa.lexicalData();",
-    "description": "Allows one to set/get the raw dictionary data used to create the default lexicon. <br/><br/>See RiLexicon.addWord() for data format",
+    "example": "RiTa.lexicalData(theLexiconObject);<br>&nbsp;&nbsp;OR<br>result = RiTa.lexicalData();",
+    "description": "Allows one to set/get the raw dictionary data used to create the default lexicon. <br/><br/>See RiTa.addWord() for data format",
     "syntax": "lexicalData();<br/>lexicalData(dictionaryDataObject);",
     "parameters": [{
       "type": "Map",
-      "desc": "A map (HashMap in Java, Object in JavaScript) that maps words to their pronunciation and part-of-speech data (optional, for sets only)"
+      "desc": "Optional: a map (HashMap in Java, Object in JavaScript) that maps words to their pronunciation and part-of-speech data"
     }],
     "returns": [{
-      "type": "RiLexicon or Map",
-      "desc": "this RiLexicon or lexical data map (for gets)"
+      "type": "void or Map",
+      "desc": "lexical data map (for gets)"
     }],
     "related": "",
     "platform": "Java / Javascript",
@@ -999,14 +998,14 @@
   }, {
     "name": "RiTa.reload",
     "example": "RiTa.removeWord(\"abandon\");<br>RiTa.reload();",
-    "description": "Clears then reloads the lexicon",
+    "description": "Clears then reloads the default lexicon",
     "syntax": "RiTa.reload();",
     "parameters": [
 
     ],
     "returns": [{
-      "type": "RiLexicon",
-      "desc": "this object"
+      "type": "void",
+      "desc": ""
     }],
     "related": "",
     "platform": "Java / Javascript",

@@ -17,7 +17,8 @@ public class RiTaTest
   public static boolean REMOTE_TESTING = false;
   
   static {
-  
+    RiTa.SILENT_LTS = true;
+    
     // only if set as in the env
     String doRemotes = System.getenv("RITA_DO_REMOTE") ;
     if ((doRemotes != null && doRemotes.equals("true"))) 
@@ -41,8 +42,8 @@ public class RiTaTest
   @Test
   public void testStart()
   {
-    RiTa.start(null);
-    RiTa.start(this);
+    //RiTa.start(null);
+    //RiTa.start(this);
     //RiTa.start(new PApplet());
   }
 

@@ -66,7 +66,7 @@
 							<th scope="row">Description</th>
 
 							<!-- DESCRIPTION  -->
-							<td>Allows one to set/get the raw dictionary data used to create the default lexicon. <br/><br/>See RiLexicon.addWord() for data format</td>
+							<td>Allows one to set/get the raw dictionary data used to create the default lexicon. <br/><br/>See RiTa.addWord() for data format</td>
 						</tr>
 
 						<tr class='Syntax'>
@@ -84,7 +84,7 @@
 							<!-- PARAMETERS  -->
 
 							<table cellpadding="0" cellspacing="0" border="0" class="sub-table">
-								<tr class=''><th width='25%' scope='row' class=nobold>Map</th><td width='75%'>A map (HashMap in Java, Object in JavaScript) that maps words to their pronunciation and part-of-speech data (optional, for sets only)</td></tr>
+								<tr class=''><th width='25%' scope='row' class=nobold>Map</th><td width='75%'>Optional: a map (HashMap in Java, Object in JavaScript) that maps words to their pronunciation and part-of-speech data</td></tr>
 							</table></td>
 						</tr>
 
@@ -96,7 +96,7 @@
 							<!-- RETURNS/TYPE (for variables)  -->
 
 							<table cellpadding="0" cellspacing="0" border="0" class="sub-table">
-								<tr class=''><th width='25%' scope='row' class=nobold>RiLexicon or Map</th><td width='75%'>this RiLexicon or lexical data map (for gets)</td></tr>
+								<tr class=''><th width='25%' scope='row' class=nobold>void or Map</th><td width='75%'>lexical data map (for gets)</td></tr>
 							</table></td>
 						</tr>
 
@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">result = RiTa.lexicalData();</pre>
+								<pre class="margin">RiTa.lexicalData(theLexiconObject);<br>&nbsp;&nbsp;OR<br>result = RiTa.lexicalData();</pre>
 							</div></td>
 						</tr>
 
