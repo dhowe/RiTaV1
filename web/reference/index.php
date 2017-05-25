@@ -18,11 +18,11 @@
 
 <div class="gd-section pad-large">
 <div class="gd-center pad-large">
-<div class="row" style="width:1020px;">
+<div class="row">
         <div class="reference">
         <h3>Reference</h3>
 
-            <div class="gd-3">
+            <div class="section">
 
                 <div class="category"> <a href="RiTa.php"><b>RiTa</b></a>
 
@@ -32,12 +32,20 @@
                         <br>
                     </span>
 
+                    <a href="RiTa/RiTa.addWord/index.php">RiTa.addWord()</a>
+                    <br>
+                    <a href="RiTa/RiTa.alliterations/index.php">RiTa.alliterations()</a>
+                    <br>
+                    <!-- <a href="RiTa/RiTa.clear/index.php">RiTa.clear()</a>
+                    <br> -->
                     <a href="RiTa/RiTa.concordance/index.php">RiTa.concordance()</a>
                     <br>
                     <a href="RiTa/RiTa.conjugate/index.php">RiTa.conjugate()</a>
                     <br>
-                    <a href="RiTa/RiTa.distance/index.php">RiTa.distance()</a>
+                    <a href="RiTa/RiTa.containsWord/index.php">RiTa.containsWord()</a>
                     <br>
+                    <!-- <a href="RiTa/RiTa.distance/index.php">RiTa.distance()</a>
+                    <br> -->
                     <a href="RiTa/RiTa.env/index.php">RiTa.env()</a>
                     <br>
                     <a href="RiTa/RiTa.getPastParticiple/index.php">RiTa.getPastParticiple()</a>
@@ -54,67 +62,9 @@
                     <br>
                     <a href="RiTa/RiTa.getSyllables/index.php">RiTa.getSyllables()</a>
                     <br>
-                    <a href="RiTa/RiTa.getWordCount/index.php">RiTa.getWordCount()</a>
-                    <br>
-                    <a href="RiTa/RiTa.isAbbreviation/index.php">RiTa.isAbbreviation()</a>
-                    <br>
-                    <a href="RiTa/RiTa.isPunctuation/index.php">RiTa.isPunctuation()</a>
-                    <br>
-                    <a href="RiTa/RiTa.isQuestion/index.php">RiTa.isQuestion()</a>
-                    <br>
-                    <a href="RiTa/RiTa.isSentenceEnd/index.php">RiTa.isSentenceEnd()</a>
-                    <br>
-                    <a href="RiTa/RiTa.isW_Question/index.php">RiTa.isW_Question()</a>
-                    <br>
-                    <a href="RiTa/RiTa.kwic/index.php">RiTa.kwic()</a>
-                    <br>
-                    <a href="RiTa/RiTa.loadString/index.php">RiTa.loadString()</a>
-                    <br>
-                    <a href="RiTa/RiTa.minEditDistance/index.php">RiTa.minEditDistance()</a>
-                    <br>
-                    <a href="RiTa/RiTa.pluralize/index.php">RiTa.pluralize()</a>
-                    <br>
-                    <a href="RiTa/RiTa.random/index.php">RiTa.random()</a>
-                    <br>
-                    <a href="RiTa/RiTa.randomItem/index.php">RiTa.randomItem()</a>
-                    <br>
-                    <a href="RiTa/RiTa.randomOrdering/index.php">RiTa.randomOrdering()</a>
-                    <br>
-                    <a href="RiTa/RiTa.singularize/index.php">RiTa.singularize()</a>
-                    <br>
-                    <a href="RiTa/RiTa.splitSentences/index.php">RiTa.splitSentences()</a>
-                    <br>
-                    <a href="RiTa/RiTa.stem/index.php">RiTa.stem()</a>
-                    <br>
-                    <a href="RiTa/RiTa.stripPunctuation/index.php">RiTa.stripPunctuation()</a>
-                    <br>
-                    <a href="RiTa/RiTa.tokenize/index.php">RiTa.tokenize()</a>
-                    <br>
-                    <a href="RiTa/RiTa.trimPunctuation/index.php">RiTa.trimPunctuation()</a>
-                    <br>
-        </div>
-
-
-
-
-
-
-            </div>
-            <!-- end span4ref -->
-
-            <div class="gd-3">
-                  <div class="category"><b><span > &nbsp </span></b>
-                    
-                    <span class="empty" style=" line-height:32px; visibility:hidden">
-                        <br>
-                    </span> 
-                    <a href="RiTa/RiTa.addWord/index.php">RiTa.addWord()</a>
-                    <br>
-                    <a href="RiTa/RiTa.alliterations/index.php">RiTa.alliterations()</a>
-                    <br>
-                    <!-- <a href="RiTa/RiTa.clear/index.php">RiTa.clear()</a>
+                    <!-- <a href="RiTa/RiTa.getWordCount/index.php">RiTa.getWordCount()</a>
                     <br> -->
-                    <a href="RiTa/RiTa.containsWord/index.php">RiTa.containsWord()</a>
+                    <a href="RiTa/RiTa.isAbbreviation/index.php">RiTa.isAbbreviation()</a>
                     <br>
                     <a href="RiTa/RiTa.isAdjective/index.php">RiTa.isAdjective()</a>
                     <br>
@@ -124,11 +74,47 @@
                     <br>
                     <a href="RiTa/RiTa.isNoun/index.php">RiTa.isNoun()</a>
                     <br>
+                    <a href="RiTa/RiTa.isPunctuation/index.php">RiTa.isPunctuation()</a>
+                    <br>
+                    <a href="RiTa/RiTa.isQuestion/index.php">RiTa.isQuestion()</a>
+                    <br>
                     <a href="RiTa/RiTa.isRhyme/index.php">RiTa.isRhyme()</a>
                     <br>
+                    <a href="RiTa/RiTa.isSentenceEnd/index.php">RiTa.isSentenceEnd()</a>
+                    <br>
+
+       
+        </div>
+
+            </div>
+            <!-- end span4ref -->
+
+            <div class="section">
+                  <div class="category"><b><span > &nbsp </span></b>
+                    
+                    <span class="empty" style=" line-height:32px; visibility:hidden">
+                        <br>
+                    </span> 
+                    
                     <a href="RiTa/RiTa.isVerb/index.php">RiTa.isVerb()</a>
                     <br>
+                    <a href="RiTa/RiTa.isW_Question/index.php">RiTa.isW_Question()</a>
+                    <br>
+                    <a href="RiTa/RiTa.kwic/index.php">RiTa.kwic()</a>
+                    <br>
                     <a href="RiTa/RiTa.lexicalData/index.php">RiTa.lexicalData()</a>
+                    <br>
+                    <!-- <a href="RiTa/RiTa.loadString/index.php">RiTa.loadString()</a>
+                    <br> -->
+                    <a href="RiTa/RiTa.minEditDistance/index.php">RiTa.minEditDistance()</a>
+                    <br>
+                    <a href="RiTa/RiTa.pluralize/index.php">RiTa.pluralize()</a>
+                    <br>
+                    <!-- <a href="RiTa/RiTa.random/index.php">RiTa.random()</a>
+                    <br> -->
+                    <a href="RiTa/RiTa.randomItem/index.php">RiTa.randomItem()</a>
+                    <br>
+                    <a href="RiTa/RiTa.randomOrdering/index.php">RiTa.randomOrdering()</a>
                     <br>
                     <a href="RiTa/RiTa.randomWord/index.php">RiTa.randomWord()</a>
                     <br>
@@ -142,10 +128,22 @@
                     <br>
                     <a href="RiTa/RiTa.similarBySoundAndLetter/index.php">RiTa.similarBySoundAndLetter()</a>
                     <br>
+                    <a href="RiTa/RiTa.singularize/index.php">RiTa.singularize()</a>
+                    <br>
+                    <a href="RiTa/RiTa.splitSentences/index.php">RiTa.splitSentences()</a>
+                    <br>
+                    <a href="RiTa/RiTa.stem/index.php">RiTa.stem()</a>
+                    <br>
+                    <a href="RiTa/RiTa.stripPunctuation/index.php">RiTa.stripPunctuation()</a>
+                    <br>
                     <a href="RiTa/RiTa.substrings/index.php">RiTa.substrings()</a>
                     <br>
                     <a href="RiTa/RiTa.superstrings/index.php">RiTa.superstrings()</a>
                     <br>
+                    <a href="RiTa/RiTa.tokenize/index.php">RiTa.tokenize()</a>
+                    <br>
+                    <a href="RiTa/RiTa.trimPunctuation/index.php">RiTa.trimPunctuation()</a>
+                    <br>     
                     <!-- <a href="RiTa/RiTa.words/index.php">RiTa.words()</a> -->
                 </div>
                   
@@ -157,7 +155,7 @@
 
             </div>
             <!-- end span4ref -->
-            <div class="gd-3">
+            <div class="section">
                 <div class="category"> <a href="RiString.php"><b>RiString</b></a>
 
                     <a href="RiString/analyze/index.php">analyze()</a>
@@ -224,8 +222,8 @@
                     <br>
                     <a href="RiString/wordAt/index.php">wordAt()</a>
                     <br>
-                    <a href="RiString/wordCount/index.php">wordCount()</a>
-                    <br>
+                    <!-- <a href="RiString/wordCount/index.php">wordCount()</a>
+                    <br> -->
                     <a href="RiString/words/index.php">words()</a>
                 </div>
 
@@ -233,7 +231,7 @@
 
 
             </div>
-            <div class="gd-3">
+            <div class="section">
 
                     <div class="category"><a href="RiGrammar.php"><b>RiGrammar</b></a>
 
@@ -314,10 +312,6 @@
                 <div class="category">
                     <a href="RiLexicon.php">
                         <b>RiLexicon&nbsp;<span>(deprecated)</span></b></a>
-                </div>
-
-
-                <div class="category">
                     <a href="RiText.php">
                         <b>RiText&nbsp;<span>(deprecated)</span></b></a>
                 </div>

@@ -47,7 +47,7 @@
 <!-- ============================== class summary ========================== -->
 		  <table cellpadding="0" cellspacing="0" border="0" class="ref-item">
 		  	<tr>
-		  		<th></th><td><p>Note: All functions in ReLexicon can be accessed via RiTa.*...</p></td>
+		  		<th></th><td><p>Note: All functions in ReLexicon can now be accessed via RiTa.*</p></td>
 		  	</tr>
 				    <tr class="">
 			      <th scope="row">Description</th>
