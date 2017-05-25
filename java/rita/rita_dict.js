@@ -13424,7 +13424,7 @@ function _dict() { return {
 'jealousy':['jh-eh1 l-ah s-iy','nn'],
 'jeans':['jh-iy1-n-s','nn'],
 'jeep':['jh-iy1-p','nn'],
-'jeer':['jh-iy1-r','nn','vb'],
+'jeer':['jh-iy1-r','nn vb'],
 'jelly':['jh-eh1 l-iy','nn'],
 'jellyfish':['jh-eh1 l-iy f-ih-sh','nn'],
 'jeopardize':['jh-eh1 p-er d-ay-z','vb vbp'],
