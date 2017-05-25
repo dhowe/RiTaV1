@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-  <name>rita</name>
-  <comment>RiTa is designed to be an easy-to-use toolkit for experiments in natural language and generative literature. It is implemented in Java and JavaScript (with a unified API for both). It is free/libre and open-source according to the GPL license. NO_M2ECLIPSE_SUPPORT: Project files created with the maven-eclipse-plugin are not supported in M2Eclipse.</comment>
-  <projects/>
-  <buildSpec>
-    <buildCommand>
-      <name>org.eclipse.jdt.core.javabuilder</name>
-    </buildCommand>
-  </buildSpec>
-  <natures>
-    <nature>org.eclipse.jdt.core.javanature</nature>
-  </natures>
+	<name>RiTa</name>
+	<comment>RiTa is designed to be an easy-to-use toolkit for experiments in natural language and generative literature. It is implemented in Java and JavaScript (with a unified API for both). It is free/libre and open-source according to the GPL license. NO_M2ECLIPSE_SUPPORT: Project files created with the maven-eclipse-plugin are not supported in M2Eclipse.</comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
 </projectDescription>
