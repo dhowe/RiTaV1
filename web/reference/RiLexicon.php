@@ -46,6 +46,9 @@
 			</h2>
 <!-- ============================== class summary ========================== -->
 		  <table cellpadding="0" cellspacing="0" border="0" class="ref-item">
+		  	<tr>
+		  		<th></th><td><p>Note: All functions in ReLexicon can be accessed via RiTa.*...</p></td>
+		  	</tr>
 				    <tr class="">
 			      <th scope="row">Description</th>
 			      <!-- DESCRIPTION  -->
@@ -62,6 +65,7 @@
 						or programatically, via addWord() and removeWord().
 						<p>
 						Note: For performance, the data for RiLexicon is shared in a single location for ALL created instances
+					     
 					<br/>
 </p></td>
 		        </tr>

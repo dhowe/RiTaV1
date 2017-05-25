@@ -112,8 +112,8 @@
                     <br>
                     <a href="RiTa/RiTa.alliterations/index.php">RiTa.alliterations()</a>
                     <br>
-                    <a href="RiTa/RiTa.clear/index.php">RiTa.clear()</a>
-                    <br>
+                    <!-- <a href="RiTa/RiTa.clear/index.php">RiTa.clear()</a>
+                    <br> -->
                     <a href="RiTa/RiTa.containsWord/index.php">RiTa.containsWord()</a>
                     <br>
                     <a href="RiTa/RiTa.isAdjective/index.php">RiTa.isAdjective()</a>
@@ -132,8 +132,8 @@
                     <br>
                     <a href="RiTa/RiTa.randomWord/index.php">RiTa.randomWord()</a>
                     <br>
-                    <a href="RiTa/RiTa.reload/index.php">RiTa.reload()</a>
-                    <br>
+                    <!-- <a href="RiTa/RiTa.reload/index.php">RiTa.reload()</a>
+                    <br> -->
                     <a href="RiTa/RiTa.rhymes/index.php">RiTa.rhymes()</a>
                     <br>
                     <a href="RiTa/RiTa.similarByLetter/index.php">RiTa.similarByLetter()</a>
@@ -146,7 +146,7 @@
                     <br>
                     <a href="RiTa/RiTa.superstrings/index.php">RiTa.superstrings()</a>
                     <br>
-                    <a href="RiTa/RiTa.words/index.php">RiTa.words()</a>
+                    <!-- <a href="RiTa/RiTa.words/index.php">RiTa.words()</a> -->
                 </div>
                   
 
@@ -309,6 +309,11 @@
                         <b>RiWordNet&nbsp;<span>(Java-only)</span></b></a>
 
 
+                </div>
+
+                <div class="category">
+                    <a href="RiLexicon.php">
+                        <b>RiLexicon&nbsp;<span>(deprecated)</span></b></a>
                 </div>
 
 
