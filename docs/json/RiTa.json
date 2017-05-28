@@ -328,7 +328,7 @@
   }, {
     "name": "RiTa.getPhonemes",
     "example": "<br>RiTa.getPhonemes(\"apple\"); // returns -> ae-p-ah-l <br><br>RiTa.getPhonemes(\"two apples\"); // returns -> t-uw ae-p-ah-l-z <br><br>",
-    "description": "Returns a string containing all <a target=_new href='../../PhonemeTags.html'>phonemes</a> for the input text",
+    "description": "Returns a string containing all <a target=_new href='../../PhonemeTags.php'>phonemes</a> for the input text",
     "syntax": "RiTa.getPhonemes(wordStr);<br/>RiTa.getPhonemes(wordArr);",
     "parameters": [{
         "type": "String OR String[]",

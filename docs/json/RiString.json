@@ -3,7 +3,7 @@
   "fields": [{
     "name": "features",
     "example": "theFeatures = myRiString.features();",
-    "description": "Returns the current set of features for the object, including <a target=_new href='../../PhonemeTags.html'>phonemes</a>, syllables, stresses, etc.",
+    "description": "Returns the current set of features for the object, including <a target=_new href='../../PhonemeTags.php'>phonemes</a>, syllables, stresses, etc.",
     "syntax": "features();",
     "parameters": [],
     "returns": [{
@@ -16,7 +16,7 @@
   }, {
     "name": "analyze",
     "example": "myRiString.analyze();<br><br>myRiString.get(RiTa.PHONEMES);<br><br>// OR<br><br>myRiString.get(\"phonemes\");",
-    "description": "Computes a set of features for the object, including <a target=_new href='../../PhonemeTags.html'>phonemes</a>, syllables, stresses, etc. To access any of these, use myRiString.get(featureName)",
+    "description": "Computes a set of features for the object, including <a target=_new href='../../PhonemeTags.php'>phonemes</a>, syllables, stresses, etc. To access any of these, use myRiString.get(featureName)",
     "syntax": "analyze();",
     "parameters": [],
     "returns": [{

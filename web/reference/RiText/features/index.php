@@ -66,7 +66,7 @@
 							<th scope="row">Description</th>
 
 							<!-- DESCRIPTION  -->
-							<td>Returns the current set of features for the object, including <a target=_new href='../../PhonemeTags.html'>phonemes</a>, syllables, stresses, etc.</td>
+							<td>Returns the current set of features for the object, including <a target=_new href='../../PhonemeTags.php'>phonemes</a>, syllables, stresses, etc.</td>
 						</tr>
 
 						<tr class='Syntax'>

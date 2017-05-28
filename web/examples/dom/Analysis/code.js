@@ -1,9 +1,4 @@
-// each bubble
-// 1.clear
-// 2.refresh the text & color
-//   ->addStress (larger bubble size);
-//   ->addSyllables (add margin)
-var dbug = false;
+var dbug = false, ALL_PHONES = ['aa','ae','ah','ao','aw','ay','b','ch','d','dh','eh','er','ey','f','g','hh','ih','iy','jh', 'k','l', 'm','n','ng','ow','oy','p','r','s','sh','t','th','uh', 'uw','v','w','y','z','zh'];
 
 $(document).ready(function () {
 
@@ -25,21 +20,23 @@ $(document).ready(function () {
     sy = RiTa.getSyllables(word);
     ph = RiTa.getPhonemes(word);
     ss = RiTa.getStresses(word);
-    
+
     dbug && console.log(sy);
 
     var tags = RiTa.getPosTags(word, true);
     var pos = tagName(tags[0]);
+    var ipaPhones = ipaPhones = arpaToIPA(lexicon._getRawPhones(word));
 
     $('#word').text(word);
     $('#pos').text(pos);
+    $('#ipa').text("/" + ipaPhones + "/");
 
     refreshBubble(ph.split('-'));
 
     setTimeout(drop, 2000);
     setTimeout(clearBubble, 3500);
   }
-  
+
   function clearBubble() {
     dbug && console.log("clear");
 
@@ -47,12 +44,12 @@ $(document).ready(function () {
        // reset stress
       if( $(this).hasClass("stressed"))
         $(this).removeClass("stressed");
-      
+
       //reset position
       $(this).css({
         'margin-top': ' 5px'
       });
-      
+
       // clear the content
       $(this).text("");
       $(this).css("background-color", "transparent");
@@ -67,7 +64,7 @@ $(document).ready(function () {
     $('.bubbles').children().each(function (i, val) {
 
       // change the phones and color
-      if (i < phs.length) { 
+      if (i < phs.length) {
 
         $(this).text(phs[i]);
         $(this).css("background-color", "hsla(" + phonemeColor(phs[i]) + ", 90%, 45%, 0.6)");
@@ -85,11 +82,11 @@ $(document).ready(function () {
       (function (that, i) {
         var t = setTimeout(function () {
           $(that).animate({
-            'margin-top': 150,
+            'margin-top': 180,
           }, "slow");
         }, 40 * i);
       })(this, index);
-    });   
+    });
   }
 
   function addSyllables(syllables) {
@@ -149,14 +146,14 @@ $(document).ready(function () {
   }
 
   function phonemeColor(phoneme) {
-    var idx = RiTa.ALL_PHONES.indexOf(phoneme);
+    var idx = ALL_PHONES.indexOf(phoneme);
     return idx > -1 ? hues[idx] : 0;
   }
 
   function colorGradient() {
     var tmp = [];
-    for (var i = 0; i < RiTa.ALL_PHONES.length; i++) {
-      var h = Math.floor(map(i, 0, RiTa.ALL_PHONES.length, .2 * 360, .8 * 360));
+    for (var i = 0; i < ALL_PHONES.length; i++) {
+      var h = Math.floor(map(i, 0, ALL_PHONES.length, .2 * 360, .8 * 360));
       tmp[i] = h;
     }
     return tmp;

@@ -66,7 +66,7 @@
 							<th scope="row">Description</th>
 
 							<!-- DESCRIPTION  -->
-							<td>Returns a string containing all <a target=_new href='../../PhonemeTags.html'>phonemes</a> for the input text</td>
+							<td>Returns a string containing all <a target=_new href='../../PhonemeTags.php'>phonemes</a> for the input text</td>
 						</tr>
 
 						<tr class='Syntax'>

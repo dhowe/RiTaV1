@@ -1,3 +1,5 @@
+var ALL_PHONES = ['aa','ae','ah','ao','aw','ay','b','ch','d','dh','eh','er','ey','f','g','hh','ih','iy','jh', 'k','l', 'm','n','ng','ow','oy','p','r','s','sh','t','th','uh', 'uw','v','w','y','z','zh'];
+
 var tagsDict, word, sy, ph, ss;
 var bubbles = [], colors = [];
 var pos = '', maxWordLength = 12;
@@ -30,11 +32,17 @@ function draw() {
   fill(56, 66, 90);
   textAlign(LEFT);
   textSize(36);
-  text(word, 80, 100);
+  text(word, 80, 50);
 
-  // pos-tag
+
+   //IPA
   textSize(18);
-  text(pos.toUpperCase(), 20, 30);
+  ipaPhones = arpaToIPA(lexicon._getRawPhones(word));
+  text("/" + ipaPhones + "/", 80, 75);
+  // pos-tag
+  textSize(14);
+  textStyle(ITALIC);
+  text(pos.toLowerCase(), 80, 105);
 
   for (var i = 0; i < bubbles.length; i++)
     bubbles[i].draw(i);
@@ -182,14 +190,14 @@ function tagName(tag) {
 
 function phonemeColor(phoneme) {
 
-  var idx = RiTa.ALL_PHONES.indexOf(phoneme);
+  var idx = ALL_PHONES.indexOf(phoneme);
   return idx > -1 ? colors[idx] : 0;
 }
 
 function colorGradient() {
 
   colorMode(HSB, 1, 1, 1, 1);
-  var tmp = [], apl = RiTa.ALL_PHONES.length;
+  var tmp = [], apl = ALL_PHONES.length;
   for (var i = 0; i < apl; i++) {
     var h = map(i, 0, apl, .2, .8);
     tmp[i] = color(h, .9, .9, .6);

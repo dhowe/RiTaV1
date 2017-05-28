@@ -214,8 +214,26 @@
   <tr bgcolor="#FFFFFF">
     <td>&nbsp;</td>
     <td>wrb </td>
-    <td>Wh-adverb
+    <td>Wh-adverb </td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+    <td>&nbsp;</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+    <td>&nbsp;</td>
+    <td>all </td>
+    <td>['cc', 'cd', 'dt', 'ex', 'fw', 'in', 'jj',
+      'jjr', 'jjs', 'ls', 'md', 'nn', 'nns', 'nnp',
+      'nnps', 'pdt', 'pos', 'prp', 'prp$', 'rb',
+      'rbr', 'rbs', 'rp', 'sym', 'to', 'uh', 'vb',
+      'vbd', 'vbg', 'vbn', 'vbp', 'vbz', 'wdt',
+      'wp', 'wp$', 'wrb']
+    </td>
+  </tr>
 </table>
+
 <br/>&nbsp;<br/>
 
 </div>

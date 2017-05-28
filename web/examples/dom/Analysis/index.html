@@ -4,6 +4,7 @@
   <title>Analysis (dom)</title>
   <meta charset="utf-8">
   <script src="../../../dist/rita-full.js"></script>
+  <script src="../../lib/arpaToIPA.js"></script>
   <script src="../../lib/jquery-1.11.3.min.js"></script>
   <script src="code.js"></script>
   <script src="../../lib/prism.js"></script>
@@ -13,6 +14,7 @@
 <style>
 body {
 	font-family: sans-serif;
+  color: rgb(56, 66, 90);
 }
 .canvas {
 	position:relative;
@@ -22,21 +24,28 @@ body {
 }
 #pos {
 	position:absolute;
-	top:20px;
-	left:30px;
-	font-size: 18px;
-	text-transform: uppercase;
+	top:100px;
+	left:80px;
+	font-size: 14px;
+	text-transform: lowercase;
+  font-style: italic;
 }
 #word {
 	position:absolute;
-	top:80px;
-	left:100px;
+	top:20px;
+	left:80px;
 	font-size: 36px;
+}
+#ipa{
+  position:absolute;
+  top:60px;
+  left:80px;
+  font-size: 18px;
 }
 .bubbles {
 	position:absolute;
-	top:150px;
-	left:100px;
+	top:130px;
+	left:70px;
 }
 .bubble.stressed{
   animation: stress .5s;
@@ -90,6 +99,7 @@ body {
   <div class="canvas">
   <div id="pos"></div>
   <div id="word"></div>
+  <div id="ipa"></div>
   <div class="bubbles">
   	<span class="bubble"></span>
   	<span class="bubble"></span>

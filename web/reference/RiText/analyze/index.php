@@ -66,7 +66,7 @@
 							<th scope="row">Description</th>
 
 							<!-- DESCRIPTION  -->
-							<td>Computes a set of features for the RiText, including <a target=_new href='../../PhonemeTags.html'>phonemes</a>, syllables, stresses, etc. To access any of these, use myRiText.get(featureName)</td>
+							<td>Computes a set of features for the RiText, including <a target=_new href='../../PhonemeTags.php'>phonemes</a>, syllables, stresses, etc. To access any of these, use myRiText.get(featureName)</td>
 						</tr>
 
 						<tr class='Syntax'>

@@ -199,7 +199,7 @@
     }, {
       "name": "features",
       "example": "theFeatures = myRiText.features();",
-      "description": "Returns the current set of features for the object, including <a target=_new href='../../PhonemeTags.html'>phonemes</a>, syllables, stresses, etc.",
+      "description": "Returns the current set of features for the object, including <a target=_new href='../../PhonemeTags.php'>phonemes</a>, syllables, stresses, etc.",
       "syntax": "features();",
       "parameters": [],
       "returns": [{
@@ -212,7 +212,7 @@
     }, {
       "name": "analyze",
       "example": "myRiText.get(\"phonemes\");<br>myRiText.get(RiTa.PHONEMES);<br>myRiText.get(RiTa.SYLLABLES);",
-      "description": "Computes a set of features for the RiText, including <a target=_new href='../../PhonemeTags.html'>phonemes</a>, syllables, stresses, etc. To access any of these, use myRiText.get(featureName)",
+      "description": "Computes a set of features for the RiText, including <a target=_new href='../../PhonemeTags.php'>phonemes</a>, syllables, stresses, etc. To access any of these, use myRiText.get(featureName)",
       "syntax": "rt.analyze(feature-type);",
       "parameters": [
 
