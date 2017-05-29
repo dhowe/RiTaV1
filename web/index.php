@@ -166,6 +166,28 @@ with or without Processing<br>(also in Android)</p>
      <h3>Selected Projects</h3>
   <div class="gallery_home">
       <div class="row">
+    
+    <span class="gallery_home_item gd-4  mgd-6 sgd-12">
+      <a href="https://elmcip.net/creative-work/mirroring-tears-visages" target="new"><img src="img/mirroringTears.png" ></a><br>
+      <a href="https://elmcip.net/creative-work/mirroring-tears-visages" target="new">Mirroring Tears: Visages</a>
+      <p>by John Cayley Penny Florence</p>
+      <p class="gallery_home_spacer">&nbsp;</p>
+    </span>
+
+    <span class="gallery_home_item gd-4  mgd-6 sgd-12">
+      <a href="./gallery/BookshelfWriter" target="new"><img src="img/bookshelfWriter.jpg" ></a><br>
+      <a href="./gallery/BookshelfWriter" target="new">Bookshelf Writer</a>
+      <p><span style="font-size:11px;">by A.Refsgaard K. Solvåg R. Cereser</span></p>
+      <p class="gallery_home_spacer">&nbsp;</p>
+    </span>
+    
+     <span class="gallery_home_item gd-4 mgd-6 sgd-12">
+        <a href="./gallery/SpinState"target="new"><img src="img/spin_state2.png" ></a><br>
+        <a href="./gallery/SpinState"target="new">SpinState</a>
+        <p>by Michael Coppola</p>
+        <p class="gallery_spacer">&nbsp;</p>
+      </span>
+
     <span class="gallery_home_item gd-4  mgd-6 sgd-12">
         <a href="http://o-c-r.org/2014/07/01/the-whole-brilliant-enterprise/"><img src="img/enterprise_sm.png" width="180"></a><br>
         <a href="http://o-c-r.org/2014/07/01/the-whole-brilliant-enterprise/">The Whole Brilliant Enterprise</a>
