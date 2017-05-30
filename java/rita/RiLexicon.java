@@ -103,6 +103,18 @@ public class RiLexicon implements Constants {
         if (pos[i].equals("nn"))
           return true;
       }
+    } else if (word.endsWith("ses") || word.endsWith("zes")) {
+
+      String sing = word.substring(0, word.length() - 1);
+      lookup = lexicalData().get(RiTa.singularize(sing));
+      data = lookup.split("\\|");
+      if (data != null && data.length == 2) {
+          String[] pos = data[1].split(SP);
+          for (int i = 0; i < pos.length; i++) {
+              if (pos[i].equals("nn"))
+                  return true;
+          }
+      }
     }
     return false;
   }
