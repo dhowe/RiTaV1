@@ -8,27 +8,29 @@ public interface EnglishConstants {
   // ----------------------- Pluralizer -----------------------
 
   RegexRule NULL_PLURALS = new RegexRule(
-      "^(bantu|bengalese|bengali|beninese|boche|bonsai|"
-	  + "burmese|chinese|colossus|congolese|discus|gabonese|guyanese|japanese|javanese|"
-	  + "lebanese|maltese|olympics|portuguese|senegalese|siamese|singhalese|"
-	  + "sinhalese|sioux|sudanese|swiss|taiwanese|togolese|vietnamese|aircraft|"
-	  + "anopheles|apparatus|asparagus|barracks|bellows|bison|bluefish|bob|bourgeois|"
-	  + "bream|brill|butterfingers|cargo|carp|catfish|chassis|clothes|chub|cod|codfish|"
-	  + "coley|contretemps|corps|crawfish|crayfish|crossroads|cuttlefish|dace|deer|dice|digitalis|"
-	  + "dogfish|doings|dory|downstairs|eldest|earnings|economics|electronics|emphasis|finnan|"
-	  + "firstborn|fish|flatfish|flounder|fowl|fry|fries|works|globefish|goldfish|golf|"
-	  + "grand|grief|gudgeon|gulden|haddock|hake|halibut|headquarters|herring|hertz|horsepower|"
-	  + "goods|hovercraft|hundredweight|ironworks|jackanapes|kilohertz|kurus|kwacha|ling|lungfish|"
-	  + "mackerel|means|megahertz|moorfowl|moorgame|mullet|nepalese|offspring|[a-z]+osis$|[a-z]+ness$"
-	  + "|[a-z]+itis$|pampas|parr|(pants$)|"
-	  + "patois|pekinese|penn'orth|perch|pickerel|pike|pince-nez|plaice|precis|quid|rand|"
-	  + "rendezvous|revers|roach|roux|salmon|samurai|series|seychelles|seychellois|shad|"
-	  + "sheep|shellfish|smelt|spacecraft|species|starfish|stockfish|sunfish|superficies|"
-	  + "sweepstakes|swordfish|tench|tennis|tobacco|tope|triceps|trout|tuna|tunafish|tunny|turbot|trousers|"
-	  + "undersigned|veg|waterfowl|waterworks|waxworks|whiting|wildfowl|woodworm|"
-	  + "yen|aries|pisces|forceps|lieder|jeans|physics|mathematics|news|odds|politics|remains|"
-	  + "surroundings|thanks|statistics|goods|aids|wildlife)$",
-      0, "");
+      "^(bantu|bengalese|bengali|beninese|boche|bonsai|booze|cellulose|digitalis|mess|"
+      + "burmese|chinese|colossus|congolese|discus|emphasis|expertise|finess|fructose|"
+      + "gabonese|gauze|glucose|grease|guyanese|haze|incense|japanese|javanese|journalese|"
+      + "lebanese|malaise|manganese|mayonnaise|maltese|menopause|merchandise|nitrocellulose|"
+      + "olympics|overuse|paradise|poise|polymerase|portuguese|prose|recompense|remorse|repose|senegalese|siamese|singhalese|innings|" 
+      + "sleaze|sinhalese|sioux|sudanese|suspense|swiss|taiwanese|togolese|vietnamese|unease|aircraft|anise|antifreeze|applause|archdiocese|" 
+      + "anopheles|apparatus|asparagus|barracks|bellows|bison|bluefish|bob|bourgeois|"
+      + "bream|brill|butterfingers|cargo|carp|catfish|chassis|clothes|chub|cod|codfish|"
+      + "coley|contretemps|corps|crawfish|crayfish|crossroads|cuttlefish|dace|deer|dice|"
+      + "dogfish|doings|dory|downstairs|eldest|earnings|economics|electronics|finnan|"
+      + "firstborn|fish|flatfish|flounder|fowl|fry|fries|works|globefish|goldfish|golf|"
+      + "grand|grief|gudgeon|gulden|haddock|hake|halibut|headquarters|herring|hertz|horsepower|"
+      + "goods|hovercraft|hundredweight|ironworks|jackanapes|kilohertz|kurus|kwacha|ling|lungfish|"
+      + "mackerel|means|megahertz|moorfowl|moorgame|mullet|nepalese|offspring|pampas|parr|pants|"
+      + "patois|pekinese|penn'orth|perch|pickerel|pike|pince-nez|plaice|precis|quid|rand|"
+      + "rendezvous|revers|roach|roux|salmon|samurai|series|seychelles|seychellois|shad|"
+      + "sheep|shellfish|smelt|spacecraft|species|starfish|stockfish|sunfish|superficies|"
+      + "sweepstakes|swordfish|tench|tennis|[a-z]+osis|[a-z]+itis|[a-z]+ness|"
+      + "tobacco|tope|triceps|trout|tuna|tunafish|tunny|turbot|trousers|"
+      + "undersigned|veg|waterfowl|waterworks|waxworks|whiting|wildfowl|woodworm|"
+      + "yen|aries|pisces|forceps|lieder|jeans|physics|mathematics|news|odds|politics|remains|"
+      + "surroundings|thanks|statistics|goods|aids|wildlife)$", 0, "");
+
 
   List MODALS = Arrays.asList(
       new String[] { "shall", "would", "may", "might", "ought", "should" });
@@ -128,14 +130,17 @@ public interface EnglishConstants {
    * from the PlingStemmer stemmer implementation included in the Java Tools
    * pacakge (see http://mpii.de/yago-naga/javatools).
    */
-  FinalSet<String> categorySE_SES = new FinalSet<String>("abuses", "blouses",
-      "bruises", "cheeses", "chemises", "clauses", "corpses", "courses",
-      "cruises", "curses", "databases", "defenses", "discourses", "diseases",
-      "doses", "eclipses", "enterprises", "expenses", "fuses", "glimpses",
-      "guises", "horses", "houses", "impulses", "noises", "noses", "nurses",
-      "offenses", "overdoses", "phrases", "pretenses", "pulses", "purposes",
-      "purses", "racehorses", "recourses", "responses", "roses", "spouses",
-      "tortoises", "treatises", "vases", "verses");
+  FinalSet<String> categorySE_SES = new FinalSet<String>("abuses", "apocalypses",
+   "blouses", "bruises", "chaises","cheeses", "chemises",
+   "clauses", "corpses", "courses", "crazes","creases", "cruises", "curses", "databases",
+   "dazes", "defenses", "demises", "discourses", "diseases", "doses","eclipses", "enterprises",
+   "expenses", "friezes", "fuses", "glimpses", "guises", "hearses", "horses", "houses",
+   "impasses", "impulses", "kamikazes", "mazes","mousses","noises", "nooses", "noses",
+   "nurses", "obverses", "offenses", "overdoses", "phrases", "posses", "premises", "pretenses", 
+   "proteases", "pulses",  "purposes", "purses", "racehorses", "recluses","recourses", "relapses",
+   "responses", "roses", "ruses", "spouses", "stripteases", "subleases", "sunrises", "tortoises",
+   "trapezes", "treatises", "universes", "vases", "verses", "vises", "wheelbases"
+  );
 
   /**
    * Words that do not have a distinct plural form (like "atlas" etc.)
