@@ -236,7 +236,7 @@
   }, {
     "name": "RiTa.tokenize",
     "example": "<br>sentence = \"The doctors treated dogs\";<br>wordArray = RiTa.tokenize(sentence);<br>wordArray = RiTa.tokenize(sentence, \"\\\\\\\\s\");<br><br>",
-    "description": "Tokenizes a string (into words) according to Penn Treebank conventions<br/>See: <a href='http://www.cis.upenn.edu/~treebank/tokenization.html'>http://www.cis.upenn.edu/~treebank/tokenization.html</a>",
+    "description": "Tokenizes a string (into words) according to Penn Treebank conventions<br/>See: <a href='ftp://ftp.cis.upenn.edu/pub/treebank/public_html/tokenization.html'>ftp://ftp.cis.upenn.edu/pub/treebank/public_html/tokenization.html</a>",
     "syntax": "RiTa.tokenize(text);<br/>RiTa.tokenize(text, regex);",
     "parameters": [{
       "type": "String",
@@ -258,7 +258,7 @@
   },{
     "name": "RiTa.untokenize",
     "example": "",
-    "description": "Joins an array (of words and punctuation) into a String, according to Penn Treebank conventions<br/>See: <a href='http://www.cis.upenn.edu/~treebank/tokenization.html'>http://www.cis.upenn.edu/~treebank/tokenization.html</a>",
+    "description": "Joins an array (of words and punctuation) into a String, according to Penn Treebank conventions<br/>See: <a href='ftp://ftp.cis.upenn.edu/pub/treebank/public_html/tokenization.html'>ftp://ftp.cis.upenn.edu/pub/treebank/public_html/tokenization.html</a>",
     "syntax": "RiTa.untokenize(wordArray)",
     "parameters": [{
       "type": "String[]",

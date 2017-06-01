@@ -66,7 +66,7 @@
 							<th scope="row">Description</th>
 
 							<!-- DESCRIPTION  -->
-							<td>Tokenizes a string (into words) according to Penn Treebank conventions<br/>See: <a href='http://www.cis.upenn.edu/~treebank/tokenization.html'>http://www.cis.upenn.edu/~treebank/tokenization.html</a></td>
+							<td>Tokenizes a string (into words) according to Penn Treebank conventions<br/>See: <a href='ftp://ftp.cis.upenn.edu/pub/treebank/public_html/tokenization.html'>ftp://ftp.cis.upenn.edu/pub/treebank/public_html/tokenization.html</a></td>
 						</tr>
 
 						<tr class='Syntax'>

@@ -35,7 +35,7 @@
               <li><a href="#Tokenizing/Untokenizing">Tokenizing/Untokenizing</a></li>
             </ul>
 
-            <div id="Conjugation " class="pad-small">
+            <div id="Conjugation" class="pad-small">
               <h5 class="sub">Conjugation</h5>
               <p>Conjugation refers to how a verb changes to show a different person, tense, number or mood.
                 The term conjugation is applied only to the inflection of verbs, and not of other parts of speech
@@ -127,7 +127,7 @@ An example, in JavaScript:
             <hr />
             <div id="Plurals/Singulars" class="pad-small">
               <h5 class="sub">Plurals/Singulars</h5>
-              <p><a href="../reference/RiTa/RiTa.pluralize/index.phpreference/RiTa/RiTa.pluralize/index.php"><b>RiTa.pluralize</b></a> is a simple pluralizer for nouns according to pluralisation rules. It uses a combination of letter-based rules and a lookup
+              <p><a href="../reference/RiTa/RiTa.pluralize/index.php"><b>RiTa.pluralize</b></a> is a simple pluralizer for nouns according to pluralisation rules. It uses a combination of letter-based rules and a lookup
                 table of irregular exceptions.
                 <pre><code class="language-javascript">RiTa.pluralize("apple")</code></pre>
                 <div class="example">
@@ -168,7 +168,7 @@ An example, in JavaScript:
               </div>
               <br/>
 
-                <span class="ref">See: <a href=" http://www.cis.upenn.edu/~treebank/tokenization.html">http://www.cis.upenn.edu/~treebank/tokenization.html</a>
+                <span class="ref">More about <a href="ftp://ftp.cis.upenn.edu/pub/treebank/public_html/tokenization.html">PENN Treebank tokenization</a>
                 </span>
               </p>
             </div>
@@ -181,8 +181,8 @@ An example, in JavaScript:
               <p>Tokenizing is the task of chopping a text up into smaller pieces called tokens. In RiTa such tokens are usually words (and punctuation characters). There are different tokenizing conventions, but the one RiTa uses is called the Penn Treebank convention.
               </p>
               <p>
-                <span class="ref">See: <a href="http://www.cis.upenn.edu/~treebank/tokenization.html">http://www.cis.upenn.edu/~treebank/tokenization.html
-</a></span>
+                <span class="ref">More about <a href="ftp://ftp.cis.upenn.edu/pub/treebank/public_html/tokenization.html">PENN Treebank tokenization</a>
+                </span>
               </p>
 
               <p>An example of tokenizing in RiTa looks like this:</p>

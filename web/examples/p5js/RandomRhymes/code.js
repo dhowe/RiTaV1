@@ -30,11 +30,10 @@ function draw()
 function findRhymes() { // called by timer
 
   var tmp = '';
-  while (tmp.length < 3) {
-
+  do {
     word = lexicon.randomWord();
     tmp = lexicon.rhymes(word);
-  }
+  } while ( word && tmp.length < 3) 
 
   var arr = subset(tmp, 0, min(tmp.length, 13)); // max of 13 words
   rhymes = arr.join("\n");
