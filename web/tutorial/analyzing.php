@@ -30,7 +30,7 @@
             <ul class="sublist">
               <li><a href="#Phonemes">Phonemes</a></li>
               <li><a href="#Stresses">Stresses</a></li>
-              <li><a href="#Tokens">Tokens</a></li>
+              <!-- <li><a href="#Tokens">Tokens</a></li> -->
               <li><a href="#POS">POS (part-of-speech)</a></li>
             </ul>
 
@@ -71,10 +71,10 @@
               <div class="ref">
                 <p>A list of the phonemes used in RiTa:
                   <br />
-                  <a href="http://www.rednoise.org/rita/reference/PhonemeTags.html">http://www.rednoise.org/rita/reference/PhonemeTags.html</a></p>
+                  <a href="http://www.rednoise.org/rita/reference/PhonemeTags.html">http://www.rednoise.org/rita/reference/PhonemeTags.php</a></p>
                 <p>The reference list from Arpabet to IPA:
                   <br />
-                  <a href="https://en.wikipedia.org/wiki/Arpabet/">https://en.wikipedia.org/wiki/Arpabet/</a>
+                  <a href="https://en.wikipedia.org/wiki/Arpabet/">https://en.wikipedia.org/wiki/Arpabet</a>
                   <p>
               </div>
 

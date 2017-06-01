@@ -9,11 +9,10 @@ $(document).ready(function () {
   function findRhymes() {
 
     var word, tmp = '';
-    while (tmp.length < 3) {
-
+    do {
       word = lexicon.randomWord();
       tmp = lexicon.rhymes(word);
-    }
+    } while ( word && tmp.length < 3)
 
     var rhymes = tmp.slice(0, Math.min(tmp.length, 13));
 

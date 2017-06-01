@@ -53,7 +53,7 @@ function selectWord() { // called every 4 sec by timer
   // random word with <= 12 letters
   do {
     word = lexicon.randomWord();
-  } while (word.length > maxWordLength);
+  } while (word && word.length > maxWordLength);
 
   // get various features
   sy = RiTa.getSyllables(word);

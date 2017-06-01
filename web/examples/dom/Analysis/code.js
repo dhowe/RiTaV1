@@ -14,7 +14,7 @@ $(document).ready(function () {
     // random word with <= 12 letters
     do {
       word = lexicon.randomWord();
-    } while (word.length > 12);
+    } while (word && word.length > 12);
 
     // get various features
     sy = RiTa.getSyllables(word);

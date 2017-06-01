@@ -135,8 +135,8 @@ Add your site or application content here
       </span>
 
       <span class="gallery_home_item gd-4 mgd-6 sgd-12">
-        <a href="./gallery/Automatype" target="new"><img src="img/automatype.jpg" ></a><br>
-        <a href="./gallery/Automatype" target="new">Automatype</a>
+        <a href="./gallery/automatype" target="new"><img src="img/automatype.jpg" ></a><br>
+        <a href="./gallery/automatype" target="new">Automatype</a>
         <p>by Daniel C. Howe</p>
         <p class="gallery_spacer">&nbsp;</p>
       </span>
