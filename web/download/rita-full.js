@@ -152,7 +152,7 @@ var FEATURES = [ 'tokens', 'stresses', 'phonemes', 'syllables', 'pos', 'text' ];
 
 var RiTa = {
 
-  VERSION: '1.1.72',
+  VERSION: '1.2.01',
 
   /* For tokenization, Can't -> Can not, etc. */
   SPLIT_CONTRACTIONS: false,
@@ -931,7 +931,7 @@ RiLexicon.prototype = {
       inputES = input + 'es',
       inputLen = input.length;
 
-    for (var i = 0; i < this.keys.length; i++) {
+    for (var i = 0; i < this.size(); i++) {
 
       var entry = this.keys[i];
 
@@ -977,7 +977,7 @@ RiLexicon.prototype = {
 
     //console.log("TARGET "+targetPhonesArr);
 
-    for (var i = 0; i < this.keys.length; i++) {
+    for (var i = 0; i < this.size(); i++) {
 
       entry = this.keys[i];
 
@@ -1063,7 +1063,7 @@ RiLexicon.prototype = {
     minLength = minLength || (minLength === 0) || 4;
 
     var result = [];
-    for (var i = 0; i < this.keys.length; i++) {
+    for (var i = 0; i < this.size(); i++) {
 
       if (this.keys[i] === word || this.keys[i].length < minLength)
         continue;
@@ -1078,7 +1078,7 @@ RiLexicon.prototype = {
 
     var result = [];
 
-    for (var i = 0; i < this.keys.length; i++) {
+    for (var i = 0; i < this.size(); i++) {
 
       if (this.keys[i] === word) continue;
       if (this.keys[i].indexOf(word) >= 0)
@@ -1125,7 +1125,7 @@ RiLexicon.prototype = {
         return this.keys;
     }
 
-    for (var i = 0; i < this.keys.length; i++) {
+    for (var i = 0; i < this.size(); i++) {
 
       if (regex.test(this.keys[i])) {
 
@@ -1149,14 +1149,33 @@ RiLexicon.prototype = {
 
   _isPlural: function(word) {
 
+    if (NULL_PLURALS.applies(word))
+      return true;
+
     var stem = RiTa.stem(word, 'Pling');
-    if (stem === word) return false;
-    var data = this.data[RiTa.singularize(word)];
+    if (stem === word)
+      return false;
+
+    var sing = RiTa.singularize(word);
+    var data = this.data[sing];
+
     if (data && data.length === 2) {
       var pos = data[1].split(SP);
       for (var i = 0; i < pos.length; i++) {
         if (pos[i] === 'nn')
           return true;
+      }
+
+    } else if (word.endsWith("ses") || word.endsWith("zes")) {
+
+      sing = word.substring(0, word.length - 1);
+      data = this.data[sing];
+      if (data && data.length === 2) {
+          var pos = data[1].split(SP);
+          for (var i = 0; i < pos.length; i++) {
+              if (pos[i] === 'nn')
+                  return true;
+          }
       }
     }
     return false;
@@ -1184,11 +1203,10 @@ RiLexicon.prototype = {
 
   rhymes: function(word) {
 
-
       var p = this._lastStressedPhoneToEnd(word),
         phones, results = [];
 
-      for (var i = 0; i < this.keys.length; i++) {
+      for (var i = 0; i < this.size(); i++) {
 
         if (this.keys[i] === word)
           continue;
@@ -1216,7 +1234,7 @@ RiLexicon.prototype = {
     var c2, results = [],
       c1 = this._firstPhoneme(this._firstStressedSyllable(word, useLTS));
 
-    for (var i = 0; i < this.keys.length; i++) {
+    for (var i = 0; i < this.size(); i++) {
 
       c2 = this._firstPhoneme(
           this._firstStressedSyllable(this.keys[i], useLTS));
@@ -1309,8 +1327,12 @@ RiLexicon.prototype = {
   },
 
   size: function() {
-
-    return this.keys.length;
+    var s = this.keys.length;
+    if (RiTa.LEX_WARN && s === 0) {
+      warn(RiTa.LEX_WARN);
+      RiTa.LEX_WARN = 0; 
+    } 
+    return s;
   },
 
   _checkType: function(word, tagArray) {
@@ -1410,7 +1432,7 @@ RiLexicon.prototype = {
   /* Returns the raw (RiTa-format) dictionary entry for the given word   */
   _lookupRaw: function(word) {
 
-    word = word.toLowerCase();
+    word = word && word.toLowerCase();
     if (this.data && this.data[word])
       return this.data[word];
     //log("[RiTa] No lexicon entry for '" + word + "'");
@@ -1531,11 +1553,14 @@ RiLexicon.prototype = {
   randomWord: function() { // takes nothing, pos, syllableCount, or both
 
     var i, j, rdata, numSyls, pluralize = false,
-      ran = Math.floor(Math.random() * this.keys.length),
-      found = false, a = arguments, ranWordArr = this.keys;
+      ran = Math.floor(Math.random() * this.size()),
+      found = false, a = arguments, words = this.keys;
 
     if (typeof a[0] === "string") {
+
         a[0] = trim(a[0]).toLowerCase();
+
+        pluralize = (a[0] === "nns");
 
         if (a[0] === "v")
             a[0] = "vb";
@@ -1543,37 +1568,36 @@ RiLexicon.prototype = {
             a[0] = "rb";
         if (a[0] === "a")
             a[0] = "jj";
-        if (a[0] === "n" || a[0] === "nns")
+        if (a[0] === "n" || a[0] === "nns") {
             a[0] = "nn";
+        }
     }
-    else if (typeof a[0] === "object") {
 
-    }
     switch (a.length) {
 
       case 2: // a[0]=pos  a[1]=syllableCount
 
 
-        for (i = 0; i < ranWordArr.length; i++) {
-          j = (ran + i) % ranWordArr.length;
-          rdata = this.data[ranWordArr[j]];
+        for (i = 0; i < words.length; i++) {
+          j = (ran + i) % words.length;
+          rdata = this.data[words[j]];
           numSyls = rdata[0].split(SP).length;
           if (numSyls === a[1] && a[0] === rdata[1].split(SP)[0]) {
-            return pluralize ? RiTa.pluralize(ranWordArr[j]) : ranWordArr[j];
+            return pluralize ? RiTa.pluralize(words[j]) : words[j];
           }
         }
 
-        warn("No words with pos=" + a[0] + " found");
+        //warn("No words with pos=" + a[0] + " found");
 
       case 1:
 
         if (is(a[0], S)) { // a[0] = pos
 
-          for (i = 0; i < ranWordArr.length; i++) {
-            j = (ran + i) % ranWordArr.length;
-            rdata = this.data[ranWordArr[j]];
+          for (i = 0; i < words.length; i++) {
+            j = (ran + i) % words.length;
+            rdata = this.data[words[j]];
             if (a[0] === rdata[1].split(SP)[0]) {
-              return pluralize ? RiTa.pluralize(ranWordArr[j]) : ranWordArr[j];
+              return pluralize ? RiTa.pluralize(words[j]) : words[j];
             }
           }
 
@@ -1582,19 +1606,20 @@ RiLexicon.prototype = {
         } else {
 
           // a[0] = syllableCount
-          for (i = 0; i < ranWordArr.length; i++) {
-            j = (ran + i) % ranWordArr.length;
-            rdata = this.data[ranWordArr[j]];
+          for (i = 0; i < words.length; i++) {
+            j = (ran + i) % words.length;
+            rdata = this.data[words[j]];
             if (rdata[0].split(SP).length === a[0]) {
-              return ranWordArr[j];
+              return words[j];
             }
           }
         }
         return E;
 
       case 0:
-        return ranWordArr[ran];
+        return words[ran];
     }
+
     return E;
   },
 
@@ -3707,13 +3732,6 @@ Conjugator.prototype = {
 
 var PosTagger = { // singleton
 
-  TAGS: ['cc', 'cd', 'dt', 'ex', 'fw', 'in', 'jj',
-    'jjr', 'jjs', 'ls', 'md', 'nn', 'nns', 'nnp',
-    'nnps', 'pdt', 'pos', 'prp', 'prp$', 'rb',
-    'rbr', 'rbs', 'rp', 'sym', 'to', 'uh', 'vb',
-    'vbd', 'vbg', 'vbn', 'vbp', 'vbz', 'wdt',
-    'wp', 'wp$', 'wrb'
-  ],
   NOUNS: ['nn', 'nns', 'nnp', 'nnps'],
   VERBS: ['vb', 'vbd', 'vbg', 'vbn', 'vbp', 'vbz'],
   ADJ: ['jj', 'jjr', 'jjs'],
@@ -3734,10 +3752,6 @@ var PosTagger = { // singleton
 
   isAdj: function(tag) {
     return inArray(this.ADJ, tag);
-  },
-
-  isTag: function(tag) {
-    return inArray(this.TAGS, tag);
   },
 
   hasTag: function(choices, tag) {
@@ -4904,10 +4918,10 @@ RiTa.stemmers.Lancaster = (function() {
 // PlingStemmer categories
 
 /* Words that are both singular and plural */
-var categorySP = ['acoustics', 'aestetics', 'aquatics', 'basics', 'ceramics', 'classics', 'cosmetics', 'dermatoglyphics', 'dialectics', 'deer', 'dynamics', 'esthetics', 'ethics', 'harmonics', 'heroics', 'isometrics', 'mechanics', 'metrics', 'statistics', 'optic', 'people', 'physics', 'polemics', 'propaedeutics', 'pyrotechnics', 'quadratics', 'quarters', 'statistics', 'tactics', 'tropics'];
+var categorySP = ['acoustics', 'aesthetics', 'aquatics', 'basics', 'ceramics', 'classics', 'cosmetics', 'dialectics', 'deer', 'dynamics', 'ethics', 'harmonics', 'heroics', 'mechanics', 'metrics', 'optics', 'people', 'physics', 'polemics', 'pyrotechnics', 'quadratics', 'quarters', 'statistics', 'tactics', 'tropics'];
 
 /* Words that end in '-se' in their plural forms (like 'nurse' etc.) */
-var categorySE_SES = ['nurses', 'cruises'];
+var categorySE_SES = ['abuses', 'apocalypses', 'blouses', 'bruises', 'chaises','cheeses', 'chemises', 'clauses', 'corpses', 'courses', 'crazes','creases', 'cruises', 'curses', 'databases', 'dazes', 'defenses', 'demises', 'discourses', 'diseases', 'doses','eclipses', 'enterprises','expenses', 'friezes', 'fuses', 'glimpses', 'guises', 'hearses', 'horses', 'houses', 'impasses', 'impulses', 'kamikazes', 'mazes','mousses','noises', 'nooses', 'noses', 'nurses', 'obverses', 'offenses', 'overdoses', 'phrases', 'posses', 'premises', 'pretenses', 'proteases', 'pulses',  'purposes', 'purses', 'racehorses', 'recluses','recourses', 'relapses', 'responses', 'roses', 'ruses', 'spouses', 'stripteases', 'subleases', 'sunrises', 'tortoises', 'trapezes', 'treatises', 'universes', 'vases', 'verses', 'vises', 'wheelbases'];
 
 /* Words that do not have a distinct plural form (like 'atlas' etc.) */
 var category00 = ['alias', 'asbestos', 'atlas', 'barracks', 'bathos', 'bias', 'breeches', 'britches', 'canvas', 'chaos', 'clippers', 'contretemps', 'corps', 'cosmos', 'crossroads', 'diabetes', 'ethos', 'gallows', 'gas', 'graffiti', 'headquarters', 'herpes', 'high-jinks', 'innings', 'jackanapes', 'lens', 'means', 'measles', 'mews', 'mumps', 'news', 'pathos', 'pincers', 'pliers', 'proceedings', 'rabies', 'rhinoceros', 'sassafras', 'scissors', 'series', 'shears', 'species', 'tuna'];
@@ -4928,7 +4942,7 @@ var categoryUS_I = ['alumni', 'bacilli', 'cacti', 'foci', 'fungi', 'genii', 'hip
 var categoryIX_ICES = ['appendices', 'cervices'];
 
 /* Words that change from '-is' to '-es' (like 'axis' etc.), listed in their plural forms, plus everybody ending in theses */
-var categoryIS_ES = ['analyses', 'axes', 'bases','crises', 'diagnoses', 'ellipses', 'em_PHASEs', 'neuroses', 'oases', 'paralyses', 'prognoses', 'synopses'];
+var categoryIS_ES = ['analyses', 'axes', 'bases','crises', 'diagnoses', 'ellipses', 'emphases', 'neuroses', 'oases', 'paralyses', 'prognoses', 'synopses'];
 
 /* Words that change from '-oe' to '-oes' (like 'toe' etc.), listed in their plural forms*/
 var categoryOE_OES = ['aloes', 'backhoes', 'beroes', 'canoes', 'chigoes', 'cohoes', 'does', 'felloes', 'floes', 'foes', 'gumshoes', 'hammertoes', 'hoes', 'hoopoes', 'horseshoes', 'leucothoes', 'mahoes', 'mistletoes', 'oboes', 'overshoes', 'pahoehoes', 'pekoes', 'roes', 'shoes', 'sloes', 'snowshoes', 'throes', 'tic-tac-toes', 'tick-tack-toes', 'ticktacktoes', 'tiptoes', 'tit-tat-toes', 'toes', 'toetoes', 'tuckahoes', 'woes'];
@@ -4949,10 +4963,10 @@ var categoryCHE_CHES = ['adrenarches', 'attaches', 'avalanches', 'barouches', 'b
 var categoryICS = ['aerobatics', 'aerobics', 'aerodynamics', 'aeromechanics', 'aeronautics', 'alphanumerics', 'animatronics', 'apologetics', 'architectonics', 'astrodynamics', 'astronautics', 'astrophysics', 'athletics', 'atmospherics', 'autogenics', 'avionics', 'ballistics', 'bibliotics', 'bioethics', 'biometrics', 'bionics', 'bionomics', 'biophysics', 'biosystematics', 'cacogenics', 'calisthenics', 'callisthenics', 'catoptrics', 'civics', 'cladistics', 'cryogenics', 'cryonics', 'cryptanalytics', 'cybernetics', 'cytoarchitectonics', 'cytogenetics', 'diagnostics', 'dietetics', 'dramatics', 'dysgenics', 'econometrics', 'economics', 'electromagnetics', 'electronics', 'electrostatics', 'endodontics', 'enterics', 'ergonomics', 'eugenics', 'eurhythmics', 'eurythmics', 'exodontics', 'fibreoptics', 'futuristics', 'genetics', 'genomics', 'geographics', 'geophysics', 'geopolitics', 'geriatrics', 'glyptics', 'graphics', 'gymnastics', 'hermeneutics', 'histrionics', 'homiletics', 'hydraulics', 'hydrodynamics', 'hydrokinetics', 'hydroponics', 'hydrostatics', 'hygienics', 'informatics', 'kinematics', 'kinesthetics', 'kinetics', 'lexicostatistics', 'linguistics', 'lithoglyptics', 'liturgics', 'logistics', 'macrobiotics', 'macroeconomics', 'magnetics', 'magnetohydrodynamics', 'mathematics', 'metamathematics', 'metaphysics', 'microeconomics', 'microelectronics', 'mnemonics', 'morphophonemics', 'neuroethics', 'neurolinguistics', 'nucleonics', 'numismatics', 'obstetrics', 'onomastics', 'orthodontics', 'orthopaedics', 'orthopedics', 'orthoptics', 'paediatrics', 'patristics', 'patristics', 'pedagogics', 'pediatrics', 'periodontics', 'pharmaceutics', 'pharmacogenetics', 'pharmacokinetics', 'phonemics', 'phonetics', 'phonics', 'photomechanics', 'physiatrics', 'pneumatics', 'poetics', 'politics', 'pragmatics', 'prosthetics', 'prosthodontics', 'proteomics', 'proxemics', 'psycholinguistics', 'psychometrics', 'psychonomics', 'psychophysics', 'psychotherapeutics', 'robotics', 'semantics', 'semiotics', 'semitropics', 'sociolinguistics', 'stemmatics', 'strategics', 'subtropics', 'systematics', 'tectonics', 'telerobotics', 'therapeutics', 'thermionics', 'thermodynamics', 'thermostatics'];
 
 /* Words that change from '-ie' to '-ies' (like 'auntie' etc.), listed in their plural forms*/
-var categoryIE_IES = ['aeries', 'anomies', 'aunties', 'baddies', 'beanies', 'birdies', 'boccies', 'bogies', 'bolshies', 'bombies', 'bonhomies', 'bonxies', 'booboisies', 'boogies', 'boogie-woogies', 'bookies', 'booties', 'bosies', 'bourgeoisies', 'brasseries', 'brassies', 'brownies', 'budgies', 'byrnies', 'caddies', 'calories', 'camaraderies', 'capercaillies', 'capercailzies', 'cassies', 'catties', 'causeries', 'charcuteries', 'chinoiseries', 'collies', 'commies', 'cookies', 'coolies', 'coonties', 'cooties', 'corries', 'coteries', 'cowpies', 'cowries', 'cozies', 'crappies', 'crossties', 'curies', 'dachsies', 'darkies', 'dassies', 'dearies', 'dickies', 'dies', 'dixies', 'doggies', 'dogies', 'dominies', 'dovekies', 'eyries', 'faeries', 'falsies', 'floozies', 'folies', 'foodies', 'freebies', 'gaucheries', 'gendarmeries', 'genies', 'ghillies', 'gillies', 'goalies', 'goonies', 'grannies', 'grotesqueries', 'groupies', 'hankies', 'hippies', 'hoagies', 'honkies', 'hymies', 'indies', 'junkies', 'kelpies', 'kilocalories', 'knobkerries', 'koppies', 'kylies', 'laddies', 'lassies', 'lies', 'lingeries', 'magpies', 'magpies', 'marqueteries', 'mashies', 'mealies', 'meanies', 'menageries', 'millicuries', 'mollies', 'facts1', 'moxies', 'neckties', 'newbies', 'nighties', 'nookies', 'oldies', 'organdies', 'panties', 'parqueteries', 'passementeries', 'patisseries', 'pies', 'pinkies', 'pixies', 'porkpies', 'potpies', 'prairies', 'preemies', 'premies', 'punkies', 'pyxies', 'quickies', 'ramies', 'reveries', 'rookies', 'rotisseries', 'scrapies', 'sharpies', 'smoothies', 'softies', 'stoolies', 'stymies', 'swaggies', 'sweeties', 'talkies', 'techies', 'ties', 'tooshies', 'toughies', 'townies', 'veggies', 'walkie-talkies', 'wedgies', 'weenies', 'weirdies', 'yardies', 'yuppies', 'zombies'];
+var categoryIE_IES = ['aeries', 'anomies', 'aunties', 'baddies', 'beanies', 'birdies', 'bogies', 'bonhomies', 'boogies', 'bookies', 'booties', 'bourgeoisies', 'brasseries', 'brassies', 'brownies', 'caddies', 'calories', 'camaraderies', 'charcuteries',  'collies', 'commies', 'cookies', 'coolies', 'coonties', 'cooties', 'coteries', 'cowpies', 'cowries', 'cozies', 'crappies', 'crossties', 'curies', 'darkies', 'dearies', 'dickies', 'dies', 'dixies', 'doggies', 'dogies', 'eyries', 'faeries', 'falsies', 'floozies', 'folies', 'foodies', 'freebies', 'gendarmeries', 'genies', 'gillies', 'goalies', 'goonies', 'grannies','groupies', 'hankies', 'hippies', 'hoagies', 'honkies', 'indies', 'junkies', 'kelpies', 'kilocalories', 'laddies', 'lassies', 'lies', 'lingeries', 'magpies', 'magpies', 'mashies', 'mealies', 'meanies', 'menageries', 'mollies', 'moxies', 'neckties', 'newbies', 'nighties', 'nookies', 'oldies', 'panties', 'patisseries', 'pies', 'pinkies', 'pixies', 'porkpies', 'potpies', 'prairies', 'preemies', 'pyxies', 'quickies','reveries', 'rookies', 'rotisseries', 'scrapies', 'sharpies', 'smoothies', 'softies', 'stoolies', 'stymies', 'swaggies', 'sweeties', 'talkies', 'techies', 'ties', 'tooshies', 'toughies', 'townies', 'veggies', 'walkie-talkies', 'wedgies', 'weenies', 'yuppies', 'zombies'];
 
 /* Maps irregular Germanic English plural nouns to their singular form */
-var categoryIRR = [ 'blondes', 'blonde', 'teeth', 'tooth', 'beefs', 'beef', 'brethren', 'brother', 'busses', 'bus', 'cattle', 'cow', 'children', 'child', 'corpora', 'corpus', 'ephemerides', 'ephemeris', 'genera', 'genus', 'genies', 'genie', 'genii', 'genie', 'lice', 'louse', 'mice', 'mouse', 'mongooses', 'mongoose', 'monies', 'money', 'mythoi', 'mythos', 'octopodes', 'octopus',  'oxen', 'ox', 'people', 'person', 'soliloquies', 'soliloquy', 'taxis', 'taxi', 'throes', 'throes', 'trilbys', 'trilby', 'innings', 'inning', 'alibis', 'alibi', 'skis', 'ski' ];
+var categoryIRR = [ 'blondes', 'blonde', 'teeth', 'tooth', 'beefs', 'beef', 'brethren', 'brother', 'busses', 'bus', 'cattle', 'cow', 'children', 'child', 'corpora', 'corpus', 'genera', 'genus', 'genies', 'genie', 'genii', 'genie', 'lice', 'louse', 'mice', 'mouse', 'mongooses', 'mongoose', 'monies', 'money', 'octopodes', 'octopus',  'oxen', 'ox', 'people', 'person', 'soliloquies', 'soliloquy', 'taxis', 'taxi', 'throes', 'throes', 'trilbys', 'trilby', 'innings', 'inning', 'alibis', 'alibi', 'skis', 'ski' ];
 
 function checkPluralNoLex(s) {
   var cats = [
@@ -5482,13 +5496,14 @@ var ONLY_PUNCT = /^[^0-9A-Za-z\s]*$/,
   ALL_PUNCT = /^[-[\]{}()*+!?%&.,\\^$|#@<>|+=;:]+$/g;
 
 var NULL_PLURALS = RE( // these don't change for plural/singular
-  "^(bantu|bengalese|bengali|beninese|boche|bonsai|digitalis|mess|" + "burmese|chinese|colossus|congolese|discus|emphasis|gabonese|guyanese|japanese|javanese|" + "lebanese|maltese|olympics|portuguese|senegalese|siamese|singhalese|innings|" + "sinhalese|sioux|sudanese|swiss|taiwanese|togolese|vietnamese|aircraft|" + "anopheles|apparatus|asparagus|barracks|bellows|bison|bluefish|bob|bourgeois|" + "bream|brill|butterfingers|cargo|carp|catfish|chassis|clothes|chub|cod|codfish|" + "coley|contretemps|corps|crawfish|crayfish|crossroads|cuttlefish|dace|deer|dice|" + "dogfish|doings|dory|downstairs|eldest|earnings|economics|electronics|finnan|" + "firstborn|fish|flatfish|flounder|fowl|fry|fries|works|globefish|goldfish|golf|" + "grand|grief|gudgeon|gulden|haddock|hake|halibut|headquarters|herring|hertz|horsepower|" + "goods|hovercraft|hundredweight|ironworks|jackanapes|kilohertz|kurus|kwacha|ling|lungfish|" + "mackerel|means|megahertz|moorfowl|moorgame|mullet|nepalese|offspring|pampas|parr|pants|" + "patois|pekinese|penn'orth|perch|pickerel|pike|pince-nez|plaice|precis|quid|rand|" + "rendezvous|revers|roach|roux|salmon|samurai|series|seychelles|seychellois|shad|" + "sheep|shellfish|smelt|spacecraft|species|starfish|stockfish|sunfish|superficies|" + "sweepstakes|swordfish|tench|tennis|[a-z]+osis|[a-z]+itis|[a-z]+ness|" + "tobacco|tope|triceps|trout|tuna|tunafish|tunny|turbot|trousers|" + "undersigned|veg|waterfowl|waterworks|waxworks|whiting|wildfowl|woodworm|" + "yen|aries|pisces|forceps|lieder|jeans|physics|mathematics|news|odds|politics|remains|" + "surroundings|thanks|statistics|goods|aids|wildlife)$", 0);
+  "^(bantu|bengalese|bengali|beninese|boche|bonsai|booze|cellulose|digitalis|mess|" + "burmese|chinese|colossus|congolese|discus|emphasis|expertise|finess|fructose|gabonese|gauze|glucose|grease|guyanese|haze|incense|japanese|javanese|journalese|" + "lebanese|malaise|manganese|mayonnaise|maltese|menopause|merchandise|nitrocellulose|olympics|overuse|paradise|poise|polymerase|portuguese|prose|recompense|remorse|repose|senegalese|siamese|singhalese|innings|" + "sleaze|sinhalese|sioux|sudanese|suspense|swiss|taiwanese|togolese|vietnamese|unease|aircraft|anise|antifreeze|applause|archdiocese|" + "anopheles|apparatus|asparagus|barracks|bellows|bison|bluefish|bob|bourgeois|" + "bream|brill|butterfingers|cargo|carp|catfish|chassis|clothes|chub|cod|codfish|" + "coley|contretemps|corps|crawfish|crayfish|crossroads|cuttlefish|dace|deer|dice|" + "dogfish|doings|dory|downstairs|eldest|earnings|economics|electronics|finnan|" + "firstborn|fish|flatfish|flounder|fowl|fry|fries|works|globefish|goldfish|golf|" + "grand|grief|gudgeon|gulden|haddock|hake|halibut|headquarters|herring|hertz|horsepower|" + "goods|hovercraft|hundredweight|ironworks|jackanapes|kilohertz|kurus|kwacha|ling|lungfish|" + "mackerel|means|megahertz|moorfowl|moorgame|mullet|nepalese|offspring|pampas|parr|pants|" + "patois|pekinese|penn'orth|perch|pickerel|pike|pince-nez|plaice|precis|quid|rand|" + "rendezvous|revers|roach|roux|salmon|samurai|series|seychelles|seychellois|shad|" + "sheep|shellfish|smelt|spacecraft|species|starfish|stockfish|sunfish|superficies|" + "sweepstakes|swordfish|tench|tennis|[a-z]+osis|[a-z]+itis|[a-z]+ness|" + "tobacco|tope|triceps|trout|tuna|tunafish|tunny|turbot|trousers|" + "undersigned|veg|waterfowl|waterworks|waxworks|whiting|wildfowl|woodworm|" + "yen|aries|pisces|forceps|lieder|jeans|physics|mathematics|news|odds|politics|remains|" + "surroundings|thanks|statistics|goods|aids|wildlife)$", 0);
 
 var SINGULAR_RULES = [
   NULL_PLURALS,
   RE("whizzes", 3),
   RE("^(buses|octopuses)$", 2),
-  RE("^(toes|wheezes)$", 1),
+  RE("(houses|horses|cases)$", 1),
+  RE("^(toes|wheezes|oozes)$", 1),
   RE("(men|women)$", 2, "an"),
   RE("^[lm]ice$", 3, "ouse"),
   RE("^children", 3),
@@ -20060,9 +20075,8 @@ function _dict() { return {
 'advertising':['ae1-d v-er t-ay z-ih-ng','nn vbg'],
 'advertorial':['ae-d v-er t-ao1 r-iy ah-l','jj'],
 'advice':['ae-d v-ay1-s','nn'],
-'advisability':['ae-d v-ay z-ah b-ih1 l-ih t-iy','nn'],
 'advisable':['ah-d v-ay1 z-ah b-ah-l','jj'],
-'advise':['ae-d v-ay1-z','vb vbp nn'],
+'advise':['ae-d v-ay1-z','vb vbp'],
 'advised':['ae-d v-ay1-z-d','vbn vbd jj'],
 'advisedly':['ae-d v-ay1 z-ah-d l-iy','rb'],
 'advisement':['ah-d v-ay1-z m-ah-n-t','nn'],
@@ -20130,7 +20144,6 @@ function _dict() { return {
 'afield':['ah f-iy1-l-d','rb'],
 'afire':['ah f-ay1-r','rb jj'],
 'aflame':['ah f-l-ey1-m','jj'],
-'aflatoxin':['ae f-l-ah t-aa1-k s-ih-n','nn'],
 'afloat':['ah f-l-ow1-t','rb'],
 'afoot':['ah f-uh1-t','rb jj'],
 'aforementioned':['ah f-ao1-r m-eh-n sh-ah-n-d','jj'],
@@ -20199,9 +20212,7 @@ function _dict() { return {
 'agreement':['ah g-r-iy1 m-ah-n-t','nn'],
 'agrees':['ah g-r-iy1-z','vbz'],
 'agricultural':['ae g-r-ah k-ah1-l ch-er ah-l','jj'],
-'agriculturally':['ae g-r-ih k-ah1-l ch-er ah l-iy','rb'],
 'agriculture':['ae1 g-r-ih k-ah-l ch-er','nn'],
-'agrochemical':['ae g-r-ow k-eh1 m-ah k-ah-l','nn'],
 'agronomist':['ah g-r-aa1 n-ah m-ih-s-t','nn'],
 'aground':['ah g-r-aw1-n-d','rb'],
 'ahead':['ah hh-eh1-d','rb jj'],
@@ -20382,16 +20393,12 @@ function _dict() { return {
 'alters':['ao1-l t-er-z','vbz'],
 'although':['ao-l dh-ow1','in'],
 'altitude':['ae1-l t-ah t-uw-d','nn'],
-'alto':['ae1-l t-ow','nn'],
 'altogether':['ao-l t-ah g-eh1 dh-er','rb'],
 'altruism':['ae1-l t-r-uw ih z-ah-m','nn'],
 'altruistic':['ao-l t-r-uw ih1 s-t-ih-k','jj'],
 'alum':['ae1 l-ah-m','nn'],
-'alumina':['ah l-uw1 m-ah n-ah','nn'],
 'aluminum':['ah l-uw1 m-ah n-ah-m','nn jj'],
 'alumnus':['ah l-ah1-m n-ah-s','nn'],
-'alveolar':['ae-l v-iy1 ah l-er','nn jj'],
-'alveolus':['ae-l v-iy1 ah l-ah-s','nn'],
 'always':['ao1-l w-ey-z','rb'],
 'am':['ae1-m','vbp rb'],
 'amalgam':['ah m-ae1-l g-ah-m','nn'],
@@ -20458,7 +20465,6 @@ function _dict() { return {
 'amorist':['ae1 m-er ah-s-t','nn'],
 'amorous':['ae1 m-er ah-s','jj'],
 'amorphous':['ah m-ao1-r f-ah-s','jj'],
-'amortization':['ae m-er t-ih z-ey1 sh-ah-n','nn'],
 'amortize':['ae1 m-er t-ay-z','vb'],
 'amortized':['ae1 m-er t-ay-z-d','vbn'],
 'amortizing':['ae1 m-er t-ay z-ih-ng','jj vbg'],
@@ -20555,7 +20561,6 @@ function _dict() { return {
 'anguish':['ae1-ng g-w-ih-sh','nn'],
 'anguished':['ae1-ng g-w-ih-sh-t','jj'],
 'angular':['ae1-ng g-y-ah l-er','jj'],
-'aniline':['ae1 n-ah l-iy-n','nn'],
 'animal':['ae1 n-ah m-ah-l','nn jj'],
 'animate':['ae1 n-ah m-ah-t','jj vb'],
 'animated':['ae1 n-ah m-ey t-ah-d','jj vbd vbn'],
@@ -20626,7 +20631,6 @@ function _dict() { return {
 'anthropologist':['ae-n th-r-ah p-aa1 l-ah jh-ah-s-t','nn'],
 'anthropology':['ae-n th-r-ah p-aa1 l-ah jh-iy','nn'],
 'anthropomorphic':['ae-n th-r-ah p-ah m-ao1-r f-ih-k','jj'],
-'anti':['ae1-n t-iy','in nn'],
 'antibacterial':['ae-n t-iy b-ae-k t-ih1 r-iy ah-l','jj'],
 'antibiotic':['ae-n t-iy b-iy aa1 t-ih-k','nn jj'],
 'antibody':['ae1-n t-ih b-aa d-iy','nn'],
@@ -20637,8 +20641,6 @@ function _dict() { return {
 'anticipating':['ae-n t-ih1 s-ah p-ey t-ih-ng','vbg'],
 'anticipation':['ae-n t-ih s-ah p-ey1 sh-ah-n','nn'],
 'anticipatory':['ae-n t-ih1 s-ah p-ah t-ao r-iy','jj'],
-'anticompetitive':['ae-n t-ih k-ah-m p-eh1 t-ih t-ih-v','jj'],
-'anticorruption':['ae-n t-ay k-er ah1-p sh-ah-n','nn'],
 'antidepressant':['ae-n t-iy d-ih p-r-eh1 s-ah-n-t','nn'],
 'antidote':['ae1-n t-ih d-ow-t','nn'],
 'antifreeze':['ae1-n t-iy f-r-iy-z','nn'],
@@ -33093,8 +33095,7 @@ function _dict() { return {
 'joker':['jh-ow1 k-er','nn'],
 'joking':['jh-ow1 k-ih-ng','vbg'],
 'jokingly':['jh-ow1 k-ih-ng l-iy','rb'],
-'jolly':['jh-aa1 l-iy','jj nn rb vb'],
-'jollying':['jh-aa1 l-iy ih-ng','vbg'],
+'jolly':['jh-aa1 l-iy','jj'],
 'jolt':['jh-ow1-l-t','nn vb'],
 'jolted':['jh-ow1-l t-ih-d','vbd vbn'],
 'jolting':['jh-ow1-l t-ih-ng','vbg'],
@@ -33105,7 +33106,6 @@ function _dict() { return {
 'jot':['jh-aa1-t','nn'],
 'jotted':['jh-aa1 t-ih-d','jj'],
 'journal':['jh-er1 n-ah-l','nn'],
-'journalese':['jh-er n-ah l-iy1-z','nn'],
 'journalism':['jh-er1 n-ah l-ih z-ah-m','nn'],
 'journalist':['jh-er1 n-ah l-ah-s-t','nn'],
 'journalistic':['jh-er n-ah l-ih1 s-t-ih-k','jj'],
@@ -35768,9 +35768,8 @@ function _dict() { return {
 'nirvana':['n-ih-r v-aa1 n-ah','nn'],
 'nitpicking':['n-ih1-t p-ih k-ih-ng','jj'],
 'nitrate':['n-ay1 t-r-ey-t','nn'],
-'nitrocellulose':['n-ay t-r-ow s-eh1-l y-ah l-ow-s','nn'],
 'nitrogen':['n-ay1 t-r-ah jh-ah-n','nn'],
-'nitrous':['n-ih1 t-r-ah-s','jj'],
+'nitrous':['n-ih1 t-r-ah-s','nn'],
 'nix':['n-ih1-k-s','vb'],
 'nixed':['n-ih1-k-s-t','vbd'],
 'no':['n-ow1','dt jj nn rb uh'],
@@ -35803,14 +35802,10 @@ function _dict() { return {
 'nonbinding':['n-aa1-n b-ay1-n d-ih-ng','jj'],
 'nonchalant':['n-aa-n sh-ah l-aa1-n-t','jj'],
 'noncombatant':['n-aa-n k-ah-m b-ae1 t-ah-n-t','jj'],
-'noncommercial':['n-aa1-n k-ah m-er1 sh-ah-l','jj'],
 'noncommittal':['n-aa1-n k-ah m-ih1 t-ah-l','jj'],
-'noncommunist':['n-aa1-n k-aa1 m-y-uw n-ih-s-t','nn'],
-'noncompetitive':['n-aa-n k-ah-m p-eh1 t-ah t-ih-v','jj'],
 'noncompliance':['n-aa-n k-ah-m p-l-ay1 ah-n-s','nn'],
 'nonconformist':['n-aa-n k-ah-n f-ao1-r m-ih-s-t','nn'],
 'nondescript':['n-aa1-n d-ih s-k-r-ih1-p-t','jj'],
-'nondiscriminatory':['n-aa1-n d-ih s-k-r-ih1 m-ah n-ah t-ao r-iy','jj'],
 'nondurable':['n-aa-n d-uh1 r-ah b-ah-l','jj'],
 'none':['n-ah1-n','nn'],
 'nonentity':['n-aa-n eh1-n t-ah t-iy','nn'],
@@ -35830,7 +35825,6 @@ function _dict() { return {
 'nonproductive':['n-aa-n p-r-ah d-ah1-k t-ih-v','jj'],
 'nonprofit':['n-aa-n p-r-aa1 f-ah-t','nn jj'],
 'nonrecurring':['n-aa-n r-ih k-er1 ih-ng','jj'],
-'nonrefundable':['n-aa-n r-ih f-ah1-n d-ah b-ah-l','jj'],
 'nonsense':['n-aa1-n s-eh-n-s','nn jj'],
 'nonsensical':['n-aa-n s-eh1-n s-ih k-ah-l','jj'],
 'nonsmoker':['n-aa-n s-m-ow1 k-er','nn'],
@@ -35838,14 +35832,12 @@ function _dict() { return {
 'nonstandard':['n-aa-n s-t-ae1-n d-er-d','jj'],
 'nonstop':['n-aa-n s-t-aa1-p','jj nn rb'],
 'nontoxic':['n-aa-n t-aa1-k s-ih-k','jj'],
-'nontraditional':['n-aa-n t-r-ah d-ih1 sh-ah n-ah-l','jj'],
 'nonviolence':['n-aa-n v-ay1 ah l-ah-n-s','nn'],
 'nonviolent':['n-aa-n v-ay1 ah l-ah-n-t','jj'],
 'nonvoting':['n-aa-n v-ow1 t-ih-ng','jj'],
 'noodle':['n-uw1 d-ah-l','nn'],
 'nook':['n-uh1-k','nn'],
 'noon':['n-uw1-n','nn'],
-'noontime':['n-uw1-n t-ay-m','nn'],
 'noose':['n-uw1-s','nn'],
 'nor':['n-ao1-r','cc'],
 'norm':['n-ao1-r-m','nn'],
@@ -35906,7 +35898,6 @@ function _dict() { return {
 'notoriety':['n-ow t-er ay1 ah t-iy','nn'],
 'notorious':['n-ow t-ao1 r-iy ah-s','jj'],
 'notoriously':['n-ow t-ao1 r-iy ah-s l-iy','rb'],
-'notwithstanding':['n-aa-t w-ih-th s-t-ae1-n d-ih-ng','in rb'],
 'noun':['n-aw1-n','nn'],
 'nourish':['n-er1 ih-sh','vb'],
 'nourished':['n-er1 ih-sh-t','vbn jj'],
@@ -35923,8 +35914,6 @@ function _dict() { return {
 'nozzle':['n-aa1 z-ah-l','nn'],
 'nuance':['n-uw1 aa-n-s','nn'],
 'nuclear':['n-uw1-k l-iy er','jj'],
-'nucleic':['n-uw k-l-ey1 ih-k','jj'],
-'nucleotide':['n-uw1 k-l-iy ah t-ay-d','nn'],
 'nucleus':['n-uw1 k-l-iy ah-s','nn'],
 'nude':['n-uw1-d','jj nn'],
 'nudge':['n-ah1-jh','vb nn'],
@@ -35934,7 +35923,7 @@ function _dict() { return {
 'nudity':['n-uw1 d-ih t-iy','nn'],
 'nugget':['n-ah1 g-ih-t','nn'],
 'nuisance':['n-uw1 s-ah-n-s','nn jj'],
-'nuke':['n-uw1-k','nn'],
+'nuke':['n-uw1-k','nn vb'],
 'null':['n-ah1-l','jj'],
 'nullified':['n-ah1 l-ah f-ay-d','vbn vbd'],
 'nullify':['n-ah1 l-ah f-ay','vb vbp'],
@@ -37849,20 +37838,13 @@ function _dict() { return {
 'polluting':['p-ah l-uw1 t-ih-ng','vbg jj'],
 'pollution':['p-ah l-uw1 sh-ah-n','nn'],
 'polo':['p-ow1 l-ow','nn'],
-'polonaise':['p-aa l-ah n-ey1-z','nn'],
 'poltergeist':['p-ow1-l t-er g-ay-s-t','nn'],
 'polyester':['p-aa l-iy eh1 s-t-er','nn'],
-'polyethylene':['p-aa l-iy eh1 th-ah l-iy-n','nn'],
 'polygynous':['p-ah l-ih1 jh-ah n-ah-s','jj'],
 'polymer':['p-aa1 l-ah m-er','nn'],
-'polymerase':['p-aa1 l-ih m-er ey-s','nn'],
 'polynomial':['p-aa l-ih n-ow1 m-iy ah-l','nn jj'],
 'polyp':['p-aa1 l-ih-p','nn'],
-'polypropylene':['p-aa l-iy p-r-ow1 p-ah l-iy-n','nn'],
-'polysilicon':['p-aa l-iy s-ih1 l-ih k-aa-n','nn'],
-'polystyrene':['p-aa l-ih s-t-ay1 r-iy-n','nn'],
 'polyurethane':['p-aa l-iy uh1 r-ah th-ey-n','nn'],
-'polyvinyl':['p-aa l-iy v-ay1 n-ah-l','nn jj'],
 'pomp':['p-aa1-m-p','nn'],
 'pompon':['p-aa1-m p-aa-n','nn'],
 'pompous':['p-aa1-m p-ah-s','jj'],
@@ -38615,7 +38597,6 @@ function _dict() { return {
 'prostitution':['p-r-aa s-t-ah t-uw1 sh-ah-n','nn'],
 'prostrate':['p-r-aa1 s-t-r-ey-t','jj'],
 'protagonist':['p-r-ow t-ae1 g-ah n-ah-s-t','nn'],
-'protease':['p-r-ow1 t-iy ey-z','nn'],
 'protect':['p-r-ah t-eh1-k-t','vb vbp'],
 'protected':['p-r-ah t-eh1-k t-ah-d','vbn jj vbd'],
 'protecting':['p-r-ah t-eh1-k t-ih-ng','vbg'],
