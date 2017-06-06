@@ -493,10 +493,6 @@ public class RiString implements FeaturedIF, Constants, Comparable<RiString> {
     return text(delegate.toUpperCase());
   }
 
-  public boolean equals(String obj) {
-    return obj != null && obj.equals(text());
-  }
-
   public RiString trim() {
     return text(this.delegate.toString().trim());
   }
