@@ -169,6 +169,8 @@
         </div>
 
         <div class="category"> <a href="RiMarkov.php"><b>RiMarkov</b></a>
+          <a href="RiMarkov/generateSentences/index.php">generateSentence()</a>
+          <br>
           <a href="RiMarkov/generateSentences/index.php">generateSentences()</a>
           <br>
           <a href="RiMarkov/generateTokens/index.php">generateTokens()</a>
