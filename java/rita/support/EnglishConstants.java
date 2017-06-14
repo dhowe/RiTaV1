@@ -8,7 +8,7 @@ public interface EnglishConstants {
   // ----------------------- Pluralizer -----------------------
 
   RegexRule NULL_PLURALS = new RegexRule(
-      "^(bantu|bengalese|bengali|beninese|boche|bonsai|booze|cellulose|digitalis|mess|"
+      "^(bantu|bengalese|bengali|beninese|boche|bonsai|booze|cellulose|digitalis|mess|moose|"
       + "burmese|chinese|colossus|congolese|discus|emphasis|expertise|finess|fructose|"
       + "gabonese|gauze|glucose|grease|guyanese|haze|incense|japanese|javanese|journalese|"
       + "lebanese|malaise|manganese|mayonnaise|maltese|menopause|merchandise|nitrocellulose|"

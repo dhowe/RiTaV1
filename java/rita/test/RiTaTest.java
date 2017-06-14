@@ -2054,6 +2054,7 @@ public class RiTaTest
     equal(RiTa.pluralize("toe"), "toes");
 
     equal(RiTa.pluralize("deer"), "deer");
+    equal(RiTa.pluralize("moose"), "moose");
     equal(RiTa.pluralize("ox"), "oxen");
 
     equal(RiTa.pluralize("tobacco"), "tobacco");
@@ -2064,7 +2065,7 @@ public class RiTaTest
     equal(RiTa.pluralize("taxi"), "taxis");
     equal(RiTa.pluralize("Chinese"), "Chinese");
     equal(RiTa.pluralize("bonsai"), "bonsai");
-    
+
     equal(RiTa.pluralize("gas"), "gases");
     equal(RiTa.pluralize("bus"), "buses");
     
