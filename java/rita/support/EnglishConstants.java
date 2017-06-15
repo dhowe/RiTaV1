@@ -29,6 +29,8 @@ public interface EnglishConstants {
       + "tobacco|tope|triceps|trout|tuna|tunafish|tunny|turbot|trousers|"
       + "undersigned|veg|waterfowl|waterworks|waxworks|whiting|wildfowl|woodworm|"
       + "yen|aries|pisces|forceps|lieder|jeans|physics|mathematics|news|odds|politics|remains|"
+      + "acoustics|aesthetics|aquatics|basics|ceramics|classics|cosmetics|dialectics|dynamics|ethics|"
+      + "harmonics|heroics|mechanics|metrics|optics|physics|polemics|pyrotechnics|quadratics|quarters|tactics|tropics|"
       + "surroundings|thanks|statistics|goods|aids|wildlife)$", 0, "");
 
 
