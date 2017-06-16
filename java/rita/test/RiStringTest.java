@@ -247,32 +247,21 @@ public class RiStringTest implements Constants {
 
   @Test
   public void testEqualsString() {
+
     RiString rs = new RiString("closed");
-    boolean result = rs.equals("closed");
-    ok(result);
-
-    rs = new RiString("closed");
-    result = rs.equals("Closed");
-    ok(!result);
-
-    rs = new RiString("clOsed");
-    result = rs.equals("closed");
+    boolean result = rs.equals(new RiString("Closed"));
     ok(!result);
 
     rs = new RiString("There is a cat.");
-    result = rs.equals("There is a cat.");
+    result = rs.equals(new RiString("There is a cat."));
     ok(result);
 
     rs = new RiString("There is a cat.");
-    result = rs.equals("There is a cat. ");
+    result = rs.equals(new RiString("There is a cat. "));
     ok(!result);
 
     rs = new RiString("There is a cat.");
-    result = rs.equals("There is a cat");
-    ok(!result);
-
-    rs = new RiString("There is a cat.");
-    result = rs.equals("");
+    result = rs.equals(new RiString(""));
     ok(!result);
   }
 
