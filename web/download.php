@@ -151,7 +151,7 @@
   <div class="downloadbox mini smallest"><a href="download/rita.jar"><span></span></a>rita.jar</div>
 </div>
 
-<div class="row pad-small">
+<!--div class="row pad-small">
 <hr/>
 <br>&nbsp;<br>
   <h4>Archived Versions</h4>
@@ -161,9 +161,9 @@
   <h4>WordNet-3.1 (osx/unix)</h4>
   <a href="http://rednoise.org/rita-archive/WordNet-3.1.zip">WordNet-3.1.zip</a>
 
-  <!--h4>Deprecated</h4>
-  <a href="http://www.rednoise.org/rita-archive/ritext.min.js">ritext.min.js</a-->
-</div>
+  <h4>Deprecated</h4>
+  <a href="http://www.rednoise.org/rita-archive/ritext.min.js">ritext.min.js</a>
+</div-->
 
 </div>
 </div>
