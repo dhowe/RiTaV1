@@ -1158,7 +1158,7 @@ text-decoration: none!important;}
   min-width: 100%;
   min-height: 500px;
   z-index: -100;
- background: url('../Video/snap.png') no-repeat;
+ background: url('../video/snap.png') no-repeat;
   background-size: cover;
   transition: 1s opacity;
 }
