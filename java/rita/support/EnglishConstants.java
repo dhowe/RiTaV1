@@ -30,7 +30,7 @@ public interface EnglishConstants {
       + "undersigned|veg|waterfowl|waterworks|waxworks|whiting|wildfowl|woodworm|"
       + "yen|aries|pisces|forceps|lieder|jeans|physics|mathematics|news|odds|politics|remains|"
       + "acoustics|aesthetics|aquatics|basics|ceramics|classics|cosmetics|dialectics|dynamics|ethics|"
-      + "harmonics|heroics|mechanics|metrics|optics|physics|polemics|pyrotechnics|quadratics|quarters|tactics|tropics|"
+      + "harmonics|heroics|mechanics|metrics|optics|physics|polemics|pyrotechnics|"
       + "surroundings|thanks|statistics|goods|aids|wildlife)$", 0, "");
 
 
@@ -41,6 +41,27 @@ public interface EnglishConstants {
   String C = "[bcdfghjklmnpqrstvwxyz]", VL = "[lraeiou]";
 
   RegexRule DEFAULT_PLURAL_RULE = new RegexRule(ANY_STEM, 0, "s", 2);
+  
+  RegexRule[] SINGULAR_RULES = new RegexRule[] { NULL_PLURALS,
+  new RegexRule("whizzes", 3, ""),
+  new RegexRule("^(buses|octopuses)$", 2, ""),
+  new RegexRule("(houses|horses|cases)$", 1, ""),
+  new RegexRule("^(toes|wheezes|oozes)$", 1, ""),
+  new RegexRule("(men|women)$", 2, "an"),
+  new RegexRule("^[lm]ice$", 3, "ouse"),
+  new RegexRule("^children", 3, ""),
+  new RegexRule("^(appendices|indices|matrices)", 3, "x"),
+  new RegexRule("^(data)$", 1, "um"),
+  new RegexRule("people", 4, "rson"),
+  new RegexRule("^meninges|phalanges$", 3, "x"),
+  new RegexRule("schemata$", 2, "s"),
+  new RegexRule("^corpora$", 3, "us"),
+  new RegexRule("^(curi|formul|vertebr|larv|uln|alumn|signor|alg|minuti)ae$", 1, ""),
+  new RegexRule("^apices|cortices$", 4, "ex"),
+  new RegexRule("femora", 3, "ur"),
+  new RegexRule("^(medi|millenni|consorti|sept|memorabili)a$", 1, "um"),
+  new RegexRule("concerti", 1, "o")
+};
 
   RegexRule[] PLURAL_RULES = new RegexRule[] { NULL_PLURALS,
       new RegexRule("^concerto$", 1, "i"),
@@ -78,7 +99,8 @@ public interface EnglishConstants {
       // Latin stems
       new RegexRule("^(memorandum|bacterium|curriculum|minimum|"
 	  + "maximum|referendum|spectrum|phenomenon|criterion)$", 2, "a"),
-      new RegexRule("^(appendix|index|matrix)", 2, "ices"), };
+      new RegexRule("^(appendix|index|matrix)", 2, "ices") 
+    };
 
   // ----------------------------------------------------------------------
 

@@ -2093,6 +2093,8 @@ public class RiTaTest
     equal("concerti", RiTa.pluralize("concerto"));
     equal("termini", RiTa.pluralize("terminus"));
     
+    equal("aquatics", RiTa.pluralize("aquatics"));
+    equal("mechanics", RiTa.pluralize("mechanics"));
   }
 
   @Test
@@ -2184,6 +2186,10 @@ public class RiTaTest
     equal("medium", RiTa.singularize("media"));
     equal("concerto", RiTa.singularize("concerti"));
     equal("terminus", RiTa.singularize("termini"));
+    
+    equal("aquatics", RiTa.singularize("aquatics"));
+    equal("mechanics", RiTa.singularize("mechanics"));
+    equal("quarter", RiTa.singularize("quarters"));
   }
 
   @Test

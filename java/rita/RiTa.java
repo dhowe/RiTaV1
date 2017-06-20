@@ -614,8 +614,8 @@ public class RiTa implements Constants {
 
   }
 
-  public static String singularize(String s) {
-    return Stemmer.getInstance(StemmerType.Pling).stem(s);
+  public static String singularize(String noun) {
+    return Singularizer.singularize(noun);
   }
 
   public static String stripPunctuation(String phrase) {
