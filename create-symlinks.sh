@@ -11,5 +11,6 @@ if [ -z "$1" ]
     echo
 else
     ln -fs RiTa-$1.zip rita.zip
+    ln -fs RiTa-$1.zip RiTa.zip
     ls -l rita.zip
 fi
