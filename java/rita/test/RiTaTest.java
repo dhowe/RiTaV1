@@ -513,6 +513,8 @@ public class RiTaTest
     equal(RiTa.stripPunctuation("Hel^lo"), "Hello");
     equal(RiTa.stripPunctuation("Hel|lo"), "Hello");
     equal(RiTa.stripPunctuation("Hel~lo"), "Hello");
+    equal(RiTa.stripPunctuation("Hel’‘lo"), "Hello");
+    equal(RiTa.stripPunctuation("Hel“”lo"), "Hello");
     
     res = RiTa.stripPunctuation("'!@$%&}<>|+=-_\\\\/*{^He&^ll,o!@$%&}<>|+=-_/*{^"); // removed
     equal(res, "Hello");
@@ -523,6 +525,10 @@ public class RiTaTest
   {
     String res = RiTa.trimPunctuation("$%He&^ll,o,");
     equal(res, "He&^ll,o");
+    res = RiTa.trimPunctuation("“Hello”");
+    equal(res, "Hello");
+    res = RiTa.trimPunctuation("‘Hello’");
+    equal(res, "Hello");
     res = RiTa.trimPunctuation("`He&^ll,o!@$%&}<>|+=-_/*{^"); 
     equal(res, "He&^ll,o");
     res = RiTa.trimPunctuation("!@$%&}<>|+=-_/*{^He&^ll,o!@$%&}<>|+=-_/*{^"); 
