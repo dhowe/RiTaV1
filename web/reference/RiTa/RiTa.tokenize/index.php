@@ -100,11 +100,11 @@
 							</table></td>
 						</tr>
 
-						<tr class='Related' style='display:none'>
+						<tr class='Related'>
 							<th scope="row">Related</th>
 
 							<!-- RELATED  -->
-							<td>tmp_related</td>
+							<td><a href='../RiTa.untokenize'>RiTa.untokenize</a></td>
 						</tr>
 
 						<tr class='Note' style='display:none'>

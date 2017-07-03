@@ -151,7 +151,8 @@ public interface Constants extends EnglishConstants
   // ==== RiTa ================  
   
   String DEFAULT_CALLBACK = "onRiTaEvent";
-  String ALL_QUOTES = "\"“”’‘`'"; // 7 ?
+  String ALL_QUOTES = "\"“”’‘`'";
+  String S_QUOTES = "’‘`'";// 7 ?
   String PUNCT_CHARS = ALL_QUOTES+"~\",;:!?)([].#\"\\!@$%&}<>|+=-_\\/*{^"; // add quotes?
   String ALL_PUNCT =  "[\\p{Punct}"+ALL_QUOTES+"]+";
   String PUNCT_PATT = "^(?:[\\p{Punct}"+ALL_QUOTES+"]*)((?:.)|(?:[\\w ].*?[\\w ]))(?:[\\p{Punct}"+ALL_QUOTES+"]*)$";

@@ -133,6 +133,8 @@
           <br>
           <a href="RiTa/RiTa.trimPunctuation/index.php">RiTa.trimPunctuation()</a>
           <br>
+          <a href="RiTa/RiTa.untokenize/index.php">RiTa.untokenize()</a>
+          <br>
           <!-- <a href="RiTa/RiTa.words/index.php">RiTa.words()</a> -->
         </div>
 

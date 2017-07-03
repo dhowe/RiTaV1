@@ -540,17 +540,21 @@ public class RiTaTest
   public void testTokenizeAndBack()
   {
       String[] testStrings = {
-          "A simple sentence.",
-          "(that's why this is our place).",
-          "The boy, dressed in red, ate an apple.",
-          "Dr. Chan is talking slowly with Mr. Cheng, and they're friends.",
-          "The boy screamed, 'Where is my apple?'",
-          "The boy screamed, \"Where is my apple?\"",
-          "He can't didn't couldn't shouldn't wouldn't eat.",
-          "Shouldn't he eat?",
-          "It's not that I can't.",
-          "We've found the cat.",
-          "We didn't find the cat."
+	  //"We should consider the students' learning.",
+	  //"We should consider the students’ learning.",
+	  "The boy screamed, \"Where is my apple?\"",
+	  "\"Where is my apple,\" screamed the boy.",
+	  "\"Where is my apple?\" screamed the boy.",
+	  "(that\'s why this is our place).",
+	  "A simple sentence.",
+	  "The boy, dressed in red, ate an apple.",
+	  "The boy screamed, \'Where is my apple?'",
+	  "Dr. Chan is talking slowly with Mr. Cheng, and they're friends.",
+	  "He can't didn't couldn't shouldn't wouldn't eat.",
+	  "Shouldn't he eat?",
+	  "It's not that I can't.",
+	  "We've found the cat.",
+	  "We didn't find the cat."
       };
       
       for (int i = 0; i < testStrings.length; i++) {

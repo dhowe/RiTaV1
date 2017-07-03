@@ -251,7 +251,7 @@
       }
 
     ],
-    "related": "",
+    "related": "<a href='../RiTa.untokenize'>RiTa.untokenize</a>",
     "platform": "Java / Javascript",
     "note": ""
 
@@ -270,7 +270,7 @@
       }
 
     ],
-    "related": "",
+    "related": "<a href='../RiTa.tokenize'>RiTa.tokenize</a>",
     "platform": "Java / Javascript",
     "note": ""
 
