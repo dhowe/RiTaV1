@@ -417,29 +417,82 @@ public class RiTa implements Constants {
 
     if (arr == null || arr.length < 1)
       return E;
-
+    
+    String result = arr[0];
+   
     if (adjustPunctuationSpacing) {
+//        delim = delim || SP;
+     
+        Pattern punct = Pattern.compile("^[,.;:?!)\"“”’‘`']+$"),
+        quotes = Pattern.compile("^[(\"“”’‘`']+$"),
+        squotes = Pattern.compile("^[’‘`']+$"),
+        apostrophes = Pattern.compile("^[’']+$");
+                         
+        boolean thisPunct, thisQuote, thisComma, isLast,
+        lastQuote, lastComma, lastPunct, lastEndWithS,
+        midSentence = false, afterQuote = false, 
+        withinQuote = arr.length > 0 && quotes.matcher(arr[0]).matches(),
+        dbug = false;
+  
+        for (int i = 1; i < arr.length; i++) {
+        
+        if (arr[i].equals(null)) continue;
+        
+        thisComma = arr[i] == ",";
+        thisPunct = punct.matcher(arr[i]).matches();
+        thisQuote = quotes.matcher(arr[i]).matches();
+        lastComma = arr[i - 1] == ",";
+        lastPunct = punct.matcher(arr[i - 1]).matches();
+        lastQuote = quotes.matcher(arr[i - 1]).matches();
+        lastEndWithS = arr[i - 1].length() > 0 ? arr[i - 1].charAt(arr[i - 1].length() - 1) == 's' : false;
+        isLast = (i == arr.length - 1);
 
-      String newStr = arr[0] != null ? arr[0] : E;
-      for (int i = 1; i < arr.length; i++) {
-	if (arr[i] != null) {
+        if (dbug) System.out.println("before'" + arr[i] + "' " + i + " inquote?" + withinQuote + " " + "thisPunct?" + thisPunct + " " + "thisQuote?" + thisQuote);
 
-	  if (i != arr.length - 1
-	      && arr[i].matches("[,\\.\\;\\:\\?\\!\\)" + ALL_QUOTES + "]+")
-	      && arr[i - 1].matches("[,\\.\\;\\:\\?\\!\\)" + ALL_QUOTES + "]+"))
-	    newStr += delim;
+        if (thisQuote) {
 
-	  else if (!arr[i].matches("[,\\.\\;\\:\\?\\!\\)" + ALL_QUOTES + "]+")
-	      && !arr[i - 1].matches("[\\(" + ALL_QUOTES + "]+"))
-	    newStr += delim;
+          if (withinQuote) {
+            // no-delim, mark quotation done
+            afterQuote = true;
+            withinQuote = false;
+          }
+          else if (!(apostrophes.matcher(arr[i]).matches() && lastEndWithS)) {
+            if (dbug) System.out.println("set withinQuote=1");
+            withinQuote = true;
+            afterQuote = false;
+            result += delim;
+          }
 
-	  newStr += arr[i];
-	}
+        } else if (afterQuote && !thisPunct) {
+          result += delim;
+          if (dbug) System.out.println("hit1 " + arr[i]);
+          afterQuote = false;
+
+        } else if (lastQuote && thisComma) {
+          midSentence = true;
+
+        } else if (midSentence && lastComma) {
+
+          result += delim;
+          if (dbug) System.out.println("hit2 "+ arr[i]);
+          midSentence = false;
+
+        } else if ((!thisPunct && !lastQuote) || (!isLast && thisPunct && lastPunct)) {
+          result += delim;
+        }
+
+        result += arr[i]; // add to result
+        
+        if (thisPunct && !lastPunct && !withinQuote && squotes.matcher(arr[i]).matches()) {
+          if (dbug) System.out.println("hitnew "+ arr[i]);
+          result += delim; // fix to #477
+        }
       }
-      return newStr.trim().replaceAll(" +([,\\;\\:\\?\\!\\(])", "$1");
+     
+      
     }
 
-    return RiTa.join(arr, delim).trim();
+    return result.trim();
   }
 
   /**
