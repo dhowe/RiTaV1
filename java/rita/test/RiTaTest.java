@@ -1079,7 +1079,7 @@ public class RiTaTest
     deepEqual(result, 3);
 
     result = RiTa.getWordCount("The boy screamed, 'Where is my apple?'");
-    deepEqual(result, 10);
+    deepEqual(result, 11);
 
     result = RiTa.getWordCount("one two three.");
     deepEqual(result, 4);
@@ -1094,7 +1094,7 @@ public class RiTaTest
     deepEqual(result, 6);
 
     result = RiTa.getWordCount("\'Yes, it was a dog that ate the baby\', he said.");
-    deepEqual(result, 15);
+    deepEqual(result, 16);
   } 
 
   @Test

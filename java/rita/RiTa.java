@@ -432,7 +432,7 @@ public class RiTa implements Constants {
         lastQuote, lastComma, lastPunct, lastEndWithS,
         midSentence = false, afterQuote = false, 
         withinQuote = arr.length > 0 && quotes.matcher(arr[0]).matches(),
-        dbug = true;
+        dbug = false;
   
         for (int i = 1; i < arr.length; i++) {
         
@@ -441,10 +441,10 @@ public class RiTa implements Constants {
         thisComma = arr[i] == ",";
         thisPunct = punct.matcher(arr[i]).matches();
         thisQuote = quotes.matcher(arr[i]).matches();
-        lastComma = arr[i-1] == ",";
+        lastComma = arr[i - 1] == ",";
         lastPunct = punct.matcher(arr[i - 1]).matches();
         lastQuote = quotes.matcher(arr[i - 1]).matches();
-        lastEndWithS = arr[i-1].charAt(arr[i-1].length() - 1) == 's';
+        lastEndWithS = arr[i - 1].length() > 0 ? arr[i - 1].charAt(arr[i - 1].length() - 1) == 's' : false;
         isLast = (i == arr.length - 1);
 
         if (dbug) System.out.println("before'" + arr[i] + "' " + i + " inquote?" + withinQuote + " " + "thisPunct?" + thisPunct + " " + "thisQuote?" + thisQuote);

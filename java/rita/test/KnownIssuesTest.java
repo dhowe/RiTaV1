@@ -10,6 +10,13 @@ import rita.*;
 import rita.support.*;
 
 public class KnownIssuesTest implements Constants {
+ 
+  @Test
+  public void testReplaceWord() {
+    RiString rs = new RiString("Who are you?");
+    rs.replaceWord(2, ""); // nice! this too...
+    equal(rs.text(), "Who are?");
+  }
   
   @Test
   public void testAlliterationsString() {

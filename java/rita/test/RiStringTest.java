@@ -902,11 +902,8 @@ public class RiStringTest implements Constants {
 
   @Test
   public void testReplaceWord() {
-    RiString rs = new RiString("Who are you?");
-    rs.replaceWord(2, ""); // nice! this too...
-    equal(rs.text(), "Who are?");
 
-    rs = new RiString("Who are you?");
+    RiString rs = new RiString("Who are you?");
     rs.replaceWord(2, "What");
     equal(rs.text(), "Who are What?");
 
