@@ -39,30 +39,31 @@ public final class PennWordTokenizer implements TokenizerIF, Constants {
   public String[] tokenize(String words) {
 
     // TODO: these should all be compiled
-    words = words.replaceAll("([\\?!\"\\.,;:@#$%&])", " $1 ");
+    words = words.replaceAll("([\\?!\"“‘\\.,;:@#$%&])", " $1 ");
     words = words.replaceAll("\\.\\.\\.", " ... ");
     words = words.replaceAll("\\s+", SP);
     words = words.replaceAll(",([^0-9])", " , $1");
-    words = words.replaceAll("([^.])([.])([\\])}>\"']*)\\s*$", "$1 $2$3 ");
+    words = words.replaceAll("([^.])([.])([\\])}>\"'’]*)\\s*$", "$1 $2$3 ");
     words = words.replaceAll("([\\[\\](){}<>])", " $1 ");
     words = words.replaceAll("--", " -- ");
     words = words.replaceAll("$", SP);
     words = words.replaceAll("^", SP);
-    words = words.replaceAll("([^'])' ", "$1 ' ");
+    words = words.replaceAll("([^'])' | '", "$1 ' ");
+    words = words.replaceAll("([^’])’ ", "$1 ’ ");
 
     // DCH!! (changed from ^, only on a proper name(starting cap)?)
     words = words.replaceAll("'([SMD]) ", " '$1 ");
 
     if (RiTa.SPLIT_CONTRACTIONS) {
      
-      words = words.replaceAll("([Cc])an't", "$1an not");
-      words = words.replaceAll("([Dd])idn't", "$1id not");
-      words = words.replaceAll("([CcWw])ouldn't", "$1ould not");
-      words = words.replaceAll("([Ss])houldn't", "$1hould not");
-      words = words.replaceAll(" ([Ii])t's", " $1t is");
-      words = words.replaceAll("n't", " not ");
-      words = words.replaceAll("'ve", " have ");
-      words = words.replaceAll("'re", " are ");
+      words = words.replaceAll("([Cc])an['’]t", "$1an not");
+      words = words.replaceAll("([Dd])idn['’]t", "$1id not");
+      words = words.replaceAll("([CcWw])ouldn['’]t", "$1ould not");
+      words = words.replaceAll("([Ss])houldn['’]t", "$1hould not");
+      words = words.replaceAll(" ([Ii])t['’]s", " $1t is");
+      words = words.replaceAll("n['’]t", " not ");
+      words = words.replaceAll("['’]ve", " have ");
+      words = words.replaceAll("['’]re", " are ");
     }
 
     // "Nicole I. Kidman" gets tokenized as "Nicole I . Kidman"

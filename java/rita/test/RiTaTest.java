@@ -540,21 +540,22 @@ public class RiTaTest
   public void testTokenizeAndBack()
   {
       String[] testStrings = {
-	  //"We should consider the students' learning.",
-	  //"We should consider the students’ learning.",
-	  "The boy screamed, \"Where is my apple?\"",
-	  //"\"Where is my apple,\" screamed the boy.",
-	  //"\"Where is my apple?\" screamed the boy.",
-	  "(that\'s why this is our place).",
-	  "A simple sentence.",
-	  "The boy, dressed in red, ate an apple.",
-	  "The boy screamed, \'Where is my apple?'",
-	  "Dr. Chan is talking slowly with Mr. Cheng, and they're friends.",
-	  "He can't didn't couldn't shouldn't wouldn't eat.",
-	  "Shouldn't he eat?",
-	  "It's not that I can't.",
-	  "We've found the cat.",
-	  "We didn't find the cat."
+	  "The student said 'learning is fun'",
+	  "We should consider the students' learning.",
+	  "We should consider the students\u2019 learning.",
+	  "\"Where is my apple,\" screamed the boy.",
+	  "\"Where is my apple?\" screamed the boy.",
+          "A simple sentence.",
+          "(that's why this is our place).",
+          "The boy, dressed in red, ate an apple.",
+          "Dr. Chan is talking slowly with Mr. Cheng, and they're friends.",
+          "The boy screamed, 'Where is my apple?'",
+          "The boy screamed, \"Where is my apple?\"",
+          "He can't didn't couldn't shouldn't wouldn't eat.",
+          "Shouldn't he eat?",
+          "It's not that I can't.",
+          "We've found the cat.",
+          "We didn't find the cat."
       };
       
       for (int i = 0; i < testStrings.length; i++) {
@@ -571,12 +572,6 @@ public class RiTaTest
     String[] expected = { "The", "boy", ",", "dressed", "in", "red", ",", "ate", "an",
         "apple", "." };
     String[] output = RiTa.tokenize(input);
-    deepEqual(output, expected);
-
-    input = "The boy screamed, 'Where is my apple?'";
-    output = new String[] {};
-    expected = new String[] { "The", "boy", "screamed", ",", "'Where", "is", "my","apple", "?", "'" };
-    output = RiTa.tokenize(input);
     deepEqual(output, expected);
 
     input = "why? Me?huh?!";
@@ -643,6 +638,29 @@ public class RiTaTest
     deepEqual(RiTa.tokenize(txt6), new String[] { "We", "did", "not", "find", "the", "cat", "."});
     
     RiTa.SPLIT_CONTRACTIONS = false;
+ 
+    input = "The boy screamed, \"Where is my apple?\"";
+    expected = new String[] {"The", "boy", "screamed", ",", "\"", "Where", "is", "my", "apple", "?", "\""};
+    output = RiTa.tokenize(input);
+    deepEqual(output, expected);
+
+
+    input = "The boy screamed, \u201CWhere is my apple?\u201D";
+    expected = new String[] { "The", "boy", "screamed", ",", "\u201C", "Where", "is", "my", "apple", "?", "\u201D"};
+    output = RiTa.tokenize(input);
+    deepEqual(output, expected);
+   
+
+    input = "The boy screamed, 'Where is my apple?'";
+    expected = new String[] { "The", "boy", "screamed", ",", "'", "Where", "is", "my", "apple", "?", "'"};
+    output = RiTa.tokenize(input);
+    deepEqual(output, expected);
+
+    input = "The boy screamed, \u2018Where is my apple?\u2019";
+    expected = new String[] { "The", "boy", "screamed", ",", "\u2018", "Where", "is", "my", "apple", "?", "\u2019"};
+    output = RiTa.tokenize(input);
+    deepEqual(output, expected);
+
   }
 
   @Test
@@ -656,7 +674,7 @@ public class RiTaTest
     expected = "She screamed: \"Oh God!\"";
     output = RiTa.untokenize(input);
     //System.out.println(expected);
-    //System.out.println(output);
+    System.out.println(output);
     deepEqual(output, expected);
     
     expected = "The boy, dressed in red -- ate an apple.";
@@ -665,13 +683,13 @@ public class RiTaTest
     deepEqual(output, expected);
     
     expected = "The boy screamed, \"Where is my apple?\"";
-    input = new String[] { "The", "boy", "screamed", ",", "\"Where", "is", "my", "apple",
+    input = new String[] { "The", "boy", "screamed", ",", "\"", "Where", "is", "my", "apple",
         "?", "\"" };
     output = RiTa.untokenize(input);
     deepEqual(output, expected);
     
     expected = "The boy screamed, 'Where is my apple?'";
-    input = new String[] { "The", "boy", "screamed", ",", "'Where", "is", "my", "apple",
+    input = new String[] { "The", "boy", "screamed", ",", "'", "Where", "is", "my", "apple",
         "?", "'" };
     output = RiTa.untokenize(input);
 
@@ -684,10 +702,9 @@ public class RiTaTest
     deepEqual(output, expected);
 
     expected = "The boy screamed, 'Where is my apple?'";
-    input = new String[] { "The", "boy", "screamed", ",", "'Where", "is", "my", "apple",
-        "?", "'" };
+    input = new String[] { "The", "boy", "screamed", ",", "'", "Where", "is", "my", "apple", "?", "'" };
     output = RiTa.untokenize(input);
-    //System.out.println(output);
+    System.out.println(output);
     deepEqual(output, expected);
 
     expected = "The boy screamed, \"Where is my apple?\"";
@@ -708,6 +725,21 @@ public class RiTaTest
     input = new String[] { "123", "123", "1", "2", "3", "1", ",", "1", "1", ".", "1",
         "23", ".", "45", ".", "67", "22/05/2012", "12th", "May", ",", "2012" };
     expected = "123 123 1 2 3 1, 1 1. 1 23. 45. 67 22/05/2012 12th May, 2012";
+    output = RiTa.untokenize(input);
+    deepEqual(output, expected);
+    
+    expected = "We should consider the students' learning";
+    input = new String[] { "We", "should", "consider", "the", "students", "'", "learning" };
+    output = RiTa.untokenize(input);
+    deepEqual(output, expected);
+
+    expected = "We should consider the students\u2019 learning";
+    input = new String[] { "We", "should", "consider", "the", "students", "\u2019", "learning" };
+    output = RiTa.untokenize(input);
+    deepEqual(output, expected);
+    
+    expected = "The student said 'learning is fun'";
+    input = new String[] { "The", "student", "said", "'", "learning", "is", "fun", "'"};
     output = RiTa.untokenize(input);
     deepEqual(output, expected);
   }
@@ -1047,7 +1079,7 @@ public class RiTaTest
     deepEqual(result, 3);
 
     result = RiTa.getWordCount("The boy screamed, 'Where is my apple?'");
-    deepEqual(result, 10);
+    deepEqual(result, 11);
 
     result = RiTa.getWordCount("one two three.");
     deepEqual(result, 4);
@@ -1062,7 +1094,7 @@ public class RiTaTest
     deepEqual(result, 6);
 
     result = RiTa.getWordCount("\'Yes, it was a dog that ate the baby\', he said.");
-    deepEqual(result, 15);
+    deepEqual(result, 16);
   } 
 
   @Test
