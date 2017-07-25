@@ -7,12 +7,12 @@
     <title>Tutorial: n-grams with RiTa</title>
     <meta name="generator" content="JsDoc" />
     <link rel="stylesheet" href="../css/normalize.css">
-  <link rel="stylesheet" href="../css/main.css">
-  <link rel="stylesheet" href="../css/style.css" type="text/css" />
-     <link rel="stylesheet" href="../css/prism.css">
-  <script src="../js/vendor/modernizr-2.6.2.min.js"></script>
-  <script language="javascript" src="../js/highlight.js"></script>
-      <script language="javascript" src="../js/prism.js"></script>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/style.css" type="text/css" />
+    <link rel="stylesheet" href="../css/prism.css">
+    <script src="../js/vendor/modernizr-2.6.2.min.js"></script>
+    <script language="javascript" src="../js/highlight.js"></script>
+    <script language="javascript" src="../js/prism.js"></script>
 </head>
 
 <body>

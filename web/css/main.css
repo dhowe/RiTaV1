@@ -67,6 +67,9 @@ p {
     margin-bottom: 1.2rem;
     letter-spacing: 0.02rem;
 }
+p.aside {
+    font-size: .9rem !important;
+}
 p b{
     font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: 500;
