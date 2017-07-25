@@ -4,7 +4,7 @@
 
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <title>Tutorial-Using RiMarkov</title>
+    <title>Tutorial: n-grams with RiTa</title>
     <meta name="generator" content="JsDoc" />
     <link rel="stylesheet" href="../css/normalize.css">
   <link rel="stylesheet" href="../css/main.css">
@@ -26,11 +26,11 @@
 
      <h4><a href="index.php"><span>Tutorial ></span></a>Generating with RiMarkov</h4>
  <h5 class="sub">Markov Chains</h5>
- <p>A Markov chain (also called an “n-gram”) is a system of states and transitions. An analogy might be a set of cities connected by highways, where each city is a “state”, and each highway is a “transition”, a way of getting from one city to another.
+ <p>Markov chains (also called “n-gram” models) are systems of states and transitions. An analogy might be a set of cities connected by highways, where each city is a “state”, and each highway is a “transition”, a way of getting from one city to another.
  </p>
 <img style="width:60%;height:auto;" src="../img/tutorial/citiesandhighways.png" alt="" />
  </p>
- <p>Since we are concerned here with text, we can think of each “state” as a bit of text; a letter, a word, or a phrase (usually drawn inside a circle). A transition is a way of moving from one node to another (usually drawn as an arrow). Here’s a simple example:
+ <p>Since we are concerned here with text, we can think of each “state” as a bit of text; a letter, a word, or a phrase (usually drawn inside a circle). A transition is a way of moving from one state to another (usually drawn as an arrow). Here’s a simple example:
  </p>
 <img src="../img/tutorial/markov1.png" alt="" />
  </p>
@@ -39,14 +39,13 @@
 <img src="../img/tutorial/markov2.png" alt="" />
  </p>
  <p>Again, we start from the left, at “The”, but after we get to “girl”, we have two choices about where to go next. Depending on which transition we take, we will end up with one of two different sentences.
-Here the probability of each sentence is 0.5.
-<br />
+Here the probability of choosing either sentence is 50% or 0.5.
 The same idea can be further extended to a sequence of syllables, letters, words or sentences.</p>
 <p>
-Now let’s change the sentences a little bit to make it more interesting:</p>
+Now let’s change the sentences to make it more interesting:</p>
 <div class="example">The girl went to a game after dinner. <br /> The teacher went to dinner with a girl.</div>
 
- <p><br>The word “went” can occur after either “girl” or “teacher”. The word (or token) that follows “girl” can be either “.” or “went”. This contiguous sequence of <em>n</em> elements is an <b>n-gram</b>. <br/><br/>The minimum value of <em>n</em> in a Markov chain is 2 (otherwise we wouldn't have create a chain). If we try to build a Markov model for the above two sentences with  <em>n</em>=2, the outcome would be something like this (with | representing OR):
+ <p><br>The word “went” can occur after either “girl” or “teacher”. The word (or token) that follows “girl” can be either “.” or “went”. This contiguous sequence of <em>n</em> elements is an <b>n-gram</b>. <br/><br/>The minimum value of <em>n</em> in a Markov chain is 2 (otherwise we wouldn't have created a chain). If we try to build a Markov model for the above two sentences with  <em>n</em>=2, the outcome would be something like this (with | representing OR):
 </p>
 <pre>
       The     —>  girl | teacher
@@ -61,12 +60,12 @@ Now let’s change the sentences a little bit to make it more interesting:</p>
       teacher —>  went
       with    —>  a</pre>
 
-<p>Imagine this to be an action guide from which the computer will attempt to generate sentences. The computer begins with the word “The”. Then it checks the action guide for words that follow “The”, and finds two options: “girl” or “teacher”. It flips a coin and picks “girl”. Next it checks for words that follow “girl”, and finds two options: “went” or “.”. And so on...
+<p>Imagine this to be an action guide from which the computer will attempt to generate sentences. The computer begins with the word “The”. Then it checks the action guide for words that follow “The”, and finds two options: “girl” or “teacher”. It flips a coin and picks “girl”. Next it checks for words that follow “girl”, and finds two options: “went” or “.” &nbsp;And so on...
   </p><p>
 With a longer text sample we could experiment with different <em>n</em>-values. The higher the <em>n</em>-value, the more similar the output will be to the input text. Often the easiest way to find the best value for <em>n</em> is simply to experiment...
 </p>
 
- <p> Here is <a href="../examples/p5js/Kafgenstein/index.html">a simple text-generation example</a> with RiTa Markov-chains.
+ <p> Here is a very simple example of <a href="../examples/p5js/Kafgenstein/index.html">text-generation with RiTa</a>.
 </p>
 
 <br />
@@ -76,20 +75,20 @@ With a longer text sample we could experiment with different <em>n</em>-values. 
 <p>First, construct a Markov-chain and set its n-factor (the # of elements to consider). Let’s start with n=4...
 </p>
 <pre><code class="language-javascript">  var rm = new RiMarkov(4);</code></pre>
-<p><br>Second, provide some text for RiTa to analyse. There are three functions to achieve this: <em>loadFrom()</em>,  <em>loadText()</em> and  <em>loadTokens()</em>. Let's start with <em>loadText()</em>.
+<br>Second, provide some text for RiTa to analyse. There are three functions to achieve this: <em>loadFrom()</em>,  <em>loadText()</em> and  <em>loadTokens()</em>. Let's start with <em>loadText()</em>, which simply loads a string of text into the model.
 </p>
-<pre><code class="language-javascript">  var rm = new RiMarkov(4);
+<pre><code class="language-javascript">
   rm.loadText("The girl went to a game after dinner. The teacher went \
     to dinner with a girl.");
 </code></pre>
-<p><br>Third, generate an outcome according to the Markov model. You can either use generateSentences() ,generateTokens() or generateUntil() to achieve different result.
+<br>Third, generate an outcome according to the Markov model. You can either use <em>generateSentences()</em>, <em>generateTokens()</em> or <em>generateUntil()</em> to achieve different results. Here are all three lines together:
 </p>
 <pre><code class="language-javascript">  var rm = new RiMarkov(4);
   rm.loadText("The girl went to a game after dinner. The teacher went \
     to dinner with a girl.");
   var sentences = rm.generateSentences(2);
 </code></pre>
-<p><br>We can now run this code. One possible output would be: </p>
+<br>We can now run this code. One possible output would be: </p>
 <div class="example">
   The teacher went to dinner. <br />The girl went to dinner with a game after dinner.
 </div>
