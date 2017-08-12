@@ -19,6 +19,7 @@
         <li><a href="<?php echo $path.'/quickstart.php'; ?>">Quickstart</a></li>
         <li><a href="<?php echo $path.'/tutorial/index.php'; ?>">Tutorials</a></li>
         <li><a href="<?php echo $path.'/examples.php'; ?>">Examples</a></li>
+         <li><a href="https://github.com/dhowe/RiTa/wiki/Frequently-Asked-Questions">FAQ</a></li>
       </ul></li>
       <li><a href="<?php echo $path.'/reference/index.php'; ?>">Reference</a></li>
       <li><a href="<?php echo $path.'/gallery.php'; ?>">Gallery</a></li>
