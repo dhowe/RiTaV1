@@ -890,15 +890,13 @@ public class RiTextTest
   public void testEqualsString()
   {
     RiText rs = new RiText(null, "Start at first character. ");
-    RiText rs2 = new RiText(null, "Start at first character. ");
-    ok(rs.equals(rs2.text()));
-    
+    RiText rs2 = new RiText(null, "Start at first character. ");   
     String s = "Start at first character. ";
-    ok(rs.equals(s));  
+    ok(rs.text().equals(s));  
     
     rs = new RiText(null, "");
     rs2 = new RiText(null, "");
-    ok(rs.equals(""));
+    ok(rs.text().equals(""));
     ok(!rs.equals(null));
   }
 
