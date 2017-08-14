@@ -674,7 +674,7 @@ public class RiTaTest
     expected = "She screamed: \"Oh God!\"";
     output = RiTa.untokenize(input);
     //System.out.println(expected);
-    System.out.println(output);
+    //System.out.println(output);
     deepEqual(output, expected);
     
     expected = "The boy, dressed in red -- ate an apple.";
@@ -704,7 +704,7 @@ public class RiTaTest
     expected = "The boy screamed, 'Where is my apple?'";
     input = new String[] { "The", "boy", "screamed", ",", "'", "Where", "is", "my", "apple", "?", "'" };
     output = RiTa.untokenize(input);
-    System.out.println(output);
+    //System.out.println(output);
     deepEqual(output, expected);
 
     expected = "The boy screamed, \"Where is my apple?\"";

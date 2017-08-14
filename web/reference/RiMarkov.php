@@ -52,8 +52,8 @@
 			      <!-- DESCRIPTION  -->
 			      <td>
 			      	<p>
-				Performs text generation via Markov chains (aka n-grams)
-with options to process single characters, words, sentences, and
+Performs text generation via Markov chains (aka n-grams)
+with options to process single characters, words, sentences, or
 arbitrary regular expressions.
 </p>
 <p>
@@ -65,9 +65,6 @@ designed for text-generation.
 		<tr class="">
           <th scope="row">Examples</th>
           <td><div class="example">
-			    <!-- EXAMPLES  -->
-			    <!-- EXAMPLE IMAGE  -->
-			    <!-- <img src="../alpha_.gif" alt="example pic" /> -->
 	     <pre class="margin">
 rm = new RiMarkov(3);
 
@@ -75,8 +72,8 @@ rm.loadText(theText);
 
 sentences = rm.generateSentences(10);
 
-for (int i = 0; i < sentences.length; i++) {
-	println(sentences[i]);
+for (i = 0; i < sentences.length; i++) {
+  println(sentences[i]);
 }</pre>
             </div></td>
         </tr>
@@ -88,18 +85,16 @@ for (int i = 0; i < sentences.length; i++) {
 <pre>
 // Constructs a sentence-generating Markov-chain and set its n-factor.
 
-RiMarkov(int nFactor)
-
+RiMarkov(nFactor)
 
 // Also sets a flag determining whether the model will attempt to recognize
 // and parse (English) sentences (default=true)
 
-RiMarkov(int nFactor, boolean recognizeSentences)
-
+RiMarkov( nFactor, recognizeSentences)
 
 // Also sets a flag to allow duplicates in the generated output (default=true)
 
-RiMarkov(int nFactor, boolean recognizeSentences, boolean allowDuplicates)
+RiMarkov(nFactor, recognizeSentences, allowDuplicates)
 
 </pre>
 		</tr>
@@ -110,17 +105,17 @@ RiMarkov(int nFactor, boolean recognizeSentences, boolean allowDuplicates)
 	        <tr class="">
 	          <!-- PARAMETERS  -->
 	          <th width="25%" scope="row" class="nobold">&nbsp; int</th>
-	          <td width="75%">nFactor</td>
+	          <td width="75%">nFactor - the length of each n-gram stored in the model</td>
             </tr>
             			        <tr class="">
 	          <!-- PARAMETERS  -->
 	          <th width="25%" scope="row" class="nobold">&nbsp; boolean</th>
-	          <td width="75%">recognizeSentences</td>
+	          <td width="75%">recognizeSentences - whether the model should treat the input as a series of sentences</td>
             </tr>
                 			        <tr class="">
 	          <!-- PARAMETERS  -->
 	          <th width="25%" scope="row" class="nobold">&nbsp; boolean</th>
-	          <td width="75%">allowDuplicates</td>
+	          <td width="75%">allowDuplicates - whether sequences from the input should be allowed in the output</td>
             </tr>
 
 	        </table>
