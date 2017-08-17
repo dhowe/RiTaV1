@@ -84,7 +84,7 @@
 							<!-- PARAMETERS  -->
 
 							<table cellpadding="0" cellspacing="0" border="0" class="sub-table">
-								<tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>name</td></tr><tr class=''><th width='25%' scope='row' class=nobold>int</th><td width='75%'>the minimum number of tokens to generate</td></tr><tr class=''><th width='25%' scope='row' class=nobold>int</th><td width='75%'>the maximum number of tokens to generate</td></tr>
+								<tr class=''><th width='25%' scope='row' class=nobold>String</th><td width='75%'>the regular expression (regex) to match</td></tr><tr class=''><th width='25%' scope='row' class=nobold>int</th><td width='75%'>the minimum number of tokens to generate</td></tr><tr class=''><th width='25%' scope='row' class=nobold>int</th><td width='75%'>the maximum number of tokens to generate</td></tr>
 							</table></td>
 						</tr>
 

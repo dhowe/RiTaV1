@@ -89,7 +89,7 @@
     "syntax": "generateUntil(regex, minLength, maxLength);",
     "parameters": [{
         "type": "String",
-        "desc": "name"
+        "desc": "the regular expression (regex) to match"
       }, {
         "type": "int",
         "desc": "the minimum number of tokens to generate"
