@@ -265,21 +265,6 @@
     "platform": "Java / Javascript",
     "note": ""
   }, {
-    "name": "sentenceAware",
-    "example": "rm = new RiMarkov(3);<br>rm.loadFrom(\"http://www.rednoise.org/rita/examples/data/wittgenstein.txt\"); rm.sentenceAware(); // returns true",
-    "description": "Returns whether the model will try to recognize (English-like) sentences in its input.<br><br>This value can only be set via the constructor",
-    "syntax": "sentenceAware();",
-    "parameters": [],
-    "returns": [{
-        "type": "boolean",
-        "desc": ""
-      }
-
-    ],
-    "related": "",
-    "platform": "Java / Javascript",
-    "note": ""
-  }, {
     "name": "size",
     "example": "rm = new RiMarkov(3);<br>rm.loadFrom(\"http://www.rednoise.org/rita/examples/data/wittgenstein.txt\"); rm.size();",
     "description": "Returns the number of tokens currently in the model",
