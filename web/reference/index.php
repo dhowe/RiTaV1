@@ -194,8 +194,8 @@
           <a href="RiMarkov/print/index.php">print()</a>
           <br>
           <a href="RiMarkov/ready/index.php">ready()</a>
-          <br>
-          <a href="RiMarkov/sentenceAware/index.php">sentenceAware()</a>
+          <!--br>
+          <a href="RiMarkov/sentenceAware/index.php">sentenceAware()</a-->
           <br>
           <a href="RiMarkov/size/index.php">size()</a>
         </div>
