@@ -460,6 +460,11 @@ public class RiTaTest
 	"Now they are not."};
     deepEqual(output, expected);
     
+    input = "The baby belonged to Mr. and Mrs. Stevens. They will be very sad.";
+    output = RiTa.splitSentences(input);
+    expected = new String[]{"The baby belonged to Mr. and Mrs. Stevens.", "They will be very sad."};
+    deepEqual(output, expected);
+    
     input = "-@.576";
     output = RiTa.splitSentences(input);
     expected = new String[] { "-@.576" };
