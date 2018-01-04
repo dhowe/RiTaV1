@@ -385,7 +385,8 @@ public class JSONLexicon implements Constants {
   }
 
   public Iterator<String> randomPosIterator(String pos) {
-    return new RandomIterator(getWordsWithPos(pos));
+    Set<String> wordsWithPos = getWordsWithPos(pos);
+    return new RandomIterator(wordsWithPos);
   }
 
   public Iterator<String> posIterator(String pos) {
@@ -415,20 +416,33 @@ public class JSONLexicon implements Constants {
   /** Returns all words where 'pos' is the first (or only) tag listed */
   public Set<String> getWordsWithPos(String pos) {
     
-    // System.out.println("JSONLexicon.getWordsWithPos("+pos+")");
-
     if (!RiPos.isPennTag(pos)) {
       throw new RiTaException("Pos '"+ pos + "' is not a known part-of-speech tag." + 
 	  " Check the list at http://rednoise.org/rita/reference/PennTags.html");
     }
+
+    boolean pluralize = false; // fix to #409
+    if (pos.equals("n") || pos.equals("nns")) {
+      pluralize = pos.equals("nns");
+      pos = "nn";
+    }
+    else if (pos.equals("v"))
+      pos = "vb";
+    else if (pos.equals("r"))
+      pos = "rb";
+    else if (pos.equals("a"))
+      pos = "jj";
+
 
     Set<String> s = new TreeSet<String>();
     String posSpc = pos + " ";
     for (Iterator<String> iter = iterator(); iter.hasNext();) {
       String word = iter.next();
       String poslist = getPosStr(word);
-      if (poslist.startsWith(posSpc) || poslist.equals(pos))
+      if (poslist.startsWith(posSpc) || poslist.equals(pos)) {
+	if (pluralize) word = RiTa.pluralize(word); // fix to #409
 	s.add(word);
+      }
     }
     return s;
   }
@@ -625,7 +639,7 @@ public class JSONLexicon implements Constants {
   public static void main(String[] args) {
     // testTiming(50); if (1==1) return;
     JSONLexicon lex = JSONLexicon.getInstance();
-    System.out.println(lex.getWordsWithPos("vbg"));
+    System.out.println(lex.getWordsWithPos("nns"));
     if (1 == 1)
       return;
     String test = "swimming";
