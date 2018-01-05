@@ -3,6 +3,7 @@ package rita.test;
 import static rita.support.QUnitStubs.*;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 import org.junit.Test;
@@ -257,16 +258,26 @@ public class RiLexiconTest {
     
     RiLexicon lex = new RiLexicon();
 
-    String[] pos = { "nn", "jj", "jjr", "wp" };
+    String[] pos = { "nn", "jj", "jjr", "wp"  };
     for (int j = 0; j < pos.length; j++) {
       for (int i = 0; i < 3; i++) {
 	String result = lex.randomWord(pos[j]);
 	String best = lex.lexImpl.getBestPos(result);
-	// System.out.println(result+": "+pos[j]+" ?= "+best);
+	System.out.println(result+": "+pos[j]+" ?= "+best);
 	equal(pos[j], best);
       }
     }
+    
+    HashSet<String> s = new HashSet<String>();
+    for (int i = 0; i < 5; i++) { 
+      String result = lex.randomWord("nns");
+      System.out.println(result);
+      ok(result.length() > 0);//&& !s.contains(result));
+      s.add(result); // no dups
+    }
   }
+  
+  
 
   @Test
   public void testRandomWordStringInt() {

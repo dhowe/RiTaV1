@@ -229,18 +229,6 @@ public class RiLexicon implements Constants {
 
     boolean pluralize = false;
 
-    if (pos != null) {
-      pluralize = pos.equals("nns");
-      if (pos.equals("v"))
-	pos = "vb";
-      if (pos.equals("r"))
-	pos = "rb";
-      if (pos.equals("a"))
-	pos = "jj";
-      if (pos.equals("n") || pos.equals("nns"))
-	pos = "nn";
-    }
-
     Iterator<String> it = getIterator(pos);
 
     if (it != null) {
