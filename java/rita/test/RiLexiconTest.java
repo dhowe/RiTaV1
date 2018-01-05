@@ -269,10 +269,10 @@ public class RiLexiconTest {
     }
 
     HashSet<String> s = new HashSet<String>();
-    for (int i = 0; i < 5; i++) { 
+    for (int i = 0; i < 20; i++) { 
       String result = lex.randomWord("nns");
-//      System.out.println(result);
-      ok(result.length() > 0);//&& !s.contains(result));
+      System.out.println(result);
+      ok(result.length() > 0 && !s.contains(result));
       s.add(result); // no dups
     }
   }

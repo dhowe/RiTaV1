@@ -84,7 +84,7 @@
 							<!-- PARAMETERS  -->
 
 							<table cellpadding="0" cellspacing="0" border="0" class="sub-table">
-								<tr class=''><th width='25%' scope='row' class=nobold>String OR String[]</th><td width='75%'>the string (or sequence of strings) to search for</td></tr>
+								<tr class=''><th width='25%' scope='row' class=nobold>String OR String array</th><td width='75%'>the string (or sequence of strings) to search for</td></tr>
 							</table></td>
 						</tr>
 

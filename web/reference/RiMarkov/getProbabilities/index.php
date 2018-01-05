@@ -84,7 +84,7 @@
 							<!-- PARAMETERS  -->
 
 							<table cellpadding="0" cellspacing="0" border="0" class="sub-table">
-								<tr class=''><th width='25%' scope='row' class=nobold>String OR String[]</th><td width='75%'>a single token or array of tokens (strings)</td></tr>
+								<tr class=''><th width='25%' scope='row' class=nobold>String OR String array</th><td width='75%'>a single token or array of tokens (strings)</td></tr>
 							</table></td>
 						</tr>
 
@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">rm = new RiMarkov(3); <br>rm.loadFrom("http://www.rednoise.org/rita/examples/data/wittgenstein.txt");<br>rm.getProbabilities(new String[]{"be","thought"});</pre>
+								<pre class="margin">rm = new RiMarkov(3); <br>rm.loadFrom("http://www.rednoise.org/rita/examples/data/wittgenstein.txt");<br>rm.getProbabilities(["be", "thought"]);</pre>
 							</div></td>
 						</tr>
 

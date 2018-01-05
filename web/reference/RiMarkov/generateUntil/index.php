@@ -96,7 +96,7 @@
 							<!-- RETURNS/TYPE (for variables)  -->
 
 							<table cellpadding="0" cellspacing="0" border="0" class="sub-table">
-								<tr class=''><th width='25%' scope='row' class=nobold>String[]</th><td width='75%'>the result</td></tr>
+								<tr class=''><th width='25%' scope='row' class=nobold>String array</th><td width='75%'>the result</td></tr>
 							</table></td>
 						</tr>
 
@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">rm.loadFrom("http://www.rednoise.org/rita/examples/data/wittgenstein.txt");<br>rm.generateUntil("the")</pre>
+								<pre class="margin">rm.loadFrom("http://www.rednoise.org/rita/examples/data/wittgenstein.txt");<br>output = rm.generateUntil("the");</pre>
 							</div></td>
 						</tr>
 

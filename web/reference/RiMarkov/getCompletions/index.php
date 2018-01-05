@@ -84,7 +84,7 @@
 							<!-- PARAMETERS  -->
 
 							<table cellpadding="0" cellspacing="0" border="0" class="sub-table">
-								<tr class=''><th width='25%' scope='row' class=nobold>String[]</th><td width='75%'>pre</td></tr><tr class=''><th width='25%' scope='row' class=nobold>String[]</th><td width='75%'>post (optional)</td></tr>
+								<tr class=''><th width='25%' scope='row' class=nobold>String array</th><td width='75%'>pre</td></tr><tr class=''><th width='25%' scope='row' class=nobold>String array</th><td width='75%'>post (optional)</td></tr>
 							</table></td>
 						</tr>
 
@@ -96,7 +96,7 @@
 							<!-- RETURNS/TYPE (for variables)  -->
 
 							<table cellpadding="0" cellspacing="0" border="0" class="sub-table">
-								<tr class=''><th width='25%' scope='row' class=nobold>String[]</th><td width='75%'>an unordered list of possible next tokens</td></tr>
+								<tr class=''><th width='25%' scope='row' class=nobold>String array</th><td width='75%'>an unordered list of possible next tokens</td></tr>
 							</table></td>
 						</tr>
 

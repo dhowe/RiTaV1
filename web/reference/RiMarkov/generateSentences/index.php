@@ -96,7 +96,7 @@
 							<!-- RETURNS/TYPE (for variables)  -->
 
 							<table cellpadding="0" cellspacing="0" border="0" class="sub-table">
-								<tr class=''><th width='25%' scope='row' class=nobold>String[]</th><td width='75%'>the result</td></tr>
+								<tr class=''><th width='25%' scope='row' class=nobold>String array</th><td width='75%'>the result</td></tr>
 							</table></td>
 						</tr>
 

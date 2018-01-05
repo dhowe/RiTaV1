@@ -15,6 +15,14 @@ function makeClass() { // from: Resig, TODO: make work with strict
   };
 }
 
+function printProgress(msg, prog, lb) {
+  if (process && process.stdout) {
+    process.stdout.clearLine();
+    process.stdout.cursorTo(0);
+    process.stdout.write(msg + prog + '%' + (lb?'\n':''));
+  }
+}
+
 function is(obj, type) {
   return get(obj) === type;
 }
@@ -152,7 +160,7 @@ var FEATURES = [ 'tokens', 'stresses', 'phonemes', 'syllables', 'pos', 'text' ];
 
 var RiTa = {
 
-  VERSION: '1.2.12',
+  VERSION: '1.3.10',
 
   /* For tokenization, Can't -> Can not, etc. */
   SPLIT_CONTRACTIONS: false,
@@ -233,73 +241,6 @@ var RiTa = {
   stemmers: {},
 
   // Start functions =================================
-
-  untokenize: function(arr, delim, adjustPunctuationSpacing) {
-
-    delim = delim || SP;
-    adjustPunctuationSpacing = adjustPunctuationSpacing || 1;
-
-    var dbug = 0;
-    var punct = /^[,\.\;\:\?\!\)""“”’‘`']+$/;
-    var quotes = /^[\(""“”’‘`']+$/;
-
-    if (adjustPunctuationSpacing) {
-
-      var newStr = arr[0] || E;
-      var inMiddleOfSentence = false;
-      var quotationStarted;
-      var quotationJustFinished = false;
-
-      if (arr[0])
-        quotationStarted = quotes.test(arr[0]);
-      else
-        quotationStarted = false;
-
-      for (var i = 1; i < arr.length; i++) {
-
-        if (arr[i]) {
-
-          var thisPunct = punct.test(arr[i]);
-          var lastPunct = punct.test(arr[i - 1]);
-          var thisQuote = quotes.test(arr[i]);
-          var lastQuote = quotes.test(arr[i -1]);
-          var thisComma = arr[i].match(/,/);
-          var lastComma = arr[i - 1].match(/,/);
-
-          if (dbug) {
-            console.log(i+") CHECK: "+arr[i]+" "+arr[i-1]+ " "+thisPunct+" "+lastPunct + " " +thisQuote);
-          }
-
-          if (quotationStarted && thisQuote) {
-            // skip adding delim and mark qutation as ended
-            quotationJustFinished = true;
-            quotationStarted = false;
-          } else if (quotationJustFinished) {
-            newStr += delim;
-            quotationJustFinished = false;
-          } else if (lastQuote && thisComma) {
-            inMiddleOfSentence = true;
-          } else if (inMiddleOfSentence && lastComma) {
-            newStr += delim;
-            inMiddleofSentence = false;
-          } else if (i != arr.length - 1 && thisPunct && lastPunct) {
-            if (dbug) console.log(i + ") HIT1: " + arr[i]);
-            newStr += delim;
-          } else if (!thisPunct && !lastQuote) {
-            if (dbug) console.log(i+") HIT2: "+arr[i]+" "+arr[i-1]+ " "+thisPunct+" "+lastQuote);
-            newStr += delim;
-          } else {
-            if (dbug) console.log(i + ") MISS: " + arr[i]);
-          }
-          newStr += arr[i];
-        }
-      }
-      return newStr.trim();//.replace(//);
-    }
-
-    return arr.join(delim);
-    //var punct = /^[,\.\;\:\?\!\)"“”’‘`']+$/;
-  },
 
   random: function() {
     var currentRandom = Math.random();
@@ -417,28 +358,30 @@ var RiTa = {
 
     words = trim(words);
 
-    words = words.replace(/([\\?!\"\\.,;:@#$%&])/g, " $1 ");
+    words = words.replace(/([\\?!\"\u201C\\.,;:@#$%&])/g, " $1 ");
     words = words.replace(/\\.\\.\\./g, " ... ");
     words = words.replace(/\\s+/g, SP);
     words = words.replace(/,([^0-9])/g, " , $1");
-    words = words.replace(/([^.])([.])([\])}>\"']*)\\s*$/g, "$1 $2$3 ");
+    words = words.replace(/([^.])([.])([\])}>\"'’]*)\\s*$/g, "$1 $2$3 ");
     words = words.replace(/([\[\](){}<>])/g, " $1 ");
     words = words.replace(/--/g, " -- ");
     words = words.replace(/$/g, SP);
     words = words.replace(/^/g, SP);
-    words = words.replace(/([^'])' /g, "$1 ' ");
+    words = words.replace(/([^'])' | '/g, "$1 ' ");
+    words = words.replace(/ \u2018/g, " \u2018 ");
     words = words.replace(/'([SMD]) /g, " '$1 ");
 
     if (RiTa.SPLIT_CONTRACTIONS) {
 
-      words = words.replace(/([Cc])an't/g, "$1an not");
-      words = words.replace(/([Dd])idn't/g, "$1id not");
-      words = words.replace(/([CcWw])ouldn't/g, "$1ould not");
-      words = words.replace(/([Ss])houldn't/g, "$1hould not");
-      words = words.replace(/ ([Ii])t's/g, " $1t is");
-      words = words.replace(/n't /g, " not ");
-      words = words.replace(/'ve /g, " have ");
-      words = words.replace(/'re /g, " are ");
+      words = words.replace(/([Cc])an['’]t/g, "$1an not");
+      words = words.replace(/([Dd])idn['’]t/g, "$1id not");
+      words = words.replace(/([CcWw])ouldn['’]t/g, "$1ould not");
+      words = words.replace(/([Ss])houldn['’]t/g, "$1hould not");
+      words = words.replace(/ ([Ii])t['’]s/g, " $1t is");
+      words = words.replace(/n['’]t /g, " not ");
+      words = words.replace(/['’]ve /g, " have ");
+      words = words.replace(/['’]re /g, " are ");
+
     }
 
     // "Nicole I. Kidman" gets tokenized as "Nicole I . Kidman"
@@ -449,10 +392,109 @@ var RiTa = {
     return trim(words).split(/\s+/);
   },
 
+  untokenize: function(arr, delim) {
+
+    delim = delim || SP;
+
+    var thisPunct, lastPunct, thisQuote, lastQuote, thisComma, isLast,
+      lastComma, punct = /^[,\.\;\:\?\!\)""“”\u2019‘`']+$/, dbug = 0,
+      quotes = /^[\(""“”\u2019‘`']+$/, squotes = /^[\u2019‘`']+$/,
+      apostrophes = /^[\u2019']+$/, afterQuote = false,
+      withinQuote = arr.length && quotes.test(arr[0]),
+      result = arr[0] || E, midSentence = false;
+
+
+    for (var i = 1; i < arr.length; i++) {
+
+      if (!arr[i]) continue;
+
+      thisComma = arr[i] === ',';
+      thisPunct = punct.test(arr[i]);
+      thisQuote = quotes.test(arr[i]);
+      lastComma = arr[i-1] === ',';
+      lastPunct = punct.test(arr[i - 1]);
+      lastQuote = quotes.test(arr[i -1]);
+      lastEndWithS = arr[i-1].charAt(arr[i-1].length-1) === 's';
+      isLast = (i == arr.length - 1);
+
+      //if (arr[i]==="'" && arr[i-1]==='?')
+      dbug&& console.log('before "'+arr[i]+'"',i, 'inquote? '+withinQuote,'thisPunct?',thisPunct,'thisQuote',thisQuote);
+
+      if (thisQuote) {
+
+        if (withinQuote) {
+
+          // no-delim, mark quotation done
+          afterQuote = true;
+          withinQuote = false;
+        }
+        else if (!(apostrophes.test(arr[i]) && lastEndWithS)) {
+          dbug&&console.log('set withinQuote=1');
+          withinQuote = true;
+          afterQuote = false;
+          // if (lastPunct) {
+            // dbug&&console.log('hit0', arr[i], arr[i-1]);
+            result += delim;
+          // }
+        }
+
+      } else if (afterQuote && !thisPunct) {
+
+        result += delim;
+        dbug&&console.log('hit1', arr[i]);
+        afterQuote = false;
+
+      } else if (lastQuote && thisComma) {
+
+        midSentence = true;
+
+      } else if (midSentence && lastComma) {
+
+        result += delim;
+        dbug&&console.log('hit2', arr[i]);
+        midSentence = false;
+
+      } else if ((!thisPunct && !lastQuote) || (!isLast && thisPunct && lastPunct)) {
+
+        result += delim;
+      }
+
+      result += arr[i]; // add to result
+
+      if (thisPunct && !lastPunct && !withinQuote && squotes.test(arr[i])) {
+
+        dbug && console.log('hitnew', arr[i]);
+        result += delim; // fix to #477
+      }
+    }
+
+    return result.trim();
+  },
+
   splitSentences: function(text, regex) {
 
-    var arr = text.match(/(\S.+?[.!?])(?=\s+|$)/g);
-    return (text.length && arr && arr.length) ? arr : [text];
+    var abbrs = this.ABBREVIATIONS, delim = '___', re = new RegExp(delim, 'g');
+
+    function unescapeAbbrevs(arr) {
+      for (var i = 0; i < arr.length; i++) {
+        arr[i] = arr[i].replace(re, ".");
+      }
+      return arr;
+    }
+
+    function escapeAbbrevs(text) {
+      for (var i = 0; i < abbrs.length; i++) {
+        var abv = abbrs[i], idx = text.indexOf(abv);
+        while (idx > -1) {
+          text = text.replace(abv, abv.replace('.', delim));
+          idx = text.indexOf(abv);
+        }
+      }
+      return text;
+    }
+
+    var arr = escapeAbbrevs(text).match(/(\S.+?[.!?])(?=\s+|$)/g);
+    return (text.length && arr && arr.length) ? unescapeAbbrevs(arr) : [text];
   },
 
   isAbbreviation: function(input, caseSensitive) {
@@ -557,7 +599,6 @@ var RiTa = {
     return res;
   },
 
-  // TODO: update 'return' value in docs (for preload())
   loadStrings: function(url, callback, linebreakChars) {
 
     var loadStringsNode = function(url, callback) {
@@ -787,7 +828,7 @@ var RiTa = {
 
     if (!is(text,S)) return text;
 
-    var s = '[�`~\"\/' + "\\'_\\-[\\]{}()*+!?%&.,\\\\^$|#@<>|+=;:]";
+    var s = '[�`~\"\/' + "\\'_\\-[\\]{}()*+!?%&.,\\\\^$|#@<>|+=;:\u2018\u2019\u201C\u201D]";
     var regex = new RegExp("^" + s + "+|" + s + "+$", 'g');
 
     return (text === E) ? E : text.replace(regex,E);
@@ -1330,8 +1371,8 @@ RiLexicon.prototype = {
     var s = this.keys.length;
     if (RiTa.LEX_WARN && s === 0) {
       warn(RiTa.LEX_WARN);
-      RiTa.LEX_WARN = 0; 
-    } 
+      RiTa.LEX_WARN = 0;
+    }
     return s;
   },
 
@@ -1601,7 +1642,7 @@ RiLexicon.prototype = {
             }
           }
 
-          warn("No words with pos=" + a[0] + " found");
+          //warn("No words with pos=" + a[0] + " found");
 
         } else {
 
@@ -1635,9 +1676,9 @@ RiLexicon.prototype = {
 
 var RiMarkov = makeClass();
 
-RiMarkov.MAX_GENERATION_ATTEMPTS = 1000;
+RiMarkov.MAX_GENERATION_ATTEMPTS = 5000;
 var SSRE = /"?[A-Z][a-z"',;`-]*/;
-SSDLM = 'D=l1m_';
+var SSDLM = 'D=l1m_';
 
 RiMarkov.prototype = {
 
@@ -1648,15 +1689,16 @@ RiMarkov.prototype = {
     ok(a[0], N);
 
     this.N = a[0];
+    this.rawText = '';
     this.pathTrace = [];
-    this.sentenceList = [];
+    //this.sentenceList = [];
     this.sentenceStarts = [];
     this.minSentenceLength = 6;
     this.maxSentenceLength = 35;
-    this.maxDuplicatesToSkip = 10000;
     this.root = new TextNode(null, 'ROOT');
     this.isSentenceAware = (a.length > 1 && !a[1]) ? false : true;
     this.allowDuplicates = (a.length > 2 && !a[2]) ? false : true;
+    //this.maxMatchingSequence = this.N + 1;
     this.printIgnoredText = false;
   },
 
@@ -1713,7 +1755,8 @@ RiMarkov.prototype = {
 
       if (pre.length + post.length > this.N) {
 
-        err('Sum of pre.length && post.length must be < N, was ' + (pre.length + post.length));
+        err('Sum of pre.length && post.length must be < N, was '
+          + (pre.length + post.length));
       }
 
       tn = this._findNode(pre);
@@ -1733,13 +1776,13 @@ RiMarkov.prototype = {
 
         if (this._findNode(atest)) result.push(node.token);
       }
+
       return result;
+
     } else { // fill the end
 
       var hash = this.getProbabilities(pre);
-      var keys = okeys(hash);
-      return keys.sort(function(a, b) {
-
+      return okeys(hash).sort(function(a, b) {
         return hash[b] - hash[a];
       });
     }
@@ -1750,8 +1793,7 @@ RiMarkov.prototype = {
     minLength = minLength || 1;
     maxLength = maxLength || Number.MAX_VALUE;
 
-    var mn, tokens, tries = 0,
-      maxTries = 999;
+    var mn, tokens, tries = 0, maxTries = 999;
 
     OUT: while (++tries < maxTries) {
 
@@ -1785,13 +1827,11 @@ RiMarkov.prototype = {
 
   generateTokens: function(targetNumber) {
 
-    var tries = 0,
-      maxTries = 500,
-      tokens = [];
+    var mn, tries = 0, maxTries = 500, tokens = [], res = [];
 
     OUT: while (++tries < maxTries) {
 
-      var mn = this.root.selectChild(null, true);
+      mn = this.root.selectChild(null, true);
       if (!mn || !mn.token) continue OUT;
       tokens.push(mn);
 
@@ -1815,9 +1855,8 @@ RiMarkov.prototype = {
       this._onGenerationIncomplete(tries, tokens.length);
     }
 
-    var res = [];
     for (var i = 0; i < tokens.length; i++) {
-      res[i] = tokens[i].token;
+      res.push(tokens[i].token);
     }
 
     return res;
@@ -1864,30 +1903,26 @@ RiMarkov.prototype = {
     });
   },
 
-  loadText: function(text, multiplier, regex) {
+  loadText: function(text, multiplier, regex, progress) {
 
     //log("loadText: "+text.length + " "+this.isSentenceAware);
 
     ok(text, S);
 
-    multiplier = multiplier || 1;
+    this.rawText += text;
 
-    if (multiplier < 1 || multiplier != Math.floor(multiplier)) // TODO: really?
-      err('Multiplier must be an positive integer, found: ' + multiplier);
+    multiplier = Math.round(multiplier || 1);
 
     var result = !this.isSentenceAware ?
       this.loadTokens(RiTa.tokenize(text, regex), multiplier) :
-      this._loadSentences(RiTa.splitSentences(text), multiplier);
+      this._loadSentences(text, multiplier, progress);
 
     return result;
   },
 
   loadTokens: function(tokens, multiplier) {
 
-    multiplier = multiplier || 1;
-
-    if (multiplier < 1 || multiplier != Math.floor(multiplier))
-      err('multiplier must be an positive integer, found: ' + multiplier);
+    multiplier = Math.round(multiplier || 1);
 
     this.root.count += tokens.length; // here?
 
@@ -1895,8 +1930,10 @@ RiMarkov.prototype = {
       toAdd = [];
 
       for (var j = 0; j < this.N; j++) {
-        if ((k + j) < tokens.length) toAdd[j] = (tokens[k + j]) ? tokens[k + j] : null;
-        else toAdd[j] = null;
+        if ((k + j) < tokens.length)
+          toAdd[j] = (tokens[k + j]) ? tokens[k + j] : null;
+        else
+          toAdd[j] = null;
       }
 
       // hack to deal with multiplier...
@@ -1914,6 +1951,11 @@ RiMarkov.prototype = {
     return this;
   },
 
+  generateSentence: function() {
+
+    return this.generateSentences(1)[0];
+  },
+
   generateSentences: function(num) {
 
     if (!this.isSentenceAware) {
@@ -1922,18 +1964,12 @@ RiMarkov.prototype = {
     }
 
     var mn = this._getSentenceStart(),
-      s = mn.token + SP,
-      result = [],
-      tries = 0,
-      totalTries = 0,
-      wordsInSentence = 1;
+      s = mn.token + SP, result = [], tries = 0,
+      totalTries = 0, wordsInSentence = 1;
 
     while (result.length < num) {
 
-      if (wordsInSentence >= this.maxSentenceLength) {
-
-        //console.log("MarkovModel.generateSentences().reject:: too long!");
-
+      if (wordsInSentence >= this.maxSentenceLength) { // too long: restart
         mn = this._getSentenceStart();
         s = mn.token + SP;
         wordsInSentence = 1;
@@ -1966,6 +2002,7 @@ RiMarkov.prototype = {
             tries = 0;
           }
         }
+
         mn = this._getSentenceStart();
         s = mn.token + SP;
         wordsInSentence = 1;
@@ -2006,20 +2043,22 @@ RiMarkov.prototype = {
     }
 
     if (!this.allowDuplicates) {
+
       if (!this.isSentenceAware) {
         err('Invalid state: allowDuplicates must be' +
           ' true when not generating sentences');
       }
 
-      if (this.sentenceList.indexOf(sent) > -1) {
-        if (++this.skippedDups == this.maxDuplicatesToSkip) {
-          warn('Hit skip-maximum (RiMarkov.maxDuplicatesToSkip=' + this.maxDuplicatesToSkip +
-            ') after skipping ' + this.maxDuplicatesToSkip + ', now allowing duplicates!');
+      if (this.rawText.indexOf(sent) > -1) {
+
+        if (++this.skippedDups >= RiMarkov.MAX_GENERATION_ATTEMPTS) {
+          // TODO: NEVER CALLED, add warning here?
           this.allowDuplicates = true;
+          this.skippedDups = 0;
         }
 
         if (this.printIgnoredText)
-          log('Ignoring duplicate: ' + sent);
+          console.log('Ignoring duplicate: ' + sent);
 
         return false;
       }
@@ -2108,61 +2147,55 @@ RiMarkov.prototype = {
   },
 
   // Loads a sentence[] into the model; each element must be a single sentence
-  _loadSentences: function(sentences, multiplier) {
+  _loadSentences: function(text, multiplier, progress) {
 
-    ok(sentences, A);
+    var i, j, toAdd, tokens, allWords = [],
+      sentences = RiTa.splitSentences(text),
+      mult = Math.round(multiplier || 1);
 
-    multiplier = multiplier || 1;
-    multiplier = Math.min(multiplier, 1);
-
-    // log("_loadSentences("+sentences.length+", multiplier="+multiplier+" "+this.allowDuplicates+")");
-
-    var i, j, tokens, sentence, allWords = [];
-
-    // do the cleaning/splitting first ---------------------
-
+    // Clean sentences and add valid starters
     for (i = 0; i < sentences.length; i++) {
 
-      sentence = this._clean(sentences[i]);
-
-      // do we need this?
-      if (!this.allowDuplicates) this.sentenceList.push(sentence);
-
-      tokens = RiTa.tokenize(sentence);
+      tokens = RiTa.tokenize(this._clean(sentences[i]));
 
       if (!this._validSentenceStart(tokens[0])) {
 
-        if (this.printIgnoredText)
+        if (this.printIgnoredText) {
           warn("Skipping (bad sentence start): " + tokens);
+        }
         continue;
       }
 
       //log("Added sentence start] " + tokens);
 
-      allWords.push(SSDLM + tokens[0]); // bad hack for sentence-starts
+      allWords.push(SSDLM + tokens[0]); // hack for sentence-starts
 
-      for (j = 1; j < tokens.length; j++)
+      for (j = 1; j < tokens.length; j++) {
         allWords.push(tokens[j]);
+      }
     }
 
-    // ------------------------------------------------
-
-    var toAdd, words = allWords, nFactor = this.N;
-
-    for (i = 0; i < words.length; i++) {
-
+    // Add word sequences to the model
+    for (i = 0; i < allWords.length; i++) {
       toAdd = [];
-      for (j = 0; j < nFactor; j++) {
-        if ((i + j) < words.length)
-          toAdd[j] = words[i + j];
+      for (j = 0; j < this.N; j++) {
+        if ((i + j) < allWords.length) {
+          toAdd[j] = allWords[i + j];
+        }
       }
 
       // hack to deal with multiplier...
-      for (j = 0; j < multiplier; j++)
+      for (j = 0; j < mult; j++) {
         this._addSentenceSequence(toAdd);
-    }
+      }
 
-    this.root.count += words.length;
+      if (progress && (!(i % 10000))) {
+        printProgress('Building model: ', parseInt(((i/allWords.length)*1000))/10);
+      }
+    }
+    progress && printProgress('Building model: ', 100, 0);
+
+    this.root.count += allWords.length;
 
     return this;
   },
@@ -2183,26 +2216,25 @@ RiMarkov.prototype = {
 
     for (var i = 0; i < toAdd.length; i++) {
 
-      if (!toAdd[i]) continue;
+      if (!toAdd[i] || !node.token) continue;
 
-      if (node.token) {
+      var add = toAdd[i];
 
-        var add = toAdd[i];
+      if (startsWith(add, SSDLM)) {
 
-        if (startsWith(add, SSDLM)) {
+        add = add.substring(SSDLM.length);
 
-          add = add.substring(SSDLM.length);
-          var parent = node;
+        var parent = node;
+        node = node.addChild(add, 1);
+        node.isSentenceStart = true;
 
-          node = node.addChild(add, 1);
-          node.isSentenceStart = true;
+        if (parent.isRoot()) {
+          this.sentenceStarts.push(node.token);
+        }
 
-          if (parent.isRoot()) {
-            this.sentenceStarts.push(node.token);
-          }
+      } else {
 
-        } else
-          node = node.addChild(add, 1);
+        node = node.addChild(add, 1);
       }
     }
   },
@@ -2528,7 +2560,7 @@ RiString.prototype = {
 
   equals: function(arg) {
 
-    return (typeof arg === S) ? arg === this._text : arg.text() === this._text;
+    return is(arg.text, F) && arg.text() === this._text;
   },
 
   equalsIgnoreCase: function(arg) {
@@ -5489,14 +5521,16 @@ var QUESTION_STARTS =   [ "Was", "What", "When", "Where", "Which", "Why", "Who",
 
 var W_QUESTION_STARTS = [ "Was", "What", "When", "Where", "Which", "Why", "Who", "Will", "Would" ];
 
-var PUNCTUATION_CLASS = /[�`~\"\/'_\-[\]{}()*+!?%&.,\\^$|#@<>|+=;:]/g; // TODO: add smart-quotes
+var PUNCTUATION_CLASS = /[�`~\"\/'_\-[\]{}()*+!?%&.,\\^$|#@<>|+=;:\u2018\u2019\u201C\u201D]/g; // TODO: add smart-quotes
 
 var ONLY_PUNCT = /^[^0-9A-Za-z\s]*$/,
   DEFAULT_PLURAL_RULE = RE("^((\\w+)(-\\w+)*)(\\s((\\w+)(-\\w+)*))*$", 0, "s"),
   ALL_PUNCT = /^[-[\]{}()*+!?%&.,\\^$|#@<>|+=;:]+$/g;
 
 var NULL_PLURALS = RE( // these don't change for plural/singular
-  "^(bantu|bengalese|bengali|beninese|boche|bonsai|booze|cellulose|digitalis|mess|" + "burmese|chinese|colossus|congolese|discus|emphasis|expertise|finess|fructose|gabonese|gauze|glucose|grease|guyanese|haze|incense|japanese|javanese|journalese|" + "lebanese|malaise|manganese|mayonnaise|maltese|menopause|merchandise|nitrocellulose|olympics|overuse|paradise|poise|polymerase|portuguese|prose|recompense|remorse|repose|senegalese|siamese|singhalese|innings|" + "sleaze|sinhalese|sioux|sudanese|suspense|swiss|taiwanese|togolese|vietnamese|unease|aircraft|anise|antifreeze|applause|archdiocese|" + "anopheles|apparatus|asparagus|barracks|bellows|bison|bluefish|bob|bourgeois|" + "bream|brill|butterfingers|cargo|carp|catfish|chassis|clothes|chub|cod|codfish|" + "coley|contretemps|corps|crawfish|crayfish|crossroads|cuttlefish|dace|deer|dice|" + "dogfish|doings|dory|downstairs|eldest|earnings|economics|electronics|finnan|" + "firstborn|fish|flatfish|flounder|fowl|fry|fries|works|globefish|goldfish|golf|" + "grand|grief|gudgeon|gulden|haddock|hake|halibut|headquarters|herring|hertz|horsepower|" + "goods|hovercraft|hundredweight|ironworks|jackanapes|kilohertz|kurus|kwacha|ling|lungfish|" + "mackerel|means|megahertz|moorfowl|moorgame|mullet|nepalese|offspring|pampas|parr|pants|" + "patois|pekinese|penn'orth|perch|pickerel|pike|pince-nez|plaice|precis|quid|rand|" + "rendezvous|revers|roach|roux|salmon|samurai|series|seychelles|seychellois|shad|" + "sheep|shellfish|smelt|spacecraft|species|starfish|stockfish|sunfish|superficies|" + "sweepstakes|swordfish|tench|tennis|[a-z]+osis|[a-z]+itis|[a-z]+ness|" + "tobacco|tope|triceps|trout|tuna|tunafish|tunny|turbot|trousers|" + "undersigned|veg|waterfowl|waterworks|waxworks|whiting|wildfowl|woodworm|" + "yen|aries|pisces|forceps|lieder|jeans|physics|mathematics|news|odds|politics|remains|" + "surroundings|thanks|statistics|goods|aids|wildlife)$", 0);
+  "^(bantu|bengalese|bengali|beninese|boche|bonsai|booze|cellulose|digitalis|mess|moose|" + "burmese|chinese|colossus|congolese|discus|emphasis|expertise|finess|fructose|gabonese|gauze|glucose|grease|guyanese|haze|incense|japanese|javanese|journalese|" + "lebanese|malaise|manganese|mayonnaise|maltese|menopause|merchandise|nitrocellulose|olympics|overuse|paradise|poise|polymerase|portuguese|prose|recompense|remorse|repose|senegalese|siamese|singhalese|innings|" + "sleaze|sinhalese|sioux|sudanese|suspense|swiss|taiwanese|togolese|vietnamese|unease|aircraft|anise|antifreeze|applause|archdiocese|" + "anopheles|apparatus|asparagus|barracks|bellows|bison|bluefish|bob|bourgeois|" + "bream|brill|butterfingers|cargo|carp|catfish|chassis|clothes|chub|cod|codfish|" + "coley|contretemps|corps|crawfish|crayfish|crossroads|cuttlefish|dace|deer|dice|" + "dogfish|doings|dory|downstairs|eldest|earnings|economics|electronics|finnan|" + "firstborn|fish|flatfish|flounder|fowl|fry|fries|works|globefish|goldfish|golf|" + "grand|grief|gudgeon|gulden|haddock|hake|halibut|headquarters|herring|hertz|horsepower|" + "goods|hovercraft|hundredweight|ironworks|jackanapes|kilohertz|kurus|kwacha|ling|lungfish|" + "mackerel|means|megahertz|moorfowl|moorgame|mullet|nepalese|offspring|pampas|parr|pants|" + "patois|pekinese|penn'orth|perch|pickerel|pike|pince-nez|plaice|precis|quid|rand|" + "rendezvous|revers|roach|roux|salmon|samurai|series|seychelles|seychellois|shad|" + "sheep|shellfish|smelt|spacecraft|species|starfish|stockfish|sunfish|superficies|" + "sweepstakes|swordfish|tench|tennis|[a-z]+osis|[a-z]+itis|[a-z]+ness|" + "tobacco|tope|triceps|trout|tuna|tunafish|tunny|turbot|trousers|" + "undersigned|veg|waterfowl|waterworks|waxworks|whiting|wildfowl|woodworm|" + "yen|aries|pisces|forceps|lieder|jeans|physics|mathematics|news|odds|politics|remains|" + "acoustics|aesthetics|aquatics|basics|ceramics|classics|cosmetics|dialectics|dynamics|ethics|harmonics|heroics|mechanics|metrics|optics|physics|polemics|pyrotechnics|" + "surroundings|thanks|statistics|goods|aids|wildlife)$", 0);
+
+
 
 var SINGULAR_RULES = [
   NULL_PLURALS,
@@ -19695,12 +19729,10 @@ function _dict() { return {
 'absence':['ae1-b s-ah-n-s','nn'],
 'absent':['ae1-b s-ah-n-t','jj vb'],
 'absentee':['ae-b s-ah-n t-iy1','jj nn'],
-'absenteeism':['ae-b s-ah-n t-iy1 ih z-ah-m','nn'],
 'absolute':['ae1-b s-ah l-uw-t','jj nn'],
 'absolutely':['ae-b s-ah l-uw1-t l-iy','rb'],
 'absoluteness':['ae1-b s-ah l-uw-t n-ah-s','nn'],
 'absolution':['ae-b s-ah l-uw1 sh-ah-n','nn'],
-'absolutism':['ae1-b s-ah l-uw t-ih z-ah-m','nn'],
 'absolve':['ah-b z-aa1-l-v','vb vbp'],
 'absolved':['ah-b z-aa1-l-v-d','vbd'],
 'absolving':['ah-b z-aa1-l v-ih-ng','vbg'],
@@ -20058,7 +20090,6 @@ function _dict() { return {
 'adventure':['ae-d v-eh1-n ch-er','nn vb'],
 'adventurer':['ae-d v-eh1-n ch-er er','nn'],
 'adventuresome':['ae-d v-eh1-n ch-er s-ah-m','jj'],
-'adventurism':['ae-d v-eh1-n ch-er ih z-ah-m','nn'],
 'adventurous':['ae-d v-eh1-n ch-er ah-s','jj'],
 'adverb':['ae1-d v-er-b','nn'],
 'adverbial':['ae-d v-er1 b-iy ah-l','jj'],
@@ -20410,7 +20441,6 @@ function _dict() { return {
 'amassing':['ah m-ae1 s-ih-ng','nn vbg'],
 'amateur':['ae1 m-ah t-er','nn jj'],
 'amateurish':['ae1 m-ah ch-er ih-sh','jj'],
-'amateurism':['ae1 m-ah ch-er ih z-ah-m','nn'],
 'amaze':['ah m-ey1-z','vb vbp'],
 'amazed':['ah m-ey1-z-d','vbn vbd jj'],
 'amazement':['ah m-ey1-z m-ah-n-t','nn'],
@@ -21070,7 +21100,6 @@ function _dict() { return {
 'aster':['ae1 s-t-er','nn'],
 'asteroid':['ae1 s-t-er oy-d','jj nn'],
 'asthma':['ae1-z m-ah','nn'],
-'astigmatism':['ah s-t-ih1-g m-ah t-ih z-ah-m','nn'],
 'astonish':['ah-s-t-aa1-n-ih-sh','vb'],
 'astonished':['ah s-t-aa1 n-ih-sh-t','vbn vbd'],
 'astonishing':['ah s-t-aa1 n-ih sh-ih-ng','jj'],
@@ -21726,7 +21755,6 @@ function _dict() { return {
 'beguiled':['b-ih g-ay1-l-d','vbn'],
 'beguiling':['b-ih g-ay1 l-ih-ng','jj'],
 'begun':['b-ih g-ah1-n','vbn'],
-'behalf':['b-ih hh-ae1-f','nn'],
 'behave':['b-ih hh-ey1-v','vb vbp'],
 'behaved':['b-ih hh-ey1-v-d','vbd vbn'],
 'behaves':['b-ih hh-ey1-v-z','vbz'],
@@ -22945,7 +22973,6 @@ function _dict() { return {
 'canoe':['k-ah n-uw1','nn'],
 'canon':['k-ae1 n-ah-n','nn'],
 'canopy':['k-ae1 n-ah p-iy','nn'],
-'cant':['k-ae1-n-t','nn'],
 'cantaloupe':['k-ae1-n t-ah l-ow-p','nn'],
 'canteen':['k-ae-n t-iy1-n','nn'],
 'canter':['k-ae1-n t-er','nn vb'],
@@ -23674,7 +23701,6 @@ function _dict() { return {
 'classic':['k-l-ae1 s-ih-k','jj nn'],
 'classical':['k-l-ae1 s-ih k-ah-l','jj'],
 'classically':['k-l-ae1 s-ih-k l-iy','rb'],
-'classicism':['k-l-ae1 s-ih s-ih z-ah-m','nn'],
 'classification':['k-l-ae s-ah f-ah k-ey1 sh-ah-n','nn'],
 'classified':['k-l-ae1 s-ah f-ay-d','vbn vbd jj'],
 'classifies':['k-l-ae1 s-ah f-ay-z','vbz'],
@@ -24857,7 +24883,6 @@ function _dict() { return {
 'corporate':['k-ao1-r p-er ah-t','jj'],
 'corporatewide':['k-ao1-r p-er ih-t w-ay-d','jj'],
 'corporation':['k-ao-r p-er ey1 sh-ah-n','nn'],
-'corporatism':['k-ao1-r p-er ah t-ih z-ah-m','nn'],
 'corporatist':['k-ao1-r p-er ah t-ih-s-t','nn'],
 'corpse':['k-ao1-r-p-s','nn'],
 'corpsman':['k-ao1-r m-ah-n','nn'],
@@ -27286,7 +27311,6 @@ function _dict() { return {
 'duty':['d-uw1 t-iy','nn'],
 'dwarf':['d-w-ao1-r-f','nn vbp vb'],
 'dwarfed':['d-w-ao1-r-f-t','vbn vbd'],
-'dwarfism':['d-w-ao1-r f-ih z-ah-m','nn'],
 'dwell':['d-w-eh1-l','vbp vb'],
 'dwelled':['d-w-eh1-l-d','vbn'],
 'dweller':['d-w-eh1 l-er','nn'],
@@ -27668,7 +27692,6 @@ function _dict() { return {
 'emitting':['ih m-ih1 t-ih-ng','vbg'],
 'emotion':['ih m-ow1 sh-ah-n','nn'],
 'emotional':['ih m-ow1 sh-ah n-ah-l','jj'],
-'emotionalism':['ih m-ow1 sh-ah-n ah l-ih z-ah-m','nn'],
 'emotionally':['ih m-ow1-sh n-ah l-iy','rb'],
 'empathetic':['eh-m p-ah th-eh1 t-ih-k','jj'],
 'empathize':['eh1-m p-ah th-ay-z','vb'],
@@ -28843,7 +28866,6 @@ function _dict() { return {
 'fecal':['f-iy1 k-ah-l','jj'],
 'feckless':['f-eh1-k l-ih-s','jj'],
 'federal':['f-eh1 d-er ah-l','jj'],
-'federalism':['f-eh1 d-er ah l-ih z-ah-m','nn jj'],
 'federalist':['f-eh1 d-er ah l-ih-s-t','nn'],
 'federalized':['f-eh1 d-er ah l-ay-z-d','jj'],
 'federally':['f-eh1 d-er ah l-iy','rb'],
@@ -30353,7 +30375,6 @@ function _dict() { return {
 'grader':['g-r-ey1 d-er','nn'],
 'grading':['g-r-ey1 d-ih-ng','vbg nn'],
 'gradual':['g-r-ae1 jh-uw ah-l','jj rb'],
-'gradualism':['g-r-ae1 jh-ah-w ah l-ih z-ah-m','nn'],
 'gradualist':['g-r-ae1 jh-ah-w ah l-ih-s-t','nn'],
 'gradually':['g-r-ae1 jh-uw ah l-iy','rb'],
 'graduate':['g-r-ae1 jh-ah-w ah-t','nn jj vb vbp'],
@@ -31493,7 +31514,6 @@ function _dict() { return {
 'hugged':['hh-ah1-g-d','vbd'],
 'hugging':['hh-ah1 g-ih-ng','vbg nn'],
 'huh':['hh-ah1','uh'],
-'hula':['hh-uw1 l-ah','nn'],
 'hulk':['hh-ah1-l-k','nn vb'],
 'hulking':['hh-ah1-l k-ih-ng','jj vbg'],
 'hull':['hh-ah1-l','nn'],
@@ -32913,7 +32933,6 @@ function _dict() { return {
 'irrationality':['ih r-ae sh-ah n-ae1 l-ah t-iy','nn'],
 'irrationally':['ih r-ae1 sh-ah-n ah l-iy','rb'],
 'irreconcilable':['ih r-eh1 k-ah-n s-ay l-ah b-ah-l','jj'],
-'irredentism':['ih r-ah d-eh1-n t-ih z-ah-m','nn'],
 'irrefutable':['ih r-ah f-y-uw1 t-ah b-ah-l','jj'],
 'irregular':['ih r-eh1 g-y-ah l-er','jj nn'],
 'irregularity':['ih r-eh g-y-ah l-eh1 r-ah t-iy','nn'],
@@ -35162,8 +35181,6 @@ function _dict() { return {
 'monarchy':['m-aa1 n-aa-r k-iy','nn'],
 'monastery':['m-aa1 n-ah s-t-eh r-iy','nn'],
 'monastic':['m-ah n-ae1 s-t-ih-k','jj'],
-'monasticism':['m-ah n-ae1 s-t-ah s-ih z-ah-m','nn'],
-'monetarism':['m-aa1 n-ah t-er ih z-ah-m','nn'],
 'monetary':['m-aa1 n-ah t-eh r-iy','jj'],
 'money':['m-ah1 n-iy','nn'],
 'moneyed':['m-ah1 n-iy-d','jj'],
@@ -35638,7 +35655,6 @@ function _dict() { return {
 'negotiation':['n-ih g-ow sh-iy ey1 sh-ah-n','nn'],
 'negotiator':['n-ah g-ow1 sh-iy ey t-er','nn'],
 'negro':['n-iy1 g-r-ow','nn'],
-'negroes':['n-iy1 g-r-ow-z','nns'],
 'neighbor':['n-ey1 b-er','nn vb'],
 'neighborhood':['n-ey1 b-er hh-uh-d','nn'],
 'neighboring':['n-ey1 b-er ih-ng','vbg jj'],
@@ -35687,8 +35703,6 @@ function _dict() { return {
 'neuter':['n-uw1 t-er','nn vb'],
 'neutered':['n-uw1 t-er-d','vbn'],
 'neutral':['n-uw1 t-r-ah-l','jj'],
-'neutralism':['n-uw1 t-r-ah l-ih z-ah-m','nn'],
-'neutralist':['n-uw1 t-r-ah l-ah-s-t','jj nn'],
 'neutrality':['n-uw t-r-ae1 l-ah t-iy','nn'],
 'neutralization':['n-uw t-r-ah l-ah z-ey1 sh-ah-n','nn'],
 'neutralize':['n-uw1 t-r-ah l-ay-z','vb'],
@@ -36042,8 +36056,6 @@ function _dict() { return {
 'obstructed':['ah-b s-t-r-ah1-k t-ih-d','vbn vbd'],
 'obstructing':['ah-b s-t-r-ah1-k t-ih-ng','vbg'],
 'obstruction':['ah-b s-t-r-ah1-k sh-ah-n','nn'],
-'obstructionism':['ah-b s-t-r-ah1-k sh-ah n-ih z-ah-m','nn'],
-'obstructionist':['ah-b s-t-r-ah1-k sh-ah n-ah-s-t','nn'],
 'obstructive':['ah-b s-t-r-ah1-k t-ih-v','jj'],
 'obtain':['ah-b t-ey1-n','vb vbp'],
 'obtainable':['ah-b t-ey1 n-ah b-ah-l','jj'],
@@ -37729,7 +37741,6 @@ function _dict() { return {
 'plunging':['p-l-ah1-n jh-ih-ng','vbg nn'],
 'plunk':['p-l-ah1-ng-k','vb'],
 'plunked':['p-l-ah1-ng-k-t','vbd'],
-'plunker':['p-l-ah1-ng k-er','nn'],
 'plunking':['p-l-ah1-ng k-ih-ng','vbg'],
 'plural':['p-l-uh1 r-ah-l','nn jj'],
 'pluralism':['p-l-uh1 r-ah l-ih z-ah-m','nn'],
@@ -38645,7 +38656,6 @@ function _dict() { return {
 'providing':['p-r-ah v-ay1 d-ih-ng','vbg in'],
 'province':['p-r-aa1 v-ah-n-s','nn'],
 'provincial':['p-r-ah v-ih1-n sh-ah-l','jj'],
-'provincialism':['p-r-ah v-ih1-n ch-ah l-ih z-ah-m','nn'],
 'provincially':['p-r-ah v-ih1-n sh-ah l-iy','rb'],
 'proving':['p-r-uw1 v-ih-ng','vbg nn'],
 'provision':['p-r-ah v-ih1 zh-ah-n','nn vb'],
@@ -41496,7 +41506,6 @@ function _dict() { return {
 'seniority':['s-iy n-y-ao1 r-ih t-iy','nn'],
 'sensation':['s-eh-n s-ey1 sh-ah-n','nn'],
 'sensational':['s-eh-n s-ey1 sh-ah n-ah-l','jj'],
-'sensationalism':['s-eh-n s-ey1 sh-ah-n ah l-ih z-ah-m','nn'],
 'sense':['s-eh1-n-s','nn vbp vb'],
 'sensed':['s-eh1-n-s-t','vbd vbn'],
 'senseless':['s-eh1-n-s l-ah-s','jj'],
@@ -43127,8 +43136,6 @@ function _dict() { return {
 'stationed':['s-t-ey1 sh-ah-n-d','vbn'],
 'stationery':['s-t-ey1 sh-ah-n eh r-iy','nn'],
 'stationing':['s-t-ey1 sh-ah-n ih-ng','vbg'],
-'statism':['s-t-ey1 t-ih z-ah-m','nn'],
-'statist':['s-t-ey1 t-ih-s-t','jj'],
 'statistic':['s-t-ah t-ih1 s-t-ih-k','nn'],
 'statistical':['s-t-ah t-ih1 s-t-ih k-ah-l','jj'],
 'statistically':['s-t-ah t-ih1 s-t-ih k-ah l-iy','rb'],
@@ -43808,7 +43815,6 @@ function _dict() { return {
 'superlative':['s-uh p-er1 l-ah t-ih-v','jj'],
 'supermarket':['s-uw1 p-er m-aa-r k-ih-t','nn'],
 'supernatural':['s-uw p-er n-ae1 ch-er ah-l','jj nn'],
-'supernaturalism':['s-uw p-er n-ae1 ch-er ah l-ih z-ah-m','nn jj'],
 'superpower':['s-uw p-er p-aw1 er','nn'],
 'superregional':['s-uw p-er r-iy1 jh-ah n-ah-l','jj'],
 'supersede':['s-uw p-er s-iy1-d','vb'],
@@ -44107,7 +44113,6 @@ function _dict() { return {
 'syndication':['s-ih-n d-ih k-ey1 sh-ah-n','nn'],
 'syndicator':['s-ih1-n d-ih k-ey t-er','nn'],
 'syndrome':['s-ih1-n d-r-ow-m','nn'],
-'synergism':['s-ih1 n-er jh-ih z-ah-m','nn'],
 'synergistic':['s-ih n-er jh-ih1 s-t-ih-k','jj'],
 'synergy':['s-ih1 n-er jh-iy','nn'],
 'synonym':['s-ih1 n-ah n-ih-m','nn'],
@@ -45857,7 +45862,6 @@ function _dict() { return {
 'unify':['y-uw1 n-ah f-ay','vb'],
 'unifying':['y-uw1 n-ah f-ay ih-ng','vbg jj'],
 'unilateral':['y-uw n-ah l-ae1 t-er ah-l','jj'],
-'unilateralism':['y-uw n-ih l-ae1 t-er ah l-ih z-ah-m','nn'],
 'unilaterally':['y-uw n-ah l-ae1 t-er ah l-iy','rb'],
 'unimaginable':['ah-n ih m-ae1 jh-ih n-ah b-ah-l','jj'],
 'unimaginative':['ah-n ih m-ae1 jh-ih n-ah t-ih-v','jj'],
@@ -46633,12 +46637,10 @@ function _dict() { return {
 'volume':['v-aa1 l-y-uw-m','nn'],
 'voluminous':['v-ah l-uw1 m-ah n-ah-s','jj'],
 'voluntarily':['v-aa l-ah-n t-eh1 r-ah l-iy','rb'],
-'voluntarism':['v-ow l-ah1-n t-er ih z-ah-m','nn'],
 'voluntary':['v-aa1 l-ah-n t-eh r-iy','jj'],
 'volunteer':['v-aa l-ah-n t-ih1-r','nn vb vbp'],
 'volunteered':['v-aa l-ah-n t-ih1-r-d','vbd vbn'],
 'volunteering':['v-ao l-ah-n t-ih1 r-ih-ng','vbg nn'],
-'volunteerism':['v-ao l-ah-n t-ih1 r-ih z-ah-m','nn'],
 'voluptuous':['v-ah l-ah1-p ch-ah-w ah-s','jj'],
 'vomit':['v-aa1 m-ah-t','vb vbp'],
 'vomiting':['v-aa1 m-ah t-ih-ng','vbg nn'],
@@ -46700,14 +46702,14 @@ function _dict() { return {
 'waiver':['w-ey1 v-er','nn'],
 'waives':['w-ey1-v-z','vbz'],
 'waiving':['w-ey1 v-ih-ng','vbg'],
-'wake':['w-ey1-k','nn vbp vb'],
+'wake':['w-ey1-k','vbp vb'],
 'wakes':['w-ey1-k-s','vbz'],
 'waking':['w-ey1 k-ih-ng','vbg jj'],
 'wale':['w-ey1-l','nn'],
 'walk':['w-ao1-k','vb vbp nn'],
 'walked':['w-ao1-k-t','vbd vbn'],
 'walker':['w-ao1 k-er','nn'],
-'walking':['w-ao1 k-ih-ng','vbg nn jj'],
+'walking':['w-ao1 k-ih-ng','vbg jj'],
 'walkout':['w-ao1-k aw-t','nn'],
 'walkway':['w-ao1-k w-ey','nn'],
 'wall':['w-ao1-l','nn vbp vb'],
@@ -47284,7 +47286,6 @@ function _dict() { return {
 'worship':['w-er1 sh-ah-p','nn vb vbp'],
 'worshiped':['w-er1 sh-ih-p-t','vbn'],
 'worshipful':['w-er1 sh-ah-p f-ah-l','jj'],
-'worshipped':['w-er1 sh-ah-p-t','nn'],
 'worshipper':['w-er1 sh-ih p-er','nn'],
 'worshipping':['w-er1 sh-ah p-ih-ng','vbg'],
 'worst':['w-er1-s-t','jjs rbs jj'],
@@ -47305,7 +47306,7 @@ function _dict() { return {
 'wow':['w-aw1','vb'],
 'wowed':['w-aw1-d','vbd'],
 'wows':['w-aw1-z','vbz'],
-'wrack':['r-ae1-k','nn vb vbp'],
+'wrack':['r-ae1-k','vb vbp'],
 'wracked':['r-ae1-k-t','vbn vbd'],
 'wracking':['r-ae1 k-ih-ng','vbg'],
 'wrangle':['r-ae1-ng-g-ah-l','vb'],

@@ -50,7 +50,7 @@
     "note": ""
   }, {
     "name": "ready",
-    "example": "rm = new RiMarkov(3);<br>rm.loadFrom(\"http://www.rednoise.org/rita/examples/data/wittgenstein.txt\");<br>rm.ready();",
+    "example": "rm = new RiMarkov(3);<br>rm.loadFrom(\"http://www.rednoise.org/rita/examples/data/wittgenstein.txt\");<br>if (rm.ready()) { ... };",
     "description": "Returns true if there is at least one valid rule, else false",
     "syntax": "ready();",
     "parameters": [],
@@ -84,7 +84,7 @@
     "note": ""
   }, {
     "name": "generateUntil",
-    "example": "rm.loadFrom(\"http://www.rednoise.org/rita/examples/data/wittgenstein.txt\");<br>rm.generateUntil(\"the\")",
+    "example": "rm.loadFrom(\"http://www.rednoise.org/rita/examples/data/wittgenstein.txt\");<br>output = rm.generateUntil(\"the\");",
     "description": "Continues generating tokens until a token matches 'regex', assuming the length of the output array is between min and maxLength (inclusive).",
     "syntax": "generateUntil(regex, minLength, maxLength);",
     "parameters": [{
@@ -266,7 +266,7 @@
     "note": ""
   }, {
     "name": "size",
-    "example": "rm = new RiMarkov(3);<br>rm.loadFrom(\"http://www.rednoise.org/rita/examples/data/wittgenstein.txt\"); rm.size();",
+    "example": "rm = new RiMarkov(3);<br>rm.loadFrom(\"http://www.rednoise.org/rita/examples/data/wittgenstein.txt\"); if (rm.size() > 10) { ... }",
     "description": "Returns the number of tokens currently in the model",
     "syntax": "size();",
     "parameters": [

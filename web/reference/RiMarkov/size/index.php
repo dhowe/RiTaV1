@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">rm = new RiMarkov(3);<br>rm.loadFrom("http://www.rednoise.org/rita/examples/data/wittgenstein.txt"); rm.size();</pre>
+								<pre class="margin">rm = new RiMarkov(3);<br>rm.loadFrom("http://www.rednoise.org/rita/examples/data/wittgenstein.txt"); if (rm.size() > 10) { ... }</pre>
 							</div></td>
 						</tr>
 
