@@ -415,13 +415,9 @@ public class JSONLexicon implements Constants {
 
   /** Returns all words where 'pos' is the first (or only) tag listed */
   public Set<String> getWordsWithPos(String pos) {
-    
-    if (!RiPos.isPennTag(pos)) {
-      throw new RiTaException("Pos '"+ pos + "' is not a known part-of-speech tag." + 
-	  " Check the list at http://rednoise.org/rita/reference/PennTags.html");
-    }
 
     boolean pluralize = false; // fix to #409
+
     if (pos.equals("n") || pos.equals("nns")) {
       pluralize = pos.equals("nns");
       pos = "nn";
@@ -433,19 +429,44 @@ public class JSONLexicon implements Constants {
     else if (pos.equals("a"))
       pos = "jj";
 
+    if (!RiPos.isPennTag(pos)) {
+      throw new RiTaException("Pos '" + pos + "' is not a known part-of-speech tag." + " Check the list at http://rednoise.org/rita/reference/PennTags.html");
+    }
 
     Set<String> s = new TreeSet<String>();
     String posSpc = pos + " ";
+
     for (Iterator<String> iter = iterator(); iter.hasNext();) {
       String word = iter.next();
       String poslist = getPosStr(word);
       if (poslist.startsWith(posSpc) || poslist.equals(pos)) {
-	if (pluralize) word = RiTa.pluralize(word); // fix to #409
-	s.add(word);
+      	if (pluralize) {
+           if (!isNNWithoutNNS(word)) 
+             word = RiTa.pluralize(word);
+           else continue;
+         }
+         s.add(word);
       }
     }
     return s;
   }
+
+  protected boolean isNNWithoutNNS(String w) {
+      if (w.endsWith("ness") || w.endsWith("ism")){
+         // System.out.println("[NNS] -ness/-ism:" + w);
+        return true;
+      } else {
+        String[] tags = getPosArr(w);
+        for (int j = 0; j < tags.length; j++) {
+          if (tags[j].equals("vbg")) {
+            // System.out.println("[NNS] -vbg:" + w);
+            return true;
+          }
+        }
+       return false;
+      }
+      
+   }
 
   protected void addToFeatureCache(String word, Map m) {
     if (featureCache == null)

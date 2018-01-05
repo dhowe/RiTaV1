@@ -247,8 +247,8 @@ public class RiLexiconTest {
       String syllables = RiTa.getSyllables(result);
       int num = syllables.split(RiTa.SYLLABLE_BOUNDARY).length;
       if (num != 5)
-	System.err.println("[WARN] '" + result
-	    + "' has wrong syllable count 5 != " + num);
+	      System.err.println("[WARN] '" + result
+	        + "' has wrong syllable count 5 != " + num);
       ok(num == 5); // "5 syllableCount: "
     }
   }
@@ -258,26 +258,59 @@ public class RiLexiconTest {
     
     RiLexicon lex = new RiLexicon();
 
-    String[] pos = { "nn", "jj", "jjr", "wp"  };
+    String[] pos = { "nn", "jj", "jjr", "wp" };
     for (int j = 0; j < pos.length; j++) {
       for (int i = 0; i < 3; i++) {
-	String result = lex.randomWord(pos[j]);
-	String best = lex.lexImpl.getBestPos(result);
-	System.out.println(result+": "+pos[j]+" ?= "+best);
-	equal(pos[j], best);
+      	String result = lex.randomWord(pos[j]);
+      	String best = lex.lexImpl.getBestPos(result);
+//      	 System.out.println(result+": "+pos[j]+" ?= "+best);
+      	equal(pos[j], best);
       }
     }
-    
+
     HashSet<String> s = new HashSet<String>();
     for (int i = 0; i < 5; i++) { 
       String result = lex.randomWord("nns");
-      System.out.println(result);
+//      System.out.println(result);
       ok(result.length() > 0);//&& !s.contains(result));
       s.add(result); // no dups
     }
   }
-  
-  
+
+  @Test
+  public void testRandomWord2() {
+    // double check that we don't always get the same word
+
+    RiLexicon lex = new RiLexicon();
+    
+    String[] pos = { "nns", "n", "v","nn", "jj", "jjr"};
+    for (int j = 0; j < pos.length; j++) {
+        String result = lex.randomWord(pos[j]);
+        ok(result != lex.randomWord(pos[j]));
+    }
+
+  }
+
+  @Test
+  public void testRandomNNS() {
+    
+    RiLexicon lex = new RiLexicon();
+
+    for (int i = 0; i < 20; i++) {
+      String result = lex.randomWord("nns");
+      String[] tags = RiTa.getPosTags(result);
+//      System.out.println(result);
+      //No nn & vbg
+      for (int j = 0; j < tags.length; j++) {
+        ok(tags[j] != "vbg", "randomWord nns: " + result);
+      }
+    
+      //No -ness, -ism
+      ok(!result.endsWith("ness"), "randomWord nns: " + result);
+      ok(!result.endsWith("isms"), "randomWord nns: " + result);
+    }
+
+  }
 
   @Test
   public void testRandomWordStringInt() {
