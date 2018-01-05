@@ -160,7 +160,7 @@ var FEATURES = [ 'tokens', 'stresses', 'phonemes', 'syllables', 'pos', 'text' ];
 
 var RiTa = {
 
-  VERSION: '1.3.10',
+  VERSION: '1.3.11',
 
   /* For tokenization, Can't -> Can not, etc. */
   SPLIT_CONTRACTIONS: false,
@@ -1597,6 +1597,14 @@ RiLexicon.prototype = {
       ran = Math.floor(Math.random() * this.size()),
       found = false, a = arguments, words = this.keys;
 
+    var  isNNWithoutNNS = function(w, pos) {
+     if (w.endsWith("ness") || w.endsWith("ism") || pos.indexOf("vbg") > 0) {
+        // console.log(w);
+        return true;
+     }  
+      else return false;
+    }
+
     if (typeof a[0] === "string") {
 
         a[0] = trim(a[0]).toLowerCase();
@@ -1618,13 +1626,15 @@ RiLexicon.prototype = {
 
       case 2: // a[0]=pos  a[1]=syllableCount
 
-
         for (i = 0; i < words.length; i++) {
           j = (ran + i) % words.length;
           rdata = this.data[words[j]];
           numSyls = rdata[0].split(SP).length;
           if (numSyls === a[1] && a[0] === rdata[1].split(SP)[0]) {
-            return pluralize ? RiTa.pluralize(words[j]) : words[j];
+            if (!pluralize) return words[j];
+            else if (!isNNWithoutNNS(words[j], rdata[1])) {
+                return RiTa.pluralize(words[j]);
+            }
           }
         }
 
@@ -1638,7 +1648,10 @@ RiLexicon.prototype = {
             j = (ran + i) % words.length;
             rdata = this.data[words[j]];
             if (a[0] === rdata[1].split(SP)[0]) {
-              return pluralize ? RiTa.pluralize(words[j]) : words[j];
+                if (!pluralize) return words[j];
+                else if (!isNNWithoutNNS(words[j], rdata[1])) {
+                return RiTa.pluralize(words[j]);
+            }
             }
           }
 
