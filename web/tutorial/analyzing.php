@@ -124,7 +124,6 @@
                   n -> NOUN
                   <br /> v -> VERB
                   <br /> a -> ADJECTIVE
-                  <br /> s -> ADJECTIVE SATELLITE
                   <br /> r -> ADVERB
                   <br />
                 </p>
