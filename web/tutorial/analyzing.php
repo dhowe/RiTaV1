@@ -111,7 +111,7 @@
                  analyze the part-of-speech (or POS) for you.
               </p>
                <pre><code class="language-javascript">RiTa.getPosTags("I am hungry");</code></pre>
-               <p>The outcome would be: ["prp", "nn", "nn"]</p>
+               <p>The outcome would be: ["prp", "vbp", "jj"]</p>
               <p>
               Here you can find <a href="../reference/PennTags.html">a reference list of PENN part-of-speech tagger in RiTa</a>.
               </p>
