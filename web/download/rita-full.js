@@ -160,7 +160,7 @@ var FEATURES = [ 'tokens', 'stresses', 'phonemes', 'syllables', 'pos', 'text' ];
 
 var RiTa = {
 
-  VERSION: '1.3.11',
+  VERSION: '1.3.81',
 
   /* For tokenization, Can't -> Can not, etc. */
   SPLIT_CONTRACTIONS: false,
@@ -493,7 +493,7 @@ var RiTa = {
       return text;
     }
 
-    var arr = escapeAbbrevs(text).match(/(\S.+?[.!?])(?=\s+|$)/g);
+    var arr = escapeAbbrevs(text).match(/(\S.+?[.!?]["”]?)(?=\s+|$)/g);
     return (text.length && arr && arr.length) ? unescapeAbbrevs(arr) : [text];
   },
 
@@ -5066,9 +5066,10 @@ RiTa.stemmers.Pling = (function() {
     if (categoryIRR._arrayContains(s)) {
         var index = categoryIRR.indexOf(s),
             irreg;
-        if (index % 2 == 0)
+        if (index % 2 == 0) {
             irreg = categoryIRR[index + 1];
-        return (irreg);
+            return (irreg);
+        }
     }
     // -on to -a
     if (categoryON_A._arrayContains(s))
@@ -20899,6 +20900,7 @@ function _dict() { return {
 'ardor':['aa1-r d-er','nn'],
 'arduous':['aa1-r jh-uw ah-s','jj'],
 'are':['aa1-r','vbp'],
+'aren\'t':['aa1-r-ah-n-t','vbp'],
 'area':['eh1 r-iy ah','nn'],
 'arena':['er iy1 n-ah','nn'],
 'argon':['aa1-r g-aa-n','nn'],
@@ -22994,6 +22996,7 @@ function _dict() { return {
 'canvasser':['k-ae1-n v-ah s-er','nn'],
 'canvassing':['k-ae1-n v-ah s-ih-ng','vbg'],
 'canyon':['k-ae1 n-y-ah-n','nn'],
+'can\'t':['k-ae1-n-t','md'],
 'cap':['k-ae1-p','nn vbp vb'],
 'capability':['k-ey p-ah b-ih1 l-ah t-iy','nn'],
 'capable':['k-ey1 p-ah b-ah-l','jj'],
@@ -24967,6 +24970,7 @@ function _dict() { return {
 'coughed':['k-ao1-f-t','vbd vbn'],
 'coughing':['k-aa1 f-ih-ng','vbg nn'],
 'could':['k-uh1-d','md'],
+'couldn\'t':['k-uh1-d-ah-n-t','md'],
 'council':['k-aw1-n s-ah-l','nn'],
 'councilman':['k-aw1-n s-ah-l m-ah-n','nn'],
 'councilor':['k-aw1-n s-ah-l er','nn'],
@@ -25700,7 +25704,6 @@ function _dict() { return {
 'decomposes':['d-iy k-ah-m p-ow1 z-ih-z','vbz'],
 'decompression':['d-iy k-ah-m p-r-eh1 sh-ah-n','nn'],
 'decontamination':['d-iy k-ah-n t-ae m-ah n-ey1 sh-ah-n','nn'],
-'decontrol':['d-iy k-ah-n t-r-ow1-l','nn vb'],
 'decor':['d-ih k-ao1-r','nn'],
 'decorate':['d-eh1 k-er ey-t','vbp vb'],
 'decorated':['d-eh1 k-er ey t-ah-d','vbn vbd jj'],
@@ -26337,6 +26340,7 @@ function _dict() { return {
 'dictionary':['d-ih1-k sh-ah n-eh r-iy','nn'],
 'dictum':['d-ih1-k t-ah-m','nn'],
 'did':['d-ih1-d','vbd'],
+'didn\'t':['d-ih1-d-ah-n-t','vbd'],
 'didactic':['d-ay d-ae1-k t-ih-k','jj'],
 'die':['d-ay1','vb vbp nn'],
 'died':['d-ay1-d','vbd vbn'],
@@ -26959,6 +26963,7 @@ function _dict() { return {
 'doe':['d-ow1','nn'],
 'doer':['d-uw1-r','nn'],
 'does':['d-ah1-z','vbz'],
+'doesn\'t':['d-ah1-z-ah-n-t','vbz'],
 'doff':['d-ao1-f','vb'],
 'doffing':['d-ao1 f-ih-ng','vbg'],
 'dog':['d-ao1-g','nn'],
@@ -27016,6 +27021,7 @@ function _dict() { return {
 'donnybrook':['d-aa1 n-iy b-r-uh-k','nn'],
 'donor':['d-ow1 n-er','nn'],
 'donut':['d-ow1 n-ah-t','nn'],
+'don\'t':['d-ow1-n-t','vbp'],
 'doo':['d-uw1','nn vb'],
 'doodad':['d-uw1 d-ae-d','nn'],
 'doom':['d-uw1-m','nn vb'],
@@ -29312,7 +29318,6 @@ function _dict() { return {
 'floater':['f-l-ow1 t-er','nn'],
 'floating':['f-l-ow1 t-ih-ng','vbg jj'],
 'floats':['f-l-ow1-t-s','vbz'],
-'floc':['f-l-aa1-k','nn'],
 'flock':['f-l-aa1-k','nn vb vbp'],
 'flocked':['f-l-aa1-k-t','vbd vbn'],
 'flocking':['f-l-aa1 k-ih-ng','vbg'],
@@ -30504,9 +30509,6 @@ function _dict() { return {
 'greening':['g-r-iy1 n-ih-ng','jj nn vbg'],
 'greenish':['g-r-iy1 n-ih-sh','jj'],
 'greenly':['g-r-iy1-n l-iy','rb'],
-'greenmail':['g-r-iy1-n m-ey-l','nn'],
-'greenmailer':['g-r-iy1-n m-ey l-er','nn'],
-'greenness':['g-r-iy1-n n-ah-s','nn'],
 'greet':['g-r-iy1-t','vb vbp'],
 'greeted':['g-r-iy1 t-ah-d','vbd vbn'],
 'greeting':['g-r-iy1 t-ih-ng','nn vbg jj'],
@@ -30745,6 +30747,7 @@ function _dict() { return {
 'hackneyed':['hh-ae1-k n-iy-d','jj'],
 'hacksaw':['hh-ae1-k s-ao','nn'],
 'had':['hh-ae1-d','vbd vbn'],
+'hadn\'t':['hh-ae1-d-ah-n-d','vbd vbn'],
 'hadd':['hh-ae1-d','vbn'],
 'haddock':['hh-ae1 d-ah-k','nn'],
 'hafta':['hh-ae1-f t-ah','vb vbp'],
@@ -30934,7 +30937,8 @@ function _dict() { return {
 'harvest':['hh-aa1-r v-ah-s-t','nn vb vbp'],
 'harvested':['hh-aa1-r v-ah s-t-ah-d','vbn'],
 'harvesting':['hh-aa1-r v-ah s-t-ih-ng','nn vbg'],
-'has':['hh-ae1-z','vbz vbn .'],
+'has':['hh-ae1-z','vbz vbn'],
+'hasn\'t':['hh-ae1-z-ah-n-t','vbz'],
 'hash':['hh-ae1-sh','nn vb vbp'],
 'hasher':['hh-ae1 sh-er','nn'],
 'hashing':['hh-ae1 sh-ih-ng','nn vbg'],
@@ -30972,6 +30976,7 @@ function _dict() { return {
 'hauntingly':['hh-ao1-n t-ih-ng l-iy','rb'],
 'have':['hh-ae1-v','vbp jj nn vb vbn'],
 'haven':['hh-ey1 v-ah-n','nn'],
+'haven\'t':['hh-ae1-v-ah-n-t','vbp vbn'],
 'having':['hh-ae1 v-ih-ng','vbg'],
 'havoc':['hh-ae1 v-ah-k','nn'],
 'haw':['hh-ao1','vb'],
@@ -32979,6 +32984,7 @@ function _dict() { return {
 'irritating':['ih1 r-ah t-ey t-ih-ng','jj'],
 'irritation':['ih r-ih t-ey1 sh-ah-n','nn'],
 'is':['ih1-s','vbz'],
+'isn\'t':['ih1-z-ah-n-t','vbz vbp'],
 'island':['ay1 l-ah-n-d','nn'],
 'islander':['ay1 l-ah-n d-er','nn'],
 'isle':['ay1-l','nn'],
@@ -34379,7 +34385,6 @@ function _dict() { return {
 'mannered':['m-ae1 n-er-d','jj'],
 'mannerism':['m-ae1 n-er ih z-ah-m','nn'],
 'manning':['m-ae1 n-ih-ng','vbg'],
-'mano':['m-aa1 n-ow','nn'],
 'manor':['m-ae1 n-er','nn'],
 'manpower':['m-ae1-n p-aw er','nn'],
 'mans':['m-ae1-n-z','vbz'],
@@ -34862,6 +34867,7 @@ function _dict() { return {
 'mien':['m-iy1-n','nn'],
 'miffed':['m-ih1-f-t','jj'],
 'might':['m-ay1-t','md nn'],
+'mightn\'t':['m-ay1-t-ah-n-t','md'],
 'mightiest':['m-ay1 t-iy ah-s-t','jjs'],
 'mightily':['m-ay1 t-ah l-iy','rb'],
 'mighty':['m-ay1 t-iy','jj rb'],
@@ -35467,6 +35473,7 @@ function _dict() { return {
 'musket':['m-ah1-s k-ah-t','nn'],
 'mussel':['m-ah1 s-ah-l','nn'],
 'must':['m-ah1-s-t','md'],
+'mustn\'t':['m-ah1-s-t-ah-n-t','md'],
 'mustache':['m-ah1 s-t-ae-sh','nn'],
 'mustached':['m-ah1 s-t-ae-sh-t','jj'],
 'mustachioed':['m-ah s-t-ae1 sh-iy ow-d','jj'],
@@ -38945,6 +38952,7 @@ function _dict() { return {
 'queuing':['k-y-uw1 ih-ng','vbg'],
 'quibble':['k-w-ih1 b-ah-l','vb'],
 'quibbling':['k-w-ih1 b-ah-l ih-ng','vbg'],
+'quiche':['k-iy1-sh','nn'],
 'quick':['k-w-ih1-k','jj nn rb'],
 'quicken':['k-w-ih1 k-ah-n','vb'],
 'quickened':['k-w-ih1 k-ah-n-d','vbd vbn'],
@@ -40163,7 +40171,6 @@ function _dict() { return {
 'requisition':['r-eh-k-w-ah-z-ih1-sh-ah-n','vb'],
 'requisitioned':['r-eh k-w-ah z-ih1 sh-ah-n-d','vbd vbn'],
 'reread':['r-iy1 r-iy1-d','vb vbd vbn'],
-'reregulation':['r-iy r-eh g-y-ah l-ey1 sh-ah-n','nn'],
 'reroute':['r-iy-r-uw1-t','vb'],
 'rerouted':['r-iy r-uw1 t-ih-d','vbn'],
 'rerouting':['r-iy r-uw1 t-ih-ng','vbg'],
@@ -40650,8 +40657,8 @@ function _dict() { return {
 'ripple':['r-ih1 p-ah-l','nn vb vbp jj'],
 'rippled':['r-ih1 p-ah-l-d','vbd'],
 'rippling':['r-ih1 p-ah-l ih-ng','vbg'],
-'rise':['r-ay1-z','nn vbp vb'],
-'risen':['r-ih1 z-ah-n','vbn'],
+'rise':['r-ay1-z','vbp vb'],
+'risen':['r-ih1 z-ah-n','n vbn'],
 'rising':['r-ay1 z-ih-ng','vbg nn jj'],
 'risk':['r-ih1-s-k','nn vbp vb'],
 'risked':['r-ih1-s-k-t','vbd vbn'],
@@ -41719,13 +41726,11 @@ function _dict() { return {
 'shaving':['sh-ey1 v-ih-ng','nn vbg'],
 'shawl':['sh-ao1-l','nn'],
 'she':['sh-iy1','prp'],
-'shea':['sh-ey1','nn'],
 'sheaf':['sh-iy1-f','nn'],
 'shear':['sh-ih1-r','nn vb'],
 'sheared':['sh-ih1-r-d','jj vbn'],
 'shearing':['sh-ih1 r-ih-ng','nn vbg'],
 'sheath':['sh-iy1-th','nn'],
-'sheathing':['sh-iy1 dh-ih-ng','nn'],
 'shed':['sh-eh1-d','vb vbd vbn vbp nn'],
 'shedding':['sh-eh1 d-ih-ng','vbg nn'],
 'sheen':['sh-iy1-n','nn'],
@@ -41734,7 +41739,6 @@ function _dict() { return {
 'sheepskin':['sh-iy1-p s-k-ih-n','nn'],
 'sheer':['sh-ih1-r','jj nn'],
 'sheet':['sh-iy1-t','nn'],
-'sheeting':['sh-iy1 t-ih-ng','nn'],
 'sheik':['sh-iy1-k','nn'],
 'shelf':['sh-eh1-l-f','nn'],
 'shell':['sh-eh1-l','nn jj vb'],
@@ -41861,6 +41865,7 @@ function _dict() { return {
 'shot':['sh-aa1-t','nn vbd vbn'],
 'shotgun':['sh-aa1-t g-ah-n','nn jj'],
 'should':['sh-uh1-d','md'],
+'shouldn\'t':['sh-uh1-d-ah-n-t','md'],
 'shoulder':['sh-ow1-l d-er','nn vbp rb vb'],
 'shouldered':['sh-ow1-l d-er-d','vbd vbn'],
 'shouldering':['sh-ow1-l d-er ih-ng','vbg'],
@@ -42805,7 +42810,6 @@ function _dict() { return {
 'spewing':['s-p-y-uw1 ih-ng','vbg'],
 'sphere':['s-f-ih1-r','nn'],
 'spherical':['s-f-eh1 r-ih k-ah-l','jj'],
-'spic':['s-p-ih1-k','nn'],
 'spice':['s-p-ay1-s','nn vbp vb'],
 'spiced':['s-p-ay1-s-t','jj'],
 'spicing':['s-p-ay1 s-ih-ng','vbg'],
@@ -45244,9 +45248,7 @@ function _dict() { return {
 'tripped':['t-r-ih1-p-t','vbd vbn'],
 'tripping':['t-r-ih1 p-ih-ng','vbg'],
 'triptych':['t-r-ih1-p t-ih-k','nn'],
-'tristate':['t-r-ay1 s-t-ey-t','jj'],
 'trite':['t-r-ay1-t','jj'],
-'tritium':['t-r-ih1 t-iy ah-m','nn'],
 'triumph':['t-r-ay1 ah-m-f','nn vb'],
 'triumphant':['t-r-ay ah1-m f-ah-n-t','jj'],
 'triumphantly':['t-r-ay ah1-m f-ah-n-t l-iy','rb'],
@@ -46802,6 +46804,7 @@ function _dict() { return {
 'wartime':['w-ao1-r t-ay-m','nn'],
 'wary':['w-eh1 r-iy','jj'],
 'was':['w-aa1-z','vbd'],
+'wasn\'t':['w-aa1-z-ah-n-t','vbd'],
 'wash':['w-aa1-sh','nn vbp vb'],
 'washable':['w-aa1 sh-ah b-ah-l','jj'],
 'washbasin':['w-aa1-sh b-ey s-ah-n','nn'],
@@ -46945,6 +46948,7 @@ function _dict() { return {
 'went':['w-eh1-n-t','vbd vbn'],
 'wept':['w-eh1-p-t','vbd vbn'],
 'were':['w-er','vbd vb'],
+'weren\'t':['w-er-ah-n-t','vbd vb'],
 'west':['w-eh1-s-t','nn jj rb jjs'],
 'westbound':['w-eh1-s-t b-aw-n-d','jj'],
 'westerly':['w-eh1 s-t-er l-iy','jj rb'],
@@ -47238,6 +47242,7 @@ function _dict() { return {
 'wondering':['w-ah1-n d-er ih-ng','vbg nn'],
 'wonderland':['w-ah1-n d-er l-ae-n-d','nn'],
 'wondrous':['w-ah1-n d-r-ah-s','jj'],
+'won\'t':['w-ow1-n-t','vbp'],
 'woo':['w-uw1','vb vbp'],
 'wood':['w-uh1-d','nn'],
 'wooded':['w-uh1 d-ih-d','jj'],
@@ -47311,6 +47316,7 @@ function _dict() { return {
 'worthwhile':['w-er1-th w-ay1-l','jj'],
 'worthy':['w-er1 dh-iy','jj'],
 'would':['w-uh1-d','md'],
+'wouldn\'t':['w-uh1-d-ah-n-t','md'],
 'wound':['w-aw1-n-d','nn vbd vbn vb'],
 'wounded':['w-uw1-n d-ah-d','vbn jj'],
 'wounding':['w-uw1-n d-ih-ng','vbg'],

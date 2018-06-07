@@ -160,7 +160,7 @@ var FEATURES = [ 'tokens', 'stresses', 'phonemes', 'syllables', 'pos', 'text' ];
 
 var RiTa = {
 
-  VERSION: '1.3.11',
+  VERSION: '1.3.81',
 
   /* For tokenization, Can't -> Can not, etc. */
   SPLIT_CONTRACTIONS: false,
@@ -493,7 +493,7 @@ var RiTa = {
       return text;
     }
 
-    var arr = escapeAbbrevs(text).match(/(\S.+?[.!?])(?=\s+|$)/g);
+    var arr = escapeAbbrevs(text).match(/(\S.+?[.!?]["”]?)(?=\s+|$)/g);
     return (text.length && arr && arr.length) ? unescapeAbbrevs(arr) : [text];
   },
 
@@ -5066,9 +5066,10 @@ RiTa.stemmers.Pling = (function() {
     if (categoryIRR._arrayContains(s)) {
         var index = categoryIRR.indexOf(s),
             irreg;
-        if (index % 2 == 0)
+        if (index % 2 == 0) {
             irreg = categoryIRR[index + 1];
-        return (irreg);
+            return (irreg);
+        }
     }
     // -on to -a
     if (categoryON_A._arrayContains(s))
