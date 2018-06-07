@@ -19276,6 +19276,7 @@ function _dict() { return {
 'queuing':['k-y-uw1 ih-ng','vbg'],
 'quibble':['k-w-ih1 b-ah-l','vb'],
 'quibbling':['k-w-ih1 b-ah-l ih-ng','vbg'],
+'quiche':['k-iy1-sh','nn'],
 'quick':['k-w-ih1-k','jj nn rb'],
 'quicken':['k-w-ih1 k-ah-n','vb'],
 'quickened':['k-w-ih1 k-ah-n-d','vbd vbn'],

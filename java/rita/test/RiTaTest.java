@@ -847,6 +847,10 @@ public class RiTaTest
     answer = "f-l-aw-er-z";
     equal(result, answer);
     
+    result = RiTa.getPhonemes("quiche");
+    answer = "k-iy-sh";
+    equal(result, answer);
+    
     result = RiTa.getPhonemes("mice");
     answer = "m-ay-s";
     equal(result, answer);
