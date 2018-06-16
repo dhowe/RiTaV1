@@ -34,13 +34,3 @@ public class WordNetExample {
   }
 }
 ```
-
-#### Using RiWordNet with Processing on Android (Android support coming soon...)
---------
-```processing
-import rita.*;
-
-RiWordNet w = new RiWordNet("/Users/<username>/Desktop/example/dict");
-String[] s = w.getAllSynsets("dog", "n");
-println(s);
-```
