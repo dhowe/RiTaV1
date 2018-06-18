@@ -464,6 +464,26 @@ public class RiTaTest
     output = RiTa.splitSentences(input);
     expected = new String[]{"The baby belonged to Mr. and Mrs. Stevens.", "They will be very sad."};
     deepEqual(output, expected);
+
+    input = "\"The baby belonged to Mr. and Mrs. Stevens. They will be very sad.\"";
+    output = RiTa.splitSentences(input);
+    expected = new String[] { "\"The baby belonged to Mr. and Mrs. Stevens.", "They will be very sad.\""};      
+    deepEqual(output, expected);
+
+    input = "“The baby belonged to Mr. and Mrs. Stevens. They will be very sad.”";
+    output = RiTa.splitSentences(input);
+    expected = new String[] { "“The baby belonged to Mr. and Mrs. Stevens.", "They will be very sad.”"};     
+    deepEqual(output, expected);
+
+    input = "She wrote: \"I don't paint anymore. For a while I thought it was just a phase that I'd get over.\"";
+    output = RiTa.splitSentences(input);
+    expected = new String[] { "She wrote: \"I don't paint anymore.", "For a while I thought it was just a phase that I'd get over.\""};
+    deepEqual(output, expected);
+    
+    input = " I had a visit from my \"friend\" the tax man.";
+    output = RiTa.splitSentences(input);
+    expected = new String[] { "I had a visit from my \"friend\" the tax man."};
+    deepEqual(output, expected);
     
     input = "-@.576";
     output = RiTa.splitSentences(input);
