@@ -4,7 +4,7 @@
 
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-  <title>Tutorial-Using RiGrammar</title>
+  <title>Generating with grammars</title>
   <meta name="generator" content="JsDoc" />
   <link rel="stylesheet" href="../css/normalize.css">
   <link rel="stylesheet" href="../css/main.css">
@@ -77,7 +77,7 @@
             </p>
 
             <pre><code class="language-javascript">
-  RiGrammar.expandFrom('&lt;start&gt;');</code></pre>
+  riGrammar.expandFrom('&lt;start&gt;');</code></pre>
 
             <p>By default, a RiGrammar object will assign equal weights to all choices in a rule.
               However, one can adjust the weights by adding 'multipliers' as follows:
