@@ -68,6 +68,10 @@ With a longer text sample we could experiment with different <em>n</em>-values. 
  <p> Here is a very simple example of <a href="../examples/p5js/Kafgenstein/index.html">text-generation with RiTa</a>.
 </p>
 
+<p><br>
+  <em>Aside: for the computer-science-oriented, we can think of these models as Finite State Machines, or more generally as (labelled) Directed Graphs.</em>
+</p>
+
 <br />
 <h5><a href="../reference/RiMarkov.php"><b>RiMarkov</b></a></h5>
 <p>Generating text with Markov Chain in RiTa requires three simple steps:
