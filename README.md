@@ -28,7 +28,7 @@ Please see https://github.com/dhowe/RiTaJS for the JavaScript implementation of 
 #### A Simple Example (Java)
 --------
 
-For JavaScript examples, go [here](https://github.com/dhowe/RiTaJS)
+&nbsp; &nbsp; For JavaScript examples, go [here](https://github.com/dhowe/RiTaJS#a-simple-sketch)
 
 1. Create a new Java project in Eclipse (or your IDE of choice)
 2. Download [rita.jar](http://rednoise.org/rita/download/rita.jar) and add it to the build path for the project. In eclipse: 'Project' > 'Properties' > 'Java Build Path' > 'Libraries' > 'Add External JARs...'
