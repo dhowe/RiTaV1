@@ -34,6 +34,33 @@ Add your site or application content here
      <h3 style="margin-left:-20px">Gallery</h3>
   <div class="gallery_home">
       <div class="row">
+         <span class="gallery_home_item gd-4  mgd-6 sgd-12">
+        <a href="./gallery/SortingBot" target="new"><img src="img/sortingBot.png" ></a><br>
+        <a href="./gallery/SortingBot" target="new">Sorting Bot</a>
+        <p><span>Darius Kazemi</span></p>
+        <p class="gallery_home_spacer">&nbsp;</p>
+      </span>
+
+         <span class="gallery_home_item gd-4  mgd-6 sgd-12">
+        <a href="./gallery/BracketMemeBot" target="new"><img src="img/bracket.png" ></a><br>
+        <a href="./gallery/BracketMemeBot" target="new">Bracket Meme Bot</a>
+        <p><span>Darius Kazemi</span></p>
+        <p class="gallery_home_spacer">&nbsp;</p>
+      </span>
+
+        <span class="gallery_home_item gd-4  mgd-6 sgd-12">
+        <a href="./gallery/DNA" target="new"><img src="img/poetryDNA.png" ></a><br>
+        <a href="./gallery/DNA" target="new">Poetry.dna</a>
+        <p><span>Matthew Halpenny</span></p>
+        <p class="gallery_home_spacer">&nbsp;</p>
+      </span>
+
+        <span class="gallery_home_item gd-4  mgd-6 sgd-12">
+        <a href="./gallery/SolLewitt" target="new"><img src="img/sl.png" ></a><br>
+        <a href="./gallery/SolLewitt" target="new">Sol Lewitt Generator</a>
+        <p><span>Richard Lapham</span></p>
+        <p class="gallery_home_spacer">&nbsp;</p>
+      </span>
 
        <span class="gallery_home_item gd-4  mgd-6 sgd-12">
         <a href="./gallery/HW00/hw00.html" target="new"><img src="img/hm.jpg" ></a><br>
