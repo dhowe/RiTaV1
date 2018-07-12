@@ -76,7 +76,7 @@ Summer is hot. It is hot today.</p></div>
 </p>
 <br />
 <h5>Key Word In Context</h5>
-<p>A common format for a concordance is <b>Key-Word-In-Context</b> or <b>KWIC</b> model.  It sorts and aligns the words in a way that allowing each to be searchable in the index. The search result for the word 'window' in an example KWIC model looks like this:
+<p>A common format for a concordance is <b>Key-Word-In-Context</b> or <b>KWIC</b> model.  It sorts and aligns the words in a way that allows each to be searchable in the index. The search result for the word 'window' in an example KWIC model looks like this:
 </p>
 <img src="../img/kwic.png" alt="" />
 

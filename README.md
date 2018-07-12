@@ -7,7 +7,7 @@
 
 #### <a href="https://rednoise.org/rita">The RiTa website</a>
 
-RiTa is designed to be an easy-to-use toolkit for experiments in natural language and generative literature. It is implemented in Java and JavaScript (with a unified API for both) and optionally integrates with Processing, Android, Node, p5.js, Browserify, Bower, etc, It is free/libre and open-source via the GPL license (http://www.gnu.org/licenses/gpl.txt).
+RiTa is designed to be an easy-to-use toolkit for experiments in natural language and generative literature. It is implemented in Java and JavaScript (with a unified API for both) and optionally integrates with Processing, Android, Node, p5.js, Browserify, Bower, etc. It is free/libre and open-source via the GPL license (http://www.gnu.org/licenses/gpl.txt).
 
 Please see https://github.com/dhowe/RiTaJS for the JavaScript implementation of RiTa.  
 
@@ -27,6 +27,8 @@ Please see https://github.com/dhowe/RiTaJS for the JavaScript implementation of 
 
 #### A Simple Example (Java)
 --------
+
+&nbsp; &nbsp; For JavaScript examples, go [here](https://github.com/dhowe/RiTaJS#a-simple-sketch)
 
 1. Create a new Java project in Eclipse (or your IDE of choice)
 2. Download [rita.jar](http://rednoise.org/rita/download/rita.jar) and add it to the build path for the project. In eclipse: 'Project' > 'Properties' > 'Java Build Path' > 'Libraries' > 'Add External JARs...'
