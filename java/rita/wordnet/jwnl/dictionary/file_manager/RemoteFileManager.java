@@ -41,6 +41,7 @@ public class RemoteFileManager extends FileManagerImpl {
 	 * See {@link FileManagerImpl} for a description of the default search directory.
 	 * @exception RemoteException If remote operation failed.
 	 */
+	@SuppressWarnings("deprecation")
 	public RemoteFileManager(String searchDir, Class dictionaryFileType) throws IOException, RemoteException {
 		super(searchDir, dictionaryFileType);
 		UnicastRemoteObject.exportObject(this);

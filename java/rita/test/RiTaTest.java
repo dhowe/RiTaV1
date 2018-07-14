@@ -30,7 +30,7 @@ public class RiTaTest
       REMOTE_TESTING = false;
     
     if (!REMOTE_TESTING)
-      System.out.println("[INFO] Skipping remote URL tests...");
+      System.out.println("\n[INFO] Skipping remote URL tests...\n");
   }
   
   @Before

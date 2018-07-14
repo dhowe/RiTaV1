@@ -453,8 +453,8 @@
   },
   {
     "name": "RiTa.concordance",
-    "example": "// Java<br><br>Map args = new HashMap();<br>args.put(\"ignoreCase\", false);<br>args.put(\"ignoreStopWords\", true);<br><br>String c = RiTa.concordance(text, args);<br><br><br>// Javascript<br><br>var args = {<br> ignoreCase: false,<br> ignoreStopWords: true<br>};<br><br>var c = RiTa.concordance(text, args);<br><br>",
-    "description": "Creates a concordance, a list of words with their frequency of occurence, from the given text and (optional) options",
+    "example": "// Java<br><br>args = new HashMap();<br>args.put(\"ignoreCase\", false);<br>args.put(\"ignoreStopWords\", true);<br><br>kwic = RiTa.concordance(text, word, args);<br><br><br>// Javascript<br><br>args = {<br> ignoreCase: false,<br> ignoreStopWords: true<br>};<br><br>kwic = RiTa.concordance(text, word, args);<br><br>",
+    "description": "XXXCreates a concordance, a list of words with their frequency of occurence, from the given text and (optional) options",
     "syntax": "RiTa.concordance(text, args);",
     "parameters": [{
         "type": "String",

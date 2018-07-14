@@ -1,10 +1,5 @@
 package rita.support;
 
-
-import java.util.Collection;
-import java.util.Iterator;
-
-
 /**
  * Minimum-Edit-Distance (or Levenshtein distance) is a measure of the similarity 
  * between two strings, the source string and the target string (t). The distance 
@@ -14,35 +9,7 @@ import java.util.Iterator;
  * Adapted from Michael Gilleland's algorithm
  */
 public class MinEditDist
-{     
-  protected int closest(Collection candidates, String target, Collection result)
-  { 
-    System.err.println("[WARN] Raw call to MinEditDist.closest()!!");
-    
-    if (result == null) 
-      throw new IllegalArgumentException("Null Arg: result[Collection](3)");
-
-    int minVal = Integer.MAX_VALUE;
-    for (Iterator i = candidates.iterator(); i.hasNext();)
-    {
-      String candidate = (String)i.next();    
-      
-      int med = computeRaw(candidate, target);     
-      if (med == 0) continue; // same word
-    
-      // we found something even closer
-      if (med < minVal) {
-        minVal = med;
-        result.clear();
-        result.add(candidate);
-      }  
-      // we have another best to add
-      else if (med == minVal)  
-        result.add(candidate);
-    }    
-    return minVal;
-  }
-  
+{       
   /**
    * Compute min-edit-distance between 2 strings divided by their average length.
    */ 

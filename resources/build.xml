@@ -1,7 +1,7 @@
 <!-- NOTE: For a full build, run ./publish-lib.sh  -->
 
 <!-- NOTE: ant should be run with java version 1.7 -->
-		
+
 <project name="RiTa" default="test" basedir="../">
 
 	<!-- ===================== properties ===================== -->
@@ -29,11 +29,6 @@
 	<property name="dist.bin" location="${project.dist}/bin" />
 	<property name="dist.library" location="${project.dist}/${project.name}/library" />
 	<property name="dist.js" location="${project.dist}/${project.name}/js" />
-
-	<property name="p5.sketchbook" location="${user.home}/Documents/Processing" />
-	<property name="p5.libraries" location="${p5.sketchbook}/libraries/" />
-	<property name="p5.rita.jar" location="${p5.libraries}/RiTa/library/rita.jar" />
-	<property name="p5.rita.support.jar" location="${p5.libraries}/RiTa/library/rita.support.jar" />
 
 	<!-- ======================================================= -->
 
@@ -69,7 +64,7 @@
 			</else>
 		</if>
 	</target>
-	
+
 	<target name="check.processing">
 
 		<available file="${p5.libraries}/RiTa/library" property="processing.present" />
@@ -112,16 +107,16 @@
 				<copy file="${dist.js}/rita-full.min.js" tofile="${dist.library}/rita.js" />
 
 				<!-- js examples (p5js and dom) to web folder -->
-			  <copy todir="${web.examples}">
-			    <fileset dir="${js.examples}"/>
-			  </copy>
+				<copy todir="${web.examples}">
+					<fileset dir="${js.examples}"/>
+				</copy>
 			</then>
-			
+
 			<else>
 				<echo message="Generating zip without .js files..." />
 			</else>
 		</if>
-		
+
 	</target>
 
 	<target name="build.js">
@@ -129,7 +124,7 @@
 			<param name="gulp.task" value="make.lib" />
 		</antcall>
 	</target>
-	
+
 	<target name="npm.publish">
 		<antcall target="run.gulp">
 			<param name="gulp.task" value="npm.publish" />
@@ -183,7 +178,7 @@
 		<exclude name="**/web-export/**" />
 		<exclude name="**/POSMarkov/**" />
 	</fileset>
-	
+
 	<fileset id="jsExampleFileSet" dir="${js.examples}">
 		<exclude name="**/*README*" />
 		<exclude name="**/*.html" />
@@ -201,13 +196,11 @@
 		<replace file="${project.dist}/${project.name}/src/rita/RiTa.java" token="##version##" value="${project.version}" />
 
 		<javac srcdir="${project.dist}/${project.name}/src" excludes="**/test/sketches/**" destdir="${dist.bin}" 
+			includeantruntime="false"
 			encoding="UTF-8"
-			source="${java.target.version}" 
-			target="${java.target.version}" 
-			includeantruntime="false" 
-			debug="false">
+			debug="true">
 			<classpath refid="classpath" />
-			<compilerarg line="-Xlint:deprecation,divzero,empty,fallthrough,finally,overrides,path" compiler="modern" />
+			<compilerarg line="-Xlint:deprecation,divzero,empty,fallthrough,finally,overrides,path" />
 		</javac>
 
 	</target>
@@ -243,15 +236,15 @@
 		<delete file="${project.web}/rita.zip" />
 		<delete file="${project.web}/RiTa-${project.version}.zip" />
 
-		<!-- create the zip -->		
+		<!-- create the zip -->
 		<zip destfile="${project.web}/RiTa-${project.version}.zip" basedir="${project.dist}" excludes="**/.DS_Store, *.jar, *.zip, *.js" />
 
-		<!-- save a copy in the archive -->		
+		<!-- save a copy in the archive -->
 		<copy tofile="${project.archive}/RiTa-${project.version}.zip" file="${project.web}/RiTa-${project.version}.zip" failonerror="false" overwrite="true" />
-		
+
 		<!-- add a symlink to rita.zip -->
 		<symlink link="${project.web}/rita.zip" resource="${project.web}/RiTa-${project.version}.zip"/>
-		
+
 		<delete dir="${project.dist}/${project.name}" />
 
 		<!-- copy files to the web/download dir -->
@@ -260,7 +253,7 @@
 				<include name="rita*.*" />
 			</fileset>
 		</copy>
-		
+
 	</target>
 
 	<target name="generate.jars" depends="compile">
@@ -280,6 +273,7 @@
 				<include name="*.gif" />
 			</fileset>
 		</copy>
+
 		<copy todir="${dist.bin}">
 			<fileset dir="${project.src}">
 				<include name="*.properties" />
@@ -334,14 +328,14 @@
 					<fileset dir="${project.dist}/${project.name}/library" />
 				</copy>
 			</then>
-			
+
 			<else>
 				<echo message="Skipping jars to p5" />
 			</else>
 		</if>
-		
+
 	</target>
-	
+
 	<target name="create.structure" description="" depends="clean">
 
 		<mkdir dir="${project.dist}" />
@@ -413,7 +407,7 @@
 		</junit>
 
 	</target>
-				
+
 	<target name="test" description="runs all java tests" depends="compile">
 
 		<junit printsummary="yes" timeout="100000" haltonfailure="yes">
@@ -459,23 +453,24 @@
 	</target>
 
 	<target name="info" depends="check.js">
-<echo>
+		<echo>
 ${line}
-Name:		    ${project.name}
+Name:		${project.name}
 Version:		${project.version}
 Java.Version:	${java.version}
+Target.Version:	${java.target.version}
 </echo>
 		<if>
 			<isset property="rita.js.present" />
 			<then>
-<echo>JavaScript:     true
+				<echo>JavaScript:      true
 ${line}
 </echo>
 			</then>
 			<else>
-<echo>JavaScript:     false
+				<echo>JavaScript:      false
 ${line}
-</echo>			
+</echo>
 			</else>
 		</if>
 	</target>

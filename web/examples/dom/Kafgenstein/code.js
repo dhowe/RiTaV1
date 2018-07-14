@@ -4,16 +4,27 @@ $(document).ready(function () {
 
   markov = new RiMarkov(4);
 
-  RiTa.loadString('../../data/kafka.txt', function (data1) {
-    RiTa.loadString('../../data/wittgenstein.txt', function (data2) {
-      markov.loadText(data1);
-      markov.loadText(data2);
-    });
-  });
+  loadMarkovFromFile('../../data/kafka.txt')
+  .then(loadMarkovFromFile('../../data/wittgenstein.txt'), failureCallback);
 
   $('.textarea').text("click to (re)generate!");
   $('div').click(generate);
 });
+
+function loadMarkovFromFile(file) {
+  
+  var promise = new Promise(function(resolve, reject) {
+    RiTa.loadString(file, function (data) {
+        markov.loadText(data);
+    });
+  });
+
+  return promise;
+}
+
+function failureCallback() {
+  console.log("Failed to load text to RiMarkov.")
+}
 
 function generate() {
 

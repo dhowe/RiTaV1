@@ -66,7 +66,7 @@
 							<th scope="row">Description</th>
 
 							<!-- DESCRIPTION  -->
-							<td>Creates a concordance, a list of words with their frequency of occurence, from the given text and (optional) options</td>
+							<td>XXXCreates a concordance, a list of words with their frequency of occurence, from the given text and (optional) options</td>
 						</tr>
 
 						<tr class='Syntax'>
@@ -120,7 +120,7 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">// Java<br><br>Map args = new HashMap();<br>args.put("ignoreCase", false);<br>args.put("ignoreStopWords", true);<br><br>String c = RiTa.concordance(text, args);<br><br><br>// Javascript<br><br>var args = {<br> ignoreCase: false,<br> ignoreStopWords: true<br>};<br><br>var c = RiTa.concordance(text, args);<br><br></pre>
+								<pre class="margin">// Java<br><br>args = new HashMap();<br>args.put("ignoreCase", false);<br>args.put("ignoreStopWords", true);<br><br>kwic = RiTa.concordance(text, word, args);<br><br><br>// Javascript<br><br>args = {<br> ignoreCase: false,<br> ignoreStopWords: true<br>};<br><br>kwic = RiTa.concordance(text, word, args);<br><br></pre>
 							</div></td>
 						</tr>
 

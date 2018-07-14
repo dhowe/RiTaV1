@@ -4,7 +4,6 @@
  */
 package rita.wordnet.jwnl.util;
 
-
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -15,285 +14,298 @@ import java.util.ListIterator;
 import rita.wordnet.jwnl.JWNLRuntimeException;
 
 /**
- * Wrapper for a list that checks the type of arguments before putting them in the list.
- * It also does type-checking on methods which iterate over the list so that they fail
- * fast if the argument is not of the correct type.
+ * Wrapper for a list that checks the type of arguments before putting them in
+ * the list. It also does type-checking on methods which iterate over the list
+ * so that they fail fast if the argument is not of the correct type.
  */
 public class TypeCheckingList implements List, DeepCloneable {
-	private List _list;
-	private Class _type;
+  private List _list;
+  private Class _type;
 
-	public TypeCheckingList(Class type) {
-		this(new ArrayList(), type);
-	}
+  public int hashCode() {
+    return _list.hashCode();
+  }
 
-	public TypeCheckingList(List backingList, Class type) {
-		init(backingList, type);
-	}
+  public TypeCheckingList(Class type) {
+    this(new ArrayList(), type);
+  }
 
-	/**
-	 * Create a new Type checking list that checks for type <var>type</var>, but only if <var>parentType</var> is
-	 * equal to, a super class/interface of, or an interface implemented by <var>type</var>.
-	 */
-	protected TypeCheckingList(List backingList, Class type, Class parentType) {
-		if (!parentType.isAssignableFrom(type)) {
-            throw new JWNLRuntimeException("UTILS_EXCEPTION_001", new Object[] { type, parentType });
-        }
-		init(backingList, type);
-	}
+  public TypeCheckingList(List backingList, Class type) {
+    init(backingList, type);
+  }
 
-	private void init(List backingList, Class type) {
-		_type = type;
-		if (!backingList.isEmpty()) {
-			typecheck(backingList);
-        }
-		_list = backingList;
-	}
+  /**
+   * Create a new Type checking list that checks for type <var>type</var>, but
+   * only if <var>parentType</var> is equal to, a super class/interface of, or
+   * an interface implemented by <var>type</var>.
+   */
+  protected TypeCheckingList(List backingList, Class type, Class parentType) {
+    if (!parentType.isAssignableFrom(type)) {
+      throw new JWNLRuntimeException("UTILS_EXCEPTION_001", new Object[] {
+	  type, parentType });
+    }
+    init(backingList, type);
+  }
 
-	public Class getType() {
-		return _type;
-	}
+  private void init(List backingList, Class type) {
+    _type = type;
+    if (!backingList.isEmpty()) {
+      typecheck(backingList);
+    }
+    _list = backingList;
+  }
 
-	private List getList() {
-		return _list;
-	}
+  public Class getType() {
+    return _type;
+  }
 
-	public Object clone() throws CloneNotSupportedException {
-		return new TypeCheckingList(copyBackingList(), getType());
-	}
+  private List getList() {
+    return _list;
+  }
 
-	/** Make a copy of the wrapped list - used by subclasses when the overriding the clone method */
-	protected List copyBackingList() throws CloneNotSupportedException {
-		try {
-			Method cloneMethod = getList().getClass().getMethod("clone", (Class[])null);
-			return (List)cloneMethod.invoke(getList(), (Object[])null);
-		} catch (Exception ex) {
-			throw new CloneNotSupportedException();
-		}
-	}
+  public Object clone() throws CloneNotSupportedException {
+    return new TypeCheckingList(copyBackingList(), getType());
+  }
 
-	public Object deepClone() throws UnsupportedOperationException {
-		throw new UnsupportedOperationException();
-	}
+  /**
+   * Make a copy of the wrapped list - used by subclasses when the overriding
+   * the clone method
+   */
+  protected List copyBackingList() throws CloneNotSupportedException {
+    try {
+      Method cloneMethod = getList().getClass().getMethod("clone",
+	  (Class[]) null);
+      return (List) cloneMethod.invoke(getList(), (Object[]) null);
+    } catch (Exception ex) {
+      throw new CloneNotSupportedException();
+    }
+  }
 
-	// object methods
+  public Object deepClone() throws UnsupportedOperationException {
+    throw new UnsupportedOperationException();
+  }
 
-	public boolean equals(Object obj) {
-		return (obj instanceof TypeCheckingList) && super.equals(obj);
-	}
+  // object methods
 
-	// methods that do type-checking
+  public boolean equals(Object obj) {
+    return (obj instanceof TypeCheckingList) && super.equals(obj);
+  }
 
-	public boolean add(Object o) {
-		typecheck(o);
-		return getList().add(o);
-	}
+  // methods that do type-checking
 
-	public void add(int index, Object o) {
-		typecheck(o);
-		getList().add(index, o);
-	}
+  public boolean add(Object o) {
+    typecheck(o);
+    return getList().add(o);
+  }
 
-	public boolean addAll(Collection c) {
-		typecheck(c);
-		return getList().addAll(c);
-	}
+  public void add(int index, Object o) {
+    typecheck(o);
+    getList().add(index, o);
+  }
 
-	public boolean addAll(int index, Collection c) {
-		typecheck(c);
-		return getList().addAll(index, c);
-	}
+  public boolean addAll(Collection c) {
+    typecheck(c);
+    return getList().addAll(c);
+  }
 
-	public boolean contains(Object o) {
-		try {
-			typecheck(o);
-			return getList().contains(o);
-		} catch (Exception ex) {
-			return false;
-		}
-	}
+  public boolean addAll(int index, Collection c) {
+    typecheck(c);
+    return getList().addAll(index, c);
+  }
 
-	public boolean containsAll(Collection c) {
-		try {
-			typecheck(c);
-			return getList().containsAll(c);
-		} catch (Exception ex) {
-			return false;
-		}
-	}
+  public boolean contains(Object o) {
+    try {
+      typecheck(o);
+      return getList().contains(o);
+    } catch (Exception ex) {
+      return false;
+    }
+  }
 
-	public Object set(int index, Object element) {
-		typecheck(element);
-		return getList().set(index, element);
-	}
+  public boolean containsAll(Collection c) {
+    try {
+      typecheck(c);
+      return getList().containsAll(c);
+    } catch (Exception ex) {
+      return false;
+    }
+  }
 
-	public int indexOf(Object o) {
-		try {
-			typecheck(o);
-			return getList().indexOf(o);
-		} catch (Exception ex) {
-			return -1;
-		}
-	}
+  public Object set(int index, Object element) {
+    typecheck(element);
+    return getList().set(index, element);
+  }
 
-	public int lastIndexOf(Object o) {
-		try {
-			typecheck(o);
-			return getList().lastIndexOf(o);
-		} catch (Exception ex) {
-			return -1;
-		}
-	}
+  public int indexOf(Object o) {
+    try {
+      typecheck(o);
+      return getList().indexOf(o);
+    } catch (Exception ex) {
+      return -1;
+    }
+  }
 
-	public boolean remove(Object o) {
-		try {
-			typecheck(o);
-			return getList().remove(o);
-		} catch (Exception ex) {
-			return false;
-		}
-	}
+  public int lastIndexOf(Object o) {
+    try {
+      typecheck(o);
+      return getList().lastIndexOf(o);
+    } catch (Exception ex) {
+      return -1;
+    }
+  }
 
-	// listIterator methods
+  public boolean remove(Object o) {
+    try {
+      typecheck(o);
+      return getList().remove(o);
+    } catch (Exception ex) {
+      return false;
+    }
+  }
 
-	public ListIterator listIterator() {
-		return getTypeCheckingListIterator();
-	}
+  // listIterator methods
 
-	public ListIterator listIterator(int index) {
-		return getTypeCheckingListIterator(index);
-	}
+  public ListIterator listIterator() {
+    return getTypeCheckingListIterator();
+  }
 
-	protected TypeCheckingListIterator getTypeCheckingListIterator() {
-		return getTypeCheckingListIterator(0);
-	}
+  public ListIterator listIterator(int index) {
+    return getTypeCheckingListIterator(index);
+  }
 
-	protected TypeCheckingListIterator getTypeCheckingListIterator(int index) {
-		return new TypeCheckingListIterator(getList().listIterator(index));
-	}
+  protected TypeCheckingListIterator getTypeCheckingListIterator() {
+    return getTypeCheckingListIterator(0);
+  }
 
-	// pass-through methods
+  protected TypeCheckingListIterator getTypeCheckingListIterator(int index) {
+    return new TypeCheckingListIterator(getList().listIterator(index));
+  }
 
-	public int size() {
-		return getList().size();
-	}
+  // pass-through methods
 
-	public boolean isEmpty() {
-		return getList().isEmpty();
-	}
+  public int size() {
+    return getList().size();
+  }
 
-	public Iterator iterator() {
-		return getList().iterator();
-	}
+  public boolean isEmpty() {
+    return getList().isEmpty();
+  }
 
-	public Object[] toArray() {
-		return getList().toArray();
-	}
+  public Iterator iterator() {
+    return getList().iterator();
+  }
 
-	// type-checking happens already with this method, so we don't have to explicitly do it
-	public Object[] toArray(Object[] a) {
-		return getList().toArray(a);
-	}
+  public Object[] toArray() {
+    return getList().toArray();
+  }
 
-	// type-checking for fail-fast doesn't really improve the performance of this method
-	public boolean removeAll(Collection c) {
-		return getList().removeAll(c);
-	}
+  // type-checking happens already with this method, so we don't have to
+  // explicitly do it
+  public Object[] toArray(Object[] a) {
+    return getList().toArray(a);
+  }
 
-	// type-checking for fail-fast doesn't really improve the performance of this method
-	public boolean retainAll(Collection c) {
-		return getList().retainAll(c);
-	}
+  // type-checking for fail-fast doesn't really improve the performance of this
+  // method
+  public boolean removeAll(Collection c) {
+    return getList().removeAll(c);
+  }
 
-	public void clear() {
-		getList().clear();
-	}
+  // type-checking for fail-fast doesn't really improve the performance of this
+  // method
+  public boolean retainAll(Collection c) {
+    return getList().retainAll(c);
+  }
 
-	public Object get(int index) {
-		return getList().get(index);
-	}
+  public void clear() {
+    getList().clear();
+  }
 
-	public Object remove(int index) {
-		return getList().remove(index);
-	}
+  public Object get(int index) {
+    return getList().get(index);
+  }
 
-	public List subList(int fromIndex, int toIndex) {
-		return getList().subList(fromIndex, toIndex);
-	}
+  public Object remove(int index) {
+    return getList().remove(index);
+  }
 
-	// type checking methods
+  public List subList(int fromIndex, int toIndex) {
+    return getList().subList(fromIndex, toIndex);
+  }
 
-	private void typecheck(Object obj) {
-		if (!getType().isInstance(obj)) {
-			throw new JWNLRuntimeException("UTILS_EXCEPTION_003", getType());
-		}
-	}
+  // type checking methods
 
-	private Collection _lastCheckedCollection = null;
+  private void typecheck(Object obj) {
+    if (!getType().isInstance(obj)) {
+      throw new JWNLRuntimeException("UTILS_EXCEPTION_003", getType());
+    }
+  }
 
-	private void typecheck(Collection c) {
-		if (c != _lastCheckedCollection)
-			for (Iterator iterator = c.iterator(); iterator.hasNext();)
-				typecheck(iterator.next());
-		_lastCheckedCollection = c;
-	}
+  private Collection _lastCheckedCollection = null;
 
-	public final class TypeCheckingListIterator implements ListIterator {
-		private ListIterator _itr;
+  private void typecheck(Collection c) {
+    if (c != _lastCheckedCollection)
+      for (Iterator iterator = c.iterator(); iterator.hasNext();)
+	typecheck(iterator.next());
+    _lastCheckedCollection = c;
+  }
 
-		/** Create a TypeCheckingListIterator from a ListIterator.*/
-		private TypeCheckingListIterator(ListIterator itr) {
-			_itr = itr;
-		}
+  public final class TypeCheckingListIterator implements ListIterator {
+    private ListIterator _itr;
 
-		public Class getType() {
-			return TypeCheckingList.this.getType();
-		}
+    /** Create a TypeCheckingListIterator from a ListIterator. */
+    private TypeCheckingListIterator(ListIterator itr) {
+      _itr = itr;
+    }
 
-		// Methods that do type-checking.
+    public Class getType() {
+      return TypeCheckingList.this.getType();
+    }
 
-		public void set(Object o) {
-			typecheck(o);
-			getListIterator().set(o);
-		}
+    // Methods that do type-checking.
 
-		public void add(Object o) {
-			typecheck(o);
-			getListIterator().add(o);
-		}
+    public void set(Object o) {
+      typecheck(o);
+      getListIterator().set(o);
+    }
 
-		// Pass-through methods
+    public void add(Object o) {
+      typecheck(o);
+      getListIterator().add(o);
+    }
 
-		public boolean hasNext() {
-			return getListIterator().hasNext();
-		}
+    // Pass-through methods
 
-		public Object next() {
-			return getListIterator().next();
-		}
+    public boolean hasNext() {
+      return getListIterator().hasNext();
+    }
 
-		public boolean hasPrevious() {
-			return getListIterator().hasPrevious();
-		}
+    public Object next() {
+      return getListIterator().next();
+    }
 
-		public Object previous() {
-			return getListIterator().previous();
-		}
+    public boolean hasPrevious() {
+      return getListIterator().hasPrevious();
+    }
 
-		public int nextIndex() {
-			return getListIterator().nextIndex();
-		}
+    public Object previous() {
+      return getListIterator().previous();
+    }
 
-		public int previousIndex() {
-			return getListIterator().previousIndex();
-		}
+    public int nextIndex() {
+      return getListIterator().nextIndex();
+    }
 
-		public void remove() {
-			getListIterator().remove();
-		}
+    public int previousIndex() {
+      return getListIterator().previousIndex();
+    }
 
-		private ListIterator getListIterator() {
-			return _itr;
-		}
-	}
+    public void remove() {
+      getListIterator().remove();
+    }
+
+    private ListIterator getListIterator() {
+      return _itr;
+    }
+  }
 }
