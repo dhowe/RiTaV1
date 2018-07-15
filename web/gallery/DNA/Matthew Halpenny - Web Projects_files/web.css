@@ -1,0 +1,145 @@
+* {
+    box-sizing: border-box;
+    background-color: white;
+}
+
+body {
+
+
+
+}
+
+
+#home{
+  color: black;
+  cursor: crosshair;
+}
+
+#home.hover{
+  color: black;
+  cursor: crosshair;
+}
+
+h1{
+    width:75%;
+    float: right;
+    color: white;
+
+}
+
+
+nav {
+    background: transparent;
+    color: black;
+    left: 2%;
+    width: 180px;
+    text-align: left;
+    margin-top: 8%;
+    display:block;
+    letter-spacing: 5px;
+    position: fixed;
+    font-family: monospace;
+    font-size: 14px;
+}
+
+nav ul{
+
+    list-style-type: none;
+    color: black;
+    padding:0px;
+    left: 0px;
+    top: 0px;
+}
+
+nav a{
+
+    text-decoration: none;
+    color: black;
+    display: block;
+    padding: 5px;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+nav a:hover{
+
+    background-color: rgba(255, 237, 0, 0.8);
+    color: black;
+    font-style: oblique;
+    cursor: crosshair;
+}
+
+.subLink{
+  font-size: 10px;
+}
+
+.subLink a:hover{
+  font-style: oblique;
+  background-color: rgba(255, 230, 0, 0);
+}
+
+
+div.gallery {
+
+    width: 55%;
+    float: right;
+    padding: 10px;
+    margin-right: 10%;
+
+}
+
+div.gallery img{
+
+    max-width: 100%;
+    margin-top: 5%;
+    height:auto;
+    border-width: 0.7px;
+    border-color:white;
+    border-style: solid;
+}
+
+
+.subhead{
+
+  font-family: monospace;
+  /* font-weight: bold; */
+  letter-spacing: 1px;
+  font-size: 18px;
+  margin-top: 3%;
+}
+
+.subtext{
+
+  font-family: monospace;
+  font-size: 14px;
+  margin-top: 2%;
+  margin-bottom: 15%;
+}
+
+a.visit:link{
+  text-decoration: none;
+  color: black;
+
+}
+
+a.visit:visited{
+  text-decoration: none;
+  color: black;
+
+}
+
+a.visit:hover{
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.4);
+  cursor: crosshair;
+
+}
+
+
+#text{
+  font-size: 20px;
+  letter-spacing: 5px;
+  position: fixed;
+  background: transparent;
+  font-style: oblique;
+
+}
