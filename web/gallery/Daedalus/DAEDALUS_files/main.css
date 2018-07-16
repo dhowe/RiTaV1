@@ -1,0 +1,65 @@
+body {
+	background-color: #FFFFFF;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	line-height: 24px;
+	margin-right: 0;
+	color: #336699;
+}
+
+td, th {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	line-height: 20px;
+	margin-right: 0;
+	color: #666666;
+}
+pre {
+	/*font-family: Verdana, Arial, Helvetica, sans-serif;*/
+	font-size: 11px;
+	line-height: 12px;
+	margin-right: 20;
+	color: #333333;
+}
+em {
+  color: #333333;
+}
+.caption {
+  margin-right: 0;
+  background: #333333;
+  color: #FFFFFF ;
+}
+.leftmarg {
+  margin-left: 5;
+  
+}
+.deco {
+   text-decoration: underline;
+}	
+
+a:link {
+	font-size: 10px;
+	text-decoration: none;
+	background: #FFFFFF;
+	color: #000000;
+}
+
+a:visited {
+    font-size: 10px;
+	text-decoration: none;
+	background: #FFFFFF;
+	color: #000000;
+}
+
+a:hover {
+	font-size: 10px;
+	text-decoration: none;
+	background: #000000;
+	color: #FFFFFF;
+}
+
+
+
+
+
+

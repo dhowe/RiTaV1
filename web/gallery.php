@@ -35,6 +35,20 @@
           <div class="gallery_home">
             <div class="row">
 
+              <span class="gallery_home_item gd-4  mgd-6 sgd-12">
+        <a href="./gallery/Daedalus" target="new"><img src="img/daedalus.png" ></a><br>
+        <a href="./gallery/Daedalus" target="new">DAEDALUS</a>
+        <p><span>Alessandro Capozzo</span></p>
+              <p class="gallery_home_spacer">&nbsp;</p>
+              </span>
+
+              <span class="gallery_home_item gd-4  mgd-6 sgd-12">
+        <a href="./gallery/PopCulturePoetry" target="new"><img src="img/popCulture.png" ></a><br>
+        <a href="./gallery/PopCulturePoetry" target="new">Pop Culture Poetry</a>
+        <p><span>Ari Melenciano </span></p>
+              <p class="gallery_home_spacer">&nbsp;</p>
+              </span>
+
 
               <span class="gallery_home_item gd-4  mgd-6 sgd-12">
         <a href="./gallery/BracketMemeBot" target="new"><img src="img/bracket.png" ></a><br>
