@@ -155,11 +155,11 @@
 <hr/>
 <br>&nbsp;<br>
   <h4>Archived Versions</h4>
-  <a href="http://rednoise.org/rita-archive/RiTa-1022.zip">RiTa-alpha.1022.zip</a><br>
-  <a href="http://rednoise.org/rita-archive/RiTa.Wordnet-034.zip">RiTa.Wordnet-034.zip</a><br>&nbsp;<br>
+  <a href="https://rednoise.org/rita-archive/RiTa-1022.zip">RiTa-alpha.1022.zip</a><br>
+  <a href="https://rednoise.org/rita-archive/RiTa.Wordnet-034.zip">RiTa.Wordnet-034.zip</a><br>&nbsp;<br>
 
   <h4>WordNet-3.1 (osx/unix)</h4>
-  <a href="http://rednoise.org/rita-archive/WordNet-3.1.zip">WordNet-3.1.zip</a>
+  <a href="https://rednoise.org/rita-archive/WordNet-3.1.zip">WordNet-3.1.zip</a>
 
   <h4>Deprecated</h4>
   <a href="http://www.rednoise.org/rita-archive/ritext.min.js">ritext.min.js</a>

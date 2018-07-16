@@ -164,9 +164,9 @@
 <h3 id="nitty-gritty-and-source-code">Nitty-gritty and source code</h3>
 <p>Here are the technical steps:</p>
 <ul>
-<li>ask <a href="http://rednoise.org/rita">RitaJS</a> for a <a href="http://rednoise.org/rita/reference/RiTa/RiTa.randomWord/index.php">random word</a>.</li>
+<li>ask <a href="https://rednoise.org/rita">RitaJS</a> for a <a href="https://rednoise.org/rita/reference/RiTa/RiTa.randomWord/index.php">random word</a>.</li>
 <li>take the first 3 letters of that word and do a GET request on <a href="https://en.wikipedia.org/w/api.php?action=query&amp;format=json&amp;list=allcategories&amp;acprefix=hor&amp;acmin=16&amp;aclimit=500&amp;acprop=size">this endpoint</a></li>
-<li>use Rita again, this time to <a href="http://rednoise.org/rita/reference/RiTa/RiTa.getPosTags/index.php">get the part of speech tags</a> for each category</li>
+<li>use Rita again, this time to <a href="https://rednoise.org/rita/reference/RiTa/RiTa.getPosTags/index.php">get the part of speech tags</a> for each category</li>
 <li>throw away anything that doesn't have a word that is tagged <code>nns</code> (a plural noun)</li>
 <li>throw away anything with less than 16 Pages</li>
 <li>throw away a few other "banned terms" that gave consistently boring results (for example, anything with "articles" in it since that is usually a category that is a list of Wikipedia articles)</li>
