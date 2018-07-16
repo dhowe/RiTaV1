@@ -160,7 +160,7 @@ var FEATURES = [ 'tokens', 'stresses', 'phonemes', 'syllables', 'pos', 'text' ];
 
 var RiTa = {
 
-  VERSION: '1.3.84',
+  VERSION: '1.3.85',
 
   /* For tokenization, Can't -> Can not, etc. */
   SPLIT_CONTRACTIONS: false,
@@ -397,8 +397,8 @@ var RiTa = {
     delim = delim || SP;
 
     var thisPunct, lastPunct, thisQuote, lastQuote, thisComma, isLast,
-      lastComma, punct = /^[,\.\;\:\?\!\)""“”\u2019‘`']+$/, dbug = 0,
-      quotes = /^[\(""“”\u2019‘`']+$/, squotes = /^[\u2019‘`']+$/,
+      lastComma, lastEndWithS, punct = /^[,\.\;\:\?\!\)""“”\u2019‘`']+$/,
+      dbug = 0, quotes = /^[\(""“”\u2019‘`']+$/, squotes = /^[\u2019‘`']+$/,
       apostrophes = /^[\u2019']+$/, afterQuote = false,
       withinQuote = arr.length && quotes.test(arr[0]),
       result = arr[0] || E, midSentence = false;

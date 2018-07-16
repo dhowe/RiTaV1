@@ -14472,7 +14472,6 @@ function _dict() { return {
 'lull':['l-ah1-l','nn vb'],
 'lullaby':['l-ah1 l-ah b-ay','nn'],
 'lulled':['l-ah1-l-d','vbn'],
-'lulu':['l-uw1 l-uw','nn'],
 'lumbar':['l-ah1-m b-aa-r','jj'],
 'lumber':['l-ah1-m b-er','nn vb vbp'],
 'lumbering':['l-ah1-m b-er ih-ng','jj nn'],
