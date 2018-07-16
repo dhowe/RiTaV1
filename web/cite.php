@@ -36,7 +36,7 @@ Add your site or application content here
 <p>If you publish work that uses RiTa, please cite RiTa as follows:
 </p>
 <p><b>Example Reference: </b><br>
-Howe, D. C. (2015). RiTa [Computer software]. Retrieved from <a href="http://rednoise.org/rita">http://rednoise.org/rita</a>
+Howe, D. C. (2015). RiTa [Computer software]. Retrieved from <a href="https://rednoise.org/rita">https://rednoise.org/rita</a>
 </p>
 <p>
 <b>Example Text Citations</b> <br>

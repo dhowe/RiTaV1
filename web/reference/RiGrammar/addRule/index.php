@@ -7,7 +7,7 @@
 		<link rel="stylesheet" href="../../../css/bootstrap.css" type="text/css" />
 		<link rel="stylesheet" href="../../../css/syntax.css" type="text/css" />
 		<link rel="stylesheet" href="../../../css/style.css" type="text/css" />
-		<link rel="shortcut icon" type="image/x-icon" href="http://rednoise.org/rita/rita.ico"/>
+		<link rel="shortcut icon" type="image/x-icon" href="https://rednoise.org/rita/rita.ico"/>
 
 		  <meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="../../../css/normalize.css">

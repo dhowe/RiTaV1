@@ -71,10 +71,10 @@
               <div class="ref">
                 <p>A list of the phonemes used in RiTa:
                   <br />
-                  <a href="http://www.rednoise.org/rita/reference/PhonemeTags.html">http://www.rednoise.org/rita/reference/PhonemeTags.php</a></p>
+                  <a href="http://www.rednoise.org/rita/reference/PhonemeTags.php">http://www.rednoise.org/rita/reference/PhonemeTags.php</a></p>
                 <p>The reference list from Arpabet to IPA:
                   <br />
-                  <a href="https://en.wikipedia.org/wiki/Arpabet/">https://en.wikipedia.org/wiki/Arpabet</a>
+                  <a href="https://en.wikipedia.org/wiki/Arpabet/">https://en.wikipedia.org/wiki/ARPABET</a>
                   <p>
               </div>
 

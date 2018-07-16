@@ -4,7 +4,7 @@ import java.util.*;
 /*
  * Random Synonyms from WordNet
  * Note: Java-only, requires a local WordNet installation
- * Grab one here: http://rednoise.org/rita-archive/WordNet-3.1.zip
+ * Grab one here: https://rednoise.org/rita-archive/WordNet-3.1.zip
  * install it, and update the path below 
  */
 

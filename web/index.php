@@ -224,8 +224,8 @@ with or without Processing<br>(also in Android)</p>
     </span>
 
     <span class="gallery_home_item gd-4 mgd-6 sgd-12">
-      <a href="http://rednoise.org/sketches/Shanshui/"><img src="img/shanshui.jpg" width="180"></a><br>
-      <a href="http://rednoise.org/sketches/Shanshui/">Shan Shui</a>
+      <a href="https://rednoise.org/sketches/Shanshui/"><img src="img/shanshui.jpg" width="180"></a><br>
+      <a href="https://rednoise.org/sketches/Shanshui/">Shan Shui</a>
       <p>by Chen Qianxun</p>
       <p class="gallery_home_spacer">&nbsp;</p>
     </span>

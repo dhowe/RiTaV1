@@ -1,8 +1,8 @@
 name=RiTa
 
-authors=[Daniel C. Howe](http://rednoise.org/daniel)
+authors=[Daniel C. Howe](https://rednoise.org/daniel)
 
-url=http://rednoise.org/rita/
+url=https://rednoise.org/rita/
 
 categories=Language,Typography
 
