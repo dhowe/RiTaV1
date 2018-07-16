@@ -49,7 +49,6 @@
               <p class="gallery_home_spacer">&nbsp;</p>
               </span>
 
-
               <span class="gallery_home_item gd-4  mgd-6 sgd-12">
         <a href="./gallery/BracketMemeBot" target="new"><img src="img/bracket.png" ></a><br>
         <a href="./gallery/BracketMemeBot" target="new">Bracket Meme Bot</a>
@@ -64,12 +63,12 @@
               <p class="gallery_home_spacer">&nbsp;</p>
               </span>
 
-              <!--span class="gallery_home_item gd-4  mgd-6 sgd-12">
+              <span class="gallery_home_item gd-4  mgd-6 sgd-12">
         <a href="./gallery/SolLewitt" target="new"><img src="img/sl.png" ></a><br>
         <a href="./gallery/SolLewitt" target="new">Sol Lewitt Generator</a>
         <p><span>Richard Lapham</span></p>
               <p class="gallery_home_spacer">&nbsp;</p>
-            </span-->
+            </span>
 
               <span class="gallery_home_item gd-4  mgd-6 sgd-12">
         <a href="./gallery/HW00/hw00.html" target="new"><img src="img/hm.jpg" ></a><br>
