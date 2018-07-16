@@ -43,7 +43,7 @@
               </span>
 
               <span class="gallery_home_item gd-4  mgd-6 sgd-12">
-        <a href="./gallery/PopCulturePoetry" target="new"><img src="img/popCulture.png" ></a><br>
+        <a href="./gallery/PopCulturePoetry" target="new"><img src="img/popculture.png" ></a><br>
         <a href="./gallery/PopCulturePoetry" target="new">Pop Culture Poetry</a>
         <p><span>Ari Melenciano </span></p>
               <p class="gallery_home_spacer">&nbsp;</p>
