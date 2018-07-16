@@ -61,16 +61,16 @@
 			      <p>
 Provides support for access to the WordNet ontological database. <b>Note that WordNet data files are no longer supplied
 as part of the installation.</b> Please download the version (3.x is recommended) for your platform
-<a href="http://wordnet.princeton.edu/wordnet/download/current-version/" target=_blank>here</a>.
+<a href="https://wordnet.princeton.edu/download/current-version" target=_blank>here</a>.
 The examples below assume the following installation structure (linux/unix/osx):</p><p>
-	 &nbsp; &nbsp;/path/to/WordNet3.1 <br>
-	 &nbsp; &nbsp;/path/to/WordNet3.1/dict/<br>
-	 &nbsp; &nbsp;/path/to/WordNet3.1/dict/data.noun<br>
-	 &nbsp; &nbsp;...
+     &nbsp; &nbsp;/path/to/WordNet3.1 <br>
+     &nbsp; &nbsp;/path/to/WordNet3.1/dict/<br>
+     &nbsp; &nbsp;/path/to/WordNet3.1/dict/data.noun<br>
+     &nbsp; &nbsp;...
  </p>
   <p>
  For more info on the meaning of various WordNet concepts (synset, sense,
- hypernym, etc), see <a href="http://wordnet.princeton.edu/wordnet/man/wngloss.7WN.html" target=_blank>this page</a>.
+ hypernym, etc), see <a href="https://wordnet.princeton.edu/documentation/wngloss7wn" target=_blank>this page</a>.
   </p>
  <br/>
  Construct a RiWordNet object like so:
