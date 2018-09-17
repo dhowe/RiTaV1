@@ -202,7 +202,7 @@
     "note": ""
   }, {
     "name": "loadTokens",
-    "example": "sample = \"One reason people lie is to achieve personal power.\";<br>rm = new RiMarkov(3);<br>rm.loadTokens(tokens);",
+    "example": "sample = \"One reason people lie is to achieve personal power.\";<br>tokens = sample.split(\" \");<br>rm = new RiMarkov(3);<br>rm.loadTokens(tokens);",
     "description": "Loads an array of tokens (or words) into the model; <br>each element in the array must be a single token for proper construction of the model. ",
     "syntax": "loadTokens(tokens);<br>loadTokens(tokens, multiplier);",
     "parameters": [{
