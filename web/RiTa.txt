@@ -1,8 +1,8 @@
 name=RiTa
 
-authors=[Daniel C. Howe](https://rednoise.org/daniel)
+authors=[Daniel C. Howe](http://rednoise.org/daniel)
 
-url=https://rednoise.org/rita/
+url=http://rednoise.org/rita/
 
 categories=Language,Typography
 
@@ -10,6 +10,6 @@ sentence=A library for experiments in generative natural language.
 
 paragraph=RiTa is a library for experiments in natural language and generative writing. Components include text-generation (via context-free grammars and n-grams), tagging (for syllables, phonemes, stresses, and parts-of-speech), conjugation, pluralization, stemming, letter-to-phoneme mapping, rhyme, alliteration and more. RiTa and RiTaJS work alone or in conjunction with Processing, p5.js, Node, Browserify, and Android and are free/libre and open-source (via the GPL).
 
-version=1385
+version=1386
 
-prettyVersion=1.3.85
+prettyVersion=1.3.86

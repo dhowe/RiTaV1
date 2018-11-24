@@ -160,7 +160,7 @@ var FEATURES = [ 'tokens', 'stresses', 'phonemes', 'syllables', 'pos', 'text' ];
 
 var RiTa = {
 
-  VERSION: '1.3.85',
+  VERSION: '1.3.86',
 
   /* For tokenization, Can't -> Can not, etc. */
   SPLIT_CONTRACTIONS: false,
@@ -1194,8 +1194,9 @@ RiLexicon.prototype = {
       return true;
 
     var stem = RiTa.stem(word, 'Pling');
-    if (stem === word)
+    if (stem === word) {
       return false;
+    }
 
     var sing = RiTa.singularize(word);
     var data = this.data[sing];
@@ -1244,23 +1245,21 @@ RiLexicon.prototype = {
 
   rhymes: function(word) {
 
-      var p = this._lastStressedPhoneToEnd(word),
-        phones, results = [];
+    var p = this._lastStressedPhoneToEnd(word),
+      phones, results = [];
 
-      for (var i = 0; i < this.size(); i++) {
+    for (var i = 0; i < this.size(); i++) {
 
-        if (this.keys[i] === word)
-          continue;
+      if (this.keys[i] === word)
+        continue;
 
-        phones = this.data[this.keys[i]][0];
+      phones = this.data[this.keys[i]][0];
 
-        if (endsWith(phones, p))
-          results.push(this.keys[i]);
-      }
-      return (results.length > 0) ? results : EA;
+      if (endsWith(phones, p))
+        results.push(this.keys[i]);
+    }
 
-
-    return EA;
+    return (results.length > 0) ? results : EA;
   },
 
   alliterations: function(word, matchMinLength, useLTS) {
@@ -4976,28 +4975,28 @@ RiTa.stemmers.Lancaster = (function() {
 var categorySP = ['acoustics', 'aesthetics', 'aquatics', 'basics', 'ceramics', 'classics', 'cosmetics', 'dialectics', 'deer', 'dynamics', 'ethics', 'harmonics', 'heroics', 'mechanics', 'metrics', 'optics', 'people', 'physics', 'polemics', 'pyrotechnics', 'quadratics', 'quarters', 'statistics', 'tactics', 'tropics'];
 
 /* Words that end in '-se' in their plural forms (like 'nurse' etc.) */
-var categorySE_SES = ['abuses', 'apocalypses', 'blouses', 'bruises', 'chaises','cheeses', 'chemises', 'clauses', 'corpses', 'courses', 'crazes','creases', 'cruises', 'curses', 'databases', 'dazes', 'defenses', 'demises', 'discourses', 'diseases', 'doses','eclipses', 'enterprises','expenses', 'friezes', 'fuses', 'glimpses', 'guises', 'hearses', 'horses', 'houses', 'impasses', 'impulses', 'kamikazes', 'mazes','mousses','noises', 'nooses', 'noses', 'nurses', 'obverses', 'offenses', 'overdoses', 'phrases', 'posses', 'premises', 'pretenses', 'proteases', 'pulses',  'purposes', 'purses', 'racehorses', 'recluses','recourses', 'relapses', 'responses', 'roses', 'ruses', 'spouses', 'stripteases', 'subleases', 'sunrises', 'tortoises', 'trapezes', 'treatises', 'universes', 'vases', 'verses', 'vises', 'wheelbases'];
+var categorySE_SES = ['abuses', 'apocalypses', 'blouses', 'bruises', 'chaises','cheeses', 'chemises', 'clauses', 'corpses', 'courses', 'crazes','creases', 'cruises', 'curses', 'databases', 'dazes', 'defenses', 'demises', 'discourses', 'diseases', 'doses','eclipses', 'enterprises','expenses', 'friezes', 'fuses', 'glimpses', 'guises', 'hearses', 'horses', 'houses', 'impasses', 'impulses', 'kamikazes', 'mazes','mousses','noises', 'nooses', 'noses', 'nurses', 'obverses', 'offenses', 'oozes', 'overdoses', 'phrases', 'posses', 'premises', 'pretenses', 'proteases', 'pulses',  'purposes', 'purses', 'racehorses', 'recluses','recourses', 'relapses', 'responses', 'roses', 'ruses', 'spouses', 'stripteases', 'subleases', 'sunrises', 'tortoises', 'trapezes', 'treatises', 'toes', 'universes', 'uses', 'vases', 'verses', 'vises', 'wheelbases', 'wheezes'];
 
 /* Words that do not have a distinct plural form (like 'atlas' etc.) */
 var category00 = ['alias', 'asbestos', 'atlas', 'barracks', 'bathos', 'bias', 'breeches', 'britches', 'canvas', 'chaos', 'clippers', 'contretemps', 'corps', 'cosmos', 'crossroads', 'diabetes', 'ethos', 'gallows', 'gas', 'graffiti', 'headquarters', 'herpes', 'high-jinks', 'innings', 'jackanapes', 'lens', 'means', 'measles', 'mews', 'mumps', 'news', 'pathos', 'pincers', 'pliers', 'proceedings', 'rabies', 'rhinoceros', 'sassafras', 'scissors', 'series', 'shears', 'species', 'tuna'];
 
 /* Words that change from '-um' to '-a' (like 'curriculum' etc.), listed in their plural forms */
-var categoryUM_A = ['addenda', 'agenda', 'aquaria', 'bacteria', 'candelabra', 'compendia', 'consortia', 'crania', 'curricula', 'data', 'desiderata', 'dicta', 'emporia', 'enconia', 'errata', 'extrema', 'gymnasia', 'honoraria', 'interregna', 'lustra', 'maxima', 'media', 'memoranda', 'millenia', 'minima', 'momenta', 'optima', 'ova', 'phyla', 'quanta', 'rostra', 'spectra', 'specula', 'stadia', 'strata', 'symposia', 'trapezia', 'ultimata', 'vacua', 'vela'];
+var categoryUM_A = ['addenda', 'agenda', 'aquaria', 'bacteria', 'candelabra', 'compendia', 'consortia', 'crania', 'curricula', 'data', 'desiderata', 'dicta', 'emporia', 'enconia', 'errata', 'extrema', 'gymnasia', 'honoraria', 'interregna', 'lustra', 'maxima', 'media', 'memoranda', 'millenia', 'minima', 'momenta', 'memorabilia', 'millennia', 'optima', 'ova', 'phyla', 'quanta', 'rostra', 'spectra', 'specula', 'septa', 'stadia', 'strata', 'symposia', 'trapezia', 'ultimata', 'vacua', 'vela'];
 
 /* Words that change from '-on' to '-a' (like 'phenomenon' etc.), listed in their plural forms */
 var categoryON_A = ['aphelia', 'asyndeta', 'automata', 'criteria', 'hyperbata', 'noumena', 'organa', 'perihelia', 'phenomena', 'prolegomena','referenda'];
 
 /* Words that change from '-o' to '-i' (like 'libretto' etc.), listed in their plural forms */
-var categoryO_I = ['alti', 'bassi', 'canti', 'contralti', 'crescendi', 'libretti', 'soli', 'soprani', 'tempi', 'virtuosi'];
+var categoryO_I = ['alti', 'bassi', 'canti', 'concerti', 'contralti', 'crescendi', 'libretti', 'soli', 'soprani', 'tempi', 'virtuosi'];
 
 /*  Words that change from '-us' to '-i' (like 'fungus' etc.), listed in their plural forms		 */
 var categoryUS_I = ['alumni', 'bacilli', 'cacti', 'foci', 'fungi', 'genii', 'hippopotami', 'incubi', 'nimbi', 'nuclei', 'nucleoli', 'octopi', 'radii', 'stimuli', 'styli', 'succubi', 'syllabi', 'termini', 'tori', 'umbilici', 'uteri'];
 
 /* Words that change from '-ix' to '-ices' (like 'appendix' etc.), listed in their plural forms */
-var categoryIX_ICES = ['appendices', 'cervices'];
+var categoryIX_ICES = ['appendices', 'cervices', 'indices', 'matrices'];
 
 /* Words that change from '-is' to '-es' (like 'axis' etc.), listed in their plural forms, plus everybody ending in theses */
-var categoryIS_ES = ['analyses', 'axes', 'bases','crises', 'diagnoses', 'ellipses', 'emphases', 'neuroses', 'oases', 'paralyses', 'prognoses', 'synopses'];
+var categoryIS_ES = ['analyses', 'axes', 'bases','catharses', 'crises', 'diagnoses', 'ellipses', 'emphases', 'neuroses', 'oases', 'paralyses', 'prognoses', 'synopses'];
 
 /* Words that change from '-oe' to '-oes' (like 'toe' etc.), listed in their plural forms*/
 var categoryOE_OES = ['aloes', 'backhoes', 'beroes', 'canoes', 'chigoes', 'cohoes', 'does', 'felloes', 'floes', 'foes', 'gumshoes', 'hammertoes', 'hoes', 'hoopoes', 'horseshoes', 'leucothoes', 'mahoes', 'mistletoes', 'oboes', 'overshoes', 'pahoehoes', 'pekoes', 'roes', 'shoes', 'sloes', 'snowshoes', 'throes', 'tic-tac-toes', 'tick-tack-toes', 'ticktacktoes', 'tiptoes', 'tit-tat-toes', 'toes', 'toetoes', 'tuckahoes', 'woes'];
@@ -5018,10 +5017,10 @@ var categoryCHE_CHES = ['adrenarches', 'attaches', 'avalanches', 'barouches', 'b
 var categoryICS = ['aerobatics', 'aerobics', 'aerodynamics', 'aeromechanics', 'aeronautics', 'alphanumerics', 'animatronics', 'apologetics', 'architectonics', 'astrodynamics', 'astronautics', 'astrophysics', 'athletics', 'atmospherics', 'autogenics', 'avionics', 'ballistics', 'bibliotics', 'bioethics', 'biometrics', 'bionics', 'bionomics', 'biophysics', 'biosystematics', 'cacogenics', 'calisthenics', 'callisthenics', 'catoptrics', 'civics', 'cladistics', 'cryogenics', 'cryonics', 'cryptanalytics', 'cybernetics', 'cytoarchitectonics', 'cytogenetics', 'diagnostics', 'dietetics', 'dramatics', 'dysgenics', 'econometrics', 'economics', 'electromagnetics', 'electronics', 'electrostatics', 'endodontics', 'enterics', 'ergonomics', 'eugenics', 'eurhythmics', 'eurythmics', 'exodontics', 'fibreoptics', 'futuristics', 'genetics', 'genomics', 'geographics', 'geophysics', 'geopolitics', 'geriatrics', 'glyptics', 'graphics', 'gymnastics', 'hermeneutics', 'histrionics', 'homiletics', 'hydraulics', 'hydrodynamics', 'hydrokinetics', 'hydroponics', 'hydrostatics', 'hygienics', 'informatics', 'kinematics', 'kinesthetics', 'kinetics', 'lexicostatistics', 'linguistics', 'lithoglyptics', 'liturgics', 'logistics', 'macrobiotics', 'macroeconomics', 'magnetics', 'magnetohydrodynamics', 'mathematics', 'metamathematics', 'metaphysics', 'microeconomics', 'microelectronics', 'mnemonics', 'morphophonemics', 'neuroethics', 'neurolinguistics', 'nucleonics', 'numismatics', 'obstetrics', 'onomastics', 'orthodontics', 'orthopaedics', 'orthopedics', 'orthoptics', 'paediatrics', 'patristics', 'patristics', 'pedagogics', 'pediatrics', 'periodontics', 'pharmaceutics', 'pharmacogenetics', 'pharmacokinetics', 'phonemics', 'phonetics', 'phonics', 'photomechanics', 'physiatrics', 'pneumatics', 'poetics', 'politics', 'pragmatics', 'prosthetics', 'prosthodontics', 'proteomics', 'proxemics', 'psycholinguistics', 'psychometrics', 'psychonomics', 'psychophysics', 'psychotherapeutics', 'robotics', 'semantics', 'semiotics', 'semitropics', 'sociolinguistics', 'stemmatics', 'strategics', 'subtropics', 'systematics', 'tectonics', 'telerobotics', 'therapeutics', 'thermionics', 'thermodynamics', 'thermostatics'];
 
 /* Words that change from '-ie' to '-ies' (like 'auntie' etc.), listed in their plural forms*/
-var categoryIE_IES = ['aeries', 'anomies', 'aunties', 'baddies', 'beanies', 'birdies', 'bogies', 'bonhomies', 'boogies', 'bookies', 'booties', 'bourgeoisies', 'brasseries', 'brassies', 'brownies', 'caddies', 'calories', 'camaraderies', 'charcuteries',  'collies', 'commies', 'cookies', 'coolies', 'coonties', 'cooties', 'coteries', 'cowpies', 'cowries', 'cozies', 'crappies', 'crossties', 'curies', 'darkies', 'dearies', 'dickies', 'dies', 'dixies', 'doggies', 'dogies', 'eyries', 'faeries', 'falsies', 'floozies', 'folies', 'foodies', 'freebies', 'gendarmeries', 'genies', 'gillies', 'goalies', 'goonies', 'grannies','groupies', 'hankies', 'hippies', 'hoagies', 'honkies', 'indies', 'junkies', 'kelpies', 'kilocalories', 'laddies', 'lassies', 'lies', 'lingeries', 'magpies', 'magpies', 'mashies', 'mealies', 'meanies', 'menageries', 'mollies', 'moxies', 'neckties', 'newbies', 'nighties', 'nookies', 'oldies', 'panties', 'patisseries', 'pies', 'pinkies', 'pixies', 'porkpies', 'potpies', 'prairies', 'preemies', 'pyxies', 'quickies','reveries', 'rookies', 'rotisseries', 'scrapies', 'sharpies', 'smoothies', 'softies', 'stoolies', 'stymies', 'swaggies', 'sweeties', 'talkies', 'techies', 'ties', 'tooshies', 'toughies', 'townies', 'veggies', 'walkie-talkies', 'wedgies', 'weenies', 'yuppies', 'zombies'];
+var categoryIE_IES = ['aeries', 'anomies', 'aunties', 'baddies', 'beanies', 'birdies', 'bogies', 'bonhomies', 'boogies', 'bookies', 'booties', 'bourgeoisies', 'brasseries', 'brassies', 'brownies', 'caddies', 'calories', 'camaraderies', 'charcuteries',  'collies', 'commies', 'cookies', 'coolies', 'coonties', 'cooties', 'coteries', 'cowpies', 'cowries', 'cozies', 'crappies', 'crossties', 'curies', 'darkies', 'dearies', 'dickies', 'dies', 'dixies', 'doggies', 'dogies', 'eyries', 'faeries', 'falsies', 'floozies', 'folies', 'foodies', 'freebies', 'gendarmeries', 'genies', 'gillies', 'goalies', 'goonies', 'grannies','groupies', 'hippies', 'hoagies', 'honkies', 'indies', 'junkies', 'kelpies', 'kilocalories', 'laddies', 'lassies', 'lies', 'lingeries', 'magpies', 'magpies', 'mashies', 'mealies', 'meanies', 'menageries', 'mollies', 'moxies', 'neckties', 'newbies', 'nighties', 'nookies', 'oldies', 'panties', 'patisseries', 'pies', 'pinkies', 'pixies', 'porkpies', 'potpies', 'prairies', 'preemies', 'pyxies', 'quickies','reveries', 'rookies', 'rotisseries', 'scrapies', 'sharpies', 'smoothies', 'softies', 'stoolies', 'stymies', 'swaggies', 'sweeties', 'talkies', 'techies', 'ties', 'tooshies', 'toughies', 'townies', 'veggies', 'walkie-talkies', 'wedgies', 'weenies', 'yuppies', 'zombies'];
 
 /* Maps irregular Germanic English plural nouns to their singular form */
-var categoryIRR = [ 'blondes', 'blonde', 'teeth', 'tooth', 'beefs', 'beef', 'brethren', 'brother', 'busses', 'bus', 'cattle', 'cow', 'children', 'child', 'corpora', 'corpus', 'genera', 'genus', 'genies', 'genie', 'genii', 'genie', 'lice', 'louse', 'mice', 'mouse', 'mongooses', 'mongoose', 'monies', 'money', 'octopodes', 'octopus',  'oxen', 'ox', 'people', 'person', 'soliloquies', 'soliloquy', 'taxis', 'taxi', 'throes', 'throes', 'trilbys', 'trilby', 'innings', 'inning', 'alibis', 'alibi', 'skis', 'ski' ];
+var categoryIRR = [ 'blondes', 'blonde', 'teeth', 'tooth', 'beefs', 'beef', 'brethren', 'brother', 'busses', 'bus', 'cattle', 'cow', 'children', 'child', 'corpora', 'corpus', 'femora', 'femur', 'genera', 'genus', 'genies', 'genie', 'genii', 'genie', 'lice', 'louse', 'mice', 'mouse', 'mongooses', 'mongoose', 'monies', 'money', 'octopodes', 'octopus',  'oxen', 'ox', 'people', 'person', 'schemata', 'schema', 'soliloquies', 'soliloquy', 'taxis', 'taxi', 'throes', 'throes', 'trilbys', 'trilby', 'innings', 'inning', 'alibis', 'alibi', 'skis', 'ski', 'safaris', 'safari','rabbis', 'rabbi'];
 
 function checkPluralNoLex(s) {
   var cats = [
@@ -5552,30 +5551,42 @@ var ONLY_PUNCT = /^[^0-9A-Za-z\s]*$/,
   ALL_PUNCT = /^[-[\]{}()*+!?%&.,\\^$|#@<>|+=;:]+$/g;
 
 var NULL_PLURALS = RE( // these don't change for plural/singular
-  "^(bantu|bengalese|bengali|beninese|boche|bonsai|booze|cellulose|digitalis|mess|moose|" + "burmese|chinese|colossus|congolese|discus|emphasis|expertise|finess|fructose|gabonese|gauze|glucose|grease|guyanese|haze|incense|japanese|javanese|journalese|" + "lebanese|malaise|manganese|mayonnaise|maltese|menopause|merchandise|nitrocellulose|olympics|overuse|paradise|poise|polymerase|portuguese|prose|recompense|remorse|repose|senegalese|siamese|singhalese|innings|" + "sleaze|sinhalese|sioux|sudanese|suspense|swiss|taiwanese|togolese|vietnamese|unease|aircraft|anise|antifreeze|applause|archdiocese|" + "anopheles|apparatus|asparagus|barracks|bellows|bison|bluefish|bob|bourgeois|" + "bream|brill|butterfingers|cargo|carp|catfish|chassis|clothes|chub|cod|codfish|" + "coley|contretemps|corps|crawfish|crayfish|crossroads|cuttlefish|dace|deer|dice|" + "dogfish|doings|dory|downstairs|eldest|earnings|economics|electronics|finnan|" + "firstborn|fish|flatfish|flounder|fowl|fry|fries|works|globefish|goldfish|golf|" + "grand|grief|gudgeon|gulden|haddock|hake|halibut|headquarters|herring|hertz|horsepower|" + "goods|hovercraft|hundredweight|ironworks|jackanapes|kilohertz|kurus|kwacha|ling|lungfish|" + "mackerel|means|megahertz|moorfowl|moorgame|mullet|nepalese|offspring|pampas|parr|pants|" + "patois|pekinese|penn'orth|perch|pickerel|pike|pince-nez|plaice|precis|quid|rand|" + "rendezvous|revers|roach|roux|salmon|samurai|series|seychelles|seychellois|shad|" + "sheep|shellfish|smelt|spacecraft|species|starfish|stockfish|sunfish|superficies|" + "sweepstakes|swordfish|tench|tennis|[a-z]+osis|[a-z]+itis|[a-z]+ness|" + "tobacco|tope|triceps|trout|tuna|tunafish|tunny|turbot|trousers|" + "undersigned|veg|waterfowl|waterworks|waxworks|whiting|wildfowl|woodworm|" + "yen|aries|pisces|forceps|lieder|jeans|physics|mathematics|news|odds|politics|remains|" + "acoustics|aesthetics|aquatics|basics|ceramics|classics|cosmetics|dialectics|dynamics|ethics|harmonics|heroics|mechanics|metrics|optics|physics|polemics|pyrotechnics|" + "surroundings|thanks|statistics|goods|aids|wildlife)$", 0);
+  "^(bantu|bengalese|bengali|beninese|boche|bonsai|booze|cellulose|digitalis|mess|moose|" + "burmese|chinese|colossus|congolese|discus|electrolysis|emphasis|expertise|finess|flu|fructose|gabonese|gauze|glucose|grease|guyanese|haze|incense|japanese|javanese|journalese|" + "lebanese|malaise|manganese|mayonnaise|maltese|menopause|merchandise|nitrocellulose|olympics|overuse|paradise|poise|polymerase|portuguese|prose|recompense|remorse|repose|senegalese|siamese|singhalese|innings|" + "sleaze|sinhalese|sioux|sudanese|suspense|swiss|taiwanese|togolese|vietnamese|unease|aircraft|anise|antifreeze|applause|archdiocese|" + "anopheles|apparatus|asparagus|barracks|bellows|bison|bluefish|bob|bourgeois|" + "bream|brill|butterfingers|cargo|carp|catfish|chassis|clothes|chub|cod|codfish|" + "coley|contretemps|corps|crawfish|crayfish|crossroads|cuttlefish|dace|deer|dice|" + "dogfish|doings|dory|downstairs|eldest|earnings|economics|electronics|finnan|" + "firstborn|fish|flatfish|flounder|fowl|fry|fries|works|globefish|goldfish|golf|" + "grand|grief|gudgeon|gulden|haddock|hake|halibut|headquarters|herring|hertz|horsepower|" + "goods|hovercraft|hundredweight|ironworks|jackanapes|kilohertz|kurus|kwacha|ling|lungfish|" + "mackerel|macaroni|means|megahertz|moorfowl|moorgame|mullet|nepalese|offspring|pampas|parr|pants|" + "patois|pekinese|penn'orth|perch|pickerel|pike|pince-nez|plaice|potpourri|precis|quid|rand|" + "rendezvous|revers|roach|roux|salmon|samurai|series|seychelles|seychellois|shad|" + "sheep|shellfish|smelt|spaghetti|spacecraft|species|starfish|stockfish|sunfish|superficies|" + "sweepstakes|swordfish|tench|tennis|[a-z]+osis|[a-z]+itis|[a-z]+ness|" + "tobacco|tope|triceps|trout|tuna|tunafish|tunny|turbot|trousers|turf|" + "undersigned|veg|waterfowl|waterworks|waxworks|whiting|wildfowl|woodworm|" + "yen|aries|pisces|forceps|lieder|jeans|physics|mathematics|news|odds|politics|remains|" + "acoustics|aesthetics|aquatics|basics|ceramics|classics|cosmetics|dialectics|dynamics|ethics|harmonics|heroics|mechanics|metrics|optics|physics|polemics|pyrotechnics|" + "surroundings|thanks|statistics|goods|aids|wildlife)$", 0);
 
 
+// SINGULAR_RULES are extra singular rules on top of Pling stem
+// If the word is under the following categories, please add the word to Pling
+
+/* categorySP: Words that are both singular and plural */
+/* categorySE_SES: Words that end in '-se' in their plural forms (like 'nurse' etc.) */
+/* category00: Words that do not have a distinct plural form (like 'atlas' etc.) */
+/* categoryUM_A: Words that change from '-um' to '-a' (like 'curriculum' etc.), listed in their plural forms */
+/* categoryON_A: Words that change from '-on' to '-a' (like 'phenomenon' etc.), listed in their plural forms */
+/* categoryO_I: Words that change from '-o' to '-i' (like 'libretto' etc.), listed in their plural forms */
+/* categoryUS_I: Words that change from '-us' to '-i' (like 'fungus' etc.), listed in their plural forms    */
+/* categoryIX_ICES: Words that change from '-ix' to '-ices' (like 'appendix' etc.), listed in their plural forms */
+/* categoryIS_ES: Words that change from '-is' to '-es' (like 'axis' etc.), listed in their plural forms, plus everybody ending in theses */
+/* categoryOE_OES: Words that change from '-oe' to '-oes' (like 'toe' etc.), listed in their plural forms*/
+/* categoryEX_ICES: Words that change from '-ex' to '-ices' (like 'index' etc.), listed in their plural forms*/
+/* categoryU_US: Words that change from '-u' to '-us' (like 'emu' etc.), listed in their plural forms*/
+/* categorySSE_SSES: Words that change from '-sse' to '-sses' (like 'finesse' etc.), listed in their plural forms,plus those ending in mousse*/
+/* categoryCHE_CHES: Words that change from '-che' to '-ches' (like 'brioche' etc.), listed in their plural forms*/
+/* categoryICS: Words that end with '-ics' and do not exist as nouns without the 's' (like 'aerobics' etc.)*/
+/* categoryIE_IES: Words that change from '-ie' to '-ies' (like 'auntie' etc.), listed in their plural forms*/
+/* Maps irregular Germanic English plural nouns to their singular form */
 
 var SINGULAR_RULES = [
   NULL_PLURALS,
-  RE("whizzes", 3),
-  RE("^(buses|octopuses)$", 2),
-  RE("(houses|horses|cases)$", 1),
-  RE("^(toes|wheezes|oozes)$", 1),
+  RE("ves$", 3, "f"),
   RE("(men|women)$", 2, "an"),
-  RE("^[lm]ice$", 3, "ouse"),
-  RE("^children", 3),
-  RE("^(appendices|indices|matrices)", 3, "x"),
-  RE("^(data)$", 1, "um"),
-  RE("people", 4, "rson"),
-  RE("^meninges|phalanges$", 3, "x"),
-  RE("schemata$", 2, "s"),
-  RE("^corpora$", 3, "us"),
-  RE("^(curi|formul|vertebr|larv|uln|alumn|signor|alg|minuti)ae$", 1),
-  RE("^apices|cortices$", 4, "ex"),
-  RE("femora", 3, "ur"),
-  RE("^(medi|millenni|consorti|sept|memorabili)a$", 1, "um"),
-  RE("concerti", 1, "o")
+  RE("(houses|horses|cases)$", 1), //End with: e -> es
+  RE("^(toes|wheezes|oozes|uses)$", 1), //Word: e -> es
+  RE("^(whizzes)$", 3),
+  RE("^(octopus|pinch)es$", 2),
+  // RE("^[lm]ice$", 3, "ousea_"),
+  RE("^(meninges|phalanges)$", 3, "x"), // x -> ges
+  RE("^(curi|formul|vertebr|larv|uln|alumn|signor|alg|minuti)ae$", 1), // ?
+  RE("^(apices|cortices)$", 4, "ex")
 ];
 
 var C = "[bcdfghjklmnpqrstvwxyz]",
@@ -5584,8 +5595,12 @@ var C = "[bcdfghjklmnpqrstvwxyz]",
 var PLURAL_RULES = [
     RE("prognosis", 2, "es"),
     NULL_PLURALS,
-    RE("^(piano|photo|solo|ego|tobacco|cargo|golf|grief)$", 0, "s"),
+    RE("(human|german|roman)$", 0, "s"),
+    RE("^(monarch|loch|stomach)$", 0, "s"),
+    RE("^(piano|photo|solo|ego|tobacco|cargo|taxi)$", 0, "s"),
+    RE("(chief|proof|ref|relief|roof|belief|sheaf|spoof|golf|grief)$", 0, "s"),
     RE("^(wildlife)$", 0, "s"),
+    RE("^(appendix|index|matrix|apex|cortex)", 2, "ices"),
     RE("^concerto$", 1, "i"),
     RE(C + "o$", 0, "es"),
     RE(C + "y$", 1, "ies"),
@@ -5609,7 +5624,6 @@ var PLURAL_RULES = [
     RE("^(curi|formul|vertebr|larv|uln|alumn|signor|alg|minuti)a$", 0, "e"),
     RE("^(maharaj|raj|myn|mull)a$", 0, "hs"),
     RE("^aide-de-camp$", 8, "s-de-camp"),
-    RE("^apex|cortex$", 2, "ices"),
     RE("^weltanschauung$", 0, "en"),
     RE("^lied$", 0, "er"),
     RE("^tooth$", 4, "eeth"),
@@ -5617,16 +5631,11 @@ var PLURAL_RULES = [
     RE("^foot$", 3, "eet"),
     RE("femur", 2, "ora"),
     RE("goose", 4, "eese"),
-    RE("(human|german|roman)$", 0, "s"),
-    RE("^(monarch|loch|stomach)$", 0, "s"),
-    RE("^(taxi|chief|proof|ref|relief|roof|belief)$", 0, "s"),
     RE("^(co|no)$", 0, "'s"),
     RE("^blond$", 0, "es"),
     RE("^(medi|millenni|consorti|sept|memorabili)um$", 2, "a"),
-
     // Latin stems
-    RE("^(memorandum|bacterium|curriculum|minimum|" + "maximum|referendum|spectrum|phenomenon|criterion)$", 2, "a"),
-    RE("^(appendix|index|matrix)", 2, "ices")
+    RE("^(memorandum|bacterium|curriculum|minimum|" + "maximum|referendum|spectrum|phenomenon|criterion)$", 2, "a")
   ],
 
   ANY_STEM = "^((\\w+)(-\\w+)*)(\\s((\\w+)(-\\w+)*))*$",
@@ -20202,7 +20211,6 @@ function _dict() { return {
 'afloat':['ah f-l-ow1-t','rb'],
 'afoot':['ah f-uh1-t','rb jj'],
 'aforementioned':['ah f-ao1-r m-eh-n sh-ah-n-d','jj'],
-'aforesaid':['ah f-ao1-r s-eh-d','jj rb'],
 'afoul':['ah f-aw1-l','rb'],
 'afraid':['ah f-r-ey1-d','jj'],
 'afresh':['ah f-r-eh1-sh','rb'],
@@ -23492,6 +23500,7 @@ function _dict() { return {
 'chess':['ch-eh1-s','nn'],
 'chest':['ch-eh1-s-t','nn'],
 'chestnut':['ch-eh1-s n-ah-t','nn'],
+'chevrolet':['sh-eh-v r-ow l-ey1', 'nnp'],
 'chew':['ch-uw1','vb vbp'],
 'chewed':['ch-uw1-d','vbd vbn'],
 'chewing':['ch-uw1 ih-ng','vbg jj nn'],
@@ -24984,7 +24993,6 @@ function _dict() { return {
 'council':['k-aw1-n s-ah-l','nn'],
 'councilman':['k-aw1-n s-ah-l m-ah-n','nn'],
 'councilor':['k-aw1-n s-ah-l er','nn'],
-'councilwoman':['k-aw1-n s-ah-l w-uh m-ah-n','nn'],
 'counsel':['k-aw1-n s-ah-l','nn vb vbp'],
 'counseled':['k-aw1-n s-ah-l-d','vbn vbd'],
 'counseling':['k-aw1-n s-ah-l ih-ng','nn vbg'],
@@ -30102,8 +30110,8 @@ function _dict() { return {
 'gentrified':['jh-eh1-n t-r-ih f-ay-d','vbn'],
 'gentrify':['jh-eh1-n-t-r-ih-f-ay','vb'],
 'gentry':['jh-eh1-n t-r-iy','nn'],
-'genuine':['jh-eh1 n-y-ah-w ah-n','jj'],
-'genuinely':['jh-eh1 n-y-ah-w ah-n l-iy','rb'],
+'genuine':['jh-eh1-n y-uw w-ah-n','jj'],
+'genuinely':['jh-eh1-n y-uw w-ah-n l-iy','rb'],
 'genus':['jh-iy1 n-ah-s','nn'],
 'geocentric':['jh-iy ow s-eh1-n t-r-ih-k','jj'],
 'geochemistry':['jh-iy ow k-eh1 m-ah s-t-r-iy','nn'],
@@ -36179,6 +36187,7 @@ function _dict() { return {
 'ogle':['ow1-g-ah-l','vb'],
 'ogled':['ow1 g-ah-l-d','vbd vbn'],
 'ogles':['ow1 g-ah-l-z','vbz'],
+'ogre':['ow1 g-r-ah','nn'],
 'ogress':['ow1 g-r-ah-s','nn'],
 'oh':['ow1','uh'],
 'oil':['oy1-l','nn'],
@@ -37636,7 +37645,6 @@ function _dict() { return {
 'plaguing':['p-l-ey1 g-ih-ng','vbg'],
 'plaid':['p-l-ae1-d','jj nn'],
 'plain':['p-l-ey1-n','jj nn rb'],
-'plainclothes':['p-l-ey1-n k-l-ow1-z','nn'],
 'plainer':['p-l-ey1 n-er','jjr'],
 'plainly':['p-l-ey1-n l-iy','rb'],
 'plaintiff':['p-l-ey1-n t-ah-f','nn'],
@@ -38223,7 +38231,7 @@ function _dict() { return {
 'preponderance':['p-r-iy p-aa1-n d-r-ah-n-s','nn'],
 'preposterous':['p-r-ih p-aa1 s-t-er ah-s','jj'],
 'preppie':['p-r-eh1 p-iy','nn'],
-'preppy':['p-r-eh1 p-iy','jj'],
+'preppy':['p-r-eh1 p-iy','nn jj'],
 'prerecord':['p-r-iy-r-iy-k-ao1-r-d','vb'],
 'prerecorded':['p-r-iy r-iy k-ao1-r d-ih-d','vbn'],
 'prerequisite':['p-r-iy r-eh1 k-w-ah z-ah-t','nn'],
@@ -40988,7 +40996,7 @@ function _dict() { return {
 'sagged':['s-ae1-g-d','vbd vbn'],
 'sagging':['s-ae1 g-ih-ng','vbg jj nn'],
 'sago':['s-ey1 g-ow','nn'],
-'said':['s-eh1-d','vbd vbn jj vb'],
+'said':['s-eh1-d','vbd vbn'],
 'sail':['s-ey1-l','vb vbp nn'],
 'sailboat':['s-ey1-l b-ow-t','nn'],
 'sailed':['s-ey1-l-d','vbd vbn'],
@@ -41137,7 +41145,6 @@ function _dict() { return {
 'saxophone':['s-ae1-k s-ah f-ow-n','nn'],
 'saxophonist':['s-ae1-k s-ah f-ow n-ih-s-t','nn'],
 'say':['s-ey1','vbp nn vb uh'],
-'said':['s-aa y-eh1-d','vbd'],
 'saying':['s-ey1 ih-ng','vbg nn'],
 'scab':['s-k-ae1-b','nn'],
 'scabbard':['s-k-ae1 b-er-d','nn'],
@@ -41736,9 +41743,9 @@ function _dict() { return {
 'shawl':['sh-ao1-l','nn'],
 'she':['sh-iy1','prp'],
 'sheaf':['sh-iy1-f','nn'],
-'shear':['sh-ih1-r','nn vb'],
-'sheared':['sh-ih1-r-d','jj vbn'],
-'shearing':['sh-ih1 r-ih-ng','nn vbg'],
+'shear':['sh-ih1-r','vb'],
+'sheared':['sh-ih1-r-d','vbn'],
+'shearing':['sh-ih1 r-ih-ng','vbg'],
 'sheath':['sh-iy1-th','nn'],
 'shed':['sh-eh1-d','vb vbd vbn vbp nn'],
 'shedding':['sh-eh1 d-ih-ng','vbg nn'],
@@ -47231,13 +47238,13 @@ function _dict() { return {
 'wobbling':['w-aa1 b-ah-l ih-ng','vbg'],
 'wobbly':['w-aa1 b-ah-l iy','jj'],
 'woe':['w-ow1','nn'],
-'woebegone':['w-ow1 b-ih g-ao-n','jj'],
 'woeful':['w-ow1 f-ah-l','jj'],
 'woefully':['w-ow1 f-ah l-iy','rb'],
 'woke':['w-ow1-k','vbd'],
 'woken':['w-ow1 k-ah-n','vbn'],
 'wolf':['w-uh1-l-f','nn'],
-'woman':['w-uh1 m-ah-n','nn vb'],
+'woman':['w-uh1 m-ah-n','nn'],
+'women':['w-ih1 m-eh-n','nns'],
 'womanhood':['w-uh1 m-ah-n hh-uh-d','nn'],
 'womanize':['w-uh1-m-ah-n-ay-z','vb'],
 'womanizing':['w-uh1 m-ah n-ay z-ih-ng','vbg'],
@@ -47393,13 +47400,10 @@ function _dict() { return {
 'wrung':['r-ah1-ng','vb'],
 'wry':['r-ay1','jj'],
 'wryly':['r-ay1 l-iy','rb'],
-'wryness':['r-ay1 n-ah-s','nn'],
-'wynne':['w-ih1-n','vb'],
 'xenon':['z-iy1 n-aa-n','nn'],
 'xenophobia':['z-eh n-ah f-ow1 b-iy ah','nn'],
 'xenophobic':['z-eh n-ah f-aa1 b-ih-k','jj'],
 'yacht':['y-aa1-t','nn'],
-'yachter':['y-aa1 t-er','nn'],
 'yachting':['y-aa1 t-ih-ng','nn'],
 'yachtsman':['y-aa1-t-s m-ah-n','nn'],
 'yahoo':['y-aa1 hh-uw','nn'],
@@ -47416,10 +47420,7 @@ function _dict() { return {
 'year':['y-ih1-r','nn jj'],
 'yearago':['y-ih1 r-ah g-ow','jj'],
 'yearbook':['y-ih1-r b-uh-k','nn'],
-'yearearlier':['y-ih r-er1 l-y-er','jj'],
-'yearend':['y-ih r-eh1-n-d','nn'],
 'yearling':['y-er1 l-ih-ng','jj'],
-'yearlong':['y-ih1-r l-ao1-ng','jj'],
 'yearly':['y-ih1-r l-iy','jj rb'],
 'yearn':['y-er1-n','vb vbp nn'],
 'yearned':['y-er1-n-d','vbd vbn'],
@@ -47459,9 +47460,6 @@ function _dict() { return {
 'yourselves':['y-uh-r s-eh1-l-v-z','prp'],
 'youth':['y-uw1-th','nn'],
 'youthful':['y-uw1-th f-ah-l','jj'],
-'yuan':['y-uw aa1-n','nn'],
-'yucca':['y-ah1 k-ah','nn'],
-'yuk':['y-ah1-k','nn'],
 'yuletide':['y-uw1-l t-ay-d','nn'],
 'yummy':['y-ah1 m-iy','jj nn'],
 'yuppie':['y-ah1 p-iy','nn'],
@@ -47487,7 +47485,6 @@ function _dict() { return {
 'zipped':['z-ih1-p-t','vbd'],
 'zipper':['z-ih1 p-er','nn'],
 'zippo':['z-ih1 p-ow','nn'],
-'zloty':['z-l-ao1 t-iy','nn'],
 'zombie':['z-aa1-m b-iy','nn'],
 'zone':['z-ow1-n','nn vb'],
 'zoned':['z-ow1-n-d','vbn'],
