@@ -38,14 +38,6 @@ public class RiTaTest
     RiTa.SILENT = false;
     RiLexicon.enabled = true;
   }
- 
-  @Test
-  public void testStart()
-  {
-    //RiTa.start(null);
-    //RiTa.start(this);
-    //RiTa.start(new PApplet());
-  }
 
   @Test
   public void loadString_RelFile()
@@ -886,6 +878,10 @@ public class RiTaTest
     result = RiTa.getPhonemes("");
     answer = "";
     equal(result, answer);
+    
+    equal(RiTa.getPhonemes("chevrolet"), "sh-eh-v-r-ow-l-ey");
+    equal(RiTa.getPhonemes("women"), "w-ih-m-eh-n");
+    equal(RiTa.getPhonemes("genuine"), "jh-eh-n-y-uw-w-ah-n");
   }
 
   @Test
@@ -995,6 +991,10 @@ public class RiTaTest
     result = RiTa.getStresses("");
     answer = "";
     equal(result, answer);
+    
+    equal(RiTa.getStresses("chevrolet"), "0/0/1");
+    equal(RiTa.getStresses("women"), "1/0");
+    equal(RiTa.getStresses("genuine"), "1/0/0");
   }
 
   @Test
@@ -1062,6 +1062,10 @@ public class RiTaTest
     result = RiTa.getSyllables("");
     answer = "";
     equal(result, answer);
+    
+    equal(RiTa.getSyllables("chevrolet"), "sh-eh-v/r-ow/l-ey");
+    equal(RiTa.getSyllables("women"), 	"w-ih/m-eh-n");
+    equal(RiTa.getSyllables("genuine"), "jh-eh-n/y-uw/w-ah-n");
   }
 
   @Test
