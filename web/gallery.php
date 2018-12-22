@@ -35,7 +35,7 @@
           <div class="gallery_home">
             <div class="row">
 
-              <span class="gallery_home_item gd-4  mgd-6 sgd-12">
+              <!-- <span class="gallery_home_item gd-4  mgd-6 sgd-12">
         <a href="./gallery/TheHandsofGutenberg" target="new"><img src="img/hand.png" ></a><br>
         <a href="./gallery/TheHandsofGutenberg" target="new">The Hands of Gutenberg</a>
         <p><span>by breep</span></p>
@@ -47,7 +47,7 @@
         <a href="./gallery/LyricPoems" target="new">Lyric Poems</a>
         <p><span>by casher</span></p>
               <p class="gallery_home_spacer">&nbsp;</p>
-              </span>
+              </span> -->
 
               <span class="gallery_home_item gd-4  mgd-6 sgd-12">
         <a href="./gallery/Daedalus" target="new"><img src="img/daedalus.png" ></a><br>
