@@ -35,38 +35,52 @@
           <div class="gallery_home">
             <div class="row">
 
+              <!-- <span class="gallery_home_item gd-4  mgd-6 sgd-12">
+        <a href="./gallery/TheHandsofGutenberg" target="new"><img src="img/hand.png" ></a><br>
+        <a href="./gallery/TheHandsofGutenberg" target="new">The Hands of Gutenberg</a>
+        <p><span>by breep</span></p>
+              <p class="gallery_home_spacer">&nbsp;</p>
+              </span>
+
+              <span class="gallery_home_item gd-4  mgd-6 sgd-12">
+        <a href="./gallery/LyricPoems" target="new"><img src="img/lyric.jpg" ></a><br>
+        <a href="./gallery/LyricPoems" target="new">Lyric Poems</a>
+        <p><span>by casher</span></p>
+              <p class="gallery_home_spacer">&nbsp;</p>
+              </span> -->
+
               <span class="gallery_home_item gd-4  mgd-6 sgd-12">
         <a href="./gallery/Daedalus" target="new"><img src="img/daedalus.png" ></a><br>
         <a href="./gallery/Daedalus" target="new">DAEDALUS</a>
-        <p><span>Alessandro Capozzo</span></p>
+        <p><span>by Alessandro Capozzo</span></p>
               <p class="gallery_home_spacer">&nbsp;</p>
               </span>
 
               <span class="gallery_home_item gd-4  mgd-6 sgd-12">
         <a href="./gallery/PopCulturePoetry" target="new"><img src="img/popculture.png" ></a><br>
         <a href="./gallery/PopCulturePoetry" target="new">Pop Culture Poetry</a>
-        <p><span>Ari Melenciano </span></p>
+        <p><span>by Ari Melenciano </span></p>
               <p class="gallery_home_spacer">&nbsp;</p>
               </span>
 
               <span class="gallery_home_item gd-4  mgd-6 sgd-12">
         <a href="./gallery/BracketMemeBot" target="new"><img src="img/bracket.png" ></a><br>
         <a href="./gallery/BracketMemeBot" target="new">Bracket Meme Bot</a>
-        <p><span>Darius Kazemi</span></p>
+        <p><span>by Darius Kazemi</span></p>
               <p class="gallery_home_spacer">&nbsp;</p>
               </span>
 
               <span class="gallery_home_item gd-4  mgd-6 sgd-12">
         <a href="./gallery/DNA" target="new"><img src="img/poetryDNA.png" ></a><br>
         <a href="./gallery/DNA" target="new">Poetry.dna</a>
-        <p><span>Matthew Halpenny</span></p>
+        <p><span>by Matthew Halpenny</span></p>
               <p class="gallery_home_spacer">&nbsp;</p>
               </span>
 
               <span class="gallery_home_item gd-4  mgd-6 sgd-12">
         <a href="./gallery/SolLewitt" target="new"><img src="img/sl.png" ></a><br>
         <a href="./gallery/SolLewitt" target="new">Sol Lewitt Generator</a>
-        <p><span>Richard Lapham</span></p>
+        <p><span>by Richard Lapham</span></p>
               <p class="gallery_home_spacer">&nbsp;</p>
             </span>
 
