@@ -53,7 +53,7 @@
 		      <!-- DESCRIPTION  -->
 		      <td>
 				<p>The basic text container object, implementing a variety of
-additional additional functions for text-analysis and generation atop the native string object.
+additional functions for text-analysis and generation atop the native string object.
 </td>
 	        </tr>
 		<tr class="">
