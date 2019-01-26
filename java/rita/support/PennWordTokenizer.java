@@ -38,7 +38,10 @@ public final class PennWordTokenizer implements TokenizerIF, Constants {
    */
   public String[] tokenize(String words) {
 
-    // TODO: these should all be compiled
+    // TODO: these should all be compiled (see #547)
+    words = words.replaceAll("([Ee])\\.([Gg])\\.", "_$1$2_");
+    words = words.replaceAll("([Ii])\\.([Ee])\\.", "_$1$2_");
+    
     words = words.replaceAll("([\\?!\"“‘\\.,;:@#$%&])", " $1 ");
     words = words.replaceAll("\\.\\.\\.", " ... ");
     words = words.replaceAll("\\s+", SP);
@@ -70,6 +73,9 @@ public final class PennWordTokenizer implements TokenizerIF, Constants {
     words = words.replaceAll(" ([A-Z]) \\.", " $1. ");
     words = words.replaceAll("\\s+", SP);
     words = words.replaceAll("^\\s+", "");
+    
+    words = words.replaceAll("_([Ee])([Gg])_", "$1.$2.");
+    words = words.replaceAll("_([Ii])([Ee])_", "$1.$2.");
 
     return words.split(SP);
   }

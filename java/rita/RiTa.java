@@ -5,7 +5,8 @@ import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
-import java.util.regex.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import rita.support.*;
 
@@ -32,9 +33,12 @@ public class RiTa implements Constants {
 
   public static boolean callbacksDisabled = false;
 
-  public static Object context = null; // generally a PApplet
+  public static Object context = null;
 
   private static boolean INITD = false;
+
+  private static Pattern CHOMP, PUNC, PUNCT, QUOTES, SQUOTES, APOS; // USE
+								    // Constants
 
   static {
     if (!INITD)
@@ -144,10 +148,11 @@ public class RiTa implements Constants {
 
   // RiLexicon delegates ====================================================
 
-  public static void addWord(String word, String pronunciation, String partsOfSpeech) {
+  public static void addWord(String word, String pronunciation,
+      String partsOfSpeech) {
     getLexicon().addWord(word, pronunciation, partsOfSpeech);
   }
-  
+
   public static String getBestPos(String word) { // niapi, for tests
     return getLexicon().lexImpl.getBestPos(word);
   }
@@ -308,14 +313,15 @@ public class RiTa implements Constants {
     return getLexicon().similarByLetter(s, minEditDistance);
   }
 
-  public static String[] similarByLetter(String input, int med, boolean preserveLength) {
+  public static String[] similarByLetter(String input, int med,
+      boolean preserveLength) {
     return getLexicon().similarByLetter(input, med, preserveLength);
   }
 
   public static String[] similarBySound(String input, int minDist) {
     return getLexicon().similarBySound(input, minDist);
   }
-  
+
   // =============================================================================
 
   static RiLexicon getLexicon() {
@@ -341,8 +347,8 @@ public class RiTa implements Constants {
   }
 
   /**
-   * Packs an array of floats (size 4) representing (a,getLexicon(),g,b) color values into
-   * a single integer
+   * Packs an array of floats (size 4) representing (a,getLexicon(),g,b) color
+   * values into a single integer
    */
   public static int pack(int a, int r, int g, int b) {
     if (a > 255)
@@ -365,8 +371,8 @@ public class RiTa implements Constants {
   }
 
   /**
-   * Unpacks a integer into an array of floats (size 4) representing (a,getLexicon(),g,b)
-   * color values
+   * Unpacks a integer into an array of floats (size 4) representing
+   * (a,getLexicon(),g,b) color values
    */
   public static int[] unpack(int pix) {
     int a = (pix >> 24) & 0xff;
@@ -417,79 +423,87 @@ public class RiTa implements Constants {
 
     if (arr == null || arr.length < 1)
       return E;
-    
+
     String result = arr[0];
-   
+
     if (adjustPunctuationSpacing) {
-//        delim = delim || SP;
-     
-        Pattern punct = Pattern.compile("^[,.;:?!)\"“”’‘`']+$"),
-        quotes = Pattern.compile("^[(\"“”’‘`']+$"),
-        squotes = Pattern.compile("^[’‘`']+$"),
-        apostrophes = Pattern.compile("^[’']+$");
-                         
-        boolean thisPunct, thisQuote, thisComma, isLast,
-        lastQuote, lastComma, lastPunct, lastEndWithS,
-        midSentence = false, afterQuote = false, 
-        withinQuote = arr.length > 0 && quotes.matcher(arr[0]).matches(),
-        dbug = false;
-  
-        for (int i = 1; i < arr.length; i++) {
-        
-        if (arr[i].equals(null)) continue;
-        
-        thisComma = arr[i] == ",";
-        thisPunct = punct.matcher(arr[i]).matches();
-        thisQuote = quotes.matcher(arr[i]).matches();
-        lastComma = arr[i - 1] == ",";
-        lastPunct = punct.matcher(arr[i - 1]).matches();
-        lastQuote = quotes.matcher(arr[i - 1]).matches();
-        lastEndWithS = arr[i - 1].length() > 0 ? arr[i - 1].charAt(arr[i - 1].length() - 1) == 's' : false;
-        isLast = (i == arr.length - 1);
 
-        if (dbug) System.out.println("before'" + arr[i] + "' " + i + " inquote?" + withinQuote + " " + "thisPunct?" + thisPunct + " " + "thisQuote?" + thisQuote);
-
-        if (thisQuote) {
-
-          if (withinQuote) {
-            // no-delim, mark quotation done
-            afterQuote = true;
-            withinQuote = false;
-          }
-          else if (!(apostrophes.matcher(arr[i]).matches() && lastEndWithS)) {
-            if (dbug) System.out.println("set withinQuote=1");
-            withinQuote = true;
-            afterQuote = false;
-            result += delim;
-          }
-
-        } else if (afterQuote && !thisPunct) {
-          result += delim;
-          if (dbug) System.out.println("hit1 " + arr[i]);
-          afterQuote = false;
-
-        } else if (lastQuote && thisComma) {
-          midSentence = true;
-
-        } else if (midSentence && lastComma) {
-
-          result += delim;
-          if (dbug) System.out.println("hit2 "+ arr[i]);
-          midSentence = false;
-
-        } else if ((!thisPunct && !lastQuote) || (!isLast && thisPunct && lastPunct)) {
-          result += delim;
-        }
-
-        result += arr[i]; // add to result
-        
-        if (thisPunct && !lastPunct && !withinQuote && squotes.matcher(arr[i]).matches()) {
-          if (dbug) System.out.println("hitnew "+ arr[i]);
-          result += delim; // fix to #477
-        }
+      if (PUNC == null) {
+	PUNC = Pattern.compile("^[,.;:?!)\"“”’‘`']+$");
+	QUOTES = Pattern.compile("^[(\"“”’‘`']+$");
+	SQUOTES = Pattern.compile("^[’‘`']+$");
+	APOS = Pattern.compile("^[’']+$");
       }
-     
-      
+
+      boolean thisPunct, thisQuote, thisComma, isLast, lastQuote, lastComma, lastPunct, lastEndWithS;
+      boolean midSentence = false, afterQuote = false, dbug = false;
+      boolean withinQuote = arr.length > 0 && QUOTES.matcher(arr[0]).matches();
+
+      for (int i = 1; i < arr.length; i++) {
+
+	if (arr[i].equals(null))
+	  continue;
+
+	thisComma = arr[i] == ",";
+	thisPunct = PUNC.matcher(arr[i]).matches();
+	thisQuote = QUOTES.matcher(arr[i]).matches();
+	lastComma = arr[i - 1] == ",";
+	lastPunct = PUNC.matcher(arr[i - 1]).matches();
+	lastQuote = QUOTES.matcher(arr[i - 1]).matches();
+	lastEndWithS = arr[i - 1].length() > 0 ? arr[i - 1].charAt(arr[i - 1]
+	    .length() - 1) == 's' : false;
+	isLast = (i == arr.length - 1);
+
+	if (dbug)
+	  System.out.println("before'" + arr[i] + "' " + i + " inquote?"
+	      + withinQuote + " " + "thisPunct?" + thisPunct + " "
+	      + "thisQuote?" + thisQuote);
+
+	if (thisQuote) {
+
+	  if (withinQuote) {
+	    // no-delim, mark quotation done
+	    afterQuote = true;
+	    withinQuote = false;
+	  } else if (!(APOS.matcher(arr[i]).matches() && lastEndWithS)) {
+	    if (dbug)
+	      System.out.println("set withinQuote=1");
+	    withinQuote = true;
+	    afterQuote = false;
+	    result += delim;
+	  }
+
+	} else if (afterQuote && !thisPunct) {
+	  result += delim;
+	  if (dbug)
+	    System.out.println("hit1 " + arr[i]);
+	  afterQuote = false;
+
+	} else if (lastQuote && thisComma) {
+	  midSentence = true;
+
+	} else if (midSentence && lastComma) {
+
+	  result += delim;
+	  if (dbug)
+	    System.out.println("hit2 " + arr[i]);
+	  midSentence = false;
+
+	} else if ((!thisPunct && !lastQuote)
+	    || (!isLast && thisPunct && lastPunct)) {
+	  result += delim;
+	}
+
+	result += arr[i]; // add to result
+
+	if (thisPunct && !lastPunct && !withinQuote
+	    && SQUOTES.matcher(arr[i]).matches()) {
+	  if (dbug)
+	    System.out.println("hitnew " + arr[i]);
+	  result += delim; // fix to #477
+	}
+      }
+
     }
 
     return result.trim();
@@ -642,12 +656,11 @@ public class RiTa implements Constants {
    * @return boolean
    */
   public static boolean isPunctuation(String s) {
-    if (PUNCT == null)
+    if (PUNCT == null) {
       PUNCT = Pattern.compile(ALL_PUNCT);
+    }
     return PUNCT.matcher(s).matches();
   }
-
-  protected static Pattern PUNCT = null;
 
   /**
    * Returns true iff the character is punctuation
@@ -764,13 +777,12 @@ public class RiTa implements Constants {
    * @return string without starting or ending white-space or line-breaks
    */
   public static String chomp(String s) {
-    if (CHOMP == null)
+    if (CHOMP == null) {
       CHOMP = Pattern.compile("\\s+$|^\\s+");
+    }
     Matcher m = CHOMP.matcher(s);
-    return m.replaceAll("");
+    return m.replaceAll(Constants.E);
   }
-
-  static Pattern CHOMP;
 
   /** Returns true if 'input' is an abbreviation */
   public static boolean isAbbreviation(String input) {
@@ -1043,7 +1055,7 @@ public class RiTa implements Constants {
     return EntityLookup.getInstance().escape(s);
   }
 
-  public static String unescapeHTML(String s) { // TODO: add to reference?
+  public static String unescapeHTML(String s) {
 
     return EntityLookup.getInstance().unescape(s);
   }
@@ -1852,7 +1864,7 @@ public class RiTa implements Constants {
     RiTa.PHONEME_TYPE = RiTa.IPA;
     System.out.println(RiTa.getPhonemes("become"));
     System.out.println(RiTa.INTERNAL);
-    RiTa.out(RiTa.join(RiTa.tokenize("The cat ate the stinky cheese."),","));
+    RiTa.out(RiTa.join(RiTa.tokenize("The cat ate the stinky cheese."), ","));
 
   }
 }

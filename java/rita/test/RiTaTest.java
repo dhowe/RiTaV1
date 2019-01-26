@@ -585,12 +585,25 @@ public class RiTaTest
   @Test
   public void testTokenize()
   {
-    String input = "The boy, dressed in red, ate an apple.";
-    String[] expected = { "The", "boy", ",", "dressed", "in", "red", ",", "ate", "an",
-        "apple", "." };
-    String[] output = RiTa.tokenize(input);
-    deepEqual(output, expected);
+    String input, expected[], output[];
+    
+//    output = RiTa.tokenize();
+//    for (int i = 0; i < output.length; i++) {
+//      System.out.println(i+") "+output[i]);
+//    }
+//    
+//    System.out.println(RiTa.asList(output));
+    deepEqual(RiTa.tokenize("dog, e.g. the cat."), new String[] { "dog", ",", "e.g.", "the", "cat", "."});
+    
+    deepEqual(RiTa.tokenize("dog, i.e. the cat."), new String[] { "dog", ",", "i.e.", "the", "cat", "."});
+        
 
+    input = "The boy, dressed in red, ate an apple.";
+    expected = new String[]{ "The", "boy", ",", "dressed", "in", "red", ",", "ate", "an", "apple", "." };
+    output = RiTa.tokenize(input);
+    deepEqual(output, expected);
+    
+  
     input = "why? Me?huh?!";
     output = new String[] {};
     expected = new String[] { "why", "?", "Me", "?", "huh", "?", "!" };
