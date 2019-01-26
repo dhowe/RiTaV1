@@ -572,7 +572,9 @@ public class RiTaTest
           "Shouldn't he eat?",
           "It's not that I can't.",
           "We've found the cat.",
-          "We didn't find the cat."
+          "We didn't find the cat.",
+          "dog, e.g. the cat.",
+          "dog, i.e. the cat."
       };
       
       for (int i = 0; i < testStrings.length; i++) {
@@ -585,24 +587,15 @@ public class RiTaTest
   @Test
   public void testTokenize()
   {
-    String input, expected[], output[];
-    
-//    output = RiTa.tokenize();
-//    for (int i = 0; i < output.length; i++) {
-//      System.out.println(i+") "+output[i]);
-//    }
-//    
-//    System.out.println(RiTa.asList(output));
     deepEqual(RiTa.tokenize("dog, e.g. the cat."), new String[] { "dog", ",", "e.g.", "the", "cat", "."});
-    
     deepEqual(RiTa.tokenize("dog, i.e. the cat."), new String[] { "dog", ",", "i.e.", "the", "cat", "."});
         
+    String input, expected[], output[];
 
     input = "The boy, dressed in red, ate an apple.";
     expected = new String[]{ "The", "boy", ",", "dressed", "in", "red", ",", "ate", "an", "apple", "." };
     output = RiTa.tokenize(input);
     deepEqual(output, expected);
-    
   
     input = "why? Me?huh?!";
     output = new String[] {};
@@ -696,6 +689,9 @@ public class RiTaTest
   @Test
   public void testUntokenize()
   {
+    deepEqual(RiTa.untokenize(new String[] { "dog", ",", "e.g.", "the", "cat", "."}), "dog, e.g. the cat.");
+    deepEqual(RiTa.untokenize(new String[] { "dog", ",", "i.e.", "the", "cat", "."}), "dog, i.e. the cat.");
+       
     String input[], output, expected;
     
     equal(RiTa.untokenize(new String[0]), "");
@@ -703,8 +699,6 @@ public class RiTaTest
     input = new String[] { "She", "screamed", ":", "\"", "Oh", "God", "!", "\""};
     expected = "She screamed: \"Oh God!\"";
     output = RiTa.untokenize(input);
-    //System.out.println(expected);
-    //System.out.println(output);
     deepEqual(output, expected);
     
     expected = "The boy, dressed in red -- ate an apple.";

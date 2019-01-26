@@ -38,7 +38,7 @@ public class RiTa implements Constants {
   private static boolean INITD = false;
 
   private static Pattern CHOMP, PUNC, PUNCT, QUOTES, SQUOTES, APOS; // USE
-								    // Constants
+  // Constants
 
   static {
     if (!INITD)
@@ -398,7 +398,7 @@ public class RiTa implements Constants {
     try {
       return (callbackName == null) ? _findMethod(parent, DEFAULT_CALLBACK,
 	  new Class[] { RiTaEvent.class }, false) : _findMethod(parent,
-	  callbackName, new Class[] {}, false);
+	      callbackName, new Class[] {}, false);
     } catch (RiTaException e) {
       String msg = (callbackName == null) ? DEFAULT_CALLBACK
 	  + "(RiTaEvent re);" : callbackName + "();";
@@ -417,12 +417,11 @@ public class RiTa implements Constants {
    *          the array to join
    * @return the joined array as a String
    */
-  public static String untokenize(String[] arr, char delim,
-      boolean adjustPunctuationSpacing) {
+  public static String untokenize(String[] arr, char delim, boolean adjustPunctuationSpacing) {
+
     // System.out.println("RiTa.untokenize("+RiTa.asList(arr)+",'"+delim+"',"+adjustPunctuationSpacing+")");
 
-    if (arr == null || arr.length < 1)
-      return E;
+    if (arr == null || arr.length < 1) return E;
 
     String result = arr[0];
 
@@ -450,9 +449,10 @@ public class RiTa implements Constants {
 	lastComma = arr[i - 1] == ",";
 	lastPunct = PUNC.matcher(arr[i - 1]).matches();
 	lastQuote = QUOTES.matcher(arr[i - 1]).matches();
-	lastEndWithS = arr[i - 1].length() > 0 ? arr[i - 1].charAt(arr[i - 1]
-	    .length() - 1) == 's' : false;
 	isLast = (i == arr.length - 1);
+	lastEndWithS = arr[i - 1].length() > 0 ?
+	    arr[i - 1].charAt(arr[i - 1].length() - 1) == 's' 
+	    : false;
 
 	if (dbug)
 	  System.out.println("before'" + arr[i] + "' " + i + " inquote?"
@@ -598,10 +598,10 @@ public class RiTa implements Constants {
     boolean match = m.find();
     if (!match || m.groupCount() < 1) {
       System.err
-	  .println("[WARN] RiTa.trimPunctuation(): invalid regex state for String "
-	      + "\n       '"
-	      + token
-	      + "', perhaps an unexpected byte-order mark?");
+      .println("[WARN] RiTa.trimPunctuation(): invalid regex state for String "
+	  + "\n       '"
+	  + token
+	  + "', perhaps an unexpected byte-order mark?");
       return token;
     }
 
@@ -837,7 +837,7 @@ public class RiTa implements Constants {
     if (cWL > 2
 	&& ((currentWord.charAt(0) == '\'' && currentWord.charAt(1) == '\'') || (currentWord
 	    .charAt(0) == '`' && currentWord.charAt(1) == '`'))
-	&& RiTa.isAbbreviation(currentWord.substring(2))) {
+	    && RiTa.isAbbreviation(currentWord.substring(2))) {
       return false;
     }
 
@@ -917,7 +917,7 @@ public class RiTa implements Constants {
   public static int timer(float period) { // for better error msg
     throw new RiTaException(
 	"Missing parent object -- did you mean: RiTa.timer(this, " + period
-	    + ");");
+	+ ");");
   }
 
   @SuppressWarnings("unused")
@@ -1238,7 +1238,7 @@ public class RiTa implements Constants {
    */
 
   protected static String[] includedFiles = new String[] { "addenda.txt",
-      "bin.gz" };
+  "bin.gz" };
 
   private static Class<?> pAppletClass;
 
@@ -1444,19 +1444,19 @@ public class RiTa implements Constants {
   /** @exclude */
   public static boolean _isAbsolutePath(String fileName) {
     return (fileName.startsWith(SLASH) || fileName.matches("^[A-Za-z]:")); // hmmmmm...
-									   // 'driveA:\\'?
+    // 'driveA:\\'?
   }
 
   private static void throwPAppletMessage(String methodName, String file) {
     if (methodName != null) { // else do nothing
 
       System.err
-	  .println("[WARN] Unable to load: '"
-	      + file
-	      + "', please double-check "
-	      + "the location.\n\nIf you are using the Processing IDE, try passing 'this' as the 2nd "
-	      + "argument to " + methodName + ":\n\n    " + methodName + "("
-	      + file + ", this);\n");
+      .println("[WARN] Unable to load: '"
+	  + file
+	  + "', please double-check "
+	  + "the location.\n\nIf you are using the Processing IDE, try passing 'this' as the 2nd "
+	  + "argument to " + methodName + ":\n\n    " + methodName + "("
+	  + file + ", this);\n");
 
       throw new RiTaException();
     }
@@ -1473,12 +1473,12 @@ public class RiTa implements Constants {
       }
 
       System.err
-	  .println("[WARN] Unable to load files "
-	      + RiTa.asList(files)
-	      + ", please double-check "
-	      + "the locations.\n\nIf you are using the Processing IDE, try passing 'this' as the 2nd "
-	      + "argument to " + methodName + ":\n\n    " + methodName
-	      + "(new String[]{" + fs + "}, this);\n");
+      .println("[WARN] Unable to load files "
+	  + RiTa.asList(files)
+	  + ", please double-check "
+	  + "the locations.\n\nIf you are using the Processing IDE, try passing 'this' as the 2nd "
+	  + "argument to " + methodName + ":\n\n    " + methodName
+	  + "(new String[]{" + fs + "}, this);\n");
 
       throw new RiTaException();
     }
