@@ -273,6 +273,8 @@ public class RiLexViaRiTa {
     answer = new String[] { "bugle", "frugal" };
     deepEqual(answer, result);
     
+
+    
     result = RiTa.rhymes("happens in here"); // "hear" should NOT be a rhyme
     answer = new String[] { "insincere", "persevere", "career",
 	"year", "reappear", "brigadier", "pioneer", "rear","profiteer", "commandeer", "near", "revere",
@@ -703,13 +705,12 @@ public class RiLexViaRiTa {
 
   @Test
   public void testIsRhymeStringString() {
-
-
-
-//    
+ 
     ok(!RiTa.isRhyme("apple", "polo"));
     ok(!RiTa.isRhyme("this", "these"));
 
+    ok(RiTa.isRhyme("eight", "weight"));
+    
     ok(RiTa.isRhyme("cat", "hat"));
     ok(RiTa.isRhyme("yellow", "mellow"));
     ok(RiTa.isRhyme("toy", "boy"));

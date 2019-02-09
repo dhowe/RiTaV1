@@ -361,7 +361,7 @@ public class RiLexiconTest {
     result = lex.rhymes("google");
     answer = new String[] { "bugle", "frugal" };
     deepEqual(answer, result);
-    
+        
     result = lex.rhymes("happens in here"); // "hear" should NOT be a rhyme
     answer = new String[] { "insincere", "persevere", "career",
 	"year", "reappear", "brigadier", "pioneer", "rear","profiteer", "commandeer", "near", "revere",
@@ -795,7 +795,8 @@ public class RiLexiconTest {
 
     RiLexicon lex = new RiLexicon();
 
-//    
+    ok(lex.isRhyme("eight", "weight"));
+
     ok(!lex.isRhyme("apple", "polo"));
     ok(!lex.isRhyme("this", "these"));
 

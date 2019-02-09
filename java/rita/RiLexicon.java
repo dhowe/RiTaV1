@@ -887,10 +887,9 @@ public class RiLexicon implements Constants {
   public String lastStressedVowelPhonemeToEnd(String word, boolean useLTS) {
 
     String raw = lastStressedPhoneToEnd(word, useLTS);
-    if (raw == null)
-      return null;
+    if (raw == null) return null;
 
-    String[] syllables = raw.split(" ");
+    String[] syllables = raw.split(SP);
     String lastSyllable = syllables[syllables.length - 1];
     lastSyllable = lastSyllable.replaceAll("[^a-z-1 ]", "");
 
@@ -902,6 +901,11 @@ public class RiLexicon implements Constants {
 	idx = i;
 	break;
       }
+    }
+    
+    if (idx < 0) {
+      System.err.println("Illegal state: "+word+" / "+lastSyllable);
+      return null;
     }
 
     // System.out.println(word + " " + raw + " last:" + lastSyllable + " idx=" +

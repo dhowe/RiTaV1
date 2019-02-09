@@ -17,7 +17,9 @@ public class IsRhymeTest {
 	"apple", "chapel",
 	"libel", "tribal",
 	"bugle", "frugal",
-	"arrested", "contested"
+	"arrested", "contested",
+	"weight", "eight",
+	"eight", "weight"
 //	"fetid", "bedded",
 //	"fetid", "tepid" // ?
     };
