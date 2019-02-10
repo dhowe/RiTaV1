@@ -50,6 +50,20 @@
               </span> -->
 
               <span class="gallery_home_item gd-4  mgd-6 sgd-12">
+        <a href="./gallery/PoetryInMotion" target="new"><img src="img/poetryInMotion.png" ></a><br>
+        <a href="./gallery/PoetryInMotion" target="new">Poetry In Motion</a>
+        <p><span  style="font-size:11px;">J. Zhou, R. Agarwal, E. Bretschneider</span></p>
+              <p class="gallery_home_spacer">&nbsp;</p>
+              </span>
+
+              <span class="gallery_home_item gd-4  mgd-6 sgd-12">
+        <a href="./gallery/ResumeBot" target="new"><img src="img/resumeBot.png" ></a><br>
+        <a href="./gallery/ResumeBot" target="new">Resume Bot</a>
+        <p><span>by PATRICK PRESTO</span></p>
+              <p class="gallery_home_spacer">&nbsp;</p>
+              </span>
+
+              <span class="gallery_home_item gd-4  mgd-6 sgd-12">
         <a href="./gallery/Daedalus" target="new"><img src="img/daedalus.png" ></a><br>
         <a href="./gallery/Daedalus" target="new">DAEDALUS</a>
         <p><span>by Alessandro Capozzo</span></p>
