@@ -42,126 +42,119 @@
               <p class="gallery_home_spacer">&nbsp;</p>
               </span>
 
-              <span class="gallery_home_item gd-4  mgd-6 sgd-12">
+      <span class="gallery_home_item gd-4  mgd-6 sgd-12">
         <a href="./gallery/LyricPoems" target="new"><img src="img/lyric.jpg" ></a><br>
         <a href="./gallery/LyricPoems" target="new">Lyric Poems</a>
         <p><span>by casher</span></p>
               <p class="gallery_home_spacer">&nbsp;</p>
               </span> -->
 
-              <span class="gallery_home_item gd-4  mgd-6 sgd-12">
+      <span class="gallery_home_item gd-4  mgd-6 sgd-12">
         <a href="./gallery/PoetryInMotion" target="new"><img src="img/poetryInMotion.png" ></a><br>
         <a href="./gallery/PoetryInMotion" target="new">Poetry In Motion</a>
         <p><span  style="font-size:11px;">J. Zhou, R. Agarwal, E. Bretschneider</span></p>
               <p class="gallery_home_spacer">&nbsp;</p>
               </span>
 
-              <span class="gallery_home_item gd-4  mgd-6 sgd-12">
-        <a href="./gallery/ResumeBot" target="new"><img src="img/resumeBot.png" ></a><br>
-        <a href="./gallery/ResumeBot" target="new">Resume Bot</a>
-        <p><span>by PATRICK PRESTO</span></p>
-              <p class="gallery_home_spacer">&nbsp;</p>
-              </span>
-
-              <span class="gallery_home_item gd-4  mgd-6 sgd-12">
+      <span class="gallery_home_item gd-4  mgd-6 sgd-12">
         <a href="./gallery/Daedalus" target="new"><img src="img/daedalus.png" ></a><br>
         <a href="./gallery/Daedalus" target="new">DAEDALUS</a>
         <p><span>by Alessandro Capozzo</span></p>
               <p class="gallery_home_spacer">&nbsp;</p>
               </span>
 
-              <span class="gallery_home_item gd-4  mgd-6 sgd-12">
+      <span class="gallery_home_item gd-4  mgd-6 sgd-12">
         <a href="./gallery/PopCulturePoetry" target="new"><img src="img/popculture.png" ></a><br>
         <a href="./gallery/PopCulturePoetry" target="new">Pop Culture Poetry</a>
         <p><span>by Ari Melenciano </span></p>
               <p class="gallery_home_spacer">&nbsp;</p>
               </span>
 
-              <span class="gallery_home_item gd-4  mgd-6 sgd-12">
+      <span class="gallery_home_item gd-4  mgd-6 sgd-12">
         <a href="./gallery/BracketMemeBot" target="new"><img src="img/bracket.png" ></a><br>
         <a href="./gallery/BracketMemeBot" target="new">Bracket Meme Bot</a>
         <p><span>by Darius Kazemi</span></p>
               <p class="gallery_home_spacer">&nbsp;</p>
               </span>
 
-              <span class="gallery_home_item gd-4  mgd-6 sgd-12">
+      <span class="gallery_home_item gd-4  mgd-6 sgd-12">
         <a href="./gallery/DNA" target="new"><img src="img/poetryDNA.png" ></a><br>
         <a href="./gallery/DNA" target="new">Poetry.dna</a>
         <p><span>by Matthew Halpenny</span></p>
               <p class="gallery_home_spacer">&nbsp;</p>
               </span>
 
-              <span class="gallery_home_item gd-4  mgd-6 sgd-12">
+      <span class="gallery_home_item gd-4  mgd-6 sgd-12">
         <a href="./gallery/SolLewitt" target="new"><img src="img/sl.png" ></a><br>
         <a href="./gallery/SolLewitt" target="new">Sol Lewitt Generator</a>
         <p><span>by Richard Lapham</span></p>
               <p class="gallery_home_spacer">&nbsp;</p>
             </span>
 
-              <span class="gallery_home_item gd-4  mgd-6 sgd-12">
+      <span class="gallery_home_item gd-4  mgd-6 sgd-12">
         <a href="./gallery/HW00/hw00.html" target="new"><img src="img/hm.jpg" ></a><br>
         <a href="./gallery/HW00/hw00.html" target="new">HW-PM-R-00</a>
         <p><span>by David Hale</span></p>
               <p class="gallery_home_spacer">&nbsp;</p>
               </span>
 
-              <span class="gallery_home_item gd-4  mgd-6 sgd-12">
+      <span class="gallery_home_item gd-4  mgd-6 sgd-12">
         <a href="./gallery/BookshelfWriter" target="new"><img src="img/bookshelfWriter.jpg" ></a><br>
         <a href="./gallery/BookshelfWriter" target="new">Bookshelf Writer</a>
         <p><span style="font-size:11px;">by A.Refsgaard K. Solvåg R. Cereser</span></p>
               <p class="gallery_home_spacer">&nbsp;</p>
               </span>
 
-              <span class="gallery_home_item gd-4  mgd-6 sgd-12">
+      <span class="gallery_home_item gd-4  mgd-6 sgd-12">
         <a href="http://sarahmak.es/nightTweets" target="new"><img src="img/nightTweet.png" ></a><br>
         <a href="http://sarahmak.es/nightTweets" target="new">#nightTweets</a>
         <p>by Sarah K Hallacher</p>
           <p class="gallery_home_spacer">&nbsp;</p>
         </span>
 
-              <span class="gallery_home_item gd-4  mgd-6 sgd-12">
+      <span class="gallery_home_item gd-4  mgd-6 sgd-12">
         <a href="https://elmcip.net/creative-work/mirroring-tears-visages" target="new"><img src="img/mirroringTears.png" ></a><br>
         <a href="https://elmcip.net/creative-work/mirroring-tears-visages" target="new">Mirroring Tears: Visages</a>
         <p>by John Cayley Penny Florence</p>
           <p class="gallery_home_spacer">&nbsp;</p>
         </span>
 
-              <span class="gallery_home_item gd-4  mgd-6 sgd-12">
+      <span class="gallery_home_item gd-4  mgd-6 sgd-12">
         <a href="./gallery/TheWholeBrilliantEnterprise" target="new"><img src="img/enterprise_sm.png" ></a><br>
         <a href="./gallery/TheWholeBrilliantEnterprise" target="new">The Whole Brilliant Enterprise</a>
         <p>by Office for Creative Research</p>
         <p class="gallery_home_spacer">&nbsp;</p>
       </span>
 
-              <span class="gallery_home_item gd-4 mgd-6 sgd-12">
+      <span class="gallery_home_item gd-4 mgd-6 sgd-12">
       <a href="./gallery/MemoireInvolontaireNo1" target="new"><img src="img/memory.gif" ></a><br>
       <a href="./gallery/MemoireInvolontaireNo1" target="new">Memoire Involontaire No. 1</a>
           <p>by A. Braxton Soderman</p>
       <p class="gallery_home_spacer">&nbsp;</p>
     </span>
 
-              <span class="gallery_home_item gd-4 mgd-6 sgd-12">
+      <span class="gallery_home_item gd-4 mgd-6 sgd-12">
         <a href="./gallery/VisualGrammars" target="new"><img src="img/visgram.jpg" ></a>
         <a href="./gallery/VisualGrammars" target="new"><br>Visual Grammars</a>
         <p>by Angela Ferraiolo</p>
         <p class="gallery_home_spacer">&nbsp;</p>
       </span>
               <!-- row2-->
-              <span class="gallery_home_item gd-4 mgd-6 sgd-12">
+      <span class="gallery_home_item gd-4 mgd-6 sgd-12">
       <a href="./gallery/GameDefinitions" target="new"><img src="img/gamedefs.png" ></a><br>
       <a href="./gallery/GameDefinitions" target="new">Game Definitions</a>
       <p>by MolleIndustria</p>
       <p class="gallery_home_spacer">&nbsp;</p>
     </span>
 
-              <span class="gallery_home_item gd-4 mgd-6 sgd-12">
+      <span class="gallery_home_item gd-4 mgd-6 sgd-12">
       <a href="./gallery/CornellsYokeMachine" target="new"><img src="img/cornell.jpg" ></a><br>
       <a href="./gallery/CornellsYokeMachine" target="new">Cornell's Yoke Machine</a>
       <p>by Janalyn Guo</p>
       <p class="gallery_home_spacer">&nbsp;</p>
     </span>
 
-              <span class="gallery_home_item gd-4 mgd-6 sgd-12">
+      <span class="gallery_home_item gd-4 mgd-6 sgd-12">
       <a href="./gallery/ShanShui" target="new"><img src="img/shanshui.jpg" ></a><br>
       <a href="./gallery/ShanShui" target="new">Shan Shui</a>
       <p>by Chen Qianxun</p>
@@ -169,64 +162,70 @@
     </span>
               <!-- row3-->
 
-              <span class="gallery_home_item gd-4 mgd-6 sgd-12">
+      <span class="gallery_home_item gd-4 mgd-6 sgd-12">
         <a href="./gallery/TheGodardFilmGenerator" target="new"><img src="img/godard.png" ></a><br>
         <a href="./gallery/TheGodardFilmGenerator" target="new">The Godard Film Generator</a>
         <p>by Mark Sample</p>
         <p class="gallery_spacer">&nbsp;</p>
       </span>
 
-              <span class="gallery_home_item gd-4 mgd-6 sgd-12">
+      <span class="gallery_home_item gd-4 mgd-6 sgd-12">
         <a href="./gallery/AboutNothingPlaces" target="new"><img src="img/creeley270.jpg" ></a><br>
         <a href="./gallery/AboutNothingPlaces" target="new">about nothing, places...</a>
         <p>by Patricia Tomaszek</p>
         <p class="gallery_spacer">&nbsp;</p>
       </span>
 
-              <span class="gallery_home_item gd-4 mgd-6 sgd-12">
+      <span class="gallery_home_item gd-4 mgd-6 sgd-12">
         <a href="./gallery/RiTaTwitterbots"target="new"><img src="img/twitterbots.gif" ></a><br>
         <a href="./gallery/RiTaTwitterbots"target="new">RiTa Twitterbots</a>
         <p>by Mark Sample</p>
         <p class="gallery_spacer">&nbsp;</p>
       </span>
-              <!-- row4-->
-              <span class="gallery_home_item gd-4 mgd-6 sgd-12">
+
+      <span class="gallery_home_item gd-4 mgd-6 sgd-12">
         <a href="./gallery/SpinState"target="new"><img src="img/spin_state2.png" ></a><br>
         <a href="./gallery/SpinState"target="new">SpinState</a>
         <p>by Michael Coppola</p>
         <p class="gallery_spacer">&nbsp;</p>
       </span>
 
-              <span class="gallery_home_item gd-4  mgd-6 sgd-12">
-              <a href="./gallery/SortingBot" target="new"><img src="img/sortingBot.png" ></a><br>
-              <a href="./gallery/SortingBot" target="new">Sorting Bot</a>
-              <p><span>Darius Kazemi</span></p>
-              <p class="gallery_home_spacer">&nbsp;</p>
-              </span>
+      <span class="gallery_home_item gd-4  mgd-6 sgd-12">
+        <a href="./gallery/SortingBot" target="new"><img src="img/sortingBot.png" ></a><br>
+        <a href="./gallery/SortingBot" target="new">Sorting Bot</a>
+        <p><span>Darius Kazemi</span></p>
+        <p class="gallery_home_spacer">&nbsp;</p>
+      </span>
 
-              <span class="gallery_home_item gd-4 mgd-6 sgd-12">
+      <span class="gallery_home_item gd-4 mgd-6 sgd-12">
         <a href="./gallery/automatype" target="new"><img src="img/automatype.jpg" ></a><br>
         <a href="./gallery/automatype" target="new">Automatype</a>
         <p>by Daniel C. Howe</p>
         <p class="gallery_spacer">&nbsp;</p>
       </span>
 
+      <span class="gallery_home_item gd-4  mgd-6 sgd-12">
+        <a href="./gallery/ResumeBot" target="new"><img src="img/resumeBot.png" ></a><br>
+        <a href="./gallery/ResumeBot" target="new">Resume Bot</a>
+        <p><span>by Patrick Resto</span></p>
+        <p class="gallery_home_spacer">&nbsp;</p>
+      </span>
 
-              <span class="gallery_home_item gd-4 mgd-6 sgd-12">
+      <span class="gallery_home_item gd-4 mgd-6 sgd-12">
         <a href="./gallery/HarryPotterBookGenerator" target="new"><img src="img/HarryPotterGenerator.png" ></a><br>
         <a href="./gallery/HarryPotterBookGenerator" target="new">Harry Potter Book Generator</a>
         <p>by Rob Clouth</p>
         <p class="gallery_spacer">&nbsp;</p>
       </span>
 
-              <span class="gallery_home_item gd-4 mgd-6 sgd-12">
+      <span class="gallery_home_item gd-4 mgd-6 sgd-12">
         <a href="./gallery/Zuckifier/" target="new"><img src="img/zuckbaby.jpg" ></a><br>
         <a href="./gallery/Zuckifier/" target="new">Zuckifier</a>
         <p>by Sam Lavigne</p>
         <p class="gallery_spacer">&nbsp;</p>
       </span>
 
-              <span class="gallery_home_item gd-4  mgd-6 sgd-12">
+      <span class="gallery_home_item gd-4  mgd-6 sgd-12">
         <a href="./gallery/InvokeObject" target="new"><img src="img/invokeObject.png" ></a><br>
         <a href="./gallery/InvokeObject" target="new">invoke(Object object);</a>
         <p>by Ben Nicholson</p>
