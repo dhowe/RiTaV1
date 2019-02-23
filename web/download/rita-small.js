@@ -154,13 +154,11 @@ function tagForWordNet(words) {
   return EA;
 }
 
-'use strict';
-
 var FEATURES = [ 'tokens', 'stresses', 'phonemes', 'syllables', 'pos', 'text' ];
 
 var RiTa = {
 
-  VERSION: '1.3.86',
+  VERSION: '1.3.87',
 
   /* For tokenization, Can't -> Can not, etc. */
   SPLIT_CONTRACTIONS: false,
@@ -296,7 +294,7 @@ var RiTa = {
   },
 
   kwic: function(text, word, options) {
-    wordCount = (options && options.wordCount) || 4;
+    var wordCount = (options && options.wordCount) || 4;
     return Concorder(text, options).kwic(word, wordCount);
   },
 
@@ -357,6 +355,8 @@ var RiTa = {
     if (regex) return words.split(regex);
 
     words = trim(words);
+    words = words.replace(/([Ee])[.]([Gg])[.]/g, "_$1$2_");
+    words = words.replace(/([Ii])[.]([Ee])[.]/g, "_$1$2_");
 
     words = words.replace(/([\\?!\"\u201C\\.,;:@#$%&])/g, " $1 ");
     words = words.replace(/\\.\\.\\./g, " ... ");
@@ -388,6 +388,9 @@ var RiTa = {
     words = words.replace(/ ([A-Z]) \\./g, " $1. ");
     words = words.replace(/\\s+/g, SP);
     words = words.replace(/^\\s+/g, E);
+
+    words = words.replace(/_([Ee])([Gg])_/g, "$1.$2.");
+    words = words.replace(/_([Ii])([Ee])_/g, "$1.$2.");
 
     return trim(words).split(/\s+/);
   },
@@ -694,7 +697,7 @@ var RiTa = {
       RiTaEvent({
         name: 'RiTaLoader',
         urls: is(url, S) ? [ url ] : url
-      }, DATA_LOADED, data)._fire();
+      }, RiTa.DATA_LOADED, data)._fire();
   },
 
   isQuestion: function(sentence) {
@@ -911,6 +914,8 @@ var RiTa = {
 for (var i = 0; i < FEATURES.length; i++) {
   RiTa[FEATURES[i].toUpperCase()] = FEATURES[i];
 }
+
+/* global _dict, LetterToSound, YAML */
 
 var RiLexicon = makeClass();
 
@@ -1227,7 +1232,7 @@ RiLexicon.prototype = {
 
     if (!this.data || !strOk(word)) return false;
     word = word.toLowerCase();
-    return this.data[word] || this._isPlural(word);
+    return this.data.hasOwnProperty(word) || this._isPlural(word);
   },
 
   isRhyme: function(word1, word2, useLTS) {
@@ -1545,7 +1550,6 @@ RiLexicon.prototype = {
 
     if (!strOk(word)) return E; // return null?
 
-
     var raw = this._lastStressedPhoneToEnd(word, useLTS);
     if (!strOk(raw)) return E; // return null?
 
@@ -1561,7 +1565,7 @@ RiLexicon.prototype = {
         break;
       }
     }
-  word + " " + raw + " last:" + lastSyllable + " idx=" + idx + " result:" + lastSyllable.substring(idx)
+
    return lastSyllable.substring(idx);
   },
 
@@ -2878,7 +2882,11 @@ var OR_PATT = /\s*\|\s*/, STRIP_TICKS = /`([^`]*)`/g,
   PROB_PATT = /(.*[^\s])\s*\[([0-9.]+)\](.*)/;
 
 RiGrammar.START_RULE = "<start>";
-RiGrammar.EXEC_PATT = /(.*?)(`[^`]+?\(.*?\);?`)(.*)/;
+// Do not require a function call in the exec pattern;
+// this permits a callback such as `varName` which
+// evaluates to the value of varName in the provided
+// closure.
+RiGrammar.EXEC_PATT = /([^`]*)(`[^`]*`)(.*)/;
 
 RiGrammar.prototype = {
 
@@ -3171,36 +3179,6 @@ RiGrammar.prototype = {
       return null; // no rules matched
     }
 
-    var Scope = function(context) { // class
-      "use strict";
-
-      this.names = [];
-      this.eval = function(s) {
-        return eval(s);
-      };
-      this.put = function(name, val) {
-        "use strict";
-        var code = "(function() {\n";
-        code += 'var ' + name + ' = '+val+';\n';
-        code += 'return function(str) {return eval(str)};\n})()';
-        this.eval = this.eval(code);
-        this.names.push(name);
-      };
-
-      if (context) {
-        var scope = this;
-        if (typeof context === 'function') {
-          scope.put(context.name, context);
-        }
-        else if (typeof context === 'object') {
-          okeys(context).forEach(function (f) {
-            if (typeof context[f] === 'function')
-              scope.put(f, context[f]);
-          });
-        }
-      }
-    }
-
     var handleExec = function(input, context) {
 
       //console.log('handleExec('+input+", ",context+')');
@@ -3210,20 +3188,26 @@ RiGrammar.prototype = {
       var res, exec = input.replace(STRIP_TICKS, '$1');
 
       try {
-
-        res = eval(exec); // try in global context
-        return res ? res + E : null;
-
-      } catch (e) {
-
+        // Try first in the local context if
+        // it exists, so that the local context
+        // can override a global function
         if (context) { // create sandbox for context args
-
-          try {
-            res = new Scope(context).eval(exec);
+            // res = new Scope(context).eval(exec);
+            // context is a closure, so attempt to evaluate
+            // the exec in that closure
+            res = context(exec);
             return res ? res + '' : null;
-          }
-          catch (e) { /* fall through */ }
-        }
+        } else {
+            throw "No context";
+        };
+      } catch (e) {
+          try {
+              res = eval(exec); // try in global context
+              return res ? res + E : null;
+          } catch (e) {
+              // Failed completely; will fall through
+              // and return input
+          };
       }
       return input;
     }
@@ -20674,10 +20658,9 @@ if (window) { // for browser
   window['RiWordNet'] = RiWordNet;
   window['RiLexicon'] = RiLexicon;
   window['RiTaEvent'] = RiTaEvent;
+}
 
-  var rlfuns = okeys();
-
-} else if (typeof module !== 'undefined') { // for node
+if (typeof module !== 'undefined') { // for node, react, etc
 
   module.exports['RiTa'] = RiTa;
   module.exports['RiString'] = RiString;

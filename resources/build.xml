@@ -47,7 +47,8 @@
 	<property name="js.src" location="${project.js}/src" />
 	<property name="js.dist" location="${project.js}/dist" />
 	<property name="rita.js" location="${project.js}/dist/rita.js" />
-	<property name="path.to.gulp" value="/usr/local/bin/gulp" />
+	<property name="path.to.gulp" value="gulp" />
+	<!--property name="path.to.gulp" value="/usr/local/bin/gulp" /-->
 	<property name="js.examples" location="${project.js}/examples" />
 
 	<target name="check.js">

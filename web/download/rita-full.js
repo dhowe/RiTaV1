@@ -154,13 +154,11 @@ function tagForWordNet(words) {
   return EA;
 }
 
-'use strict';
-
 var FEATURES = [ 'tokens', 'stresses', 'phonemes', 'syllables', 'pos', 'text' ];
 
 var RiTa = {
 
-  VERSION: '1.3.86',
+  VERSION: '1.3.87',
 
   /* For tokenization, Can't -> Can not, etc. */
   SPLIT_CONTRACTIONS: false,
@@ -296,7 +294,7 @@ var RiTa = {
   },
 
   kwic: function(text, word, options) {
-    wordCount = (options && options.wordCount) || 4;
+    var wordCount = (options && options.wordCount) || 4;
     return Concorder(text, options).kwic(word, wordCount);
   },
 
@@ -357,6 +355,8 @@ var RiTa = {
     if (regex) return words.split(regex);
 
     words = trim(words);
+    words = words.replace(/([Ee])[.]([Gg])[.]/g, "_$1$2_");
+    words = words.replace(/([Ii])[.]([Ee])[.]/g, "_$1$2_");
 
     words = words.replace(/([\\?!\"\u201C\\.,;:@#$%&])/g, " $1 ");
     words = words.replace(/\\.\\.\\./g, " ... ");
@@ -388,6 +388,9 @@ var RiTa = {
     words = words.replace(/ ([A-Z]) \\./g, " $1. ");
     words = words.replace(/\\s+/g, SP);
     words = words.replace(/^\\s+/g, E);
+
+    words = words.replace(/_([Ee])([Gg])_/g, "$1.$2.");
+    words = words.replace(/_([Ii])([Ee])_/g, "$1.$2.");
 
     return trim(words).split(/\s+/);
   },
@@ -694,7 +697,7 @@ var RiTa = {
       RiTaEvent({
         name: 'RiTaLoader',
         urls: is(url, S) ? [ url ] : url
-      }, DATA_LOADED, data)._fire();
+      }, RiTa.DATA_LOADED, data)._fire();
   },
 
   isQuestion: function(sentence) {
@@ -911,6 +914,8 @@ var RiTa = {
 for (var i = 0; i < FEATURES.length; i++) {
   RiTa[FEATURES[i].toUpperCase()] = FEATURES[i];
 }
+
+/* global _dict, LetterToSound, YAML */
 
 var RiLexicon = makeClass();
 
@@ -1227,7 +1232,7 @@ RiLexicon.prototype = {
 
     if (!this.data || !strOk(word)) return false;
     word = word.toLowerCase();
-    return this.data[word] || this._isPlural(word);
+    return this.data.hasOwnProperty(word) || this._isPlural(word);
   },
 
   isRhyme: function(word1, word2, useLTS) {
@@ -1545,7 +1550,6 @@ RiLexicon.prototype = {
 
     if (!strOk(word)) return E; // return null?
 
-
     var raw = this._lastStressedPhoneToEnd(word, useLTS);
     if (!strOk(raw)) return E; // return null?
 
@@ -1561,7 +1565,7 @@ RiLexicon.prototype = {
         break;
       }
     }
-  word + " " + raw + " last:" + lastSyllable + " idx=" + idx + " result:" + lastSyllable.substring(idx)
+
    return lastSyllable.substring(idx);
   },
 
@@ -2878,7 +2882,11 @@ var OR_PATT = /\s*\|\s*/, STRIP_TICKS = /`([^`]*)`/g,
   PROB_PATT = /(.*[^\s])\s*\[([0-9.]+)\](.*)/;
 
 RiGrammar.START_RULE = "<start>";
-RiGrammar.EXEC_PATT = /(.*?)(`[^`]+?\(.*?\);?`)(.*)/;
+// Do not require a function call in the exec pattern;
+// this permits a callback such as `varName` which
+// evaluates to the value of varName in the provided
+// closure.
+RiGrammar.EXEC_PATT = /([^`]*)(`[^`]*`)(.*)/;
 
 RiGrammar.prototype = {
 
@@ -3171,36 +3179,6 @@ RiGrammar.prototype = {
       return null; // no rules matched
     }
 
-    var Scope = function(context) { // class
-      "use strict";
-
-      this.names = [];
-      this.eval = function(s) {
-        return eval(s);
-      };
-      this.put = function(name, val) {
-        "use strict";
-        var code = "(function() {\n";
-        code += 'var ' + name + ' = '+val+';\n';
-        code += 'return function(str) {return eval(str)};\n})()';
-        this.eval = this.eval(code);
-        this.names.push(name);
-      };
-
-      if (context) {
-        var scope = this;
-        if (typeof context === 'function') {
-          scope.put(context.name, context);
-        }
-        else if (typeof context === 'object') {
-          okeys(context).forEach(function (f) {
-            if (typeof context[f] === 'function')
-              scope.put(f, context[f]);
-          });
-        }
-      }
-    }
-
     var handleExec = function(input, context) {
 
       //console.log('handleExec('+input+", ",context+')');
@@ -3210,20 +3188,26 @@ RiGrammar.prototype = {
       var res, exec = input.replace(STRIP_TICKS, '$1');
 
       try {
-
-        res = eval(exec); // try in global context
-        return res ? res + E : null;
-
-      } catch (e) {
-
+        // Try first in the local context if
+        // it exists, so that the local context
+        // can override a global function
         if (context) { // create sandbox for context args
-
-          try {
-            res = new Scope(context).eval(exec);
+            // res = new Scope(context).eval(exec);
+            // context is a closure, so attempt to evaluate
+            // the exec in that closure
+            res = context(exec);
             return res ? res + '' : null;
-          }
-          catch (e) { /* fall through */ }
-        }
+        } else {
+            throw "No context";
+        };
+      } catch (e) {
+          try {
+              res = eval(exec); // try in global context
+              return res ? res + E : null;
+          } catch (e) {
+              // Failed completely; will fall through
+              // and return input
+          };
       }
       return input;
     }
@@ -19802,7 +19786,6 @@ function _dict() { return {
 'abysmal':['ah b-ih1-z m-ah-l','jj'],
 'abyss':['ah b-ih1-s','nn'],
 'acacia':['ah k-ey1 sh-ah','nn'],
-'academe':['ae1 k-ah d-iy-m','nn'],
 'academia':['ae k-ah d-iy1 m-iy ah','nn'],
 'academic':['ae k-ah d-eh1 m-ih-k','jj nn'],
 'academically':['ae k-ah d-eh1 m-ih-k l-iy','rb'],
@@ -27531,7 +27514,7 @@ function _dict() { return {
 'egotistical':['iy g-ah t-ih1 s-t-ih k-ah-l','jj'],
 'egregious':['ih g-r-iy1 jh-ah-s','jj'],
 'egregiously':['ih g-r-iy1 jh-ah-s l-iy','rb'],
-'eight':['ey1- t','cd'],
+'eight':['ey1-t','cd'],
 'eighteenth':['ey t-iy1-n-th','jj'],
 'eighth':['ey1-t-th','jj nn'],
 'eighty':['ey1 t-iy','nn'],
@@ -41505,7 +41488,6 @@ function _dict() { return {
 'selfishness':['s-eh1-l f-ih-sh n-ah-s','nn'],
 'selfless':['s-eh1-l-f l-ah-s','jj'],
 'sell':['s-eh1-l','vb vbp nn'],
-'selle':['s-eh1-l','vb'],
 'seller':['s-eh1 l-er','nn'],
 'sellin':['s-eh1 l-ih-n','nn'],
 'selling':['s-eh1 l-ih-ng','vbg nn jj'],
@@ -41521,15 +41503,12 @@ function _dict() { return {
 'semiautomatic':['s-eh m-iy ao t-ah m-ae1 t-ih-k','jj'],
 'semicircular':['s-eh m-iy s-er1 k-y-ah l-er','jj'],
 'semiconductor':['s-eh m-iy k-ah-n d-ah1-k t-er','nn'],
-'semidrying':['s-eh m-iy d-r-ay1 ih-ng','jj'],
 'semifinal':['s-eh m-iy f-ay1 n-ah-l','nn'],
 'semifinalist':['s-eh m-iy f-ay1 n-ah-l ih-s-t','nn'],
-'semifinished':['s-eh m-iy f-ih1 n-ih-sh-t','jj'],
 'seminal':['s-eh1 m-ah n-ah-l','jj'],
 'seminar':['s-eh1 m-ah n-aa-r','nn'],
 'seminarian':['s-eh m-ah n-eh1 r-iy ah-n','nn'],
 'seminary':['s-eh1 m-ah n-eh r-iy','nn'],
-'semitropical':['s-eh m-iy t-r-aa1 p-ih k-ah-l','jj'],
 'senate':['s-eh1 n-ah-t','nn'],
 'senator':['s-eh1 n-ah t-er','nn'],
 'senatorial':['s-eh n-ah t-ao1 r-iy ah-l','jj'],
@@ -41584,8 +41563,6 @@ function _dict() { return {
 'sequence':['s-iy1 k-w-ah-n-s','nn'],
 'sequester':['s-ih k-w-eh1 s-t-er','nn vb vbp'],
 'sequestered':['s-ih k-w-eh1 s-t-er-d','vbn'],
-'sequestering':['s-ih k-w-eh1 s-t-er ih-ng','nn'],
-'sequestration':['s-eh k-w-ah-s t-r-ey1 sh-ah-n','nn'],
 'sequin':['s-iy1 k-w-ah-n','nn'],
 'sequined':['s-iy1 k-w-ah-n-d','jj'],
 'serenade':['s-eh r-ah n-ey1-d','nn vb'],
@@ -41653,7 +41630,6 @@ function _dict() { return {
 'sewage':['s-uw1 ah-jh','nn'],
 'sewed':['s-ow1-d','vbd vbn'],
 'sewer':['s-uw1 er','nn'],
-'sewerage':['s-uw1 er ih-jh','nn'],
 'sewing':['s-ow1 ih-ng','nn vbg'],
 'sewn':['s-ow1-n','vbn'],
 'sex':['s-eh1-k-s','nn vb'],
@@ -41679,9 +41655,7 @@ function _dict() { return {
 'shadowy':['sh-ae1 d-ow iy','jj'],
 'shady':['sh-ey1 d-iy','jj'],
 'shaft':['sh-ae1-f-t','nn'],
-'shag':['sh-ae1-g','jj'],
 'shaggy':['sh-ae1 g-iy','jj'],
-'shah':['sh-aa1','nn'],
 'shake':['sh-ey1-k','vb nn vbp'],
 'shaken':['sh-ey1 k-ah-n','vbn jj'],
 'shakeout':['sh-ey1-k aw-t','nn'],
@@ -47521,10 +47495,9 @@ if (window) { // for browser
   window['RiWordNet'] = RiWordNet;
   window['RiLexicon'] = RiLexicon;
   window['RiTaEvent'] = RiTaEvent;
+}
 
-  var rlfuns = okeys();
-
-} else if (typeof module !== 'undefined') { // for node
+if (typeof module !== 'undefined') { // for node, react, etc
 
   module.exports['RiTa'] = RiTa;
   module.exports['RiString'] = RiString;
