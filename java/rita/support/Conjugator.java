@@ -57,11 +57,14 @@ public class Conjugator implements Constants {
   private String particle, modal; // modal, eg "must"
   private int form = NORMAL; // other forms?? GERUND, INFINITIVE
   private Matcher matcher;
-
+  private static Pattern ANY_STEM_PTN; // USE Constants
+  
   public Conjugator() {
 
     allowsTense = true;
-    matcher = Pattern.compile(ANY_STEM).matcher("");
+    if (ANY_STEM_PTN == null)
+      ANY_STEM_PTN = Pattern.compile(ANY_STEM);
+    matcher = ANY_STEM_PTN.matcher("");
     this.createRuleMap();
   }
 
