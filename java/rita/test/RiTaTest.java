@@ -574,7 +574,9 @@ public class RiTaTest
           "We've found the cat.",
           "We didn't find the cat.",
           "dog, e.g. the cat.",
-          "dog, i.e. the cat."
+          "dog, i.e. the cat.",
+          "What does e.g. mean? E.g. is used to introduce a few examples, not a complete list.",
+          "What does i.e. mean? I.e. means in other words."
       };
       
       for (int i = 0; i < testStrings.length; i++) {
@@ -589,7 +591,9 @@ public class RiTaTest
   {
     deepEqual(RiTa.tokenize("dog, e.g. the cat."), new String[] { "dog", ",", "e.g.", "the", "cat", "."});
     deepEqual(RiTa.tokenize("dog, i.e. the cat."), new String[] { "dog", ",", "i.e.", "the", "cat", "."});
-        
+    deepEqual(RiTa.tokenize("What does e.g. mean? E.g. is used to introduce a few examples, not a complete list."), new String[] { "What", "does", "e.g.", "mean", "?", "E.g.", "is", "used", "to", "introduce", "a", "few", "examples", ",", "not", "a", "complete", "list", "."});
+    deepEqual(RiTa.tokenize("What does i.e. mean? I.e. means in other words."), new String[] { "What", "does", "i.e.", "mean", "?", "I.e.", "means", "in", "other", "words", "."});
+    
     String input, expected[], output[];
 
     input = "The boy, dressed in red, ate an apple.";
@@ -691,7 +695,9 @@ public class RiTaTest
   {
     deepEqual(RiTa.untokenize(new String[] { "dog", ",", "e.g.", "the", "cat", "."}), "dog, e.g. the cat.");
     deepEqual(RiTa.untokenize(new String[] { "dog", ",", "i.e.", "the", "cat", "."}), "dog, i.e. the cat.");
-       
+    deepEqual(RiTa.untokenize(new String[] { "What", "does", "e.g.", "mean", "?", "E.g.", "is", "used", "to", "introduce", "a", "few", "examples", ",", "not", "a", "complete", "list", "."}), "What does e.g. mean? E.g. is used to introduce a few examples, not a complete list.");
+    deepEqual(RiTa.untokenize(new String[] { "What", "does", "i.e.", "mean", "?", "I.e.", "means", "in", "other", "words", "."}), "What does i.e. mean? I.e. means in other words.");
+    
     String input[], output, expected;
     
     equal(RiTa.untokenize(new String[0]), "");
