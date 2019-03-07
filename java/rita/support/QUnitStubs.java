@@ -72,6 +72,13 @@ public class QUnitStubs {
     // System.out.println(s);
     assertTrue(o == p);
   }
+  
+  public static void equal(String o, String p, String s) {
+    if (!o.equals(p))
+      System.err.println("[FAIL] '" + s + "'");
+    // System.out.println(s);
+    assertTrue(o.equals(p));
+  }
 
   // ///////////////////////////////////////////////////////
 

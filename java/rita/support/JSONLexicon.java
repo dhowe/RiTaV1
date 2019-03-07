@@ -64,8 +64,7 @@ public class JSONLexicon implements Constants {
    * Creates, loads and returns the singleton lexicon instance.
    */
   public static JSONLexicon getInstance() {
-    if (!RiLexicon.enabled)
-      return null;
+    if (!RiLexicon.enabled) return null;
     return getInstance(DEFAULT_LEXICON);
   }
 
@@ -161,6 +160,38 @@ public class JSONLexicon implements Constants {
 
     if (!lazyLoadLTS)
       getLTSEngine();
+  }
+
+  public boolean isPlural(String word) {
+
+    String stem = RiTa.stem(word, RiTa.PLING);
+    if (stem.equals(word)) return false;
+    
+    String lookup = lexicalData.get(RiTa.singularize(word));
+    if (lookup == null) return false;
+    
+    String[] data = lookup.split("\\|");
+    //RiTa.out(data);
+    if (data != null && data.length == 2) {
+      String[] pos = data[1].split(SP);
+      for (int i = 0; i < pos.length; i++) {
+        if (pos[i].equals("nn"))
+          return true;
+      }
+    } else if (word.endsWith("ses") || word.endsWith("zes")) {
+
+      String sing = word.substring(0, word.length() - 1);
+      lookup = lexicalData.get(RiTa.singularize(sing));
+      data = lookup.split("\\|");
+      if (data != null && data.length == 2) {
+          String[] pos = data[1].split(SP);
+          for (int i = 0; i < pos.length; i++) {
+              if (pos[i].equals("nn"))
+                  return true;
+          }
+      }
+    }
+    return false;
   }
 
   public static String[] loadJSON(String file) {
@@ -620,7 +651,10 @@ public class JSONLexicon implements Constants {
 
   public String getBestPos(String word) {
     String[] posArr = getPosArr(word);
-    return posArr.length > 0 ? posArr[0] : E;
+    if (posArr == null || posArr.length < 1) {
+      posArr = new String[] { (isPlural(word) ? "nns" : "nn") };
+    }
+    return posArr[0];
   }
 
   public String[] getPosArr(String word) {

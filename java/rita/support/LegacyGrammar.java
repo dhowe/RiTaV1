@@ -629,7 +629,7 @@ public class LegacyGrammar implements Constants
           if (DBUG_EW)
             System.out.println("  " + i + ")" + matches[i]);
 
-      int rand = (int) (Math.random() * matches.length);
+      int rand = (int) (RiTa.random() * matches.length);
       Definition nextDef = (Definition) matches[rand];
       if (DBUG_EW)
         System.out.println("Selected Def: " + nextDef);

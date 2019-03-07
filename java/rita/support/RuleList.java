@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import rita.RiTa;
+
 public class RuleList implements Constants
 {
   // name -> Map(rule, prob)
@@ -51,7 +53,7 @@ public class RuleList implements Constants
     Collection<Float> values = temp.values();
     Iterator<Float> it = values.iterator();
     float total = 0;
-    double p = Math.random();
+    double p = RiTa.random();
     while (it.hasNext())
     {
       total += it.next();

@@ -798,7 +798,7 @@ public class RiWordNet
   {
     String[] all = getAllExamples(word, pos);
     if (all == null || all.length <1) return null;
-    int rand = (int) (Math.random() * all.length);
+    int rand = (int) (RiTa.random() * all.length);
     return all[rand];
   }
 

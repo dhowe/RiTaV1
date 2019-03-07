@@ -88,8 +88,10 @@ public class RiLexicon implements Constants {
   }
 
   private boolean isPlural(String word) {
+    return JSONLexicon.getInstance().isPlural(word);
+  }
 
-    String stem = RiTa.stem(word, RiTa.PLING);
+    /*String stem = RiTa.stem(word, RiTa.PLING);
     if (stem.equals(word)) return false;
     
     String lookup = lexicalData().get(RiTa.singularize(word));
@@ -117,7 +119,7 @@ public class RiLexicon implements Constants {
       }
     }
     return false;
-  }
+  }*/
 
   /**
    * Returns true if the word exists in the lexicon (case-insensitive)
@@ -229,7 +231,7 @@ public class RiLexicon implements Constants {
 
     boolean pluralize = false;
 
-    Iterator<String> it = getIterator(pos);
+    Iterator<String> it = getRandomIterator(pos);
 
     if (it != null) {
 
@@ -258,9 +260,9 @@ public class RiLexicon implements Constants {
     return E;
   }
 
-  private Iterator<String> getIterator(String pos) {
-    Iterator<String> it = (pos == null) ? lexImpl.randomIterator() : lexImpl
-	.randomPosIterator(pos);
+  private Iterator<String> getRandomIterator(String pos) {
+    Iterator<String> it = (pos == null) ? lexImpl.randomIterator() 
+	: lexImpl.randomPosIterator(pos);
     return it;
   }
 
@@ -272,7 +274,7 @@ public class RiLexicon implements Constants {
    */
   public String randomWordByLength(String pos, int targetLength) { // NIAPI
 
-    Iterator<String> it = getIterator(pos);
+    Iterator<String> it = getRandomIterator(pos);
 
     try {
 

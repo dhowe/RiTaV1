@@ -345,6 +345,37 @@ public class RiTaTest
     result = RiTa.randomOrdering(50);
     equal(result.length, 50);
   }
+  
+  @Test
+  public void testRandomOrderingWithSeed()
+  {
+    int seed = RiTa.random(9999999);
+    RiTa.randomSeed(seed);
+    int[] result = RiTa.randomOrdering(50);
+    equal(result.length, 50);
+    RiTa.randomSeed(seed);
+    int[] result2 = RiTa.randomOrdering(50);
+    equal(result2.length, 50);
+    
+    deepEqual(result, result2);
+  }
+  
+  @Test
+  public void testRandomWord()
+  {
+    
+  }
+  
+  @Test
+  public void testRandomWordWithSeed()
+  {
+    int seed = RiTa.random(9999999);
+    RiTa.randomSeed(seed);
+    String result = RiTa.randomWord();
+    RiTa.randomSeed(seed);
+    String result2 = RiTa.randomWord();
+    deepEqual(result, result2);
+  }
 
 
   @Test

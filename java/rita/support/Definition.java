@@ -264,7 +264,7 @@ public class Definition
       throw new RiTaException
         ("[ERROR] No productions for rule: '"+symbol+ "'");
 
-    int i = (int) (Math.random() * rules.size());
+    int i = (int) (RiTa.random() * rules.size());
     List toExpand = (List) rules.get(i);
 //System.out.println("   "+toExpand);
     

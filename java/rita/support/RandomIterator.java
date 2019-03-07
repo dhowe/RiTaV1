@@ -1,9 +1,8 @@
 package rita.support;
 
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
+
+import rita.RiTa;
 
 /**
  * A set iterator that supports randomized start positions
@@ -23,15 +22,19 @@ public class RandomIterator implements Iterator
     public int getSize() {
       return size;
     }
-
-    public RandomIterator(Set s) {      
+    
+    public RandomIterator() {      
+      this(new HashSet());
+    }
+    
+    public RandomIterator(Set s) {            
       set = s;      
       size = set.size();
       reset();
     }
     
     public void reset() {
-      reset((int)(Math.random()*size));
+      reset(RiTa.random(size));
     }
     
     public void reset(int startPos) {

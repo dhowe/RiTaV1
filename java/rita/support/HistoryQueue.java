@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
+import rita.RiTa;
+
 /**  
  * This is an implementation of a fixed-size (by default) or growable array
  * of Objects that implements the java.util.Set & Collection interfaces.
@@ -69,10 +71,10 @@ public class HistoryQueue implements Set
   
   // methods ----------------------------------------------------
   
-  /** @return - a random memeber of the set  */
+  /** @return - a random member of the set  */
   public Object randomElement()
   {
-    int choice = (int)(Math.random()*size());
+    int choice = (int)(RiTa.random()*size());
     if (data[choice] == null)
       throw new RuntimeException("BROKEN METHOD: StringSet.randomElement()");
     return data[choice];

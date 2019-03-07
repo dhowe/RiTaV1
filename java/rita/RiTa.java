@@ -340,7 +340,7 @@ public class RiTa implements Constants {
     List tmp = new LinkedList();
     for (int i = 0; i < items.length; i++)
       tmp.add(items[i]);
-    Collections.shuffle(tmp);
+    Collections.shuffle(tmp, randomSource());
     int idx = 0;
     for (Iterator i = tmp.iterator(); i.hasNext(); idx++)
       items[idx] = i.next();
@@ -731,7 +731,7 @@ public class RiTa implements Constants {
     if (c == null || c.isEmpty())
       throw new RiTaException("Null passed to randomItem()");
 
-    int rand = (int) (Math.random() * c.size());
+    int rand = (int) (random() * c.size());
     Object result = null;
     Iterator it = c.iterator();
     for (int i = 0; i <= rand; i++)
@@ -747,7 +747,7 @@ public class RiTa implements Constants {
   public static Object randomItem(List list) {
     if (list == null || list.size() == 0)
       throw new RiTaException("Null passed to randomItem()");
-    int rand = (int) (Math.random() * list.size());
+    int rand = (int) (random() * list.size());
     return list.get(rand);
   }
 
@@ -759,7 +759,7 @@ public class RiTa implements Constants {
   public static Object randomItem(Object[] list) {
     if (list == null || list.length == 0)
       throw new RiTaException("Null passed to randomItem()");
-    int rand = (int) (Math.random() * list.length);
+    int rand = (int) (random() * list.length);
     return list[rand];
   }
 
@@ -907,23 +907,28 @@ public class RiTa implements Constants {
     List tmp = new LinkedList();
     for (int i = 0; i < result.length; i++)
       tmp.add(new Integer(i));
-    Collections.shuffle(tmp);
+    Collections.shuffle(tmp, randomSource());
     int idx = 0;
     for (Iterator iter = tmp.iterator(); iter.hasNext(); idx++)
       result[idx] = ((Integer) iter.next()).intValue();
     return result;
   }
 
-  public static int timer(float period) { // for better error msg
-    throw new RiTaException(
-	"Missing parent object -- did you mean: RiTa.timer(this, " + period
-	+ ");");
+  public static Random randomSource() {
+    if (randomSource == null)
+      randomSource = new Random();
+    return randomSource;
+  }
+  
+  public static Random randomSource(int seed) {
+    if (randomSource == null)
+      randomSource = new Random();
+    return randomSource;
   }
 
-  @SuppressWarnings("unused")
-  public static int timer(float period, String fun) {
-    return timer(period);
-  } // for better error msg
+  public static int timer(float period) {
+    throw new RiTaException("Missing parent object, did you mean: RiTa.timer(this, " + period + ");");
+  }
 
   public static int timer(Object parent, float period) {
     return new RiTimer(parent, period).id();
@@ -990,31 +995,19 @@ public class RiTa implements Constants {
    * the value of the <b>high</b> parameter.
    */
   public static float random() {
-    if (internalRandom == null)
-      internalRandom = new Random();
-    return internalRandom.nextFloat();
+    return randomSource().nextFloat();
   }
 
-  protected static Random internalRandom;
+  public static Random randomSource;
 
-  /**
-   * Generates random numbers. Each time the <b>random()</b> function is called,
-   * it returns an unexpected value within the specified range. If one parameter
-   * is passed to the function it will return a <b>float</b> between zero and
-   * the value of the <b>high</b> parameter.
-   */
   public static float random(float high) {
     // avoid an infinite loop
     if (high == 0)
       return 0;
 
-    // internal random number object
-    if (internalRandom == null)
-      internalRandom = new Random();
-
     float value = 0;
     do {
-      value = internalRandom.nextFloat() * high;
+      value = random() * high;
     } while (value == high);
     return value;
   }
@@ -1043,10 +1036,7 @@ public class RiTa implements Constants {
    * numbers each time the software is run.
    */
   public static void randomSeed(long seed) {
-    // internal random number object
-    if (internalRandom == null)
-      internalRandom = new Random();
-    internalRandom.setSeed(seed);
+    randomSource().setSeed(seed);
   }
 
   @SuppressWarnings("unused")

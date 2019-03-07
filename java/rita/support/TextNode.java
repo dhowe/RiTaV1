@@ -540,7 +540,7 @@ public class TextNode implements Comparable, RiProbable
       default: // pick from multiple children
       {
         // select based on frequency
-        double pTotal = 0, selector = Math.random();
+        double pTotal = 0, selector = RiTa.random();
         for (Iterator iter = c.iterator(); iter.hasNext();)
         {
           RiProbable pr = (RiProbable) iter.next();

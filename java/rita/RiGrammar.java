@@ -654,7 +654,7 @@ public class RiGrammar
     Collection<Float> values = temp.values();
     Iterator<Float> it = values.iterator();
     float total = 0;
-    double p = Math.random();
+    double p = RiTa.random();
     while (it.hasNext())
     {
       total += it.next();

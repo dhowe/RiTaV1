@@ -18,8 +18,8 @@ public abstract class TextMotion extends InterpolatingBehavior
     
     /*// wiggle crap (tmp)
     if (wwyw > 0 && isWaiting()) {
-      if (Math.random() < .333) {
-        rt.x += Math.random() > .5 ? -.5 : .5;
+      if (RiTa.random() < .333) {
+        rt.x += RiTa.random() > .5 ? -.5 : .5;
         rt.y += .5;
         interpolater.setStart(rt.position());
       }

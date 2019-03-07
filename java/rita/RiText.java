@@ -2464,7 +2464,7 @@ public class RiText implements Constants //RiTextIF
     float value = 0;
     do
     {
-      // value = (float)Math.random() * howbig;
+      // value = (float)RiTa.random() * howbig;
       value = internalRandom.nextFloat() * high;
     }
     while (value == high);

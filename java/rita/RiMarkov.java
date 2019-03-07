@@ -1036,7 +1036,7 @@ public class RiMarkov implements Constants
     if (sentenceStarts == null || sentenceStarts.size() < 1)
       throw new RiTaException("No sentence starts found! genSen=" + sentenceAware);
 
-    int idx = (int) (Math.random() * sentenceStarts.size());
+    int idx = (int) (RiTa.random() * sentenceStarts.size());
     String txt = (String) sentenceStarts.get(idx);
     
     return root.lookup(txt);
@@ -1226,7 +1226,7 @@ public class RiMarkov implements Constants
     while (true)
     {
       pTotal = 0;
-      selector = Math.random();
+      selector = RiTa.random();
       for (Iterator it = nodes.iterator(); it.hasNext();)
       {
         TextNode child = (TextNode) it.next();
@@ -1250,7 +1250,7 @@ public class RiMarkov implements Constants
     while (true)
     {
       pTotal = 0;
-      selector = Math.random();
+      selector = RiTa.random();
       
       // System.out.println("current="+current+", selector="+selector);
       for (Iterator it = nodes.iterator(); it.hasNext();)
