@@ -359,11 +359,16 @@ public class RiTaTest
     
     deepEqual(result, result2);
   }
-  
+
   @Test
-  public void testRandomWord()
+  public void testRandomWithSeed()
   {
-    
+    int seed = (int) (Math.random() * 9999999);
+    RiTa.randomSeed(seed);
+    int result = RiTa.random(9999999);
+    RiTa.randomSeed(seed);
+    int result2 = RiTa.random(9999999);
+    equal(result, result2);
   }
   
   @Test
@@ -374,8 +379,20 @@ public class RiTaTest
     String result = RiTa.randomWord();
     RiTa.randomSeed(seed);
     String result2 = RiTa.randomWord();
+    equal(result, result2);
+  }
+  
+  @Test
+  public void testRandomItemWithSeed()
+  {
+    int seed = RiTa.random(9999999);
+    RiTa.randomSeed(seed);
+    String result = RiTa.randomWord();
+    RiTa.randomSeed(seed);
+    String result2 = RiTa.randomWord();
     deepEqual(result, result2);
   }
+
 
 
   @Test

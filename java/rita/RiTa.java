@@ -914,16 +914,10 @@ public class RiTa implements Constants {
     return result;
   }
 
-  public static Random randomSource() {
-    if (randomSource == null)
-      randomSource = new Random();
-    return randomSource;
-  }
-  
-  public static Random randomSource(int seed) {
-    if (randomSource == null)
-      randomSource = new Random();
-    return randomSource;
+  private static Random randomSource() {
+    if (randSource == null)
+      randSource = new Random();
+    return randSource;
   }
 
   public static int timer(float period) {
@@ -998,7 +992,7 @@ public class RiTa implements Constants {
     return randomSource().nextFloat();
   }
 
-  public static Random randomSource;
+  public static Random randSource;
 
   public static float random(float high) {
     // avoid an infinite loop

@@ -127,7 +127,7 @@
 						<tr class="">
 							<th scope="row">Platform</th>
 							<!-- PLATFORM  -->
-							<td>Java / Javascript</td>
+							<td>Java / JavaScript</td>
 						</tr>
 
 						<tr class="">

@@ -120,14 +120,14 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">// Java<br><br>Map args = new HashMap();<br>args.put("tense", RiTa.PAST_TENSE);<br>args.put("number", RiTa.SINGULAR);<br>args.put("person", RiTa.FIRST_PERSON);<br><br>String c = RiTa.conjugate("swim", args);<br><br><br>// Javascript<br><br>var args = {<br> tense: RiTa.PRESENT_TENSE,<br> number: RiTa.SINGULAR,<br> person: RiTa.THIRD_PERSON<br>};<br><br>var c = RiTa.conjugate('swim', args);<br><br></pre>
+								<pre class="margin">// Java<br><br>Map args = new HashMap();<br>args.put("tense", RiTa.PAST_TENSE);<br>args.put("number", RiTa.SINGULAR);<br>args.put("person", RiTa.FIRST_PERSON);<br><br>String c = RiTa.conjugate("swim", args);<br><br><br>// JavaScript<br><br>var args = {<br> tense: RiTa.PRESENT_TENSE,<br> number: RiTa.SINGULAR,<br> person: RiTa.THIRD_PERSON<br>};<br><br>var c = RiTa.conjugate('swim', args);<br><br></pre>
 							</div></td>
 						</tr>
 
 						<tr class="">
 							<th scope="row">Platform</th>
 							<!-- PLATFORM  -->
-							<td>Java / Javascript</td>
+							<td>Java / JavaScript</td>
 						</tr>
 
 						<tr class="">

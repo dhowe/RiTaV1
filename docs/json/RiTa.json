@@ -14,7 +14,7 @@
 
     ],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
   }, {
     "name": "RiTa.isAbbreviation",
@@ -37,7 +37,7 @@
 
     ],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
 
   }, {
@@ -58,7 +58,7 @@
 
     ],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
 
   }, {
@@ -74,7 +74,7 @@
 
     ],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
   }, {
     "name": "RiTa.isSentenceEnd",
@@ -97,7 +97,7 @@
 
     ],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
 
   }, {
@@ -118,7 +118,7 @@
 
     ],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
 
   }, {
@@ -134,7 +134,21 @@
 
     ],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
+    "note": ""
+  }, {
+    "name": "RiTa.randomSeed",
+    "example": "seed = 345345;<br/>RiTa.randomSeed(seed);",
+    "description": "Sets the seed for RiTa's random number generator",
+    "syntax": "RiTa.randomSeed(num);",
+   "parameters": [{
+        "type": "int",
+        "desc": "numElements"
+      }
+    ],
+    "returns": [],
+	"related": "<a href='../RiTa.randomWord'>RiTa.randomWord</a>, <a href='../RiTa.randomOrdering'>RiTa.randomOrdering</a>,",
+    "platform": "Java / JavaScript",
     "note": ""
   }, {
     "name": "RiTa.randomOrdering",
@@ -154,7 +168,7 @@
 
     ],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
 
   }, {
@@ -175,7 +189,7 @@
       }
     ],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
 
   }, {
@@ -194,7 +208,7 @@
 
     ],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
 
   }, {
@@ -211,7 +225,7 @@
       "desc": "result"
     }],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
 
   }, {
@@ -230,7 +244,7 @@
       "desc": ""
     }],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
 
   }, {
@@ -252,7 +266,7 @@
 
     ],
     "related": "<a href='../RiTa.untokenize'>RiTa.untokenize</a>",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
 
   },{
@@ -271,7 +285,7 @@
 
     ],
     "related": "<a href='../RiTa.tokenize'>RiTa.tokenize</a>",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
 
   },
@@ -296,7 +310,7 @@
       }
     ],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": "See <a href=\"https://en.wikipedia.org/wiki/Edit_distance\">https://en.wikipedia.org/wiki/Edit_distance</a>"
   },
   {
@@ -323,7 +337,7 @@
       }
     ],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
   }, {
     "name": "RiTa.getPhonemes",
@@ -341,7 +355,7 @@
       "desc": "e.g., 'ae-n  eh-l-ax-f-ax-n-t  ih-z  ey  m-ae-m-ax-l'<br>(for 'An elephant is a mammal')"
     }],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
   }, {
     "name": "RiTa.getPosTags",
@@ -364,7 +378,7 @@
 
     ],
     "related": "<a href='../../PennTags.html'>the PENN tagset</a>",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
 
   }, {
@@ -385,7 +399,7 @@
 
     ],
     "related": "<a href='../../PennTags.html'>the PENN tagset</a>",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
 
   }, {
@@ -406,7 +420,7 @@
 
     ],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
 
   }, {
@@ -427,7 +441,7 @@
 
     ],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
 
   }, {
@@ -448,12 +462,12 @@
 
     ],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
   },
   {
     "name": "RiTa.concordance",
-    "example": "// Java<br><br>args = new HashMap();<br>args.put(\"ignoreCase\", false);<br>args.put(\"ignoreStopWords\", true);<br><br>kwic = RiTa.concordance(text, word, args);<br><br><br>// Javascript<br><br>args = {<br> ignoreCase: false,<br> ignoreStopWords: true<br>};<br><br>kwic = RiTa.concordance(text, word, args);<br><br>",
+    "example": "// Java<br><br>args = new HashMap();<br>args.put(\"ignoreCase\", false);<br>args.put(\"ignoreStopWords\", true);<br><br>kwic = RiTa.concordance(text, word, args);<br><br><br>// JavaScript<br><br>args = {<br> ignoreCase: false,<br> ignoreStopWords: true<br>};<br><br>kwic = RiTa.concordance(text, word, args);<br><br>",
     "description": "XXXCreates a concordance, a list of words with their frequency of occurence, from the given text and (optional) options",
     "syntax": "RiTa.concordance(text, args);",
     "parameters": [{
@@ -473,12 +487,12 @@
       }
     ],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": "See <a href=\"https://en.wikipedia.org/wiki/Concordance_%28publishing%29\">https://en.wikipedia.org/wiki/Concordance_%28publishing%29</a>"
   },
   {
     "name": "RiTa.kwic",
-    "example": "// Java<br><br>Map args = new HashMap();<br>args.put(\"ignoreCase\", false);<br>args.put(\"ignoreStopWords\", true);<br><br>String[] lines = RiTa.kwic(text, args);<br><br><br>// Javascript<br><br>var args = {<br> ignoreCase: false,<br> ignoreStopWords: true<br>};<br><br>var lines = RiTa.kwic(text, args);<br><br>",
+    "example": "// Java<br><br>Map args = new HashMap();<br>args.put(\"ignoreCase\", false);<br>args.put(\"ignoreStopWords\", true);<br><br>String[] lines = RiTa.kwic(text, args);<br><br><br>// JavaScript<br><br>var args = {<br> ignoreCase: false,<br> ignoreStopWords: true<br>};<br><br>var lines = RiTa.kwic(text, args);<br><br>",
     "description": "Creates a Key-Word-In-Context (KWIC) model from a given text, a word to lookup, a wordCount and (optional) options",
     "syntax": "RiTa.kwic(text, word, options);",
     "parameters": [{
@@ -498,12 +512,12 @@
       }
     ],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": "See <a href=\"https://en.wikipedia.org/wiki/Concordance_%28publishing%29\">https://en.wikipedia.org/wiki/Concordance_%28publishing%29</a>"
   },
   {
     "name": "RiTa.conjugate",
-    "example": "// Java<br><br>Map args = new HashMap();<br>args.put(\"tense\", RiTa.PAST_TENSE);<br>args.put(\"number\", RiTa.SINGULAR);<br>args.put(\"person\", RiTa.FIRST_PERSON);<br><br>String c = RiTa.conjugate(\"swim\", args);<br><br><br>// Javascript<br><br>var args = {<br> tense: RiTa.PRESENT_TENSE,<br> number: RiTa.SINGULAR,<br> person: RiTa.THIRD_PERSON<br>};<br><br>var c = RiTa.conjugate('swim', args);<br><br>",
+    "example": "// Java<br><br>Map args = new HashMap();<br>args.put(\"tense\", RiTa.PAST_TENSE);<br>args.put(\"number\", RiTa.SINGULAR);<br>args.put(\"person\", RiTa.FIRST_PERSON);<br><br>String c = RiTa.conjugate(\"swim\", args);<br><br><br>// JavaScript<br><br>var args = {<br> tense: RiTa.PRESENT_TENSE,<br> number: RiTa.SINGULAR,<br> person: RiTa.THIRD_PERSON<br>};<br><br>var c = RiTa.conjugate('swim', args);<br><br>",
     "description": "Conjugates the 'verb' according to the specified options",
     "syntax": "RiTa.conjugate(verb, args);",
     "parameters": [{
@@ -522,7 +536,7 @@
 
     ],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
 
   }, {
@@ -543,7 +557,7 @@
 
     ],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
 
   }, {
@@ -564,7 +578,7 @@
 
     ],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
 
   }, {
@@ -588,7 +602,7 @@
 
     ],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
   }, {
     "name": "RiTa.pluralize",
@@ -604,7 +618,7 @@
       "desc": "the regular or irregular plural form of the noun"
     }],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
   }, {
     "name": "RiTa.singularize",
@@ -620,7 +634,7 @@
       "desc": "the singular form of the noun"
     }],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
   }, {
     "hidden": "true",
@@ -647,7 +661,7 @@
 
     ],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": "The 'parent' object is optional in JS, and the optional callback is a function, rather than a String name"
 
   }, {
@@ -664,7 +678,7 @@
     ],
     "returns": [],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
   }, {
     "hidden": "true",
@@ -688,7 +702,7 @@
 
     ],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
   }, {
     "name": "RiTa.random",
@@ -709,7 +723,7 @@
 
     ],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": "if only one parameter is supplied, it is read as the max-value (with min=0)"
 
   }, {
@@ -729,7 +743,7 @@
     }],
     "returns": [],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": "In Node, uses the node 'filesystem' or 'request' modules; in JavaScript, uses an XMLHttpRequest; in Java, if a Processing PApplet is passed as a 2nd argument, it will be used to locate and check the 'data' folder of the sketch for the specified file"
   }, {
     "hidden": true,
@@ -746,7 +760,7 @@
       "desc": ""
     }],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
   }, {
     "name": "RiTa.addWord",
@@ -770,7 +784,7 @@
       "desc": ""
     }],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
   }, {
     "name": "RiTa.clear",
@@ -783,7 +797,7 @@
       "desc": ""
     }],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
   }, {
     "name": "RiTa.containsWord",
@@ -799,7 +813,7 @@
       "desc": ""
     }],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
   }, {
     "name": "RiTa.alliterations",
@@ -818,7 +832,7 @@
       "desc": "array of alliterations"
     }],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
   }, {
     "name": "RiTa.lexicalData",
@@ -834,7 +848,7 @@
       "desc": "lexical data map (for gets)"
     }],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
   }, {
     "name": "RiTa.randomWord",
@@ -853,7 +867,7 @@
       "desc": "random word"
     }],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
   }, {
     "name": "RiTa.rhymes",
@@ -869,7 +883,7 @@
       "desc": "rhymes for word, or an empty array if none are found"
     }],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
   }, {
     "name": "RiTa.words",
@@ -888,7 +902,7 @@
       "desc": "all (or the matching) words in the lexicon"
     }],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
   }, {
     "name": "RiTa.isAdverb",
@@ -904,7 +918,7 @@
       "desc": "true if the word can be used as an adverb "
     }],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
   }, {
     "name": "RiTa.isNoun",
@@ -920,7 +934,7 @@
       "desc": "true if the word can be used as a noun"
     }],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
   }, {
     "name": "RiTa.isVerb",
@@ -936,7 +950,7 @@
       "desc": "true if the word can be used as a verb"
     }],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
   }, {
     "name": "RiTa.isAdjective",
@@ -952,7 +966,7 @@
       "desc": "true if the word can be used as an adjective"
     }],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
   }, {
     "name": "RiTa.isAlliteration",
@@ -971,7 +985,7 @@
       "desc": "true if the first stressed consonant of the two words match"
     }],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
   }, {
     "name": "RiTa.isRhyme",
@@ -993,7 +1007,7 @@
       "desc": "true if the two words rhyme, else false."
     }],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
   }, {
     "name": "RiTa.reload",
@@ -1008,7 +1022,7 @@
       "desc": ""
     }],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
   }, {
     "name": "RiTa.similarByLetter",
@@ -1030,7 +1044,7 @@
       "desc": "the matching words"
     }],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
   }, {
     "name": "RiTa.similarBySound",
@@ -1049,7 +1063,7 @@
       "desc": "the matching words"
     }],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
   }, {
     "name": "RiTa.similarBySoundAndLetter",
@@ -1065,7 +1079,7 @@
       "desc": "the matching words"
     }],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
   }, {
     "name": "RiTa.size",
@@ -1078,7 +1092,7 @@
       "desc": "the # of words"
     }],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
   }, {
     "name": "RiTa.substrings",
@@ -1097,7 +1111,7 @@
       "desc": "the matching words"
     }],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
   }, {
     "name": "RiTa.superstrings",
@@ -1113,7 +1127,7 @@
       "desc": "the matching words"
     }],
     "related": "",
-    "platform": "Java / Javascript",
+    "platform": "Java / JavaScript",
     "note": ""
   }]
 }

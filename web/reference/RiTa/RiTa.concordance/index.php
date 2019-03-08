@@ -120,14 +120,14 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">// Java<br><br>args = new HashMap();<br>args.put("ignoreCase", false);<br>args.put("ignoreStopWords", true);<br><br>kwic = RiTa.concordance(text, word, args);<br><br><br>// Javascript<br><br>args = {<br> ignoreCase: false,<br> ignoreStopWords: true<br>};<br><br>kwic = RiTa.concordance(text, word, args);<br><br></pre>
+								<pre class="margin">// Java<br><br>args = new HashMap();<br>args.put("ignoreCase", false);<br>args.put("ignoreStopWords", true);<br><br>kwic = RiTa.concordance(text, word, args);<br><br><br>// JavaScript<br><br>args = {<br> ignoreCase: false,<br> ignoreStopWords: true<br>};<br><br>kwic = RiTa.concordance(text, word, args);<br><br></pre>
 							</div></td>
 						</tr>
 
 						<tr class="">
 							<th scope="row">Platform</th>
 							<!-- PLATFORM  -->
-							<td>Java / Javascript</td>
+							<td>Java / JavaScript</td>
 						</tr>
 
 						<tr class="">

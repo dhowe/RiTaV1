@@ -105,10 +105,10 @@
           <br>
           <a href="RiTa/RiTa.randomOrdering/index.php">RiTa.randomOrdering()</a>
           <br>
+          <a href="RiTa/RiTa.randomSeed/index.php">RiTa.randomSeed()</a>
+          <br>
           <a href="RiTa/RiTa.randomWord/index.php">RiTa.randomWord()</a>
           <br>
-          <!-- <a href="RiTa/RiTa.reload/index.php">RiTa.reload()</a>
-          <br> -->
           <a href="RiTa/RiTa.rhymes/index.php">RiTa.rhymes()</a>
           <br>
           <a href="RiTa/RiTa.similarByLetter/index.php">RiTa.similarByLetter()</a>

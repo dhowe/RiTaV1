@@ -120,14 +120,14 @@
 
 								<!-- EXAMPLE  -->
 								<!--img src="../../../img/RiTa-logo4.png" alt="example pic" /-->
-								<pre class="margin">// Java<br><br>Map args = new HashMap();<br>args.put("ignoreCase", false);<br>args.put("ignoreStopWords", true);<br><br>String[] lines = RiTa.kwic(text, args);<br><br><br>// Javascript<br><br>var args = {<br> ignoreCase: false,<br> ignoreStopWords: true<br>};<br><br>var lines = RiTa.kwic(text, args);<br><br></pre>
+								<pre class="margin">// Java<br><br>Map args = new HashMap();<br>args.put("ignoreCase", false);<br>args.put("ignoreStopWords", true);<br><br>String[] lines = RiTa.kwic(text, args);<br><br><br>// JavaScript<br><br>var args = {<br> ignoreCase: false,<br> ignoreStopWords: true<br>};<br><br>var lines = RiTa.kwic(text, args);<br><br></pre>
 							</div></td>
 						</tr>
 
 						<tr class="">
 							<th scope="row">Platform</th>
 							<!-- PLATFORM  -->
-							<td>Java / Javascript</td>
+							<td>Java / JavaScript</td>
 						</tr>
 
 						<tr class="">
