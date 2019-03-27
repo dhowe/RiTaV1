@@ -35,19 +35,19 @@
           <div class="gallery_home">
             <div class="row">
 
-              <!-- <span class="gallery_home_item gd-4  mgd-6 sgd-12">
+              <span class="gallery_home_item gd-4  mgd-6 sgd-12">
         <a href="./gallery/TheHandsofGutenberg" target="new"><img src="img/hand.png" ></a><br>
         <a href="./gallery/TheHandsofGutenberg" target="new">The Hands of Gutenberg</a>
-        <p><span>by breep</span></p>
+        <p><span>by Philippe De Bree</span></p>
               <p class="gallery_home_spacer">&nbsp;</p>
               </span>
 
-      <span class="gallery_home_item gd-4  mgd-6 sgd-12">
+              <span class="gallery_home_item gd-4  mgd-6 sgd-12">
         <a href="./gallery/LyricPoems" target="new"><img src="img/lyric.jpg" ></a><br>
         <a href="./gallery/LyricPoems" target="new">Lyric Poems</a>
-        <p><span>by casher</span></p>
+        <p><span>by Cassie Scheirer</span></p>
               <p class="gallery_home_spacer">&nbsp;</p>
-              </span> -->
+              </span>
 
       <span class="gallery_home_item gd-4  mgd-6 sgd-12">
         <a href="./gallery/PoetryInMotion" target="new"><img src="img/poetryInMotion.png" ></a><br>
