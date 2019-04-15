@@ -110,7 +110,7 @@ function shuffle(oldArray) { // shuffle array
     len = newArray.length,
     i = len;
   while (i--) {
-    var p = parseInt(Math.random() * len),
+    var p = parseInt(RiTa.random() * len),
       t = newArray[i];
     newArray[i] = newArray[p];
     newArray[p] = t;
@@ -158,7 +158,7 @@ var FEATURES = [ 'tokens', 'stresses', 'phonemes', 'syllables', 'pos', 'text' ];
 
 var RiTa = {
 
-  VERSION: '1.3.89',
+  VERSION: '1.3.94',
 
   /* For tokenization, Can't -> Can not, etc. */
   SPLIT_CONTRACTIONS: false,
@@ -238,17 +238,30 @@ var RiTa = {
 
   stemmers: {},
 
+  _randSource: null,
+
   // Start functions =================================
 
+  _randomSource: function() {
+    if (!RiTa._randSource) {
+      RiTa._randSource = new SeededRandom();
+    }
+    return RiTa._randSource;
+  },
+
   random: function() {
-    var currentRandom = Math.random();
+    var currentRandom = RiTa._randomSource().random();
     if (!arguments.length) return currentRandom;
     return (arguments.length === 1) ? currentRandom * arguments[0] :
       currentRandom * (arguments[1] - arguments[0]) + arguments[0];
   },
 
+  randomSeed: function(theSeed) {
+    RiTa._randomSource().seed(theSeed);
+  },
+
   randomItem: function(arr) {
-    return arr[Math.floor(Math.random() * arr.length)];
+    return arr[Math.floor(RiTa.random() * arr.length)];
   },
 
   distance: function(x1, y1, x2, y2) {
@@ -819,7 +832,7 @@ var RiTa = {
     if (num) {
       for (var z = 0; z < num; z++) o.push(z);
       // Array shuffle, from http://jsfromhell.com/array/shuffle
-      for (var j, x, i = o.length; i; j = parseInt(Math.random() * i),
+      for (var j, x, i = o.length; i; j = parseInt(RiTa.random() * i),
         x = o[--i], o[i] = o[j], o[j] = x) { /* no-op */ }
     }
     return o;
@@ -1597,7 +1610,7 @@ RiLexicon.prototype = {
   randomWord: function() { // takes nothing, pos, syllableCount, or both
 
     var i, j, rdata, numSyls, pluralize = false,
-      ran = Math.floor(Math.random() * this.size()),
+      ran = Math.floor(RiTa.random() * this.size()),
       found = false, a = arguments, words = this.keys;
 
     var  isNNWithoutNNS = function(w, pos) {
@@ -1834,8 +1847,8 @@ RiMarkov.prototype = {
 
     // uh-oh, we failed
     if (tries >= maxTries)
-      err(BN+"RiMarkov failed to complete after " + tries + " attempts." +
-      "You may need to add more text to your model..."+BN);
+      err("\nRiMarkov failed to complete after " + tries + " attempts." +
+      "You may need to add more text to your model...\n");
 
     return tokens;
 
@@ -2138,7 +2151,7 @@ RiMarkov.prototype = {
     while (true) {
 
       pTotal = 0;
-      selector = Math.random();
+      selector = RiTa.random();
       for (var i = 0, j = nodes.length; i < j; i++) {
 
         pTotal += nodes[i].probability();
@@ -2167,9 +2180,9 @@ RiMarkov.prototype = {
 
   _onGenerationIncomplete: function(tries, successes) {
 
-    warn(BN+'RiMarkov failed to complete after ' + tries +
+    warn('\nRiMarkov failed to complete after ' + tries +
       ' tries and ' + successes + ' successful generations.' +
-      ' You may need to add more text to the model...'+BN);
+      ' You may need to add more text to the model...\n');
   },
 
   // Loads a sentence[] into the model; each element must be a single sentence
@@ -2431,6 +2444,60 @@ RiString._syllabify = function(input) { // adapted from FreeTTS
   }
 
   return stringify(syllables);
+};
+
+var SeededRandom = makeClass();
+
+SeededRandom.prototype = { // adapted from https://github.com/bmurray7/mersenne-twister-examples/blob/master/javascript-mersenne-twister.js
+
+  init: function() {
+    this.N = 624;
+    this.M = 397;
+    this.MATRIX_A = 0x9908b0df;
+    this.UPPER_MASK = 0x80000000;
+    this.LOWER_MASK = 0x7fffffff;
+    this.mt = new Array(this.N);
+    this.mti = this.N + 1;
+    this.seed(new Date().getTime());
+  },
+
+  seed: function(s) {
+    this.mt[0] = s >>> 0;
+    for (this.mti=1; this.mti<this.N; this.mti++) {
+      var s = this.mt[this.mti-1] ^ (this.mt[this.mti-1] >>> 30);
+      this.mt[this.mti] = (((((s & 0xffff0000) >>> 16) * 1812433253) << 16)
+        + (s & 0x0000ffff) * 1812433253)+ this.mti;
+      this.mt[this.mti] >>>= 0;
+    }
+  },
+
+  randInt: function() {
+    var y, kk, mag01 = new Array(0x0, this.MATRIX_A);
+    if (this.mti >= this.N) {
+      if (this.mti == this.N+1) this.seed(5489);
+      for (kk=0;kk<this.N-this.M;kk++) {
+        y = (this.mt[kk]&this.UPPER_MASK)|(this.mt[kk+1]&this.LOWER_MASK);
+        this.mt[kk] = this.mt[kk+this.M] ^ (y >>> 1) ^ mag01[y & 0x1];
+      }
+      for (;kk<this.N-1;kk++) {
+        y = (this.mt[kk]&this.UPPER_MASK)|(this.mt[kk+1]&this.LOWER_MASK);
+        this.mt[kk] = this.mt[kk+(this.M-this.N)] ^ (y >>> 1) ^ mag01[y & 0x1];
+      }
+      y = (this.mt[this.N-1]&this.UPPER_MASK)|(this.mt[0]&this.LOWER_MASK);
+      this.mt[this.N-1] = this.mt[this.M-1] ^ (y >>> 1) ^ mag01[y & 0x1];
+      this.mti = 0;
+    }
+    y = this.mt[this.mti++];
+    y ^= (y >>> 11);
+    y ^= (y << 7) & 0x9d2c5680;
+    y ^= (y << 15) & 0xefc60000;
+    y ^= (y >>> 18);
+    return y >>> 0;
+  },
+
+  random: function() {
+    return this.randInt()*(1.0/4294967296.0);
+  }
 };
 
 function initFeatureMap(rs) { // for RiString
@@ -2879,7 +2946,7 @@ RiString.prototype = {
 var RiGrammar = makeClass();
 
 var OR_PATT = /\s*\|\s*/, STRIP_TICKS = /`([^`]*)`/g,
-  PROB_PATT = /(.*[^\s])\s*\[([0-9.]+)\](.*)/;
+    PROB_PATT = /(.*[^\s])\s*\[(.+)\](.*)/;
 
 RiGrammar.START_RULE = "<start>";
 // Do not require a function call in the exec pattern;
@@ -2890,10 +2957,12 @@ RiGrammar.EXEC_PATT = /([^`]*)(`[^`]*`)(.*)/;
 
 RiGrammar.prototype = {
 
-  init: function(grammar) {
+  init: function(grammar, rng) {
 
+    this.buffer = "";
     this._rules = {};
     this.execDisabled = false;
+    this.rng = rng ? rng : RiTa.random;
 
     if (grammar) {
 
@@ -2928,23 +2997,16 @@ RiGrammar.prototype = {
       if (typeof YAML != 'undefined') { // found a yaml-parser, so try it first
 
         try {
-          //console.log('trying YAML');
           grammar = YAML.parse(grammar);
-
         } catch (e) {
-
           warn('YAML parsing failed, trying JSON');
         }
       }
 
       if (!is(grammar, O)) { // we failed with our yaml-parser, so try JSON
         try {
-
-          //console.log('trying JSON');
           grammar = JSON.parse(grammar);
-
         } catch (e) {
-
           var ex = e;
         }
       }
@@ -2966,7 +3028,6 @@ RiGrammar.prototype = {
           verb + ' yamljs (https://github.com/jeremyfa/yaml.js), e.g. ' +
           syntax, grammar);
       }
-
       return;
     }
 
@@ -3041,20 +3102,40 @@ RiGrammar.prototype = {
 
   },
 
-  doRule: function(pre) {
+  doRule: function(pre, context) {
 
-    var getStochasticRule = function(temp) { // map
+    var getStochasticRule = function (temp, rng) { // map
 
-      var name, dbug = false, p = Math.random(), result, total = 0;
+      var name, dbug = false, p = rng(), result, total = 0;
       if (dbug) log("getStochasticRule(" + temp + ")");
+      var rc = [];
       for (name in temp) {
-        total += parseFloat(temp[name]);
+        var count = parseFloat(temp[name]);
+        if (isNaN(count)) {
+          // temp[name] is to be evaluated
+          try {
+            count = eval(temp[name]); // try in global context
+          } catch (e) {};
+          // Maybe global context didn't work?
+          if (isNaN(count) && context) {
+            try {
+              count = context(temp[name]);
+            } catch (e) { /* fall through */ }
+          };
+          // Maybe specific context didn't work?
+          if (isNaN(count)) {
+            log('Could not determine a value for dynamic weighting rule: "' + temp[name] + '"');
+            count = 0;
+          };
+        };
+        rc[name] = count;
+        total += count;
       }
 
       if (dbug) log("total=" + total + "p=" + p);
       for (name in temp) {
         if (dbug) log("  name=" + name);
-        var amt = temp[name] / total;
+        var amt = rc[name] / total;
         if (dbug) log("amt=" + amt);
         if (p < amt) {
           result = name;
@@ -3077,9 +3158,8 @@ RiGrammar.prototype = {
 
     if (!cnt) return null;
 
-    return (cnt == 1) ? name : getStochasticRule(rules);
+    return (cnt == 1) ? name : getStochasticRule(rules, this.rng);
   },
-
 
   getGrammar: function() {
 
@@ -3139,9 +3219,9 @@ RiGrammar.prototype = {
     // TODO: tmp, awful hack, write this correctly
     var tries, maxTries = 1000;
     for (tries = 0; tries < maxTries; tries++) {
-      var s = gr.expand();
-      if (s.indexOf(literal) > -1)
-        return s;
+      buffer = gr.expand();
+      if (buffer.indexOf(literal) > -1)
+        return buffer;
     }
     err("RiGrammar failed to complete after " + tries + " tries" + BN);
   },
@@ -3153,7 +3233,7 @@ RiGrammar.prototype = {
 
   expandFrom: function(rule, context) {
 
-    var expandRule = function(g, prod) {
+    var expandRule = function(g, prod, context) {
 
       var entry, idx, pre, expanded, post, dbug = 0;
       if (dbug) log("expandRule(" + prod + ")");
@@ -3168,14 +3248,16 @@ RiGrammar.prototype = {
 
           if (dbug) log('matched: '+name);
           pre = prod.substring(0, idx) || E;
-          expanded = g.doRule(name) || E;
+          expanded = g.doRule(name, context) || E;
           post = prod.substring(idx + name.length) || E;
 
           if (dbug) log("  pre=" + pre + "  expanded=" + expanded +
             "  post=" + post + "  result=" + pre + expanded + post);
+
           return pre + expanded + post;
         }
       }
+
       return null; // no rules matched
     }
 
@@ -3191,19 +3273,20 @@ RiGrammar.prototype = {
         // Try first in the local context if
         // it exists, so that the local context
         // can override a global function
-        if (context) { // create sandbox for context args
-            // res = new Scope(context).eval(exec);
+        if (context) {
             // context is a closure, so attempt to evaluate
             // the exec in that closure
             res = context(exec);
-            return res ? res + '' : null;
+
+	          // If not a null result, force to a string.
+            return (res !== null) ? res + E : null;
         } else {
             throw "No context";
         };
       } catch (e) {
           try {
               res = eval(exec); // try in global context
-              return res ? res + E : null;
+              return (res !== null) ? res + E : null;
           } catch (e) {
               // Failed completely; will fall through
               // and return input
@@ -3221,28 +3304,32 @@ RiGrammar.prototype = {
       return count;
     }
 
-    // -----------------------------------------------------
+    // ------------------------ impl -----------------------------
 
-    if (!okeys(this._rules).length)
+    if (!okeys(this._rules).length) {
       err("(RiGrammar) No grammar rules found!");
+    }
 
-    if (!this.hasRule(rule))
-      err("Rule not found: " + rule + BN + "Rules:" + BN + JSON.stringify(this._rules));
+    if (!this.hasRule(rule)) {
+      err("Rule not found: " + rule+ "\nRules:\n" + JSON.stringify(this._rules));
+    }
 
     var parts, theCall, callResult, tries = 0, maxIterations = 1000;
 
+    buffer = rule;
+
     while (++tries < maxIterations) {
 
-      var next = expandRule(this, rule);
+      var next = expandRule(this, buffer, context);
       if (next && next.length) { // matched a rule
-        rule = next;
+        buffer = next;
         continue;
       }
 
       if (this.execDisabled) break; // return
 
       // finished rules, check for back-ticked exec calls
-      parts = RiGrammar.EXEC_PATT.exec(rule);
+      parts = RiGrammar.EXEC_PATT.exec(buffer);
 
       if (!parts || !parts.length) break; // return, no evals
 
@@ -3263,15 +3350,15 @@ RiGrammar.prototype = {
           break; // return
         }
 
-        rule = parts[1] + callResult;
-        if (parts.length > 3) rule += parts[3];
+        buffer = parts[1] + callResult;
+        if (parts.length > 3) buffer += parts[3];
       }
     }
 
     if (tries >= maxIterations)
       log("[WARN] max number of iterations reached: " + maxIterations);
 
-    return RiTa.unescapeHTML(rule);
+    return RiTa.unescapeHTML(buffer);
   }
 
 }; // end RiGrammar
@@ -3368,7 +3455,7 @@ TextNode.prototype = {
   _select: function(arr, probabalisticSelect) {
     if (!arr) throw TypeError("bad arg to '_select()'");
     probabalisticSelect = probabalisticSelect || false;
-    return (probabalisticSelect ? this._probabalisticSelect(arr) : arr[Math.floor((Math.random() * arr.length))]);
+    return (probabalisticSelect ? this._probabalisticSelect(arr) : arr[Math.floor((RiTa.random() * arr.length))]);
   },
 
   _probabalisticSelect: function(arr) {
@@ -3381,7 +3468,7 @@ TextNode.prototype = {
 
     // select from multiple options based on frequency
     var pTotal = 0,
-      selector = Math.random();
+      selector = RiTa.random();
     for (var i = 0; i < arr.length; i++) {
 
       pTotal += arr[i].probability();
@@ -5535,7 +5622,7 @@ var ONLY_PUNCT = /^[^0-9A-Za-z\s]*$/,
   ALL_PUNCT = /^[-[\]{}()*+!?%&.,\\^$|#@<>|+=;:]+$/g;
 
 var NULL_PLURALS = RE( // these don't change for plural/singular
-  "^(bantu|bengalese|bengali|beninese|boche|bonsai|booze|cellulose|digitalis|mess|moose|" + "burmese|chinese|colossus|congolese|discus|electrolysis|emphasis|expertise|finess|flu|fructose|gabonese|gauze|glucose|grease|guyanese|haze|incense|japanese|javanese|journalese|" + "lebanese|malaise|manganese|mayonnaise|maltese|menopause|merchandise|nitrocellulose|olympics|overuse|paradise|poise|polymerase|portuguese|prose|recompense|remorse|repose|senegalese|siamese|singhalese|innings|" + "sleaze|sinhalese|sioux|sudanese|suspense|swiss|taiwanese|togolese|vietnamese|unease|aircraft|anise|antifreeze|applause|archdiocese|" + "anopheles|apparatus|asparagus|barracks|bellows|bison|bluefish|bob|bourgeois|" + "bream|brill|butterfingers|cargo|carp|catfish|chassis|clothes|chub|cod|codfish|" + "coley|contretemps|corps|crawfish|crayfish|crossroads|cuttlefish|dace|deer|dice|" + "dogfish|doings|dory|downstairs|eldest|earnings|economics|electronics|finnan|" + "firstborn|fish|flatfish|flounder|fowl|fry|fries|works|globefish|goldfish|golf|" + "grand|grief|gudgeon|gulden|haddock|hake|halibut|headquarters|herring|hertz|horsepower|" + "goods|hovercraft|hundredweight|ironworks|jackanapes|kilohertz|kurus|kwacha|ling|lungfish|" + "mackerel|macaroni|means|megahertz|moorfowl|moorgame|mullet|nepalese|offspring|pampas|parr|pants|" + "patois|pekinese|penn'orth|perch|pickerel|pike|pince-nez|plaice|potpourri|precis|quid|rand|" + "rendezvous|revers|roach|roux|salmon|samurai|series|seychelles|seychellois|shad|" + "sheep|shellfish|smelt|spaghetti|spacecraft|species|starfish|stockfish|sunfish|superficies|" + "sweepstakes|swordfish|tench|tennis|[a-z]+osis|[a-z]+itis|[a-z]+ness|" + "tobacco|tope|triceps|trout|tuna|tunafish|tunny|turbot|trousers|turf|" + "undersigned|veg|waterfowl|waterworks|waxworks|whiting|wildfowl|woodworm|" + "yen|aries|pisces|forceps|lieder|jeans|physics|mathematics|news|odds|politics|remains|" + "acoustics|aesthetics|aquatics|basics|ceramics|classics|cosmetics|dialectics|dynamics|ethics|harmonics|heroics|mechanics|metrics|optics|physics|polemics|pyrotechnics|" + "surroundings|thanks|statistics|goods|aids|wildlife)$", 0);
+  "^(bantu|bengalese|bengali|beninese|boche|bonsai|booze|cellulose|digitalis|mess|moose|" + "burmese|chinese|colossus|congolese|discus|electrolysis|emphasis|expertise|finess|flu|fructose|gabonese|gauze|glucose|grease|guyanese|haze|incense|japanese|javanese|journalese|" + "lebanese|malaise|manganese|mayonnaise|maltese|menopause|merchandise|nitrocellulose|olympics|overuse|paradise|poise|polymerase|portuguese|prose|recompense|remorse|repose|senegalese|siamese|singhalese|innings|" + "sleaze|sinhalese|sioux|sudanese|suspense|swiss|taiwanese|togolese|vietnamese|unease|aircraft|anise|antifreeze|applause|archdiocese|" + "anopheles|apparatus|asparagus|barracks|bellows|bison|bluefish|bob|bourgeois|" + "bream|brill|butterfingers|cargo|carp|catfish|chassis|clothes|chub|cod|codfish|" + "coley|contretemps|corps|crawfish|crayfish|crossroads|cuttlefish|dace|deer|dice|" + "dogfish|doings|dory|downstairs|eldest|earnings|economics|electronics|" + "firstborn|fish|flatfish|flounder|fowl|fry|fries|works|globefish|goldfish|golf|" + "grand|grief|gudgeon|gulden|haddock|hake|halibut|headquarters|herring|hertz|horsepower|" + "goods|hovercraft|hundredweight|ironworks|jackanapes|kilohertz|kurus|kwacha|ling|lungfish|" + "mackerel|macaroni|means|megahertz|moorfowl|moorgame|mullet|nepalese|offspring|pampas|parr|pants|" + "patois|pekinese|penn'orth|perch|pickerel|pike|pince-nez|plaice|potpourri|precis|quid|rand|" + "rendezvous|revers|roach|roux|salmon|samurai|series|seychelles|seychellois|shad|" + "sheep|shellfish|smelt|spaghetti|spacecraft|species|starfish|stockfish|sunfish|superficies|" + "sweepstakes|swordfish|tench|tennis|[a-z]+osis|[a-z]+itis|[a-z]+ness|" + "tobacco|tope|triceps|trout|tuna|tunafish|tunny|turbot|trousers|turf|dibs|" + "undersigned|veg|waterfowl|waterworks|waxworks|whiting|wildfowl|woodworm|" + "yen|aries|pisces|forceps|lieder|jeans|physics|mathematics|news|odds|politics|remains|" + "acoustics|aesthetics|aquatics|basics|ceramics|classics|cosmetics|dialectics|dynamics|ethics|harmonics|heroics|mechanics|metrics|optics|physics|polemics|pyrotechnics|" + "surroundings|thanks|statistics|goods|aids|wildlife)$", 0);
 
 
 // SINGULAR_RULES are extra singular rules on top of Pling stem
