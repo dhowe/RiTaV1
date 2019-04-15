@@ -21,17 +21,17 @@ public class RiGrammar
 {
   public static String START_RULE = "<start>";
   
-  static final String E = "";
   static final Pattern PROB_PATT = Pattern.compile("(.*[^\\s])\\s*\\[([0-9.]+)\\](.*)");
   static final Pattern EXEC_PATT = Pattern.compile("(.*?)(`[^`]+?\\(.*?\\);?`)(.*)");
+  static final Pattern PAREN_PATT = Pattern.compile("\\((.*?)\\)");
 
   public YAMLParser yamlParser;
   public Map<String, Map<String, Float>> _rules;
   public Object grammarUrl, parent;
   public Pattern probabilityPattern;
-  //public RiGrammarEditor editor;
   public boolean execDisabled;
   public int maxIterations = 1000;
+  public String buffer;
 
   static boolean yamlWarning;
 
@@ -249,6 +249,8 @@ public class RiGrammar
   }
 
   private static final String OR_PATT = "\\s*\\|\\s*";
+
+  private static final Pattern PARENS = null;
   
   public RiGrammar addRule(String name, String ruleStr, float weight)
   {
@@ -314,7 +316,7 @@ public class RiGrammar
   String doRule(String pre)
   {
     int cnt = 0;
-    String name = E;
+    String name = "";
     Map<String, Float> rules = this._rules.get(/*this._normalizeRuleName*/(pre));
 
     if (rules == null)
@@ -373,16 +375,14 @@ public class RiGrammar
       }
     }
 
-    if (!match)
-      log("Error: Rule '" + symbol + "' not found in grammar");
+    if (!match) log("Error: Rule '" + symbol + "' not found in grammar");
 
     // TODO: tmp, awful hack,-write this correctly
     int tries, maxTries = 1000;
     for (tries = 0; tries < maxTries; tries++)
     {
-      String s = gr.expand();
-      if (s.indexOf(literal) > -1)
-        return s;
+      buffer = gr.expand();
+      if (buffer.indexOf(literal) > -1) return buffer;
     }
 
     log("[ERROR] RiGrammarPort failed to complete after " + tries + " tries\n");
@@ -408,20 +408,21 @@ public class RiGrammar
     
     // System.out.println("RiGrammar.expandFrom("+rule+")");
     
-    if (!this.hasRule(rule))
-      throw new RiTaException("Rule not found: "+rule+"\nRules:\n"+_rules);
+    if (!this.hasRule(rule)) throw new RiTaException
+    	("Rule not found: "+rule+"\nRules:\n"+_rules);
     
-    if (callbackListener == null)
-      callbackListener = parent;
+    if (callbackListener == null) callbackListener = parent;
     
+    buffer = rule;
+
     int tries = 0;
     while (++tries < maxIterations)
     {
-      String next = expandRule(rule);
+      String next = expandRule(buffer);
       
       if (next != null && next.length()> 0) { // matched a rule
         
-        rule = next;
+	buffer = next;
         continue;
       }
       
@@ -430,19 +431,17 @@ public class RiGrammar
       if (this.execDisabled) break; // return
             
       // now check for back-ticked strings to eval      
-      String result = this.checkExec(rule, callbackListener);
-      if (result == null) {
+      String result = this.checkExec(buffer, callbackListener);
+      if (result == null) break;
         
-        break;
-      }
-        
-      rule = result;
+      buffer = result;
     } 
     
-    if (tries >= maxIterations && !RiTa.SILENT) 
+    if (tries >= maxIterations && !RiTa.SILENT) { 
       System.out.println("[WARN] max number of iterations reached: "+maxIterations);
+    }
 
-    return RiTa.unescapeHTML(rule);  // after any execs
+    return RiTa.unescapeHTML(buffer);
   }
 
   // TODO: doesn't handle recursive rules: see GH issue #3
@@ -466,7 +465,7 @@ public class RiGrammar
           
 //System.err.println("RiGrammar.EXEC: "+parts.length+" / "+theCall);
 
-      String callResult = E;
+      String callResult = "";
       try
       {
         callResult = handleExec(theCall, callbackListener);
@@ -505,33 +504,32 @@ public class RiGrammar
     
     if (thePart == null) return null; // should never happen
     
-    if (dbug) System.out.println("RiGrammar.handleExec("+thePart+")");
+    if (dbug) System.out.println("RiGrammar.handleExec("+thePart+") :: buffer: "+buffer);
     
-    String toReturn = E, function = null;
+    String toReturn = "", function = null;
     try
     {
-      function = thePart.trim().replaceAll("^`", E)
-          .replaceAll("`$", E).replaceAll(";$", E);
+      function = thePart.trim().replaceAll("^`", "")
+          .replaceAll("`$", "").replaceAll(";$", "");
       
       if (function == null || function.length() < 1) return null;
           
-      String[] args = testExec(Pattern.compile("\\((.*?)\\)"), thePart); // TODO: make constant
+      String[] args = testExec(PAREN_PATT, thePart); // TODO: make constant
      
       if (args.length != 2)
         throw new RiTaException("Unable to parse args in back-ticked call: "+thePart);
       
-      if (callee == null) 
-        throw new RiTaException("\nFound what appears to be a callback:\n  "
-           + thePart + "\nbut no callee object was supplied.\n\nPerhaps you "
-           + "meant RiGrammar.expand(this)?\n");
+      if (callee == null) throw new RiTaException("\nFound what appears " +
+	  "to be a callback:\n" + thePart + "\nbut no callee object was " +
+	  "supplied.\n\nPerhaps you meant RiGrammar.expand(this)?\n");
   
-      function = function.replaceAll("\\(.*?\\)", E);
+      function = function.replaceAll("\\(.*?\\)", "");
       
       if (dbug) System.out.println("RiGrammar.function="+function);
       
       Object[] argsArr = null;
       
-      if (!args[1].equals(E))  { // found args
+      if (!args[1].equals(""))  { // found args
         
         if (dbug) System.out.println("RiGrammar.args[1]="+args[1]);
         
@@ -540,8 +538,8 @@ public class RiGrammar
         //if (dbug) System.out.println("RiGrammar.argsArr"+RiTa.asList(argsArr));
       }
       
-      if (dbug)System.out.println("RiGrammar.invoke: "+function+"("+
-          (RiTa.asList(argsArr).toString()).replaceAll("[\\[\\]]", E)+");");
+      if (dbug) System.out.println("RiGrammar.invoke: "+function+"("+
+          (RiTa.asList(argsArr).toString()).replaceAll("[\\[\\]]", "")+");");
       
       Object callResult = RiTa.invoke(callee, function, argsArr);
 
@@ -576,7 +574,7 @@ public class RiGrammar
     {
       strs[i] = strs[i].trim();
 
-      String arg = strs[i].replaceAll("[\"']", E);
+      String arg = strs[i].replaceAll("[\"']", "");
       
       args[i] = arg;
       if (dbug)System.out.println("arg: "+i+": "+args[i]);
@@ -717,19 +715,25 @@ public class RiGrammar
     }
   }
   
+  String unique(String prevCol) {
+
+    String buffer = this.rg.buffer;
+    while (buffer.contains(" " + prevCol)) {
+      prevCol = this.rg.expandFrom("<colour>");
+    }
+    return prevCol;
+  }
+  
+  static RiGrammar rg;
   public static void main(String[] args)
   {
-    RiGrammar rg = new RiGrammar("{\"a\" : \"b\"}");
-    rg.loadFrom("haikuGrammar.yaml");
-    System.out.println(rg.expand());
-    //rg.openEditor();
-    
-    if (1==0) {
-      rg.load(RiTa.loadString("haikuGrammar.json", null));
-      System.out.println("'"+rg.expandFrom("<1>")+"'");
-      //rg.setGrammar(RiTa.loadString("haikuGrammar2.json", null));
-      //System.out.println("'"+rg.expandFrom("<1>")+"'");
+    rg = new RiGrammar();
+    rg.addRule("<start>", "The colours are <colour>, `unique(<colour>)`, and `unique(<colour>)`.");
+    rg.addRule("<colour>", "red | blue | white");
+    for (int i = 0; i < 10; i++) {
+      System.out.println(i+") "+rg.expand(rg));
     }
+    
   }
   
 }

@@ -261,8 +261,9 @@ public class RiLexicon implements Constants {
   }
 
   private Iterator<String> getRandomIterator(String pos) {
-    Iterator<String> it = (pos == null) ? lexImpl.randomIterator() 
-	: lexImpl.randomPosIterator(pos);
+    Iterator<String> it = (pos == null) ? 
+	lexImpl.randomIterator() :
+	lexImpl.randomPosIterator(pos);
     return it;
   }
 
@@ -278,14 +279,11 @@ public class RiLexicon implements Constants {
 
     try {
 
-      if (targetLength < 0) {
-	return it.next();
-      }
+      if (targetLength < 0) return it.next();
 
       while (it.hasNext()) {
 	String s = it.next();
-	if (s.length() == targetLength)
-	  return s;
+	if (s.length() == targetLength) return s;
       }
 
     } catch (Exception e) {
@@ -616,20 +614,18 @@ public class RiLexicon implements Constants {
   }
 
   int similarBySound(String input, Set<String> result, int minDist) {
-    if (result == null)
-      throw new IllegalArgumentException("Null Arg: result[Collection](3)");
+    
+    if (result == null) throw new IllegalArgumentException
+    	("Null Arg: result[Collection](3)");
 
-    if (input == null || input.length() < 1)
-      return -1;
+    if (input == null || input.length() < 1) return -1;
 
     int minVal = Integer.MAX_VALUE;
     String[] targetPhones = lexImpl.getPhonemeArr(input, true);
 
-    if (targetPhones == null)
-      return -1;
+    if (targetPhones == null) return -1;
 
-    if (minEditDist == null)
-      minEditDist = new MinEditDist();
+    if (minEditDist == null) minEditDist = new MinEditDist();
 
     // System.out.println("TARGET: "+RiTa.asList(targetPhones));
 
@@ -639,8 +635,7 @@ public class RiLexicon implements Constants {
 
       int med = minEditDist.computeRaw(phones, targetPhones);
 
-      if (med == 0)
-	continue; // same phones
+      if (med == 0) continue; // same phones
 
       // found something even closer
       if (med >= minDist && med < minVal) {
@@ -847,15 +842,18 @@ public class RiLexicon implements Constants {
 
   private boolean checkResult(String input, Collection result,
       String candidate, int minLength) {
+    
     if (candidate.length() < minLength) {
       // System.out.println("RiLexicon.addResult(False::BAD_LENGTH) -> "+candidate);
       return false;
     }
+    
     if (candidate.equals(input) || candidate.equals(input + "s")
 	|| candidate.equals(input + "es")) {
       // System.out.println("RiLexicon.addResult(False::INPUT) -> "+candidate);
       return false;
     }
+    
     return true;
   }
 

@@ -197,16 +197,6 @@ public class KnownIssuesTest implements Constants {
      */
   }
 
-  @Test
-  public void testRandomIterator() {
-    JSONLexicon lexicon = JSONLexicon.getInstance();
-    long ts = System.currentTimeMillis();
-    lexicon.randomPosIterator("nns");
-    System.out.println(
-	"randomPosIterator in " + (System.currentTimeMillis() - ts) + "ms");
-    equal("TODO:", "improve performance or remove!");
-  }
-
   /*
    * Checks output of RiString.syllabify against syllabifications in rita_dict
    * Note(dch): added a hack to temp.fix bad output at end of

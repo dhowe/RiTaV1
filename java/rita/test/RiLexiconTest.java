@@ -3,14 +3,12 @@ package rita.test;
 import static rita.support.QUnitStubs.*;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 
 import org.junit.Test;
 
 import rita.RiLexicon;
 import rita.RiTa;
-import rita.support.RandomIterator;
 
 public class RiLexiconTest {
 
@@ -50,13 +48,10 @@ public class RiLexiconTest {
     lex.addWord("HAHAHA", "hh-aa1 hh-aa1 hh-aa1", "uh");
     ok(lex.containsWord("HAHAHA"));
     equal(lex.lexImpl.getPhonemes("HAHAHA", true), "hh-aa-hh-aa-hh-aa"); // TODO
-
+    
     lex = new RiLexicon();
     lex.addWord("", "", "");
-
     lex.reload(); // reset
-
-    // TODO 3 parameters in RitaJS [DCH ??]
   }
 
   @Test
@@ -90,6 +85,8 @@ public class RiLexiconTest {
     ok(lex.containsWord("zoom"));
     ok(lex.containsWord("a"));
     ok(result.size() > 1000);
+    
+    lex.reload();
   }
 
   @Test
@@ -264,18 +261,18 @@ public class RiLexiconTest {
       }
     }
   }
-    
+
   @Test
   public void testRandomWordWithSeed() {
-    
+
     int sd = RiTa.random(9999999);
     RiLexicon lex = new RiLexicon();
     RiTa.randomSeed(sd);
     String result = lex.randomWord("nns");
     RiTa.randomSeed(sd);
     String result2 = lex.randomWord("nns");
-    System.out.println(result+" "+result2);
-    equal(result2,result);
+    // System.out.println(result+" "+result2);
+    equal(result2, result);
   }
 
   @Test
@@ -297,18 +294,14 @@ public class RiLexiconTest {
 
     RiLexicon lex = new RiLexicon();
 
-    for (int i = 0; i < 20; i++) {
+    for (int i = 0; i < 1000; i++) {
       String result = lex.randomWord("nns");
       String[] tags = RiTa.getPosTags(result);
       // System.out.println(result);
-      // No nn & vbg
-      for (int j = 0; j < tags.length; j++) {
-	ok(tags[j] != "vbg", "randomWord nns: " + result);
-      }
 
       // No -ness, -ism
-      ok(!result.endsWith("ness"), "randomWord nns: " + result);
-      ok(!result.endsWith("isms"), "randomWord nns: " + result);
+      ok(!result.endsWith("ness"), "2-randomWord nns: " + result);
+      ok(!result.endsWith("isms"), "3-randomWord nns: " + result);
     }
 
   }
@@ -325,14 +318,13 @@ public class RiLexiconTest {
 	String result = lex.randomWord(pos[j], k);
 	String best = lex.lexImpl.getBestPos(result);
 	// System.out.println(result+": "+pos[j]+" ?= "+best);
-	equal(pos[j], best);
+	equal(pos[j], best, result + ": " + pos[j] + " ?= " + best);
 
 	String syllables = RiTa.getSyllables(result);
 	int num = syllables.split(RiTa.SYLLABLE_BOUNDARY).length;
 	ok(num == k);
       }
     }
-
     String result = lex.randomWord("wp", 5);
     equal(result, "");
 
@@ -506,7 +498,6 @@ public class RiLexiconTest {
     ok(lex.isNoun("walk"));
     ok(lex.isNoun("walker"));
     ok(lex.isNoun("dance"));
-    ok(lex.isNoun("dancing"));
     ok(lex.isNoun("dancer"));
 
     // verb
@@ -917,6 +908,7 @@ public class RiLexiconTest {
 
   @Test
   public void testRemoveWordString() {
+    
     RiLexicon lex = new RiLexicon();
     int size1 = lex.size();
     ok(lex.containsWord("banana"));

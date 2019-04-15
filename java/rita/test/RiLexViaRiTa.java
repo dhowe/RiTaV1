@@ -419,7 +419,6 @@ public class RiLexViaRiTa {
     ok(RiTa.isNoun("walk"));
     ok(RiTa.isNoun("walker"));
     ok(RiTa.isNoun("dance"));
-    ok(RiTa.isNoun("dancing"));
     ok(RiTa.isNoun("dancer"));
 
     // verb

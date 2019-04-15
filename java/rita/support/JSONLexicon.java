@@ -12,13 +12,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.regex.Pattern;
 
 import rita.RiLexicon;
@@ -64,12 +58,14 @@ public class JSONLexicon implements Constants {
    * Creates, loads and returns the singleton lexicon instance.
    */
   public static JSONLexicon getInstance() {
-    if (!RiLexicon.enabled) return null;
+    if (!RiLexicon.enabled)
+      return null;
     return getInstance(DEFAULT_LEXICON);
   }
 
   /**
-   * Creates, loads & returns the singleton lexicon instance for a specific path.
+   * Creates, loads & returns the singleton lexicon instance for a specific
+   * path.
    */
   protected static JSONLexicon getInstance(String pathToLexicon) {
     if (instance == null) {
@@ -83,10 +79,10 @@ public class JSONLexicon implements Constants {
 	if (!RiTa.SILENT)
 	  System.out.println("[INFO] Loaded " + instance.size() + "(" + addenda
 	      + ") lexicon in " + (System.currentTimeMillis() - start) + " ms");
-		
+
       } catch (Throwable e) {
-	
-	  throw new RiTaException(e.getMessage());
+
+	throw new RiTaException(e.getMessage());
       }
     }
     return instance;
@@ -137,7 +133,7 @@ public class JSONLexicon implements Constants {
   }
 
   public void load() {
-    
+
     String[] lines = loadJSON(this.dictionaryFile);
 
     if (lines == null || lines.length < 2)
@@ -165,18 +161,20 @@ public class JSONLexicon implements Constants {
   public boolean isPlural(String word) {
 
     String stem = RiTa.stem(word, RiTa.PLING);
-    if (stem.equals(word)) return false;
-    
+    if (stem.equals(word))
+      return false;
+
     String lookup = lexicalData.get(RiTa.singularize(word));
-    if (lookup == null) return false;
-    
+    if (lookup == null)
+      return false;
+
     String[] data = lookup.split("\\|");
-    //RiTa.out(data);
+    // RiTa.out(data);
     if (data != null && data.length == 2) {
       String[] pos = data[1].split(SP);
       for (int i = 0; i < pos.length; i++) {
-        if (pos[i].equals("nn"))
-          return true;
+	if (pos[i].equals("nn"))
+	  return true;
       }
     } else if (word.endsWith("ses") || word.endsWith("zes")) {
 
@@ -184,18 +182,18 @@ public class JSONLexicon implements Constants {
       lookup = lexicalData.get(RiTa.singularize(sing));
       data = lookup.split("\\|");
       if (data != null && data.length == 2) {
-          String[] pos = data[1].split(SP);
-          for (int i = 0; i < pos.length; i++) {
-              if (pos[i].equals("nn"))
-                  return true;
-          }
+	String[] pos = data[1].split(SP);
+	for (int i = 0; i < pos.length; i++) {
+	  if (pos[i].equals("nn"))
+	    return true;
+	}
       }
     }
     return false;
   }
 
   public static String[] loadJSON(String file) {
-    
+
     if (file == null)
       throw new RiTaException("No dictionary path specified!");
 
@@ -216,11 +214,11 @@ public class JSONLexicon implements Constants {
   public static String readFile(String filename) // load file into single string
   {
     try {
-      
+
       StringBuilder builder = new StringBuilder();
       InputStream is = RiLexicon.class.getResourceAsStream(filename);
       if (is == null)
-	throw new RiTaException("Unable to load lexicon: rita/java/"+filename);
+	throw new RiTaException("Unable to load lexicon: rita/java/" + filename);
       InputStreamReader isr = new InputStreamReader(is);
       Reader reader = new BufferedReader(isr);
       char[] buffer = new char[8192];
@@ -230,11 +228,11 @@ public class JSONLexicon implements Constants {
       }
       isr.close();
       is.close();
-      
+
       return builder.toString();
-            
+
     } catch (Exception e) {
-      
+
       throw new RiTaException(e);
     }
   }
@@ -444,24 +442,33 @@ public class JSONLexicon implements Constants {
     return s;
   }
 
+  protected Map<String, Set<String>> wordsWithPosCache = new HashMap<String, Set<String>>();
+
   /** Returns all words where 'pos' is the first (or only) tag listed */
   public Set<String> getWordsWithPos(String pos) {
 
-    boolean pluralize = false; // fix to #409
-
+    boolean pluralize = false; // fix to #409 
+	
     if (pos.equals("n") || pos.equals("nns")) {
       pluralize = pos.equals("nns");
       pos = "nn";
-    }
-    else if (pos.equals("v"))
+    } else if (pos.equals("v"))
       pos = "vb";
     else if (pos.equals("r"))
       pos = "rb";
     else if (pos.equals("a"))
       pos = "jj";
+    
+    String cacheKey = pluralize ? "nns" : pos;
+
+    if (wordsWithPosCache.containsKey(cacheKey)) {
+      return wordsWithPosCache.get(cacheKey);
+    }
 
     if (!RiPos.isPennTag(pos)) {
-      throw new RiTaException("Pos '" + pos + "' is not a known part-of-speech tag." + " Check the list at http://rednoise.org/rita/reference/PennTags.html");
+      throw new RiTaException("Pos '" + pos
+	  + "' is not a known part-of-speech tag. Check the list at "
+	  + " http://rednoise.org/rita/reference/PennTags.html");
     }
 
     Set<String> s = new TreeSet<String>();
@@ -471,33 +478,30 @@ public class JSONLexicon implements Constants {
       String word = iter.next();
       String poslist = getPosStr(word);
       if (poslist.startsWith(posSpc) || poslist.equals(pos)) {
-      	if (pluralize) {
-           if (!isNNWithoutNNS(word)) 
-             word = RiTa.pluralize(word);
-           else continue;
-         }
-         s.add(word);
+	if (pluralize) {
+	  if (!isNNWithoutNNS(word)) {
+	    //System.out.println("OK: "+word);
+	    word = RiTa.pluralize(word);
+	  }
+	  else
+	    continue;
+	}
+	s.add(word);
       }
     }
+
+    wordsWithPosCache.put(cacheKey, s); // add to cache
+
     return s;
   }
 
   protected boolean isNNWithoutNNS(String w) {
-      if (w.endsWith("ness") || w.endsWith("ism")){
-         // System.out.println("[NNS] -ness/-ism:" + w);
-        return true;
-      } else {
-        String[] tags = getPosArr(w);
-        for (int j = 0; j < tags.length; j++) {
-          if (tags[j].equals("vbg")) {
-            // System.out.println("[NNS] -vbg:" + w);
-            return true;
-          }
-        }
-       return false;
-      }
-      
-   }
+    if (w.endsWith("ness") || w.endsWith("ism")) {
+      //System.out.println("[NNS] -ness/-ism:" + w);
+      return true;
+    }
+    return (getPosStr(w).indexOf("vbg") > -1);
+  }
 
   protected void addToFeatureCache(String word, Map m) {
     if (featureCache == null)
@@ -602,8 +606,8 @@ public class JSONLexicon implements Constants {
     boolean ib = false;
     if (currentWordPhone >= wordPhones.length) {
       ib = true;
-//    } else if (Phoneme.isSilence(wordPhones[currentWordPhone])) {
-//      ib = true;
+      // } else if (Phoneme.isSilence(wordPhones[currentWordPhone])) {
+      // ib = true;
     } else if (!Phoneme.hasVowel(wordPhones, currentWordPhone)) { // rest ofword
       ib = false;
     } else if (!Phoneme.hasVowel(syllablePhones)) { // current syllable
@@ -614,7 +618,8 @@ public class JSONLexicon implements Constants {
       ib = false;
     } else {
       int p, n, nn;
-      p = Phoneme.getSonority((String) syllablePhones.get(syllablePhones.size() - 1));
+      p = Phoneme
+	  .getSonority((String) syllablePhones.get(syllablePhones.size() - 1));
       n = Phoneme.getSonority(wordPhones[currentWordPhone]);
       nn = Phoneme.getSonority(wordPhones[currentWordPhone + 1]);
       if ((p <= n) && (n <= nn)) {
@@ -691,21 +696,43 @@ public class JSONLexicon implements Constants {
 	+ (System.currentTimeMillis() - ts) / (float) numTests);
   }
 
+  class RandomizingIterator<T> implements Iterator<T> {
+    
+    final Iterator<T> iterator;
+
+    private RandomizingIterator(Iterator<T> iterator) {
+      List<T> list = new ArrayList<T>();
+      while (iterator.hasNext()) {
+	list.add(iterator.next());
+      }
+      Collections.shuffle(list);
+      this.iterator = list.iterator();
+    }
+
+    @Override
+    public boolean hasNext() {
+      return this.iterator.hasNext();
+    }
+
+    @Override
+    public T next() {
+      return this.iterator.next();
+    }
+
+    /**
+     * Modifying this makes no logical sense, so for simplicity sake, this implementation is Immutable.
+     */
+    @Override
+    public void remove() {
+      throw new UnsupportedOperationException(
+	  "TestRandomzingIterator.RandomizingIterator.remove");
+    }
+  }
+
   public static void main(String[] args) {
     // testTiming(50); if (1==1) return;
     JSONLexicon lex = JSONLexicon.getInstance();
-    System.out.println(lex.getWordsWithPos("nns"));
-    if (1 == 1)
-      return;
-    String test = "swimming";
-    System.out.println(lex.lookupRaw(test));
-    System.out.println(lex.getPosStr(test));
-    System.out.println(lex.getPhonemes(test, true));
-    System.out.println(RiTa.asList(lex.getPhonemeArr(test, true)) + "\n");
-    test = "laggin"; // WITH LTS
-    System.out.println(lex.lookupRaw(test));
-    System.out.println(lex.getPhonemes(test, true));
-    System.out.println(RiTa.asList(lex.getPhonemeArr(test, true)));
+    System.out.println(lex.isNNWithoutNNS("harness"));
   }
 
 }// end
