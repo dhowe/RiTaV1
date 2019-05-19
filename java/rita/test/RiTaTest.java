@@ -1788,6 +1788,13 @@ public class RiTaTest
     
     String c = RiTa.conjugate("swim", args);    
     equal(c, "swam"); // I swam
+    
+    
+    args = new HashMap<String, Comparable>();
+    args.put("form", RiTa.GERUND);
+    
+    equal("being", RiTa.conjugate("be", args));
+    
 
     args = new HashMap<String, Comparable>();
     args.put("tense", RiTa.PRESENT_TENSE);

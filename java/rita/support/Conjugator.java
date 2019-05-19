@@ -1136,6 +1136,7 @@ public class Conjugator implements Constants {
   }
 
   public String getPresentParticiple(String v) {
+    if (v != null && v.equals("be")) return "being";
     return apply(getRule(PRESENT_PARTICIPLE_RULE), v);
   }
 
