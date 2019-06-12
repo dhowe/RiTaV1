@@ -24,8 +24,6 @@ Please see https://github.com/dhowe/RiTaJS for the JavaScript implementation of 
 
 &nbsp;
 
-<br/>
-
 #### Support us with a monthly donation and [become a backer!](https://opencollective.com/rita#backer)
 
 <br/>
