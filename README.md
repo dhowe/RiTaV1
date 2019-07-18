@@ -182,3 +182,35 @@ If you don't feel like coding but still want to contribute, please send a twitte
 10. Work on an existing [issue](https://github.com/dhowe/RiTa/issues?q=is%3Aopen+is%3Aissue), then [submit a pull request...](https://help.github.com/articles/creating-a-pull-request)
 
 11. (Optional) If you encounter error ```java.lang.UnsupportedClassVersionError: org/apache/maven/cli/MavenCli : Unsupported major.minor version```, follow [these instructions](http://crunchify.com/how-to-install-maven-on-mac-os-x-manually-fix-unsupportedclassversionerror-orgapachemavenclimavencli/) to install Maven manually.
+
+
+## Contributors
+
+### Code Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="https://github.com/dhowe/RiTa/graphs/contributors"><img src="https://opencollective.com/RiTa/contributors.svg?width=890&button=false" /></a>
+
+### Financial Contributors
+
+Become a financial contributor and help us sustain our community. [[Contribute](https://opencollective.com/RiTa/contribute)]
+
+#### Individuals
+
+<a href="https://opencollective.com/RiTa"><img src="https://opencollective.com/RiTa/individuals.svg?width=890"></a>
+
+#### Organizations
+
+Support this project with your organization. Your logo will show up here with a link to your website. [[Contribute](https://opencollective.com/RiTa/contribute)]
+
+<a href="https://opencollective.com/RiTa/organization/0/website"><img src="https://opencollective.com/RiTa/organization/0/avatar.svg"></a>
+<a href="https://opencollective.com/RiTa/organization/1/website"><img src="https://opencollective.com/RiTa/organization/1/avatar.svg"></a>
+<a href="https://opencollective.com/RiTa/organization/2/website"><img src="https://opencollective.com/RiTa/organization/2/avatar.svg"></a>
+<a href="https://opencollective.com/RiTa/organization/3/website"><img src="https://opencollective.com/RiTa/organization/3/avatar.svg"></a>
+<a href="https://opencollective.com/RiTa/organization/4/website"><img src="https://opencollective.com/RiTa/organization/4/avatar.svg"></a>
+<a href="https://opencollective.com/RiTa/organization/5/website"><img src="https://opencollective.com/RiTa/organization/5/avatar.svg"></a>
+<a href="https://opencollective.com/RiTa/organization/6/website"><img src="https://opencollective.com/RiTa/organization/6/avatar.svg"></a>
+<a href="https://opencollective.com/RiTa/organization/7/website"><img src="https://opencollective.com/RiTa/organization/7/avatar.svg"></a>
+<a href="https://opencollective.com/RiTa/organization/8/website"><img src="https://opencollective.com/RiTa/organization/8/avatar.svg"></a>
+<a href="https://opencollective.com/RiTa/organization/9/website"><img src="https://opencollective.com/RiTa/organization/9/avatar.svg"></a>
+
