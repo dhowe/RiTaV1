@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/dhowe/RiTa.svg?branch=master)](https://travis-ci.org/dhowe/RiTa) <a href="http://www.gnu.org/licenses/gpl-3.0.en.html"><a href="https://opencollective.com/RiTa" alt="Financial Contributors on Open Collective"><img src="https://opencollective.com/RiTa/all/badge.svg?label=financial+contributors" /></a> <img src="https://img.shields.io/badge/license-GPL-orange.svg" alt="gpl license"></a> <a href="https://www.npmjs.com/package/rita"><img src="https://img.shields.io/npm/v/rita.svg" alt="npm version"></a> [![Gitter](https://badges.gitter.im/dhowe/rita.svg)](https://gitter.im/dhowe/rita)&nbsp;
+[![Build Status](https://travis-ci.org/dhowe/RiTa.svg?branch=master)](https://travis-ci.org/dhowe/RiTa) <a href="http://www.gnu.org/licenses/gpl-3.0.en.html"> <img src="https://img.shields.io/badge/license-GPL-orange.svg" alt="gpl license"></a> <a href="https://www.npmjs.com/package/rita"><img src="https://img.shields.io/npm/v/rita.svg" alt="npm version"></a> [![Gitter](https://badges.gitter.im/dhowe/rita.svg)](https://gitter.im/dhowe/rita)&nbsp;
 
 
 ### RiTa: the generative language toolkit
