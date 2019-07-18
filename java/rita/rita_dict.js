@@ -22549,6 +22549,7 @@ function _dict() { return {
 'sleet':['s-l-iy1-t','nn'],
 'sleeve':['s-l-iy1-v','nn'],
 'sleight':['s-l-ay1-t','nn'],
+'sleigh':['s-l-ay1','vb'],
 'slender':['s-l-eh1-n d-er','jj'],
 'slept':['s-l-eh1-p-t','vbd vbn'],
 'sleuth':['s-l-uw1-th','nn'],
