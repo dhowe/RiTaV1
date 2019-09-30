@@ -1,0 +1,245 @@
+<html class="fontawesome-i2svg-active fontawesome-i2svg-complete">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Dialogic: a framework for generative interactive dialog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style0.css">
+  <link href="res/css.css" rel="stylesheet">
+  <link href="res/css_002.css" rel="stylesheet">
+  <meta name="description" content="Dialogic: the toolkit for generative interactive dialogue>
+  <meta name="robots" content="noodp">
+  <link rel="canonical" href="https://github.com/dhowe/dialogic">
+  <meta property="og:url" content="https://nestjs.com">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+  <meta property="og:site_name" content="Dialogic - A scripting language and toolkit for interactive generative dialog">
+  <meta property="og:title" content="Dialogic - A scripting language and toolkit for interactive generative dialog">
+  <meta property="og:description" content="Dialogic: the toolkit for generative interactive dialogue">
+  <meta property="og:image" content="https://github.com/dhowe/dialogicimg/nest-og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="650">
+  <meta name="twitter:description" content="Dialogic: the toolkit for generative interactive dialogue">
+  <meta name="twitter:title" content="Dialogic: the toolkit for generative interactive dialogue">
+  <link rel="icon" type="image/x-icon" href="https://github.com/dhowe/dialogicfavicon.a18fc8a9.ico">
+  <script type="text/javascript" id="www-widgetapi-script" src="res/www-widgetapi.js" async=""></script>
+  <script defer="defer" src="res/all.js"></script>
+  <script src="res/scripts.js"></script>
+  <link rel="stylesheet" href="res/plyr.css">
+  <script src="res/iframe_api" async=""></script>
+</head>
+
+<body>
+  <div id="sprite-plyr" hidden="">
+    <!--?xml version="1.0" encoding="UTF-8"?--><svg xmlns="http://www.w3.org/2000/svg">
+      <symbol id="plyr-airplay" viewBox="0 0 18 18">
+        <path d="M16 1H2a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3v-2H3V3h12v8h-2v2h3a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1z"></path>
+        <path d="M4 17h10l-5-6z"></path>
+      </symbol>
+      <symbol id="plyr-captions-off" viewBox="0 0 18 18">
+        <path d="M1 1c-.6 0-1 .4-1 1v11c0 .6.4 1 1 1h4.6l2.7 2.7c.2.2.4.3.7.3.3 0 .5-.1.7-.3l2.7-2.7H17c.6 0 1-.4 1-1V2c0-.6-.4-1-1-1H1zm4.52 10.15c1.99 0 3.01-1.32 3.28-2.41l-1.29-.39c-.19.66-.78 1.45-1.99 1.45-1.14 0-2.2-.83-2.2-2.34 0-1.61 1.12-2.37 2.18-2.37 1.23 0 1.78.75 1.95 1.43l1.3-.41C8.47 4.96 7.46 3.76 5.5 3.76c-1.9 0-3.61 1.44-3.61 3.7 0 2.26 1.65 3.69 3.63 3.69zm7.57 0c1.99 0 3.01-1.32 3.28-2.41l-1.29-.39c-.19.66-.78 1.45-1.99 1.45-1.14 0-2.2-.83-2.2-2.34 0-1.61 1.12-2.37 2.18-2.37 1.23 0 1.78.75 1.95 1.43l1.3-.41c-.28-1.15-1.29-2.35-3.25-2.35-1.9 0-3.61 1.44-3.61 3.7 0 2.26 1.65 3.69 3.63 3.69z"
+          fill-rule="evenodd" fill-opacity=".5"></path>
+      </symbol>
+      <symbol id="plyr-captions-on" viewBox="0 0 18 18">
+        <path d="M1 1c-.6 0-1 .4-1 1v11c0 .6.4 1 1 1h4.6l2.7 2.7c.2.2.4.3.7.3.3 0 .5-.1.7-.3l2.7-2.7H17c.6 0 1-.4 1-1V2c0-.6-.4-1-1-1H1zm4.52 10.15c1.99 0 3.01-1.32 3.28-2.41l-1.29-.39c-.19.66-.78 1.45-1.99 1.45-1.14 0-2.2-.83-2.2-2.34 0-1.61 1.12-2.37 2.18-2.37 1.23 0 1.78.75 1.95 1.43l1.3-.41C8.47 4.96 7.46 3.76 5.5 3.76c-1.9 0-3.61 1.44-3.61 3.7 0 2.26 1.65 3.69 3.63 3.69zm7.57 0c1.99 0 3.01-1.32 3.28-2.41l-1.29-.39c-.19.66-.78 1.45-1.99 1.45-1.14 0-2.2-.83-2.2-2.34 0-1.61 1.12-2.37 2.18-2.37 1.23 0 1.78.75 1.95 1.43l1.3-.41c-.28-1.15-1.29-2.35-3.25-2.35-1.9 0-3.61 1.44-3.61 3.7 0 2.26 1.65 3.69 3.63 3.69z"
+          fill-rule="evenodd"></path>
+      </symbol>
+      <symbol id="plyr-enter-fullscreen" viewBox="0 0 18 18">
+        <path d="M10 3h3.6l-4 4L11 8.4l4-4V8h2V1h-7zM7 9.6l-4 4V10H1v7h7v-2H4.4l4-4z"></path>
+      </symbol>
+      <symbol id="plyr-exit-fullscreen" viewBox="0 0 18 18">
+        <path d="M1 12h3.6l-4 4L2 17.4l4-4V17h2v-7H1zM16 .6l-4 4V1h-2v7h7V6h-3.6l4-4z"></path>
+      </symbol>
+      <symbol id="plyr-fast-forward" viewBox="0 0 18 18">
+        <path d="M7.875 7.171L0 1v16l7.875-6.171V17L18 9 7.875 1z"></path>
+      </symbol>
+      <symbol id="plyr-muted" viewBox="0 0 18 18">
+        <path d="M12.4 12.5l2.1-2.1 2.1 2.1 1.4-1.4L15.9 9 18 6.9l-1.4-1.4-2.1 2.1-2.1-2.1L11 6.9 13.1 9 11 11.1zM3.786 6.008H.714C.286 6.008 0 6.31 0 6.76v4.512c0 .452.286.752.714.752h3.072l4.071 3.858c.5.3 1.143 0 1.143-.602V2.752c0-.601-.643-.977-1.143-.601L3.786 6.008z"></path>
+      </symbol>
+      <symbol id="plyr-pause" viewBox="0 0 18 18">
+        <path d="M6 1H3c-.6 0-1 .4-1 1v14c0 .6.4 1 1 1h3c.6 0 1-.4 1-1V2c0-.6-.4-1-1-1zM12 1c-.6 0-1 .4-1 1v14c0 .6.4 1 1 1h3c.6 0 1-.4 1-1V2c0-.6-.4-1-1-1h-3z"></path>
+      </symbol>
+      <symbol id="plyr-pip" viewBox="0 0 18 18">
+        <path d="M13.293 3.293L7.022 9.564l1.414 1.414 6.271-6.271L17 7V1h-6z"></path>
+        <path d="M13 15H3V5h5V3H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-6h-2v5z"></path>
+      </symbol>
+      <symbol id="plyr-play" viewBox="0 0 18 18">
+        <path d="M15.562 8.1L3.87.225C3.052-.337 2 .225 2 1.125v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8z"></path>
+      </symbol>
+      <symbol id="plyr-restart" viewBox="0 0 18 18">
+        <path d="M9.7 1.2l.7 6.4 2.1-2.1c1.9 1.9 1.9 5.1 0 7-.9 1-2.2 1.5-3.5 1.5-1.3 0-2.6-.5-3.5-1.5-1.9-1.9-1.9-5.1 0-7 .6-.6 1.4-1.1 2.3-1.3l-.6-1.9C6 2.6 4.9 3.2 4 4.1 1.3 6.8 1.3 11.2 4 14c1.3 1.3 3.1 2 4.9 2 1.9 0 3.6-.7 4.9-2 2.7-2.7 2.7-7.1 0-9.9L16 1.9l-6.3-.7z"></path>
+      </symbol>
+      <symbol id="plyr-rewind" viewBox="0 0 18 18">
+        <path d="M10.125 1L0 9l10.125 8v-6.171L18 17V1l-7.875 6.171z"></path>
+      </symbol>
+      <symbol id="plyr-settings" viewBox="0 0 18 18">
+        <path d="M16.135 7.784a2 2 0 0 1-1.23-2.969c.322-.536.225-.998-.094-1.316l-.31-.31c-.318-.318-.78-.415-1.316-.094a2 2 0 0 1-2.969-1.23C10.065 1.258 9.669 1 9.219 1h-.438c-.45 0-.845.258-.997.865a2 2 0 0 1-2.969 1.23c-.536-.322-.999-.225-1.317.093l-.31.31c-.318.318-.415.781-.093 1.317a2 2 0 0 1-1.23 2.969C1.26 7.935 1 8.33 1 8.781v.438c0 .45.258.845.865.997a2 2 0 0 1 1.23 2.969c-.322.536-.225.998.094 1.316l.31.31c.319.319.782.415 1.316.094a2 2 0 0 1 2.969 1.23c.151.607.547.865.997.865h.438c.45 0 .845-.258.997-.865a2 2 0 0 1 2.969-1.23c.535.321.997.225 1.316-.094l.31-.31c.318-.318.415-.781.094-1.316a2 2 0 0 1 1.23-2.969c.607-.151.865-.547.865-.997v-.438c0-.451-.26-.846-.865-.997zM9 12a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"></path>
+      </symbol>
+      <symbol id="plyr-volume" viewBox="0 0 18 18">
+        <path d="M15.6 3.3c-.4-.4-1-.4-1.4 0-.4.4-.4 1 0 1.4C15.4 5.9 16 7.4 16 9c0 1.6-.6 3.1-1.8 4.3-.4.4-.4 1 0 1.4.2.2.5.3.7.3.3 0 .5-.1.7-.3C17.1 13.2 18 11.2 18 9s-.9-4.2-2.4-5.7z"></path>
+        <path d="M11.282 5.282a.909.909 0 0 0 0 1.316c.735.735.995 1.458.995 2.402 0 .936-.425 1.917-.995 2.487a.909.909 0 0 0 0 1.316c.145.145.636.262 1.018.156a.725.725 0 0 0 .298-.156C13.773 11.733 14.13 10.16 14.13 9c0-.17-.002-.34-.011-.51-.053-.992-.319-2.005-1.522-3.208a.909.909 0 0 0-1.316 0zM3.786 6.008H.714C.286 6.008 0 6.31 0 6.76v4.512c0 .452.286.752.714.752h3.072l4.071 3.858c.5.3 1.143 0 1.143-.602V2.752c0-.601-.643-.977-1.143-.601L3.786 6.008z"></path>
+      </symbol>
+    </svg></div>
+  <div class="navbar-sticky visible">
+    <div class="container">
+      <div class="logo-wrapper d-inline-block"> <a href="https://github.com/dhowe/dialogic"> <img src="res/dlogo-small.png" alt="Dialogic - A scripting language and toolkit for interactive generative dialog"> </a> </div>
+      <ul class="nav-wrapper d-inline-block">
+        <li class="hidden-sm"><a href="https://github.com/dhowe/dialogic/wiki">FAQ</a></li>
+        <li class="hidden-sm"><a target="blank" href="https://github.com/dhowe/dialogic/wiki/Command-Reference">Command Reference</a></li>
+        <!--li class="hidden-xs"> <a target="blank" href="http://rednoise.org/dialogic-api">DOCUMENTATION</a></li-->
+        <li class="hidden-sm"><a target="blank" href="http://rednoise.org/dialogic/editor/">Workbench</a></li>
+        <li class="hidden-sm"><a target="blank" href="https://www.nuget.org/packages/org.rednoise.dialogic/">NuGet Package</a></li>
+        <li> <a href="https://github.com/dhowe/dialogic" target="blank" class="icon m-l-30"> <svg class="svg-inline--fa fa-github fa-w-16" aria-hidden="true" data-prefix="fab" data-icon="github" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"
+              data-fa-i2svg="">
+              <path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path>
+            </svg><!-- <i class="fab fa-github"></i> --> </a> </li>
+        <li>
+
+          <a href="https://twitter.com/home?status=Generative%20interactive%20dialogue%20with%20Dialogic%20https://rednoise.org/dialogic-web" target="blank" class="icon"> <svg class="svg-inline--fa fa-twitter fa-w-16" aria-hidden="true" data-prefix="fab" data-icon="twitter" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+              data-fa-i2svg="">
+              <path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path>
+            </svg><!-- <i class="fab fa-twitter"></i> --> </a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> </li>
+      </ul>
+    </div>
+  </div>
+
+  <header class="page-header">
+    <div class="video-background">
+      <video playsinline autoplay muted loop preload="auto" poster="video/snap.png" id="bigvid" loop>
+    <source src="video/demo1.webm" type="video/webm">
+    <source src="video/demo1.mp4" type="video/mp4">
+    <source src="video/demo1.ogg" type="video/ogg">
+    </video>
+  </div>
+    <div class="container">
+      <div class="top-wrapper">
+        <!--div class="logo-wrapper d-inline-block"> <a href="https://github.com/dhowe/dialogic"> <img src="res/dlogo-small.png" alt="Dialogic - A scripting language and toolkit for interactive generative dialog"> </a> </div-->
+        <nav class="pull-right">
+          <ul class="nav-wrapper">
+            <li ><a href="https://github.com/dhowe/dialogic/wiki">FAQ</a></li>
+            <li class="hidden-sm"><a target="blank" href="https://github.com/dhowe/dialogic/wiki/Command-Reference">Command Reference</a></li>
+            <li class="hidden-sm"><a target="blank" href="http://rednoise.org/dialogic/editor/">Workbench</a></li>
+            <li class="hidden-sm"><a target="blank" href="https://www.nuget.org/packages/org.rednoise.dialogic/">NuGet Package</a></li>
+            <li>
+
+              <a href="https://twitter.com/home?status=Generative%20interactive%20dialogue%20with%20Dialogic%20https://rednoise.org/dialogic-web" target="blank" class="icon"> <svg class="svg-inline--fa fa-twitter fa-w-16" aria-hidden="true" data-prefix="fab" data-icon="twitter" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                  data-fa-i2svg="">
+                  <path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path>
+                </svg><!-- <i class="fab fa-twitter"></i> --> </a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> </li>
+          </ul>
+        </nav>
+        <div class="main-wrapper">
+          <h1>RiTa</h1>
+          <h4>a software toolkit for computational literature</h4>
+          <div class="buttons-wrapper"> <a href="https://github.com/dhowe/dialogic#dialogic-fish" class="btn btn-primary d-inline-block">Documentation</a> <a href="https://github.com/dhowe/dialogic" class="btn btn-secondary d-inline-block"> <svg class="svg-inline--fa fa-github fa-w-16"
+                aria-hidden="true" data-prefix="fab" data-icon="github" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" data-fa-i2svg="">
+                <path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path>
+              </svg><!-- <i class="fab fa-github"></i> --> <span>Source code</span> </a> </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="description-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-8">
+          <p>Designed to support the creation of new works of computational literature, the RiTa<sup>†</sup> library provides tools for artists and writers working with natural language in programmable media. The library is designed to be simple while still enabling a range of powerful features, from grammar and Markov-based generation to text-mining, to feature-analysis (part-of-speech, phonemes, stresses, etc). All RiTa functions are heuristic and do not require training data, thus making the core library quite compact. RiTa can also be integrated with its own user-customisable lexicon, or with the WordNet database. RiTa is implemented in both Java and JavaScript, is free/libre and open-source, and runs in a number of popular programming environments including
+          Android, <a href="https://processing.org/">Processing</a>, <a href="https://nodejs.org/">Node</a>, and <a href="http://p5js.org/">p5.js</a>.
+          </p>
+          <div class="row">
+
+             <div class="col-md-12">
+                <div class="platforms">
+                   <div class="platform">
+                      <span class="icon-Java">
+                        <img src="img/java-seeklogo.com.svg" alt="Java" height="87px" width="87px" />
+                      </span>
+                      <p>Java</p>
+                   </div>
+                   <div class="platform">
+                      <span class="icon-Java">
+                        <img src="img/javascript-logo.png" alt="Javascript" height="87px" width="87px" />
+                      </span>
+                      <p>Javascript</p>
+                   </div>
+                   <div class="platform">
+                      <span class="icon-Processing">
+                        <img src="img/Processing_Logo_Clipped.svg" alt="Processing" height="87px" width="87px" />
+                      </span>
+                      <p>Processing</p>
+                   </div>
+                   <div class="platform">
+                      <span class="icon-node">
+                        <img src="img/Node.js_logo.svg" alt="node.js" height="87px" width="87px" />
+                      </span>
+                      <p>Node JS</p>
+                   </div>
+                   <div class="platform">
+                      <span class="icon-android">
+                        <img src="img/Android_robot.svg" alt="Android" height="87px" width="87px" />
+                      </span>
+                      <p>Android</p>
+                   </div>
+                </div>
+             </div>
+
+          </div>
+          <p class="supText"><sup>†</sup> from the old Norse, meaning to mark, scratch, or scribble</p>
+
+        </div>
+
+        <div class="col-md-2">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="highlights-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 highlight-block">
+          <div class="icon-wrapper"><img src="res/magic-wand.svg"></div>
+          <h5>Expressive</h5>
+          <p> Dial is a novel scripting language with simple generative primitives, designed specifically for writers  </p>
+        </div>
+        <div class="col-md-4 highlight-block">
+          <div class="icon-wrapper"><img src="res/3d.svg"></div>
+          <h5>Performant</h5>
+          <p> Optimized runtime environment with fast/accurate scheduler, fast fuzzy search, serialization, etc.   </p>
+        </div>
+
+        <div class="col-md-4 highlight-block">
+          <div class="icon-wrapper"><img src="res/quality.svg"></div>
+          <h5>User-friendly</h5>
+          <p>Online workbench that supports editing, validation, linting, syntax highlighting and execution </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="live-wrapper">
+    <div class="container">
+      <h4><a class="headerLink" href="http://rednoise.org/dialogic/editor/" target="_blank">Live preview</a></h4>
+      <p> Experiment with Dialogic without leaving<br> your browser. </p> <a class="headerLink" href="http://rednoise.org/dialogic/editor/" target="_blank"><img src="res/Dialogic-Editor.png" style="max-width:750px;width:100%;border:0;border-radius:4px;overflow:hidden;"></img></a>
+    </div>
+  </div>
+
+  <footer class="page-footer">
+    <div class="container">
+      <div class="social-wrapper"> <a href="https://github.com/dhowe/dialogic" target="blank" class="icon"> <svg class="svg-inline--fa fa-github fa-w-16" aria-hidden="true" data-prefix="fab" data-icon="github" role="img" xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 496 512" data-fa-i2svg="">
+            <path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path>
+          </svg><!-- <i class="fab fa-github"></i> --> </a> <a href="https://twitter.com/home?status=Generative%20interactive%20dialogue%20with%20Dialogic%20https://rednoise.org/dialogic-web" target="blank" class="icon"> <svg class="svg-inline--fa fa-twitter fa-w-16" aria-hidden="true" data-prefix="fab" data-icon="twitter" role="img"
+            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
+            <path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path>
+          </svg><!-- <i class="fab fa-twitter"></i> --> </a> </div>
+      <p> Released under the GPL License <br> Copyright © 2019 by <a href="https://rednoise.org/daniel" target="blank">Daniel Howe</a> <br>
+
+    </div>
+  </footer>
+</body>
+
+</html>
