@@ -6,41 +6,58 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Dialogic: a framework for generative interactive dialog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-
+  <!-- -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <!-- slick js-->
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+  <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
 
 
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/style0.css">
+  <link rel="stylesheet" href="css/slick.css">
   <link rel="stylesheet" href="css/icomoon.css">
   <script src="scripts/panel.js"></script>
 
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('.slick-slider').slick({
+        dots: true,
+      });
+    });
+  </script>
 
   <!--
   <link href="res/css.css" rel="stylesheet">
   <link href="res/css_002.css" rel="stylesheet">
 -->
-  <meta name="description" content="Dialogic: the toolkit for generative interactive dialogue>
+
+
+  <meta name="description" content="RiTa - a software toolkit for computational literature>
   <meta name=" robots" content="noodp">
   <link rel="canonical" href="https://github.com/dhowe/dialogic">
-  <meta property="og:url" content="https://nestjs.com">
+  <meta property="og:url" content="http://www.rednoise.org">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary">
-  <meta property="og:site_name" content="Dialogic - A scripting language and toolkit for interactive generative dialog">
-  <meta property="og:title" content="Dialogic - A scripting language and toolkit for interactive generative dialog">
-  <meta property="og:description" content="Dialogic: the toolkit for generative interactive dialogue">
+  <meta property="og:site_name" content="RiTa - a software toolkit for computational literature">
+  <meta property="og:title" content="RiTa - a software toolkit for computational literature">
+  <meta property="og:description" content="RiTa - a software toolkit for computational literature">
   <meta property="og:image" content="https://github.com/dhowe/dialogicimg/nest-og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="650">
-  <meta name="twitter:description" content="Dialogic: the toolkit for generative interactive dialogue">
-  <meta name="twitter:title" content="Dialogic: the toolkit for generative interactive dialogue">
+  <meta name="twitter:description" content="RiTa - a software toolkit for computational literature">
+  <meta name="twitter:title" content="RiTa - a software toolkit for computational literature">
   <link rel="icon" type="image/x-icon" href="https://github.com/dhowe/dialogicfavicon.a18fc8a9.ico">
   <script type="text/javascript" id="www-widgetapi-script" src="res/www-widgetapi.js" async=""></script>
   <script defer="defer" src="res/all.js"></script>
   <script src="res/scripts.js"></script>
-  <link rel="stylesheet" href="res/plyr.css">
+  <!--
+  <ink rel="stylesheet" href="res/plyr.css">
+  -->
   <script src="res/iframe_api" async=""></script>
 </head>
 
@@ -292,10 +309,10 @@
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h5 class="panel-title">
-                  <a data-toggle="collapse" href="#collapse">Using RiTa in JavaScript</a>
+                  <a data-toggle="collapse" href="#collapseQS1">Using RiTa in JavaScript</a>
                 </h5>
               </div>
-              <div id="collapse" class="panel-collapse collapse">
+              <div id="collapseQS1" class="panel-collapse collapse">
                 <ul class="list-group">
                   <li class="list-group-item"><a href="https://www.npmjs.com/package/rita" target="_blank">In node.js (via npm)</a></li>
                   <li class="list-group-item"><a href="https://github.com/dhowe/RiTaJS/blob/master/README.node.md#in-nodejs" target="_blank">In node.js (via github)</a></li>
@@ -311,10 +328,10 @@
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h5 class="panel-title">
-                  <a data-toggle="collapse" href="#collapse2">Using RiTa in Java</a>
+                  <a data-toggle="collapse" href="#collapseQS2">Using RiTa in Java</a>
                 </h5>
               </div>
-              <div id="collapse2" class="panel-collapse collapse">
+              <div id="collapseQS2" class="panel-collapse collapse">
                 <ul class="list-group">
                   <li class="list-group-item"><a href="https://github.com/dhowe/RiTa#in-processing" target="_blank">In processing</a></li>
                   <li class="list-group-item"><a href="https://github.com/dhowe/RiTa#in-processing-android-mode" target="_blank">In processing for android</a></li>
@@ -330,10 +347,10 @@
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h5 class="panel-title">
-                  <a data-toggle="collapse" href="#collapse3">Development</a>
+                  <a data-toggle="collapse" href="#collapseQS3">Development</a>
                 </h5>
               </div>
-              <div id="collapse3" class="panel-collapse collapse">
+              <div id="collapseQS3" class="panel-collapse collapse">
                 <ul class="list-group">
                   <li class="list-group-item"><a href="https://github.com/dhowe/RiTa#development-setup-in-eclipse" target="_blank">Eclipse (java) via git/ant</a></li>
 
@@ -361,35 +378,30 @@
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h5 class="panel-title">
-                  <a data-toggle="collapse" href="#collapse">Using RiTa in JavaScript</a>
+                  <a data-toggle="collapse" href="#collapseTu1">Tutorials Video Tutorials on RiTa.js</a>
                 </h5>
               </div>
-              <div id="collapse" class="panel-collapse collapse">
+              <div id="collapseTu1" class="panel-collapse collapse">
                 <ul class="list-group">
-                  <li class="list-group-item"><a href="https://www.npmjs.com/package/rita" target="_blank">In node.js (via npm)</a></li>
-                  <li class="list-group-item"><a href="https://github.com/dhowe/RiTaJS/blob/master/README.node.md#in-nodejs" target="_blank">In node.js (via github)</a></li>
-                  <li class="list-group-item"><a href="https://github.com/dhowe/RiTaJS#a-simple-sketch" target="_blank">In the browser</a></li>
-                  <li class="list-group-item"><a href="https://github.com/dhowe/RiTaJS#with-browserify-and-npm" target="_blank">In the browser with browserify</a></li>
-                  <li class="list-group-item"><a href="https://github.com/dhowe/RiTaJS#with-bower" target="_blank">In the browser with bower</a></li>
-                  <li class="list-group-item"><a href="https://github.com/dhowe/RiTaJS#with-p5js" target="_blank">In the browser with p5.js</a></li>
-                  <li class="list-group-item"><a href="https://github.com/dhowe/RiTaJS#with-processingjs" target="_blank">In the browser with processing.js</a></li>
-                </ul>
+                  <li class="list-group-item"><a href="https://www.youtube.com/watch?v=lIPEvh8HbGQ" target="_blank">An Introduction to RiTa <span>by Dan Shiffman</span></a></li>
+                  <li class="list-group-item"><a href="https://www.youtube.com/watch?v=VaAoIaZ3YKs" target="_blank">Generating with Grammars <span>by Dan Shiffman</span></a></li>
+                  <li class="list-group-item"><a href="https://egghead.io/lessons/node-js-make-a-bot-that-sounds-like-you-with-rita-js" target="_blank">Make A Bot That Sounds Like You with RiTa.js <span>by Hannah Davis</span></a></li>
+                  <!--li><a href="https://egghead.io/lessons/node-js-make-a-twitter-audio-bot-that-composes-a-song-based-on-a-tweet" target="_blank">Make a Twitter Audio Bot That Composes a Song Based on a Tweet <span>by Hannah Davis</span></a></li-->
               </div>
             </div>
 
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h5 class="panel-title">
-                  <a data-toggle="collapse" href="#collapse2">Using RiTa in Java</a>
+                  <a data-toggle="collapse" href="#collapseTu2">Analyzing text</a>
                 </h5>
               </div>
-              <div id="collapse2" class="panel-collapse collapse">
+              <div id="collapseTu2" class="panel-collapse collapse">
                 <ul class="list-group">
-                  <li class="list-group-item"><a href="https://github.com/dhowe/RiTa#in-processing" target="_blank">In processing</a></li>
-                  <li class="list-group-item"><a href="https://github.com/dhowe/RiTa#in-processing-android-mode" target="_blank">In processing for android</a></li>
-                  <li class="list-group-item"><a href="https://github.com/dhowe/RiTa/blob/master/README.android.md#in-android" target="_blank">As a standalone android app (jar)</a></li>
-                  <li class="list-group-item"><a href="https://github.com/dhowe/RiTa#a-simple-example-java" target="_blank">As a standalone java program (jar)</a></li>
-
+                  <li class="list-group-item"><a href="analyzing.php#Phonemes">Phonemes</a></li>
+                  <li class="list-group-item"><a href="analyzing.php#Stresses">Stresses</a></li>
+                  <li class="list-group-item"><a href="analyzing.php#Tokens">Tokens</a></li>
+                  <li class="list-group-item"><a href="analyzing.php#POS">POS (Part of speech)</a></li>
                   <!-- TODO: update link
               <li><a href="https://github.com/dhowe/RiTa#development-setup-in-eclipse" target="_blank">In a java program via maven</a></li-->
                 </ul>
@@ -399,21 +411,44 @@
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h5 class="panel-title">
-                  <a data-toggle="collapse" href="#collapse3">Development</a>
+                  <a data-toggle="collapse" href="#collapseTu3">Transformation</a>
                 </h5>
               </div>
-              <div id="collapse3" class="panel-collapse collapse">
+              <div id="collapseTu3" class="panel-collapse collapse">
                 <ul class="list-group">
-                  <li class="list-group-item"><a href="https://github.com/dhowe/RiTa#development-setup-in-eclipse" target="_blank">Eclipse (java) via git/ant</a></li>
-
-                  <!-- TODO: update link
-              <li><a href="https://github.com/dhowe/RiTa#development-setup-in-eclipse" target="_blank">Eclipse (java) via git/maven</a></li>-->
-
-                  <li class="list-group-item"><a href="https://github.com/dhowe/RiTaJS#development-setup" target="_blank">Javascript via git/npm/gulp</a></li>
-
-                  <!-- TODO: update link
-              <li><a href="https://github.com/dhowe/RiTa#development-setup-in-eclipse" target="_blank">In a java program via maven</a></li-->
+                  <li class="list-group-item"><a href="transform.php#Conjugation">Conjugation</a></li>
+                  <li class="list-group-item"><a href="transform.php#Stemming">Stemming</a></li>
+                  <li class="list-group-item"><a href="transform.php#Plurals/Singulars">Plurals / Singulars</a></li>
+                  <li class="list-group-item"><a href="transform.php#Splitting-sentences">Splitting-sentences</a></li>
+                  <li class="list-group-item"><a href="transform.php#Tokenizing/Untokenizing">Tokenizing / Untokenizing</a></li>
                 </ul>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h5 class="panel-title">
+                  <a href="grammars.php">Generating with grammars</a>
+                </h5>
+              </div>
+              <div id="collapseTu3" class="panel-collapse collapse">
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h5 class="panel-title">
+                  <a href="ngrams.php">Generating with n-grams</a>
+                </h5>
+              </div>
+              <div id="collapseTu3" class="panel-collapse collapse">
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h5 class="panel-title">
+                  <a href="concordance.php">Concordance and Key-Word-In-Context</a>
+                </h5>
+              </div>
+              <div id="collapseTu3" class="panel-collapse collapse">
               </div>
             </div>
           </div>
@@ -421,7 +456,90 @@
         <div class="col-md-3">
         </div>
       </div>
+    </div>
+  </div>
+  <div class="examples-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-8">
+          <h4>Examples</h4>
+          <div class="row">
+            <div class="col-md-4">
+              <a class="nodec" href="examples/p5js/HaikuGrammar" target="_blank">
+                <p>HaikuGrammar</p>
+                &nbsp;<img class="example-img" src="img/sshaiku.png" alt="">
+              </a> &nbsp;
+              <p>
+                <a href="examples/p5js/HaikuGrammar" target="_blank">p5js</a> <a href="examples/p5js/HaikuGrammar/index.html#source">(source)</a>
+                <br>
+                <a href="examples/dom/HaikuGrammar" target="_blank">dom</a> <a href="examples/dom/HaikuGrammar/index.html#source">(source)</a>
+              </p>
+            </div>
+            <div class="col-md-4">
+              <a class="nodec" href="examples/p5js/HaikuGrammar" target="_blank">
+                <p>HaikuGrammar</p>
+                &nbsp;<img class="example-img" src="img/sshaiku.png" alt="">
+              </a> &nbsp;
+              <p>
+                <a href="examples/p5js/HaikuGrammar" target="_blank">p5js</a> <a href="examples/p5js/HaikuGrammar/index.html#source">(source)</a>
+                <br>
+                <a href="examples/dom/HaikuGrammar" target="_blank">dom</a> <a href="examples/dom/HaikuGrammar/index.html#source">(source)</a>
+              </p>
+            </div>
+            <div class="col-md-4">
+              <a class="nodec" href="examples/p5js/HaikuGrammar" target="_blank">
+                <p>HaikuGrammar</p>
+                &nbsp;<img class="example-img" src="img/sshaiku.png" alt="">
+              </a> &nbsp;
+              <p>
+                <a href="examples/p5js/HaikuGrammar" target="_blank">p5js</a> <a href="examples/p5js/HaikuGrammar/index.html#source">(source)</a>
+                <br>
+                <a href="examples/dom/HaikuGrammar" target="_blank">dom</a> <a href="examples/dom/HaikuGrammar/index.html#source">(source)</a>
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <a class="nodec" href="examples/p5js/HaikuGrammar" target="_blank">
+                <p>HaikuGrammar</p>
+                &nbsp;<img class="example-img" src="img/sshaiku.png" alt="">
+              </a> &nbsp;
+              <p>
+                <a href="examples/p5js/HaikuGrammar" target="_blank">p5js</a> <a href="examples/p5js/HaikuGrammar/index.html#source">(source)</a>
+                <br>
+                <a href="examples/dom/HaikuGrammar" target="_blank">dom</a> <a href="examples/dom/HaikuGrammar/index.html#source">(source)</a>
+              </p>
+            </div>
+            <div class="col-md-4">
+              <a class="nodec" href="examples/p5js/HaikuGrammar" target="_blank">
+                <p>HaikuGrammar</p>
+                &nbsp;<img class="example-img" src="img/sshaiku.png" alt="">
+              </a> &nbsp;
+              <p>
+                <a href="examples/p5js/HaikuGrammar" target="_blank">p5js</a> <a href="examples/p5js/HaikuGrammar/index.html#source">(source)</a>
+                <br>
+                <a href="examples/dom/HaikuGrammar" target="_blank">dom</a> <a href="examples/dom/HaikuGrammar/index.html#source">(source)</a>
+              </p>
+            </div>
+            <div class="col-md-4">
+              <a class="nodec" href="examples/p5js/HaikuGrammar" target="_blank">
+                <p>HaikuGrammar</p>
+                &nbsp;<img class="example-img" src="img/sshaiku.png" alt="">
+              </a> &nbsp;
+              <p>
+                <a href="examples/p5js/HaikuGrammar" target="_blank">p5js</a> <a href="examples/p5js/HaikuGrammar/index.html#source">(source)</a>
+                <br>
+                <a href="examples/dom/HaikuGrammar" target="_blank">dom</a> <a href="examples/dom/HaikuGrammar/index.html#source">(source)</a>
+              </p>
+            </div>
+          </div>
 
+        </div>
+        <div class="col-md-2">
+        </div>
+      </div>
     </div>
   </div>
   <div class="gallery-wrapper">
@@ -430,13 +548,90 @@
         <div class="col-md-2">
         </div>
         <div class="col-md-8">
-
+          <h4>Gallery</h4>
         </div>
         <div class="col-md-2">
         </div>
       </div>
     </div>
+    <div class="container">
+      <div class="row slick-slider">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4 gallery_home_item">
+              <a href="./gallery/TheHandsofGutenberg" target="new"><img src="img/gallery/hand.png"></a><br>
+              <a href="./gallery/TheHandsofGutenberg" target="new">The Hands of Gutenberg</a>
+              <p><span>by Philippe De Bree</span></p>
+            </div>
+            <div class="col-md-4 gallery_home_item">
+              <a href="./gallery/LyricPoems" target="new"><img src="img/gallery/lyric.jpg"></a><br>
+              <a href="./gallery/LyricPoems" target="new">Lyric Poems</a>
+              <p><span>by Cassie Scheirer</span></p>
+            </div>
+            <div class="col-md-4">
+              <a href="./gallery/PoetryInMotion" target="new"><img src="img/gallery/poetryInMotion.png"></a><br>
+              <a href="./gallery/PoetryInMotion" target="new">Poetry In Motion</a>
+              <p><span style="font-size:11px;">J. Zhou, R. Agarwal, E. Bretschneider</span></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <a href="./gallery/Daedalus" target="new"><img src="img/gallery/daedalus.png" ></a><br>
+              <a href="./gallery/Daedalus" target="new">DAEDALUS</a>
+              <p><span>by Alessandro Capozzo</span></p>
+            </div>
+            <div class="col-md-4">
+              <a href="./gallery/PopCulturePoetry" target="new"><img src="img/gallery/popculture.png" ></a><br>
+              <a href="./gallery/PopCulturePoetry" target="new">Pop Culture Poetry</a>
+              <p><span>by Ari Melenciano </span></p>
+            </div>
+            <div class="col-md-4">
+              <a href="./gallery/BracketMemeBot" target="new"><img src="img/gallery/bracket.png" ></a><br>
+              <a href="./gallery/BracketMemeBot" target="new">Bracket Meme Bot</a>
+              <p><span>by Darius Kazemi</span></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <a href="./gallery/DNA" target="new"><img src="img/gallery/poetryDNA.png" ></a><br>
+              <a href="./gallery/DNA" target="new">Poetry.dna</a>
+              <p><span>by Matthew Halpenny</span></p>
+            </div>
+            <div class="col-md-4">
+              <a href="./gallery/SolLewitt" target="new"><img src="img/gallery/sl.png" ></a><br>
+              <a href="./gallery/SolLewitt" target="new">Sol Lewitt Generator</a>
+              <p><span>by Richard Lapham</span></p>
+            </div>
+            <div class="col-md-4">
+              <a href="./gallery/HW00/hw00.html" target="new"><img src="img/gallery/hm.jpg" ></a><br>
+              <a href="./gallery/HW00/hw00.html" target="new">HW-PM-R-00</a>
+              <p><span>by David Hale</span></p>
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4">
+              <a href="./gallery/Daedalus" target="new"><img src="img/gallery/daedalus.png" ></a><br>
+              <a href="./gallery/Daedalus" target="new">DAEDALUS</a>
+              <p><span>by Alessandro Capozzo</span></p>
+            </div>
+            <div class="col-md-4">
+              <a href="./gallery/PopCulturePoetry" target="new"><img src="img/gallery/popculture.png" ></a><br>
+              <a href="./gallery/PopCulturePoetry" target="new">Pop Culture Poetry</a>
+              <p><span>by Ari Melenciano </span></p>
+            </div>
+            <div class="col-md-4">
+              <a href="./gallery/BracketMemeBot" target="new"><img src="img/gallery/bracket.png" ></a><br>
+              <a href="./gallery/BracketMemeBot" target="new">Bracket Meme Bot</a>
+              <p><span>by Darius Kazemi</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+
 
 
   <footer class="page-footer">
