@@ -206,7 +206,9 @@ a:focus {
 }
 
 .highlights-wrapper {
-  background: #f5f5f5;
+
+  background: rgba(250,250,250, 1);
+  /* Add the blur effect */
   padding: 100px 0;
   text-align: center
 }
@@ -218,7 +220,8 @@ a:focus {
 .highlights-wrapper span {
   font-size: 80px;
   margin: 0 auto;
-  display: block
+  display: block;
+  color: #3557a6;
 }
 
 .highlights-wrapper h5 {
@@ -378,10 +381,10 @@ a:focus {
 }
 
 .page-footer {
-  background-color: #f1f3f3;
+  background-color: #374259;
   text-align: center;
   color: #090909;
-  padding: 60px 20px
+  padding: 60px 20px;
 }
 
 .page-footer .icon {
@@ -402,7 +405,7 @@ a:focus {
 }
 
 .page-footer p a {
-  color: #ea2845;
+  color: #FFF;
   font-weight: 600
 }
 
@@ -617,7 +620,7 @@ a:focus {
 }
 
 .learning-wrapper {
-  background: #111;
+  background: #374259;
   text-align: center;
   color: #fff;
   padding: 100px 0
@@ -638,7 +641,7 @@ a:focus {
 }
 
 .examples-wrapper {
-  background: #f5f5f5;
+  background: #FFF;
   text-align: center;
   color: #333;
   padding: 100px 0
@@ -659,9 +662,8 @@ a:focus {
 }
 
 .gallery-wrapper {
-  background: #222;
+  background: #333;
   text-align: center;
-  color: #FFF;
   padding: 100px 0;
   text-align: center;
 }
@@ -669,7 +671,8 @@ a:focus {
 .gallery-wrapper h4 {
   font-size: 36px;
   margin: 0;
-  line-height: 60px
+  line-height: 60px;
+  color: #FFF;
 }
 
 .gallery-wrapper p {
@@ -677,7 +680,8 @@ a:focus {
   max-width: 700px;
   margin: 15px auto 100px;
   font-size: 16px;
-  line-height: 30px
+  line-height: 30px;
+  color: #FFF;
 }
 
 .gallery-wrapper div{
@@ -686,7 +690,7 @@ a:focus {
 
 .gallery-wrapper .slick-slider{
 		margin: 0 auto;
-		height: 80%;
+		height: 80%; /* todo */
 }
 
 
@@ -703,14 +707,14 @@ a:focus {
 .gallery-wrapper p{
 }
 .gallery-wrapper a{
-   color:#006B8F;
+   color:#96b2f2;
+   font-weight: 800;
 }
 .gallery-wrapper a:hover{
   text-decoration: underline;
 }
 
-
-.panel-heading {
+.panel, .panel-default, .panel-heading {
   padding: 0;
   border: 0;
 }
@@ -718,13 +722,15 @@ a:focus {
 .panel-title>a, .panel-title>a:active {
   display: block;
   padding: 15px;
-  color: #555;
+  color: #FFF;
+  background: #25373C;
   font-size: 16px;
   font-weight: bold;
   letter-spacing: 1px;
   word-spacing: 3px;
   text-decoration: none;
 }
+
 
 .panel-heading a:before {
   font-family: 'Glyphicons Halflings';
@@ -737,4 +743,15 @@ a:focus {
   -webkit-transform: rotate(180deg);
   -moz-transform: rotate(180deg);
   transform: rotate(180deg);
+}
+
+.list-group-item{
+  color: #FFF;
+  background: #25373C;
+}
+
+
+.list-group-item a{
+  color: #FFF;
+
 }
