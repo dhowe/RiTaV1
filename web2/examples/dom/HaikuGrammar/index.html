@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Haiku (dom)</title>
+  <meta charset="utf-8">
+  <script src="../../lib/jquery-1.11.3.min.js"></script>
+  <script src="../../lib/yaml.min.js"></script>
+  <script src="../../lib/p5.min.js"></script>
+  <script src="../../../dist/rita.js"></script>
+  <script src="../../lib/prism.js"></script>
+  <script src="../../lib/sourcecode.js"></script>
+  <link rel='stylesheet' href='../../lib/prism.css' />
+  <style>
+    @font-face {
+      font-family: Resagokr;
+      src: url("../../fonts/Resagokr.otf");
+    }
+
+    div {
+      background-color: rgb(230, 240, 255);
+      font-family: Resagokr;
+      font-size: 30px;
+      text-align: center;
+      width: 650px;
+      height: 200px;
+    }
+
+    span {
+      position: relative;
+      top: 25%;
+    }
+  </style>
+  <script src="code.js"></script>
+</head>
+
+<body>
+<!-- showing souce code -->
+    <a href="#source" id="view-source">source</a> <a href="#source2" id="view-source">grammar</a>  </font><br>
+<div class="code" id="source">
+    <pre>
+ <code id="source-code" class="language-java"></code>
+ </pre>
+  </div>
+
+<div class="code" id="source2">
+    <pre>
+ <code id="grammar" class="language-yaml"></code>
+ </pre>
+  </div>
+<!-- end of showing souce code -->
+
+  <div id='hdiv'>
+    <span id='line1'></span></br>
+    <span id='line2'></span></br>
+    <span id='line3'></span></br>
+  </div>
+</body>
+
+</html>

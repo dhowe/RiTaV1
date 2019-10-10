@@ -1,13 +1,10 @@
-html {
-  position: relative;
-  min-height: 450px
-}
 
 body {
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
   font-size: 17.5px;
   font-weight: 400;
-  -webkit-font-smoothing: antialiased
+  -webkit-font-smoothing: antialiased;
+  	background: rgba(0,0,0,1);
 }
 
 
@@ -63,7 +60,7 @@ a:focus {
   display: inline-block
 }
 
-.top-wrapper {
+#download-wrapper {
   padding-top: 30px
 }
 
@@ -82,18 +79,18 @@ a:focus {
   margin: 0 0;
 }
 
-.main-wrapper {
+#main-wrapper {
   padding-top: 140px
 }
 
-.main-wrapper h1 {
+#main-wrapper h1 {
   font-weight: 600;
   font-size: 80px;
   margin: 0 0 35px;
   line-height: 75px
 }
 
-.main-wrapper h1 span {
+#main-wrapper h1 span {
   font-size: 30px;
   margin-left: 8px;
   font-weight: 700;
@@ -101,7 +98,7 @@ a:focus {
 }
 
 
-.main-wrapper h4 {
+#main-wrapper h4 {
   font-weight: 500;
   max-width: 600px;
   margin: 20px 0 0;
@@ -205,7 +202,7 @@ a:focus {
   margin-bottom: 12px
 }
 
-.highlights-wrapper {
+#highlights-wrapper {
 
   background: rgba(250,250,250, 1);
   /* Add the blur effect */
@@ -213,18 +210,18 @@ a:focus {
   text-align: center
 }
 
-.highlights-wrapper .highlight-block {
+#highlights-wrapper .highlight-block {
   padding: 20px 0;
 }
 
-.highlights-wrapper span {
+#highlights-wrapper span {
   font-size: 80px;
   margin: 0 auto;
   display: block;
   color: #3557a6;
 }
 
-.highlights-wrapper h5 {
+#highlights-wrapper h5 {
   text-transform: uppercase;
   font-weight: 700;
   font-size: 18px;
@@ -232,7 +229,7 @@ a:focus {
   margin: 40px 0 0
 }
 
-.highlights-wrapper p {
+#highlights-wrapper p {
   font-size: 16px;
   font-weight: 500;
   max-width: 300px;
@@ -425,8 +422,8 @@ a:focus {
   right: 0;
   top: 0;
   height: 60px;
-  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .07);
-  background: rgba(56, 66, 90, 1);
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, .5);
+  background: #253c73;
   padding: 8px 0;
   opacity: 0;
   transform: translate3d(0, -100%, 0);
@@ -468,33 +465,69 @@ a:focus {
   font-size: 16px
 }
 
-.description-wrapper {
-  /*	background-image: url(support.f8bcb7f8.png);*/
-  ß background-position: 0 100%;
-  background-repeat: no-repeat;
+
+/*!
+Desc section
+ */
+
+
+#description-wrapper {
+	background: #f1f3f3;
+	padding: 100px 0;
   background-color: #fff;
-  overflow: hidden
+  overflow: hidden;
 }
 
-.description-column {
-  width: 60%;
-  float: right;
-  padding: 90px 0;
-  color: #fff
+#description-wrapper .icon-wrapper {
+	width: 70px;
+	height: 75px;
+	margin: 0 auto;
+	display: block;
 }
 
-.description-column h2 {
-  font-size: 32px;
-  margin-top: 0
+#description-wrapper h5 {
+
+	font-weight: 700;
+	font-size: 18px;
+	color: #ea2845;
+	margin: 40px 0 0
 }
 
-.description-column p {
-  font-weight: 500;
-  line-height: 32px
+#description-wrapper p {
+
+	font-weight: 500;
+	text-align: justify;
+	margin: 20px auto;
+	line-height: 30px
 }
+
+
+#description-wrapper .platforms{
+/*    margin:auto;
+    width:500px;*/
+		text-align: center;
+}
+#description-wrapper .platform span{
+    font-size: 60px;
+    color:#404040;
+}
+#description-wrapper .platform p{
+    text-align: center;
+  /*  font-size:0.875rem;*/
+    color:grey;
+}
+#description-wrapper .platform{
+    text-align: center;
+    display: inline-block;
+    padding:10px;
+}
+
+
+
+
 
 @media (max-width:1300px) {
-  .description-wrapper {
+  #description-wrapper {
     background-position: -250px bottom
   }
 
@@ -505,7 +538,7 @@ a:focus {
 }
 
 @media (max-width:991px) {
-  .description-wrapper {
+  #description-wrapper {
     background-position: -400px bottom
   }
 
@@ -514,11 +547,11 @@ a:focus {
     text-align: center
   }
 
-  .main-wrapper {
+  #main-wrapper {
     text-align: center
   }
 
-  .main-wrapper h4 {
+  #main-wrapper h4 {
     margin-right: auto;
     margin-left: auto
   }
@@ -552,7 +585,7 @@ a:focus {
 }
 
 @media (max-width:680px) {
-  .description-wrapper {
+  #description-wrapper {
     height: auto;
     background: #ed1543
   }
@@ -576,7 +609,7 @@ a:focus {
     margin-right: auto
   }
 
-  .main-wrapper {
+  #main-wrapper {
     padding-top: 100px
   }
 
@@ -619,63 +652,101 @@ a:focus {
   visibility: hidden
 }
 
-.learning-wrapper {
+#learning-wrapper {
   background: #374259;
   text-align: center;
   color: #fff;
-  padding: 100px 0
+  padding: 100px 0;
+
 }
 
-.learning-wrapper h4 {
+#learning-wrapper h4 {
   font-size: 36px;
   margin: 0;
-  line-height: 60px
+  line-height: 60px;
+    color: #fff;
 }
 
-.learning-wrapper p {
+#learning-wrapper p{
   font-weight: 500;
   max-width: 700px;
-  margin: 15px auto 100px;
+  margin: 15px auto 15px;
+  font-size: 16px;
+  line-height: 30px;
+  color:#fff;
+}
+
+#examples-items {
+
+  text-align: center;
+  color: #333;
+
+}
+
+
+
+#examples-items img {
+display: inline-block;
+}
+
+#examples-items p {
+  font-weight: 500;
+  max-width: 700px;
+  margin: 15px auto 15px;
   font-size: 16px;
   line-height: 30px
 }
 
-.examples-wrapper {
+
+
+#examples-items a{
+
+  color:#96b2f2;
+}
+
+
+
+#examples-wrapper {
   background: #FFF;
   text-align: center;
   color: #333;
-  padding: 100px 0
+  padding: 100px 0;
+  display: none;
 }
 
-.examples-wrapper h4 {
+#examples-wrapper h4 {
   font-size: 36px;
   margin: 0;
-  line-height: 60px
+  line-height: 60px;
+
 }
 
-.examples-wrapper p {
+#examples-wrapper p {
   font-weight: 500;
   max-width: 700px;
-  margin: 15px auto 100px;
+  margin: 15px auto 15px;
   font-size: 16px;
   line-height: 30px
 }
 
-.gallery-wrapper {
+
+
+
+#gallery-wrapper {
   background: #333;
   text-align: center;
   padding: 100px 0;
   text-align: center;
 }
 
-.gallery-wrapper h4 {
+#gallery-wrapper h4 {
   font-size: 36px;
   margin: 0;
   line-height: 60px;
   color: #FFF;
 }
 
-.gallery-wrapper p {
+#gallery-wrapper p {
   font-weight: 500;
   max-width: 700px;
   margin: 15px auto 100px;
@@ -684,17 +755,17 @@ a:focus {
   color: #FFF;
 }
 
-.gallery-wrapper div{
+#gallery-wrapper div{
 		margin: 0 auto;
 }
 
-.gallery-wrapper .slick-slider{
+#gallery-wrapper .slick-slider{
 		margin: 0 auto;
-		height: 80%; /* todo */
+
 }
 
 
-.gallery-wrapper img{
+#gallery-wrapper img{
     width:180px;
     height:50px;
     border-style: solid;
@@ -704,13 +775,13 @@ a:focus {
 		display: inline-block;
 		margin: 20px 0;
 }
-.gallery-wrapper p{
+#gallery-wrapper p{
 }
-.gallery-wrapper a{
+#gallery-wrapper a{
    color:#96b2f2;
    font-weight: 800;
 }
-.gallery-wrapper a:hover{
+#gallery-wrapper a:hover{
   text-decoration: underline;
 }
 
@@ -754,4 +825,16 @@ a:focus {
 .list-group-item a{
   color: #FFF;
 
+}
+
+
+
+.example-img{
+  width: 150px;
+    height: 150px;
+    border: 1px solid #eee;
+}
+
+.slide{
+overflow: auto;
 }
