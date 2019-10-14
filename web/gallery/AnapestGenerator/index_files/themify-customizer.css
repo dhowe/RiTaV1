@@ -1,0 +1,271 @@
+/* Themify Customize Styling */
+body {		background-image: url(https://blog.homeforfiction.com/wp-content/uploads/2017/11/intro-bg_head3.jpg);
+	background-repeat: no-repeat;
+	background-position: center top;
+	background-color: #000000;
+	background-color: rgba(0,0,0,1.00);	
+	font-family:Verdana, Geneva, sans-serif;	
+	color: #c2c0c0;
+	color: rgba(194,192,192,1.00); 
+}
+a {		
+	color: #42dea5;
+	color: rgba(66,222,165,1.00); 
+}
+a:hover {		
+	color: #54a1ff;
+	color: rgba(84,161,255,1.00); 
+}
+#sidebar {		
+	color: #ffffff;
+	color: rgba(255,255,255,1);		text-align:left; 
+}
+h2 {		
+	font-family:Verdana, Geneva, sans-serif;	font-style:normal;
+	font-weight:normal;
+	text-decoration:none;
+	font-size:26px;
+	line-height:130%;
+	text-transform:capitalize;	text-align:left;	
+	color: #ffffff;
+	color: rgba(255,255,255,1.00); 
+}
+h3 {		
+	font-family:Verdana, Geneva, sans-serif;	font-style:normal;
+	font-weight:normal;
+	text-decoration:none;
+	font-size:22px;
+	text-transform:capitalize;	text-align:left;	
+	color: #ffffff;
+	color: rgba(255,255,255,1.00); 
+}
+h4 {		
+	font-family:Verdana, Geneva, sans-serif;	font-style:normal;
+	font-weight:normal;
+	text-decoration:none;
+	font-size:18px;
+	text-transform:capitalize;	text-align:left;	
+	color: #ffffff;
+	color: rgba(255,255,255,1.00); 
+}
+h5 {		
+	font-family:Verdana, Geneva, sans-serif;	font-size:18px;
+	line-height:1.5em;
+	text-transform:capitalize;	
+	color: #ffffff;
+	color: rgba(255,255,255,1.00); 
+}
+#site-logo {		
+	font-family:Palatino, 'Palatino Linotype', 'Book Antiqua', serif;	text-transform:capitalize;
+	color: #ffffff;
+	color: rgba(255,255,255,1.00); 
+}
+#site-logo a {	
+	color: #ffffff;
+	color: rgba(255,255,255,1.00); 
+}
+#site-description {		
+	font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif;	font-style:italic;
+
+	color: #ffffff;
+	color: rgba(255,255,255,1.00); 
+}
+#main-nav a {		
+	font-family:Tahoma, Geneva, sans-serif;	
+	color: #42dea5;
+	color: rgba(66,222,165,1.00);	
+	background-color: #ffffff;
+	background-color: rgba(255,255,255,0.00); 
+}
+#main-nav a:hover {		
+	color: #54a1ff;
+	color: rgba(84,161,255,1.00); 
+}
+#main-nav .current_page_item a,  #main-nav .current-menu-item a {		
+	background-color: #ffffff;
+	background-color: rgba(255,255,255,0.01);	
+	color: #42dca3;
+	color: rgba(66,220,163,1); 
+}
+#main-nav .current_page_item a:hover,  #main-nav .current-menu-item a:hover {		
+	background-color: #55a4ff;
+	background-color: rgba(85,164,255,0.00);	
+	color: #55a4ff;
+	color: rgba(85,164,255,1); 
+}
+.post-title, .post-title a {		
+	font-family:Palatino, 'Palatino Linotype', 'Book Antiqua', serif;	text-align:center;	
+	color: #ffffff;
+	color: rgba(255,255,255,1.00); 
+}
+.post-title {		
+	padding: 10px; 
+}
+.post-title a:hover {		
+	color: #42dca3;
+	color: rgba(66,220,163,1.00); 
+}
+.post-meta {		
+	color: #ffffff;
+	color: rgba(255,255,255,1.00);	
+	font-family:Arial, Helvetica, sans-serif; 
+}
+.post-meta a {		
+	color: #42dca3;
+	color: rgba(66,220,163,1); 
+}
+.post-meta a:hover {		
+	color: #54a1ff;
+	color: rgba(84,161,255,1); 
+}
+.post-date {		
+	color: #54a1ff;
+	color: rgba(84,161,255,1.00);	
+	font-family:Verdana, Geneva, sans-serif;	text-transform:capitalize;	text-align:left; 
+}
+.more-link {		
+	color: #42dca3;
+	color: rgba(66,220,163,1);	
+	font-family:Tahoma, Geneva, sans-serif;	font-size:14px;
+ 
+}
+.page-title {		
+	color: #ffffff;
+	color: rgba(255,255,255,1.00); 
+}
+#sidebar a {		
+	color: #42dca3;
+	color: rgba(66,220,163,1.00); 
+}
+#sidebar a:hover {		
+	color: #54a1ff;
+	color: rgba(84,161,255,1); 
+}
+#sidebar .widgettitle {		
+	color: #54a1ff;
+	color: rgba(84,161,255,1.00);	
+	font-family:Tahoma, Geneva, sans-serif; 
+}
+#sidebar .widget li {		
+	background-color: #000000;
+	background-color: rgba(0,0,0,0.00); 
+}
+#footer {		
+	color: #ffffff;
+	color: rgba(255,255,255,1.00); 
+}
+#footer a {		
+	color: #ffffff;
+	color: rgba(255,255,255,1.00); 
+}
+#footer a:hover {		
+	color: #42dca3;
+	color: rgba(66,220,163,1); 
+}
+
+/* Themify Custom CSS */
+.postmetadata {
+	  display:none;
+}
+.post-nav {
+	  margin: 0 0 1px;padding: 1px 0;clear: both;
+}
+.post-nav.clearfix {
+	  font-size: 14px
+}
+blockquote {
+	  margin: 20px;font-style: normal;width: 70%;padding-left: 30px;padding-top: 20px;line-height: 1.45;position: relative;color: #E0E0E0;font-size: 16px;font-family: Verdana;border-left:3px dashed #55A4FF;box-shadow: 2px 2px 15px 2px #444;background:#222237;
+}
+.inlinerel {
+	  padding: 0px 15px 15px 5px;width: 95%;text-align: left;color: white;background-color: #333333;border: #42dca3 2px solid;font-size: 1.2em;text-shadow: 2px 2px 5px black;border-radius: 1px;
+}
+h2 {
+	  padding-top:1.5em;
+}
+h3{
+	  text-indent: 3%;
+}
+h4 {
+	  text-indent: 5%;
+}
+/* The Modal (background) */.modal {
+	  display: none; /* Hidden by default */  position: fixed; /* Stay in place */  z-index: 1; /* Sit on top */  left: 0;top: 0;width: 100%; /* Full width */  height: 100%; /* Full height */  overflow: auto; /* Enable scroll if needed */  background-color: rgb(0,0,0); /* Fallback color */  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+/* Modal Content/Box */.modal-content {
+	  background-color: #fefefe;background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://blog.homeforfiction.com/wp-content/uploads/2019/05/illfic.jpg);background-position: center;background-repeat: no-repeat;background-size: cover;position: relative;margin: 15% auto; /* 15% from the top and centered */  padding: 20px;border: 1px solid #888;width: 80%; /* Could be more or less, depending on screen size */
+}
+/* The Close Button */.close {
+	  color: #707070;float: right;font-size: 28px;font-weight: bold;
+}
+.close:hover,.close:focus {
+	  color: black;text-decoration: none;cursor: pointer;
+}
+/* Modal Header */.modal-header {
+	  padding: 2px 16px;margin-top: 30px;background-color: #4286f4;color: white;
+}
+/* Modal Body */.modal-body {
+	  padding: 2px 16px;
+}
+/* Modal Footer */.modal-footer {
+	  padding: 2px 16px;background-color: #4286f4;color: white;
+}
+/* Modal Content */.modal-content {
+	  position: relative;background-color: #444444;color: #cfd1bc;margin: auto;padding: 0;border: 1px solid #888;width: 70%;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);animation-name: animatetop;animation-duration: 0.4s
+}
+/* Add Animation */@keyframes animatetop {
+	  from {
+	  top: -300px;opacity: 0
+}
+  to {
+	  top: 0;opacity: 1
+}
+
+}
+.gist .gist-meta {
+	  display: none;
+}
+.wp-block-separator {
+	  width: 20%;margin-bottom: 40px;
+}
+.shadowImg {
+	  padding-top: 8px;padding-left: 4px;padding-right: 4px;border: 2px solid #222;box-shadow: 2px 2px 10px 5px #444 inset;
+}
+.noshadowImg {
+	  padding-top: 8px;padding-left: 4px;padding-right: 4px;border: 0px solid #222;box-shadow: 0px 0px 0px 0px #444 inset;
+}
+.wp-block-image {
+	  padding-top: 8px;padding-left: 4px;padding-right: 4px;border: 2px solid #222;box-shadow: 2px 2px 10px 5px #444 inset;
+}
+.shadowImg {
+	  padding-top: 8px;padding-left: 4px;padding-right: 4px;border: 2px solid #222;box-shadow: 2px 2px 10px 5px #444 inset;
+}
+.noshadowImg {
+	  padding-top: 8px;padding-left: 4px;padding-right: 4px;border: 0px solid #222;box-shadow: 0px 0px 0px 0px #444 inset;
+}
+.size-full {
+	  padding-top: 8px;padding-bottom: 8px;padding-left: 4px;padding-right: 4px;border: 2px solid #222;box-shadow: 2px 2px 10px 5px #444 inset;
+}
+.wp-block-gallery {
+	  background: rgba(85, 164, 255, 0.3);padding-top: 12px;padding-left: 4px;padding-right: 4px;border: 2px solid #222;box-shadow: 2px 2px 20px 1px inset #444;
+}
+.wp-caption-text {
+	  margin-bottom: 30px;font-size: 0.9em;color: gray;font-style: italic;
+}
+.wp-block-image figcaption{
+	  color:gray;font-size: 0.9em;font-style: italic;
+}
+.jp-relatedposts h4 {
+	  text-indent: 0%;
+}
+.jetpack_subscription_widget .widgettitle {
+	  font-size: 1.3em;font-family: Verdana;
+}
+.commentwrap {
+	margin:0px;
+}
+.comment-reply-title {
+	  text-indent: 0%;  font-size: 1em !important;
+}
+.comment-title {
+	  text-indent: 0%;font-size: 1em !important;
+}

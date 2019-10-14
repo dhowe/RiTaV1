@@ -1,0 +1,178 @@
+.kk-star-ratings {
+    display: -webkit-box !important;
+    display: -webkit-flex !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.kk-star-ratings.kksr-top {
+    margin-bottom: 2rem;
+}
+
+.kk-star-ratings.kksr-bottom {
+    /* margin-top: 2rem; */
+    margin: 2rem 0;
+}
+
+.kk-star-ratings.kksr-center {
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.kk-star-ratings.kksr-right {
+    -webkit-box-pack: flex-end;
+    -webkit-justify-content: flex-end;
+    -ms-flex-pack: flex-end;
+    justify-content: flex-end;
+}
+
+.kk-star-ratings .kksr-stars {
+    position: relative;
+    display: table;
+    line-height: 0;
+}
+
+.kk-star-ratings .kksr-stars .kksr-inactive-stars .kksr-star,
+.kk-star-ratings .kksr-stars .kksr-active-stars .kksr-star {
+    padding-right: 4px;
+}
+.kk-star-ratings .kksr-stars .kksr-inactive-stars .kksr-star:last-child,
+.kk-star-ratings .kksr-stars .kksr-active-stars .kksr-star:last-child {
+    padding-right: 0;
+}
+
+.kk-star-ratings .kksr-stars .kksr-active-stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+.kk-star-ratings .kksr-stars .kksr-star {
+    cursor: pointer;
+    display: table-cell;
+}
+
+.kk-star-ratings .kksr-stars .kksr-star svg {
+    pointer-events: none;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+.kk-star-ratings.kksr-disable .kksr-stars .kksr-star {
+    cursor: default;
+}
+
+.kk-star-ratings:not(.kksr-disable) .kksr-stars:hover .kksr-active-stars {
+    display: none;
+}
+
+/* Legend */
+
+.kk-star-ratings .kksr-legend {
+    color: #fff;
+    border-radius: 10rem;
+    margin-right: 8px;
+    font-family: monospace;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.kk-star-ratings .kksr-legend .kksr-legend-score {
+    font-weight: bold;
+    padding: 0 8px;
+}
+
+.kk-star-ratings .kksr-legend .kksr-legend-meta {
+    background-color: #fff;
+    border-radius: 0 10rem 10rem 0;
+    margin-right: 2px;
+    padding: 0 6px;
+}
+
+/* Size */
+.kk-star-ratings .kksr-stars .kksr-star svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Colors */
+
+.kk-star-ratings .kksr-stars .kksr-star svg,
+.kk-star-ratings:not(.kksr-disable) .kksr-stars .kksr-star:hover ~ .kksr-star svg {
+    fill: #fff;
+    stroke: #333;
+}
+.kk-star-ratings .kksr-stars .kksr-active-stars .kksr-star svg {
+    fill: #ddd;
+    stroke: #333;
+}
+.kk-star-ratings:not(.kksr-disable) .kksr-stars:hover .kksr-star svg {
+    fill: #f2fa6f;
+    stroke: #333;
+}
+.kk-star-ratings .kksr-legend {
+    background-color: #333;
+}
+.kk-star-ratings .kksr-legend .kksr-legend-meta {
+    color: #333;
+}
+
+/* RTL */
+
+.kk-star-ratings.kksr-rtl {
+    direction: ltr;
+}
+
+/* .kk-star-ratings.kksr-rtl.kksr-right {
+    -webkit-box-pack: flex-start;
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: flex-start;
+    justify-content: flex-start;
+} */
+
+/* RTL - stars */
+
+/* .kk-star-ratings.kksr-rtl .kksr-stars .kksr-star {
+    padding-left: 4px;
+    padding-right: 0;
+}
+
+.kk-star-ratings.kksr-rtl .kksr-stars .kksr-active-stars {
+    top: 0;
+    right: 0;
+}
+
+.kk-star-ratings.kksr-rtl .kksr-stars .kksr-inactive-stars .kksr-star,
+.kk-star-ratings.kksr-rtl .kksr-stars .kksr-active-stars .kksr-star {
+    padding-left: 4px;
+    padding-right: 0;
+}
+.kk-star-ratings.kksr-rtl .kksr-stars .kksr-inactive-stars .kksr-star:last-child,
+.kk-star-ratings.kksr-rtl .kksr-stars .kksr-active-stars .kksr-star:last-child {
+    padding-left: 0;
+} */
+
+/* RTL - legend */
+
+/* .kk-star-ratings.kksr-rtl .kksr-legend {
+    margin-left: 8px;
+    margin-right: 0;
+}
+.kk-star-ratings.kksr-rtl .kksr-legend .kksr-legend-meta {
+    margin-left: 0;
+    margin-right: 2px;
+    border-radius: 10rem 0 0 10rem;
+} */
