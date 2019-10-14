@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html class="fontawesome-i2svg-active fontawesome-i2svg-complete">
 
 <head>
@@ -22,16 +23,17 @@
   <script src="scripts/panel.js"></script>
   <link rel="stylesheet" href="css/animate.css">
   <script src="scripts/wow.min.js"></script>
-               <script>
-               new WOW().init();
-               </script>
 
   <script type="text/javascript">
     $(document).ready(function() {
+               new WOW().init();
 
 
+      $('.slick-slider-gallery').slick({
+        dots: true,
+      });
 
-      $('.slick-slider').slick({
+      $('.slick-slider-learning').slick({
         dots: true,
       });
 
@@ -69,8 +71,8 @@
 -->
 
 
-  <meta name="description" content="RiTa - a software toolkit for computational literature>
-  <meta name=" robots" content="noodp">
+  <meta name="description" content="RiTa - a software toolkit for computational literature">
+  <meta name="robots" content="noodp">
   <link rel="canonical" href="https://github.com/dhowe/dialogic">
   <meta property="og:url" content="http://www.rednoise.org">
   <meta property="og:type" content="website">
@@ -88,7 +90,7 @@
   <script defer="defer" src="res/all.js"></script>
   <script src="res/scripts.js"></script>
   <!--
-  <ink rel="stylesheet" href="res/plyr.css">
+  <link rel="stylesheet" href="res/plyr.css">
   -->
   <script src="res/iframe_api" async=""></script>
 </head>
@@ -241,30 +243,30 @@
 
             <div class="col-md-12">
               <div class="platforms">
-                <div class="platform">
+                <div class="platform wow slideInUp" data-wow-delay="0.1s">
 
                   <img src="img/java-seeklogo.com.svg" alt="Java" height="87px" width="87px" />
 
                   <p>Java</p>
                 </div>
-                <div class="platform">
+                <div class="platform wow slideInUp" data-wow-delay="0.2s">
 
                   <img src="img/javascript-logo.png" alt="Javascript" height="87px" width="87px" />
 
                   <p>Javascript</p>
                 </div>
-                <div class="platform">
+                <div class="platform wow slideInUp" data-wow-delay="0.3s">
 
                   <img src="img/Processing_Logo_Clipped.svg" alt="Processing" height="87px" width="87px" />
 
                   <p>Processing</p>
                 </div>
-                <div class="platform">
+                <div class="platform wow slideInUp" data-wow-delay="0.4s">
                   <img src="img/Node.js_logo.svg" alt="node.js" height="87px" width="87px" />
 
                   <p>Node JS</p>
                 </div>
-                <div class="platform">
+                <div class="platform wow slideInUp" data-wow-delay="0.5s">
                   <img src="img/Android_robot.svg" alt="Android" height="87px" width="87px" />
                   <p>Android</p>
                 </div>
@@ -332,7 +334,7 @@
 
   <div id="learning-wrapper">
     <div class="container wow fadeIn ">
-      <div class="row slick-slider">
+      <div class="row slick-slider-learning">
         <div class="container slide">
           <div class="row">
             <div class="col-md-3">
@@ -373,7 +375,7 @@
                       <li class="list-group-item"><a href="https://github.com/dhowe/RiTa#a-simple-example-java" target="_blank">As a standalone java program (jar)</a></li>
 
                       <!-- TODO: update link
-                  <li><a href="https://github.com/dhowe/RiTa#development-setup-in-eclipse" target="_blank">In a java program via maven</a></li-->
+                  <li><a href="https://github.com/dhowe/RiTa#development-setup-in-eclipse" target="_blank">In a java program via maven</a></li> -->
                     </ul>
                   </div>
                 </div>
@@ -389,12 +391,12 @@
                       <li class="list-group-item"><a href="https://github.com/dhowe/RiTa#development-setup-in-eclipse" target="_blank">Eclipse (java) via git/ant</a></li>
 
                       <!-- TODO: update link
-                  <li><a href="https://github.com/dhowe/RiTa#development-setup-in-eclipse" target="_blank">Eclipse (java) via git/maven</a></li>-->
+                  <li><a href="https://github.com/dhowe/RiTa#development-setup-in-eclipse" target="_blank">Eclipse (java) via git/maven</a></li> -->
 
                       <li class="list-group-item"><a href="https://github.com/dhowe/RiTaJS#development-setup" target="_blank">Javascript via git/npm/gulp</a></li>
 
                       <!-- TODO: update link
-                  <li><a href="https://github.com/dhowe/RiTa#development-setup-in-eclipse" target="_blank">In a java program via maven</a></li-->
+                  <li><a href="https://github.com/dhowe/RiTa#development-setup-in-eclipse" target="_blank">In a java program via maven</a></li> -->
                     </ul>
                   </div>
                 </div>
@@ -421,6 +423,7 @@
                       <li class="list-group-item"><a href="https://www.youtube.com/watch?v=VaAoIaZ3YKs" target="_blank">Generating with Grammars <span>by Dan Shiffman</span></a></li>
                       <li class="list-group-item"><a href="https://egghead.io/lessons/node-js-make-a-bot-that-sounds-like-you-with-rita-js" target="_blank">Make A Bot That Sounds Like You with RiTa.js <span>by Hannah Davis</span></a></li>
                       <!--li><a href="https://egghead.io/lessons/node-js-make-a-twitter-audio-bot-that-composes-a-song-based-on-a-tweet" target="_blank">Make a Twitter Audio Bot That Composes a Song Based on a Tweet <span>by Hannah Davis</span></a></li-->
+                    </ul>
                   </div>
                 </div>
 
@@ -437,7 +440,7 @@
                       <li class="list-group-item"><a href="analyzing.php#Tokens">Tokens</a></li>
                       <li class="list-group-item"><a href="analyzing.php#POS">POS (Part of speech)</a></li>
                       <!-- TODO: update link
-                  <li><a href="https://github.com/dhowe/RiTa#development-setup-in-eclipse" target="_blank">In a java program via maven</a></li-->
+                  <li><a href="https://github.com/dhowe/RiTa#development-setup-in-eclipse" target="_blank">In a java program via maven</a></li> -->
                     </ul>
                   </div>
                 </div>
@@ -464,7 +467,7 @@
                       <a href="grammars.php">Generating with grammars</a>
                     </h5>
                   </div>
-                  <div id="collapseTu3" class="panel-collapse collapse">
+                  <div id="collapseTu4" class="panel-collapse collapse">
                   </div>
                 </div>
                 <div class="panel panel-default">
@@ -473,7 +476,7 @@
                       <a href="ngrams.php">Generating with n-grams</a>
                     </h5>
                   </div>
-                  <div id="collapseTu3" class="panel-collapse collapse">
+                  <div id="collapseTu5" class="panel-collapse collapse">
                   </div>
                 </div>
                 <div class="panel panel-default">
@@ -482,7 +485,7 @@
                       <a href="concordance.php">Concordance and Key-Word-In-Context</a>
                     </h5>
                   </div>
-                  <div id="collapseTu3" class="panel-collapse collapse">
+                  <div id="collapseTu6" class="panel-collapse collapse">
                   </div>
                 </div>
               </div>
@@ -625,7 +628,7 @@
       </div>
     </div>
     <div class="container">
-      <div class="row slick-slider">
+      <div class="row slick-slider-gallery">
         <div class="container">
           <div class="row">
             <div class="col-md-4 gallery_home_item">
@@ -745,15 +748,15 @@
               <p>by Patricia Tomaszek</p>
             </div>
             <div class="col-md-4">
-              <a href="./gallery/RiTaTwitterbots"target="new"><img src="img/gallery/twitterbots.gif" ></a><br>
-              <a href="./gallery/RiTaTwitterbots"target="new">RiTa Twitterbots</a>
+              <a href="./gallery/RiTaTwitterbots" target="new"><img src="img/gallery/twitterbots.gif" ></a><br>
+              <a href="./gallery/RiTaTwitterbots" target="new">RiTa Twitterbots</a>
               <p>by Mark Sample</p>
                 </div>
           </div>
           <div class="row">
             <div class="col-md-4">
-              <a href="./gallery/SpinState"target="new"><img src="img/gallery/spin_state2.png" ></a><br>
-              <a href="./gallery/SpinState"target="new">SpinState</a>
+              <a href="./gallery/SpinState" target="new"><img src="img/gallery/spin_state2.png" ></a><br>
+              <a href="./gallery/SpinState" target="new">SpinState</a>
               <p>by Michael Coppola</p>
                         </div>
             <div class="col-md-4">
@@ -800,7 +803,7 @@
             <div class="col-md-4">
               <!-- a href="https://play.google.com/store/apps/details?id=processing.test.jumping_wild" target="new"><img src="img/gallery/jumping.png" ></a><br>
               <a href="https://play.google.com/store/apps/details?id=processing.test.jumping_wild" target="new">Jumping Wild Butoh Training</a>
-              <p>by Honza Svasek </p -->
+              <p>by Honza Svasek </p> -->
                 </div>
           </div>
 
@@ -810,7 +813,7 @@
   </div>
 
   <footer class="page-footer">
-    <div class="container  wow fadeIn">
+    <div class="container wow fadeIn">
       <div id="social-wrapper"> <a href="https://github.com/dhowe/dialogic" target="blank" class="icon"> <svg class="svg-inline--fa fa-github fa-w-16" aria-hidden="true" data-prefix="fab" data-icon="github" role="img"
             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" data-fa-i2svg="">
             <path fill="currentColor"
@@ -822,7 +825,7 @@
               d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z">
             </path>
           </svg><!-- <i class="fab fa-twitter"></i> --> </a> </div>
-      <p> Released under the GPL License <br> Copyright © 2019 by <a href="https://rednoise.org/daniel" target="blank">Daniel Howe</a> <br>
+      <p> Released under the GPL License <br> Copyright © 2019 by <a href="https://rednoise.org/daniel" target="blank">Daniel Howe</a></p> <br>
 
     </div>
   </footer>
