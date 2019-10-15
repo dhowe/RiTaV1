@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html class="fontawesome-i2svg-active fontawesome-i2svg-complete">
 
@@ -16,19 +17,41 @@
   <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
 
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/style0.css">
+  <link rel="stylesheet" href="css/svg.css">
   <link rel="stylesheet" href="css/slick.css">
   <link rel="stylesheet" href="css/icomoon.css">
-  <script src="scripts/panel.js"></script>
   <link rel="stylesheet" href="css/animate.css">
+  <link rel="stylesheet" href="css/mainStyle.css">
+  <script src="scripts/panel.js"></script>
+
   <script src="scripts/wow.min.js"></script>
 
   <script type="text/javascript">
     $(document).ready(function() {
-               new WOW().init();
+      //animation
+      new WOW().init();
 
+      //smoothscroll, menubar
+      $('.nav-wrapper a[href^="#"]').on('click', function(e) {
+        e.preventDefault();
+        $(document).off("scroll");
 
+        $('a').each(function() {
+          $(this).removeClass('active');
+        })
+        $(this).addClass('active');
+
+        var target = this.hash,
+          menu = target;
+        $target = $(target);
+        $('html, body').stop().animate({
+          'scrollTop': $target.offset().top + 2
+        }, 500, 'swing', function() {
+          window.location.hash = target;
+        });
+      });
+
+      //slick-slider
       $('.slick-slider-gallery').slick({
         dots: true,
       });
@@ -37,32 +60,14 @@
         dots: true,
       });
 
-      //smoothscroll
-      $('.nav-wrapper a[href^="#"]').on('click', function (e) {
-          e.preventDefault();
-          $(document).off("scroll");
 
-          $('a').each(function () {
-              $(this).removeClass('active');
-          })
-          $(this).addClass('active');
 
-          var target = this.hash,
-              menu = target;
-          $target = $(target);
-          $('html, body').stop().animate({
-              'scrollTop': $target.offset().top+2
-          }, 500, 'swing', function () {
-              window.location.hash = target;
-          });
-      });
-
+      //Gallery
+      $(".gallery_home_item").each(function(index) {
+        $(this).attr("data-wow-delay", Math.random() * 0.5 + "s");
+      })
 
     });
-
-
-
-
   </script>
 
   <!--
@@ -73,31 +78,38 @@
 
   <meta name="description" content="RiTa - a software toolkit for computational literature">
   <meta name="robots" content="noodp">
-  <link rel="canonical" href="https://github.com/dhowe/dialogic">
+  <link rel="canonical" href="https://github.com/dhowe/riTa">
   <meta property="og:url" content="http://www.rednoise.org">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary">
   <meta property="og:site_name" content="RiTa - a software toolkit for computational literature">
   <meta property="og:title" content="RiTa - a software toolkit for computational literature">
   <meta property="og:description" content="RiTa - a software toolkit for computational literature">
-  <meta property="og:image" content="https://github.com/dhowe/dialogicimg/nest-og.png">
+  <meta property="og:image" content="https://camo.githubusercontent.com/4010ad42fed03e50903db30dbd0d4c650087b0d6/68747470733a2f2f7265646e6f6973652e6f72672f726974612f696d672f526954612d6c6f676f332e706e67">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="650">
   <meta name="twitter:description" content="RiTa - a software toolkit for computational literature">
   <meta name="twitter:title" content="RiTa - a software toolkit for computational literature">
   <link rel="icon" type="image/x-icon" href="https://github.com/dhowe/dialogicfavicon.a18fc8a9.ico">
-  <script type="text/javascript" id="www-widgetapi-script" src="res/www-widgetapi.js" async=""></script>
-  <script defer="defer" src="res/all.js"></script>
-  <script src="res/scripts.js"></script>
+
+
+
   <!--
+    <script type="text/javascript" id="www-widgetapi-script" src="res/www-widgetapi.js" async=""></script>
+    <script src="res/scripts.js"></script>
+    <script defer="defer" src="res/all.js"></script>
   <link rel="stylesheet" href="res/plyr.css">
+    <script src="res/iframe_api" async=""></script>
   -->
-  <script src="res/iframe_api" async=""></script>
+
 </head>
 
 <body>
+
+  <!--
+
   <div id="sprite-plyr" hidden="">
-    <!--?xml version="1.0" encoding="UTF-8"?--><svg xmlns="http://www.w3.org/2000/svg">
+<svg xmlns="http://www.w3.org/2000/svg">
       <symbol id="plyr-airplay" viewBox="0 0 18 18">
         <path d="M16 1H2a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3v-2H3V3h12v8h-2v2h3a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1z"></path>
         <path d="M4 17h10l-5-6z"></path>
@@ -156,6 +168,7 @@
         </path>
       </symbol>
     </svg></div>
+  -->
   <div class="navbar-sticky visible">
     <div class="container">
       <div class="logo-wrapper d-inline-block"> <a href="https://github.com/dhowe/RiTa"> <img src="img/RiTaLogo.png" alt="RiTa - a software toolkit for computational literature"> </a> </div>
@@ -188,7 +201,6 @@
   <header class="page-header">
     <div class="video-background wow fadeIn" data-wow-delay="1s">
       <video playsinline autoplay muted loop preload="auto" poster="video/snap.png" id="bigvid" loop>
-
         <source src="video/demo1.mp4" type="video/mp4">
         <source src="video/demo1.ogg" type="video/ogg">
       </video>
@@ -215,14 +227,14 @@
           </ul>
         </nav>
         <div id="main-wrapper">
-          <h1  class="wow fadeIn">RiTa</h1>
-          <h4  class="wow fadeIn">a software toolkit for computational literature</h4>
-          <div class="buttons-wrapper"> <a href="https://github.com/dhowe/dialogic#dialogic-fish" class="btn btn-primary d-inline-block">Documentation</a> <a href="https://github.com/dhowe/dialogic" class="btn btn-secondary d-inline-block"> <svg
+          <h1 class="wow fadeIn">RiTa</h1>
+          <h4 class="wow fadeIn">a software toolkit for computational literature</h4>
+          <div class="buttons-wrapper"> <a href="reference/index.php" class="btn btn-primary d-inline-block">Documentation</a> <a href="https://github.com/dhowe/RiTa" class="btn btn-secondary d-inline-block"> <svg
                 class="svg-inline--fa fa-github fa-w-16" aria-hidden="true" data-prefix="fab" data-icon="github" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" data-fa-i2svg="">
                 <path fill="currentColor"
                   d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z">
                 </path>
-              </svg><!-- <i class="fab fa-github"></i> --> <span>Source code</span> </a> </div>
+              </svg><!-- <i class="fab fa-github"></i> --><span>Source code</span> </a> </div>
         </div>
       </div>
     </div>
@@ -287,12 +299,12 @@
     <div class="container wow fadeIn">
       <div class="row">
         <div class="col-md-4 highlight-block">
-          <span class="icon-generate">
+          <span class="icon-generate  wow fadeInUp" data-wow-delay="0.5s">
           </span>
           <p>Text-generation via Context-Free Grammars and Markov-chains</p>
         </div>
         <div class="col-md-4 highlight-block">
-          <span class="icon-tool">
+          <span class="icon-tool   wow fadeInUp" data-wow-delay="0.6s">
           </span>
           <p>Modules for tokenization,
             <br> verb conjugation, pluralization, and stemming
@@ -300,7 +312,7 @@
         </div>
 
         <div class="col-md-4 highlight-block">
-          <span class="icon-sound">
+          <span class="icon-sound wow fadeInUp" data-wow-delay="0.7s">
           </span>
           <p>User-customizable lexicon
             <br> with letter-to-sound phoneme generation
@@ -309,19 +321,19 @@
       </div>
       <div class="row">
         <div class="col-md-4 highlight-block">
-          <span class="icon-bookmark">
+          <span class="icon-bookmark  wow fadeInUp" data-wow-delay="0.8s">
           </span>
           <p>Taggers for Syllables, Phonemes, Stress, Part-of-Speech, etc.</p>
         </div>
         <div class="col-md-4 highlight-block">
-          <span class="icon-diamond"></span>
+          <span class="icon-diamond   wow fadeInUp" data-wow-delay="0.9s"></span>
           <p>Runs in or outside the browser
             <br> with or without Processing
             <br>(also in Android)
           </p>
         </div>
         <div class="col-md-4 highlight-block">
-          <span class="icon-dictionary">
+          <span class="icon-dictionary wow fadeInUp" data-wow-delay="1.0s">
           </span>
           <p>Optionally integrates with
             <br> WordNet dictionary
@@ -464,7 +476,7 @@
                 <div class="panel panel-default">
                   <div class="panel-heading">
                     <h5 class="panel-title">
-                      <a href="grammars.php">Generating with grammars</a>
+                      <a href="tutorials/grammars.php">Generating with grammars</a>
                     </h5>
                   </div>
                   <div id="collapseTu4" class="panel-collapse collapse">
@@ -473,7 +485,7 @@
                 <div class="panel panel-default">
                   <div class="panel-heading">
                     <h5 class="panel-title">
-                      <a href="ngrams.php">Generating with n-grams</a>
+                      <a href="tutorials/ngrams.php">Generating with n-grams</a>
                     </h5>
                   </div>
                   <div id="collapseTu5" class="panel-collapse collapse">
@@ -482,7 +494,7 @@
                 <div class="panel panel-default">
                   <div class="panel-heading">
                     <h5 class="panel-title">
-                      <a href="concordance.php">Concordance and Key-Word-In-Context</a>
+                      <a href="tutorials/concordance.php">Concordance and Key-Word-In-Context</a>
                     </h5>
                   </div>
                   <div id="collapseTu6" class="panel-collapse collapse">
@@ -502,7 +514,7 @@
               <h4>Examples</h4>
               <div class="row">
                 <div class="col-md-4">
-                    <a class="nodec" href="examples/p5js/HaikuGrammar" target="_blank">
+                  <a class="nodec" href="examples/p5js/HaikuGrammar" target="_blank">
                     <p>HaikuGrammar</p>
                     <img class="example-img" src="img/examples/sshaiku.png" alt="">
                   </a>
@@ -513,37 +525,45 @@
                   </p>
                 </div>
                 <div class="col-md-4">
-                  <a class="nodec" href="examples/p5js/Kafgenstein" target="_blank"><p>Kafgenstein (RiMarkov) </p>
-                    <img class="example-img" src="img/examples/sskafgenstein.png" alt=""></a>
+                  <a class="nodec" href="examples/p5js/Kafgenstein" target="_blank">
+                    <p>Kafgenstein (RiMarkov) </p>
+                    <img class="example-img" src="img/examples/sskafgenstein.png" alt="">
+                  </a>
                   <p> <a href="examples/p5js/Kafgenstein" target="_blank">p5js</a> <a href="examples/p5js/Kafgenstein/index.html#source">(source)</a>
                     <br>
                     <a href="examples/dom/Kafgenstein" target="_blank">dom</a> <a href="examples/dom/Kafgenstein/index.html#source">(source)</a></p>
                 </div>
                 <div class="col-md-4">
-                  <a class="nodec" href="examples/p5js/KWICmodel" target="_blank"><p>KeyWordsInContext </p>
-                 &nbsp;<img class="example-img" src="img/examples/sskwic.png" alt=""></a>&nbsp;
-                 <p> <a href="examples/p5js/KWICmodel" target="_blank">p5js</a> <a href="examples/p5js/KWICmodel/index.html#source">(source)</a>
-                   <br>
-                   <a href="examples/dom/KWICmodel" target="_blank">dom</a> <a href="examples/dom/KWICmodel/index.html#source">(source)</a></p>
+                  <a class="nodec" href="examples/p5js/KWICmodel" target="_blank">
+                    <p>KeyWordsInContext </p>
+                    &nbsp;<img class="example-img" src="img/examples/sskwic.png" alt="">
+                  </a>&nbsp;
+                  <p> <a href="examples/p5js/KWICmodel" target="_blank">p5js</a> <a href="examples/p5js/KWICmodel/index.html#source">(source)</a>
+                    <br>
+                    <a href="examples/dom/KWICmodel" target="_blank">dom</a> <a href="examples/dom/KWICmodel/index.html#source">(source)</a></p>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-4">
-                  <a class="nodec" href="examples/p5js/Analysis" target="_blank"><p>FeatureAnalysis</p>
-                  &nbsp;<img class="example-img" src="img/examples/analysisExample.png" alt=""></a>&nbsp;
+                  <a class="nodec" href="examples/p5js/Analysis" target="_blank">
+                    <p>FeatureAnalysis</p>
+                    &nbsp;<img class="example-img" src="img/examples/analysisExample.png" alt="">
+                  </a>&nbsp;
                   <p> <a href="examples/p5js/Analysis" target="_blank">p5js</a> <a href="examples/p5js/Analysis/index.html#source">(source)</a>
                     <br>
                     <a href="examples/dom/Analysis" target="_blank">dom</a> <a href="examples/dom/Analysis/index.html#source">(source)</a></p>
                 </div>
                 <div class="col-md-4">
-                  <a class="nodec" href="examples/p5js/RandomRhymes" target="_blank"><p>RandomRhymes</p>
-                  &nbsp;<img class="example-img" src="img/examples/randomRhymesExample.png" alt=""></a>&nbsp;
+                  <a class="nodec" href="examples/p5js/RandomRhymes" target="_blank">
+                    <p>RandomRhymes</p>
+                    &nbsp;<img class="example-img" src="img/examples/randomRhymesExample.png" alt="">
+                  </a>&nbsp;
                   <p> <a href="examples/p5js/RandomRhymes" target="_blank">p5js</a> <a href="examples/p5js/RandomRhymes/index.html#source">(source)</a>
                     <br>
                     <a href="examples/dom/RandomRhymes" target="_blank">dom</a> <a href="examples/dom/RandomRhymes/index.html#source">(source)</a></p>
                 </div>
                 <div class="col-md-4">
-                            </div>
+                </div>
               </div>
             </div>
             <div class="col-md-2">
@@ -566,7 +586,7 @@
           <h4>Examples</h4>
           <div class="row">
             <div class="col-md-4">
-                <a class="nodec" href="examples/p5js/HaikuGrammar" target="_blank">
+              <a class="nodec" href="examples/p5js/HaikuGrammar" target="_blank">
                 <p>HaikuGrammar</p>
                 <img class="example-img" src="img/examples/sshaiku.png" alt="">
               </a>
@@ -577,37 +597,45 @@
               </p>
             </div>
             <div class="col-md-4">
-              <a class="nodec" href="examples/p5js/Kafgenstein" target="_blank"><p>Kafgenstein (RiMarkov) </p>
-                <img class="example-img" src="img/examples/sskafgenstein.png" alt=""></a>
+              <a class="nodec" href="examples/p5js/Kafgenstein" target="_blank">
+                <p>Kafgenstein (RiMarkov) </p>
+                <img class="example-img" src="img/examples/sskafgenstein.png" alt="">
+              </a>
               <p> <a href="examples/p5js/Kafgenstein" target="_blank">p5js</a> <a href="examples/p5js/Kafgenstein/index.html#source">(source)</a>
                 <br>
                 <a href="examples/dom/Kafgenstein" target="_blank">dom</a> <a href="examples/dom/Kafgenstein/index.html#source">(source)</a></p>
             </div>
             <div class="col-md-4">
-              <a class="nodec" href="examples/p5js/KWICmodel" target="_blank"><p>KeyWordsInContext </p>
-             &nbsp;<img class="example-img" src="img/examples/sskwic.png" alt=""></a>&nbsp;
-             <p> <a href="examples/p5js/KWICmodel" target="_blank">p5js</a> <a href="examples/p5js/KWICmodel/index.html#source">(source)</a>
-               <br>
-               <a href="examples/dom/KWICmodel" target="_blank">dom</a> <a href="examples/dom/KWICmodel/index.html#source">(source)</a></p>
+              <a class="nodec" href="examples/p5js/KWICmodel" target="_blank">
+                <p>KeyWordsInContext </p>
+                &nbsp;<img class="example-img" src="img/examples/sskwic.png" alt="">
+              </a>&nbsp;
+              <p> <a href="examples/p5js/KWICmodel" target="_blank">p5js</a> <a href="examples/p5js/KWICmodel/index.html#source">(source)</a>
+                <br>
+                <a href="examples/dom/KWICmodel" target="_blank">dom</a> <a href="examples/dom/KWICmodel/index.html#source">(source)</a></p>
             </div>
           </div>
           <div class="row">
             <div class="col-md-4">
-              <a class="nodec" href="examples/p5js/Analysis" target="_blank"><p>FeatureAnalysis</p>
-              &nbsp;<img class="example-img" src="img/examples/analysisExample.png" alt=""></a>&nbsp;
+              <a class="nodec" href="examples/p5js/Analysis" target="_blank">
+                <p>FeatureAnalysis</p>
+                &nbsp;<img class="example-img" src="img/examples/analysisExample.png" alt="">
+              </a>&nbsp;
               <p> <a href="examples/p5js/Analysis" target="_blank">p5js</a> <a href="examples/p5js/Analysis/index.html#source">(source)</a>
                 <br>
                 <a href="examples/dom/Analysis" target="_blank">dom</a> <a href="examples/dom/Analysis/index.html#source">(source)</a></p>
             </div>
             <div class="col-md-4">
-              <a class="nodec" href="examples/p5js/RandomRhymes" target="_blank"><p>RandomRhymes</p>
-              &nbsp;<img class="example-img" src="img/examples/randomRhymesExample.png" alt=""></a>&nbsp;
+              <a class="nodec" href="examples/p5js/RandomRhymes" target="_blank">
+                <p>RandomRhymes</p>
+                &nbsp;<img class="example-img" src="img/examples/randomRhymesExample.png" alt="">
+              </a>&nbsp;
               <p> <a href="examples/p5js/RandomRhymes" target="_blank">p5js</a> <a href="examples/p5js/RandomRhymes/index.html#source">(source)</a>
                 <br>
                 <a href="examples/dom/RandomRhymes" target="_blank">dom</a> <a href="examples/dom/RandomRhymes/index.html#source">(source)</a></p>
             </div>
             <div class="col-md-4">
-                        </div>
+            </div>
           </div>
         </div>
         <div class="col-md-2">
@@ -631,52 +659,52 @@
       <div class="row slick-slider-gallery">
         <div class="container">
           <div class="row">
-            <div class="col-md-4 gallery_home_item">
+            <div class="col-md-4 gallery_home_item wow fadeInDown">
               <a href="./gallery/TheHandsofGutenberg" target="new"><img src="img/gallery/hand.png"></a><br>
               <a href="./gallery/TheHandsofGutenberg" target="new">The Hands of Gutenberg</a>
               <p><span>by Philippe De Bree</span></p>
             </div>
-            <div class="col-md-4 gallery_home_item">
+            <div class="col-md-4 gallery_home_item wow fadeInDown">
               <a href="./gallery/LyricPoems" target="new"><img src="img/gallery/lyric.jpg"></a><br>
               <a href="./gallery/LyricPoems" target="new">Lyric Poems</a>
               <p><span>by Cassie Scheirer</span></p>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 gallery_home_item wow fadeInDown">
               <a href="./gallery/PoetryInMotion" target="new"><img src="img/gallery/poetryInMotion.png"></a><br>
               <a href="./gallery/PoetryInMotion" target="new">Poetry In Motion</a>
               <p><span style="font-size:11px;">J. Zhou, R. Agarwal, E. Bretschneider</span></p>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-4">
-              <a href="./gallery/Daedalus" target="new"><img src="img/gallery/daedalus.png" ></a><br>
+            <div class="col-md-4 gallery_home_item wow fadeInDown">
+              <a href="./gallery/Daedalus" target="new"><img src="img/gallery/daedalus.png"></a><br>
               <a href="./gallery/Daedalus" target="new">DAEDALUS</a>
               <p><span>by Alessandro Capozzo</span></p>
             </div>
-            <div class="col-md-4">
-              <a href="./gallery/PopCulturePoetry" target="new"><img src="img/gallery/popculture.png" ></a><br>
+            <div class="col-md-4 gallery_home_item wow fadeInDown">
+              <a href="./gallery/PopCulturePoetry" target="new"><img src="img/gallery/popculture.png"></a><br>
               <a href="./gallery/PopCulturePoetry" target="new">Pop Culture Poetry</a>
               <p><span>by Ari Melenciano </span></p>
             </div>
-            <div class="col-md-4">
-              <a href="./gallery/BracketMemeBot" target="new"><img src="img/gallery/bracket.png" ></a><br>
+            <div class="col-md-4 gallery_home_item wow fadeInDown">
+              <a href="./gallery/BracketMemeBot" target="new"><img src="img/gallery/bracket.png"></a><br>
               <a href="./gallery/BracketMemeBot" target="new">Bracket Meme Bot</a>
               <p><span>by Darius Kazemi</span></p>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-4">
-              <a href="./gallery/DNA" target="new"><img src="img/gallery/poetryDNA.png" ></a><br>
+            <div class="col-md-4 gallery_home_item wow fadeInDown">
+              <a href="./gallery/DNA" target="new"><img src="img/gallery/poetryDNA.png"></a><br>
               <a href="./gallery/DNA" target="new">Poetry.dna</a>
               <p><span>by Matthew Halpenny</span></p>
             </div>
-            <div class="col-md-4">
-              <a href="./gallery/SolLewitt" target="new"><img src="img/gallery/sl.png" ></a><br>
+            <div class="col-md-4 gallery_home_item wow fadeInDown">
+              <a href="./gallery/SolLewitt" target="new"><img src="img/gallery/sl.png"></a><br>
               <a href="./gallery/SolLewitt" target="new">Sol Lewitt Generator</a>
               <p><span>by Richard Lapham</span></p>
             </div>
-            <div class="col-md-4">
-              <a href="./gallery/HW00/hw00.html" target="new"><img src="img/gallery/hm.jpg" ></a><br>
+            <div class="col-md-4 gallery_home_item wow fadeInDown">
+              <a href="./gallery/HW00/hw00.html" target="new"><img src="img/gallery/hm.jpg"></a><br>
               <a href="./gallery/HW00/hw00.html" target="new">HW-PM-R-00</a>
               <p><span>by David Hale</span></p>
             </div>
@@ -685,51 +713,51 @@
         <div class="container">
           <div class="row">
             <div class="col-md-4">
-              <a href="./gallery/BookshelfWriter" target="new"><img src="img/gallery/bookshelfWriter.jpg" ></a><br>
+              <a href="./gallery/BookshelfWriter" target="new"><img src="img/gallery/bookshelfWriter.jpg"></a><br>
               <a href="./gallery/BookshelfWriter" target="new">Bookshelf Writer</a>
               <p><span style="font-size:11px;">by A.Refsgaard K. Solvåg R. Cereser</span></p>
             </div>
             <div class="col-md-4">
-              <a href="http://sarahmak.es/nightTweets" target="new"><img src="img/gallery/nightTweet.png" ></a><br>
+              <a href="http://sarahmak.es/nightTweets" target="new"><img src="img/gallery/nightTweet.png"></a><br>
               <a href="http://sarahmak.es/nightTweets" target="new">#nightTweets</a>
               <p>by Sarah K Hallacher</p>
             </div>
             <div class="col-md-4">
-              <a href="https://elmcip.net/creative-work/mirroring-tears-visages" target="new"><img src="img/gallery/mirroringTears.png" ></a><br>
+              <a href="https://elmcip.net/creative-work/mirroring-tears-visages" target="new"><img src="img/gallery/mirroringTears.png"></a><br>
               <a href="https://elmcip.net/creative-work/mirroring-tears-visages" target="new">Mirroring Tears: Visages</a>
               <p>by John Cayley Penny Florence</p>
             </div>
           </div>
           <div class="row">
             <div class="col-md-4">
-              <a href="./gallery/TheWholeBrilliantEnterprise" target="new"><img src="img/gallery/enterprise_sm.png" ></a><br>
+              <a href="./gallery/TheWholeBrilliantEnterprise" target="new"><img src="img/gallery/enterprise_sm.png"></a><br>
               <a href="./gallery/TheWholeBrilliantEnterprise" target="new">The Whole Brilliant Enterprise</a>
               <p>by Office for Creative Research</p>
-                        </div>
-            <div class="col-md-4">
-              <a href="http://rednoise.org/rita/gallery/MemoireInvolontaireNo1" target="new"><img src="img/gallery/memory.gif" ></a><br>
-              <a href="http://rednoise.org/rita/gallery/MemoireInvolontaireNo1" target="new">Memoire Involontaire No. 1</a>
-                  <p>by A. Braxton Soderman</p>
             </div>
             <div class="col-md-4">
-              <a href="./gallery/VisualGrammars" target="new"><img src="img/gallery/visgram.jpg" ></a>
+              <a href="http://rednoise.org/rita/gallery/MemoireInvolontaireNo1" target="new"><img src="img/gallery/memory.gif"></a><br>
+              <a href="http://rednoise.org/rita/gallery/MemoireInvolontaireNo1" target="new">Memoire Involontaire No. 1</a>
+              <p>by A. Braxton Soderman</p>
+            </div>
+            <div class="col-md-4">
+              <a href="./gallery/VisualGrammars" target="new"><img src="img/gallery/visgram.jpg"></a>
               <a href="./gallery/VisualGrammars" target="new"><br>Visual Grammars</a>
               <p>by Angela Ferraiolo</p>
             </div>
           </div>
           <div class="row">
             <div class="col-md-4">
-              <a href="./gallery/GameDefinitions" target="new"><img src="img/gallery/gamedefs.png" ></a><br>
+              <a href="./gallery/GameDefinitions" target="new"><img src="img/gallery/gamedefs.png"></a><br>
               <a href="./gallery/GameDefinitions" target="new">Game Definitions</a>
               <p>by MolleIndustria</p>
-                                    </div>
+            </div>
             <div class="col-md-4">
-              <a href="./gallery/CornellsYokeMachine" target="new"><img src="img/gallery/cornell.jpg" ></a><br>
+              <a href="./gallery/CornellsYokeMachine" target="new"><img src="img/gallery/cornell.jpg"></a><br>
               <a href="./gallery/CornellsYokeMachine" target="new">Cornell's Yoke Machine</a>
               <p>by Janalyn Guo</p>
-                      </div>
+            </div>
             <div class="col-md-4">
-              <a href="./gallery/ShanShui" target="new"><img src="img/gallery/shanshui.jpg" ></a><br>
+              <a href="./gallery/ShanShui" target="new"><img src="img/gallery/shanshui.jpg"></a><br>
               <a href="./gallery/ShanShui" target="new">Shan Shui</a>
               <p>by Chen Qianxun</p>
             </div>
@@ -738,51 +766,51 @@
         <div class="container">
           <div class="row">
             <div class="col-md-4">
-              <a href="./gallery/TheGodardFilmGenerator" target="new"><img src="img/gallery/godard.png" ></a><br>
+              <a href="./gallery/TheGodardFilmGenerator" target="new"><img src="img/gallery/godard.png"></a><br>
               <a href="./gallery/TheGodardFilmGenerator" target="new">The Godard Film Generator</a>
               <p>by Mark Sample</p>
-                        </div>
+            </div>
             <div class="col-md-4">
-              <a href="./gallery/AboutNothingPlaces" target="new"><img src="img/gallery/creeley270.jpg" ></a><br>
+              <a href="./gallery/AboutNothingPlaces" target="new"><img src="img/gallery/creeley270.jpg"></a><br>
               <a href="./gallery/AboutNothingPlaces" target="new">about nothing, places...</a>
               <p>by Patricia Tomaszek</p>
             </div>
             <div class="col-md-4">
-              <a href="./gallery/RiTaTwitterbots" target="new"><img src="img/gallery/twitterbots.gif" ></a><br>
+              <a href="./gallery/RiTaTwitterbots" target="new"><img src="img/gallery/twitterbots.gif"></a><br>
               <a href="./gallery/RiTaTwitterbots" target="new">RiTa Twitterbots</a>
               <p>by Mark Sample</p>
-                </div>
+            </div>
           </div>
           <div class="row">
             <div class="col-md-4">
-              <a href="./gallery/SpinState" target="new"><img src="img/gallery/spin_state2.png" ></a><br>
+              <a href="./gallery/SpinState" target="new"><img src="img/gallery/spin_state2.png"></a><br>
               <a href="./gallery/SpinState" target="new">SpinState</a>
               <p>by Michael Coppola</p>
-                        </div>
+            </div>
             <div class="col-md-4">
-              <a href="./gallery/SortingBot" target="new"><img src="img/gallery/sortingBot.png" ></a><br>
+              <a href="./gallery/SortingBot" target="new"><img src="img/gallery/sortingBot.png"></a><br>
               <a href="./gallery/SortingBot" target="new">Sorting Bot</a>
               <p><span>Darius Kazemi</span></p>
             </div>
             <div class="col-md-4">
-              <a href="./gallery/automatype" target="new"><img src="img/gallery/automatype.jpg" ></a><br>
+              <a href="./gallery/automatype" target="new"><img src="img/gallery/automatype.jpg"></a><br>
               <a href="./gallery/automatype" target="new">Automatype</a>
               <p>by Daniel C. Howe</p>
-                    </div>
+            </div>
           </div>
           <div class="row">
             <div class="col-md-4">
-              <a href="./gallery/ResumeBot" target="new"><img src="img/gallery/resumeBot.png" ></a><br>
+              <a href="./gallery/ResumeBot" target="new"><img src="img/gallery/resumeBot.png"></a><br>
               <a href="./gallery/ResumeBot" target="new">Resume Bot</a>
               <p><span>by Patrick Resto</span></p>
-                                    </div>
+            </div>
             <div class="col-md-4">
-              <a href="./gallery/HarryPotterBookGenerator" target="new"><img src="img/gallery/HarryPotterGenerator.png" ></a><br>
+              <a href="./gallery/HarryPotterBookGenerator" target="new"><img src="img/gallery/HarryPotterGenerator.png"></a><br>
               <a href="./gallery/HarryPotterBookGenerator" target="new">Harry Potter Book Generator</a>
               <p>by Rob Clouth</p>
-                                </div>
+            </div>
             <div class="col-md-4">
-              <a href="./gallery/Zuckifier/" target="new"><img src="img/gallery/zuckbaby.jpg" ></a><br>
+              <a href="./gallery/Zuckifier/" target="new"><img src="img/gallery/zuckbaby.jpg"></a><br>
               <a href="./gallery/Zuckifier/" target="new">Zuckifier</a>
               <p>by Sam Lavigne</p>
             </div>
@@ -791,12 +819,12 @@
         <div class="container">
           <div class="row">
             <div class="col-md-4">
-              <a href="./gallery/InvokeObject" target="new"><img src="img/gallery/invokeObject.png" ></a><br>
+              <a href="./gallery/InvokeObject" target="new"><img src="img/gallery/invokeObject.png"></a><br>
               <a href="./gallery/InvokeObject" target="new">invoke(Object object);</a>
               <p>by Ben Nicholson</p>
-                        </div>
+            </div>
             <div class="col-md-4">
-              <a href="./gallery/AnapestGenerator" target="new"><img src="img/gallery/AnapestGenerator.png" ></a><br>
+              <a href="./gallery/AnapestGenerator" target="new"><img src="img/gallery/AnapestGenerator.png"></a><br>
               <a href="./gallery/AnapestGenerator" target="new">Anapest Generator: a JavaScript Poem Maker</a>
               <p>by Chris Angelis</p>
             </div>
@@ -804,7 +832,7 @@
               <!-- a href="https://play.google.com/store/apps/details?id=processing.test.jumping_wild" target="new"><img src="img/gallery/jumping.png" ></a><br>
               <a href="https://play.google.com/store/apps/details?id=processing.test.jumping_wild" target="new">Jumping Wild Butoh Training</a>
               <p>by Honza Svasek </p> -->
-                </div>
+            </div>
           </div>
 
         </div>

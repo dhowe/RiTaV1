@@ -1,0 +1,75 @@
+<html>
+  <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+  <script src="../js/rita-full-latest.min.js"></script>
+
+  <script>
+ 
+    window.onload = function() {
+    	var result="";
+        result +=RiTa.getPhonemes("elephant");
+        result +=" &nbsp; "+RiTa.getSyllables("elephant");
+		result +=" &nbsp; "+RiTa.getStresses("elephant");
+		result +=" <br> "+RiTa.getPosTags("She is sleeping");
+        $('#textanalysis').html(result);
+
+        var result2="";
+        var args = {
+        tense: RiTa.PAST_TENSE,
+        number: RiTa.SINGULAR,
+        person: RiTa.FIRST_PERSON}
+
+        result2+=RiTa.conjugate("make",args);
+        result2+=" <br> "+RiTa.stem("write wrritten writing");
+        result2+=" <br> "+RiTa.pluralize("apple")+" &nbsp; "+RiTa.singularize("apples");
+        var tokenizedString=RiTa.tokenize("I want to have a cup of coffee");
+        result2+=" <br> "+tokenizedString;
+        result2+=" <br> "+RiTa.untokenize(tokenizedString);
+        $('#transformation').html(result2);
+        
+
+        var result3 =[];
+        rules={ 	   
+		"<start>": [ "<subject> <verb> <object>" ],
+		"<subject>": [ "I", "you", "them" ],
+		"<verb>": [ "want", "hate", "like","love" ],
+		"<object>": [ "coffee", "bread", "milk" ]}
+        var myGrammar= new RiGrammar(rules);
+        myGrammar.print();
+        result3=myGrammar.expand();
+        $('#grammar').html(result3);
+    };
+
+  </script>
+<style type="text/css">
+
+h4{
+	text-transform: uppercase;
+	font-size:1.5em;
+}
+
+.result{
+	background-color: #f5f5f5;
+	padding:1rem 0 1rem 1rem;
+}
+
+</style>
+ <body>
+  	
+ 
+  <h4>Text Analysis</h4> 
+  <div class="result" id="textanalysis" width=200 height=200>
+  </div>
+
+
+
+  <h4>Transformation</h4> 
+  <div class="result" id="transformation" width=200 height=200>
+  </div>
+
+  <h4>RiGrammar</h4> 
+  <div class="result" id="grammar" width=200 height=200>
+  </div>
+
+
+ </body> 
+<html>

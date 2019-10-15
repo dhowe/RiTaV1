@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<!-- saved from url=(0045)http://tinysubversions.com/notes/sorting-bot/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  <title>sorting-bot</title>  <meta name="viewport" content="width=device-width, initial-scale=1"> <link rel="stylesheet" href="./sorting-bot_files/style.css" type="text/css" media="all"> </head> <body><p><a href="http://tinysubversions.com/notes/">← Tiny Subversions</a></p>
+<h2 id="creating-rhyming-quatrains-for-sortingbot">Creating rhyming quatrains for @SortingBot</h2>
+<p><em>by Darius Kazemi, Apr 13, 2015</em></p>
+<p>Last week I released <a href="http://twitter.com/sortingbot">@SortingBot</a>, a Twitter Sorting Hat bot. If you follow it on Twitter, it adds you to a queue, and when it's your turn it gives you a short rhyming couplet sorting you into a Hogwarts house from the <em>Harry Potter</em> books.</p>
+<p>If you're unfamiliar with the Sorting Hat or have only seen the movies, the Hat usually introduces the Sorting with a song—though the melody is never specified and they read to me more like sing-songy poems than song lyrics. The songs are written in a somewhat loose <a href="http://en.wikipedia.org/wiki/Iambic_tetrameter">iambic tetrameter</a>, aka 'da DUM da DUM da DUM da DUM', arranged into ABCB rhyming <a href="http://en.wikipedia.org/wiki/Quatrain">quatrains</a>. Here's an example from the first <em>Harry Potter</em> book:</p>
+<blockquote>
+<p>You might belong in Gryffindor,
+<br>Where dwell the brave at heart,
+<br>Their daring, nerve and chivalry,
+<br>Set Gryffindors apart;</p>
+</blockquote>
+<p>Just a few months ago I created <a href="http://twitter.com/yearlyawards">@YearlyAwards</a>, a bot that used a "follow to get customized absurd content" model, which is a model I picked up from <a href="https://twitter.com/irondavy">@irondavy</a>'s excellent <a href="https://twitter.com/robotuaries">@robotuaries</a> a couple years ago.</p>
+<p>A bot that sorts people into Harry Potter houses isn't <em>that</em> intrinsically interesting to me, but the prospect of making it generate short quatrains in a Sorting Hat style was too good to pass up. I had just discovered <a href="http://www.rednoise.org/rita/index.html">RiTa</a>, an all-in-one text processing and generation tool that came highly recommended to me from other botmakers. I've done poetry generation projects before, but never anything that attempted strict meter, so this was a pretty fun challenge.</p>
+<blockquote>
+<p>Note: this is a loooooong article. If you'd like to skip straight ahead to the source code for the full bot, <a href="https://github.com/dariusk/sorting-bot">it's here</a>.</p>
+</blockquote>
+<h3 id="a-first-pass">A first pass</h3>
+<p>The first thing I did was re-read all the Sorting Hat songs several times to make sure I had the right idea and tone. That's where I picked up on the exact meter and rhyme scheme, and also where I noticed that the Hat likes to refer to itself a lot! Another example from the first book:</p>
+<blockquote>
+<p>For I'm the Hogwarts Sorting Hat 
+<br>And I can cap them all.</p>
+</blockquote>
+<p>So I thought up an example of my own:</p>
+<blockquote>
+<p>The body of an antelope, the wisdom of an owl,
+<br>I'm putting you in Slytherin for you are really foul</p>
+</blockquote>
+<p>I decided to make them into rhyming AA octameter couplets instead of strict quatrains by removing two of the line breaks. Mostly this was based on a hunch that 2 lines of ~60 chars each reads "easier" on Twitter than 4 lines of ~30 characters each. </p>
+<p>So how would I generalize the above animal-based couplet? My first attempt was something like this:</p>
+<blockquote>
+<p>The body of [an] [animal #1, with a <code>1/0/1</code> stress], the wisdom of [an] [animal #2, with a <code>1</code> stress],
+<br>I'm putting you in Slytherin for you are really [adjective with <code>1</code> stress rhyming with animal #2]</p>
+</blockquote>
+<p>Well okay! When I'm talking about "stress" and using weird numbers up there, what I mean is the way syllables are stressed in a word. When you say a stress is <code>1/0/1</code>, that means it's a word like KAN-ga-ROO or CHRIST-mas-TIME. A word like "a-QUAR-i-UM" is <code>0/1/0/1</code>, etc. A single syllable word is always <code>1</code>.</p>
+<p>This means we need to do a few things:</p>
+<ul>
+<li>have a list of animals</li>
+<li>know the syllabic stresses of those animals</li>
+<li>know the syllabic stresses of words in general</li>
+<li>know how to pick words that rhyme with other words</li>
+</ul>
+<h3 id="let-s-code-something-simple">Let's code something simple</h3>
+<p>For the stress and the rhyming, these are both things that the aforementioned <a href="http://www.rednoise.org/rita/index.html">RiTa</a> is really good at. The <a href="http://www.rednoise.org/rita/reference/RiTa/RiTa.getStresses/index.html"><code>getStresses()</code></a> function can be fed a word array of words and return their stresses as <code>"0/1/0"</code> style strings, and <a href="http://www.rednoise.org/rita/reference/RiLexicon/rhymes/index.html"><code>rhymes()</code></a> returns a list of words that rhyme with a given word.</p>
+<p>Let's build a simple version of the @SortingBot generator, just using that one animal-based couplet. The first thing we do is install our modules for RiTa, and also <a href="http://underscorejs.org/">Underscore</a> (a set of utilities that makes manipulating data in JavaScript really easy). </p>
+<pre><code class="lang-bash hljs">$ npm install underscore --save
+$ npm install rita --save
+</code></pre>
+<h4 id="list-of-animals">List of animals</h4>
+<p>The list of animals part is pretty easy. I run a project called <a href="https://github.com/dariusk/corpora/">Corpora</a>, which is a repository of lists of stuff. One of those lists is <a href="https://github.com/dariusk/corpora/blob/master/data/animals/common.json">a list of common animals</a>, so we download that and save it to a file called <code>animals.json</code> like so:</p>
+<pre><code class="lang-bash hljs">$ wget https://github.com/dariusk/corpora/blob/master/data/animals/common.json -O animals.json
+</code></pre>
+<p>Now we open a new file, <code>index.js</code>, and include all the modules and the data (along with a little helper function, <code>Array.prototype.pick()</code>) in our program:</p>
+<pre><code class="lang-javascript hljs"><span class="hljs-keyword">var</span> _ = <span class="hljs-built_in">require</span>(<span class="hljs-string">'underscore'</span>);
+<span class="hljs-keyword">var</span> RiTa = <span class="hljs-built_in">require</span>(<span class="hljs-string">'rita'</span>);
+<span class="hljs-keyword">var</span> lexicon = <span class="hljs-keyword">new</span> RiTa.RiLexicon();
+<span class="hljs-keyword">var</span> rita = RiTa.RiTa;
+<span class="hljs-keyword">var</span> animals = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./animals.json'</span>).animals;
+<span class="hljs-comment">// a helper function that we add to all arrays</span>
+<span class="hljs-comment">// this picks a random element from an array</span>
+<span class="hljs-built_in">Array</span>.prototype.pick = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>[<span class="hljs-built_in">Math</span>.floor(<span class="hljs-built_in">Math</span>.random()*<span class="hljs-keyword">this</span>.length)];
+};
+</code></pre>
+<h4 id="get-animals-with-a-particular-syllabic-stress">Get animals with a particular syllabic stress</h4>
+<p>If we want build out our couplet, a good order would be:</p>
+<ul>
+<li>pick an animal with a <code>1/0/1</code> stress</li>
+<li>pick an animal with a <code>1</code> stress</li>
+<li>find an adjective that rhymes with the second animal</li>
+</ul>
+<p>So we want to be able to say "give me an animal that has a stress of X". We can write a single function to do this!</p>
+<pre><code class="lang-javascript hljs"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getAnimalsByStress</span>(<span class="hljs-params">stress</span>) </span>{
+  <span class="hljs-comment">// filter our list of animals</span>
+  <span class="hljs-keyword">return</span> _.filter(animals, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">animal</span>) </span>{
+    <span class="hljs-comment">// only include animals with the stress we're looking for</span>
+    <span class="hljs-keyword">return</span> rita.getStresses(animal) === stress;
+  });
+}
+
+<span class="hljs-built_in">console</span>.log(getAnimalsByStress(<span class="hljs-string">'1/0/1'</span>));
+</code></pre>
+<p>Here we are passing <code>"1/0/1"</code> to the function, and then it's using Underscore's <a href="http://underscorejs.org/#filter"><code>filter</code></a> to whittle down the array of animals to just those animals who match our stress. (The <code>filter</code> function is available in vanilla Node.js, but I like to use Underscore's chaining and other nice features.) The end result we print out is:</p>
+<pre><code class="lang-javascript hljs">[ <span class="hljs-string">'antelope'</span>,
+  <span class="hljs-string">'buffalo'</span>,
+  <span class="hljs-string">'crocodile'</span>,
+  <span class="hljs-string">'kangaroo'</span>,
+  <span class="hljs-string">'ocelot'</span>,
+  <span class="hljs-string">'parakeet'</span>,
+  <span class="hljs-string">'porcupine'</span>,
+  <span class="hljs-string">'wolverine'</span> ]
+</code></pre>
+<p>Now you might notice this runs very slowly. We'll mostly ignore performance for this article, but what I ended up doing to streamline performance for the final bot was precomputing the stresses for all the animals and include that in the JSON file as well alongside each animal name.</p>
+<p>Armed with this new function, we can now build out our first line:</p>
+<pre><code class="lang-javascript hljs"><span class="hljs-keyword">var</span> couplet = <span class="hljs-string">'The body of a '</span> + getAnimalsByStress(<span class="hljs-string">'1/0/1'</span>).pick() + <span class="hljs-string">', the wisdom of a '</span> + getAnimalsByStress(<span class="hljs-string">'1'</span>).pick();
+
+<span class="hljs-built_in">console</span>.log(couplet);
+</code></pre>
+<p>Sample results:</p>
+<blockquote>
+<p>The body of a antelope, the wisdom of a hog 
+<br>The body of a wolverine, the wisdom of a fox
+<br>The body of a crocodile, the wisdom of a dog</p>
+</blockquote>
+<p>That looks okay, although we now have a problem where the indefinite article "a/an" doesn't always match up. We have to compute that somehow. We COULD write a simple function like this, which checks the first letter of a word to see if it starts with a vowel:</p>
+<pre><code class="lang-javascript hljs"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">a</span>(<span class="hljs-params">word</span>) </span>{
+  <span class="hljs-keyword">var</span> result = <span class="hljs-string">'a'</span>;
+  <span class="hljs-keyword">var</span> first = word[<span class="hljs-number">0</span>];
+  <span class="hljs-keyword">if</span> (first === <span class="hljs-string">'a'</span>
+    || first === <span class="hljs-string">'e'</span>
+    || first === <span class="hljs-string">'i'</span>
+    || first === <span class="hljs-string">'o'</span>
+    || first === <span class="hljs-string">'u'</span>) {
+    result = <span class="hljs-string">'an'</span>;
+  }
+  <span class="hljs-keyword">return</span> result + <span class="hljs-string">' '</span> + word;
+</code></pre>
+<p>...but that wouldn't catch situations like "an hour". Fortunately, RiTa comes to the rescue here with its <a href="http://www.rednoise.org/rita/reference/RiTa/RiTa.getPhonemes/index.html"><code>getPhonemes()</code></a> function. This function takes a word like "elephant" and returns its pronunciation: <code>'eh-l-ax-f-ax-n-t'</code>. You can <a href="http://www.rednoise.org/rita/reference/RiTa/RiTa.getPhonemes/index.html">read the full list of phonemes</a> if you like. So instead of checking to see if the word itself starts with a vowel, we can check if the <em>pronunciation</em> of the words starts with a vowel:</p>
+<pre><code class="lang-javascript hljs"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">a</span>(<span class="hljs-params">word</span>) </span>{
+  <span class="hljs-keyword">var</span> result = <span class="hljs-string">'a'</span>;
+  <span class="hljs-keyword">var</span> first = rita.getPhonemes(word)[<span class="hljs-number">0</span>];
+  <span class="hljs-keyword">if</span> (first === <span class="hljs-string">'a'</span>
+    || first === <span class="hljs-string">'e'</span>
+    || first === <span class="hljs-string">'i'</span>
+    || first === <span class="hljs-string">'o'</span>
+    || first === <span class="hljs-string">'u'</span>) {
+    result = <span class="hljs-string">'an'</span>;
+  }
+  <span class="hljs-keyword">return</span> result + <span class="hljs-string">' '</span> + word;
+}
+</code></pre>
+<p>You'll also note that I'm naming the function <code>a</code>. Normally I recommend against using one-letter function names, but I like how this ends up being more readable in the context of what we're doing. Look at the code now:</p>
+<pre><code class="lang-javascript hljs"><span class="hljs-keyword">var</span> animal_101 = getAnimalsByStress(<span class="hljs-string">'1/0/1'</span>).pick();
+<span class="hljs-keyword">var</span> animal_1 = getAnimalsByStress(<span class="hljs-string">'1'</span>).pick();
+<span class="hljs-keyword">var</span> couplet = <span class="hljs-string">'The body of '</span> + a(animal_101) + <span class="hljs-string">', the wisdom of '</span> + a(animal_1);
+
+<span class="hljs-built_in">console</span>.log(couplet);
+</code></pre>
+<p>When I read that third line there, it looks mostly like English! So I make an exception to my usual "no single-letter function names" rule here. Anyway, now we're correctly handling indefinite articles:</p>
+<blockquote>
+<p>The body of an antelope, the wisdom of a hog </p>
+</blockquote>
+<h4 id="finding-a-rhyming-adjective">Finding a rhyming adjective</h4>
+<p>The next thing we need to do is take the last word of the first line ("hog" in the above case) and get a list of adjectives that rhyme with it. RiTa provides the <a href="http://www.rednoise.org/rita/reference/RiLexicon/rhymes/index.html"><code>rhymes()</code></a> function, which returns an array of rhymes for a given word. That function is part of RiTa's <code>lexicon</code> object, which we defined way back up at the top of our file. Getting a list of rhymes for "hog" is simple:</p>
+<pre><code class="lang-javascript hljs"><span class="hljs-keyword">var</span> lexicon = <span class="hljs-keyword">new</span> RiTa.RiLexicon();
+<span class="hljs-built_in">console</span>.log(lexicon.rhymes(<span class="hljs-string">'hog'</span>));
+<span class="hljs-comment">// [ 'backlog', 'bog', 'clog', 'fog', 'frog', 'jog', 'slog', 'smog' ]</span>
+</code></pre>
+<p>RiTa also provides a <a href="http://www.rednoise.org/rita/reference/RiTa/RiTa.getPosTags/index.html"><code>getPosTags()</code></a> function which returns an array of <a href="http://www.rednoise.org/rita/reference/PennTags.html">part of speech tags</a> for a word:</p>
+<pre><code class="lang-javascript hljs"><span class="hljs-keyword">var</span> rita = RiTa.RiTa;
+<span class="hljs-built_in">console</span>.log(rita.getPosTags(<span class="hljs-string">'apple'</span>));
+<span class="hljs-comment">// [ 'nn' ]</span>
+</code></pre>
+<p>It's a little messy (for example, it thinks "bear" is always a verb), but it gets the job done simply.</p>
+<p>We can now generalize this to a function that grabs rhymes and then filters the results to find any adjectives in the set:</p>
+<pre><code class="lang-javascript hljs"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getAdjRhyme</span>(<span class="hljs-params">word</span>) </span>{
+  <span class="hljs-keyword">var</span> rhymes = lexicon.rhymes(word);
+  <span class="hljs-keyword">return</span> _.filter(rhymes, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">rhyme</span>) </span>{
+    <span class="hljs-comment">// only return rhymes that are tagged 'jj' (adjectives)</span>
+    <span class="hljs-keyword">return</span> rita.getPosTags(rhyme)[<span class="hljs-number">0</span>] === <span class="hljs-string">'jj'</span>;
+  });
+}
+</code></pre>
+<p>What happens if we try this with "money"?</p>
+<pre><code class="lang-javascript hljs"><span class="hljs-built_in">console</span>.log(getAdjRhyme(<span class="hljs-string">'money'</span>));
+<span class="hljs-comment">// [ 'funny', 'sunny' ]</span>
+</code></pre>
+<p>Excellent! We get two adjectives that rhyme with "money". Let's try this on "hog":</p>
+<pre><code class="lang-javascript hljs"><span class="hljs-built_in">console</span>.log(getAdjRhyme(<span class="hljs-string">'hog'</span>));
+<span class="hljs-comment">// []</span>
+</code></pre>
+<p>Wait what happened? Well it turns out that RiTa is unaware of any adjectives that rhyme with hog. Imagine if we tried to get a rhyming adjective for "orange"—we'd get the same result, an empty array.</p>
+<p>So how do we handle this error? Well ideally we'd like to to try again—but if there are no rhyming words for "hog", and we need a rhyme, then what we really need to do is pick a new one-syllable animal and test THAT to see if it has a rhyming adjective.</p>
+<p>At this point, we could write code that does that, but we're going to need this many times in the future and there's an easier solution: just redo the whole couplet if we hit any invalid cases! This isn't great for performance, but I'm not engineering this for performance.</p>
+<h4 id="ugh-error-handling">Ugh, error handling</h4>
+<p>This is the part where programming becomes not-fun. I'm sorry. It's boring, awful work, and you have to do stuff like this if you're going to spend your life trying to tell computers what to do.</p>
+<p>Let's build a broken version first, with no error handling:</p>
+<pre><code class="lang-javascript hljs"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">makeCouplet</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> animal_101 = getAnimalsByStress(<span class="hljs-string">'1/0/1'</span>).pick();
+  <span class="hljs-keyword">var</span> animal_1 = getAnimalsByStress(<span class="hljs-string">'1'</span>).pick();
+  <span class="hljs-keyword">var</span> couplet = <span class="hljs-string">'The body of '</span> + a(animal_101) + <span class="hljs-string">', the wisdom of '</span> + a(animal_1);
+  couplet += <span class="hljs-string">'\nToday you join with Gryffindor since you are '</span> + getAdjRhymes(animal_1).pick();
+  <span class="hljs-keyword">return</span> couplet;
+}
+</code></pre>
+<p>Sample output:</p>
+<blockquote>
+<p>The body of a porcupine, the wisdom of a boar
+<br>Today you join with Gryffindor because you are postwar
+<br>The body of a buffalo, the wisdom of an ape
+<br>Today you join with Gryffindor because you are shipshape
+<br>The body of a parakeet, the wisdom of a lynx
+<br>Today you join with Gryffindor because you are undefined</p>
+</blockquote>
+<p>Two problems with this output: first, the problem we arleady know about—if there's no rhyme (like for "lynx"), then it spits "undefined" because we're calling <code>pick()</code> on an empty array. The second problem, that we hadn't foreseen, is the meter is still off. I don't just need an adjective that rhymes with a word. I need an adjective <em>of a certain meter</em> that rhymes with a word.</p>
+<p>So I have a function that returns an array of rhyming adjectives. Now I need a function that filters the list of adjectives so they only have a certain meter. Ugh. Here we go, it's similar to our <code>getAnimalsByStress()</code> function:</p>
+<pre><code class="lang-javascript hljs"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getWordsByStress</span>(<span class="hljs-params">words, stress</span>) </span>{
+  <span class="hljs-keyword">return</span> _.filter(words, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">word</span>) </span>{
+    <span class="hljs-comment">// only include words with the stress we're looking for</span>
+    <span class="hljs-keyword">return</span> rita.getStresses(word) === stress;
+  });
+}
+</code></pre>
+<p>So now we're rewriting our <code>makeCouplet()</code> function to check the rhyming words for a particular stress, in this case <code>"1/0/1"</code>:</p>
+<pre><code class="lang-javascript hljs"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">makeCouplet</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> animal_101 = getAnimalsByStress(<span class="hljs-string">'1/0/1'</span>).pick();
+  <span class="hljs-keyword">var</span> animal_1 = getAnimalsByStress(<span class="hljs-string">'1'</span>).pick();
+  <span class="hljs-keyword">var</span> couplet = <span class="hljs-string">'The body of '</span> + a(animal_101) + <span class="hljs-string">', the wisdom of '</span> + a(animal_1);
+  <span class="hljs-keyword">var</span> rhymes = getWordsByStress(getAdjRhymes(animal_1), <span class="hljs-string">'1/0/1'</span>);
+  couplet += <span class="hljs-string">'\nToday you join with Gryffindor since you are '</span> + rhymes.pick();
+  <span class="hljs-keyword">return</span> couplet;
+}
+</code></pre>
+<p>Results:</p>
+<blockquote>
+<p>The body of an antelope, the wisdom of a boar
+<br> Today you join with Gryffindor since you are antiwar
+<br>The body of a kangaroo, the wisdom of a mink
+<br>Today you join with Gryffindor since you are undefined</p>
+</blockquote>
+<p>We got our first good result with that boar/antiwar rhyme! We're still seeing an error for "mink" though, because even though "pink" is a rhyme for it, "pink" is not a <code>"1/0/1"</code> stress, it's a <code>"1"</code> stress.</p>
+<p>Now let's put in that error handling. What we're going to do is test separately to see if <code>getAdjRhymes()</code> or <code>getWordsByStress()</code> come back empty. If so, we'll just call <code>makeCouplet()</code> and try again. Is this performant? Not really. Does it work? Yes:</p>
+<pre><code class="lang-javascript hljs"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">makeCouplet</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> animal_101 = getAnimalsByStress(<span class="hljs-string">'1/0/1'</span>).pick();
+  <span class="hljs-keyword">var</span> animal_1 = getAnimalsByStress(<span class="hljs-string">'1'</span>).pick();
+  <span class="hljs-keyword">var</span> couplet = <span class="hljs-string">'The body of '</span> + a(animal_101) + <span class="hljs-string">', the wisdom of '</span> + a(animal_1);
+  <span class="hljs-keyword">var</span> adjRhymes = getAdjRhymes(animal_1);
+  <span class="hljs-keyword">if</span> (adjRhymes.length === <span class="hljs-number">0</span>) {
+    <span class="hljs-keyword">return</span> makeCouplet();
+  }
+  <span class="hljs-keyword">var</span> rhymes = getWordsByStress(adjRhymes, <span class="hljs-string">'1/0/1'</span>);
+  <span class="hljs-keyword">if</span> (rhymes.length === <span class="hljs-number">0</span>) {
+    <span class="hljs-keyword">return</span> makeCouplet();
+  }
+  couplet += <span class="hljs-string">'\nToday you join with Gryffindor since you are '</span> + rhymes.pick();
+  <span class="hljs-keyword">return</span> couplet;
+}
+</code></pre>
+<p>This takes about 5 seconds to run on average, which is kind of awful, but it works:</p>
+<blockquote>
+<p>The body of an antelope, the wisdom of a newt
+<br>Today you join with Gryffindor since you are absolute
+<br>The body of an ocelot, the wisdom of an ox
+<br>Today you join with Gryffindor since you are orthodox</p>
+</blockquote>
+<h3 id="diversifying-the-output">Diversifying the output</h3>
+<p>One thing you'll notice if you run it a bunch of times is only a small number of rhymes happen: ox/orthrodox, fox/orthodox, newt/absolute, newt/resolute, etc. This is because not a lot of <code>"1/0/1"</code> adjectives rhyme with <code>"1"</code> animal names. It's not very exciting. One thing we can do is manually add new single-syllable animals to our list ("trout", "bug", etc). Another thing we can do is vary what we return for the rhyming adjective. What we really want is a "1/0/1" meter that we can fit in to the end of our rhyme. So it could be:</p>
+<blockquote>
+<p>you are <em>absolute</em>
+<br>you are <em>so astute</em>
+<br>you are <em>very cute</em></p>
+</blockquote>
+<p>So we can generalize this <em>further</em> and write a <code>get101Phrase()</code> function that will provide either a <code>"1/0/1"</code> rhyme, "so" followed by a <code>"0/1"</code> rhyme, or "very" followed by a <code>"1"</code> rhyme:</p>
+<pre><code class="lang-javascript hljs"><span class="hljs-comment">// accepts a list of words and returns a list of 1/0/1 formatted phrases with "very" and "so" as padding</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">get101Phrase</span>(<span class="hljs-params">words</span>) </span>{
+  <span class="hljs-keyword">var</span> results = _.chain(words)
+    .map(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">el</span>) </span>{
+      <span class="hljs-keyword">var</span> stress = rita.getStresses(el);
+      <span class="hljs-keyword">var</span> pos = rita.getPosTags(el)[<span class="hljs-number">0</span>];
+      <span class="hljs-keyword">if</span> (stress === <span class="hljs-string">'1'</span>) {
+        el = <span class="hljs-string">'very '</span> + el;
+        stress = <span class="hljs-string">'1/0/1'</span>;
+      }
+      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (stress === <span class="hljs-string">'0/1'</span>) {
+        el = <span class="hljs-string">'so '</span> + el;
+        stress = <span class="hljs-string">'1/0/1'</span>;
+      }
+      <span class="hljs-keyword">return</span> {
+        <span class="hljs-attr">word</span>: el,
+        <span class="hljs-attr">stress</span>: stress
+      };
+    })
+    <span class="hljs-comment">// just get the meter we want</span>
+    .filter(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">el</span>) </span>{
+      <span class="hljs-keyword">return</span> el.stress === <span class="hljs-string">'1/0/1'</span>;
+    })
+    <span class="hljs-comment">// just return the word, not the stress</span>
+    .map(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">el</span>) </span>{
+      <span class="hljs-keyword">return</span> el.word;
+    })
+    .value();
+  <span class="hljs-keyword">return</span> results;
+}
+</code></pre>
+<p>And our <code>makeCouplet()</code> now looks like:</p>
+<pre><code class="lang-javascript hljs"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">makeCouplet</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> animal_101 = getAnimalsByStress(<span class="hljs-string">'1/0/1'</span>).pick();
+  <span class="hljs-keyword">var</span> animal_1 = getAnimalsByStress(<span class="hljs-string">'1'</span>).pick();
+  <span class="hljs-keyword">var</span> couplet = <span class="hljs-string">'The body of '</span> + a(animal_101) + <span class="hljs-string">', the wisdom of '</span> + a(animal_1);
+  <span class="hljs-keyword">var</span> adjRhymes = getAdjRhymes(animal_1);
+  <span class="hljs-keyword">if</span> (adjRhymes.length === <span class="hljs-number">0</span>) {
+    <span class="hljs-keyword">return</span> makeCouplet();
+  }
+  <span class="hljs-keyword">var</span> rhymes = get101Phrase(adjRhymes);
+  <span class="hljs-keyword">if</span> (rhymes.length === <span class="hljs-number">0</span>) {
+    <span class="hljs-keyword">return</span> makeCouplet();
+  }
+  couplet += <span class="hljs-string">'\nToday you join with Gryffindor since you are '</span> + rhymes.pick();
+  <span class="hljs-keyword">return</span> couplet;
+}
+</code></pre>
+<p>Here's the output:</p>
+<blockquote>
+<p>The body of a crocodile, the wisdom of a mink
+<br>Today you join with Gryffindor since you are very pink
+<br>The body of an ocelot, the wisdom of a whale
+<br>Today you join with Gryffindor since you are very pale</p>
+</blockquote>
+<p>We can of course vary it up further to make it even more diverse:</p>
+<pre><code class="lang-javascript hljs"><span class="hljs-keyword">var</span> couplet = <span class="hljs-string">'The '</span> + [<span class="hljs-string">'body'</span>,<span class="hljs-string">'prowess'</span>,<span class="hljs-string">'ethic'</span>].pick() + <span class="hljs-string">' of '</span> + a(animal_101) + <span class="hljs-string">', the '</span> + [<span class="hljs-string">'wisdom'</span>,<span class="hljs-string">'instinct'</span>].pick() + <span class="hljs-string">'  of '</span> + a(animal_1);
+</code></pre>
+<h4 id="that-wasn-t-very-easy">That wasn't very easy</h4>
+<p>So that whole process wasn't actually very easy but we have reasonable, funny output now. The whole bot works more or less the way I've described above. You can <a href="https://gist.github.com/dariusk/57a30fbdd4eefd7215cb">download the source code for this exercise</a>.</p>
+<p>You can also <a href="https://github.com/dariusk/sorting-bot">see the entire source code for @SortingBot here</a>.</p>
+<h3 id="but-how-does-it-sort-followers-">But how does it sort followers????</h3>
+<p>Oh right. That. The actual sorting part is totally random.</p>
+<pre><code class="lang-javascript hljs"><span class="hljs-keyword">var</span> house = [<span class="hljs-string">'Gryffindor'</span>, <span class="hljs-string">'Ravenclaw'</span>, <span class="hljs-string">'Hufflepuff'</span>, <span class="hljs-string">'Slytherin'</span>].pick();
+</code></pre>
+<p><code>¯\_(ツ)_/¯</code></p>
+<p>The whole thing was made like 30% easier because each house has a <code>"1/0/1"</code> meter, which I never noticed until building this bot!</p>
+
+<script async="" src="./sorting-bot_files/analytics.js"></script><script src="./sorting-bot_files/highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script><script> (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,'script','//www.google-analytics.com/analytics.js','ga'); ga('create', 'UA-339043-1', 'auto'); ga('send', 'pageview'); </script>
+<span style="border-radius: 3px !important; text-indent: 20px !important; width: auto !important; padding: 0px 4px 0px 0px !important; text-align: center !important; font: bold 11px/20px &quot;Helvetica Neue&quot;, Helvetica, sans-serif !important; color: rgb(255, 255, 255) !important; background: url(&quot;data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMzBweCIgd2lkdGg9IjMwcHgiIHZpZXdCb3g9Ii0xIC0xIDMxIDMxIj48Zz48cGF0aCBkPSJNMjkuNDQ5LDE0LjY2MiBDMjkuNDQ5LDIyLjcyMiAyMi44NjgsMjkuMjU2IDE0Ljc1LDI5LjI1NiBDNi42MzIsMjkuMjU2IDAuMDUxLDIyLjcyMiAwLjA1MSwxNC42NjIgQzAuMDUxLDYuNjAxIDYuNjMyLDAuMDY3IDE0Ljc1LDAuMDY3IEMyMi44NjgsMC4wNjcgMjkuNDQ5LDYuNjAxIDI5LjQ0OSwxNC42NjIiIGZpbGw9IiNmZmYiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxIj48L3BhdGg+PHBhdGggZD0iTTE0LjczMywxLjY4NiBDNy41MTYsMS42ODYgMS42NjUsNy40OTUgMS42NjUsMTQuNjYyIEMxLjY2NSwyMC4xNTkgNS4xMDksMjQuODU0IDkuOTcsMjYuNzQ0IEM5Ljg1NiwyNS43MTggOS43NTMsMjQuMTQzIDEwLjAxNiwyMy4wMjIgQzEwLjI1MywyMi4wMSAxMS41NDgsMTYuNTcyIDExLjU0OCwxNi41NzIgQzExLjU0OCwxNi41NzIgMTEuMTU3LDE1Ljc5NSAxMS4xNTcsMTQuNjQ2IEMxMS4xNTcsMTIuODQyIDEyLjIxMSwxMS40OTUgMTMuNTIyLDExLjQ5NSBDMTQuNjM3LDExLjQ5NSAxNS4xNzUsMTIuMzI2IDE1LjE3NSwxMy4zMjMgQzE1LjE3NSwxNC40MzYgMTQuNDYyLDE2LjEgMTQuMDkzLDE3LjY0MyBDMTMuNzg1LDE4LjkzNSAxNC43NDUsMTkuOTg4IDE2LjAyOCwxOS45ODggQzE4LjM1MSwxOS45ODggMjAuMTM2LDE3LjU1NiAyMC4xMzYsMTQuMDQ2IEMyMC4xMzYsMTAuOTM5IDE3Ljg4OCw4Ljc2NyAxNC42NzgsOC43NjcgQzEwLjk1OSw4Ljc2NyA4Ljc3NywxMS41MzYgOC43NzcsMTQuMzk4IEM4Ljc3NywxNS41MTMgOS4yMSwxNi43MDkgOS43NDksMTcuMzU5IEM5Ljg1NiwxNy40ODggOS44NzIsMTcuNiA5Ljg0LDE3LjczMSBDOS43NDEsMTguMTQxIDkuNTIsMTkuMDIzIDkuNDc3LDE5LjIwMyBDOS40MiwxOS40NCA5LjI4OCwxOS40OTEgOS4wNCwxOS4zNzYgQzcuNDA4LDE4LjYyMiA2LjM4NywxNi4yNTIgNi4zODcsMTQuMzQ5IEM2LjM4NywxMC4yNTYgOS4zODMsNi40OTcgMTUuMDIyLDYuNDk3IEMxOS41NTUsNi40OTcgMjMuMDc4LDkuNzA1IDIzLjA3OCwxMy45OTEgQzIzLjA3OCwxOC40NjMgMjAuMjM5LDIyLjA2MiAxNi4yOTcsMjIuMDYyIEMxNC45NzMsMjIuMDYyIDEzLjcyOCwyMS4zNzkgMTMuMzAyLDIwLjU3MiBDMTMuMzAyLDIwLjU3MiAxMi42NDcsMjMuMDUgMTIuNDg4LDIzLjY1NyBDMTIuMTkzLDI0Ljc4NCAxMS4zOTYsMjYuMTk2IDEwLjg2MywyNy4wNTggQzEyLjA4NiwyNy40MzQgMTMuMzg2LDI3LjYzNyAxNC43MzMsMjcuNjM3IEMyMS45NSwyNy42MzcgMjcuODAxLDIxLjgyOCAyNy44MDEsMTQuNjYyIEMyNy44MDEsNy40OTUgMjEuOTUsMS42ODYgMTQuNzMzLDEuNjg2IiBmaWxsPSIjYmQwODFjIj48L3BhdGg+PC9nPjwvc3ZnPg==&quot;) 3px 50% / 14px 14px no-repeat rgb(189, 8, 28) !important; position: absolute !important; opacity: 1 !important; z-index: 8675309 !important; display: none; cursor: pointer !important; border: none !important; -webkit-font-smoothing: antialiased !important;">Save</span><span style="border-radius: 12px; width: 24px !important; height: 24px !important; background: url(&quot;data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pjxzdmcgd2lkdGg9IjI0cHgiIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAwIDI0IDI0IiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxkZWZzPjxtYXNrIGlkPSJtIj48cmVjdCBmaWxsPSIjZmZmIiB4PSIwIiB5PSIwIiB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHJ4PSI2IiByeT0iNiIvPjxyZWN0IGZpbGw9IiMwMDAiIHg9IjUiIHk9IjUiIHdpZHRoPSIxNCIgaGVpZ2h0PSIxNCIgcng9IjEiIHJ5PSIxIi8+PHJlY3QgZmlsbD0iIzAwMCIgeD0iMTAiIHk9IjAiIHdpZHRoPSI0IiBoZWlnaHQ9IjI0Ii8+PHJlY3QgZmlsbD0iIzAwMCIgeD0iMCIgeT0iMTAiIHdpZHRoPSIyNCIgaGVpZ2h0PSI0Ii8+PC9tYXNrPjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIGZpbGw9IiNmZmYiIG1hc2s9InVybCgjbSkiLz48L3N2Zz4=&quot;) 50% 50% / 14px 14px no-repeat rgba(0, 0, 0, 0.4) !important; position: absolute !important; opacity: 1 !important; z-index: 8675309 !important; display: none; cursor: pointer !important; border: none !important;"></span></body></html>

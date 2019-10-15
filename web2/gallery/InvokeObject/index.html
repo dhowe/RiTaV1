@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<!-- saved from url=(0042)http://www.brnart.com/invokeobject-object/ -->
+<html xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:website="http://ogp.me/ns/website" lang="en-US" itemscope="" itemtype="http://schema.org/WebPage" class="yui3-js-enabled js flexbox canvas canvastext webgl no-touch hashchange history draganddrop rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms no-csstransforms3d csstransitions video audio svg inlinesvg svgclippaths wf-proximanova-n3-active wf-proximanova-n6-active wf-proximanova-n7-active wf-proximanova-i3-active wf-proximanova-i6-active wf-proximanova-i7-active wf-futurapt-n4-active wf-active" id="yui_3_17_2_1_1479282016753_161" style=""><div id="yui3-css-stamp" style="position: absolute !important; visibility: hidden !important"></div><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  
+  <!-- This is Squarespace. --><!-- brnicholson -->
+<!--<base href="">--><base href=".">
+
+<title>invoke(Object object); — BRN</title>
+<link rel="shortcut icon" type="image/x-icon" href="http://www.brnart.com/favicon.ico">
+<link rel="canonical" href="http://www.brnart.com/invokeobject-object/">
+<meta property="og:site_name" content="BRN">
+<meta property="og:title" content="invoke(Object object);">
+<meta property="og:url" content="http://www.brnart.com/invokeobject-object/">
+<meta property="og:type" content="website">
+<meta itemprop="name" content="invoke(Object object);">
+<meta itemprop="url" content="http://www.brnart.com/invokeobject-object/">
+<meta name="twitter:title" content="invoke(Object object);">
+<meta name="twitter:url" content="http://www.brnart.com/invokeobject-object/">
+<meta name="twitter:card" content="summary">
+<meta name="description" content="">
+<script type="text/javascript" src="./files/longfilename.js"></script><style type="text/css">
+:root #header + #content > #left > #rlblock_left
+{ display: none !important; }</style>
+<style type="text/css">@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/91e2be/00000000000000003b9aec23/27/l?subset_id=2&fvd=n3) format("woff2"),url(https://use.typekit.net/af/91e2be/00000000000000003b9aec23/27/d?subset_id=2&fvd=n3) format("woff"),url(https://use.typekit.net/af/91e2be/00000000000000003b9aec23/27/a?subset_id=2&fvd=n3) format("opentype");font-weight:300;font-style:normal;}@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/ebcdcf/00000000000000003b9aec29/27/l?subset_id=2&fvd=n6) format("woff2"),url(https://use.typekit.net/af/ebcdcf/00000000000000003b9aec29/27/d?subset_id=2&fvd=n6) format("woff"),url(https://use.typekit.net/af/ebcdcf/00000000000000003b9aec29/27/a?subset_id=2&fvd=n6) format("opentype");font-weight:600;font-style:normal;}@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/723bd2/00000000000000003b9aec1f/27/l?subset_id=2&fvd=n7) format("woff2"),url(https://use.typekit.net/af/723bd2/00000000000000003b9aec1f/27/d?subset_id=2&fvd=n7) format("woff"),url(https://use.typekit.net/af/723bd2/00000000000000003b9aec1f/27/a?subset_id=2&fvd=n7) format("opentype");font-weight:700;font-style:normal;}@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/5f5b2d/00000000000000003b9aec24/27/l?subset_id=2&fvd=i3) format("woff2"),url(https://use.typekit.net/af/5f5b2d/00000000000000003b9aec24/27/d?subset_id=2&fvd=i3) format("woff"),url(https://use.typekit.net/af/5f5b2d/00000000000000003b9aec24/27/a?subset_id=2&fvd=i3) format("opentype");font-weight:300;font-style:italic;}@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/7c2a88/00000000000000003b9aec2a/27/l?subset_id=2&fvd=i6) format("woff2"),url(https://use.typekit.net/af/7c2a88/00000000000000003b9aec2a/27/d?subset_id=2&fvd=i6) format("woff"),url(https://use.typekit.net/af/7c2a88/00000000000000003b9aec2a/27/a?subset_id=2&fvd=i6) format("opentype");font-weight:600;font-style:italic;}@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/d15964/00000000000000003b9aec20/27/l?subset_id=2&fvd=i7) format("woff2"),url(https://use.typekit.net/af/d15964/00000000000000003b9aec20/27/d?subset_id=2&fvd=i7) format("woff"),url(https://use.typekit.net/af/d15964/00000000000000003b9aec20/27/a?subset_id=2&fvd=i7) format("opentype");font-weight:700;font-style:italic;}@font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2"),url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/d?subset_id=2&fvd=n4) format("woff"),url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/a?subset_id=2&fvd=n4) format("opentype");font-weight:400;font-style:normal;}</style><script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+<script type="text/javascript">SQUARESPACE_ROLLUPS = {};</script>
+<script>(function(rollups, name) { if (!rollups[name]) { rollups[name] = {}; } rollups[name].js = ["//static.squarespace.com/universal/scripts-compressed/common-16630008ec033bfd0e9d-min.js"]; })(SQUARESPACE_ROLLUPS, 'squarespace-common');</script>
+<script crossorigin="anonymous" src="./files/common-16630008ec033bfd0e9d-min.js"></script><script type="text/javascript" data-sqs-type="imageloader">(function() {var EXCLUDED_SIZES=function(){var a=window.location.search,b=a.indexOf("exclude_imageloader_sizes=");return-1<b&&(a=a.substr(b+26).split("&")[0])?a.split(",").map(function(a){return parseInt(a,10)}):[]}(),SQUARESPACE_SIZES=[2500,1500,1E3,750,500,300,100].filter(function(a){return-1===EXCLUDED_SIZES.indexOf(a)}),IMAGE_LOADING_CLASS="loading",ImageLoader=new function(){this.load=function(a,b){function d(a,b,c){var d=new Image;d.onload=b;d.onerror=c;d.src=a}a.getDOMNode&&(a=a.getDOMNode());var c=this._getDataFromNode(a,
+b),e=!(!c.dimensions||!c.dimensions.width||!c.dimensions.height),g=c.load+"";if("false"===g)return!1;var h=c.mode;if(e&&("fit"===h||"fill"===h)){h=a.parentNode;if(!h)return console.error("Not doing anything, parentNode not found."),!1;if(!this.refresh(a,b,h))return!1}var n=this._intendToLoad(a,c);if("string"===typeof n&&"viewport"!==g){var m=this.getUrl(n,c),g=a.getAttribute("data-image-resolution");a.getAttribute("src")!==m&&this.isValidResolution(n,g)&&(a.onload=function(){a.className=a.className.replace(IMAGE_LOADING_CLASS,
+" ").trim();a.setAttribute("data-image-resolution",n)},!a.getAttribute("src")&&-1===a.className.indexOf(IMAGE_LOADING_CLASS)&&(a.className+=(a.className?" ":"")+IMAGE_LOADING_CLASS),!a.getAttribute("src")&&e?(a.setAttribute("src",m),c.useBgImage&&(a.parentNode.style.backgroundImage="url("+m+")")):d(m,function(){e?a.setAttribute("src",m):(a.setAttribute("data-image-dimensions",this.width+"x"+this.height),ImageLoader.load(a,b))},function(){a.className=a.className.replace(IMAGE_LOADING_CLASS," ").trim();
+a.setAttribute("src",m)}));return!0}return n};this.refresh=function(a,b,d){a.getDOMNode&&(a=a.getDOMNode());d&&d.getDOMNode&&(d=d.getDOMNode());d=d||a.parentNode;if(!d)return console.error("Not doing anything, parentNode not found."),!1;var c=this._getDataFromNode(a,b),e=d.offsetWidth,g=d.offsetHeight;b=c.mode;if("none"!==b){var h=c.dimensions.width,n=c.dimensions.height,m=h/n,q=e/g;if(c.useBgImage&&"fill"===b&&"backgroundSize"in document.documentElement.style)return a.style.display="none",d.style.backgroundSize=
+"cover",d.style.backgroundPosition=100*c.focalPoint.x+"% "+100*c.focalPoint.y+"%",!0;if(c.fixedRatio)"fill"==b&&q>m||"fit"==b&&q<m?(k=100,l=100*(q/m),r=(100-l)*c.focalPoint.y,p=0):(k=100*(m/q),l=100,r=0,p=(100-k)*c.focalPoint.x),a.style.top=r+"%",a.style.left=p+"%",a.style.width=k+"%",a.style.height=l+"%";else{var f;"fill"===b?f=m>q?g/n:e/h:"fit"===b&&(f=m<q?g/n:e/h);!c.stretch&&"fit"==b&&1<f&&(f=1);var k=Math.ceil(h*f),l=Math.ceil(n*f);if(0===k||0===l)return!1;var p,r;"fill"===b?(p=Math.min(Math.max(e/
+2-k*c.focalPoint.x,e-k),0),r=Math.min(Math.max(g/2-l*c.focalPoint.y,g-l),0)):"fit"===b&&(f=c.fitAlignment,p=f.left?0:f.right?e-k:k<e?(e-k)/2:0,r=f.top?0:f.bottom?g-l:l<g?(g-l)/2:0,"inline"==this._getStyle(a,"display")&&(a.style.fontSize="0px"),this._resetAlt(a,function(){k-=a.offsetHeight-a.clientHeight;l-=a.offsetWidth-a.clientWidth}));a.style.top=Math.ceil(r)+"px";a.style.left=Math.ceil(p)+"px";a.style.width=Math.ceil(k)+"px";a.style.height=Math.ceil(l)+"px"}p=this._getStyle(d,"position");a.style.position=
+"relative"==p?"absolute":"relative";if("fill"==b&&(b=this._getStyle(d,"overflow"),!b||"hidden"!=b))d.style.overflow="hidden";return!0}};this._intendToLoad=function(a,b){function d(c,d){"none"===b.mode&&(a.style.width=null,a.style.height=null);var e=parseFloat(a.getAttribute(c)),f=parseFloat(e);if(!f||isNaN(f))e=h._getStyle(a,c),f=parseFloat(e);if(!f||isNaN(f))e=h._getStyle(a,"max-"+c,"max"+(c.substr(0,1).toUpperCase()+c.substr(1))),f=parseFloat(e);if(0===d||e)switch(h._stringType(e)){case "percentage":d=
+parseInt(e,10)/100*g["offset"+c.substr(0,1).toUpperCase()+c.substr(1)];break;case "number":d=parseInt(e,10)}!f&&0!==d&&!a.getAttribute("src")&&(d=0);return d}b=b||this._getDataFromNode(a);if(!b.source)return!1;var c=a.offsetWidth,e=a.offsetHeight,g=a.parentNode,h=this;this._resetAlt(a,function(){c=d("width",c);e=d("height",e)});0===c&&0===e?(c=b.dimensions.width,e=b.dimensions.height):0===c?c=this.getDimensionForValue("width",e,b):0===e&&(e=this.getDimensionForValue("height",c,b));"viewport"===b.load&&
+(a.style.width=Math.floor(c)+"px",a.style.height=Math.floor(e)+"px");return this.getSquarespaceSize(c,e,b)};this._getDataFromNode=function(a,b){b=b||{};var d={focalPoint:{x:0.5,y:0.5},dimensions:{width:null,height:null},mode:"none",fitAlignment:{center:!0},load:"true",stretch:!0,fixedRatio:!1};if(b.focalPoint)d.focalPoint=b.focalPoint;else{var c=a.getAttribute("data-image-focal-point");if(c&&(c=c.split(","))&&2==c.length)d.focalPoint={x:parseFloat(c[0]),y:parseFloat(c[1])}}if(b.dimensions)d.dimensions=
+b.dimensions;else if((c=a.getAttribute("data-image-dimensions"))&&(c=c.split("x"))&&2==c.length)d.dimensions={width:parseInt(c[0],10),height:parseInt(c[1],10)};b.mode?d.mode=b.mode:a.parentNode&&(c=a.parentNode.className,-1!==c.indexOf("content-fill")?d.mode="fill":-1!==c.indexOf("content-fit")&&(d.mode="fit"));if("fit"===d.mode&&a.parentNode&&(c=b.fitAlignment||a.getAttribute("data-alignment")||a.parentNode.getAttribute("data-alignment")))d.fitAlignment={top:-1!==c.indexOf("top"),left:-1!==c.indexOf("left"),
+center:-1!==c.indexOf("center"),right:-1!==c.indexOf("right"),bottom:-1!==c.indexOf("bottom")};b.load?d.load=b.load:(c=a.getAttribute("data-load"))&&(d.load=c);if("undefined"!==typeof b.stretch)d.stretch=b.stretch;else if(c=a.getAttribute("data-image-stretch"))d.stretch="true"===c?!0:!1;d.source=b.source?b.source:a.getAttribute("data-src");d.source&&this.isSquarespaceUrl(d.source)&&("http:"===d.source.substr(0,5)&&"https"===window.location.protocol.substr(0,5))&&(d.source=d.source.replace("http://",
+"https://"));if(b.fixedRatio)d.fixedRatio=b.fixedRatio;else if(c=a.getAttribute("data-fixed-ratio"))d.fixedRatio="true"==c;b.useBgImage?d.useBgImage=b.useBgImage:(c=a.getAttribute("data-use-bg-image"),d.useBgImage="true"===c||!0===c?!0:!1);return d};this._stringType=function(a){return"string"===typeof a&&-1!==a.indexOf("%")?"percentage":isNaN(parseInt(a,10))?NaN:"number"};this._getStyle=function(a,b,d){var c;a.currentStyle?c=a.currentStyle[d||b]:window.getComputedStyle&&(c=document.defaultView.getComputedStyle(a,
+null).getPropertyValue(b));return c};this._isVisible=function(a){a=a.getBoundingClientRect();return 0<=a.left&&0<=a.top||0<=a.bottom&&0<=a.right||0<=a.left&&0<=a.bottom||0<=a.right&&0<=a.top};this.getSquarespaceSize=function(a,b,d){a=Math.max(b/(d.dimensions.height/d.dimensions.width),a);"undefined"===typeof app&&"number"===typeof window.devicePixelRatio&&(a*=window.devicePixelRatio);for(b=1;b<SQUARESPACE_SIZES.length&&!(a>SQUARESPACE_SIZES[b]);b++);return SQUARESPACE_SIZES[b-1]+"w"};this.getDimensionForValue=
+function(a,b,d){var c=d.dimensions.width;d=d.dimensions.height;return"width"==a?c/d*b:"height"==a?d/c*b:NaN};this.getUrl=function(a,b){var d=b.source;return a&&("/"==d[0]||this.isSquarespaceUrl(d))?(-1===d.indexOf("format="+a)&&(d=d+(-1!==d.indexOf("?")?"&":"?")+"format="+a),d):b.source};this.isSquarespaceUrl=function(a){return-1!==a.indexOf("squarespace.com")||-1!==a.indexOf("squarespace.net")||-1!==a.indexOf("sqsp.net")};this.isValidResolution=function(a,b){a=parseInt(a,10);b=parseInt(b,10);return isNaN(a)||
+isNaN(b)?!0:a>b};this._resetAlt=function(a,b){var d=a.getAttribute("alt"),c=d&&0<d.length&&!a.getAttribute("src");if(c){var e=a.style.display;a.removeAttribute("alt");a.style.display="none";a.offsetHeight+0;a.style.display=e}b.call(this);c&&a.setAttribute("alt",d)};this.bootstrap=function(){var a=document.images;if(0<a.length)for(var b=0,d=a.length;b<d;b++)((a[b].hasAttribute?a[b].hasAttribute("data-image"):a[b].attributes["data-image"])||(a[b].hasAttribute?a[b].hasAttribute("data-src"):a[b].attributes["data-src"]))&&
+"false"!==(a[b].getAttribute?a[b].getAttribute("data-load"):a[b].attributes["data-load"])+""&&ImageLoader.load(a[b])}};window.ImageLoader=ImageLoader;window.YUI&&YUI.add("squarespace-imageloader",function(a){},"1.0",{requires:[]});
+})();</script>
+<script>Static.SQUARESPACE_CONTEXT = {"facebookAppId":"314192535267336","rollups":{"squarespace-announcement-bar":{"css":"//static.squarespace.com/universal/styles-compressed/announcement-bar-d41d8cd98f00b204e9800998ecf8427e-min.css","js":"//static.squarespace.com/universal/scripts-compressed/announcement-bar-952fc9b7c74a420052a7-min.js"},"squarespace-audio-player":{"css":"//static.squarespace.com/universal/styles-compressed/audio-player-76e4bfcc3f9830beb388bae2002fbe6c-min.css","js":"//static.squarespace.com/universal/scripts-compressed/audio-player-55643d65491adcc6cf24-min.js"},"squarespace-blog-collection-list":{"css":"//static.squarespace.com/universal/styles-compressed/blog-collection-list-d41d8cd98f00b204e9800998ecf8427e-min.css","js":"//static.squarespace.com/universal/scripts-compressed/blog-collection-list-88a2aa872a1d9307f52e-min.js"},"squarespace-calendar-block-renderer":{"css":"//static.squarespace.com/universal/styles-compressed/calendar-block-renderer-032634519fa160b1d2da6986dce0cdae-min.css","js":"//static.squarespace.com/universal/scripts-compressed/calendar-block-renderer-3c294bf6769e073dbfb0-min.js"},"squarespace-chartjs-helpers":{"css":"//static.squarespace.com/universal/styles-compressed/chartjs-helpers-9935a41d63cf08ca108505d288c1712e-min.css","js":"//static.squarespace.com/universal/scripts-compressed/chartjs-helpers-0b76435a694ee687cb89-min.js"},"squarespace-comments":{"css":"//static.squarespace.com/universal/styles-compressed/comments-db79f121099c10e9346733da5bc6bb10-min.css","js":"//static.squarespace.com/universal/scripts-compressed/comments-e47e2c67234a1309d9ff-min.js"},"squarespace-dialog":{"css":"//static.squarespace.com/universal/styles-compressed/dialog-41403d1f0d87846c1b05baa36a8d7c38-min.css","js":"//static.squarespace.com/universal/scripts-compressed/dialog-1688da8637bd7451dae5-min.js"},"squarespace-events-collection":{"css":"//static.squarespace.com/universal/styles-compressed/events-collection-032634519fa160b1d2da6986dce0cdae-min.css","js":"//static.squarespace.com/universal/scripts-compressed/events-collection-08dbf344dcd4f9674430-min.js"},"squarespace-gallery-collection-list":{"css":"//static.squarespace.com/universal/styles-compressed/gallery-collection-list-d41d8cd98f00b204e9800998ecf8427e-min.css","js":"//static.squarespace.com/universal/scripts-compressed/gallery-collection-list-f35ecfe4b462489ec100-min.js"},"squarespace-image-zoom":{"css":"//static.squarespace.com/universal/styles-compressed/image-zoom-ae974921915aeccaff8ad60c60e19c31-min.css","js":"//static.squarespace.com/universal/scripts-compressed/image-zoom-65b87eb51014a2986a7b-min.js"},"squarespace-pinterest":{"css":"//static.squarespace.com/universal/styles-compressed/pinterest-d41d8cd98f00b204e9800998ecf8427e-min.css","js":"//static.squarespace.com/universal/scripts-compressed/pinterest-b7ee343bdb646730bd0d-min.js"},"squarespace-product-quick-view":{"css":"//static.squarespace.com/universal/styles-compressed/product-quick-view-eb4b900ac0155bed2f175aa82e2a7c17-min.css","js":"//static.squarespace.com/universal/scripts-compressed/product-quick-view-dac193209f1cc9d105ff-min.js"},"squarespace-products-collection-item-v2":{"css":"//static.squarespace.com/universal/styles-compressed/products-collection-item-v2-ae974921915aeccaff8ad60c60e19c31-min.css","js":"//static.squarespace.com/universal/scripts-compressed/products-collection-item-v2-ad5ac3cfe0a0ac23a01c-min.js"},"squarespace-products-collection-list-v2":{"css":"//static.squarespace.com/universal/styles-compressed/products-collection-list-v2-ae974921915aeccaff8ad60c60e19c31-min.css","js":"//static.squarespace.com/universal/scripts-compressed/products-collection-list-v2-96b761bd69f5160f6128-min.js"},"squarespace-search-page":{"css":"//static.squarespace.com/universal/styles-compressed/search-page-9e3daa07ec7490c2f0be98a39351cb63-min.css","js":"//static.squarespace.com/universal/scripts-compressed/search-page-dd9a43b7d42e87e8a38e-min.js"},"squarespace-share-buttons":{"js":"//static.squarespace.com/universal/scripts-compressed/share-buttons-1712396aa0d57c96edec-min.js"},"squarespace-simple-liking":{"css":"//static.squarespace.com/universal/styles-compressed/simple-liking-09fa291ec2800c97714f0d157fd0a6ca-min.css","js":"//static.squarespace.com/universal/scripts-compressed/simple-liking-9407721dbee5c54a9037-min.js"},"squarespace-social-buttons":{"css":"//static.squarespace.com/universal/styles-compressed/social-buttons-7a696232d1cd101fd62b5f174f9ae6ff-min.css","js":"//static.squarespace.com/universal/scripts-compressed/social-buttons-139cead2d577a6c90ca8-min.js"},"squarespace-tourdates":{"css":"//static.squarespace.com/universal/styles-compressed/tourdates-d41d8cd98f00b204e9800998ecf8427e-min.css","js":"//static.squarespace.com/universal/scripts-compressed/tourdates-cc4aa9dc1f90a1cf488a-min.js"}},"pageType":2,"website":{"id":"53f10120e4b0bfa013c249e0","identifier":"brnicholson","websiteType":1,"contentModifiedOn":1478294110142,"cloneable":false,"siteStatus":{},"language":"en-US","timeZone":"America/Chicago","machineTimeZoneOffset":-21600000,"timeZoneOffset":-21600000,"timeZoneAbbr":"CST","siteTitle":"BRN","siteDescription":"","location":{"mapZoom":12.0,"mapLat":40.7207559,"mapLng":-74.0007613},"shareButtonOptions":{"6":true,"3":true,"8":true,"7":true,"4":true,"5":true,"2":true,"1":true},"authenticUrl":"http://www.brnart.com","internalUrl":"http://brnicholson.squarespace.com","baseUrl":"http://www.brnart.com","primaryDomain":"www.brnart.com","typekitId":"","statsMigrated":false,"imageMetadataProcessingEnabled":false},"websiteSettings":{"id":"53f10120e4b0bfa013c249e1","websiteId":"53f10120e4b0bfa013c249e0","subjects":[],"country":"US","state":"IL","markdownMode":false,"simpleLikingEnabled":true,"mobileInfoBarSettings":{"style":1,"isContactEmailEnabled":true,"isContactPhoneNumberEnabled":true,"isLocationEnabled":true,"isBusinessHoursEnabled":true},"announcementBarSettings":{"style":1,"text":""},"lastAgreedTermsOfService":2,"defaultPostFormat":"%y/%m/%d/%t","commentLikesAllowed":true,"commentAnonAllowed":true,"commentThreaded":true,"commentApprovalRequired":false,"commentAvatarsOn":true,"commentSortType":2,"commentFlagThreshold":0,"commentFlagsAllowed":true,"commentEnableByDefault":true,"commentDisableAfterDaysDefault":0,"disqusShortname":"","homepageTitleFormat":"%s","collectionTitleFormat":"%c \u2014 %s","itemTitleFormat":"%i \u2014 %s","commentsEnabled":true,"allowSquarespacePromotion":true,"storeSettings":{"returnPolicy":null,"termsOfService":null,"privacyPolicy":null,"paymentSettings":{},"expressCheckout":false,"useLightCart":false,"showNoteField":false,"shippingCountryDefaultValue":"US","billToShippingDefaultValue":false,"showShippingPhoneNumber":true,"isShippingPhoneRequired":false,"showBillingPhoneNumber":true,"isBillingPhoneRequired":false,"currenciesSupported":["USD"],"defaultCurrency":"USD","selectedCurrency":"USD","measurementStandard":1,"showCustomCheckoutForm":false,"enableMailingListOptInByDefault":true,"sameAsRetailLocation":false,"stripeConnected":false,"isLive":false},"useEscapeKeyToLogin":true,"ssBadgeType":1,"ssBadgePosition":4,"ssBadgeVisibility":1,"ssBadgeDevices":1,"ampEnabled":false},"websiteCloneable":false,"collection":{"title":"invoke(Object object);","id":"53f22d4ce4b0897910471112","fullUrl":"/invokeobject-object/","type":10},"subscribed":false,"appDomain":"squarespace.com","templateTweakable":true,"tweakJSON":{"TGutter":"3%","TMaxWidth":"300","TPerRow":"4","gallery-auto-play":"false","galleryPlaySpeed":"3.0","hide-thumbnail-titles":"false","outerPadding":"40px","pagePadding":"10px","product-gallery-auto-crop":"false","product-image-auto-crop":"true","thumbnail-layout":"Basic Grid","topPadding":"10px"},"templateId":"4fd11f32c4aad9b01c9e624c","pageFeatures":[1,2,4],"impersonatedSession":false,"demoCollections":[{"collectionId":"4fd1028ee4b02be53c65dfc4","deleted":true},{"collectionId":"52152320e4b0212d398a4d4e","deleted":true},{"collectionId":"5220fdd3e4b0a04ed1106221","deleted":true},{"collectionId":"4fd1028ee4b02be53c65dfb9","deleted":true},{"collectionId":"522103cfe4b0b7a7884b30bd","deleted":true},{"collectionId":"5220fc11e4b0eaafa13b9d1d","deleted":true},{"collectionId":"5220fcd4e4b07d0760c6cc9f","deleted":true},{"collectionId":"5220fd71e4b0766e69c914ad","deleted":true},{"collectionId":"5220ff82e4b0c7e3fdb29039","deleted":true},{"collectionId":"52210040e4b0c7e3fdb29198","deleted":true},{"collectionId":"52210139e4b0c7e3fdb2938f","deleted":true},{"collectionId":"522101ace4b00d90384937d7","deleted":true},{"collectionId":"52210272e4b0e15dbd4ebcb3","deleted":true},{"collectionId":"522103dde4b08d991c65973e","deleted":true},{"collectionId":"5220fe45e4b0120ef55a7726","deleted":true},{"collectionId":"5220fec0e4b0c7e3fdb28eb8","deleted":true},{"collectionId":"5220ff0ee4b0304add8ebe6f","deleted":true},{"collectionId":"522102f1e4b05d551bae1fa6","deleted":true},{"collectionId":"5221037ee4b00d9038493b43","deleted":true}],"isFacebookTab":false,"tzData":{"zones":[[-360,"US","C%sT",null]],"rules":{"US":[[1967,2006,null,"Oct","lastSun","2:00","0","S"],[1987,2006,null,"Apr","Sun>=1","2:00","1:00","D"],[2007,"max",null,"Mar","Sun>=8","2:00","1:00","D"],[2007,"max",null,"Nov","Sun>=1","2:00","0","S"]]}}};</script><script type="text/javascript"> SquarespaceFonts.loadViaContext(); Squarespace.load(window);</script><script type="application/ld+json">{"@context":"http://schema.org","@type":"WebSite","url":"http://www.brnart.com","name":"BRN","description":""}</script><!--[if gte IE 9]> <link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/53f10120e4b0bfa013c249e0/29/4fd11f32c4aad9b01c9e624c/53f10120e4b0bfa013c249e4/1309-05142015/1467132495473/site.css?&filterFeatures=false&part=1"/><link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/53f10120e4b0bfa013c249e0/29/4fd11f32c4aad9b01c9e624c/53f10120e4b0bfa013c249e4/1309-05142015/1467132495473/site.css?&filterFeatures=false&part=2"/><link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/53f10120e4b0bfa013c249e0/29/4fd11f32c4aad9b01c9e624c/53f10120e4b0bfa013c249e4/1309-05142015/1467132495473/site.css?&filterFeatures=false&part=3"/><link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/53f10120e4b0bfa013c249e0/29/4fd11f32c4aad9b01c9e624c/53f10120e4b0bfa013c249e4/1309-05142015/1467132495473/site.css?&filterFeatures=false&part=4"/><![endif]-->
+<!--[if lt IE 9]><link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/53f10120e4b0bfa013c249e0/29/4fd11f32c4aad9b01c9e624c/53f10120e4b0bfa013c249e4/1309-05142015/1467132495473/site.css?&filterFeatures=false&noMedia=true&part=1"/><link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/53f10120e4b0bfa013c249e0/29/4fd11f32c4aad9b01c9e624c/53f10120e4b0bfa013c249e4/1309-05142015/1467132495473/site.css?&filterFeatures=false&noMedia=true&part=2"/><link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/53f10120e4b0bfa013c249e0/29/4fd11f32c4aad9b01c9e624c/53f10120e4b0bfa013c249e4/1309-05142015/1467132495473/site.css?&filterFeatures=false&noMedia=true&part=3"/><link rel="stylesheet" type="text/css" href="//static1.squarespace.com/static/sitecss/53f10120e4b0bfa013c249e0/29/4fd11f32c4aad9b01c9e624c/53f10120e4b0bfa013c249e4/1309-05142015/1467132495473/site.css?&filterFeatures=false&noMedia=true&part=4"/><![endif]-->
+<!--[if !IE]> --><link rel="stylesheet" type="text/css" href="./files/site.css"><!-- <![endif]-->
+<!-- End of Squarespace Headers -->
+</head>
+
+<body class="blog-sidebar-display-auto index-thumb-title-position-below index-item-layout-auto thumbnail-layout-basic-grid thumbnails-on-open-page-show-all   layout-style-left page-borders-thin  gallery-page-controls-tiny-thumbnails  social-icon-style-normal   show-category-navigation product-list-titles-under product-list-alignment-center product-item-size-11-square product-image-auto-crop product-gallery-size-11-square  show-product-price show-product-item-nav product-social-sharing   event-thumbnails event-thumbnail-size-32-standard event-date-label event-date-label-time event-list-show-cats event-list-date event-list-time event-list-address   event-icalgcal-links  event-excerpts  event-item-back-link      opentable-style-light newsletter-style-dark small-button-style-solid small-button-shape-square medium-button-style-solid medium-button-shape-square large-button-style-solid large-button-shape-square button-style-default button-corner-style-square tweak-product-quick-view-button-style-floating tweak-product-quick-view-button-position-bottom tweak-product-quick-view-lightbox-excerpt-display-truncate tweak-product-quick-view-lightbox-show-arrows tweak-product-quick-view-lightbox-show-close-button tweak-product-quick-view-lightbox-controls-weight-light native-currency-code-usd collection-type-page collection-layout-default collection-53f22d4ce4b0897910471112 mobile-style-available site-title has-primary-nav" id="collection-53f22d4ce4b0897910471112">
+
+  <div id="canvas">
+
+      
+  <div id="mobileNav" class="">
+    <div id="mobileNavWrapper" class="wrapper">
+      <nav class="main-nav mobileNav">
+        <ul>
+          
+
+            
+              <li class="index-collection">
+                
+                  <a href="http://www.brnart.com/">Work</a>
+                
+              </li>
+            
+
+          
+
+            
+              <li class="page-collection">
+                
+                  <a href="http://www.brnart.com/about/">About</a>
+                
+                
+              </li>
+            
+
+          
+
+            
+              <li class="page-collection">
+                
+                  <a href="http://www.brnart.com/curriculumvitae/">CV</a>
+                
+                
+              </li>
+            
+
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <div id="mobileMenuLink"><a>Menu</a></div>
+
+
+
+
+
+    <header id="header">
+      <div id="logo" data-content-field="site-title">
+        
+        <h1 class="logo" data-shrink-original-size="46" style="letter-spacing: 0.0217391em;"><a href="http://www.brnart.com/">BRN</a></h1>
+        
+        
+      </div>
+      <script>
+        Y.use('squarespace-ui-base', function(Y) {
+          Y.all("#header .logo, #header .logo-subtitle").each(function (text) {
+            text.plug(Y.Squarespace.TextShrink, {
+              parentEl: Y.one('#header'),
+              triggerWidth: 750
+            });
+          });
+        });
+
+        // Show spinner on page load if loading bookmarked url
+        if (window.location.hash && window.location.hash !== '#') {
+          document.querySelector('body').className += ' index-loading';
+        }
+      </script>
+      <div id="topNav" data-content-field="navigation">
+<nav class="main-nav"><ul>
+  
+
+      <li class="index-collection">
+
+        
+          
+            <a href="http://www.brnart.com/">Work</a>
+          
+        
+
+      </li>
+
+  
+
+      <li class="page-collection">
+
+        
+
+          
+            <a href="http://www.brnart.com/about/">About</a>
+          
+
+          
+
+
+        
+
+      </li>
+
+  
+
+      <li class="page-collection">
+
+        
+
+          
+            <a href="http://www.brnart.com/curriculumvitae/">CV</a>
+          
+
+          
+
+
+        
+
+      </li>
+
+  
+</ul>
+</nav>
+</div>
+
+    </header>
+
+    <div class="page-divider"></div>
+
+    <div class="extra-wrapper page-header">
+      <div class="sqs-layout sqs-grid-12 columns-12 empty" data-layout-label="Header Content: invoke(Object object);" data-type="block-field" id="page-header-53f22d4ce4b0897910471112"><div class="row sqs-row"><div class="col sqs-col-12 span-12"></div></div></div>
+    </div>
+
+    <section id="page" role="main" data-content-field="main-content">
+      <!-- CATEGORY NAV -->
+      
+      <div class="sqs-layout sqs-grid-12 columns-12" data-type="page" data-updated-on="1411059408020" id="page-53f22d4ce4b0897910471112"><div class="row sqs-row" id="yui_3_17_2_1_1479282016753_160"><div class="col sqs-col-12 span-12" id="yui_3_17_2_1_1479282016753_159"><div class="sqs-block image-block sqs-block-image" data-block-type="5" id="block-yui_3_17_2_1_1411055844391_8569"><div class="sqs-block-content" id="yui_3_17_2_1_1479282016753_158"> 
+
+  
+    <div class="image-block-outer-wrapper layout-caption-below design-layout-inline" id="yui_3_17_2_1_1479282016753_157" data-scrolled="true">
+    
+      <div class="intrinsic" style="max-width:300.0px;" id="yui_3_17_2_1_1479282016753_156">
+        
+          <div style="padding-bottom:100.0%;" class="image-block-wrapper   has-aspect-ratio" data-description="&lt;p&gt;&lt;em&gt;invoke(Object object);&lt;/em&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;endurance installation (2014)&lt;/p&gt;" id="yui_3_17_2_1_1479282016753_155">
+            <noscript>&lt;img src="https://static1.squarespace.com/static/53f10120e4b0bfa013c249e0/t/541b00fce4b02b7c37ec9e13/1411055882340/"  alt="invoke(Object object);&nbsp; endurance installation (2014)"  /&gt;</noscript><img class="thumb-image loaded" data-src="https://static1.squarespace.com/static/53f10120e4b0bfa013c249e0/t/541b00fce4b02b7c37ec9e13/1411055882340/" data-image="https://static1.squarespace.com/static/53f10120e4b0bfa013c249e0/t/541b00fce4b02b7c37ec9e13/1411055882340/" data-image-dimensions="300x300" data-image-focal-point="0.5,0.5" data-load="false" data-image-id="541b00fce4b02b7c37ec9e13" data-type="image" alt="invoke(Object object);  endurance installation (2014)" src="./files/saved_resource" style="top: 0%; left: 0%; width: 100%; height: 100%; position: absolute;" data-image-resolution="750w">
+          </div>
+        
+
+        
+        <div class="image-caption-wrapper">
+          <div class="image-caption"><p><em>invoke(Object object);</em>&nbsp;</p><p>endurance installation (2014)</p></div>
+        </div>
+        
+
+      </div>
+    
+    </div>
+  
+
+
+</div></div><div class="sqs-block html-block sqs-block-html" data-block-type="2" id="block-9e759568a0969c7e6a84"><div class="sqs-block-content"><p><em>invoke(Object object);&nbsp;</em>(referred to from hereon as&nbsp;<em>invoke</em>), is an endurance installation in which one performer, dressed in an oversized business suit, continually instructs a computer to provide instructions, which the performer then performs.</p><p>Through the duration of&nbsp;<em>invoke</em>, the computer's instructions become increasingly difficult to execute, leading to confession, flagellation, and threats directed at the performer on behalf of the computer.</p><p>The performer completes tasks until the point of collapse, which can take several hours. Because of this, <em>invoke&nbsp;</em>is typically staged in a place of entrance/egress, a place where the audience is likely to see the performance at multiple points in time.</p><p>Below is the conclusion of <em>invoke</em>, which takes place once the performer has died.</p></div></div><div class="sqs-block video-block sqs-block-video" data-block-json="{&quot;layout&quot;:&quot;caption-below&quot;,&quot;overlay&quot;:false,&quot;description&quot;:{&quot;html&quot;:&quot;&quot;,&quot;source&quot;:&quot;&quot;},&quot;hSize&quot;:null,&quot;floatDir&quot;:null,&quot;html&quot;:&quot;&lt;iframe src=\&quot;//player.vimeo.com/video/104054958?wmode=opaque&amp;amp;api=1\&quot; width=\&quot;640\&quot; height=\&quot;478\&quot; frameborder=\&quot;0\&quot; title=\&quot;invoke(Object object); - Death Sequence\&quot; webkitallowfullscreen=\&quot;\&quot; mozallowfullscreen=\&quot;\&quot; allowfullscreen=\&quot;\&quot;&gt;&lt;/iframe&gt;&quot;,&quot;url&quot;:&quot;https://vimeo.com/104054958&quot;,&quot;thumbnailUrl&quot;:&quot;https://i.vimeocdn.com/video/486485603_640.jpg&quot;,&quot;resolvedBy&quot;:&quot;vimeo&quot;}" data-block-type="32" id="block-yui_3_17_2_1_1408667647863_8260"><div class="sqs-block-content" id="yui_3_17_2_1_1479282016753_115"><div class="sqs-video-wrapper video-none" data-html="&lt;iframe src=&quot;//player.vimeo.com/video/104054958?wmode=opaque&amp;api=1&quot; width=&quot;640&quot; height=&quot;478&quot; frameborder=&quot;0&quot; title=&quot;invoke(Object object); - Death Sequence&quot; webkitallowfullscreen=&quot;&quot; mozallowfullscreen=&quot;&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;" data-provider-name="" id="yui_3_17_2_1_1479282016753_122"><div class="intrinsic"><div class="intrinsic-inner" style="padding-bottom: 74.6875%;"><iframe src="./files/104054958.html" width="640" height="478" frameborder="0" title="invoke(Object object); - Death Sequence" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" id="yui_3_17_2_1_1479282016753_126"></iframe></div></div></div></div></div><div class="sqs-block html-block sqs-block-html" data-block-type="2" id="block-yui_3_17_2_1_1409273835495_22369"><div class="sqs-block-content"><h2><strong>notes</strong></h2><p><em>invoke</em>&nbsp;was created entirely in Java using <a href="https://rednoise.org/rita/index.html">Daniel Howe's RiTa library</a>. It utilizes generative grammars to create commands for a performer to execute (in a syntax similar to that which is used for invoking methods in Java).</p><p>While all the individual text elements have been prewritten, there are a tremendous number of permutations of the text that can be produced by the grammars, causing performances of&nbsp;<em>invoke</em>&nbsp;to be surprising both to the audience and to the performer.</p><p>As a concept, <em>invoke</em>&nbsp;relies on the sci-fi trope of computers and humans reversing their master/slave relationship. This concept is extended, however, by further suggesting that this dystopian scenario may actually be a charade, one where the performer is complicit and responsible for his own subjugation and that the computer is ultimately incapable of possessing agency.</p></div></div><div class="row sqs-row" id="yui_3_17_2_1_1479282016753_182"><div class="col sqs-col-6 span-6" id="yui_3_17_2_1_1479282016753_181"><div class="sqs-block image-block sqs-block-image" data-block-type="5" id="block-yui_3_17_2_1_1411058963505_8308"><div class="sqs-block-content" id="yui_3_17_2_1_1479282016753_180"> 
+
+  
+    <div class="image-block-outer-wrapper layout-caption-below design-layout-inline" id="yui_3_17_2_1_1479282016753_179" data-scrolled="false">
+    
+      <div class="intrinsic" style="max-width:455.0px;" id="yui_3_17_2_1_1479282016753_178">
+        
+          <div style="padding-bottom:100.0%;" class="image-block-wrapper   has-aspect-ratio" data-description="" id="yui_3_17_2_1_1479282016753_177">
+            <noscript>&lt;img src="https://static1.squarespace.com/static/53f10120e4b0bfa013c249e0/t/541b0d2be4b06fd9d82ff9cc/1411059375219/"  /&gt;</noscript><img class="thumb-image loaded" data-src="https://static1.squarespace.com/static/53f10120e4b0bfa013c249e0/t/541b0d2be4b06fd9d82ff9cc/1411059375219/" data-image="https://static1.squarespace.com/static/53f10120e4b0bfa013c249e0/t/541b0d2be4b06fd9d82ff9cc/1411059375219/" data-image-dimensions="455x455" data-image-focal-point="0.5,0.5" data-load="false" data-image-id="541b0d2be4b06fd9d82ff9cc" data-type="image" src="./files/saved_resource(1)" style="top: 0%; left: 0%; width: 100%; height: 100%; position: absolute;" data-image-resolution="1000w">
+          </div>
+        
+
+        
+
+      </div>
+    
+    </div>
+  
+
+
+</div></div></div><div class="col sqs-col-6 span-6" id="yui_3_17_2_1_1479282016753_201"><div class="sqs-block image-block sqs-block-image" data-block-type="5" id="block-yui_3_17_2_1_1411058963505_11116"><div class="sqs-block-content" id="yui_3_17_2_1_1479282016753_200"> 
+
+  
+    <div class="image-block-outer-wrapper layout-caption-below design-layout-inline" id="yui_3_17_2_1_1479282016753_199" data-scrolled="false">
+    
+      <div class="intrinsic" style="max-width:455.0px;" id="yui_3_17_2_1_1479282016753_198">
+        
+          <div style="padding-bottom:100.0%;" class="image-block-wrapper   has-aspect-ratio" data-description="" id="yui_3_17_2_1_1479282016753_197">
+            <noscript>&lt;img src="https://static1.squarespace.com/static/53f10120e4b0bfa013c249e0/t/541b0d3ae4b09b4760bdc1c1/1411059347614/"  /&gt;</noscript><img class="thumb-image loaded" data-src="https://static1.squarespace.com/static/53f10120e4b0bfa013c249e0/t/541b0d3ae4b09b4760bdc1c1/1411059347614/" data-image="https://static1.squarespace.com/static/53f10120e4b0bfa013c249e0/t/541b0d3ae4b09b4760bdc1c1/1411059347614/" data-image-dimensions="455x455" data-image-focal-point="0.5,0.5" data-load="false" data-image-id="541b0d3ae4b09b4760bdc1c1" data-type="image" src="./files/saved_resource(2)" style="top: 0%; left: 0%; width: 100%; height: 100%; position: absolute;" data-image-resolution="1000w">
+          </div>
+        
+
+        
+
+      </div>
+    
+    </div>
+  
+
+
+</div></div></div></div><div class="sqs-block gallery-block sqs-block-gallery" data-block-json="{&quot;hSize&quot;:null,&quot;floatDir&quot;:null,&quot;methodOption&quot;:&quot;transient&quot;,&quot;existingGallery&quot;:null,&quot;design&quot;:&quot;grid&quot;,&quot;aspectRatio&quot;:null,&quot;autoplay&quot;:false,&quot;controls&quot;:true,&quot;auto-crop&quot;:true,&quot;square-thumbs&quot;:false,&quot;aspect-ratio&quot;:&quot;square&quot;,&quot;thumbnails&quot;:true,&quot;show-meta&quot;:true,&quot;meta-position&quot;:&quot;bottom&quot;,&quot;show-meta-on-hover&quot;:false,&quot;thumbnails-per-row&quot;:4,&quot;padding&quot;:20,&quot;lightbox&quot;:false,&quot;collectionId&quot;:&quot;541b0358e4b0a6db3131da93&quot;,&quot;vSize&quot;:null,&quot;transientGalleryId&quot;:&quot;541b0358e4b0a6db3131da93&quot;}" data-block-type="8" id="block-yui_3_17_2_1_1411055961378_8000"><div class="sqs-block-content">
+
+
+
+  
+
+  
+
+
+<div class="
+  sqs-gallery-container
+  sqs-gallery-block-grid
+  sqs-gallery-aspect-ratio-square
+  sqs-gallery-thumbnails-per-row-4
+  sqs-gallery-has-controls
+  sqs-gallery-has-thumbnails
+
+  
+    sqs-gallery-block-show-meta sqs-gallery-block-meta-position-bottom
+    
+  
+  
+  
+  
+
+  
+  
+
+  clear" id="yui_3_17_2_1_1479282016753_218">
+  <div class="sqs-gallery sqs-gallery-design-grid" id="yui_3_17_2_1_1479282016753_235">
+    
+      
+
+        
+
+        
+
+        
+          
+            <div class="slide sqs-gallery-design-grid-slide" data-type="image" id="yui_3_17_2_1_1479282016753_249">
+              <div class="margin-wrapper">
+                <a class="image-slide-anchor content-fit">
+                  <noscript>&lt;img src="https://static1.squarespace.com/static/53f10120e4b0bfa013c249e0/541b0358e4b0a6db3131da93/541b0359e4b09cb1a8e78861/1411056564554/invoke_1.png"  alt="invoke_1.png"  /&gt;</noscript><img class="thumb-image loaded" data-src="https://static1.squarespace.com/static/53f10120e4b0bfa013c249e0/541b0358e4b0a6db3131da93/541b0359e4b09cb1a8e78861/1411056564554/invoke_1.png" data-image="https://static1.squarespace.com/static/53f10120e4b0bfa013c249e0/541b0358e4b0a6db3131da93/541b0359e4b09cb1a8e78861/1411056564554/invoke_1.png" data-image-dimensions="200x200" data-image-focal-point="0.5,0.5" data-load="false" data-image-id="541b0359e4b09cb1a8e78861" data-type="image" style="top: 0px; left: 0px; width: 208px; height: 208px; position: relative;" alt="invoke_1.png" src="./files/invoke_1.png" data-image-resolution="500w">
+                </a>
+                
+              </div>
+            </div>
+          
+
+          
+        
+
+      
+
+        
+
+        
+
+        
+          
+            <div class="slide sqs-gallery-design-grid-slide" data-type="image" id="yui_3_17_2_1_1479282016753_250">
+              <div class="margin-wrapper">
+                <a class="image-slide-anchor content-fit">
+                  <noscript>&lt;img src="https://static1.squarespace.com/static/53f10120e4b0bfa013c249e0/541b0358e4b0a6db3131da93/541b0359e4b09a2902b586f9/1411056583191/invoke_2.png"  alt="invoke_2.png"  /&gt;</noscript><img class="thumb-image loaded" data-src="https://static1.squarespace.com/static/53f10120e4b0bfa013c249e0/541b0358e4b0a6db3131da93/541b0359e4b09a2902b586f9/1411056583191/invoke_2.png" data-image="https://static1.squarespace.com/static/53f10120e4b0bfa013c249e0/541b0358e4b0a6db3131da93/541b0359e4b09a2902b586f9/1411056583191/invoke_2.png" data-image-dimensions="200x200" data-image-focal-point="0.5,0.5" data-load="false" data-image-id="541b0359e4b09a2902b586f9" data-type="image" style="top: 0px; left: 0px; width: 208px; height: 208px; position: relative;" alt="invoke_2.png" src="./files/invoke_2.png" data-image-resolution="500w">
+                </a>
+                
+              </div>
+            </div>
+          
+
+          
+        
+
+      
+
+        
+
+        
+
+        
+          
+            <div class="slide sqs-gallery-design-grid-slide" data-type="image" id="yui_3_17_2_1_1479282016753_251">
+              <div class="margin-wrapper">
+                <a class="image-slide-anchor content-fit">
+                  <noscript>&lt;img src="https://static1.squarespace.com/static/53f10120e4b0bfa013c249e0/541b0358e4b0a6db3131da93/541b0359e4b09cb1a8e78863/1411056619042/invoke_3.png"  alt="invoke_3.png"  /&gt;</noscript><img class="thumb-image loaded" data-src="https://static1.squarespace.com/static/53f10120e4b0bfa013c249e0/541b0358e4b0a6db3131da93/541b0359e4b09cb1a8e78863/1411056619042/invoke_3.png" data-image="https://static1.squarespace.com/static/53f10120e4b0bfa013c249e0/541b0358e4b0a6db3131da93/541b0359e4b09cb1a8e78863/1411056619042/invoke_3.png" data-image-dimensions="200x200" data-image-focal-point="0.5,0.5" data-load="false" data-image-id="541b0359e4b09cb1a8e78863" data-type="image" style="top: 0px; left: 0px; width: 208px; height: 208px; position: relative;" alt="invoke_3.png" src="./files/invoke_3.png" data-image-resolution="500w">
+                </a>
+                
+              </div>
+            </div>
+          
+
+          
+        
+
+      
+
+        
+
+        
+
+        
+          
+            <div class="slide sqs-gallery-design-grid-slide" data-type="image" id="yui_3_17_2_1_1479282016753_252">
+              <div class="margin-wrapper">
+                <a class="image-slide-anchor content-fit">
+                  <noscript>&lt;img src="https://static1.squarespace.com/static/53f10120e4b0bfa013c249e0/541b0358e4b0a6db3131da93/541b0359e4b09a2902b586fb/1411056646628/invoke_4.png"  alt="invoke_4.png"  /&gt;</noscript><img class="thumb-image loaded" data-src="https://static1.squarespace.com/static/53f10120e4b0bfa013c249e0/541b0358e4b0a6db3131da93/541b0359e4b09a2902b586fb/1411056646628/invoke_4.png" data-image="https://static1.squarespace.com/static/53f10120e4b0bfa013c249e0/541b0358e4b0a6db3131da93/541b0359e4b09a2902b586fb/1411056646628/invoke_4.png" data-image-dimensions="200x200" data-image-focal-point="0.5,0.5" data-load="false" data-image-id="541b0359e4b09a2902b586fb" data-type="image" style="top: 0px; left: 0px; width: 208px; height: 208px; position: relative;" alt="invoke_4.png" src="./files/invoke_4.png" data-image-resolution="500w">
+                </a>
+                
+              </div>
+            </div>
+          
+
+          
+        
+
+      
+
+        
+
+        
+
+        
+          
+            <div class="slide sqs-gallery-design-grid-slide" data-type="image" id="yui_3_17_2_1_1479282016753_253">
+              <div class="margin-wrapper">
+                <a class="image-slide-anchor content-fit">
+                  <noscript>&lt;img src="https://static1.squarespace.com/static/53f10120e4b0bfa013c249e0/541b0358e4b0a6db3131da93/541b0359e4b09a2902b586fd/1411056658203/invoke_5.png"  alt="invoke_5.png"  /&gt;</noscript><img class="thumb-image loaded" data-src="https://static1.squarespace.com/static/53f10120e4b0bfa013c249e0/541b0358e4b0a6db3131da93/541b0359e4b09a2902b586fd/1411056658203/invoke_5.png" data-image="https://static1.squarespace.com/static/53f10120e4b0bfa013c249e0/541b0358e4b0a6db3131da93/541b0359e4b09a2902b586fd/1411056658203/invoke_5.png" data-image-dimensions="200x200" data-image-focal-point="0.5,0.5" data-load="false" data-image-id="541b0359e4b09a2902b586fd" data-type="image" style="top: 0px; left: 0px; width: 208px; height: 208px; position: relative;" alt="invoke_5.png" src="./files/invoke_5.png" data-image-resolution="500w">
+                </a>
+                
+              </div>
+            </div>
+          
+
+          
+        
+
+      
+
+        
+
+        
+
+        
+          
+            <div class="slide sqs-gallery-design-grid-slide" data-type="image" id="yui_3_17_2_1_1479282016753_254">
+              <div class="margin-wrapper">
+                <a class="image-slide-anchor content-fit">
+                  <noscript>&lt;img src="https://static1.squarespace.com/static/53f10120e4b0bfa013c249e0/541b0358e4b0a6db3131da93/541b0359e4b09cb1a8e78865/1411056669407/invoke_6.png"  alt="invoke_6.png"  /&gt;</noscript><img class="thumb-image loaded" data-src="https://static1.squarespace.com/static/53f10120e4b0bfa013c249e0/541b0358e4b0a6db3131da93/541b0359e4b09cb1a8e78865/1411056669407/invoke_6.png" data-image="https://static1.squarespace.com/static/53f10120e4b0bfa013c249e0/541b0358e4b0a6db3131da93/541b0359e4b09cb1a8e78865/1411056669407/invoke_6.png" data-image-dimensions="200x200" data-image-focal-point="0.5,0.5" data-load="false" data-image-id="541b0359e4b09cb1a8e78865" data-type="image" style="top: 0px; left: 0px; width: 208px; height: 208px; position: relative;" alt="invoke_6.png" src="./files/invoke_6.png" data-image-resolution="500w">
+                </a>
+                
+              </div>
+            </div>
+          
+
+          
+        
+
+      
+
+        
+
+        
+
+        
+          
+            <div class="slide sqs-gallery-design-grid-slide" data-type="image" id="yui_3_17_2_1_1479282016753_255">
+              <div class="margin-wrapper">
+                <a class="image-slide-anchor content-fit">
+                  <noscript>&lt;img src="https://static1.squarespace.com/static/53f10120e4b0bfa013c249e0/541b0358e4b0a6db3131da93/541b0359e4b09a2902b586ff/1411056682267/invoke_7.png"  alt="invoke_7.png"  /&gt;</noscript><img class="thumb-image loaded" data-src="https://static1.squarespace.com/static/53f10120e4b0bfa013c249e0/541b0358e4b0a6db3131da93/541b0359e4b09a2902b586ff/1411056682267/invoke_7.png" data-image="https://static1.squarespace.com/static/53f10120e4b0bfa013c249e0/541b0358e4b0a6db3131da93/541b0359e4b09a2902b586ff/1411056682267/invoke_7.png" data-image-dimensions="200x200" data-image-focal-point="0.5,0.5" data-load="false" data-image-id="541b0359e4b09a2902b586ff" data-type="image" style="top: 0px; left: 0px; width: 208px; height: 208px; position: relative;" alt="invoke_7.png" src="./files/invoke_7.png" data-image-resolution="500w">
+                </a>
+                
+              </div>
+            </div>
+          
+
+          
+        
+
+      
+
+        
+
+        
+
+        
+          
+            <div class="slide sqs-gallery-design-grid-slide" data-type="image" id="yui_3_17_2_1_1479282016753_256">
+              <div class="margin-wrapper">
+                <a class="image-slide-anchor content-fit">
+                  <noscript>&lt;img src="https://static1.squarespace.com/static/53f10120e4b0bfa013c249e0/541b0358e4b0a6db3131da93/541b0474e4b0e98b8ca7489b/1411056769015/invoke_logo.png"  alt="invoke_logo.png"  /&gt;</noscript><img class="thumb-image loaded" data-src="https://static1.squarespace.com/static/53f10120e4b0bfa013c249e0/541b0358e4b0a6db3131da93/541b0474e4b0e98b8ca7489b/1411056769015/invoke_logo.png" data-image="https://static1.squarespace.com/static/53f10120e4b0bfa013c249e0/541b0358e4b0a6db3131da93/541b0474e4b0e98b8ca7489b/1411056769015/invoke_logo.png" data-image-dimensions="200x200" data-image-focal-point="0.5,0.5" data-load="false" data-image-id="541b0474e4b0e98b8ca7489b" data-type="image" style="top: 0px; left: 0px; width: 208px; height: 208px; position: relative;" alt="invoke_logo.png" src="./files/invoke_logo.png" data-image-resolution="500w">
+                </a>
+                
+              </div>
+            </div>
+          
+
+          
+        
+
+      
+    
+  </div>
+
+  
+    <div class="sqs-gallery-meta-container">
+    
+    </div> <!-- END .sqs-gallery-meta-container -->
+  
+
+</div>
+
+
+  
+
+
+
+<style type="text/css" id="design-grid-css">
+#block-yui_3_17_2_1_1411055961378_8000 .sqs-gallery-block-grid .sqs-gallery-design-grid { margin-right: -20px; }
+#block-yui_3_17_2_1_1411055961378_8000 .sqs-gallery-block-grid .sqs-gallery-design-grid-slide .margin-wrapper { margin-right: 20px; margin-bottom: 20px; }
+</style>
+
+
+</div></div></div></div></div>
+    </section>
+
+    <div class="extra-wrapper page-footer">
+      <div class="sqs-layout sqs-grid-12 columns-12 empty" data-layout-label="Footer Content: invoke(Object object);" data-type="block-field" id="page-footer-53f22d4ce4b0897910471112"><div class="row sqs-row"><div class="col sqs-col-12 span-12"></div></div></div>
+    </div>
+
+    <div class="page-divider"></div>
+
+    <footer id="footer">
+      <div class="sqs-layout sqs-grid-1 columns-1 empty" data-layout-label="Footer Content" data-type="block-field" data-updated-on="1411448587640" id="footerBlock"><div class="row sqs-row"><div class="col sqs-col-1 span-1"></div></div></div>
+      
+        
+      
+    </footer>
+
+  </div>
+
+  <div></div>
+
+  <script src="./files/core-0.2.0.min.js" type="text/javascript"></script>
+  <script type="text/javascript" src="./files/saved_resource(3)"></script>
+  
+
+  <script type="text/javascript" data-sqs-type="imageloader-bootstraper">(function() {if(window.ImageLoader) { window.ImageLoader.bootstrap(); }})();</script>
+<script>Squarespace.afterBodyLoad(Y);</script>
+
+
+
+
+
+
+</body></html>

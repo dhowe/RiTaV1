@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<!-- saved from url=(0051)https://tinysubversions.com/notes/bracket-meme-bot/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  <title>bracket-meme-bot</title>  <meta name="viewport" content="width=device-width, initial-scale=1"> <link rel="stylesheet" href="./bracket-meme-bot_files/style.css" type="text/css" media="all"> <script type="text/javascript" charset="utf-8" async="" src="./bracket-meme-bot_files/tweet.94890a17f454cac616ec67c343f98d96.js"></script></head> <body><p><a href="https://tinysubversions.com/notes/">← Tiny Subversions</a></p>
+<h2 id="how-i-made-bracket-meme-bot">How I made Bracket Meme Bot</h2>
+<p><em>by Darius Kazemi, Mar 28, 2018</em></p>
+<p></p><twitterwidget class="twitter-tweet twitter-tweet-rendered" id="twitter-widget-0" style="position: static; visibility: visible; display: block; transform: rotate(0deg); max-width: 100%; width: 500px; min-width: 220px; margin-top: 10px; margin-bottom: 10px;" data-tweet-id="979036919035252739"></twitterwidget><p></p>
+<script async="" src="./bracket-meme-bot_files/analytics.js"></script><script async="" src="./bracket-meme-bot_files/widgets.js" charset="utf-8"></script>
+
+<p>A lot of people have been asking me how <a href="https://twitter.com/bracketmemebot">Bracket Meme Bot</a> works, so I decided to write up how I came up with the algorithm and some of the important decisions I had to make along the way.</p>
+<h3 id="inspiration">Inspiration</h3>
+<p>Yesterday Jake Rodkin tweeted the following at me:</p>
+<p></p><twitterwidget class="twitter-tweet twitter-tweet-rendered" id="twitter-widget-1" style="position: static; visibility: visible; display: block; transform: rotate(0deg); max-width: 100%; width: 500px; min-width: 220px; margin-top: 10px; margin-bottom: 10px;" data-tweet-id="978749768095514624"></twitterwidget><p></p>
+<script async="" src="./bracket-meme-bot_files/widgets.js" charset="utf-8"></script>
+
+<p>What Jake was referring to is the "bracket meme" that is going around Twitter. It's March, so basketball tournament brackets are a thing, but somebody posted a bracket of 16 different Disney movies and of course, tons of people started arguing about which would win and eventually making their own brackets for other categories. Jake later said he was specifically inspired by this hilarious tweet from Claire Hummel:</p>
+<p></p><twitterwidget class="twitter-tweet twitter-tweet-rendered" id="twitter-widget-2" style="position: static; visibility: visible; display: block; transform: rotate(0deg); max-width: 100%; width: 500px; min-width: 220px; margin-top: 10px; margin-bottom: 10px;" data-tweet-id="978513153247010816"></twitterwidget><p></p>
+<script async="" src="./bracket-meme-bot_files/widgets.js" charset="utf-8"></script>
+
+<p>Anyway! I thought about the format of the meme. Well, the part where you draw text on an empty bracket image is easy enough. The challenge is in figuring out how to get a list of 16 things that are all related in some way where it would make sense to pit one against another. You could just pick random stuff and put it in there and it might be funny, but it wouldn't prompt really interesting conversations, and wouldn't be that similar to the original meme.</p>
+<h3 id="where-to-get-the-data">Where to get the data</h3>
+<p>When it comes to "things that are related to other things", there are two sources that I usually go to: <a href="http://conceptnet.io/">ConceptNet</a> and <a href="https://www.wikipedia.org/">Wikipedia</a>.</p>
+<p>ConceptNet is very wide-ranging and pulls from a bunch of different data sources including Wikipedia itself. You might think this would be a natural choice, but ConceptNet, as you might expect, is more about general concepts like "gloom" and "razorfish" and "pencil" than it is about hyper-specific pop culture stuff. Whereas Wikipedia is replete with pop culture, and that's kind of key to this whole thing.</p>
+<p>So, Wikipedia it is!</p>
+<h3 id="defining-our-algorithm">Defining our algorithm</h3>
+<p>In order to <em>get</em> the data, we need to <em>define the algorithm</em> that identifies it.</p>
+<p>My first thought was to look at Wikipedia's famous "Lists". Like, there is a <a href="https://en.wikipedia.org/wiki/List_of_Walt_Disney_Animation_Studios_films">List of Walt Disney Animation Studios films</a>, and there are tables of data in there that I could presumably grab stuff from. But if we look at other lists, they're not formatted in a consistent way at all. Some lists are tables, some are bullet points, some are lists of lists. And if there's no consistent semantic structure to the data, then there's no way for us to get it.</p>
+<p>Fortunately, Wikipedia has another, better defined way of categorizing things: via the aptly-named <a href="https://en.wikipedia.org/wiki/Help:Category">Category</a>. The Category system is basically just tagging: if you have an article on Marie Curie, you might file her in the <a href="https://en.wikipedia.org/wiki/Category:20th-century_physicists">20th century physicists</a> category and the <a href="https://en.wikipedia.org/wiki/Category:Women_physicists">women physicists</a> category. (Curie is actually in 3 or 4 dozen different categories!)</p>
+<p>So the first step of our algorithm is:</p>
+<ul>
+<li>grab a random Wikipedia Category</li>
+</ul>
+<p>But wait... Marie Curie <em>herself</em> <a href="https://en.wikipedia.org/wiki/Category:Marie_Curie">is a Category</a>!! Which makes some sense. Her category contains movies about her life, places named after her, her relatives, and so on. But it wouldn't make sense to have a "Marie Curie" bracket where you pit her children against movies against the Curie Institute in Warsaw.</p>
+<p>What want is lists of things like: Disney films, soccer players, buildings in NYC, and cat breeds. What do all those things have in common? Well: they all have a plural noun in them. We can use a part of speech tagger, which is a kind of program where you give it a word and it tells you its best guess at the part of speech for that word. We'll get to the technical bit in the next section, but for now, our algorithm looks like this:</p>
+<ul>
+<li>grab a random Wikipedia Category<ul>
+<li>...that has a plural noun in its title</li>
+</ul>
+</li>
+</ul>
+<p>And of course, we only want categories with at least 16 things in them. If you look at a Category page, you'll see it contains both "Subcategories" and "Pages". We only care about "Pages" so:</p>
+<ul>
+<li>grab a random Wikipedia Category<ul>
+<li>...that has a plural noun in its title</li>
+<li>...that has at least 16 "Pages"</li>
+</ul>
+</li>
+</ul>
+<p>Well, now we have to actually get those pages and put them on an image, so:</p>
+<ul>
+<li>grab a random Wikipedia Category<ul>
+<li>...that has a plural noun in its title</li>
+<li>...that has at least 16 "Pages"</li>
+</ul>
+</li>
+<li>get the list of Pages in the Category</li>
+<li>pick 16 of them at random and draw them on the bracket</li>
+</ul>
+<p>This is a good start and probably the best we can do before we sit down to actually code the thing.</p>
+<h3 id="talking-to-wikipedia">Talking to Wikipedia</h3>
+<p>So, technically speaking, how do we tell a computer to get this information?</p>
+<p>I have written in the past about <a href="http://tinysubversions.com/notes/how-to-query-wikipedia/">how to query Wikipedia like a database</a>, and I originally tried to use that method for this bot (since I never rewrite code if I can just copy-paste it). So I started playing around with <a href="http://dbpedia.org/">DBPedia</a>, but it turns out that DBPedia doesn't have a way to just... grab a random category.</p>
+<p>I then looked at the other major option for getting data from Wikipedia, which is using the <a href="https://www.mediawiki.org/wiki/API:Main_page">MediaWiki API</a>. (MediaWiki is the software that powers Wikipedia, and you can use this API on any wiki that runs on MediaWiki, not just Wikipedia.)</p>
+<p>The <a href="https://www.mediawiki.org/wiki/API:Query">API Query documentation</a> has this useful table:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>Page type</strong></th>
+<th style="text-align:center"><strong>Example</strong></th>
+<th style="text-align:center"><strong>Used in the given page(s)</strong></th>
+<th style="text-align:center"><strong>Which pages have it</strong></th>
+<th style="text-align:center"><strong>List all in the wiki</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Page link</td>
+<td style="text-align:center">[[Page]]</td>
+<td style="text-align:center">prop=links</td>
+<td style="text-align:center">list=backlinks</td>
+<td style="text-align:center">list=alllinks</td>
+</tr>
+<tr>
+<td style="text-align:center">Template transclusion</td>
+<td style="text-align:center">{{Template}}</td>
+<td style="text-align:center">prop=templates</td>
+<td style="text-align:center">list=embeddedin</td>
+<td style="text-align:center">list=alltransclusions</td>
+</tr>
+<tr>
+<td style="text-align:center">Categories</td>
+<td style="text-align:center">[[category:Cat]]</td>
+<td style="text-align:center">prop=categories</td>
+<td style="text-align:center">list=categorymembers</td>
+<td style="text-align:center">list=allcategories</td>
+</tr>
+<tr>
+<td style="text-align:center">Images</td>
+<td style="text-align:center">[[file:image.png]]</td>
+<td style="text-align:center">prop=images</td>
+<td style="text-align:center">list=imageusage</td>
+<td style="text-align:center">list=allimages</td>
+</tr>
+<tr>
+<td style="text-align:center">Language links</td>
+<td style="text-align:center">[[ru:Page]]</td>
+<td style="text-align:center">prop=langlinks</td>
+<td style="text-align:center">list=langbacklinks</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Interwiki links</td>
+<td style="text-align:center">[[meta:Page]]</td>
+<td style="text-align:center">prop=iwlinks</td>
+<td style="text-align:center">list=iwbacklinks</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">URLs</td>
+<td style="text-align:center"><a href="https://mediawiki.org/">https://mediawiki.org</a></td>
+<td style="text-align:center">prop=extlinks</td>
+<td style="text-align:center">list=exturlusage</td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<p>Okay, maybe it could be a little clearer. I had to kind of squint at it for five minutes to understand what it means. Eventually I figured out that if we want to query for "all Categories in the wiki" we need to use this <code>list=allcategories</code> query, and if we want to know what pages are in a Category, we use the <code>list=categorymembers</code> query.</p>
+<h3 id="refining-the-algorithm">Refining the algorithm</h3>
+<p>So how does this stack up to our algorithm? The first thing we want to do is "grab a random Wikipedia Category", so let's see what that <code>allcategories</code> thing can do.</p>
+<p>If we go to <a href="https://www.mediawiki.org/w/api.php?action=help&amp;modules=query%2Ballcategories">the allcategories documentation</a>, it becomes clear pretty quickly that:</p>
+<ul>
+<li>there is no built-in way to grab a "random" category, but you can say "starting at this alphabetical index, give me the next 500 categories"</li>
+<li>it will <em>tell us</em> how many Pages are in a category but it won't let us filter by that</li>
+<li>it will let us filter by number of <em>members</em>, which is different from number of Pages -- members is the combined total of Pages and Subcategories. Is this documented anywhere? Not that I could find. I had to just perform the query manually and then see what came back. Technology is terrible.</li>
+</ul>
+<p>So <strong>our proposed algorithm is incompatible with the software we have at hand</strong>. At this point we have two options:</p>
+<ul>
+<li>adjust the algorithm to fit the tech</li>
+<li>write new tech that does what we want</li>
+</ul>
+<p><strong><em>HERE IS WHERE A VAST MAJORITY OF ENGINEERS COMPLETELY SCREW UP!</em></strong></p>
+<p>See, as engineers, we are trained to think that if something doesn't work as we intend it to, well by golly we can fix the tech so that it does work the way we intend it to. So our instinct tells us that the software not working the way we want it to is a <em>bug</em>. We are inclined to write new tech that matches the algorithm we wrote in our head.</p>
+<p>This is entitlement. "The design vision I had in my head for this system is correct, therefore I will implement the software to my vision." When people like me talk about technology built with a "colonialist mindset", most techies' eyes will glaze over, but this is a big part of what we mean when we say it. It is the same mindset where a colonizer lands on foreign soil and says, "My god, look at these savages, living in a way completely different from my own mental model. This is a <em>bug</em> and I am here to <em>fix it</em>."</p>
+<p>What if, instead of bending the world to our will, we work with and around the world as it is? This seems like a high-minded thing to consider when the decision in front of us is "do I write new code or figure out another way around the problem" but hear me out: <em>all of your moral values as a person come into play in literally every action you take</em>. So you might as well be aware of them.</p>
+<p>So back to the screw-up.</p>
+<p>The screw-up decision here would be to write some kind of Wikipedia parser or scraper that maybe downloads a Wikipedia dump and then can pre-filter everything by our requirements and then do everything exactly the way we envisioned it originally.</p>
+<p>The right decision here, and I mean "correct" or "just", is to simply change our brilliant initial design and move on. It will probably change the outcome of the project and what it looks like. This is okay.</p>
+<p>So we <em>refine</em> our algorithm. Since we can't grab a "random" category, but we can search for categories that start with a sequence of characters, maybe we can pick a random letter and then search for categories that start with that letter.</p>
+<p>Unfortunately this means if we ask for 500 categories (the max the API returns) that start with "B" with at least 16 members, we end up with an alphabetical list that starts at "B'z album covers" and ends at "B-Class Indian districts articles". You can <a href="https://en.wikipedia.org/w/api.php?action=query&amp;format=json&amp;list=allcategories&amp;acprefix=b&amp;acmin=16&amp;aclimit=500&amp;acprop=size">see the result of the query here</a>.</p>
+<p>So asking for the first letter will just give us a small subset of categories that start with that letter. What if, instead we picked 3 random letters and searched for those? Well the problem here is that most combinations would be like "qqz" and not give us any results.</p>
+<p>The solution I ended up picking was to grab a random English word and then search for the first three letters of that word. That way we'd be guaranteed valid sets of letter triplets, and we'd even be biased in favor of the more common ones.</p>
+<p>Our new algorithm:</p>
+<ul>
+<li>get the first 3 letters of a random dictionary word</li>
+<li>grab 500 Wikipedia Categories with 16+ <em>members</em> in alphabetical order starting with those 3 letters<ul>
+<li>...use a part of speech tagger to only keep ones that have plural noun in their title</li>
+<li>...and that have at least 16 "Pages"</li>
+</ul>
+</li>
+<li>randomly pick one of these narrowed-down categories</li>
+<li>get the list of Pages in the Category</li>
+<li>pick 16 of them at random and draw them on the bracket</li>
+</ul>
+<p>So if I grab the word "horse" and then do the second step of the algorithm with "hor", <a href="https://en.wikipedia.org/w/api.php?action=query&amp;format=json&amp;list=allcategories&amp;acprefix=hor&amp;acmin=16&amp;aclimit=500&amp;acprop=size">we get this result</a>, 500 categories starting with "Horace Mann School alumni" and ending in "Horticulturists and gardeners".</p>
+<h3 id="nitty-gritty-and-source-code">Nitty-gritty and source code</h3>
+<p>Here are the technical steps:</p>
+<ul>
+<li>ask <a href="https://rednoise.org/rita">RitaJS</a> for a <a href="https://rednoise.org/rita/reference/RiTa/RiTa.randomWord/index.php">random word</a>.</li>
+<li>take the first 3 letters of that word and do a GET request on <a href="https://en.wikipedia.org/w/api.php?action=query&amp;format=json&amp;list=allcategories&amp;acprefix=hor&amp;acmin=16&amp;aclimit=500&amp;acprop=size">this endpoint</a></li>
+<li>use Rita again, this time to <a href="https://rednoise.org/rita/reference/RiTa/RiTa.getPosTags/index.php">get the part of speech tags</a> for each category</li>
+<li>throw away anything that doesn't have a word that is tagged <code>nns</code> (a plural noun)</li>
+<li>throw away anything with less than 16 Pages</li>
+<li>throw away a few other "banned terms" that gave consistently boring results (for example, anything with "articles" in it since that is usually a category that is a list of Wikipedia articles)</li>
+<li>from the categories that remain, pick one at random</li>
+<li>make a <a href="https://en.wikipedia.org/w/api.php?action=query&amp;format=json&amp;list=categorymembers&amp;cmtitle=Category:Horror_genres&amp;cmnamespace=0&amp;cmlimit=500">GET request to this endpoint</a> to get all the Pages in the category</li>
+<li>pick 16 and draw them on the image</li>
+</ul>
+<p>For very specific details, <a href="https://github.com/dariusk/bracket-meme-bot">you can find the complete source code on Github</a>.</p>
+
+<script src="./bracket-meme-bot_files/highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script><script> (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,'script','//www.google-analytics.com/analytics.js','ga'); ga('create', 'UA-339043-1', 'auto'); ga('send', 'pageview'); </script>
+<iframe scrolling="no" frameborder="0" allowtransparency="true" src="./bracket-meme-bot_files/widget_iframe.7a5ca036ea5299f1d2ebb2234731e35e.html" title="Twitter settings iframe" style="display: none;"></iframe><span style="border-radius: 3px !important; text-indent: 20px !important; width: auto !important; padding: 0px 4px 0px 0px !important; text-align: center !important; font: bold 11px/20px &quot;Helvetica Neue&quot;, Helvetica, sans-serif !important; color: rgb(255, 255, 255) !important; background: url(&quot;data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMzBweCIgd2lkdGg9IjMwcHgiIHZpZXdCb3g9Ii0xIC0xIDMxIDMxIj48Zz48cGF0aCBkPSJNMjkuNDQ5LDE0LjY2MiBDMjkuNDQ5LDIyLjcyMiAyMi44NjgsMjkuMjU2IDE0Ljc1LDI5LjI1NiBDNi42MzIsMjkuMjU2IDAuMDUxLDIyLjcyMiAwLjA1MSwxNC42NjIgQzAuMDUxLDYuNjAxIDYuNjMyLDAuMDY3IDE0Ljc1LDAuMDY3IEMyMi44NjgsMC4wNjcgMjkuNDQ5LDYuNjAxIDI5LjQ0OSwxNC42NjIiIGZpbGw9IiNmZmYiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxIj48L3BhdGg+PHBhdGggZD0iTTE0LjczMywxLjY4NiBDNy41MTYsMS42ODYgMS42NjUsNy40OTUgMS42NjUsMTQuNjYyIEMxLjY2NSwyMC4xNTkgNS4xMDksMjQuODU0IDkuOTcsMjYuNzQ0IEM5Ljg1NiwyNS43MTggOS43NTMsMjQuMTQzIDEwLjAxNiwyMy4wMjIgQzEwLjI1MywyMi4wMSAxMS41NDgsMTYuNTcyIDExLjU0OCwxNi41NzIgQzExLjU0OCwxNi41NzIgMTEuMTU3LDE1Ljc5NSAxMS4xNTcsMTQuNjQ2IEMxMS4xNTcsMTIuODQyIDEyLjIxMSwxMS40OTUgMTMuNTIyLDExLjQ5NSBDMTQuNjM3LDExLjQ5NSAxNS4xNzUsMTIuMzI2IDE1LjE3NSwxMy4zMjMgQzE1LjE3NSwxNC40MzYgMTQuNDYyLDE2LjEgMTQuMDkzLDE3LjY0MyBDMTMuNzg1LDE4LjkzNSAxNC43NDUsMTkuOTg4IDE2LjAyOCwxOS45ODggQzE4LjM1MSwxOS45ODggMjAuMTM2LDE3LjU1NiAyMC4xMzYsMTQuMDQ2IEMyMC4xMzYsMTAuOTM5IDE3Ljg4OCw4Ljc2NyAxNC42NzgsOC43NjcgQzEwLjk1OSw4Ljc2NyA4Ljc3NywxMS41MzYgOC43NzcsMTQuMzk4IEM4Ljc3NywxNS41MTMgOS4yMSwxNi43MDkgOS43NDksMTcuMzU5IEM5Ljg1NiwxNy40ODggOS44NzIsMTcuNiA5Ljg0LDE3LjczMSBDOS43NDEsMTguMTQxIDkuNTIsMTkuMDIzIDkuNDc3LDE5LjIwMyBDOS40MiwxOS40NCA5LjI4OCwxOS40OTEgOS4wNCwxOS4zNzYgQzcuNDA4LDE4LjYyMiA2LjM4NywxNi4yNTIgNi4zODcsMTQuMzQ5IEM2LjM4NywxMC4yNTYgOS4zODMsNi40OTcgMTUuMDIyLDYuNDk3IEMxOS41NTUsNi40OTcgMjMuMDc4LDkuNzA1IDIzLjA3OCwxMy45OTEgQzIzLjA3OCwxOC40NjMgMjAuMjM5LDIyLjA2MiAxNi4yOTcsMjIuMDYyIEMxNC45NzMsMjIuMDYyIDEzLjcyOCwyMS4zNzkgMTMuMzAyLDIwLjU3MiBDMTMuMzAyLDIwLjU3MiAxMi42NDcsMjMuMDUgMTIuNDg4LDIzLjY1NyBDMTIuMTkzLDI0Ljc4NCAxMS4zOTYsMjYuMTk2IDEwLjg2MywyNy4wNTggQzEyLjA4NiwyNy40MzQgMTMuMzg2LDI3LjYzNyAxNC43MzMsMjcuNjM3IEMyMS45NSwyNy42MzcgMjcuODAxLDIxLjgyOCAyNy44MDEsMTQuNjYyIEMyNy44MDEsNy40OTUgMjEuOTUsMS42ODYgMTQuNzMzLDEuNjg2IiBmaWxsPSIjYmQwODFjIj48L3BhdGg+PC9nPjwvc3ZnPg==&quot;) 3px 50% / 14px 14px no-repeat rgb(189, 8, 28) !important; position: absolute !important; opacity: 1 !important; z-index: 8675309 !important; display: none; cursor: pointer !important; border: none !important; -webkit-font-smoothing: antialiased !important;">Save</span><span style="border-radius: 12px; width: 24px !important; height: 24px !important; background: url(&quot;data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pjxzdmcgd2lkdGg9IjI0cHgiIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAwIDI0IDI0IiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxkZWZzPjxtYXNrIGlkPSJtIj48cmVjdCBmaWxsPSIjZmZmIiB4PSIwIiB5PSIwIiB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHJ4PSI2IiByeT0iNiIvPjxyZWN0IGZpbGw9IiMwMDAiIHg9IjUiIHk9IjUiIHdpZHRoPSIxNCIgaGVpZ2h0PSIxNCIgcng9IjEiIHJ5PSIxIi8+PHJlY3QgZmlsbD0iIzAwMCIgeD0iMTAiIHk9IjAiIHdpZHRoPSI0IiBoZWlnaHQ9IjI0Ii8+PHJlY3QgZmlsbD0iIzAwMCIgeD0iMCIgeT0iMTAiIHdpZHRoPSIyNCIgaGVpZ2h0PSI0Ii8+PC9tYXNrPjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIGZpbGw9IiNmZmYiIG1hc2s9InVybCgjbSkiLz48L3N2Zz4=&quot;) 50% 50% / 14px 14px no-repeat rgba(0, 0, 0, 0.4) !important; position: absolute !important; opacity: 1 !important; z-index: 8675309 !important; display: none; cursor: pointer !important; border: none !important;"></span><iframe id="rufous-sandbox" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" style="position: absolute; visibility: hidden; display: none; width: 0px; height: 0px; padding: 0px; border: none;" title="Twitter analytics iframe" src="./bracket-meme-bot_files/saved_resource.html"></iframe></body></html>

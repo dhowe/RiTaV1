@@ -1,0 +1,38 @@
+
+<!-- file:///Users/dhowe/Documents/javascript-workspace/MemoryJS -->
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<script src="lib/jquery-min.js"></script>
+<script src="lib/processing.js"></script>
+<script src="lib/rita.js"></script>
+<script src="lib/rita-wordnet.js"></script>
+<script src="memory-pjs.js"></script>
+
+<body>
+<audio src="bells3.mp3" loop autoplay></audio>
+<div id='content'></div>
+<canvas id="canvas" width="1100" height="800" style="border: 1px;"></canvas>
+<script>
+canvas.addEventListener('click', function(){
+  _onclick();
+});
+</script>
+<br><font size=1>Memory by A. B. Soderman</font>
+<script type="text/processing" data-processing-target="canvas">
+
+/* @pjs font="LondonBetween.ttf"; */
+
+void setup() {
+
+  size(1100, 800);
+  _setup(this);
+}
+
+void draw() {
+
+  _draw(this);
+}
+
+</script>
+</body>
