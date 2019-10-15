@@ -1,5 +1,4 @@
 language: java
 before_script: "cd resources"
-install: "ant deps"
 script: "ant"
 group: deprecated-2017Q1
