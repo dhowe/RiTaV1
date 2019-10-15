@@ -1,0 +1,92 @@
+<html>
+
+<head>
+  <title>KWIKmodel (dom)</title>
+  <meta charset="utf-8">
+  <script src="../../lib/jquery-1.11.3.min.js"></script>
+  <script src="../../../dist/rita.js"></script>
+  <script src="code.js"></script>
+  <script src="../../lib/prism.js"></script>
+  <script src="../../lib/sourcecode.js"></script>
+  <link rel='stylesheet' href='../../lib/prism.css' />
+  <style>
+    body {
+      font-family: "Times New Roman", Times, serif;
+      font-size: 18px;
+    }
+
+    span {
+      text-overflow: clip;
+      white-space: nowrap;
+    }
+
+    #container {
+      position: absolute;
+      overflow: hidden;
+    }
+
+    #textInput {
+      position: absolute;
+      left: 345px;
+      width: 50px;
+      z-index: 1;
+    }
+
+    #button {
+      position: absolute;
+      left: 395px;
+      top: 21px;
+      z-index: 1;
+    }
+
+    #label {
+      position: absolute;
+      left: 300px;
+      top: 24px;
+      z-index: 1;
+      font-size: 14px;
+    }
+    
+    .buttonContainer {
+      position: absolute;
+      left: 145px;
+      top: 40px;
+      z-index: 1;
+    }
+    
+    .cssBtns {
+      -moz-border-radius:7px;
+      -webkit-border-radius:7px;
+      border-radius:7px;
+      border:1px solid #dcdcdc;
+      padding:1px 6px;
+      text-decoration:none;
+      color:black;
+      display:inline-block;
+      cursor: default;
+    }
+  </style>
+
+</head>
+
+<body>
+  <a href="#source" id="view-source">source</a><br>
+  <div class="buttonContainer">
+    <a href="#" class="cssBtns"></a>
+    <a href="#" class="cssBtns"></a>
+    <a href="#" class="cssBtns"></a>
+    <a href="#" class="cssBtns"></a>
+    <a href="#" class="cssBtns"></a>
+    <a href="#" class="cssBtns"></a>
+    <a href="#" class="cssBtns"></a>
+    <a href="#" class="cssBtns"></a>
+  </div>
+  <div id="container"></div>
+    <div class="code" id="source">
+    <pre>
+ <code id="source-code" class="language-java"></code>
+ </pre>
+  </div>
+</body>
+
+</html>

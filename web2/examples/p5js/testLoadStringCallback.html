@@ -1,0 +1,21 @@
+<html>
+
+<head>
+  <title>test-load-strings (p5js)</title>
+  <script src="../lib/p5.js"></script>
+  <script src="../../dist/rita.js"></script>
+  <script>
+
+    function setup() {
+      RiTa.loadString('./kafka.txt', function(data) {
+        createCanvas(500, 500);
+        textFont('times', 16);
+        background(250);
+        text(data, 20, 20, width-40, height-40);
+      });
+    }
+
+  </script>
+</head>
+
+</html>
