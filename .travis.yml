@@ -3,5 +3,7 @@ addons:
   apt:
     packages:
       - ant
-before_script: "cd resources"
-script: "ant"
+before_script: 
+  - sudo apt-get install ant-optional
+  - cd resources
+script: ant
