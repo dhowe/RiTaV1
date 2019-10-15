@@ -1,4 +1,9 @@
 language: java
+install: ant deps
+addons:
+  apt:
+    packages:
+      - ant
 before_script: "cd resources"
 script: "ant"
 group: deprecated-2017Q1
