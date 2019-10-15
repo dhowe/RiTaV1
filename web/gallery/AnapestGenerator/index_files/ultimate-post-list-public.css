@@ -1,0 +1,13 @@
+div.upl-list form, div.upl-list p { margin-bottom: 1em; }
+div.upl-list form img { display: inline; padding-left: 1em; padding-right: 1em; box-shadow: none; vertical-align: middle; border: 0 none; }
+div.upl-list ul { list-style: none outside none; overflow: hidden; margin-left: 0; margin-right: 0; padding-left: 0; padding-right: 0; }
+div.upl-list ul li { margin: 0 0 1.5em; clear: both; }
+div.upl-list ul li:last-child { margin-bottom: 0; }
+#upl-list-1560 ul li img { width: 100px; height: 100px; display: inline; float: left; margin: 0px 8px 8px 0px; }
+#upl-list-1560 ul li { margin-top: 0px; margin-bottom: 24px; margin-left: 0px; margin-right: 0px; }
+#upl-list-1560 ul li div { margin-left: 108px; }
+#upl-list-1560 ul li div.upl-post-thumbnail { margin-left: 0; }
+#upl-list-2966 ul li img { width: 100px; height: 100px; display: inline; float: left; margin: 0px 8px 8px 0px; }
+#upl-list-2966 ul li { margin-top: 0px; margin-bottom: 24px; margin-left: 0px; margin-right: 0px; }
+#upl-list-2966 ul li div { margin-left: 108px; }
+#upl-list-2966 ul li div.upl-post-thumbnail { margin-left: 0; }
