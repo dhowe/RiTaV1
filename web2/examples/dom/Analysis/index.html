@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Analysis (dom)</title>
+  <meta charset="utf-8">
+  <script src="../../../dist/rita-full.js"></script>
+  <script src="../../lib/arpaToIPA.js"></script>
+  <script src="../../lib/jquery-1.11.3.min.js"></script>
+  <script src="code.js"></script>
+  <script src="../../lib/prism.js"></script>
+  <script src="../../lib/sourcecode.js"></script>
+  <link rel='stylesheet' href='../../lib/prism.css' />
+</script>
+<style>
+body {
+	font-family: sans-serif;
+  color: rgb(56, 66, 90);
+}
+.canvas {
+	position:relative;
+  width:600px;
+  height:300px;
+  overflow: hidden;
+}
+#pos {
+	position:absolute;
+	top:100px;
+	left:80px;
+	font-size: 14px;
+	text-transform: lowercase;
+  font-style: italic;
+}
+#word {
+	position:absolute;
+	top:20px;
+	left:80px;
+	font-size: 36px;
+}
+#ipa{
+  position:absolute;
+  top:60px;
+  left:80px;
+  font-size: 18px;
+}
+.bubbles {
+	position:absolute;
+	top:130px;
+	left:70px;
+}
+.bubble.stressed{
+  animation: stress .5s;
+  width:50px;
+  height:50px;
+  border-radius: 25px;
+  line-height: 50px;
+  margin-top: 0px;
+}
+
+@keyframes stress {
+    from {
+        width:40px;
+        height:40px;
+        border-radius: 20px;
+        line-height: 40px;
+        margin-top: 5px;
+    }
+    to {
+        width:50px;
+        height:50px;
+        border-radius: 25px;
+        line-height: 50px;
+        margin-top: 0px;
+    }
+}
+
+.bubble {
+  position:relative;
+	width:40px;
+	height:40px;
+	line-height: 40px;
+	border-radius: 20px;
+	background-color: hsla(120, 90%, 45%, 0.6);;
+	text-align: center;
+	display: block;
+  float:left;
+  color:white;
+  margin-left: 5px;
+  margin-top: 5px;
+}
+</style>
+</head>
+<body>
+    <a href="#source" id="view-source">source</a> </font><br>
+<div class="code" id="source">
+    <pre>
+ <code id="source-code" class="language-java"></code>
+ </pre>
+  </div>
+  <div class="canvas">
+  <div id="pos"></div>
+  <div id="word"></div>
+  <div id="ipa"></div>
+  <div class="bubbles">
+  	<span class="bubble"></span>
+  	<span class="bubble"></span>
+  	<span class="bubble"></span>
+  	<span class="bubble"></span>
+  	<span class="bubble"></span>
+  	<span class="bubble"></span>
+  	<span class="bubble"></span>
+  	<span class="bubble"></span>
+  	<span class="bubble"></span>
+  	<span class="bubble"></span>
+  	<span class="bubble"></span>
+  	<span class="bubble"></span>
+  </div>
+  </div>
+</body>
+</html>

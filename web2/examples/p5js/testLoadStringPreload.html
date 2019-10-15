@@ -1,0 +1,33 @@
+<html>
+
+<head>
+  <title>test-load-strings (p5js)</title>
+  <script src="../lib/p5.js"></script>
+  <script src="../../dist/rita.js"></script>
+  <script>
+    var data;
+
+    (function() {
+      console.log('first');
+      p5.prototype.registerPreloadMethod('loadString', 'RiTa');
+      console.log("preloadMethods: ", p5.prototype._preloadMethods);
+    })();
+
+    function preload() {
+      console.log('preload1',data);
+      data = RiTa.loadString('./kafka.txt');
+      //console.log('preload2',data);
+    }
+
+    function setup() {
+      console.log("setup",data);
+      createCanvas(500, 500);
+      textFont('times', 16);
+      background(250);
+      //text(data, 20, 20);
+    }
+
+  </script>
+</head>
+
+</html>

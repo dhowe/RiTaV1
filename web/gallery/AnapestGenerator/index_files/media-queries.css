@@ -1,0 +1,307 @@
+@media screen and (max-width: 1240px) {
+
+	/************************************************************************************
+	FOR PAGE SKIN
+	*************************************************************************************/
+	.skin-page .pagewidth,
+	.skin-page-black .pagewidth {
+		max-width: 100%;
+	}
+	/* content */
+	.skin-page #content,
+	.skin-page-black #content {
+		width: 67.8%;
+	}
+	
+	/* sidebar */
+	.skin-page #sidebar,
+	.skin-page-black #sidebar {
+		width: 26.2%;
+	}
+}
+
+@media screen and (max-width: 1160px) {
+
+	/************************************************************************************
+	STRUCTURE
+	*************************************************************************************/
+	.pagewidth {
+		max-width: 94%;
+	}
+		
+	/* content */
+	#content {
+		width: 67.8%;
+	}
+	
+	/* sidebar */
+	#sidebar {
+		width: 26.2%;
+	}
+}
+
+@media screen and (max-width: 760px) {
+
+	/************************************************************************************
+	STRUCTURE
+	*************************************************************************************/
+	#content {
+		width: 100% !important;
+		max-width: 100%;
+		float: none;
+		clear: both;
+	}
+	
+	/* sidebar */
+	#sidebar {
+		width: 100% !important;
+		max-width: 100%;
+		float: none;
+		clear: both;
+	}
+	#sidebar .secondary {
+		width: 48%;
+	}
+	
+	/************************************************************************************
+	GRID
+	*************************************************************************************/
+	.col4-1,
+	.col4-2, .col2-1,
+	.col4-3,
+	.col3-1,
+	.col3-2	 {
+		margin-left: 0 !important;
+		width: 100% !important;
+		max-width: 100% !important;
+	}
+	
+	/************************************************************************************
+	HEADER
+	*************************************************************************************/
+	/* reset absolute elements to static */
+	#site-logo, #site-description, #main-nav  {
+		position: static;
+		float: none;
+		clear: both;
+	}
+	
+	/* header */
+	#header {
+		height: auto;
+		padding: 30px 0 10px;
+	}
+	
+	/* site logo */
+	#site-logo {
+		font-size: 2.14em;
+		margin-bottom: 10px;
+	}
+
+	/* site description */
+	#site-description {
+		font-size: 1em;
+		margin: 0 0 10px;
+	}
+	
+	/************************************************************************************
+	MOBILE NAV BUTTON
+	*************************************************************************************/
+	.mobile-button {
+		position: relative;
+		margin: 10px 0;
+		display: inline-block;
+		cursor: pointer;
+		font-size: 1.75em;
+	}
+	.mobile-button:hover {
+		opacity: .8;
+	}
+	.mobile-button.active {
+		opacity: .6;
+		-webkit-transform: scale(.9,.9);
+		-moz-transform: scale(.9,.9);
+		-ms-transform: scale(.9,.9);
+		transform: scale(.9,.9);
+	}
+
+	/************************************************************************************
+	MAIN NAV (MOBILE)
+	*************************************************************************************/
+	/* change max-width to trigger mobile menu (#headerwrap added to override Themify Styling output css) */
+	
+	nav {
+		position: relative;
+		text-align: center;
+	}
+	
+	/* main nav */
+	#headerwrap #main-nav {
+		clear: both;
+		position: absolute;
+		top: 100%;
+		right: auto;
+		left: 50%;
+		bottom: auto;
+		width: 198px;
+		height: auto;
+		margin: 15px 0 0 -100px;
+		z-index: 1000;
+		padding: 10px 5px;
+		background-color: #fff;
+		border: solid 1px #ccc;
+		visibility: hidden;
+		box-shadow: none;
+		border-radius: 0;
+	}
+	#headerwrap #main-nav:before {
+		position: absolute;
+		display: block;
+		content: ' ';
+		width: 0;
+		height: 0;
+		top: -11px;
+		left: 50%;
+		margin-left: -15px;
+		border-bottom: 10px solid #ccc;
+		border-left: 10px solid transparent;
+		border-right: 10px solid transparent;
+		z-index: -1;
+	}
+	#headerwrap #main-nav ul:before,
+	#headerwrap #main-nav ul ul:before {
+		display: none;
+	}
+	#headerwrap #main-nav li {
+		clear: both;
+		float: none;
+		margin: 0;
+		padding: 0;
+		border: none;
+		box-shadow: none;
+		width: 100%;
+	}
+	#headerwrap #main-nav a, 
+	#headerwrap #main-nav ul a {
+		background: none;
+		width: auto;
+		margin: 0;
+		padding: 8px 4%;
+		color: #666;
+		border: none;
+		text-shadow: none;
+		box-shadow: none;
+		display: block;
+		text-transform: none;
+		text-align: center;
+	}
+	#headerwrap #main-nav a:hover, 
+	#headerwrap #main-nav ul a:hover {
+		background: none;
+		color: #000;
+	}
+	
+	/* dropdown */
+	#headerwrap #main-nav ul {
+		position: static;
+		width: auto;
+		margin: 0;
+		padding: 0;
+		background: none;
+		border: none;
+		border-radius: 0;
+		box-shadow: none;
+	}
+	#headerwrap #main-nav ul ul {
+		margin: 0;
+	}
+	
+	/* main nav visibility */
+	#headerwrap #main-nav.active {
+		visibility: visible;
+		margin-top: 0;
+	}
+	#headerwrap #main-nav.active ul,
+	#headerwrap #main-nav.active ul ul {
+		display: block;
+		visibility: visible;
+		opacity: 1;
+	}
+
+}
+
+
+@media screen and (max-width: 600px) {
+	
+	/************************************************************************************
+	POST VIDEO (css for fluid video)
+	*************************************************************************************/
+	.post-video {
+		clear: both;
+	}
+
+}
+
+@media screen and (max-width: 480px) {
+
+	/* disable webkit text size adjust (for iPhone) */
+	html {
+		-webkit-text-size-adjust: none;
+	}
+	
+	/************************************************************************************
+	LAYOUT
+	*************************************************************************************/
+	/* loops-wrapper */
+	.loops-wrapper {
+		margin-left: 0 !important;
+		width: auto !important;
+	}
+
+	/* post */
+	.post {
+		width: auto !important;
+		max-width: 100% !important;
+		margin-left: 0 !important;
+		float: none !important;
+	}
+	
+	/************************************************************************************
+	POST NAV
+	*************************************************************************************/
+	.post-nav .prev, .post-nav .next {
+		display: block;
+		width: 100%;
+		clear: both;
+		margin-bottom: 10px;
+	}
+	
+	/************************************************************************************
+	COMMENTS
+	*************************************************************************************/
+	.commentlist {
+		padding-left: 0;
+	}
+	.commentlist .commententry {
+		clear: left;
+	}
+	.commentlist .avatar {
+		float: left;
+		width: 40px;
+		height: 40px;
+		margin: 0 10px 10px 0;
+	}
+
+}
+
+@media screen and (min-width: 761px) {
+
+	/* ensure #nav is visible on desktop version */
+	#main-nav {
+		display: block !important;
+	}
+	#menu-icon {
+		display: none;
+	}
+
+}

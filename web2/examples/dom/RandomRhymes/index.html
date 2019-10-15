@@ -1,0 +1,52 @@
+<html>
+
+<head>
+<title>RandomRhymes (dom)</title>
+<meta charset="utf-8">
+<script src="../../../dist/rita-full.js"></script>
+<script src="../../lib/jquery-1.11.3.min.js"></script>
+<script src="code.js"></script>
+<script src="../../lib/prism.js"></script>
+<script src="../../lib/sourcecode.js"></script>
+<link rel='stylesheet' href='../../lib/prism.css' />
+  <style>
+body {
+  font-family: sans-serif;
+}
+.canvas {
+  position:relative;
+  width:300px;
+  height:300px;
+  overflow: hidden;
+  background-color: rgb(100,0,100);
+}
+#word {
+  position:absolute;
+  top:20px;
+  right:20px;
+  font-size: 36px;
+  color:white;
+  text-align: right;
+}
+#rhyme{
+  position:absolute;
+  top:70px;
+  left:30px;
+  font-size: 14px;
+  color:white;
+}
+  </style>
+</head>
+<body>
+<a href="#source" id="view-source">source</a>
+<div class="code" id="source">
+    <pre>
+ <code id="source-code" class="language-java"></code>
+ </pre>
+  </div>
+  <div class="canvas">
+    <div id="word">testing</div>
+    <div id="rhyme">aa</div>
+  </div>
+</body>
+</html>
