@@ -1,0 +1,177 @@
+[{
+    "title": "The Hands of Gutenberg",
+    "artist": "Philippe De Bree",
+    "thumb": "img/gallery/hand.png",
+    "link": "gallery/TheHandsofGutenberg"
+  },
+  {
+    "title": "Lyric Poems",
+    "artist": "Cassie Scheirer",
+    "thumb": "img/gallery/lyric.jpg",
+    "link": "gallery/LyricPoems"
+  },
+  {
+    "title": "Poetry In Motion",
+    "artist": "J. Zhou, R. Agarwal, E. Bretschneider",
+    "thumb": "img/gallery/poetryInMotion.png",
+    "link": "gallery/PoetryInMotion"
+  },
+  {
+    "title": "DAEDALUS",
+    "artist": "Alessandro Capozzo",
+    "thumb": "img/gallery/daedalus.png",
+    "link": "gallery/Daedalus"
+  },
+  {
+    "title": "Pop Culture Poetry",
+    "artist": "Ari Melenciano",
+    "thumb": "img/gallery/popculture.png",
+    "link": "gallery/PopCulturePoetry"
+  },
+  {
+    "title": "Bracket Meme Bot",
+    "artist": "Darius Kazemi",
+    "thumb": "img/gallery/bracket.png",
+    "link": "gallery/BracketMemeBot"
+  },
+  {
+    "title": "Poetry.dna",
+    "artist": "Matthew Halpenny",
+    "thumb": "img/gallery/poetryDNA.png",
+    "link": "gallery/DNA"
+  },
+  {
+    "title": "Sol Lewitt Generator",
+    "artist": "Richard Lapham",
+    "thumb": "img/gallery/sl.png",
+    "link": "gallery/SolLewitt"
+  },
+  {
+    "title": "HW-PM-R-00",
+    "artist": "David Hale",
+    "thumb": "img/gallery/hm.jpg",
+    "link": "gallery/HW00/hw00.html"
+  },
+  {
+    "title": "Bookshelf Writer",
+    "artist": "A.Refsgaard K. Solvåg R. Cereser",
+    "thumb": "img/gallery/bookshelfWriter.jpg",
+    "link": "gallery/BookshelfWriter"
+  },
+  {
+    "title": "#nightTweets",
+    "artist": "Sarah K Hallacher",
+    "thumb": "img/gallery/nightTweet.png",
+    "link": "http://sarahmak.es/nightTweets"
+  },
+  {
+    "title": "Mirroring Tears: Visages",
+    "artist": "John Cayley Penny Florence",
+    "thumb": "img/gallery/mirroringTears.png",
+    "link": "https://elmcip.net/creative-work/mirroring-tears-visages"
+  },
+  {
+    "title": "The Whole Brilliant Enterprise",
+    "artist": "Office for Creative Research",
+    "thumb": "img/gallery/enterprise_sm.png",
+    "link": "gallery/TheWholeBrilliantEnterprise"
+  },
+  {
+    "title": "Memoire Involontaire No. 1",
+    "artist": "A. Braxton Soderman<",
+    "thumb": "img/gallery/memory.gif",
+    "link": "http://rednoise.org/rita/gallery/MemoireInvolontaireNo1"
+  },
+  {
+    "title": "Visual Grammars",
+    "artist": "Angela Ferraiolo",
+    "thumb": "img/gallery/visgram.jpg",
+    "link": "gallery/VisualGrammars"
+  },
+  {
+    "title": "Game Definitions",
+    "artist": "MolleIndustria",
+    "thumb": "img/gallery/gamedefs.png",
+    "link": "gallery/GameDefinitions"
+  },
+
+  {
+    "title": "Cornell's Yoke Machine",
+    "artist": "Janalyn Guo",
+    "thumb": "img/gallery/cornell.jpg",
+    "link": "gallery/CornellsYokeMachine"
+  },
+  {
+    "title": "Shan Shui",
+    "artist": "Chen Qianxun",
+    "thumb": "img/gallery/shanshui.jpg",
+    "link": "gallery/ShanShui"
+  },
+  {
+    "title": "The Godard Film Generator",
+    "artist": "Mark Sample",
+    "thumb": "img/gallery/godard.png",
+    "link": "gallery/TheGodardFilmGenerator"
+  },
+  {
+    "title": "about nothing, places...",
+    "artist": "Patricia Tomaszek",
+    "thumb": "img/gallery/creeley270.jpg",
+    "link": "gallery/AboutNothingPlaces"
+  },
+  {
+    "title": "RiTa Twitterbots",
+    "artist": "Mark Sample",
+    "thumb": "img/gallery/twitterbots.gif",
+    "link": "gallery/RiTaTwitterbots"
+  },
+  {
+    "title": "SpinState",
+    "artist": "Michael Coppola",
+    "thumb": "img/gallery/spin_state2.png",
+    "link": "gallery/SpinState"
+  },
+  {
+    "title": "Sorting Bot",
+    "artist": "Darius Kazemi",
+    "thumb": "img/gallery/sortingBot.png",
+    "link": "gallery/SortingBot"
+  },
+
+  {
+    "title": "Automatype",
+    "artist": "Daniel C. Howe",
+    "thumb": "img/gallery/automatype.jpg",
+    "link": "gallery/automatype"
+  },
+  {
+    "title": "Resume Bot",
+    "artist": "Patrick Resto",
+    "thumb": "img/gallery/resumeBot.png",
+    "link": "gallery/ResumeBot"
+  },
+  {
+    "title": "Harry Potter Book Generator",
+    "artist": "Rob Clouth",
+    "thumb": "img/gallery/HarryPotterGenerator.png",
+    "link": "gallery/HarryPotterBookGenerator"
+  },
+  {
+    "title": "Zuckifier",
+    "artist": "Sam Lavigne",
+    "thumb": "img/gallery/zuckbaby.jpg",
+    "link": "gallery/Zuckifier"
+  },
+  {
+    "title": "invoke(Object object);",
+    "artist": "Ben Nicholson",
+    "thumb": "img/gallery/invokeObject.png",
+    "link": "gallery/InvokeObject"
+  },
+  {
+    "title": "Anapest Generator: a JavaScript Poem Maker",
+    "artist": "Chris Angelis",
+    "thumb": "img/gallery/AnapestGenerator.png",
+    "link": "gallery/AnapestGenerator"
+  }
+]

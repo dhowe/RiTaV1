@@ -677,3 +677,68 @@ Desc section
   padding: 30px;
   font-weight: 600;
 }
+
+
+
+
+
+
+
+
+
+/* gallery 2 test */
+
+#gallery2-wrapper {
+  background: #333;
+  text-align: center;
+  padding: 100px 0;
+  text-align: center;
+
+}
+
+#gallery-wrapper h4 {
+  font-size: 36px;
+  margin: 0;
+  line-height: 120px;
+  color: #FFF;
+}
+
+#gallery2-wrapper p {
+  font-weight: 500;
+  max-width: 700px;
+  margin: 15px auto 100px;
+  font-size: 16px;
+  line-height: 30px;
+  color: #FFF;
+}
+
+#gallery2-wrapper div {
+  margin: 0 auto;
+}
+
+#gallery2-wrapper .slick-slider {
+  margin: 0 auto;
+
+}
+
+#gallery2-wrapper img {
+  width: 180px;
+  height: 50px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #DDD;
+  border-radius: 4px;
+  display: inline-block;
+  margin: 20px 0;
+}
+
+#gallery2-wrapper p {}
+
+#gallery2-wrapper a {
+  color: #96b2f2;
+  font-weight: 800;
+}
+
+#gallery2-wrapper a:hover {
+  text-decoration: underline;
+}

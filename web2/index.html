@@ -6,76 +6,7 @@
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>RiTa - a software toolkit for computational literature</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <!-- -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-  <!-- slick js-->
-  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
-  <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-
-
-  <link rel="stylesheet" href="css/svg.css">
-  <link rel="stylesheet" href="css/slick.css">
-  <link rel="stylesheet" href="css/icomoon.css">
-  <link rel="stylesheet" href="css/animate.css">
-  <link rel="stylesheet" href="css/mainStyle.css">
-  <script src="scripts/panel.js"></script>
-
-  <script src="scripts/wow.min.js"></script>
-
-  <script type="text/javascript">
-    $(document).ready(function() {
-      //animation
-      new WOW().init();
-
-      //smoothscroll, menubar
-      $('.nav-wrapper a[href^="#"]').on('click', function(e) {
-        e.preventDefault();
-        $(document).off("scroll");
-
-        $('a').each(function() {
-          $(this).removeClass('active');
-        })
-        $(this).addClass('active');
-
-        var target = this.hash,
-          menu = target;
-        $target = $(target);
-        $('html, body').stop().animate({
-          'scrollTop': $target.offset().top + 2
-        }, 500, 'swing', function() {
-          window.location.hash = target;
-        });
-      });
-
-      //slick-slider
-      $('.slick-slider-gallery').slick({
-        dots: true,
-      });
-
-      $('.slick-slider-learning').slick({
-        dots: true,
-      });
-
-
-
-      //Gallery
-      $(".gallery_home_item").each(function(index) {
-        $(this).attr("data-wow-delay", Math.random() * 0.5 + "s");
-      })
-
-    });
-  </script>
-
-  <!--
-  <link href="res/css.css" rel="stylesheet">
-  <link href="res/css_002.css" rel="stylesheet">
--->
-
-
   <meta name="description" content="RiTa - a software toolkit for computational literature">
   <meta name="robots" content="noodp">
   <link rel="canonical" href="https://github.com/dhowe/riTa">
@@ -92,8 +23,27 @@
   <meta name="twitter:title" content="RiTa - a software toolkit for computational literature">
   <link rel="icon" type="image/x-icon" href="https://github.com/dhowe/dialogicfavicon.a18fc8a9.ico">
 
-
-
+  <title>RiTa - a software toolkit for computational literature</title>
+  <!-- bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <!-- slick js-->
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+  <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+  <!-- css -->
+  <link rel="stylesheet" href="css/svg.css">
+  <link rel="stylesheet" href="css/slick.css">
+  <link rel="stylesheet" href="css/icomoon.css">
+  <link rel="stylesheet" href="css/animate.css">
+  <link rel="stylesheet" href="css/mainStyle.css">
+  <script src="js/wow.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/gallery.js"></script>
+  <!--
+  <link href="res/css.css" rel="stylesheet">
+  <link href="res/css_002.css" rel="stylesheet">
+-->
   <!--
     <script type="text/javascript" id="www-widgetapi-script" src="res/www-widgetapi.js" async=""></script>
     <script src="res/scripts.js"></script>
@@ -643,6 +593,7 @@
       </div>
     </div>
   </div>
+
   <div id="gallery-wrapper">
     <div class="container wow fadeIn">
       <div class="row">
@@ -656,189 +607,12 @@
       </div>
     </div>
     <div class="container">
-      <div class="row slick-slider-gallery">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-4 gallery_home_item wow fadeInDown">
-              <a href="./gallery/TheHandsofGutenberg" target="new"><img src="img/gallery/hand.png"></a><br>
-              <a href="./gallery/TheHandsofGutenberg" target="new">The Hands of Gutenberg</a>
-              <p><span>by Philippe De Bree</span></p>
-            </div>
-            <div class="col-md-4 gallery_home_item wow fadeInDown">
-              <a href="./gallery/LyricPoems" target="new"><img src="img/gallery/lyric.jpg"></a><br>
-              <a href="./gallery/LyricPoems" target="new">Lyric Poems</a>
-              <p><span>by Cassie Scheirer</span></p>
-            </div>
-            <div class="col-md-4 gallery_home_item wow fadeInDown">
-              <a href="./gallery/PoetryInMotion" target="new"><img src="img/gallery/poetryInMotion.png"></a><br>
-              <a href="./gallery/PoetryInMotion" target="new">Poetry In Motion</a>
-              <p><span style="font-size:11px;">J. Zhou, R. Agarwal, E. Bretschneider</span></p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4 gallery_home_item wow fadeInDown">
-              <a href="./gallery/Daedalus" target="new"><img src="img/gallery/daedalus.png"></a><br>
-              <a href="./gallery/Daedalus" target="new">DAEDALUS</a>
-              <p><span>by Alessandro Capozzo</span></p>
-            </div>
-            <div class="col-md-4 gallery_home_item wow fadeInDown">
-              <a href="./gallery/PopCulturePoetry" target="new"><img src="img/gallery/popculture.png"></a><br>
-              <a href="./gallery/PopCulturePoetry" target="new">Pop Culture Poetry</a>
-              <p><span>by Ari Melenciano </span></p>
-            </div>
-            <div class="col-md-4 gallery_home_item wow fadeInDown">
-              <a href="./gallery/BracketMemeBot" target="new"><img src="img/gallery/bracket.png"></a><br>
-              <a href="./gallery/BracketMemeBot" target="new">Bracket Meme Bot</a>
-              <p><span>by Darius Kazemi</span></p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4 gallery_home_item wow fadeInDown">
-              <a href="./gallery/DNA" target="new"><img src="img/gallery/poetryDNA.png"></a><br>
-              <a href="./gallery/DNA" target="new">Poetry.dna</a>
-              <p><span>by Matthew Halpenny</span></p>
-            </div>
-            <div class="col-md-4 gallery_home_item wow fadeInDown">
-              <a href="./gallery/SolLewitt" target="new"><img src="img/gallery/sl.png"></a><br>
-              <a href="./gallery/SolLewitt" target="new">Sol Lewitt Generator</a>
-              <p><span>by Richard Lapham</span></p>
-            </div>
-            <div class="col-md-4 gallery_home_item wow fadeInDown">
-              <a href="./gallery/HW00/hw00.html" target="new"><img src="img/gallery/hm.jpg"></a><br>
-              <a href="./gallery/HW00/hw00.html" target="new">HW-PM-R-00</a>
-              <p><span>by David Hale</span></p>
-            </div>
-          </div>
-        </div>
-        <div class="container">
-          <div class="row">
-            <div class="col-md-4">
-              <a href="./gallery/BookshelfWriter" target="new"><img src="img/gallery/bookshelfWriter.jpg"></a><br>
-              <a href="./gallery/BookshelfWriter" target="new">Bookshelf Writer</a>
-              <p><span style="font-size:11px;">by A.Refsgaard K. Solvåg R. Cereser</span></p>
-            </div>
-            <div class="col-md-4">
-              <a href="http://sarahmak.es/nightTweets" target="new"><img src="img/gallery/nightTweet.png"></a><br>
-              <a href="http://sarahmak.es/nightTweets" target="new">#nightTweets</a>
-              <p>by Sarah K Hallacher</p>
-            </div>
-            <div class="col-md-4">
-              <a href="https://elmcip.net/creative-work/mirroring-tears-visages" target="new"><img src="img/gallery/mirroringTears.png"></a><br>
-              <a href="https://elmcip.net/creative-work/mirroring-tears-visages" target="new">Mirroring Tears: Visages</a>
-              <p>by John Cayley Penny Florence</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4">
-              <a href="./gallery/TheWholeBrilliantEnterprise" target="new"><img src="img/gallery/enterprise_sm.png"></a><br>
-              <a href="./gallery/TheWholeBrilliantEnterprise" target="new">The Whole Brilliant Enterprise</a>
-              <p>by Office for Creative Research</p>
-            </div>
-            <div class="col-md-4">
-              <a href="http://rednoise.org/rita/gallery/MemoireInvolontaireNo1" target="new"><img src="img/gallery/memory.gif"></a><br>
-              <a href="http://rednoise.org/rita/gallery/MemoireInvolontaireNo1" target="new">Memoire Involontaire No. 1</a>
-              <p>by A. Braxton Soderman</p>
-            </div>
-            <div class="col-md-4">
-              <a href="./gallery/VisualGrammars" target="new"><img src="img/gallery/visgram.jpg"></a>
-              <a href="./gallery/VisualGrammars" target="new"><br>Visual Grammars</a>
-              <p>by Angela Ferraiolo</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4">
-              <a href="./gallery/GameDefinitions" target="new"><img src="img/gallery/gamedefs.png"></a><br>
-              <a href="./gallery/GameDefinitions" target="new">Game Definitions</a>
-              <p>by MolleIndustria</p>
-            </div>
-            <div class="col-md-4">
-              <a href="./gallery/CornellsYokeMachine" target="new"><img src="img/gallery/cornell.jpg"></a><br>
-              <a href="./gallery/CornellsYokeMachine" target="new">Cornell's Yoke Machine</a>
-              <p>by Janalyn Guo</p>
-            </div>
-            <div class="col-md-4">
-              <a href="./gallery/ShanShui" target="new"><img src="img/gallery/shanshui.jpg"></a><br>
-              <a href="./gallery/ShanShui" target="new">Shan Shui</a>
-              <p>by Chen Qianxun</p>
-            </div>
-          </div>
-        </div>
-        <div class="container">
-          <div class="row">
-            <div class="col-md-4">
-              <a href="./gallery/TheGodardFilmGenerator" target="new"><img src="img/gallery/godard.png"></a><br>
-              <a href="./gallery/TheGodardFilmGenerator" target="new">The Godard Film Generator</a>
-              <p>by Mark Sample</p>
-            </div>
-            <div class="col-md-4">
-              <a href="./gallery/AboutNothingPlaces" target="new"><img src="img/gallery/creeley270.jpg"></a><br>
-              <a href="./gallery/AboutNothingPlaces" target="new">about nothing, places...</a>
-              <p>by Patricia Tomaszek</p>
-            </div>
-            <div class="col-md-4">
-              <a href="./gallery/RiTaTwitterbots" target="new"><img src="img/gallery/twitterbots.gif"></a><br>
-              <a href="./gallery/RiTaTwitterbots" target="new">RiTa Twitterbots</a>
-              <p>by Mark Sample</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4">
-              <a href="./gallery/SpinState" target="new"><img src="img/gallery/spin_state2.png"></a><br>
-              <a href="./gallery/SpinState" target="new">SpinState</a>
-              <p>by Michael Coppola</p>
-            </div>
-            <div class="col-md-4">
-              <a href="./gallery/SortingBot" target="new"><img src="img/gallery/sortingBot.png"></a><br>
-              <a href="./gallery/SortingBot" target="new">Sorting Bot</a>
-              <p><span>Darius Kazemi</span></p>
-            </div>
-            <div class="col-md-4">
-              <a href="./gallery/automatype" target="new"><img src="img/gallery/automatype.jpg"></a><br>
-              <a href="./gallery/automatype" target="new">Automatype</a>
-              <p>by Daniel C. Howe</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4">
-              <a href="./gallery/ResumeBot" target="new"><img src="img/gallery/resumeBot.png"></a><br>
-              <a href="./gallery/ResumeBot" target="new">Resume Bot</a>
-              <p><span>by Patrick Resto</span></p>
-            </div>
-            <div class="col-md-4">
-              <a href="./gallery/HarryPotterBookGenerator" target="new"><img src="img/gallery/HarryPotterGenerator.png"></a><br>
-              <a href="./gallery/HarryPotterBookGenerator" target="new">Harry Potter Book Generator</a>
-              <p>by Rob Clouth</p>
-            </div>
-            <div class="col-md-4">
-              <a href="./gallery/Zuckifier/" target="new"><img src="img/gallery/zuckbaby.jpg"></a><br>
-              <a href="./gallery/Zuckifier/" target="new">Zuckifier</a>
-              <p>by Sam Lavigne</p>
-            </div>
-          </div>
-        </div>
-        <div class="container">
-          <div class="row">
-            <div class="col-md-4">
-              <a href="./gallery/InvokeObject" target="new"><img src="img/gallery/invokeObject.png"></a><br>
-              <a href="./gallery/InvokeObject" target="new">invoke(Object object);</a>
-              <p>by Ben Nicholson</p>
-            </div>
-            <div class="col-md-4">
-              <a href="./gallery/AnapestGenerator" target="new"><img src="img/gallery/AnapestGenerator.png"></a><br>
-              <a href="./gallery/AnapestGenerator" target="new">Anapest Generator: a JavaScript Poem Maker</a>
-              <p>by Chris Angelis</p>
-            </div>
-            <div class="col-md-4">
-              <!-- a href="https://play.google.com/store/apps/details?id=processing.test.jumping_wild" target="new"><img src="img/gallery/jumping.png" ></a><br>
-              <a href="https://play.google.com/store/apps/details?id=processing.test.jumping_wild" target="new">Jumping Wild Butoh Training</a>
-              <p>by Honza Svasek </p> -->
-            </div>
-          </div>
+      <div class="row slick-slider-gallery" id="gallery-slider">
 
-        </div>
       </div>
     </div>
   </div>
+
 
   <footer class="page-footer">
     <div class="container wow fadeIn">
