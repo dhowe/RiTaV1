@@ -2,9 +2,9 @@ $(document).ready(function() {
 
   //Learning -- Tutorials -- Panels
 
-  var $myGroup = $('.panel-collapse');
+  var $panelGroup = $('.panel-collapse');
 
-  $myGroup.on('show.bs.collapse', function() {
+  $panelGroup.on('show.bs.collapse', function() {
 
     $('.collapse.in').collapse('hide');
 
@@ -12,7 +12,7 @@ $(document).ready(function() {
 
   });
 
-  $myGroup.on('hide.bs.collapse', function() {
+  $panelGroup.on('hide.bs.collapse', function() {
     $(this).siblings('.panel-heading').removeClass('active');
     console.log('.panel-heading deactive');
   });
