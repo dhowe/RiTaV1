@@ -21,7 +21,6 @@ $(document).ready(function() {
   new WOW().init();
 
 
-
   //menubar - smoothscroll
   $('.nav-wrapper a[href^="#"]').on('click', function(e) {
     e.preventDefault();
@@ -43,7 +42,7 @@ $(document).ready(function() {
   });
 
 
-  //Gallery and Learning - slick-slider
+  //Learning - slick-slider
   $('.slick-slider-learning').not('.slick-initialized').slick({
     dots: true,
   });
