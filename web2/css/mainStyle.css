@@ -677,3 +677,87 @@ Desc section
   padding: 30px;
   font-weight: 600;
 }
+
+
+/* downloadwrapper */
+#downloadwrapper{
+  background-color: #fff;
+  color: #000;
+  text-align: center;
+}
+
+
+.downloadbox{
+    border: solid;
+    border-color:rgba(0,0,0,0.54);
+    padding:1.5rem 0.5rem;
+    border-width:2px;
+    max-width:300px;
+    margin:1rem  auto 4rem;
+    border-radius: 5px;
+}
+.downloadbox a span
+{
+  position:absolute;
+  width:100%;
+  max-width:300px;
+  height:80px;
+  margin:-1rem auto 0;
+  z-index: 1;
+}
+.downloadbox.mini a span{
+    max-width:210px;
+    height:60px;
+    margin:-0.5rem auto 0;
+}
+.downloadbox.smallest a span{
+    height:40px;
+}
+.downloadbox.mini{
+    margin:0 auto 1rem;
+    padding:0.7rem 0.1rem;
+
+    border-width:1px;
+    max-width:210px;
+}
+.downloadbox span{
+    margin-top: 0rem;
+    font-size: 12px;
+    display:block;
+    color:grey;
+}
+
+
+.downloadbox {
+    font-size: 18px;
+}
+.downloadbox:hover{
+    text-decoration: none;
+    color:#00a7fd;
+    border-color:#00a7fd;
+}
+.downloadbox span.sizes{
+   padding-top: 1em;
+}
+span.sizes a {
+    /*color:#006B8F !important;*/
+    background-color: rgb(200,200,200);
+    color:white;
+    padding:1px 2px;
+}
+.downloadbox:hover a.default{
+    background-color: #00a7fd;
+    color:white !important;
+}
+.downloadbox:hover a:not(.default){
+    color:rgb(200,200,200)!important;
+}
+.downloadbox:hover >span{
+    color:#00a7fd;
+}
+
+.downloadbox p{
+    font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif !important;
+    font-size: 1.8rem;
+    font-weight: 400;
+}
