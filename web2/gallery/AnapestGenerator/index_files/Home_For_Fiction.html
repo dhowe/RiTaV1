@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<!-- saved from url=(0098)file:///Users/kennywong/Documents/Job/dhowe/RiTa/web/gallery/AnapestGenerator/Home_For_Fiction.htm -->
+<html lang="en" class="gr__homeforfiction_com"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="The Official Site of Chris Angelis: Fiction &amp; Academic Works. Book Editing Services.">
+    <meta name="author" content="Chris Angelis">
+	<meta name="robots" content="noindex">
+
+    <title>Home For Fiction</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="./font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="./css.css" rel="stylesheet" type="text/css">
+    <link href="./css(1).css" rel="stylesheet" type="text/css">
+	<link rel="icon" href="https://homeforfiction.com/img/icon.png">
+    <!-- Custom styles for this template -->
+    <link href="./grayscale.min.css" rel="stylesheet">
+	<script src="./rita-full.js"></script>
+	<script src="./jquery.min.js"></script>
+  </head>
+
+  <body id="page-top" data-gr-c-s-loaded="true" cz-shortcut-listen="true">
+
+    <!-- Intro Header -->
+    <header>
+	<input type="button" value="Generate New" onclick="window.location.reload();">
+	<br>
+    </header>
+	<div id="out1">Their remiss designee for receipts has insured,<br>ribbed unsharpened products how they enough endured.<br>Unattached glum disgrace for hectares shall precede,<br>your mundane own essay as arrays tonight sneed.<br><br>Her overt expertise near forethoughts has proposed,<br>apt amoral perfumes soon they mostly opposed.<br>Unforeseen such increase with defaults shall produce,<br>her deformed deft supine as incense amok goose.<br><br></div><br>
+	<script>
+	var i=0;
+	var rhymedWord, rhymedWord2;
+	var preRhyme, preRhymeB;
+	var advS, advSB;
+	var det = " they ";
+
+	//creating rhymes
+	var w1 = wordChoice("vbn", 2);
+	var w1b = wordChoice("vb", 2);
+	var w2 = rhymeGen('https://api.datamuse.com/words?rel_rhy=', w1) //wordChoice("vb", 3)
+	var w2b = rhymeGen('https://api.datamuse.com/words?rel_rhy=', w1b) // wordChoice("vb", 2)
+	var syllNum = new_count(w2);
+	var syllNumB = new_count(w2b);
+	// first & second lines
+	if (w2 != undefined) {
+		rhymedWord = w2;
+		if (syllNum == 1) {
+			advS = 3;
+			det = " some ";
+			preRhyme = wordChoice("nns", advS)
+		}
+		else if (syllNum == 2) {
+			advS = 2;
+			preRhyme = RiTa.randomWord("rb", advS)
+		}
+		else if (syllNum == 3) {
+			advS = 1;
+			preRhyme = RiTa.randomWord("rb", advS);
+		}
+		else if (syllNum == 4) {
+			preRhyme = "";
+		}
+		else {
+			advS = 1;
+			preRhyme = RiTa.randomWord("rb", advS);
+		}
+	}
+	else {
+		rhymedWord = wordChoice("vb", 3);
+		advS = 1;
+		preRhyme = RiTa.randomWord("rb", advS);
+	}
+	// third and fourth lines
+		if (w2b != undefined) {
+		rhymedWord2 = w2b;
+		if (syllNumB == 1) {
+			advSB = 2;
+			preRhymeB = wordChoice("rb", advSB)
+		}
+		else if (syllNumB == 2) {
+			advSB = 1;
+			preRhymeB = RiTa.randomWord("md", advSB)
+		}
+		else if (syllNumB == 3) {
+			advSB = 1;
+			preRhymeB = "";
+		}
+		else {
+			advSB = 1;
+			preRhymeB = RiTa.randomWord("md", advSB);
+		}
+	}
+	else {
+		rhymedWord2 = wordChoice("vb", 2);
+		advSB = 1;
+		preRhymeB = RiTa.randomWord("md",advSB);
+	}
+
+		// structuring lines
+		var line1 = capitalizeFirstLetter(RiTa.randomWord("prp$",1)) + " " + wordChoice("jj",2) + " " + wordChoice("nn",3) + " " + retConjunction() + " " + wordChoice("nns",2) + " has " + w1 + ",";
+		var line2 = RiTa.randomWord("jj",1) + " " + wordChoice2("jj",3) + " " + wordChoice("nns",2) + " " + retConjunction2() + det + preRhyme + " " + rhymedWord + ".";
+		var line3 = capitalizeFirstLetter(wordChoice("jj",3)) + " " + RiTa.randomWord("jj",1) + " " + wordChoice("nn",2) + " " + retConjunction() + " " + wordChoice("nns",2) + " " + RiTa.randomWord ("md", 1) + " " + w1b + ",";
+		var line4 = RiTa.randomWord("prp$",1) + " " + wordChoice("jj",2) + " " + RiTa.randomWord("jj", 1) + " " + wordChoice("nn",2) + " " + retConjunction2() + " " + wordChoice("nns",2) + " " + preRhymeB + " " + rhymedWord2 + ".";
+		$('#out1').append(line1+"<br/>"+line2+"<br/>"+line3+"<br/>"+line4+"<br/>"+"<br/>");
+
+	// word picking functions for stress detection
+	function wordChoice(pos, syl) {
+		var word = RiTa.randomWord(pos, syl);
+		if ((RiTa.getStresses(word) == "0/1") || (RiTa.getStresses(word) == "0/0/1")) {
+			return (word);
+		}
+		else {
+			return (wordChoice(pos, syl));
+		}
+	}
+	function wordChoice2(pos, syl) {
+		var word = RiTa.randomWord(pos, syl);
+		if (RiTa.getStresses(word) == "0/1/0") {
+			return (word);
+		}
+		else {
+			return (wordChoice2(pos, syl));
+		}
+	}
+	function wordChoice3(pos, syl) {
+		var word = RiTa.randomWord(pos, syl);
+		if (RiTa.getStresses(word) == "1/0/0") {
+			return (word);
+		}
+		else {
+			return (wordChoice3(pos, syl));
+		}
+	}
+
+	//capitalize first letter
+	function capitalizeFirstLetter(string) {
+		return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+	// counts syllables
+	function new_count(word) {
+		word = word.toLowerCase();                                     //word.downcase!
+		if(word.length <= 3) { return 1; }                             //return 1 if word.length <= 3
+			word = word.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, '');   //word.sub!(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, '')
+			word = word.replace(/^y/, '');                                 //word.sub!(/^y/, '')
+		return word.match(/[aeiouy]{1,2}/g).length;                    //word.scan(/[aeiouy]{1,2}/).size
+}
+
+	function rhymeGen(urlAdd2, sWord){
+		var dmuseQuery2 = dataMUSE(urlAdd2 + sWord);
+		var aIndex2 = dmuseQuery2.length;
+		var rnd2 = Math.floor((Math.random() * aIndex2) + 1);
+		var dmuseWord2 = dmuseQuery2[rnd2];
+		return dmuseWord2;
+	}
+	function dataMUSE (myURL) {
+		var json = (function () {
+			var json = null;
+			$.ajax({
+				'async': false,
+				'global': false,
+				'url': myURL,
+				'dataType': "json",
+				'success': function (data) {
+					json = data;
+				}
+			});
+			return json;
+		})();
+
+		var amb2_proto = JSON.stringify(json);
+		var amb2_proto2 = amb2_proto.replace(/[.,\/#!?'"$%\^&\*;:{}\[\]=\-_`~()]/g,"");
+		var amb2_proto3 = amb2_proto2.replace(/word/g , " ");
+		var amb2_proto4 = amb2_proto3.replace(/score/g, " ");
+		var amb2_proto5 = amb2_proto4.replace(/[0-9]/g, " ");
+		var amb2_proto5b = amb2_proto5.replace(/numSyllables/g, " ");
+		var amb2_proto6 = amb2_proto5b.replace(/\s+/g,' ').trim();
+		var amb2 = amb2_proto6.split(" ");
+		return amb2;
+	}
+
+	function retConjunction() {
+		var conjs = ["with", "near", "for"];
+		var inde = Math.floor(Math.random() * (2 - 0 + 1) ) + 0;
+		return conjs[inde];
+	}
+
+	function retConjunction2() {
+		var conjs = ["as", "while", "soon", "then", "which", "how"];
+		var inde = Math.floor(Math.random() * (5 - 0 + 1) ) + 0;
+		return conjs[inde];
+	}
+
+	</script>
+    <!-- Bootstrap core JavaScript -->
+
+    <script src="./bootstrap.bundle.min.js"></script>
+
+
+    <!-- Plugin JavaScript -->
+    <script src="./jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="./grayscale.min.js"></script>
+
+
+
+
+
+</body></html>
