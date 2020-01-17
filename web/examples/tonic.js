@@ -1,6 +1,6 @@
-var RiTa = require('rita');
+let RiTa = require('rita');
   
-var rs = RiTa.RiString("The elephant took a bite!");
-var features = rs.features();
+let rs = RiTa.RiString("The elephant took a bite!");
+let features = rs.features();
 
 console.log(features);
