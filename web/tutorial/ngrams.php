@@ -86,7 +86,7 @@ With a longer text sample we could experiment with different <em>n</em>-values, 
 </p>
 <p>First, we construct a model and set its n-factor (the # of elements to consider). Let’s start with n=4...
 </p>
-<pre><code class="language-javascript">  var rm = new RiMarkov(4);</code></pre>
+<pre><code class="language-javascript">  let rm = new RiMarkov(4);</code></pre>
 
 <br>Second, we provide some text for RiTa to analyse. There are three functions to achieve this: <em>loadFrom()</em>,  <em>loadText()</em> and  <em>loadTokens()</em>. Let's start with <em>loadText()</em>, which simply loads a string of text into the model.
 </p>
@@ -96,10 +96,10 @@ With a longer text sample we could experiment with different <em>n</em>-values, 
 </code></pre>
 <br>Third, generate an outcome according to the Markov model. You can either use <em>generateSentences()</em>, <em>generateTokens()</em> or <em>generateUntil()</em> to achieve different types of results. Here are all three steps together:
 </p>
-<pre><code class="language-javascript">  var rm = new RiMarkov(4);
+<pre><code class="language-javascript">  let rm = new RiMarkov(4);
   rm.loadText("The girl went to a game after dinner. The teacher went \
     to dinner with a girl.");
-  var sentences = rm.generateSentences(2);
+  let sentences = rm.generateSentences(2);
 </code></pre>
 <br>If we were to run this code, we would get an output like:</p>
 <div class="example">

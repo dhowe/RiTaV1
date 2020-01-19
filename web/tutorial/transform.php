@@ -77,12 +77,12 @@
             </br>
 An example, in JavaScript:
               <pre><code class="language-javascript">
-  var args = {
+  let args = {
     tense: RiTa.PAST_TENSE,
     number: RiTa.SINGULAR,
     person: RiTa.THIRD_PERSON
   };
-  var result = RiTa.conjugate("swim", args);</code></pre>
+  let result = RiTa.conjugate("swim", args);</code></pre>
 
               <p>The outcome of this example will be "swam".</p>
               <div id="content" width=200 height=200></div>
@@ -204,7 +204,7 @@ An example, in JavaScript:
               </p>
 
               <p>An example of untokenizing in RiTa:</p>
-              <pre><code class="language-javascript">  var words = ['I', 'want', 'to', 'have', 'a', 'cup', 'of', 'coffee', '.'];
+              <pre><code class="language-javascript">  let words = ['I', 'want', 'to', 'have', 'a', 'cup', 'of', 'coffee', '.'];
   RiTa.untokenize(words);</code></pre>
 
                 <p>

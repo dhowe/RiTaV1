@@ -1,4 +1,4 @@
-var font, grammar, lines, yaml;
+let font, grammar, lines, yaml;
 
 function preload() {
 
@@ -25,8 +25,9 @@ function draw() {
 
 function mouseReleased() {
 
-  var result = grammar.expand();
-  var haiku = result.split("%");
-  for (var i = 0; i < lines.length; i++)
+  let result = grammar.expand();
+  let haiku = result.split("%");
+  for (let i = 0; i < lines.length; i++) {
     lines[i] = haiku[i];
+  }
 }
