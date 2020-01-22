@@ -1,0 +1,59 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Zuckifier</title>
+
+
+  <style>
+    body {
+      max-width: 900px;
+      margin: auto;
+    }
+    textarea {
+      width: 100%;
+      margin: 10px 0px;
+      height: 500px;
+      padding: 10px;
+    }
+    body,
+    input,
+    textarea,
+    button {
+      font-size: 16px;
+      font-family: "Georgia", sans-serif;
+    }
+    #output {
+      white-space: pre-wrap;
+      margin: 10px 0px;
+    }
+    h1 {
+      margin: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Zuckifier</h1>
+  <p>Instructions: paste in a text and a word you'd like to insert as a 
+replacement for nouns, verbs and adjectives. For an example, see <a href="http://antiboredom.github.io/a-letter-to-our-zuckerberg">"A Letter to Our Zuckerberg"</a>. Zuckify uses <a href="https://rednoise.org/rita/">RiTa</a> to do text analysis. Download the source <a href="https://github.com/antiboredom/zuckify">here</a>.</p>
+  <textarea id="text"></textarea>
+  <div style="text-align: center">
+    <input id="replacer" placeholder="Word to insert" type="text">
+    <input id="thresh" placeholder="%" min="0" max="100" value="50" size="3" type="number">
+    <button id="submit">Zuckify</button>
+  </div>
+
+  <div id="output"></div>
+
+  <script src="index_files/rita-full.js"></script>
+  <script src="index_files/zuckify.js"></script>
+  <script>
+    document.getElementById('submit').addEventListener('click', function(e) {
+      e.preventDefault();
+      var text = zuckify(document.getElementById('text').value, document.getElementById('replacer').value, (100 - (+document.getElementById('thresh').value))/100);
+      document.getElementById('output').innerHTML = text;
+    });
+  </script>
+
+
+
+</body></html>

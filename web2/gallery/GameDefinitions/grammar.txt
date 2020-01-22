@@ -1,0 +1,27 @@
+{
+"<start>" : "<template>",
+
+"<template>" : "<object> in which players <engagement>. | <object> that involves <characteristics>. |  <object> <constraints>. | <object> characterized by <relationship>.",
+
+"<object>" : "<1> <2a> | <1> <2b> | a <2a> | an <2b> | a <activity-adj> activity | a series of <collection> ",
+
+"<1>" : "a formalized | a playable | a self-contained | a designed | a rule-based | a make-believe | an interactive | a dynamic | a non-linear | an algorithmic | a procedural | an artful",
+
+"<2a>" : "system  |  challenge | cultural form | form of recreation | form of expression | ritual | subjective representation | medium",
+
+"<collection>" : "interesting choices | decisions | procedures | rules | conflicts",
+
+"<2b>" : "object |  exercise of control | artifact | experience | architecture | artwork",
+
+"<activity-adj>" : "voluntary | problem-solving | play | recreational | non productive | non obligatory | rule-based | free",
+
+"<engagement>" : "engage in <relationship> <motivation> | interact with each other <motivation> | make choices <motivation>",
+
+"<relationship>": "an artificial conflict | a structured conflict | a competition | an act of exploration | an opposition between forces | an interaction | a playful relationship",
+
+"<motivation>" : "toward an arbitrary goal | toward a trivial goal | toward an emotionally relevant goal | resulting in a specific state of affairs | resulting in an unequal outcome | resulting in a quantifiable outcome | resulting in a disequilibrial outcome | to pursuit some kind of social validation | to have fun | resulting in negotiable consequences | to have a meaningful experience | in pursuit of aesthetic gratification | to enact a fantasy of power | to reach the Sublime | finalized to the creation of an epiphany | for an expansion of empathy | toward the solution of a moral dilemma | to achieve intellectual fulfillment | to build a sense of belonging to a social group | to discover the author's point of view",
+
+"<characteristics>" : "<relationship> <motivation>| <relationship> <constraints>",
+
+"<constraints>" : "separated in time and space | limited by arbitrary constraints | confined by procedures | within a safe space | defined by the author's sensibility | representing a subset of the world | telling a story | soliciting a performative action"
+}

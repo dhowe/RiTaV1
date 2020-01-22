@@ -1,0 +1,244 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Godard Generator</title>
+
+
+<meta name="description" content="The Godard Film Generator">
+
+
+
+<style type="text/css">
+body {
+	color: black;
+	background-color: #fff;
+	margin: 0px
+}
+
+#header {
+	font-family: "Times New Roman", Times, serif;
+	font-size: 28px;
+	color: #333;
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin-left: 2%;
+	padding-left: 40px;
+}
+
+h3 {
+	color: gray;
+}
+
+#title {
+	color: silver;
+	font-size: 24px;
+	font-style: italic;
+}
+
+#page {
+	width: 45%;
+	margin-top: 125px;
+	margin-bottom: auto;
+	margin-left: 1.5em;
+	padding: 40px;
+	color: #333;
+	text-align: left;
+	line-height: 2;
+	font-size: 24px;
+}
+
+#footer {
+	font-size: 11px;
+	font-family: Verdana, Geneva, Arial, sans-serif;
+	margin-top: 20px;
+	margin-left: 1.5em;
+	width: 50%;
+}
+
+.button {
+	-moz-box-shadow: inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow: inset 0px 1px 0px 0px #ffffff;
+	box-shadow: inset 0px 1px 0px 0px #ffffff;
+	background-color: #ededed;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border-radius: 6px;
+	border: 1px solid #dcdcdc;
+	display: inline-block;
+	color: #525252;
+	font-family: arial;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 6px 24px;
+	text-decoration: none;
+	text-shadow: 1px 1px 0px #f8f8ff;
+	margin-right: 20px;
+	margin-top: 10px;
+	margin-left: 10px;
+	margin-bottom: 10px;
+}
+
+.button:hover {
+	background-color: #dcdcdc;
+}
+
+.button:active {
+	position: relative;
+	top: 1px;
+}
+
+#btn {
+	/*padding-left: 10%;
+	border-left: 1px dashed #66c;*/
+	position: fixed;
+	text-align: right;
+	top: 0;
+	left: 50%;
+	width: 30%;
+	margin-top: 150px;
+	padding-left: 10%;
+	/*background-color:#9C3;*/
+	text-align: left;
+}
+
+#footer a {
+	text-decoration: none;
+	color: gray;
+}
+
+#footer a:hover {
+	background: silver;
+}
+</style>
+<script type="text/javascript" src="index_files/jquery-1.js"></script>
+
+<script type="text/javascript" src="index_files/rita.js"></script>
+
+
+<script>
+	function showSource() {
+		var source = "<html>";
+		source += document.getElementsByTagName('html')[0].innerHTML;
+		source += "</html>";
+		//now we need to escape the html special chars, javascript has escape
+		//but this does not do what we want
+		source = source.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+		//now we add <pre> tags to preserve whitespace
+		source = "<pre>" + source + "</pre>";
+		//now open the window and set the source as the content
+		sourceWindow = window.open('', 'Source of page',
+				'height=800,width=800,scrollbars=1,resizable=1');
+		sourceWindow.document.write(source);
+		sourceWindow.document.close(); //close the document for writing, not the window
+		//give source window focus
+		if (window.focus)
+			sourceWindow.focus();
+	}
+
+	String.prototype.toTitleCase = function() {
+		var smallWords = /^(a|an|and|as|at|but|by|en|for|if|in|of|on|or|the|to|vs?\.?|via)$/i;
+
+		return this.replace(/([^\W_]+[^\s-]*) */g, function(match, p1, index,
+				title) {
+			if (index > 0 && index + p1.length !== title.length
+					&& p1.search(smallWords) > -1
+					&& title.charAt(index - 2) !== ":"
+					&& title.charAt(index - 1).search(/[^\s-]/) < 0) {
+				return match.toLowerCase();
+			}
+
+			if (p1.substr(1).search(/[A-Z]|\../) > -1) {
+				return match;
+			}
+
+			return match.charAt(0).toUpperCase() + match.substr(1);
+		});
+	};
+
+	lexicon = new RiLexicon();
+
+	window.onload = loadGrammar;
+
+	$.ajaxSetup({
+		beforeSend : function(xhr) {
+			if (xhr.overrideMimeType) {
+				xhr.overrideMimeType("application/json");
+			}
+		}
+	});
+
+	function loadGrammar() {
+		$.getJSON("grammar.txt", function(str) {
+			gr = new RiGrammar(str);
+			generate();
+		});
+	}
+
+	function generate() {
+		title = lexicon.randomWord('NN', 2);
+		year = RiTa.random(1960, 1970);
+		year = year.toFixed(0);
+		title = title.toTitleCase() + " (dir. Jean-Luc Godard, " + year + ")";
+		result = gr.expand();
+		changeTextSimple('plot', result);
+		changeTextSimple('title', title);
+	}
+
+	function changeTextSimple(idElement, result) {
+		document.getElementById(idElement).innerHTML = result;
+	}
+
+	function tweet() {
+		short = result.split(".", [ 1 ]);
+		var URL = 'https://twitter.com/intent/tweet?text="' + short
+				+ '." %23GodardGenerator www.fugitivetexts.net/godard/';
+		window.open(URL);
+	}
+</script>
+</head>
+
+<body>
+	<div id="header">
+		<h3>The Godard Film Generator</h3>
+		<div id="title">Jockey (dir. Jean-Luc Godard, 1966)</div>
+	</div>
+
+
+	<div id="page">
+
+		<span id="plot">He lies dead on the superhighway with brains
+			spattered and then — splat — the Parthenon explodes. Israelis do not
+			make love. Hordes of accountants armed with pirate's sabers pour some
+			slippery stuff in Piazza Navona. She is killed by Australian
+			aborigines. Very, very slowly to Clignancourt, Cohn-Bendit goes on a
+			bicycle and shouts Viva Guevara! Two men kill her. He reads
+			quotations from Brecht. Pompidou throws a tomato at Daniel
+			Cohn-Bendit. He empties onto the ground various cans of red paint. He
+			peddles Le Figaro. Pier Paolo Pasolini with Pompidou arrives.</span>
+
+		<div id="btn">
+			<a href="#" onclick="generate()" class="button">Another Plot</a><br>
+			<a href="#" onclick="tweet()" class="button">Promote this Film</a>
+
+			<div id="footer">
+
+				The Godard Film Generator is an implementation of Umberto Eco's <a
+					href="http://books.google.com/books?id=g8L6CKIHFs0C&amp;lpg=PA149&amp;ots=-lQQWEdM7m&amp;dq=ta%20tze%20bao&amp;pg=PA149#v=twopage&amp;q&amp;f=false">Godard
+					plot pattern</a> from <em>Misreadings</em> (1963). Made by <a
+					href="http://www.samplereality.com/">Mark Sample</a> with <a
+					href="https://rednoise.org/rita/index.html">RiTa</a>.<br> <br>
+				<p id="sources">
+					Source: <a onclick="alert('View page-source')">Generator</a>&nbsp;<a
+						href="grammar.txt">Grammar</a>
+			</div>
+		</div>
+
+	</div>
+
+
+</body>
+</html>

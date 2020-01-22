@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+
+
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>The Definition of Game</title>
+		
+        
+<meta name="description" content="What is a game? An inclusive, algorithmic, ever-changing definition for an inclusive, algorithmic, ever-changing form"> 
+
+
+        
+		<style type="text/css" media="screen">
+		<!--
+body 
+	{
+	color: black;
+	background-color: #fff;
+	margin: 0px
+	}
+
+#horizon        
+	{
+	background-color:transparent;
+	position: absolute;
+	top: 50%;
+	left: 0px;
+	width: 100%;
+	height: 1px;
+	overflow: visible;
+	visibility: visible;
+	display: block;
+	}
+
+#content strong
+{
+	font-family:Arial, Helvetica, sans-serif;
+	font-weight:bold;
+}
+
+#content    
+	{
+	color:black;
+	text-align: left;
+	
+	font-family: "Times New Roman", Times, serif;
+	/*background-color: #ff0;*/
+	margin-left: -400px;
+	position: absolute;
+	top: -120px;
+	left: 50%;
+	width: 800px;
+	height: 200px;
+	visibility: visible
+	}
+
+.bodytext 
+	{
+	font-size: 34px
+	}
+
+#footer 
+	{
+	font-size: 11px;
+	font-family: Verdana, Geneva, Arial, sans-serif;
+	text-align: center;
+	position: absolute;
+	bottom: 0px;
+	left: -1px;
+	width: 100%;
+	height: 20px;
+	visibility: visible;
+	display: block
+	}
+
+
+.classname {
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background-color:#ededed;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	color:#525252;
+	font-family:arial;
+	font-size:24px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:1px 1px 0px #ffffff;
+	margin-right:20px;
+	margin-left:10px;
+	
+}.classname:hover {
+	background-color:#ffff00;
+}.classname:active {
+	position:relative;
+	top:1px;
+}
+
+#btn    
+	{
+	/*padding-left: 6px;
+	border-left: 1px dashed #66c;*/
+	position: absolute;
+	top: 180px;
+	left: 200px;
+	width: 250px;
+	height: auto;
+	visibility: visible;
+	display: block;
+	width:800px;
+	
+	/*background-color:#9C3;*/
+	text-align:left;
+	}
+
+#footer a {
+	text-decoration:none;
+	color:#000;
+	font-weight:bold;
+}
+
+#footer a:hover {
+	background:#FF0;
+}
+
+#hidden {
+	visibility:hidden;
+}
+
+        </style>
+<script type="text/javascript" src="index_files/jquery-1.js"></script>
+
+<script type="text/javascript" src="index_files/RITAgrammar.js"></script>
+
+
+
+<script>
+
+//Context-free grammar parser extracted from RiTa: https://rednoise.org/rita/js/
+
+//var gr = new RiGrammar(definition);
+//var gr = new RiGrammar("grammar.g");
+  
+//window.onmouseup=mouseClicked;
+window.onload = loadGrammar;
+
+$.ajaxSetup({beforeSend: function(xhr){
+  if (xhr.overrideMimeType)
+  {
+    xhr.overrideMimeType("application/json");
+  }
+}
+});
+
+function loadGrammar()
+{
+$.getJSON("grammar.txt", function(str){
+    gr = new RiGrammar(str);
+	generate();
+    });	
+}
+
+
+function generate()
+{
+    result = gr.expand();
+    changeTextSimple('definition', result);
+}
+
+function changeTextSimple(idElement, result){
+document.getElementById(idElement).innerHTML = result;
+}
+
+
+function tweet()
+{
+var URL = "https://twitter.com/intent/tweet?text="+"A game is "+ result + " www.gamedefinitions.com";
+window.open(URL);
+}
+
+</script>
+        </head>
+        
+<body>
+        <div id="hidden">
+        <img src="index_files/image.png" alt="thumb" height="188" width="188">
+        </div>
+        
+        
+		<div id="horizon">
+			<div id="content">
+				<div class="bodytext">
+                <strong>game</strong> <em>/gām/ n. (pl.</em> <strong>-games</strong><em>)</em> 
+<span id="definition">a series of interesting choices  soliciting a performative action.</span>
+
+<div id="btn">
+	<a href="#" onclick="generate()" class="classname">I disagree</a>
+    <a href="#" onclick="tweet()" class="classname">Tweet</a>
+	</div>
+</div>
+	
+    		</div>
+		</div>
+		<div id="footer">
+        A randomly generated definition brought to you by <a href="http://www.molleindustria.org/" target="_blank">molleindustria</a>. Grammar file <a href="http://www.gamedefinitions.com/grammar.txt" target="new">here</a>. Any suggestion to improve it? <a href="http://www.molleindustria.org/blog/contacts/" target="_blank">Contact us. </a></div>
+		
+	</body></html>

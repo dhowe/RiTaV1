@@ -1,0 +1,112 @@
+div.jContent
+{
+	float: left;
+		
+}
+
+div.slides
+{
+/*	background-color: #e6e5e0;	*/
+}
+
+div.jContent p
+{
+	padding: 0px 0px 0px 0px;	
+	margin: 0px 0px 0px 0px;
+}
+
+div.jContent a
+{
+	float: left;
+	display: block;	
+}
+
+div.jContent a.hide
+{
+	visibility: hidden;
+}
+
+/* horizontal */
+div.jc-horizontal
+{
+	margin: 25px 10px 20px 10px; 
+}
+
+
+div.jc-horizontal a
+{
+	width: 35px;
+	height: 34px;
+}
+
+
+div.jc-horizontal a.prev
+{
+	margin: 55px 10px 0px 0px;
+	background: url('https://rednoise.org/~dhowe/automatype/img/arrows/wleft.png') no-repeat;
+}
+
+div.jc-horizontal a.prev:hover
+{
+	background: url('https://rednoise.org/~dhowe/automatype/img/arrows/bleft.png') no-repeat;
+}
+
+div.jc-horizontal a.next
+{
+	margin: 55px 0px 0px 10px;
+	background: url('https://rednoise.org/~dhowe/automatype/img/arrows/wright.png') no-repeat;
+}
+
+div.jc-horizontal a.next:hover
+{
+	background: url('https://rednoise.org/~dhowe/automatype/img/arrows/bright.png') no-repeat;
+}
+
+/* vertical */
+div.jc-vertical
+{
+	margin: 10px 10px 20px 55px; 
+}
+
+
+div.jc-vertical a
+{
+
+	width: 750px; 
+	height: 34px;
+}
+
+div.jc-vertical a.prev
+{
+	margin: 0px 0px 5px 0px;
+	background: url('https://rednoise.org/~dhowe/automatype/img/arrows/wup.png') no-repeat top center;
+}
+
+div.jc-vertical a.prev:hover
+{
+	/* background: url('../img/arrows/bup.png') no-repeat top center; */
+}
+
+div.jc-vertical a.next
+{
+	margin: 20px 0px 0px 0px;
+	background: url('https://rednoise.org/~dhowe/automatype/img/arrows/wdown.png') no-repeat top center;
+}
+
+div.jc-vertical a.bottom-arr:hover
+{
+	/* background: url('../img/arrows/bdown.png') no-repeat top center; */
+}
+
+/* auto and circle */
+div.jc-auto
+{
+	margin: 20px 0px 40px 63px; 
+}
+
+
+div.js-circle
+{
+	
+}
+
