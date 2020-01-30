@@ -104,14 +104,14 @@
         <p><span style="font-size:11px;">by A.Refsgaard K. Solvåg R. Cereser</span></p>
               <p class="gallery_home_spacer">&nbsp;</p>
               </span>
-
+<!--
       <span class="gallery_home_item gd-4  mgd-6 sgd-12">
         <a href="http://sarahmak.es/nightTweets" target="new"><img src="img/nightTweet.png" ></a><br>
         <a href="http://sarahmak.es/nightTweets" target="new">#nightTweets</a>
         <p>by Sarah K Hallacher</p>
           <p class="gallery_home_spacer">&nbsp;</p>
         </span>
-
+-->
       <span class="gallery_home_item gd-4  mgd-6 sgd-12">
         <a href="https://elmcip.net/creative-work/mirroring-tears-visages" target="new"><img src="img/mirroringTears.png" ></a><br>
         <a href="https://elmcip.net/creative-work/mirroring-tears-visages" target="new">Mirroring Tears: Visages</a>
