@@ -1,4 +1,9 @@
 language: java
-before_script: "cd resources"
-script: "ant"
-group: deprecated-2017Q1
+addons:
+  apt:
+    packages:
+      - ant
+before_script: 
+  - sudo apt-get install ant-optional
+  - cd resources
+script: ant

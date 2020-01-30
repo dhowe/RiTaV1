@@ -27,7 +27,7 @@
      <h4><a href="index.php"><span>Tutorial ></span></a>Concordance and Key-Word-In-Context</h4>
  <p>In publishing, a concordance is an alphabetical list of the words used in a book or body of work, listing each instance of each word with its immediate surrounding context<a href="https://en.wikipedia.org/wiki/Concordance_%28publishing%29"><sup>1</sup></a>. In the precomputing era, when search was unavailable, a concordance offered the reader an easy way to search for words they might want to look up.</p>
 
-<p>In programming, when we mention a concordance, we usually refer to an object that stores the words, and  corresponding counts, for a given text. For example, if my text is</p>
+<p>In programming, when we mention a concordance, we usually refer to an object that stores the words, and  corresponding counts, for a given text. For example, if my text&nbsp;is</p>
 
 </p>
 <div class="example">
@@ -66,10 +66,8 @@ Summer is hot. It is hot today.</p></div>
 </div>
 
 <p>In RiTa, we can generate the above concordance with the <a href="../reference/RiTa/RiTa.concordance/index.php"><b>RiTa.concordance()</b></a> function.</p>
-<pre><code class="language-javascript">  var args = {
-    ignoreCase: true
-  };
-  var c = RiTa.concordance("Summer is hot. It is hot today.", args);
+<pre><code class="language-javascript">
+  let result = RiTa.concordance("Summer is hot. It is hot today.");
 </code></pre>
 
 <p>Here is <a href="https://shiffman.github.io/A2Z-F16/week5-analysis/02_pos_concordance/">an example</a> for you to test how a concordance would look like with your own text.
@@ -82,13 +80,13 @@ Summer is hot. It is hot today.</p></div>
 
 <br />&nbsp;</br>
 
-<p>In RiTa, we can achieve this with the <a href="../reference/RiTa/RiTa.kwic/index.php"><b>RiTa.kwic()</b></a> function, as follows:</p>
-<pre><code class="language-javascript">  var args = {
-    ignoreCase: false,
-    ignorePunctuation: true,
-    wordCount: 6
-  };
-  var lines = RiTa.kwic(text, keyword, args);
+<p>In RiTa, we can achieve this with the <a href="../reference/RiTa/RiTa.kwic/index.php"><b>RiTa.kwic()</b></a> function, specifying the text, the keyword we are interested in, and some options, as follows:</p>
+<pre><code class="language-javascript">
+  let result = RiTa.kwic(text, keyword, {
+      ignorePunctuation: true,
+      ignoreCase: false,
+      wordCount: 6
+    });
 </code></pre>
 
 <br />

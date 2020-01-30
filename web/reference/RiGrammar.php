@@ -78,27 +78,10 @@ OR (in YAML, where quotes are generally not needed)<p>
 &lt;rule2&gt;: [ terminal1, terminal2, &lt;rule1&gt; ]
 ...
 </pre>
-OR (again, in YAML)<p>
-<pre>
-&lt;start&gt;:
-  - &lt;rule1&gt;
-  - &lt;multiline&gt;
-
-&lt;rule1&gt;:
-  - terminal string 1
-  - terminal string 2
-
-&lt;multiline&gt;: >
-  This is
-  a long string
-  that wraps three lines
-...
-</pre>
 
 <li><a href="http://keleshev.com/yaml-quick-introduction" target="new">YAML</a> is a human-friendly superset of JSON,
-which is often more convenient to use if you're writing your grammar as a String.
-If you're working in JavaScript, you can alternatively just pass a JavaScript/JSON object instead.
-And if you're not sure whether your grammar is valid YAML or JSON, you can check it at
+which may be more convenient to use if you're writing your grammar as a string. If you're working in JavaScript, you can alternatively just pass a JavaScript/JSON object instead.
+If you're not sure whether your grammar is valid YAML or JSON, you can check it at
 <a href='http://yamllint.com/' target="new"> yamllint.com</a> or <a target="new" href='http://jsonlint.com/'> jsonlint.com</a>.<br/>&nbsp;
 
 <li>Commonly used methods:</li>
@@ -156,7 +139,7 @@ there must be a corresponding method in the object that gets the callback , e.g.
    ...
 }
 </pre>
-Note: this mechanism is not yet implemented in NodeJS (see <a href="https://github.com/dhowe/RiTa/issues/71">Issue #71</a>)...<p>
+<p/>
 
             </div></td>
         </tr>
@@ -178,16 +161,16 @@ rg = RiGrammar("&lt;start&gt;: [ &lt;rule&gt;, terminal ] ...");
 
 // Or specify a grammar in a YAML/JSON object.
 
-rg = RiGrammar(myJsObject);
+rg = RiGrammar(myJsonObject);
 
 
-// Or load a YAML/JSON grammar from a file
+// Or load a grammar from a file
 
 rg = new RiGrammar();
-rg.loadFrom("grammar.yaml");
+rg.loadFrom("grammar.json");
 
 
-// Or load a YAML/JSON grammar from a URL
+// Or from a URL
 
 rg = new RiGrammar();
 rg.loadFrom("http://www.theserver.org/path/grammar.json");

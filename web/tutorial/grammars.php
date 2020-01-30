@@ -30,7 +30,7 @@
               Generating with RiGrammar</h4><br />
             <p><a href="../reference/RiGrammar.php"><b>RiGrammar</b></a> is a probabilistic context-free grammar with literary extensions for text-generation. This is a rather formal definition, but for this tutorial, it just means that we can use it to generate texts according to simple rules that we define.
             </p>
-            <p>For example, if we want to generate simple sentences following a Subject-Verb-Object pattern, the RiGrammar might look like this:
+            <p>For example, if we want to generate simple sentences following a Subject-Verb-Object pattern, our grammar might look like this:
             </p>
 
             <pre><code class="language-yaml">
@@ -48,28 +48,15 @@
               For each part, RiTa looks into the grammar for the corresponding rule and then chooses one string from the options listed.
             </p>
 
-            <p>The grammar above is written as JSON. RiTa accepts both <a href="https://en.wikipedia.org/wiki/JSON" target="new">JSON</a> and <a href="https://en.wikipedia.org/wiki/YAML" target="new">YAML</a> formatted strings (or objects) for grammars. Below is our example grammar using native YAML format:</p>
-            <pre><code class="language-yaml">
----
-  &lt;start&gt;:
-      - &lt;subject&gt;
-      - &lt;verb&gt;
-      - &lt;object&gt;
-  &lt;subject&gt;:
-      - I
-      - You
-      - They
-  &lt;object&gt;:
-      - coffee
-      - bread
-      - milk
-  &lt;verb&gt;:
-      - want
-      - hate
-      - like
-      - love
-</code></pre>
-            <p>To run the grammar, you can use either the <a href="../reference/RiGrammar/expand/index.php">expand()</a> or <a href="../reference/RiGrammar/expandFrom/index.php">expandFrom()</a> functions... </p>
+            <!--p>The grammar above is written as JSON. RiTa accepts both <a href="https://en.wikipedia.org/wiki/JSON" target="new">JSON</a> and <a href="https://en.wikipedia.org/wiki/YAML" target="new">YAML</a> formatted strings (or objects) for grammars. Below is our example grammar using native YAML format:</p-->
+
+            <p>The grammar above is written as JSON. RiTa accepts both <a href="https://en.wikipedia.org/wiki/JSON" target="new">JSON</a> and <a href="https://en.wikipedia.org/wiki/YAML" target="new">YAML</a> formatted strings (or objects) for grammars.
+
+              <pre><code class="language-yaml">
+  // Note that we are using &lt; and &gt; to differentiate rules from
+  // regular text (or literals), but this is just a convention...</code></pre>
+
+            <p>To run the grammar, you can use either the <a href="../reference/RiGrammar/expand/index.php">expand()</a> or <a href="../reference/RiGrammar/expandFrom/index.php">expandFrom()</a> functions in the <a href="../reference/RiGrammar/RiGrammar.php">RiGrammar</a> object... </p>
 
               <p>The former, <a href="../reference/RiGrammar/expand/index.php">expand()</a> runs the grammar
                 from the &lt;start&gt; symbol, while
@@ -103,10 +90,10 @@
 
             <p>Now you might get <em>You love coffee</em> or <em>They want fish</em> ...</p>
 
-            <p>To get a better sense of how it all works, check out <a href="../examples/p5js/HaikuGrammar">this example sketch</a> using RiTa grammars...</p>
+            <p>To get a better sense of how it all works, check out <a href="../examples/p5js/HaikuGrammar">this very simple example sketch</a> using RiTa grammars...</p>
 
             <br />
-            <p class="aside">Aside: its important to note that using rules related to English grammar (subject, verb, etc. as in our example above) is just one one of <em>many</em> ways to use grammars. One can construct rules based on any textual features (syllable-count, as in the <a href="../examples/p5js/HaikuGrammar">linked example</a>, or phonemes as we might in a rhyming grammar), or even use grammars to generate image or sound. </p>
+            <p class="aside">Aside: its important to note that using rules related to English grammar (subject, verb, etc. as in our example above) is just one one of <em>many</em> ways to use grammars. One can construct rules based on any textual features (syllable-count, as in the haiku example above, or phonemes as we might in a rhyming grammar), or even use grammars to generate image or sound. </p>
 
             <hr/>
 

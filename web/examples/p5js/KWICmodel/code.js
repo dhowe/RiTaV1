@@ -1,16 +1,15 @@
-var buttons = [
+let buttons = [
   "Gregor", "Samsa", "family", "being",
   "clerk", "room", "violin", "window"
-],
-  word = buttons[7], buttonX = 150, over, data, kwic, input;
+];
+let over, data, kwic, input, buttonX = 150;
+let word = "window";
 
 function preload() {
-
   data = loadStrings('../../data/kafka.txt');
 }
 
 function setup() {
-
   createCanvas(800, 500);
   textFont('Times');
   textSize(18);
@@ -20,7 +19,6 @@ function setup() {
 }
 
 function updateKWIC() {
-
   kwic = RiTa.kwic(data.join('\n'), word, {
     ignorePunctuation: true,
     ignoreStopWords: true,
@@ -28,25 +26,17 @@ function updateKWIC() {
   });
 
   background(250);
-
   drawButtons();
-
   if (kwic.length == 0) {
-
     textAlign(CENTER);
     text("Word not found", width / 2, height / 2);
-
-  } else {
-
-    var tw = textWidth(word) / 2;
-
-    for (var i = 0; i < kwic.length; i++) {
-
-      //console.log(display[i]);
-      var parts = kwic[i].split(word);
-      var x = width / 2,
-        y = i * 20 + 75;
-
+  }
+  else {
+    let tw = textWidth(word) / 2;
+    for (let i = 0; i < kwic.length; i++) {
+      let parts = kwic[i].split(word);
+      let x = width / 2;
+      let y = i * 20 + 75;
       if (y > height - 20) return;
 
       fill(0);
@@ -64,15 +54,39 @@ function updateKWIC() {
   }
 }
 
+function mouseMoved() {
+  over = null;
+  let posX = buttonX, tw;
+  for (let i = 0; i < buttons.length; i++) {
+    tw = textWidth(buttons[i]);
+    if (inside(mouseX, mouseY, posX, tw)) {
+      over = buttons[i];
+      break;
+    }
+    posX += tw + 20;
+  }
+}
+
+function mouseClicked() {
+  let posX = buttonX, tw;
+  for (let i = 0; i < buttons.length; i++) {
+    tw = textWidth(buttons[i]);
+    if (inside(mouseX, mouseY, posX, tw)) {
+      word = buttons[i];
+      kwic = null;
+      updateKWIC();
+      break;
+    }
+    posX += tw + 20;
+  }
+}
+
 function drawButtons() {
-
-  var posX = buttonX, posY = 40;
-
-  for (var i = 0; i < buttons.length; i++) {
-
+  let posX = buttonX, posY = 40;
+  for (let i = 0; i < buttons.length; i++) {
     stroke(200);
-    var on = word == (buttons[i]) ? true : false;
-    var tw = textWidth(buttons[i]);
+    let on = word == (buttons[i]) ? true : false;
+    let tw = textWidth(buttons[i]);
     fill(!on && buttons[i] == over ? 235 : 255);
     rect(posX - 5, 24, tw + 10, 20, 7);
     fill((on ? 255 : 0), 0, 0);
@@ -82,43 +96,5 @@ function drawButtons() {
 }
 
 function inside(mx, my, posX, tw) {
-
   return (mx >= posX - 5 && mx <= posX + tw + 5 && my >= 25 && my <= 44);
-}
-
-function mouseMoved() {
-
-  over = null;
-  var posX = buttonX, tw;
-
-  for (var i = 0; i < buttons.length; i++) {
-
-    tw = textWidth(buttons[i]);
-
-    if (inside(mouseX, mouseY, posX, tw)) {
-
-      over = buttons[i];
-      break;
-    }
-    posX += tw + 20;
-  }
-}
-
-function mouseClicked() {
-
-  var posX = buttonX, tw;
-
-  for (var i = 0; i < buttons.length; i++) {
-
-    tw = textWidth(buttons[i]);
-
-    if (inside(mouseX, mouseY, posX, tw)) {
-
-      word = buttons[i];
-      kwic = null;
-      updateKWIC();
-      break;
-    }
-    posX += tw + 20;
-  }
 }
