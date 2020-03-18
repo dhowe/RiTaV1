@@ -1,0 +1,77 @@
+<html>
+
+<head>
+    <title>Memory (p5js)</title>
+
+    <script src="lib/jquery-min.js"></script>
+    <script src="lib/p5.js"></script>
+    <script src="lib/rita.js"></script>
+    <script src="lib/ristring-util.js"></script>
+    <script src="lib/rita-wordnet.js"></script>
+    <script src="memory.js"></script>
+    <script>
+    function preload() {
+
+      font = loadFont('LondonBetween.ttf');
+    }
+
+    function setup() {
+
+      createCanvas(1100, 900);
+      textFont(font, fontSize);
+      noStroke();
+
+      wordnet = new RiWordNet(host, port);
+
+      for (var i = 0; i < words.length; i++) {
+
+        wordLists[i] = [ words[i] ];
+        colorVals[i] = 255;
+      }
+
+      reformat();
+    }
+
+    function draw() {
+
+      if (millis() - bgTimeStamp > 100) {
+
+        adjustBackground();
+        tryReplacement();
+        drawText();
+      }
+    }
+
+    function drawText() {
+
+      background(255);
+      fill(bgColor); // draw bg based on # of lines
+      rect(0,0,width, lines * leading + textY * 2);
+
+      for (var i = 0; i < rts.length; i++) {
+        fill(colorVals[i]);
+        text(rts[i].text(), rts[i].get('x'), rts[i].get('y'));
+      }
+    }
+
+    function reformat() {
+
+      var theText = RiTa.untokenize(words);
+
+      rts = RiString.createWords({
+    	  font: font, fontSize: fontSize, leading: leading, text: theText,
+    	  x: textX, y: textY, w: width - 50, h: height - 30,
+      });
+
+      lines = countLines();
+      timeStamp = millis();
+    }
+    </script>
+</head>
+
+<body>
+    <audio src="bells3.mp3" loop autoplay></audio>
+    <p><font size=2>'Memory' by A. B. Soderman</font></p>
+</body>
+
+</html>

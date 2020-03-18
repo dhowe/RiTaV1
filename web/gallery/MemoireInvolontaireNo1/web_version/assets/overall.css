@@ -1,0 +1,234 @@
+body {
+  /* background: #800c17; */
+  /* background: #A15300; */
+  /* background: #FB0036; */
+  background: #b90000;
+  color: #000;
+  margin: 0;
+  padding: 0 0 30px 0;
+  font-family: Lucida Sans Unicode, Lucida Grande, sans-serif;
+  font-size: 90%;
+}
+
+p, ul, ol, table, pre {
+  margin-right: 30px;
+  margin-left: 30px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 30px 0 30px;
+  font-weight: normal;
+  text-align: center;
+  font-family: Lucida Console, Monaco, monospace;
+}
+
+h1 {
+  padding: 15px 2px 0 2px;
+  font-size: 250%;
+  clear: both;
+}
+
+h2 {
+  margin: 1px 0 10px 0;
+  font-size: 100%;
+}
+
+.key {
+  background: #ffffff;
+  color: #000;
+  font-weight: bold;
+  text-align: center;
+  font-family: Lucida Console, Monaco, monospace;
+  font-size: 14px;
+}
+
+
+.nav {
+  margin: 3px 0 3px 0;
+  font-family: Lucida Console, Monaco, monospace;
+  font-size: 11px;
+}
+
+.nav a {
+  padding: 3px 0 3px 0;
+  text-decoration: none
+}
+
+#prev {
+  text-align: left;
+  float: left;
+}
+
+#next {
+  text-align: right;
+  float: right;
+}
+
+ul {
+  margin: 2px 25px 15px 25px;
+  border-bottom: 1px solid #000;
+  text-align: right;
+}
+
+li {
+  display: inline;
+  list-style-type: none;
+  padding-left: 15px;
+}
+
+li.ii {
+  display: block;
+}
+
+.ii {
+  min-height: 7em;
+  max-height: none;
+}
+/* for defective Internet Explorer */
+/*\*/
+* html .ii {
+  height: 7em;
+}
+/**/
+
+#mainindex {
+  margin: 0 25px 15px 20px;
+  float: right;
+}
+
+#intro {
+  background: #fff;
+  padding: 8px 8px 8px 13px;
+  margin: 20px 25px 0px 23px;
+}
+
+#screenshot {
+  margin: 0 15px 15px 30px;
+  border: 1px solid #000;
+  float: left;
+}
+
+#description {
+  padding: 10px 8px 8px 5px;
+  margin-top: 0
+}
+
+#instructions {
+  background: #000;
+  padding: 8px 5px 8px 12px;
+  margin: 20px 25px 20px 23px;
+  color: #ffffff;
+  clear: both;
+}
+
+#begin, #programs {
+  background: #fff;
+  padding: 0;
+  margin: 15px 25px 15px 15px;
+  text-align: center;
+  font-family: Lucida Console, Monaco, monospace;
+  font-size: 15px;
+  width: auto;
+  float: right;
+}
+
+#programs {
+  text-align: left;
+  border: 2px solid #fff;
+  padding: 10px;
+  background: #000;
+  color: #09e;
+  width: 30%;
+}
+
+#begin a {
+  display: block;
+  border: 2px solid #fff;
+  padding: 10px;
+  background: #000;
+  color: #fff;
+}
+
+#begin a:hover {
+  border: 2px solid #A15300;
+  background: #fff;
+  color: #00d;
+}
+
+#previous {
+  margin: 20px 25px 5px 25px;
+  padding: 0 5px 10px 10px;
+}
+
+#license {
+  margin: 5px 25px 20px 25px;
+  padding: 0 5px 10px 10px;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:link {
+  color: #fff;
+}
+
+a:visited {
+  color: #fea;
+}
+
+a:active {
+  color: #fff;
+}
+
+a:hover {
+  color: #fff;
+  background: #000;
+}
+
+a.ed:link {
+	color:#800c17;
+}
+
+a.ed:visited {
+	color:#800c17;
+}
+
+a.ed:hover {
+	color:#ffffff;
+	background: #000000;
+}
+
+a.ed:active {
+	color:#800c17;
+}
+
+IMG.titlebanner {
+    display: block;
+	margin-top:14px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.title {
+z-index:100;
+	margin-top:22px;
+text-align:center;
+border:1px solid #b90000;
+}
+.topnav {
+	z-index:1;
+	margin-top:12px;
+	text-align:center;
+    margin-left: auto;
+    margin-right: auto;
+	border:2px solid #b90000;
+
+}
+IMG.begin-button {
+  margin: 15px 25px 15px 15px;
+  float: right;
+}
+
+
+
+
