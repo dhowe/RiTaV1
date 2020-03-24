@@ -226,8 +226,8 @@
       </span>
 
     <span class="gallery_home_item gd-4  mgd-6 sgd-12">
-      <a href="./gallery/AnapestGenerator" target="new"><img src="img/AnapestGenerator.png" ></a><br>
-      <a href="./gallery/AnapestGenerator" target="new">Anapest Generator: a JavaScript Poem Maker</a>
+      <a href="./gallery/AnapestGenerator/index.htm" target="new"><img src="img/AnapestGenerator.png" ></a><br>
+      <a href="./gallery/AnapestGenerator/index.htm" target="new">Anapest Generator: a JavaScript Poem Maker</a>
       <p>by Chris Angelis</p>
       <p class="gallery_home_spacer">&nbsp;</p>
     </span>
