@@ -367,7 +367,7 @@
         "desc": "the text to be tagged"
       }, {
         "type": "boolean",
-        "desc": "if true, use WordNet syle tags (optional, default=false)"
+        "desc": "if true, use WordNet style tags (optional, default=false)"
       }
 
     ],
@@ -468,8 +468,8 @@
   {
     "name": "RiTa.concordance",
     "example": "// Java<br><br>args = new HashMap();<br>args.put(\"ignoreCase\", false);<br>args.put(\"ignoreStopWords\", true);<br><br>kwic = RiTa.concordance(text, word, args);<br><br><br>// JavaScript<br><br>args = {<br> ignoreCase: false,<br> ignoreStopWords: true<br>};<br><br>kwic = RiTa.concordance(text, word, args);<br><br>",
-    "description": "XXXCreates a concordance, a list of words with their frequency of occurence, from the given text and (optional) options",
-    "syntax": "RiTa.concordance(text, args);",
+    "description": "Creates a concordance, a list of words with their frequency of occurence, from the given text and (optional) options",
+    "syntax": "RiTa.concordance(text, word, args);",
     "parameters": [{
         "type": "String",
         "desc": "the text"
@@ -860,7 +860,7 @@
       "desc": "the part-of-speech to match (optional)"
     }, {
       "type": "int",
-      "desc": "the # of syllables to matcg (optional)"
+      "desc": "the # of syllables to match (optional)"
     }],
     "returns": [{
       "type": "String",
