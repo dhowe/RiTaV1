@@ -1,9 +1,8 @@
-body {
+body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
   font-size: 17.5px;
-  font-weight: 400;
+  font-weight: 200;
   -webkit-font-smoothing: antialiased;
-  background: rgba(0, 0, 0, 1);
 }
 
 * {
@@ -18,7 +17,7 @@ a:hover {
 
 a:active,
 a:focus {
-  color: rgba(56, 66, 90, 1);
+  color: #253c73;
 }
 
 .logo-wrapper img,
@@ -27,7 +26,6 @@ a:focus {
 }
 
 .nav-wrapper a {
-  font-weight: 700;
   color: #fff;
   font-size: 16px;
   margin-left: 30px;
@@ -37,7 +35,7 @@ a:focus {
 }
 
 .nav-wrapper a:hover {
-  color: #ea2845
+  color: #ea2845;
 }
 
 .nav-wrapper li {
@@ -82,7 +80,7 @@ a:focus {
 }
 
 #main-wrapper h1 {
-  font-weight: 600;
+  font-weight: 100;
   font-size: 80px;
   margin: 0 0 35px;
   line-height: 75px
@@ -91,12 +89,10 @@ a:focus {
 #main-wrapper h1 span {
   font-size: 30px;
   margin-left: 8px;
-  font-weight: 700;
   letter-spacing: 2px;
 }
 
 #main-wrapper h4 {
-  font-weight: 500;
   max-width: 600px;
   margin: 20px 0 0;
   font-size: 18px;
@@ -118,8 +114,8 @@ a:focus {
 }
 
 .btn {
-  font-weight: 500;
   font-size: 16px;
+  font-weight: 200;
   color: #fff;
   text-align: center;
   padding: 14px 28px;
@@ -128,18 +124,17 @@ a:focus {
   -webkit-border-radius: 15px;
   transition: all .1s ease-in;
   -moz-transition: all .1s ease-in;
-  -webkit-transition: all .1s ease-in
+  -webkit-transition: all .1s ease-in;
 }
 
 .btn-primary {
-  background: rgba(56, 66, 90, 1);
-  border: 2px solid rgba(56, 66, 90, 1);
-  ;
-  color: #FFF
+  background: #253c73;
+  border: 2px solid #253c73;
+  color: #FFF;
 }
 
 .btn-primary:hover {
-  border: 2px solid rgba(56, 66, 90, 1);
+  border: 2px solid #253c73;
   background: 0 0;
   color: #fff
 }
@@ -150,9 +145,9 @@ a:focus {
 }
 
 .btn-secondary:hover {
-  border: 2px solid rgba(56, 66, 90, 1);
+  border: 2px solid #253c73;
   background: 0 0;
-  color: rgba(56, 66, 90, 1);
+  color: #253c73;
 }
 
 .btn img {
@@ -163,12 +158,38 @@ a:focus {
   vertical-align: middle
 }
 
+#whats-new-wrapper {
+    padding: 100px 0;
+  background-color: #3557a6;
+  color: #fff;
+}
+
+#whats-new-wrapper h4{
+  text-align: center;
+  font-size: 36px;
+  margin: 0;
+  line-height: 40px;
+
+  color: #fff;
+}
+
+#whats-new-wrapper ul{
+    padding-top: 20px;
+    list-style-type: circle;
+}
+
+
+#whats-new-wrapper li{
+    padding: 20px 0;
+}
+
+
 
 #highlights-wrapper {
   background: rgba(250, 250, 250, 1);
   /* Add the blur effect */
   padding: 100px 0;
-  text-align: center
+  text-align: center;
 }
 
 #highlights-wrapper .highlight-block {
@@ -184,7 +205,6 @@ a:focus {
 
 #highlights-wrapper h5 {
   text-transform: uppercase;
-  font-weight: 700;
   font-size: 18px;
   color: #ea2845;
   margin: 40px 0 0
@@ -192,7 +212,6 @@ a:focus {
 
 #highlights-wrapper p {
   font-size: 16px;
-  font-weight: 500;
   max-width: 300px;
   margin: 20px auto;
   line-height: 30px
@@ -220,14 +239,12 @@ a:focus {
 
 .page-footer p {
   font-size: 14px;
-  font-weight: 500;
   line-height: 26px;
   color: #a5a5a5
 }
 
 .page-footer p a {
   color: #FFF;
-  font-weight: 600
 }
 
 .m-l-10 {
@@ -307,14 +324,13 @@ Desc section
 }
 
 #description-wrapper h5 {
-  font-weight: 700;
+  font-weight: 400;
   font-size: 18px;
   color: #ea2845;
   margin: 40px 0 0
 }
 
 #description-wrapper p {
-  font-weight: 500;
   text-align: justify;
   margin: 20px auto;
   line-height: 30px
@@ -404,7 +420,7 @@ Desc section
 @media (max-width:680px) {
   #description-wrapper {
     height: auto;
-    background: #ed1543
+    background: #ffffff;
   }
 
   .description-column {
@@ -485,7 +501,6 @@ Desc section
 }
 
 #learning-wrapper p {
-  font-weight: 500;
   max-width: 700px;
   margin: 15px auto 15px;
   font-size: 16px;
@@ -503,7 +518,6 @@ Desc section
 }
 
 #examples-items p {
-  font-weight: 500;
   max-width: 700px;
   margin: 15px auto 15px;
   font-size: 16px;
@@ -529,7 +543,6 @@ Desc section
 }
 
 #examples-wrapper p {
-  font-weight: 500;
   max-width: 700px;
   margin: 15px auto 15px;
   font-size: 16px;
@@ -552,7 +565,6 @@ Desc section
 }
 
 #gallery-wrapper p {
-  font-weight: 500;
   max-width: 700px;
   margin: 15px auto 100px;
   font-size: 16px;
@@ -584,7 +596,6 @@ Desc section
 
 #gallery-wrapper a {
   color: #96b2f2;
-  font-weight: 800;
 }
 
 #gallery-wrapper a:hover {
@@ -603,7 +614,6 @@ Desc section
   color: #FFF;
   background: #25373C;
   font-size: 16px;
-  font-weight: bold;
   letter-spacing: 1px;
   word-spacing: 3px;
   text-decoration: none;
@@ -651,18 +661,23 @@ Desc section
 
 .video-background{
 
-	  width: 100%;
-	  position: fixed;
-	  top: 0;
-	  left: 0;
-		right: 0;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
 	  z-index: -1;
-		background-color: black;
+		background-color: white;
 }
 
 
 .video-background video{
-	  width: 100%;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+
 }
 
 
@@ -675,7 +690,6 @@ Desc section
 #reference-title{
   text-align: center;
   padding: 30px;
-  font-weight: 600;
 }
 
 
@@ -759,5 +773,4 @@ span.sizes a {
 .downloadbox p{
     font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif !important;
     font-size: 1.8rem;
-    font-weight: 400;
 }
