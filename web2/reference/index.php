@@ -4,7 +4,26 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title>Reference</title>
-    <meta name="generator" content="JsDoc" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
+    <meta name="description" content="RiTa - a software toolkit for computational literature">
+    <meta name="robots" content="noodp">
+    <link rel="canonical" href="https://github.com/dhowe/riTa">
+    <meta property="og:url" content="http://www.rednoise.org">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta property="og:site_name" content="RiTa - a software toolkit for computational literature">
+    <meta property="og:title" content="RiTa - a software toolkit for computational literature">
+    <meta property="og:description" content="RiTa - a software toolkit for computational literature">
+    <meta property="og:image" content="https://camo.githubusercontent.com/4010ad42fed03e50903db30dbd0d4c650087b0d6/68747470733a2f2f7265646e6f6973652e6f72672f726974612f696d672f526954612d6c6f676f332e706e67">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="650">
+    <meta name="twitter:description" content="RiTa - a software toolkit for computational literature">
+    <meta name="twitter:title" content="RiTa - a software toolkit for computational literature">
+    <link rel="icon" type="image/x-icon" href="https://github.com/dhowe/dialogicfavicon.a18fc8a9.ico">
+
     <!--
     <link rel="stylesheet" href="../css/normalize.css">
   <link rel="stylesheet" href="../css/main.css">
@@ -22,6 +41,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="../js/wow.min.js"></script>
+    <script src="../js/main.js"></script>
+
 </head>
 
 <body>
@@ -29,6 +51,7 @@
   <div class="navbar-sticky visible">
     <div class="container">
       <div class="logo-wrapper d-inline-block"> <a href="../index.html"> <img src="../img/RiTaLogo.png" alt="RiTa - a software toolkit for computational literature"> </a> </div>
+      <div class="menu-icon-mobile"><a href="#"> <img src="../css/menu-icon.svg" /> </a></div>
       <ul class="nav-wrapper d-inline-block">
         <li class="hidden-sm"><a href="../index.html#download-wrapper">Download</a></li>
         <li class="hidden-sm"><a href="../index.html#learning-wrapper">Learning</a></li>
