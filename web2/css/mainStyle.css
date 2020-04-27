@@ -169,7 +169,6 @@ a:focus {
   font-size: 36px;
   margin: 0;
   line-height: 40px;
-
   color: #fff;
 }
 
@@ -178,12 +177,9 @@ a:focus {
     list-style-type: circle;
 }
 
-
 #whats-new-wrapper li{
-    padding: 20px 0;
+    padding: 5px 0;
 }
-
-
 
 #highlights-wrapper {
   background: rgba(250, 250, 250, 1);
@@ -689,7 +685,9 @@ Desc section
 
 #reference-title{
   text-align: center;
+  font-size: 36px;
   padding: 30px;
+  font-weight: 200;
 }
 
 
