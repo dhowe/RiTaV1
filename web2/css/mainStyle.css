@@ -680,7 +680,7 @@ Desc section
 /* Reference */
 
 .reference-category{
-  padding-bottom: 20px;
+  padding-bottom: 80px;
 }
 
 #reference-title{
@@ -688,6 +688,7 @@ Desc section
   font-size: 36px;
   padding: 30px;
   font-weight: 200;
+  padding-top: 100px;
 }
 
 
