@@ -14,9 +14,6 @@
 
 	<body>
 
-<?php include("../header.php"); ?>
-
-
 <div class="gd-section pad-large">
 <div class="gd-center pad-large">
 <div class="row">

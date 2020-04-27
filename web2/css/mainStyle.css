@@ -100,11 +100,11 @@ a:focus {
 }
 
 .buttons-wrapper {
-  padding: 40px 0
+  padding: 40px 0;
 }
 
 .buttons-wrapper .btn:first-child {
-  margin-right: 20px
+  margin-right: 20px;
 }
 
 .buttons-wrapper .btn .fa-github {
@@ -169,7 +169,6 @@ a:focus {
   font-size: 36px;
   margin: 0;
   line-height: 40px;
-
   color: #fff;
 }
 
@@ -178,12 +177,9 @@ a:focus {
     list-style-type: circle;
 }
 
-
 #whats-new-wrapper li{
-    padding: 20px 0;
+    padding: 5px 0;
 }
-
-
 
 #highlights-wrapper {
   background: rgba(250, 250, 250, 1);
@@ -280,6 +276,10 @@ a:focus {
   -webkit-transform: translateZ(0)
 }
 
+.navbar-sticky .menu-icon-mobile{
+  display: none;
+}
+
 .navbar-sticky .logo-wrapper img {
   width: 60px
 }
@@ -359,17 +359,60 @@ Desc section
   padding: 10px;
 }
 
-@media (max-width:1300px) {
-  #description-wrapper {
-    background-position: -250px bottom
+@media (max-width:1000px) {
+  /* Menu Bar */
+  .logo-wrapper{
+    position: absolute;
+    left: 20px;
+    top: 20px;
+  }
+  .navbar-sticky {
+    padding: 0;
+    margin: 0;
+    height:80px;
   }
 
-  .description-column {
-    width: 70%;
-    padding: 70px
+  .navbar-sticky.mobile-menu-active {
+
+    height:340px;
+  }
+  .nav-wrapper{
+    display: none;
+  }
+
+  .nav-wrapper.mobile-menu-active{
+        width: auto;
+    display: grid;
+    padding-top: 80px;
+  }
+
+  .nav-wrapper.mobile-menu-active li{
+    padding-top: 20px;
+  }
+
+
+
+  .navbar-sticky .menu-icon-mobile{
+    display: inline;
+    position: fixed;
+    right: 20px;
+    top: 25px;
+  }
+
+  .navbar-sticky .menu-icon-mobile img{
+    width: 38px;
+  }
+
+  .buttons-wrapper .btn,
+  .buttons-wrapper .btn:first-child {
+    margin-bottom: 20px;
+  }
+
+  .reference-category br{
+    line-height: 5px;
   }
 }
-
+/*
 @media (max-width:991px) {
   #description-wrapper {
     background-position: -400px bottom
@@ -467,7 +510,7 @@ Desc section
     margin: 0 25px
   }
 }
-
+*/
 .plyr__video-wrapper:not(.hidden-poster):before {
   content: "";
   position: absolute;
@@ -684,12 +727,15 @@ Desc section
 /* Reference */
 
 .reference-category{
-  padding-bottom: 20px;
+  padding-bottom: 80px;
 }
 
 #reference-title{
   text-align: center;
+  font-size: 36px;
   padding: 30px;
+  font-weight: 200;
+  padding-top: 100px;
 }
 
 
