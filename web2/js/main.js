@@ -56,12 +56,13 @@ $(document).ready(function() {
   $('.slick-slider-learning').slick({
     dots: true,
   });
+  /*
   var firstTime = true;
   $('#dlbtn').click(function(e) {
 
-      console.log( "yes" + $('#downloadwrapper.collapse.in').length);
-      console.log( "No" + $('#downloadwrapper').length);
-    //  if(!$('#downloadwrapper.collapse.in').length){
+      console.log( "yes" + $('#download-section.collapse.in').length);
+      console.log( "No" + $('#download-section').length);
+    //  if(!$('#download-section.collapse.in').length){
     e.preventDefault();
     if (firstTime) {
       $('html, body').stop().animate({
@@ -71,16 +72,16 @@ $(document).ready(function() {
       });
     } else {
       $('html, body').stop().animate({
-        'scrollTop': $('#downloadwrapper').offset().top - 100
+        'scrollTop': $('#download-section').offset().top - 100
       }, 100, 'swing', function() {
-        window.location.hash = $('#downloadwrapper');
+        window.location.hash = $('#download-section');
       });
     }
     //  }
-    firstTime = false;
-    $('#dlbtn').click(false);
+  //  firstTime = false;
+//    $('#dlbtn').click(false);
   });
-
+*/
 });
 
 (function($) {

@@ -21,7 +21,7 @@
   <meta property="og:image:height" content="650">
   <meta name="twitter:description" content="RiTa - a software toolkit for computational literature">
   <meta name="twitter:title" content="RiTa - a software toolkit for computational literature">
-  <link rel="icon" type="image/x-icon" href="https://github.com/dhowe/dialogicfavicon.a18fc8a9.ico">
+  <link rel="icon" type="image/x-icon" href="./img/favicon2.png">
 
   <title>RiTa - a software toolkit for computational literature</title>
   <!-- bootstrap -->
@@ -56,14 +56,14 @@
 </head>
 
 <body>
-<!-- Nav Bar -->
+  <!-- Nav Bar -->
   <div class="navbar-sticky visible">
 
     <div class="container">
       <div class="logo-wrapper d-inline-block"> <a href="#download-wrapper"> <img src="img/RiTaLogo.png" alt="RiTa - a software toolkit for computational literature"> </a> </div>
-      <div class="menu-icon-mobile"><a href="#"> <img src="./css/menu-icon.svg" /> </a></div>
+      <div class="menu-icon-mobile"><a href="#"> <img src="./css/menu-icondc.svg" /> </a></div>
       <ul class="nav-wrapper d-inline-block">
-        <li class="hidden-sm"><a href="#download-wrapper">Download</a></li>
+        <li class="hidden-sm"><a class="" data-toggle="collapse" href="#download-section" role="button" aria-expanded="false" aria-controls="collapseExample" id="dlbtn">Download</a></li>
         <li class="hidden-sm"><a href="#learning-wrapper">Learning</a></li>
         <!--li class="hidden-xs"> <a target="blank" href="http://rednoise.org/dialogic-api">DOCUMENTATION</a></li-->
         <li class="hidden-sm"><a target="blank" href="Reference/index.html">Reference</a></li>
@@ -88,7 +88,7 @@
     </div>
   </div>
 
-<!-- End of Nav Bar -->
+  <!-- End of Nav Bar -->
   <header class="page-header">
     <div class="video-background wow fadeIn" data-wow-delay="1s">
       <video playsinline autoplay muted loop preload="auto" poster="video/snap.png" id="bigvid" loop>
@@ -100,9 +100,13 @@
       <div id="download-wrapper">
 
         <div id="main-wrapper">
-          <h1 class="wow fadeIn">RiTa</h1>
+
+          <h1 class="wow fadeIn">RiTa <span class="new-ver-bubble">New version 2.0 !</span> </h1>
+
+
           <h4 class="wow fadeIn">a software toolkit for computational literature</h4>
-          <div class="buttons-wrapper"><a class="btn btn-primary d-inline-block" data-toggle="collapse" href="#downloadwrapper" role="button" aria-expanded="false" aria-controls="collapseExample" id="dlbtn">Download</a>
+
+          <div class="buttons-wrapper"><a class="btn btn-primary d-inline-block" data-toggle="collapse" href="#download-section" role="button" aria-expanded="false" aria-controls="collapseExample" id="dlbtn">Download</a>
             <a href="https://github.com/dhowe/RiTa" class="btn btn-secondary d-inline-block"> <svg class="svg-inline--fa fa-github fa-w-16" aria-hidden="true" data-prefix="fab" data-icon="github" role="img" xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 496 512" data-fa-i2svg="">
                 <path fill="currentColor"
@@ -110,130 +114,128 @@
                 </path>
               </svg><!-- <i class="fab fa-github"></i> --><span>Source code</span> </a> </div>
         </div>
+        <div class="collapse" id="download-section">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-2">
+              </div>
+              <div class="col-md-8 card card-body">
+                <h3>Downloads</h3>
+                <h4>RiTa library</h4>
+                <div class="downloadbox">
+                  <a href="rita.zip"><span></span></a>
+                  <b> RiTa-complete </b>
+                  <span>java, javascript, examples, source, etc.</span>
+                </div>
+
+                <div class="row pad-small">
+                  <h4>RiTa.js<span>(js-only)</span></h4>
+
+                  <!--
+                <form action="" method="get" class="ritajsform">
+                 <h4>Build your own</h4>
+                <div class="formcontent">
+                <label><input name="Fruit" type="checkbox" value="" />RiMarkov <span>(size)</span></label>
+                <label><input name="Fruit" type="checkbox" value="" />RiGrammar <span>(size)</span></label>
+                <label><input name="Fruit" type="checkbox" value="" />RiLexicon <span>(size)</span></label>
+                <label><input name="Fruit" type="checkbox" value="" />RiLetterToSound<span> (size)</span></label>
+                <label><input name="Fruit" type="checkbox" value="" /> RiText (deprecated) <span>(size)</span></label>
+                <div class="button bc">Generate</div>
+                </div>
+                </form>
+                -->
+
+                  <div class="downloadbox mini interactive">
+                    <a href="download/rita.min.js" download="rita.min.js"> <span></span></a>
+                    rita.js
+                    <span>core (no lexicon, no LTS)</span>
+                    <span class="sizes">
+                      <a class="mini default" href="download/rita.min.js" download="rita.min.js">minified 86k</a> |
+                      <a class="source" href="download/rita.js" download="rita.js">source 152k</a> </span>
+                  </div>
+
+                  <div class="downloadbox mini interactive">
+                    <a href="download/rita-small.min.js" download="rita-small.min.js"> <span></span></a>
+                    rita-small.js
+                    <span>core (1k-word lexicon & lts-rules)</span>
+                    <span class="sizes">
+                      <a class="mini default" href="download/rita-small.min.js" download="rita-small.min.js">minified 415k</a> |
+                      <a class="source" href="download/rita-small.js" download="rita-small.js">source 509k</a> </span>
+                  </div>
+
+                  <div class="downloadbox mini interactive">
+                    <a href="download/rita-full.min.js" download="rita-full.min.js"> <span></span></a>
+                    rita-full.js
+                    <span>complete (w' lexicon & lts-rules)</span>
+                    <span class="sizes">
+                      <a class="mini default" href="download/rita-full.min.js" download="rita-full.min.js">minified 1.4m</a> |
+                      <a class="source" href="download/rita-full.js" download="rita-full.js">source 1.6m</a> </span>
+                  </div>
+
+                </div>
+                <!--div class="row pad-small">
+                  <h4>JS-components</h4>
+                    <div class="downloadbox mini">
+                       <a href="download/rita_dict.js" download="rita_dict.js"> <span></span></a>
+                      rita_dict.js
+                      <span>the lexicon, 1.1m</span>
+                    </div>
+
+                    <div class="downloadbox mini">
+                       <a href="download/rita_dict_1000.js" download="rita_dict_1000.js"> <span></span></a>
+                      rita_dict_1000.js
+                      <span>the 1k-word lexicon, 32k</span>
+                    </div>
+
+                    <div class="downloadbox mini">
+                        <a href="http://www.rednoise.org/rita-archive/rita_lts.js" download="rita_lts.js"> <span></span> </a>
+                      rita_lts.js
+                    <span>letter-to-sound rules, 301k</span>
+                    </div>
+
+                    <div class="downloadbox mini">
+                        <a href="http://www.rednoise.org/rita-archive/lancaster.min.js" download="lancaster.min.js"><span></span> </a>
+                      lancaster stemmer
+                    <span>alternate stemmer, 8k</span>
+                  </div>
+
+                  <div class="downloadbox mini">
+                     <a href="http://www.rednoise.org/rita-archive/ritext.min.js" download="ritext.min.js"> <span></span> </a>
+                    ritext.min.js
+                  <span>renderer, deprecated, 33k</span>
+                  </div>
+                </div-->
+
+                <div class="row pad-small">
+                  <h4>RiTa.java<span>(java-jar only)</span></h4>
+                  <div class="downloadbox mini smallest"><a href="download/rita.jar"><span></span></a>rita.jar</div>
+                </div>
+
+                <!--div class="row pad-small">
+                <hr/>
+                <br>&nbsp;<br>
+                  <h4>Archived Versions</h4>
+                  <a href="https://rednoise.org/rita-archive/RiTa-1022.zip">RiTa-alpha.1022.zip</a><br>
+                  <a href="https://rednoise.org/rita-archive/RiTa.Wordnet-034.zip">RiTa.Wordnet-034.zip</a><br>&nbsp;<br>
+
+                  <h4>WordNet-3.1 (osx/unix)</h4>
+                  <a href="https://rednoise.org/rita-archive/WordNet-3.1.zip">WordNet-3.1.zip</a>
+
+                  <h4>Deprecated</h4>
+                  <a href="http://www.rednoise.org/rita-archive/ritext.min.js">ritext.min.js</a>
+                </div-->
+
+
+              </div>
+              <div class="col-md-2">
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </header>
-  <div class="collapse" id="downloadwrapper">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-2">
-        </div>
-        <div class="col-md-8 card card-body">
-          <h3>Downloads</h3>
 
-              <h4>RiTa library</h4>
-
-
-          <div class="downloadbox">
-            <a href="rita.zip"><span></span></a>
-           <b> RiTa-complete </b>
-            <span>java, javascript, examples, source, etc.</span>
-          </div>
-
-          <div class="row pad-small">
-          <h4>RiTa.js<span>(js-only)</span></h4>
-
-          <!--
-          <form action="" method="get" class="ritajsform">
-           <h4>Build your own</h4>
-          <div class="formcontent">
-          <label><input name="Fruit" type="checkbox" value="" />RiMarkov <span>(size)</span></label>
-          <label><input name="Fruit" type="checkbox" value="" />RiGrammar <span>(size)</span></label>
-          <label><input name="Fruit" type="checkbox" value="" />RiLexicon <span>(size)</span></label>
-          <label><input name="Fruit" type="checkbox" value="" />RiLetterToSound<span> (size)</span></label>
-          <label><input name="Fruit" type="checkbox" value="" /> RiText (deprecated) <span>(size)</span></label>
-          <div class="button bc">Generate</div>
-          </div>
-          </form>
-          -->
-
-          <div class="downloadbox mini interactive">
-            <a href="download/rita.min.js" download="rita.min.js"> <span></span></a>
-            rita.js
-            <span>core (no lexicon, no LTS)</span>
-            <span class="sizes">
-            <a class="mini default" href="download/rita.min.js" download="rita.min.js">minified 86k</a>  |
-            <a class="source" href="download/rita.js" download="rita.js">source 152k</a> </span>
-          </div>
-
-          <div class="downloadbox mini interactive">
-            <a href="download/rita-small.min.js" download="rita-small.min.js"> <span></span></a>
-            rita-small.js
-            <span>core (1k-word lexicon & lts-rules)</span>
-            <span class="sizes">
-            <a class="mini default" href="download/rita-small.min.js" download="rita-small.min.js">minified 415k</a>  |
-            <a class="source" href="download/rita-small.js" download="rita-small.js">source 509k</a> </span>
-          </div>
-
-          <div class="downloadbox mini interactive">
-            <a href="download/rita-full.min.js" download="rita-full.min.js"> <span></span></a>
-            rita-full.js
-            <span>complete (w' lexicon & lts-rules)</span>
-            <span class="sizes">
-            <a class="mini default" href="download/rita-full.min.js" download="rita-full.min.js">minified 1.4m</a>  |
-            <a class="source" href="download/rita-full.js" download="rita-full.js">source 1.6m</a> </span>
-          </div>
-
-          </div>
-          <!--div class="row pad-small">
-            <h4>JS-components</h4>
-              <div class="downloadbox mini">
-                 <a href="download/rita_dict.js" download="rita_dict.js"> <span></span></a>
-                rita_dict.js
-                <span>the lexicon, 1.1m</span>
-              </div>
-
-              <div class="downloadbox mini">
-                 <a href="download/rita_dict_1000.js" download="rita_dict_1000.js"> <span></span></a>
-                rita_dict_1000.js
-                <span>the 1k-word lexicon, 32k</span>
-              </div>
-
-              <div class="downloadbox mini">
-                  <a href="http://www.rednoise.org/rita-archive/rita_lts.js" download="rita_lts.js"> <span></span> </a>
-                rita_lts.js
-              <span>letter-to-sound rules, 301k</span>
-              </div>
-
-              <div class="downloadbox mini">
-                  <a href="http://www.rednoise.org/rita-archive/lancaster.min.js" download="lancaster.min.js"><span></span> </a>
-                lancaster stemmer
-              <span>alternate stemmer, 8k</span>
-            </div>
-
-            <div class="downloadbox mini">
-               <a href="http://www.rednoise.org/rita-archive/ritext.min.js" download="ritext.min.js"> <span></span> </a>
-              ritext.min.js
-            <span>renderer, deprecated, 33k</span>
-            </div>
-          </div-->
-
-          <div class="row pad-small">
-            <h4>RiTa.java<span>(java-jar only)</span></h4>
-            <div class="downloadbox mini smallest"><a href="download/rita.jar"><span></span></a>rita.jar</div>
-          </div>
-
-          <!--div class="row pad-small">
-          <hr/>
-          <br>&nbsp;<br>
-            <h4>Archived Versions</h4>
-            <a href="https://rednoise.org/rita-archive/RiTa-1022.zip">RiTa-alpha.1022.zip</a><br>
-            <a href="https://rednoise.org/rita-archive/RiTa.Wordnet-034.zip">RiTa.Wordnet-034.zip</a><br>&nbsp;<br>
-
-            <h4>WordNet-3.1 (osx/unix)</h4>
-            <a href="https://rednoise.org/rita-archive/WordNet-3.1.zip">WordNet-3.1.zip</a>
-
-            <h4>Deprecated</h4>
-            <a href="http://www.rednoise.org/rita-archive/ritext.min.js">ritext.min.js</a>
-          </div-->
-
-
-        </div>
-        <div class="col-md-2">
-        </div>
-      </div>
-    </div>
-  </div>
   <div id="description-wrapper">
     <div class="container">
       <div class="row">
@@ -303,12 +305,12 @@
             <li>Significant performances improvements</li>
             <li>Newly simplified API</li>
           </ul>
-      </div>
-      <div class="col-md-2">
+        </div>
+        <div class="col-md-2">
+        </div>
       </div>
     </div>
   </div>
-</div>
   <div id="highlights-wrapper">
     <div class="container wow fadeIn">
       <div class="row">

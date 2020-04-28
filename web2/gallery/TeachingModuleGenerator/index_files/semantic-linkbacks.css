@@ -1,0 +1,46 @@
+.mention-list ul {
+	border-style: solid;
+}
+
+.mention-list li {
+	display: inline-block;
+	list-style: none;
+	vertical-align: top;
+	margin-left: 3px;
+	position: relative;
+}
+
+.mention-list .hide-name {
+	display: none;
+}
+
+.mention-list .toggle-additional-facepiles {
+	display: inline-block;
+	text-align: center;
+	height: 64px;
+	width: 64px;
+	line-height: 1.5;
+	font-size: 32px;
+	cursor: pointer;
+}
+
+.mention-list li img {
+	height: 64px;
+	width: 64px;
+	display: block;
+	object-fit: cover;
+}
+
+li.emoji-reaction {
+	position: relative;
+}
+
+.emoji-overlay {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+.reactions {
+	clear: both;
+}
