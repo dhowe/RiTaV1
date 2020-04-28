@@ -82,8 +82,8 @@ a:focus {
 #main-wrapper h1 {
   font-weight: 100;
   font-size: 80px;
-  margin: 0 0 35px;
-  line-height: 75px
+  margin: 0 0 0px;
+  line-height: 80px;
 }
 
 #main-wrapper h1 span {
@@ -94,7 +94,7 @@ a:focus {
 
 #main-wrapper h4 {
   max-width: 600px;
-  margin: 20px 0 0;
+  margin: 10px 0 0;
   font-size: 18px;
   line-height: 32px
 }
@@ -739,11 +739,20 @@ Desc section
 }
 
 
-/* downloadwrapper */
-#downloadwrapper{
-  background-color: #fff;
+/* download-section */
+#download-section{
+  background-color: rgba(255,255,255,0.8);
+  border-radius: 20px;
   color: #000;
   text-align: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  margin-bottom: 40px;
+
+}
+
+#download-section h3{
+  font-size: 40px;
 }
 
 
