@@ -49,15 +49,15 @@ a:focus {
 
 .nav-wrapper .icon {
   margin-left: 27px;
-  font-size: 22px
+  font-size: 22px;
 }
 
 .d-inline-block {
-  display: inline-block
+  display: inline-block;
 }
 
 #download-wrapper {
-  padding-top: 30px
+  padding-top: 30px;
 }
 
 .m-l-30 {
@@ -86,11 +86,18 @@ a:focus {
   line-height: 80px;
 }
 
-#main-wrapper h1 span {
-  font-size: 30px;
-  margin-left: 8px;
-  letter-spacing: 2px;
+
+
+.new-ver-bubble{
+  font-size: 18px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.2);
+  padding: 10px 20px;
+  margin: 20px 10px 10px 20px;
+  position: absolute;
+  line-height: 20px;
 }
+
 
 #main-wrapper h4 {
   max-width: 600px;
@@ -356,7 +363,12 @@ Desc section
 #description-wrapper .platform {
   text-align: center;
   display: inline-block;
-  padding: 10px;
+  padding: 10px 20px;
+}
+
+#description-wrapper .supText{
+  font-size: 13px;
+  font-weight: 200;
 }
 
 @media (max-width:1000px) {
@@ -529,7 +541,7 @@ Desc section
 }
 
 #learning-wrapper {
-  background: #374259;
+  background: #253C73;
   text-align: center;
   color: #fff;
   padding: 100px 0;
@@ -655,7 +667,7 @@ Desc section
   display: block;
   padding: 15px;
   color: #FFF;
-  background: #25373C;
+  background: #677BA6;
   font-size: 16px;
   letter-spacing: 1px;
   word-spacing: 3px;
@@ -678,7 +690,7 @@ Desc section
 
 .list-group-item {
   color: #FFF;
-  background: #25373C;
+  background: #677BA6;
 }
 
 .list-group-item a {

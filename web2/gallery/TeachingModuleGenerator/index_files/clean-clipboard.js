@@ -1,0 +1,3 @@
+/*! wp-Typography clean-clipboard.js 2019-07-20 9:10:54 PM */
+
+jQuery(function(l){"use strict";window.getSelection&&document.addEventListener("copy",function(){var e,t,n=window.getSelection(),o=[],i=n.rangeCount;for(e=0;e<i;e++)o[e]=n.getRangeAt(e);t=l("<div>",{style:{position:"absolute",left:"-99999px"},html:l("<div></div>").append(n.getRangeAt(0).cloneContents()).html().replace(/\u00AD/gi,"").replace(/\u200B/gi,"")}),l("body").append(t),n.selectAllChildren(t[0]),window.setTimeout(function(){for(t.remove(),n.removeAllRanges(),e=0;e<i;e++)n.addRange(o[e])},0)})});
