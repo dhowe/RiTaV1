@@ -14,16 +14,23 @@ $(document).ready(function() {
   function createGallery(projects) {
     var container;
     var row, col, rowid, colid;
+    var a = 3; //row
+    var b = 3; //column
+    if($( window ).width() < 1000){
+       a = 3; //row
+       b = 1; //column
+    }
+
     var l = 0;
-    for (k = 0; k <= projects.length; k += 9) {
-      container = '<div id=\"container' + k / 9 + '\" class=\"container\"></div>';
+    for (k = 0; k <= projects.length; k += a*b) {
+      container = '<div id=\"container' + k /  a*b + '\" class=\"container\"></div>';
       $('.slick-slider-gallery').slick('slickAdd', container);
       //$("#gallery-slider").append(container);
-      for (i = 0; i < 3; i++) {
-        row = '<div id=\"con' + k / 9 + 'row' + i + '\" class=\"row\"></div>';
-        $("#container" + k / 9).append(row);
-        for (j = 0; j < 3; j++) {
-          col = '<div id=\"con' + k / 9 + 'row' + i + 'col' + j + '\" class=\"column\"></div>';
+      for (i = 0; i < a; i++) {
+        row = '<div id=\"con' + k /  a*b + 'row' + i + '\" class=\"row\"></div>';
+        $("#container" + k /  a*b).append(row);
+        for (j = 0; j < b; j++) {
+          col = '<div id=\"con' + k /  a*b + 'row' + i + 'col' + j + '\" class=\"column\"></div>';
           if (l < projects.length) {
             var html = "<div class='col-md-4 gallery_home_item wow fadeInDown'>";
             html += "<a href='" + projects[l].link + "' target='new'>";
@@ -35,8 +42,8 @@ $(document).ready(function() {
             break;
           }
           l++;
-          $("#" + "con" + k / 9 + "row" + i).append(col);
-          $("#" + "con" + k / 9 + "row" + i + "col" + j).append(html);
+          $("#" + "con" + k /  a*b + "row" + i).append(col);
+          $("#" + "con" + k /  a*b + "row" + i + "col" + j).append(html);
           //  console.log("#"+"con"+k/9 + "row" + i + "col" + j)
         }
       }
