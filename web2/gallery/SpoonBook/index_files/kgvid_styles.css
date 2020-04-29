@@ -1,0 +1,760 @@
+.kgvid_wrapper {
+	margin: 1em 0px;
+	position: relative;
+	max-width: 100%
+}
+
+.kgvid_gallerywrapper {
+	display: block;
+	max-width: 100%;
+}
+
+.kgvid_wrapper_auto_left {
+	margin-left: auto;
+}
+
+.kgvid_wrapper_auto_right {
+	margin-right: auto;
+}
+
+.kgvid_wrapper_inline {
+	display: inline-block;
+}
+
+.kgvid_wrapper_inline_left {
+	float: left;
+	margin: 1em 1em 0 0;
+}
+
+.kgvid_wrapper_inline_right {
+	float: right;
+	margin: 1em 0 0 1em;
+}
+
+.kgvid_textalign_left {
+	text-align:left;
+}
+
+.kgvid_textalign_right {
+	text-align:right;
+}
+
+.kgvid_textalign_center {
+	text-align:center;
+}
+
+.kgvid_videodiv {
+	position: relative;
+}
+
+.wp-video-shortcode {
+	max-width: 100%;
+}
+
+.simplemodal-wrap .jetpack-video-wrapper {
+	margin-bottom: 0;
+}
+
+.kgvid_watermark img {
+	display: block;
+	position: absolute;
+	bottom: 7%;
+	right: 5%;
+	z-index: 1;
+	margin: 0px;
+	max-width: 10%;
+	box-shadow: none;
+}
+
+.kgvid_watermark a {
+	display: block;
+	position: inherit !important;
+}
+
+.vjs-control-bar, .mejs-controls, video::-webkit-media-controls-panel {
+	z-index:2;
+}
+
+.vjs-fullscreen {padding-top: 0px}
+
+div.kgvid_ios_novideo {
+	z-index:3;
+	position:absolute;
+	width:100%;
+	height:100%;
+	background: url(images/ios_novideo.png) center center no-repeat;
+	background-size: 50px;
+}
+
+img.kgvid_ios_novideo {
+	width:100%;
+	height:100%;
+	max-width:100%;
+}
+
+.kgvid_video_meta {
+	line-height: normal;
+	color: white;
+	display: block;
+	position: absolute;
+	top: 0px;
+	z-index: 103;
+	margin: 0px;
+    padding: 3px;
+	width: 100%;
+    overflow: hidden;
+	background-color: rgba(40, 40, 40, 0.95);
+	visibility: hidden;
+ 	opacity: 0;
+ 	-webkit-transition: visibility 1s linear, opacity 1s linear;
+ 	-moz-transition: visibility 1s linear, opacity 1s linear;
+ 	-o-transition: visibility 1s linear, opacity 1s linear;
+}
+
+.kgvid_video_meta_hover {
+	opacity: 1;
+	visibility: visible;
+}
+
+.kgvid_video_meta.kgvid_no_title_meta {
+    background: none;
+}
+
+.kgvid_title {
+    font-size: 10pt;
+    padding-left: 4px;
+    line-height: 20pt;
+}
+
+.kgvid_meta_icons {
+    position: relative;
+    float: right;
+    margin: 3px 0px 3px 0px;
+}
+
+.kgvid_jwplayer_meta .kgvid_meta_icons {
+    float: left;
+    margin-left: 5px;
+}
+
+.kgvid_meta_icons a {
+	text-decoration: none;
+	border: none;
+	box-shadow: none !important;
+}
+
+.kgvid_meta_icons span {
+	cursor: pointer;
+    color: white;
+    margin-right: 5px;
+}
+
+.kgvid_no_title_meta .kgvid_meta_icons span {
+    font-size: 19pt;
+    text-shadow: 1px 1px rgba(20,20,20,0.8);
+}
+
+.kgvid_click_trap {
+	display: none;
+	width: 100%;
+	height: 100%;
+	background: none;
+	position: absolute;
+    top: 0;
+    z-index: 102;
+}
+
+.kgvid_click_trap:before {
+	content: '\20';
+}
+
+.kgvid_share_container {
+	display: none;
+	color: white;
+    top: 0;
+    padding-top: 46px;
+    padding-bottom: 18px;
+    width: 100%;
+    z-index: 102;
+    position: absolute;
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#141414+0,141414+100&amp;0.85+65,0+100 */
+	background: -moz-linear-gradient(top,  rgba(20,20,20,0.85) 0%, rgba(20,20,20,0.85) 65%, rgba(20,20,20,0) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(20,20,20,0.85)), color-stop(65%,rgba(20,20,20,0.85)), color-stop(100%,rgba(20,20,20,0))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(20,20,20,0.85) 0%,rgba(20,20,20,0.85) 65%,rgba(20,20,20,0) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(20,20,20,0.85) 0%,rgba(20,20,20,0.85) 65%,rgba(20,20,20,0) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(20,20,20,0.85) 0%,rgba(20,20,20,0.85) 65%,rgba(20,20,20,0) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(20,20,20,0.85) 0%,rgba(20,20,20,0.85) 65%,rgba(20,20,20,0) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d9141414', endColorstr='#00141414',GradientType=0 ); /* IE6-9 */
+}
+
+.kgvid_share_container.kgvid_no_title_meta {
+    top: 0;
+    z-index: 102;
+    padding-top: 32px;
+}
+
+.kgvid_share_icons {
+    text-align: center;
+    line-height: 26pt;
+    font-size: 22pt;
+	font-family: sans-serif;
+    word-wrap: normal;
+    overflow-wrap: normal;
+}
+
+.kgvid_share_icons a {
+	text-decoration: none;
+	border: none;
+	box-shadow: none;
+}
+
+.kgvid_share_icons span {
+    font-size: 13pt;
+    line-height: 29pt;
+    width: inherit;
+    height: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+.kgvid_share_icons span.dashicons.dashicons-editor-code {
+    font-size: 22pt;
+}
+
+.kgvid_share_icons input[type="text"] {
+    font-family: sans-serif !important;
+    font-size: 10pt !important;
+    line-height: 1.2 !important;
+    color: #999 !important;
+    background: #EEE !important;
+    padding: 4px !important;
+    border-radius: 6px !important;
+    border: none !important;
+    display: inline-block !important;
+}
+
+input[type="text"].kgvid_embedcode {
+    width: 30% !important;
+}
+
+span.kgvid_start_time {
+	margin-left: 15px;
+	white-space: nowrap;
+}
+
+input[type="text"].kgvid_start_at {
+    width: 3em !important;
+}
+
+.kgvid_share_icons .kgvid_social_icons {
+    margin-top: 8px;
+    font-size: 19pt;
+}
+
+.kgvid_share_icons span.dashicons.dashicons-twitter {
+    color: #55acee;
+    font-size: 32pt;
+}
+
+span.kgvid_facebook_icon_holder {
+    font-family: sans-serif;
+    position: relative;
+    vertical-align: middle;
+}
+
+.kgvid_share_icons span.dashicons.dashicons-facebook {
+    color: #3b5998;
+    font-size: 32pt;
+}
+
+.kgvid_share_icons span.dashicons.dashicons-facebook:after {
+    content: "\20";
+    background: white;
+    width: 20pt;
+    height: 21.25pt;
+    position: absolute;
+    left: 9px;
+    top: -2px;
+    z-index: -1;
+}
+
+.kgvid_below_video {
+	margin: 2px 6px 0px 4px;
+	min-height: 20px;
+	clear: both;
+	overflow: hidden;
+}
+
+.kgvid-viewcount {
+	float: right;
+	margin-left: 12px;
+	white-space: nowrap;
+}
+
+.kgvid-caption {
+	font-size: 85%;
+	line-height: 150%;
+	font-style: italic;
+}
+
+.kgvid_video_gallery_thumb {
+	position: relative;
+	vertical-align: bottom;
+    display:inline-block;
+	cursor: pointer !important;
+    margin: 7px 7px;
+    overflow: hidden;
+}
+
+.kgvid_video_gallery_thumb img {
+    width:100%;
+    height:100%;
+	padding: 0px;
+    margin: 0px;
+    object-fit: cover;
+}
+
+.kgvid_video_gallery_thumb .titlebackground {
+	position:absolute;
+	bottom:10px;
+	left:0px;
+	width:100%;
+	padding:0px;
+	background:rgb(0,0,0);
+	background: transparent\9;
+	background:rgba(0,0,0,0.4);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000,endColorstr=#66000000);
+	zoom: 1;
+	overflow:hidden;
+	z-index: 3;
+}
+
+.kgvid_video_gallery_thumb:nth-child(n) {
+	filter: none;
+}
+
+.kgvid_video_gallery_thumb:hover .titlebackground {
+	background:rgb(0,0,0);
+	background: transparent\9;
+	background:rgba(0,0,0,0.8);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#cc000000,endColorstr=#cc000000);
+	zoom: 1;
+}
+
+.kgvid_video_gallery_thumb .videotitle {
+	color:white;
+	letter-spacing:0.05em;
+	font-size:14px;
+	line-height: 1.5em;
+	text-align:center;
+	padding:4px;
+}
+
+#kgvid_GalleryVideo {
+	position:relative;
+	top:5px;
+	left:5px;
+}
+
+/* SimpleModal styles */
+#kgvid-simplemodal-overlay {background-color:#000;}
+
+#kgvid-simplemodal-container {
+	color:black;
+	background-color:#000;
+	height:auto;
+	transform: translateY(10px);
+}
+
+#kgvid-simplemodal-container .simplemodal-data {
+	margin-top:-1em;
+	padding:5px;
+}
+
+#kgvid-simplemodal-container a.modalCloseImg {
+    display: inline;
+    box-sizing: border-box;
+    padding: 2px 2px 2px 3px;
+    z-index: 10003;
+    position: absolute;
+    top: -25px;
+    right: -5px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 13px;
+    border-radius: 8px;
+    background-color: rgba(0,0,0,0.5);
+    color: #ccc;
+    font-family: Arial, sans-serif;
+    line-height: 18px;
+    font-weight: 900;
+    text-decoration: none;
+}
+
+#kgvid-simplemodal-container .kgvid_gallery_nav {
+	cursor: pointer;
+    display: inline-block;
+    padding: 3px 7px 4px 7px;
+    background-color: rgba(0,0,0,0.5);
+    text-align: center;
+    color: white;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 900;
+    line-height: 12px;
+    z-index: 10003;
+    position: absolute;
+    text-decoration: none;
+    top: -22px;
+}
+
+#kgvid-simplemodal-container .wp-video, .kgvid_wrapper .wp-video {
+	margin-bottom: 0px;
+}
+
+.kgvid_gallery_prev {
+	right: 59px;
+}
+
+.kgvid_gallery_next {
+	right: 25px;
+}
+
+#kgvid-simplemodal-container a.modalCloseImg:hover, #kgvid-simplemodal-container .kgvid_gallery_nav:hover {
+	background-color: black;
+    box-shadow: 0px 0px 4px #fff;
+}
+
+.kgvid_gallery_pagination span {
+	cursor: pointer;
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	background-color: #ddd;
+	text-align: center;
+	color: #ccc;
+	border-radius: 12px;
+	font-size: 16px;
+	font-weight: 900;
+	border: 1px solid #888;
+	line-height: 20px;
+	text-decoration: none;
+}
+
+span.kgvid_gallery_pagination_arrow {
+	background: none;
+	border: none;
+}
+
+.kgvid_gallery_pagination .kgvid_gallery_pagination_selected {
+	background-color: #666;
+	cursor: default;
+}
+
+.kgvid_gallery_pagination span a {
+	border: none;
+	text-decoration: none;
+	box-shadow: none;
+}
+
+.kgvid_temp_thumb {
+	position: absolute;
+	top: 0;
+	left: 0;
+	max-width: 100%;
+	max-height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+/* video-quality-selector Video.js plugin styles */
+
+.vjs-res-button span.vjs-control-text {
+	display: none;
+}
+
+.vjs-res-button:before {
+	font-family: VideoJs;
+    content: "\f110"; /* Gear icon */
+}
+
+.vjs-loading-spinner {
+	z-index: 1;
+}
+
+
+/* Don't show hover effects on title */
+ul li.vjs-menu-title.vjs-res-menu-title:hover {
+	cursor: default;
+	background-color: transparent;
+	color: #CCC;
+
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+/* Needed to keep text visible in video.js 4.9 */
+.vjs-res-button .vjs-control-text {
+	width: auto;
+	height: auto;
+	clip: auto;
+}
+
+.kgvid_wrapper .mejs-overlay-button {
+    z-index: 2;
+}
+
+.kgvid_wrapper .wp-video-shortcode {
+	max-height: 100%;
+}
+
+/* fix iPhone play button */
+.kgvid_wrapper video::-webkit-media-controls-start-playback-button { display: none; }
+.kgvid_wrapper .video-js.vjs-controls-enabled .vjs-big-play-button { display: none; }
+.kgvid_wrapper .video-js.vjs-controls-enabled.vjs-paused .vjs-big-play-button { display: block; }
+
+/* change default styling of captions menu to match other plugins */
+.kgvid_wrapper .mejs-captions-selector-label label, .kgvid_wrapper .mejs-captions-selected {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.kgvid_wrapper .mejs-captions-selector-list-item {
+    padding: 0px;
+}
+
+.kgvid_wrapper .mejs-captions-selector-label {
+    padding: 5px;
+    margin: 0px;
+    color: #fff;
+    width: 100%;
+}
+
+/* mejs-sourcechooser plugin styles */
+
+.kgvid_wrapper .mejs-controls div.mejs-sourcechooser-button button {
+    background: none;
+    font-family: dashicons;
+    color: white;
+    font-size: 11pt;
+    line-height: 0pt;
+}
+
+.kgvid_wrapper .mejs-controls .mejs-sourcechooser-button button:before {
+	content: "\f111";
+}
+
+/* mep-feature-sourcechooser backwards compatible plugin styles */
+.kgvid_wrapper.kgvid_compat_mep .mejs-container .mejs-controls div.mejs-menu-arrow {
+	display: none;
+    position: absolute;
+    bottom: -7px;
+    left: -8px;
+    width: 0em;
+    height: 0em;
+    margin-bottom: 3em;
+    border-left: 2em solid transparent;
+    border-right: 2em solid transparent;
+    border-top: 1.55em solid #000000;
+    border-top-color: rgba(40, 40, 40, 0.5);
+}
+
+.kgvid_wrapper.kgvid_compat_mep div.mejs-controls .mejs-sourcechooser-button .mejs-sourcechooser-selector {
+	visibility: inherit;
+	bottom: 17px;
+    right: -28px;
+    width: auto;
+    height: auto;
+    padding: 9px 0 0 0;
+    text-align: center;
+	-webkit-box-shadow: -0.2em -0.2em 0.3em rgba(255, 255, 255, 0.2);
+    -moz-box-shadow: -0.2em -0.2em 0.3em rgba(255, 255, 255, 0.2);
+    box-shadow: -0.2em -0.2em 0.3em rgba(255, 255, 255, 0.2);
+}
+
+.kgvid_wrapper.kgvid_compat_mep div.mejs-controls .mejs-sourcechooser-button .mejs-sourcechooser-selector span {
+    color: white;
+    padding: 0px 10px 5px 10px;
+    display: block;
+    white-space: nowrap;
+}
+
+.kgvid_wrapper.kgvid_compat_mep div.mejs-controls .mejs-sourcechooser-button .mejs-sourcechooser-selector ul li {
+    margin: 3px 0 3px 0;
+    padding: 2px 10px 5px 10px;
+    cursor: pointer;
+}
+
+.kgvid_wrapper.kgvid_compat_mep div.mejs-controls .mejs-sourcechooser-button .mejs-sourcechooser-selector ul li.mejs-sourcechooser-selected {
+	background: rgba(20,20,20,0.8);
+}
+
+.kgvid_wrapper.kgvid_compat_mep div.mejs-controls .mejs-sourcechooser-button .mejs-sourcechooser-selector ul li:hover {
+    color: #111;
+    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.75);
+}
+
+.kgvid_wrapper.kgvid_compat_mep .mejs-controls .mejs-sourcechooser-button .mejs-sourcechooser-selector ul li input {
+	display: none;
+}
+
+.kgvid_wrapper.kgvid_compat_mep div.mejs-controls .mejs-sourcechooser-button .mejs-sourcechooser-selector ul li label {
+	width: auto;
+}
+
+/* mejs-sourcechooser new plugin styles */
+
+.mejs__sourcechooser-button .mejs__sourcechooser-selector,
+.mejs-sourcechooser-button .mejs-sourcechooser-selector {
+    background: rgba(50, 50, 50, 0.7);
+    border: solid 1px transparent;
+    border-radius: 0;
+    bottom: 40px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+}
+
+.mejs__sourcechooser-selector ul,
+.mejs-sourcechooser-selector ul {
+    display: block;
+    list-style-type: none !important;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+}
+
+.mejs__sourcechooser-selector li,
+.mejs-sourcechooser-selector li {
+    color: #fff;
+    display: block;
+    list-style-type: none !important;
+    margin: 0;
+    overflow: hidden;
+    padding: 5px 10px 5px 0px;
+}
+
+.mejs-sourcechooser-selector li.sourcechooser-selected {
+	background-color: rgba(255, 255, 255, 0.2);
+}
+
+.mejs__sourcechooser-selector li:hover,
+.mejs-sourcechooser-selector li:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+}
+
+.mejs__sourcechooser-selector input,
+.mejs-sourcechooser-selector input {
+    clear: both;
+    float: left;
+	margin: 3px 3px 0 0;
+	visibility: hidden;
+}
+
+.mejs__sourcechooser-selector label,
+.mejs-sourcechooser-selector label {
+	color: #fff;
+    display: inline-block;
+    float: left;
+    font-size: 10px;
+    line-height: 15px;
+	padding: 4px 0 0;
+	cursor: pointer;
+}
+
+/* mejs-speed styles */
+.mejs__speed-button,
+.mejs-speed-button {
+    position: relative;
+}
+
+.mejs__speed-button > button,
+.mejs-speed-button > button {
+    background: transparent;
+    color: #fff;
+    font-size: 11px;
+    line-height: normal;
+    margin: 11px 0 0;
+    width: 36px;
+}
+
+.mejs__speed-selector,
+.mejs-speed-selector {
+    background: rgba(50, 50, 50, 0.7);
+    border: solid 1px transparent;
+    border-radius: 0;
+    left: -10px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    top: -100px;
+    visibility: hidden;
+    width: 60px;
+}
+
+.mejs__speed-selector,
+.mejs-speed-selector {
+    visibility: visible;
+}
+
+.mejs__speed-selector-list,
+.mejs-speed-selector-list  {
+    display: block;
+    list-style-type: none !important;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+}
+
+.mejs__speed-selector-list-item,
+.mejs-speed-selector-list-item {
+    color: #fff;
+    display: block;
+    list-style-type: none !important;
+    margin: 0 0 6px;
+    overflow: hidden;
+    padding: 0 10px;
+}
+
+.mejs__speed-selector-list-item:hover,
+.mejs-speed-selector-list-item:hover {
+    background-color: rgb(200, 200, 200) !important;
+    background-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.mejs__speed-selector-input,
+.mejs-speed-selector-input {
+    clear: both;
+    float: left;
+    left: -1000px;
+    margin: 3px 3px 0 5px;
+    position: absolute;
+}
+
+.mejs__speed-selector-label,
+.mejs-speed-selector-label {
+    color: white;
+    cursor: pointer;
+    float: left;
+    font-size: 10px;
+    line-height: 14px;
+    margin-left: 5px;
+    padding: 4px 0 0;
+    width: 60px;
+}
+
+li.mejs-speed-selected {
+	background: rgba(255, 255, 255, 0.4);
+}
+
+.mejs__speed-selector,
+.mejs-speed-selector {
+    visibility: hidden;
+}
+.mejs__speed-button:hover .mejs__speed-selector,
+.mejs-speed-button:hover .mejs-speed-selector {
+    visibility: visible;
+}
