@@ -167,5 +167,35 @@
     "artist": "Chris Angelis",
     "thumb": "img/gallery/AnapestGenerator.png",
     "link": "gallery/AnapestGenerator"
+  },
+  {
+    "title": "Genesong",
+    "artist": "Jaqaur",
+    "thumb": "img/gallery/Genesong.png",
+    "link": "gallery/JaquarBook"
+  },
+  {
+    "title": "Punk Rock Album Generator",
+    "artist": "Rigatoni",
+    "thumb": "img/gallery/rigatoni.png",
+    "link": "gallery/RigatoniBook"
+  },
+  {
+    "title": "A Guide to Absurd Movies",
+    "artist": "Shuann",
+    "thumb": "img/gallery/AbsurdMovies.png",
+    "link": "gallery/ShuannBook"
+  },
+  {
+    "title": "Plagiarizing",
+    "artist": "Spoon",
+    "thumb": "img/gallery/Plagiarizing.png",
+    "link": "gallery/SpoonBook"
+  },
+  {
+    "title": "Teaching Module Generator",
+    "artist": "Arnold Hoogerwerf",
+    "thumb": "img/gallery/TeachingModuleGenerator.png",
+    "link": "gallery/TeachingModuleGenerator"
   }
 ]
