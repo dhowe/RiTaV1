@@ -6,15 +6,13 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title>Tutorial</title>
     <meta name="generator" content="JsDoc" />
-    <link rel="stylesheet" href="../css/normalize.css">
-  <link rel="stylesheet" href="../css/main.css">
-  <link rel="stylesheet" href="../css/style.css" type="text/css" />
-  <script src="../js/vendor/modernizr-2.6.2.min.js"></script>
-  <script language="javascript" src="../js/highlight.js"></script>
+    <link rel="stylesheet" href="../css/mainStyle.css">
+    <link rel="stylesheet" href="../css/tutorial.css">
+
 </head>
 
 <body>
-<?php include("../header.php"); ?>
+
 
 <div class="gd-section pad-top-large">
 <div class="gd-center pad-large">
@@ -23,7 +21,7 @@
   <div class="col10">
      <h3 style="margin-left:-20px">Tutorials</h3>
 <ul class="tutorialList">
-    <li>Video Tutorials on RiTa.js 
+    <li>Video Tutorials on RiTa.js
       <ul>
 
         <li><a href="https://www.youtube.com/watch?v=lIPEvh8HbGQ" target="_blank">An Introduction to RiTa <span>by Dan Shiffman</span></a></li>
@@ -62,7 +60,6 @@
 </div>
 </div>
 
-<?php include("../footer.php"); ?>
 <!--
 End Site Content
 -->

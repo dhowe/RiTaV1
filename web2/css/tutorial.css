@@ -1,0 +1,284 @@
+/*Tutorial*/
+.gd-section.tutorial p{
+    line-height: 1.618rem;
+    font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 1rem;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+}
+.tutorialList li{
+    font-size: 1.2rem;
+    line-height: 1.5em;
+}
+.tutorialList ul{
+    margin-top: 0.3rem;
+}
+.tutorialList ul li{
+    font-size: 1rem;
+}
+.tutorialList ul li span{
+    font-size: .7em !important;
+}
+.videoTag{
+    margin-left: .5em;
+    padding:.1em .6em;
+    font-size: .8em;
+    background-color: #0A7FBF;
+    color:white;
+    border-radius: .3em;
+}
+.videoTag:hover{
+    text-decoration: none !important;
+}
+.tutorial .col8{
+    max-width: 650px;
+}
+.tutorial img
+{
+    margin:0.5rem 0;
+    width:100%;
+    height:auto;
+}
+.tutorial h4{
+    margin-left: -150px;
+    font-size: 1.6rem;
+}
+.tutorial h4 span{
+    padding:0 1rem;
+    font-weight: 500;
+    font-family:"HelveticaNeue-Light", "Helvetica Neue Light","Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.tutorial h5{
+    margin-top: 1rem;
+    text-transform: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+.tutorial h5.sub{
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+    margin-bottom: 2rem;
+}
+.tutorial hr{
+    margin-top: 2em;
+}
+.tutorial .example{
+    padding-left: 1.5rem;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    min-height: 0!important;
+    background-color: #f5f5f5;
+}
+.tutorial .example p{
+    font-size:1em;
+    line-height: 1.4em;
+
+}
+.tutorial .example table{
+    max-width: 150px;
+}
+.tutorial .ref{
+    margin-top: 0.5rem;
+}
+.tutorial .ref p{
+    font-size:0.9rem;
+    line-height: 1.3rem;
+    color:grey;
+}
+span.ref{
+    font-size:0.9rem;
+    line-height: 1.3rem;
+    color:grey;
+}
+.tutorial .ref a{
+    color:grey;
+}
+.sublist{
+    line-height:1.8rem;
+}
+
+
+/* Start of custom grid */
+
+.gd-section {
+   width: 100%;
+   float: left;
+}
+.gd-center {
+    width: 980px;
+    margin: 0 auto;
+}
+.row {
+    width:100%;
+    margin-left: -10px;
+    margin-right: -10px;
+    float: left;
+}
+.col1,
+.col2,
+.col3,
+.col4,
+.col5,
+.col6,
+.col7,
+.col8,
+.col9,
+.col10,
+.col11,
+.col12 {
+    position: relative;
+    min-height: 1px;
+    margin-left: 10px;
+    margin-right: 10px;
+    float: left;
+}
+ /* The fixed-width, column-based grid */
+.col12 {
+    width: 940px;
+}
+.col11 {
+    width: 860px;
+}
+.col10 {
+    width: 780px;
+}
+.col9 {
+    width: 700px;
+}
+.col8 {
+    width: 620px;
+}
+.col7 {
+    width: 540px;
+}
+.col6 {
+    width: 460px;
+}
+.col5 {
+    width: 380px;
+}
+.col4 {
+    width: 300px;
+}
+.col3 {
+    width: 220px;
+}
+.col2 {
+    width: 140px;
+}
+.col1 {
+    width: 60px;
+}
+
+/* The Percentage-based grid, akin to bootstrap */
+.gd-1,
+.gd-2,
+.gd-3,
+.gd-4,
+.gd-5,
+.gd-6,
+.gd-7,
+.gd-8,
+.gd-9,
+.gd-10,
+.gd-11,
+.gd-12 {
+    position: relative;
+    min-height: 1px;
+    float: left;
+    box-sizing:border-box;
+}
+.gd-12 {
+    width: 100%;
+}
+.gd-11 {
+    width: 91.66667%;
+}
+.gd-10 {
+    width: 83.33333%;
+}
+.gd-9 {
+    width: 75%;
+}
+.gd-8 {
+    width: 66.66667%;
+}
+.gd-7 {
+    width: 58.33333%;
+}
+.gd-6 {
+    width: 50%;
+}
+.gd-5 {
+    width: 41.66667%;
+}
+.gd-4 {
+    width: 33.33333%;
+}
+.gd-3 {
+    width: 25%;
+}
+.gd-2 {
+    width: 16.66667%;
+}
+.gd-1 {
+    width: 8.33333%;
+}
+.gd-example {
+    background-color: #ccc;
+    border:1px solid #ababab;
+    padding:10px;
+    min-height: 60px;
+    margin-bottom: 20px;
+}
+
+.right {
+    float: right;
+}
+
+
+
+.contain-example {
+    background-color: #f6eed1;
+    min-height: 60px;
+    margin-bottom: 20px;
+}
+
+/* Site colors */
+.light-grey {
+    background-color: #fafafa;
+}
+.grey {
+    background-color: #ccc;
+}
+.blue {
+    background-color: #4ca6cc;
+}
+
+/* Spacing */
+.pad-small {
+    padding: 1rem 0;
+}
+.pad-medium {
+    padding: 3rem 0;
+}
+.pad-large {
+    padding: 4rem 0 5rem 0;
+}
+.pad-top-large {
+    padding: 4rem 0 0 0;
+}
+
+.footer {
+    background-color: #ececec;
+    min-height: 16em;
+    margin-top: 5em;
+
+}
+
+.footer p,h5{
+     font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}

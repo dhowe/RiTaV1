@@ -630,7 +630,7 @@ Desc section
   text-align: center;
   color: #333;
   padding: 100px 0;
-  display: none;
+
 }
 
 #examples-wrapper h4 {
@@ -745,6 +745,9 @@ Desc section
   overflow: auto;
 }
 
+.slick-dots {
+  position: relative;
+}
 .slick-dots li button {
   font-family: 'slick';
   font-size: 60px;
