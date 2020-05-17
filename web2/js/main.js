@@ -106,7 +106,6 @@ $(document).ready(function() {
 function menuBar() {
 
   $(".menu-icon-mobile").click(function(e){
-    console.log("CLICKEC")
     e.preventDefault();
     $(".nav-wrapper").toggleClass("mobile-menu-active");
     $(".navbar-sticky").toggleClass("mobile-menu-active");
