@@ -6,17 +6,13 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <title>Tutorial-Transformation</title>
   <meta name="generator" content="JsDoc" />
-  <link rel="stylesheet" href="../css/normalize.css">
-  <link rel="stylesheet" href="../css/main.css">
-  <link rel="stylesheet" href="../css/style.css" type="text/css" />
-  <link rel="stylesheet" href="../css/prism.css">
-  <script src="../js/vendor/modernizr-2.6.2.min.js"></script>
-  <script language="javascript" src="../js/highlight.js"></script>
-  <script language="javascript" src="../js/prism.js"></script>
+  <link rel="stylesheet" href="../css/mainStyle.css">
+  <link rel="stylesheet" href="../css/tutorial.css">
+
 </head>
 
 <body>
-  <?php include("../header.php"); ?>
+
 
     <div class="gd-section tutorial pad-top-large">
       <div class="gd-center pad-large">
@@ -226,7 +222,6 @@ An example, in JavaScript:
     </div>
 
 
-    <?php include("../footer.php"); ?>
       <!--
 End Site Content
 -->
