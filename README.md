@@ -13,7 +13,7 @@ RiTa is designed to be an easy-to-use toolkit for experiments in natural languag
 Please see https://github.com/dhowe/RiTaJS for the JavaScript implementation of RiTa.  
 
 #### About the project
---------
+
 * Author:         [Daniel C. Howe](https://rednoise.org/~dhowe)
 * License:			  GPLv3 (see included [LICENSE](https://github.com/dhowe/RiTa/blob/master/LICENSE) file)
 * Web Site:       https://rednoise.org/rita
