@@ -47,8 +47,8 @@ public class SimpleExample {
 }
 ```
 
-#### In Processing
---------
+## In Processing
+
 To install:
 
 1. Open Processing and select 'Sketch' menu > 'Import Library...' > 'Add Library...'
@@ -77,8 +77,8 @@ void setup() {
 }
 ```
 
-#### In Processing (Android-mode)
---------
+## In Processing (Android-mode)
+
 1. If RiTa library is not installed, open Processing and select 'Sketch' menu > 'Import Library...' > 'Add Library...'
 2. Search for 'RiTa' and then install it
 3. Follow these [instructions](https://github.com/processing/processing-android/wiki#android-mode) to setup your environment, OR follow steps 4-6 below
@@ -125,8 +125,8 @@ void setup() {
 
 <br/>
 
-#### Can I contribute?
---------
+## Can I contribute?
+
 Please! We are looking for more coders to help out... Just press *Fork* at the top of this page and get started, or follow the instructions below...
 
 If you don't feel like coding but still want to contribute, please send a twitter message to @RiTaSoftware.
@@ -142,8 +142,7 @@ If you don't feel like coding but still want to contribute, please send a twitte
 
 <br/>
 
-#### Development Setup (in Eclipse)
---------
+## Development Setup (in Eclipse)
 
 1. Download and install [Eclipse for Java.](https://www.eclipse.org/downloads/)
 
