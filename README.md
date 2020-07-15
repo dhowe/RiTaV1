@@ -180,7 +180,6 @@ If you don't feel like coding but still want to contribute, please send a twitte
 
 11. (Optional) If you encounter error ```java.lang.UnsupportedClassVersionError: org/apache/maven/cli/MavenCli : Unsupported major.minor version```, follow [these instructions](http://crunchify.com/how-to-install-maven-on-mac-os-x-manually-fix-unsupportedclassversionerror-orgapachemavenclimavencli/) to install Maven manually.
 
---------------
 
 ## Contributors
 
