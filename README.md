@@ -23,8 +23,6 @@ Please see https://github.com/dhowe/RiTaJS for the JavaScript implementation of 
 * FAQ:    https://github.com/dhowe/RiTa/wiki
 * Related:			  [RiTaJS](https://github.com/dhowe/RiTaJS)
 
-&nbsp;
-
 #### Support us with a monthly donation and [become a backer!](https://opencollective.com/rita#backer)
 
 <br/>
