@@ -1,13 +1,12 @@
 [![Build Status](https://travis-ci.org/dhowe/RiTa.svg?branch=master)](https://travis-ci.org/dhowe/RiTa) <a href="http://www.gnu.org/licenses/gpl-3.0.en.html"><img src="https://img.shields.io/badge/license-GPL-orange.svg" alt="gpl license"></a> <a href="https://www.npmjs.com/package/rita"><img src="https://img.shields.io/npm/v/rita.svg" alt="npm version"></a> [![Gitter](https://badges.gitter.im/dhowe/rita.svg)](https://gitter.im/dhowe/rita)&nbsp;
 
+See the [RiTa v2.0 beta](https://github.com/dhowe/rita2js#installation), ready for JavaScript now!
 
-### RiTa: the generative language toolkit
+## RiTa: the generative language toolkit
 
 <a href="https://rednoise.org/rita/"><img height=80 src="https://rednoise.org/rita/img/RiTa-logo3.png"/></a>
 
 #### <a href="https://rednoise.org/rita">The RiTa website</a>
-
-See the [RiTa v2.0 beta](https://github.com/dhowe/rita2js#installation), ready for JavaScript now!
 
 RiTa is designed to be an easy-to-use toolkit for experiments in natural language and generative literature. It is implemented in Java and JavaScript (with a unified API for both) and optionally integrates with Processing, Android, Node, p5.js, Browserify, Bower, etc. It is free/libre and open-source via the GPL license (http://www.gnu.org/licenses/gpl.txt).
 
