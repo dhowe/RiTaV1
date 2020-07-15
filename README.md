@@ -7,6 +7,8 @@
 
 #### <a href="https://rednoise.org/rita">The RiTa website</a>
 
+See the [RiTa v2.0 beta](https://github.com/dhowe/rita2js#installation), ready for JavaScript now!
+
 RiTa is designed to be an easy-to-use toolkit for experiments in natural language and generative literature. It is implemented in Java and JavaScript (with a unified API for both) and optionally integrates with Processing, Android, Node, p5.js, Browserify, Bower, etc. It is free/libre and open-source via the GPL license (http://www.gnu.org/licenses/gpl.txt).
 
 Please see https://github.com/dhowe/RiTaJS for the JavaScript implementation of RiTa.  
