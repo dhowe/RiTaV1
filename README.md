@@ -27,8 +27,7 @@ Please see https://github.com/dhowe/RiTaJS for the JavaScript implementation of 
 
 <br/>
 
-#### A Simple Example (Java)
---------
+## A Simple Example (Java)
 
 &nbsp; &nbsp; For JavaScript examples, go [here](https://github.com/dhowe/RiTaJS#a-simple-sketch)
 
