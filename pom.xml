@@ -55,7 +55,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.12</version>
+			<version>4.13.1</version>
 			<!-- NOTE: This will only work if the src/ tree and it's test classes 
 				are segregated, i.e. maintain a src/ and test/ tree side by side. However, 
 				making the scope test will mean that the classes that are marked as 'test' 
