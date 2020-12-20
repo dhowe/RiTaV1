@@ -1,6 +1,6 @@
 
 
-*** This repository is deprecated. See the current version of RiTa [here](https://github.com/dhowe/rita)! ***
+*** This repository is deprecated. See the current version of RiTa [HERE](https://github.com/dhowe/rita). ***
 
 ---------
 
