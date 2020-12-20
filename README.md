@@ -1,6 +1,8 @@
 [![Build Status](https://travis-ci.org/dhowe/RiTa.svg?branch=master)](https://travis-ci.org/dhowe/RiTa) <a href="http://www.gnu.org/licenses/gpl-3.0.en.html"><img src="https://img.shields.io/badge/license-GPL-orange.svg" alt="gpl license"></a> <a href="https://www.npmjs.com/package/rita"><img src="https://img.shields.io/npm/v/rita.svg" alt="npm version"></a> [![Gitter](https://badges.gitter.im/dhowe/rita.svg)](https://gitter.im/dhowe/rita)&nbsp;
 
-See the [RiTa v2.0 beta](https://github.com/dhowe/rita2js#installation), ready in JavaScript now!!
+This repository is deprecated. See the current version of RiTa [here](https://github.com/dhowe/rita)!
+
+---------
 
 ## RiTa: the generative language toolkit
 
